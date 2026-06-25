@@ -1,0 +1,245 @@
+2025-12-27 00:29:41,970 - __main__ - INFO - Log file: analysis/data/export_traces.log
+2025-12-27 00:29:41,974 - __main__ - INFO - ================================================================================
+2025-12-27 00:29:41,974 - __main__ - INFO - TRACE EXPORT STARTING
+2025-12-27 00:29:41,974 - __main__ - INFO - ================================================================================
+2025-12-27 00:29:41,974 - __main__ - INFO - Input directory: result/traces
+2025-12-27 00:29:41,974 - __main__ - INFO - Output directory: analysis/data
+2025-12-27 00:29:41,974 - __main__ - INFO - Incremental mode: False
+2025-12-27 00:29:41,974 - __main__ - INFO - Batch size: 10
+2025-12-27 00:29:41,996 - root - INFO - Found 256 trace files in result/traces
+2025-12-27 00:29:41,996 - __main__ - INFO - Found 256 total trace files
+2025-12-27 00:29:41,996 - __main__ - INFO - Sampling 3 ranks per configuration...
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP16-EP16-DP1 bs32_in2048_out512: sampled 3/16 ranks from session (total 16 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP16-EP16-DP16 bs32_in2048_out512: sampled 3/16 ranks from session (total 16 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP16-EP4-DP1 bs32_in2048_out512: sampled 3/16 ranks from session (total 16 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP16-EP8-DP1 bs32_in2048_out512: sampled 3/16 ranks from session (total 16 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP32-EP16-DP1 bs32_in2048_out512: sampled 3/32 ranks from session (total 32 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP32-EP32-DP1 bs32_in2048_out512: sampled 3/32 ranks from session (total 32 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP32-EP8-DP1 bs32_in2048_out512: sampled 3/32 ranks from session (total 32 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP8-EP8-DP4 bs32_in2048_out512: sampled 3/8 ranks from session (total 8 files in 1 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP8-EP8-DP8 bs32_in2048_out512: sampled 3/8 ranks from session (total 16 files in 2 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP8-EP8-DP1 bsNone_inNone_outNone: sampled 3/16 ranks from session (total 56 files in 5 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO -   TP8-EP8-DP1 bs32_in2048_out512: sampled 3/8 ranks from session (total 16 files in 2 sessions)
+2025-12-27 00:29:41,998 - __main__ - INFO - Sampled 33 trace files
+2025-12-27 00:29:41,998 - __main__ - INFO - Full rebuild mode (ignoring tracking file)
+2025-12-27 00:29:41,998 - __main__ - INFO - Will process 33 files
+2025-12-27 00:29:41,998 - __main__ - INFO - Processing 1/33: 1766390492.940404-TP-15-EP-15.trace.json.gz
+2025-12-27 00:29:41,998 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP1/bs32_in2048_output512/1766390492.940404-TP-15-EP-15.trace.json.gz
+2025-12-27 00:30:01,043 - trace_parser - INFO - Total events in trace: 10033776
+2025-12-27 00:30:01,583 - trace_parser - INFO - Filtered events: 12975 kernel, 24257 cuda_runtime (kept 37232/10033776, 0.37%)
+2025-12-27 00:30:09,339 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:30:10,622 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:30:10,750 - __main__ - INFO - Processing 2/33: 1766390492.940404-TP-4-EP-4.trace.json.gz
+2025-12-27 00:30:10,750 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP1/bs32_in2048_output512/1766390492.940404-TP-4-EP-4.trace.json.gz
+2025-12-27 00:30:29,437 - trace_parser - INFO - Total events in trace: 10032391
+2025-12-27 00:30:29,975 - trace_parser - INFO - Filtered events: 12975 kernel, 23450 cuda_runtime (kept 36425/10032391, 0.36%)
+2025-12-27 00:30:37,812 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:30:39,087 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:30:39,224 - __main__ - INFO - Processing 3/33: 1766390492.940404-TP-5-EP-5.trace.json.gz
+2025-12-27 00:30:39,224 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP1/bs32_in2048_output512/1766390492.940404-TP-5-EP-5.trace.json.gz
+2025-12-27 00:30:57,868 - trace_parser - INFO - Total events in trace: 10034044
+2025-12-27 00:30:58,411 - trace_parser - INFO - Filtered events: 12975 kernel, 24350 cuda_runtime (kept 37325/10034044, 0.37%)
+2025-12-27 00:31:01,931 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:31:03,217 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:31:03,409 - __main__ - INFO - Processing 4/33: 1766556021.2996032-TP-2-DP-2-EP-2.trace.json.gz
+2025-12-27 00:31:03,409 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP16/bs32_in2048_output512/1766556021.2996032-TP-2-DP-2-EP-2.trace.json.gz
+2025-12-27 00:31:07,734 - trace_parser - INFO - Total events in trace: 1832354
+2025-12-27 00:31:07,878 - trace_parser - INFO - Filtered events: 23757 kernel, 25389 cuda_runtime (kept 49146/1832354, 2.68%)
+2025-12-27 00:31:11,358 - trace_parser - INFO - Successfully parsed 23757 kernel events
+2025-12-27 00:31:11,686 - __main__ - INFO -   Extracted 23757 kernel events
+2025-12-27 00:31:12,037 - __main__ - INFO - Processing 5/33: 1766556021.2996032-TP-9-DP-9-EP-9.trace.json.gz
+2025-12-27 00:31:12,037 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP16/bs32_in2048_output512/1766556021.2996032-TP-9-DP-9-EP-9.trace.json.gz
+2025-12-27 00:31:16,251 - trace_parser - INFO - Total events in trace: 1785044
+2025-12-27 00:31:16,392 - trace_parser - INFO - Filtered events: 22111 kernel, 23334 cuda_runtime (kept 45445/1785044, 2.55%)
+2025-12-27 00:31:19,819 - trace_parser - INFO - Successfully parsed 22111 kernel events
+2025-12-27 00:31:20,139 - __main__ - INFO -   Extracted 22111 kernel events
+2025-12-27 00:31:20,433 - __main__ - INFO - Processing 6/33: 1766556021.2996032-TP-3-DP-3-EP-3.trace.json.gz
+2025-12-27 00:31:20,434 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP16-DP16/bs32_in2048_output512/1766556021.2996032-TP-3-DP-3-EP-3.trace.json.gz
+2025-12-27 00:31:24,751 - trace_parser - INFO - Total events in trace: 1832424
+2025-12-27 00:31:24,896 - trace_parser - INFO - Filtered events: 23757 kernel, 25389 cuda_runtime (kept 49146/1832424, 2.68%)
+2025-12-27 00:31:28,384 - trace_parser - INFO - Successfully parsed 23757 kernel events
+2025-12-27 00:31:28,720 - __main__ - INFO -   Extracted 23757 kernel events
+2025-12-27 00:31:29,044 - __main__ - INFO - Processing 7/33: 1766417025.4912515-TP-3-EP-0.trace.json.gz
+2025-12-27 00:31:29,044 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP4-DP1/bs32_in2048_output512/1766417025.4912515-TP-3-EP-0.trace.json.gz
+2025-12-27 00:32:01,287 - trace_parser - INFO - Total events in trace: 17196131
+2025-12-27 00:32:02,219 - trace_parser - INFO - Filtered events: 0 kernel, 1 cuda_runtime (kept 1/17196131, 0.00%)
+2025-12-27 00:32:02,219 - trace_parser - INFO - Successfully parsed 0 kernel events
+2025-12-27 00:32:04,387 - __main__ - INFO -   Extracted 0 kernel events
+2025-12-27 00:32:04,388 - trace_aggregator - WARNING - No kernels to aggregate
+2025-12-27 00:32:04,389 - __main__ - INFO - Processing 8/33: 1766417025.4912515-TP-2-EP-0.trace.json.gz
+2025-12-27 00:32:04,389 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP4-DP1/bs32_in2048_output512/1766417025.4912515-TP-2-EP-0.trace.json.gz
+2025-12-27 00:32:36,288 - trace_parser - INFO - Total events in trace: 17196131
+2025-12-27 00:32:37,213 - trace_parser - INFO - Filtered events: 0 kernel, 1 cuda_runtime (kept 1/17196131, 0.00%)
+2025-12-27 00:32:37,213 - trace_parser - INFO - Successfully parsed 0 kernel events
+2025-12-27 00:32:39,353 - __main__ - INFO -   Extracted 0 kernel events
+2025-12-27 00:32:39,353 - trace_aggregator - WARNING - No kernels to aggregate
+2025-12-27 00:32:39,355 - __main__ - INFO - Processing 9/33: 1766417025.4912515-TP-4-EP-1.trace.json.gz
+2025-12-27 00:32:39,355 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP4-DP1/bs32_in2048_output512/1766417025.4912515-TP-4-EP-1.trace.json.gz
+2025-12-27 00:33:11,271 - trace_parser - INFO - Total events in trace: 17196131
+2025-12-27 00:33:12,188 - trace_parser - INFO - Filtered events: 0 kernel, 1 cuda_runtime (kept 1/17196131, 0.00%)
+2025-12-27 00:33:12,188 - trace_parser - INFO - Successfully parsed 0 kernel events
+2025-12-27 00:33:14,312 - __main__ - INFO -   Extracted 0 kernel events
+2025-12-27 00:33:14,313 - trace_aggregator - WARNING - No kernels to aggregate
+2025-12-27 00:33:14,314 - __main__ - INFO - Processing 10/33: 1766401812.8294094-TP-7-EP-3.trace.json.gz
+2025-12-27 00:33:14,314 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP8-DP1/bs32_in2048_output512/1766401812.8294094-TP-7-EP-3.trace.json.gz
+2025-12-27 00:33:29,688 - trace_parser - INFO - Total events in trace: 8347491
+2025-12-27 00:33:30,133 - trace_parser - INFO - Filtered events: 12975 kernel, 21413 cuda_runtime (kept 34388/8347491, 0.41%)
+2025-12-27 00:33:36,473 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:33:37,517 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:33:37,683 - __main__ - INFO -   Exported 10 summaries to analysis/data/trace_summary.csv
+2025-12-27 00:33:37,683 - __main__ - INFO - Progress: 10/33 files processed
+2025-12-27 00:33:37,683 - __main__ - INFO - Processing 11/33: 1766401812.8294094-TP-0-EP-0.trace.json.gz
+2025-12-27 00:33:37,683 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP8-DP1/bs32_in2048_output512/1766401812.8294094-TP-0-EP-0.trace.json.gz
+2025-12-27 00:34:00,385 - trace_parser - INFO - Total events in trace: 12883649
+2025-12-27 00:34:01,040 - trace_parser - INFO - Filtered events: 12975 kernel, 20291 cuda_runtime (kept 33266/12883649, 0.26%)
+2025-12-27 00:34:08,864 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:34:10,330 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:34:10,499 - __main__ - INFO - Processing 12/33: 1766401812.8294094-TP-5-EP-2.trace.json.gz
+2025-12-27 00:34:10,499 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP16-EP8-DP1/bs32_in2048_output512/1766401812.8294094-TP-5-EP-2.trace.json.gz
+2025-12-27 00:34:25,967 - trace_parser - INFO - Total events in trace: 8344933
+2025-12-27 00:34:26,418 - trace_parser - INFO - Filtered events: 12975 kernel, 21059 cuda_runtime (kept 34034/8344933, 0.41%)
+2025-12-27 00:34:29,338 - trace_parser - INFO - Successfully parsed 12975 kernel events
+2025-12-27 00:34:30,394 - __main__ - INFO -   Extracted 12975 kernel events
+2025-12-27 00:34:30,574 - __main__ - INFO - Processing 13/33: 1766574200.2477386-TP-23-EP-11.trace.json.gz
+2025-12-27 00:34:30,575 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP16-DP1/bs32_in2048_output512/1766574200.2477386-TP-23-EP-11.trace.json.gz
+2025-12-27 00:34:38,037 - trace_parser - INFO - Total events in trace: 4045101
+2025-12-27 00:34:38,258 - trace_parser - INFO - Filtered events: 12979 kernel, 22777 cuda_runtime (kept 35756/4045101, 0.88%)
+2025-12-27 00:34:39,690 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:34:40,216 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:34:40,386 - __main__ - INFO - Processing 14/33: 1766574200.2477386-TP-20-EP-10.trace.json.gz
+2025-12-27 00:34:40,387 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP16-DP1/bs32_in2048_output512/1766574200.2477386-TP-20-EP-10.trace.json.gz
+2025-12-27 00:34:47,854 - trace_parser - INFO - Total events in trace: 4047548
+2025-12-27 00:34:48,075 - trace_parser - INFO - Filtered events: 12979 kernel, 22648 cuda_runtime (kept 35627/4047548, 0.88%)
+2025-12-27 00:34:51,220 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:34:51,741 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:34:51,880 - __main__ - INFO - Processing 15/33: 1766574200.2477386-TP-4-EP-2.trace.json.gz
+2025-12-27 00:34:51,880 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP16-DP1/bs32_in2048_output512/1766574200.2477386-TP-4-EP-2.trace.json.gz
+2025-12-27 00:34:59,329 - trace_parser - INFO - Total events in trace: 4045393
+2025-12-27 00:34:59,549 - trace_parser - INFO - Filtered events: 12979 kernel, 22921 cuda_runtime (kept 35900/4045393, 0.89%)
+2025-12-27 00:35:02,697 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:35:03,218 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:35:03,353 - __main__ - INFO - Processing 16/33: 1766425988.9082258-TP-14-EP-14.trace.json.gz
+2025-12-27 00:35:03,353 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP32-DP1/bs32_in2048_output512/1766425988.9082258-TP-14-EP-14.trace.json.gz
+2025-12-27 00:35:10,264 - trace_parser - INFO - Total events in trace: 3752785
+2025-12-27 00:35:10,468 - trace_parser - INFO - Filtered events: 12979 kernel, 21427 cuda_runtime (kept 34406/3752785, 0.92%)
+2025-12-27 00:35:11,797 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:35:12,284 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:35:12,440 - __main__ - INFO - Processing 17/33: 1766425988.9082258-TP-30-EP-30.trace.json.gz
+2025-12-27 00:35:12,440 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP32-DP1/bs32_in2048_output512/1766425988.9082258-TP-30-EP-30.trace.json.gz
+2025-12-27 00:35:19,359 - trace_parser - INFO - Total events in trace: 3751729
+2025-12-27 00:35:19,562 - trace_parser - INFO - Filtered events: 12979 kernel, 21148 cuda_runtime (kept 34127/3751729, 0.91%)
+2025-12-27 00:35:20,893 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:35:21,374 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:35:21,520 - __main__ - INFO - Processing 18/33: 1766425988.9082258-TP-2-EP-2.trace.json.gz
+2025-12-27 00:35:21,520 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP32-DP1/bs32_in2048_output512/1766425988.9082258-TP-2-EP-2.trace.json.gz
+2025-12-27 00:35:28,434 - trace_parser - INFO - Total events in trace: 3751602
+2025-12-27 00:35:28,637 - trace_parser - INFO - Filtered events: 12979 kernel, 21061 cuda_runtime (kept 34040/3751602, 0.91%)
+2025-12-27 00:35:31,560 - trace_parser - INFO - Successfully parsed 12979 kernel events
+2025-12-27 00:35:32,040 - __main__ - INFO -   Extracted 12979 kernel events
+2025-12-27 00:35:32,177 - __main__ - INFO - Processing 19/33: 1766609981.5800245-TP-13-EP-3.trace.json.gz
+2025-12-27 00:35:32,177 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP8-DP1/bs32_in2048_output512/1766609981.5800245-TP-13-EP-3.trace.json.gz
+2025-12-27 00:35:33,788 - trace_parser - INFO - Total events in trace: 851372
+2025-12-27 00:35:33,829 - trace_parser - INFO - Filtered events: 138129 kernel, 4891 cuda_runtime (kept 143020/851372, 16.80%)
+2025-12-27 00:35:34,688 - trace_parser - INFO - Successfully parsed 138129 kernel events
+2025-12-27 00:35:34,791 - __main__ - INFO -   Extracted 138129 kernel events
+2025-12-27 00:35:36,142 - __main__ - INFO - Processing 20/33: 1766609981.5800245-TP-25-EP-6.trace.json.gz
+2025-12-27 00:35:36,142 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP8-DP1/bs32_in2048_output512/1766609981.5800245-TP-25-EP-6.trace.json.gz
+2025-12-27 00:35:37,742 - trace_parser - INFO - Total events in trace: 850686
+2025-12-27 00:35:37,784 - trace_parser - INFO - Filtered events: 138129 kernel, 4891 cuda_runtime (kept 143020/850686, 16.81%)
+2025-12-27 00:35:38,974 - trace_parser - INFO - Successfully parsed 138129 kernel events
+2025-12-27 00:35:39,107 - __main__ - INFO -   Extracted 138129 kernel events
+2025-12-27 00:35:40,451 - __main__ - INFO -   Exported 10 summaries to analysis/data/trace_summary.csv
+2025-12-27 00:35:40,451 - __main__ - INFO - Progress: 20/33 files processed
+2025-12-27 00:35:40,451 - __main__ - INFO - Processing 21/33: 1766609981.5800245-TP-20-EP-5.trace.json.gz
+2025-12-27 00:35:40,451 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP32-EP8-DP1/bs32_in2048_output512/1766609981.5800245-TP-20-EP-5.trace.json.gz
+2025-12-27 00:35:42,047 - trace_parser - INFO - Total events in trace: 850677
+2025-12-27 00:35:42,090 - trace_parser - INFO - Filtered events: 138129 kernel, 4891 cuda_runtime (kept 143020/850677, 16.81%)
+2025-12-27 00:35:43,281 - trace_parser - INFO - Successfully parsed 138129 kernel events
+2025-12-27 00:35:43,414 - __main__ - INFO -   Extracted 138129 kernel events
+2025-12-27 00:35:44,737 - __main__ - INFO - Processing 22/33: 1766587553.437462-TP-5-DP-2-EP-5.trace.json.gz
+2025-12-27 00:35:44,737 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP4/bs32_in2048_output512/1766587553.437462-TP-5-DP-2-EP-5.trace.json.gz
+2025-12-27 00:35:51,336 - trace_parser - INFO - Total events in trace: 2784081
+2025-12-27 00:35:51,578 - trace_parser - INFO - Filtered events: 24891 kernel, 46102 cuda_runtime (kept 70993/2784081, 2.55%)
+2025-12-27 00:35:57,315 - trace_parser - INFO - Successfully parsed 24891 kernel events
+2025-12-27 00:35:57,844 - __main__ - INFO -   Extracted 24891 kernel events
+2025-12-27 00:35:58,178 - __main__ - INFO - Processing 23/33: 1766587553.437462-TP-0-DP-0-EP-0.trace.json.gz
+2025-12-27 00:35:58,178 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP4/bs32_in2048_output512/1766587553.437462-TP-0-DP-0-EP-0.trace.json.gz
+2025-12-27 00:36:05,155 - trace_parser - INFO - Total events in trace: 3038830
+2025-12-27 00:36:05,402 - trace_parser - INFO - Filtered events: 23119 kernel, 43760 cuda_runtime (kept 66879/3038830, 2.20%)
+2025-12-27 00:36:11,043 - trace_parser - INFO - Successfully parsed 23119 kernel events
+2025-12-27 00:36:11,577 - __main__ - INFO -   Extracted 23119 kernel events
+2025-12-27 00:36:11,906 - __main__ - INFO - Processing 24/33: 1766587553.437462-TP-3-DP-1-EP-3.trace.json.gz
+2025-12-27 00:36:11,907 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP4/bs32_in2048_output512/1766587553.437462-TP-3-DP-1-EP-3.trace.json.gz
+2025-12-27 00:36:18,494 - trace_parser - INFO - Total events in trace: 2785382
+2025-12-27 00:36:18,735 - trace_parser - INFO - Filtered events: 24891 kernel, 46714 cuda_runtime (kept 71605/2785382, 2.57%)
+2025-12-27 00:36:24,427 - trace_parser - INFO - Successfully parsed 24891 kernel events
+2025-12-27 00:36:24,954 - __main__ - INFO -   Extracted 24891 kernel events
+2025-12-27 00:36:25,286 - __main__ - INFO - Processing 25/33: 1766590919.452072-TP-1-DP-1-EP-1.trace.json.gz
+2025-12-27 00:36:25,286 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP8/bs32_in2048_output512/1766590919.452072-TP-1-DP-1-EP-1.trace.json.gz
+2025-12-27 00:36:36,897 - trace_parser - INFO - Total events in trace: 5202269
+2025-12-27 00:36:37,281 - trace_parser - INFO - Filtered events: 129279 kernel, 91187 cuda_runtime (kept 220466/5202269, 4.24%)
+2025-12-27 00:36:46,109 - trace_parser - INFO - Successfully parsed 129279 kernel events
+2025-12-27 00:36:46,961 - __main__ - INFO -   Extracted 129279 kernel events
+2025-12-27 00:36:48,669 - __main__ - INFO - Processing 26/33: 1766590919.452072-TP-4-DP-4-EP-4.trace.json.gz
+2025-12-27 00:36:48,669 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP8/bs32_in2048_output512/1766590919.452072-TP-4-DP-4-EP-4.trace.json.gz
+2025-12-27 00:37:00,144 - trace_parser - INFO - Total events in trace: 5209501
+2025-12-27 00:37:00,544 - trace_parser - INFO - Filtered events: 129279 kernel, 91187 cuda_runtime (kept 220466/5209501, 4.23%)
+2025-12-27 00:37:09,484 - trace_parser - INFO - Successfully parsed 129279 kernel events
+2025-12-27 00:37:10,352 - __main__ - INFO -   Extracted 129279 kernel events
+2025-12-27 00:37:12,066 - __main__ - INFO - Processing 27/33: 1766590919.452072-TP-2-DP-2-EP-2.trace.json.gz
+2025-12-27 00:37:12,066 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-480B-TP8-EP8-DP8/bs32_in2048_output512/1766590919.452072-TP-2-DP-2-EP-2.trace.json.gz
+2025-12-27 00:37:23,532 - trace_parser - INFO - Total events in trace: 5201334
+2025-12-27 00:37:23,923 - trace_parser - INFO - Filtered events: 129279 kernel, 91187 cuda_runtime (kept 220466/5201334, 4.24%)
+2025-12-27 00:37:32,829 - trace_parser - INFO - Successfully parsed 129279 kernel events
+2025-12-27 00:37:33,696 - __main__ - INFO -   Extracted 129279 kernel events
+2025-12-27 00:37:35,394 - __main__ - INFO - Processing 28/33: 1766490636.7626297-TP-3-EP-3.trace.json.gz
+2025-12-27 00:37:35,394 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in_random_output512/1766490636.7626297-TP-3-EP-3.trace.json.gz
+2025-12-27 00:37:37,544 - trace_parser - INFO - Total events in trace: 1062694
+2025-12-27 00:37:37,613 - trace_parser - INFO - Filtered events: 79543 kernel, 15503 cuda_runtime (kept 95046/1062694, 8.94%)
+2025-12-27 00:37:38,565 - trace_parser - INFO - Successfully parsed 79543 kernel events
+2025-12-27 00:37:38,749 - __main__ - INFO -   Extracted 79543 kernel events
+2025-12-27 00:37:39,613 - __main__ - INFO - Processing 29/33: 1766490738.3149345-TP-0-EP-0.trace.json.gz
+2025-12-27 00:37:39,613 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in_random_output512/1766490738.3149345-TP-0-EP-0.trace.json.gz
+2025-12-27 00:37:51,930 - trace_parser - INFO - Total events in trace: 6826941
+2025-12-27 00:37:52,284 - trace_parser - INFO - Filtered events: 79192 kernel, 26624 cuda_runtime (kept 105816/6826941, 1.55%)
+2025-12-27 00:37:57,281 - trace_parser - INFO - Successfully parsed 79192 kernel events
+2025-12-27 00:37:58,132 - __main__ - INFO -   Extracted 79192 kernel events
+2025-12-27 00:37:58,966 - __main__ - INFO - Processing 30/33: 1766490738.3149345-TP-4-EP-4.trace.json.gz
+2025-12-27 00:37:58,966 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in_random_output512/1766490738.3149345-TP-4-EP-4.trace.json.gz
+2025-12-27 00:38:07,630 - trace_parser - INFO - Total events in trace: 4551515
+2025-12-27 00:38:07,888 - trace_parser - INFO - Filtered events: 79192 kernel, 26815 cuda_runtime (kept 106007/4551515, 2.33%)
+2025-12-27 00:38:12,213 - trace_parser - INFO - Successfully parsed 79192 kernel events
+2025-12-27 00:38:12,840 - __main__ - INFO -   Extracted 79192 kernel events
+2025-12-27 00:38:13,689 - __main__ - INFO -   Exported 10 summaries to analysis/data/trace_summary.csv
+2025-12-27 00:38:13,689 - __main__ - INFO - Progress: 30/33 files processed
+2025-12-27 00:38:13,689 - __main__ - INFO - Processing 31/33: 1766474526.192102-TP-7-EP-7.trace.json.gz
+2025-12-27 00:38:13,690 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in2048_output512/1766474526.192102-TP-7-EP-7.trace.json.gz
+2025-12-27 00:38:25,345 - trace_parser - INFO - Total events in trace: 6272178
+2025-12-27 00:38:25,690 - trace_parser - INFO - Filtered events: 22771 kernel, 26236 cuda_runtime (kept 49007/6272178, 0.78%)
+2025-12-27 00:38:30,761 - trace_parser - INFO - Successfully parsed 22771 kernel events
+2025-12-27 00:38:31,599 - __main__ - INFO -   Extracted 22771 kernel events
+2025-12-27 00:38:31,869 - __main__ - INFO - Processing 32/33: 1766474526.192102-TP-5-EP-5.trace.json.gz
+2025-12-27 00:38:31,869 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in2048_output512/1766474526.192102-TP-5-EP-5.trace.json.gz
+2025-12-27 00:38:43,493 - trace_parser - INFO - Total events in trace: 6278547
+2025-12-27 00:38:43,835 - trace_parser - INFO - Filtered events: 22771 kernel, 29362 cuda_runtime (kept 52133/6278547, 0.83%)
+2025-12-27 00:38:48,826 - trace_parser - INFO - Successfully parsed 22771 kernel events
+2025-12-27 00:38:49,625 - __main__ - INFO -   Extracted 22771 kernel events
+2025-12-27 00:38:49,872 - __main__ - INFO - Processing 33/33: 1766474526.192102-TP-6-EP-6.trace.json.gz
+2025-12-27 00:38:49,872 - trace_parser - INFO - Parsing trace file: result/traces/Qwen3-VL-235B-TP8-EP8-DP1/bs32_in2048_output512/1766474526.192102-TP-6-EP-6.trace.json.gz
+2025-12-27 00:39:01,480 - trace_parser - INFO - Total events in trace: 6278489
+2025-12-27 00:39:01,825 - trace_parser - INFO - Filtered events: 22771 kernel, 29329 cuda_runtime (kept 52100/6278489, 0.83%)
+2025-12-27 00:39:06,826 - trace_parser - INFO - Successfully parsed 22771 kernel events
+2025-12-27 00:39:07,631 - __main__ - INFO -   Extracted 22771 kernel events
+2025-12-27 00:39:07,912 - __main__ - INFO -   Exported 3 summaries to analysis/data/trace_summary.csv
+2025-12-27 00:39:07,913 - __main__ - INFO - Progress: 33/33 files processed
+2025-12-27 00:39:07,913 - __main__ - INFO - Computing cross-rank aggregation...
+2025-12-27 00:39:07,937 - __main__ - INFO - Exported 11 cross-rank summaries to analysis/data/trace_cross_rank.csv
+2025-12-27 00:39:07,938 - __main__ - INFO - ================================================================================
+2025-12-27 00:39:07,938 - __main__ - INFO - TRACE EXPORT COMPLETE
+2025-12-27 00:39:07,938 - __main__ - INFO - ================================================================================
+2025-12-27 00:39:07,938 - __main__ - INFO - Processed: 33 files
+2025-12-27 00:39:07,938 - __main__ - INFO - Errors: 0 files
+2025-12-27 00:39:07,938 - __main__ - INFO - Kernels CSV: analysis/data/trace_kernels.csv
+2025-12-27 00:39:07,938 - __main__ - INFO - Summary CSV: analysis/data/trace_summary.csv
+2025-12-27 00:39:07,938 - __main__ - INFO - Cross-rank CSV: analysis/data/trace_cross_rank.csv
+2025-12-27 00:39:07,938 - __main__ - INFO - ================================================================================

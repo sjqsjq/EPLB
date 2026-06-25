@@ -1,0 +1,584 @@
+#!/usr/bin/env python3
+"""
+Export Trace Data to CSV
+
+Export PyTorch profiler trace data from JSON files to CSV format with three outputs:
+1. trace_kernels.csv: Per-kernel execution details
+2. trace_summary.csv: Per-rank aggregated metrics
+3. trace_cross_rank.csv: Cross-rank aggregated metrics
+
+Uses incremental update mechanism via .processed_trace_files.txt for efficient
+resume capability.
+"""
+
+import argparse
+import csv
+import logging
+import pandas as pd
+import random
+from pathlib import Path
+from typing import Dict, List, Optional
+from collections import defaultdict
+
+from trace_parser import TraceParser, KernelEvent
+from trace_aggregator import TraceAggregator
+from trace_utils import (
+    extract_config_from_trace_path,
+    find_trace_files,
+    load_processed_trace_files,
+    save_processed_trace_files,
+    get_unprocessed_trace_files,
+)
+
+
+# ============================================================================
+# CSV Schema Definitions
+# ============================================================================
+
+KERNEL_COLUMNS = [
+    # Configuration (11)
+    'model_name', 'tp_size', 'ep_size', 'dp_size',
+    'batch_size', 'input_len', 'output_len',
+    'timestamp', 'tp_rank', 'ep_rank', 'dp_rank',
+
+    # Kernel identification (4)
+    'kernel_name', 'category', 'phase', 'device',
+
+    # Execution timing (3)
+    'timestamp_us', 'duration_us', 'stream',
+
+    # Kernel configuration (7)
+    'grid_x', 'grid_y', 'grid_z',
+    'block_x', 'block_y', 'block_z',
+    'occupancy_pct',
+]
+
+SUMMARY_COLUMNS = [
+    # Configuration (11)
+    'model_name', 'tp_size', 'ep_size', 'dp_size',
+    'batch_size', 'input_len', 'output_len',
+    'timestamp', 'tp_rank', 'ep_rank', 'dp_rank',
+
+    # Overall (5)
+    'total_kernels', 'total_time_us', 'trace_duration_us',
+    'gpu_idle_time_us', 'gpu_idle_pct',
+
+    # Communication (5)
+    'communication_count', 'communication_time_us', 'communication_time_pct',
+    'communication_mean_duration_us', 'communication_p99_duration_us',
+
+    # Memory (5)
+    'memory_count', 'memory_time_us', 'memory_time_pct',
+    'memory_mean_duration_us', 'memory_p99_duration_us',
+
+    # Compute (5)
+    'compute_count', 'compute_time_us', 'compute_time_pct',
+    'compute_mean_duration_us', 'compute_p99_duration_us',
+
+    # Prefill (4)
+    'prefill_count', 'prefill_time_us', 'prefill_time_pct',
+    'prefill_mean_duration_us',
+
+    # Decode (4)
+    'decode_count', 'decode_time_us', 'decode_time_pct',
+    'decode_mean_duration_us',
+]
+
+
+# ============================================================================
+# CSV Export Functions
+# ============================================================================
+
+def export_kernels_to_csv(
+    kernels: List[KernelEvent],
+    config: Dict,
+    csv_file: Path,
+    mode: str = 'a'
+):
+    """
+    Export per-kernel details to CSV.
+
+    Args:
+        kernels: List of KernelEvent objects
+        config: Configuration dictionary
+        csv_file: Path to output CSV file
+        mode: File mode ('w' for write, 'a' for append)
+    """
+    rows = []
+    for k in kernels:
+        rows.append({
+            # Configuration
+            'model_name': config['model_name'],
+            'tp_size': config['tp_size'],
+            'ep_size': config['ep_size'],
+            'dp_size': config['dp_size'],
+            'batch_size': config['batch_size'],
+            'input_len': config['input_len'],
+            'output_len': config['output_len'],
+            'timestamp': config['timestamp'],
+            'tp_rank': config['tp_rank'],
+            'ep_rank': config['ep_rank'],
+            'dp_rank': config['dp_rank'],
+
+            # Kernel identification
+            'kernel_name': k.name,
+            'category': k.category,
+            'phase': k.phase,
+            'device': k.device,
+
+            # Execution timing
+            'timestamp_us': k.timestamp_us,
+            'duration_us': k.duration_us,
+            'stream': k.stream,
+
+            # Kernel configuration
+            'grid_x': k.grid[0],
+            'grid_y': k.grid[1],
+            'grid_z': k.grid[2],
+            'block_x': k.block[0],
+            'block_y': k.block[1],
+            'block_z': k.block[2],
+            'occupancy_pct': k.occupancy_pct,
+        })
+
+    # Write to CSV
+    csv_file.parent.mkdir(parents=True, exist_ok=True)
+    file_exists = csv_file.exists() and mode == 'a'
+
+    with open(csv_file, mode, newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=KERNEL_COLUMNS)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerows(rows)
+
+
+def export_summary_to_csv(
+    summaries: List[Dict],
+    csv_file: Path,
+    mode: str = 'a'
+):
+    """
+    Export per-rank summaries to CSV.
+
+    Args:
+        summaries: List of summary dictionaries
+        csv_file: Path to output CSV file
+        mode: File mode ('w' for write, 'a' for append)
+    """
+    csv_file.parent.mkdir(parents=True, exist_ok=True)
+    file_exists = csv_file.exists() and mode == 'a'
+
+    with open(csv_file, mode, newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=SUMMARY_COLUMNS)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerows(summaries)
+
+
+def export_cross_rank_to_csv(
+    cross_rank_summaries: List[Dict],
+    csv_file: Path
+):
+    """
+    Export cross-rank aggregates to CSV.
+
+    Args:
+        cross_rank_summaries: List of cross-rank summary dictionaries
+        csv_file: Path to output CSV file
+    """
+    if not cross_rank_summaries:
+        logging.warning("No cross-rank summaries to export")
+        return
+
+    csv_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Dynamically determine columns from first row
+    columns = list(cross_rank_summaries[0].keys())
+
+    with open(csv_file, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(cross_rank_summaries)
+
+
+# ============================================================================
+# Sampling Functions
+# ============================================================================
+
+def sample_trace_files(
+    trace_files: List[Path],
+    ranks_per_config: int,
+    seed: Optional[int] = None,
+    time_window_minutes: float = 3.0
+) -> List[Path]:
+    """
+    Randomly sample N ranks per configuration from the same sampling session.
+
+    Files with timestamps within time_window_minutes are considered from the
+    same sampling session.
+
+    Args:
+        trace_files: List of all trace file paths
+        ranks_per_config: Number of ranks to sample per configuration
+        seed: Random seed for reproducibility (default: None)
+        time_window_minutes: Time window in minutes to group files from same session
+
+    Returns:
+        List of sampled trace file paths
+    """
+    logger = logging.getLogger(__name__)
+
+    if seed is not None:
+        random.seed(seed)
+
+    # Group files by configuration
+    configs = defaultdict(list)
+    for trace_file in trace_files:
+        try:
+            config = extract_config_from_trace_path(trace_file)
+            # Configuration key (excluding rank and timestamp)
+            config_key = (
+                config.get('tp_size'),
+                config.get('ep_size'),
+                config.get('dp_size'),
+                config.get('batch_size'),
+                config.get('input_len'),
+                config.get('output_len'),
+            )
+            configs[config_key].append((trace_file, config.get('timestamp')))
+        except Exception as e:
+            logger.warning(f"Failed to extract config from {trace_file}: {e}")
+            continue
+
+    # Sample ranks from each configuration
+    sampled_files = []
+    time_threshold = time_window_minutes * 60  # Convert to seconds
+
+    for config_key, file_timestamp_pairs in configs.items():
+        tp, ep, dp, bs, input_len, output_len = config_key
+
+        # Sort by timestamp
+        file_timestamp_pairs.sort(key=lambda x: x[1] if x[1] is not None else 0)
+
+        # Group files from the same sampling session (within time window)
+        sessions = []
+        current_session = []
+        base_timestamp = None
+
+        for file_path, timestamp in file_timestamp_pairs:
+            if timestamp is None:
+                continue
+
+            if base_timestamp is None:
+                base_timestamp = timestamp
+                current_session = [(file_path, timestamp)]
+            elif abs(timestamp - base_timestamp) <= time_threshold:
+                current_session.append((file_path, timestamp))
+            else:
+                if current_session:
+                    sessions.append(current_session)
+                base_timestamp = timestamp
+                current_session = [(file_path, timestamp)]
+
+        if current_session:
+            sessions.append(current_session)
+
+        # Select the session with most files (most complete sampling)
+        if sessions:
+            best_session = max(sessions, key=len)
+            session_files = [f for f, _ in best_session]
+            n_sample = min(ranks_per_config, len(session_files))
+            sampled = random.sample(session_files, n_sample)
+            sampled_files.extend(sampled)
+
+            logger.info(
+                f"  TP{tp}-EP{ep}-DP{dp} bs{bs}_in{input_len}_out{output_len}: "
+                f"sampled {n_sample}/{len(session_files)} ranks from session "
+                f"(total {len(file_timestamp_pairs)} files in {len(sessions)} sessions)"
+            )
+        else:
+            logger.warning(
+                f"  TP{tp}-EP{ep}-DP{dp} bs{bs}_in{input_len}_out{output_len}: "
+                f"no valid timestamps found"
+            )
+
+    return sampled_files
+
+
+# ============================================================================
+# Main Export Function
+# ============================================================================
+
+def export_traces(
+    input_dir: str = 'result/traces',
+    output_dir: str = 'analysis/data',
+    incremental: bool = True,
+    export_kernels: bool = True,
+    export_summary: bool = True,
+    export_cross_rank: bool = True,
+    batch_size: int = 10,
+    sample_ranks: Optional[int] = None,
+):
+    """
+    Export trace data to CSV files.
+
+    Processing pipeline:
+    1. Discover all trace files
+    2. Filter out processed files (if incremental)
+    3. For each trace file:
+       a. Parse and extract kernel events
+       b. Classify kernels (category, phase)
+       c. Save per-kernel details (if enabled)
+       d. Aggregate per-rank metrics
+    4. Group by configuration and aggregate cross-rank metrics
+    5. Save to CSV files
+    6. Update tracking file
+
+    Args:
+        input_dir: Directory containing trace files
+        output_dir: Directory for output CSV files
+        incremental: Enable incremental updates
+        export_kernels: Export per-kernel details
+        export_summary: Export per-rank summaries
+        export_cross_rank: Export cross-rank aggregates
+        batch_size: Number of files to process per batch
+    """
+    logger = logging.getLogger(__name__)
+
+    # Output paths
+    output_path = Path(output_dir)
+    kernels_csv = output_path / 'trace_kernels.csv'
+    summary_csv = output_path / 'trace_summary.csv'
+    cross_rank_csv = output_path / 'trace_cross_rank.csv'
+    tracking_file = output_path / '.processed_trace_files.txt'
+
+    logger.info("=" * 80)
+    logger.info("TRACE EXPORT STARTING")
+    logger.info("=" * 80)
+    logger.info(f"Input directory: {input_dir}")
+    logger.info(f"Output directory: {output_dir}")
+    logger.info(f"Incremental mode: {incremental}")
+    logger.info(f"Batch size: {batch_size}")
+
+    # Discover files
+    all_files = find_trace_files(input_dir)
+    if not all_files:
+        logger.warning("No trace files found")
+        return
+
+    logger.info(f"Found {len(all_files)} total trace files")
+
+    # Incremental filtering
+    if incremental:
+        processed = load_processed_trace_files(tracking_file)
+        files_to_process = get_unprocessed_trace_files(all_files, processed)
+
+        if not files_to_process:
+            logger.info("All files already processed")
+            return
+    else:
+        files_to_process = all_files
+        processed = set()
+        logger.info("Full rebuild mode (ignoring tracking file)")
+
+    logger.info(f"Will process {len(files_to_process)} files")
+
+    # Initialize components
+    parser = TraceParser()
+    aggregator = TraceAggregator()
+
+    # Processing state
+    summary_rows = []
+    processed_count = 0
+    error_count = 0
+
+    # Determine CSV mode
+    csv_mode_kernels = 'w' if not incremental or not kernels_csv.exists() else 'a'
+    csv_mode_summary = 'w' if not incremental or not summary_csv.exists() else 'a'
+
+    # Process files in batches
+    for i, trace_file in enumerate(files_to_process):
+        logger.info(f"Processing {i+1}/{len(files_to_process)}: {trace_file.name}")
+
+        try:
+            # Extract configuration from path
+            config = extract_config_from_trace_path(trace_file)
+
+            # Parse trace file
+            kernels, metadata = parser.parse(str(trace_file))
+            logger.info(f"  Extracted {len(kernels)} kernel events")
+
+            # Export per-kernel details
+            if export_kernels:
+                export_kernels_to_csv(kernels, config, kernels_csv, mode=csv_mode_kernels)
+                csv_mode_kernels = 'a'  # Switch to append after first file
+                logger.debug(f"  Exported kernels to {kernels_csv}")
+
+            # Aggregate per-rank metrics
+            if export_summary:
+                summary = aggregator.aggregate_per_rank(kernels, config)
+                summary_rows.append(summary)
+
+            processed_count += 1
+
+            # Mark file as processed
+            processed.add(str(trace_file.resolve()))
+
+        except Exception as e:
+            logger.error(f"Failed to process {trace_file}: {e}", exc_info=True)
+            error_count += 1
+            continue
+
+        # Batch export and checkpoint
+        if (i + 1) % batch_size == 0 or (i + 1) == len(files_to_process):
+            # Export summary batch
+            if export_summary and summary_rows:
+                export_summary_to_csv(summary_rows, summary_csv, mode=csv_mode_summary)
+                logger.info(f"  Exported {len(summary_rows)} summaries to {summary_csv}")
+                summary_rows.clear()
+                csv_mode_summary = 'a'  # Switch to append after first batch
+
+            # Save checkpoint
+            if incremental:
+                save_processed_trace_files(tracking_file, processed)
+                logger.info(f"  Checkpoint: {len(processed)} files tracked")
+
+            logger.info(f"Progress: {i+1}/{len(files_to_process)} files processed")
+
+    # Cross-rank aggregation
+    if export_cross_rank and export_summary:
+        logger.info("Computing cross-rank aggregation...")
+
+        try:
+            # Load all per-rank summaries
+            if summary_csv.exists():
+                df_summary = pd.read_csv(summary_csv)
+
+                # Group by configuration
+                group_cols = ['model_name', 'tp_size', 'ep_size', 'dp_size',
+                             'batch_size', 'input_len', 'output_len']
+
+                cross_rank_rows = []
+                for _, group_df in df_summary.groupby(group_cols, dropna=False):
+                    rank_summaries = group_df.to_dict('records')
+                    cross_rank = aggregator.aggregate_cross_rank(rank_summaries)
+                    cross_rank_rows.append(cross_rank)
+
+                export_cross_rank_to_csv(cross_rank_rows, cross_rank_csv)
+                logger.info(f"Exported {len(cross_rank_rows)} cross-rank summaries to {cross_rank_csv}")
+        except Exception as e:
+            logger.error(f"Failed to compute cross-rank aggregation: {e}", exc_info=True)
+
+    # Final statistics
+    logger.info("=" * 80)
+    logger.info("TRACE EXPORT COMPLETE")
+    logger.info("=" * 80)
+    logger.info(f"Processed: {processed_count} files")
+    logger.info(f"Errors: {error_count} files")
+    if export_kernels:
+        logger.info(f"Kernels CSV: {kernels_csv}")
+    if export_summary:
+        logger.info(f"Summary CSV: {summary_csv}")
+    if export_cross_rank:
+        logger.info(f"Cross-rank CSV: {cross_rank_csv}")
+    logger.info("=" * 80)
+
+
+# ============================================================================
+# Main Entry Point
+# ============================================================================
+
+def main():
+    """Main entry point with argument parsing."""
+    parser = argparse.ArgumentParser(
+        description='Export trace data to CSV',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # First-time export
+  python3 export_traces_to_csv.py
+
+  # Incremental update
+  python3 export_traces_to_csv.py
+
+  # Force rebuild
+  python3 export_traces_to_csv.py --force
+
+  # Export only summaries
+  python3 export_traces_to_csv.py --summary-only
+
+  # Verbose logging
+  python3 export_traces_to_csv.py --verbose
+        """
+    )
+
+    parser.add_argument(
+        '--input', '-i',
+        default='result/traces',
+        help='Input directory with trace files (default: result/traces)'
+    )
+    parser.add_argument(
+        '--output', '-o',
+        default='analysis/data',
+        help='Output directory for CSV files (default: analysis/data)'
+    )
+    parser.add_argument(
+        '--force', '-f',
+        action='store_true',
+        help='Force rebuild (ignore tracking file)'
+    )
+    parser.add_argument(
+        '--kernels-only',
+        action='store_true',
+        help='Export only per-kernel details'
+    )
+    parser.add_argument(
+        '--summary-only',
+        action='store_true',
+        help='Export only aggregated metrics'
+    )
+    parser.add_argument(
+        '--batch-size', '-b',
+        type=int,
+        default=10,
+        help='Number of files per batch (default: 10)'
+    )
+    parser.add_argument(
+        '--verbose', '-v',
+        action='store_true',
+        help='Enable verbose logging'
+    )
+
+    args = parser.parse_args()
+
+    # Configure logging
+    log_level = logging.DEBUG if args.verbose else logging.INFO
+    log_file = Path(args.output) / 'export_traces.log'
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+
+    logging.basicConfig(
+        level=log_level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler()
+        ]
+    )
+
+    logger = logging.getLogger(__name__)
+    logger.info(f"Log file: {log_file}")
+
+    # Execute export
+    export_traces(
+        input_dir=args.input,
+        output_dir=args.output,
+        incremental=not args.force,
+        export_kernels=not args.summary_only,
+        export_summary=not args.kernels_only,
+        export_cross_rank=not args.kernels_only,
+        batch_size=args.batch_size,
+    )
+
+
+if __name__ == '__main__':
+    main()
