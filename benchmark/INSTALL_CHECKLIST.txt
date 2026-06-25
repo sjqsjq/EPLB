@@ -1,0 +1,137 @@
+# GB200 共置 Kernel 干扰实验 - 环境安装清单
+
+## 基础环境（容器已有）
+
+| 组件 | 版本 | 备注 |
+|------|------|------|
+| GPU | 4x NVIDIA L20A (GB200) | SM 10.0 (Blackwell), 152 SMs, 185GB HBM |
+| Driver | 580.95.05 | CUDA Version 13.0 |
+| CUDA Toolkit | 12.8 (nvcc V12.8.93) | |
+| Python | 3.12.3 | |
+| PyTorch | 2.7.0a0+nv25.3 | NVIDIA 内部构建 |
+| flash_attn | 2.7.3 | |
+| triton | 3.2.0 (NVIDIA internal) | |
+| Architecture | aarch64 (ARM) | Grace CPU |
+
+## 需额外安装的包
+
+### 1. DeepGEMM v2.1.1（从源码）
+
+```bash
+cd /workspace/sjq-workspace/benchmark
+git clone https://github.com/deepseek-ai/DeepGEMM.git
+cd DeepGEMM
+git checkout v2.1.1
+git submodule update --init --recursive
+
+# 跳过 C 扩展编译（使用 JIT 模式）
+DG_SKIP_CUDA_BUILD=1 pip install -e .
+
+# 手动链接 CUTLASS 头文件（JIT 编译需要）
+ln -sf $(pwd)/third-party/cutlass/include/cute deep_gemm/include/cute
+ln -sf $(pwd)/third-party/cutlass/include/cutlass deep_gemm/include/cutlass
+```
+
+**验证**：
+```python
+import deep_gemm
+print(deep_gemm.__version__)  # 2.1.1
+print(hasattr(deep_gemm, 'fp8_gemm_nt'))  # True
+```
+
+**注意**：
+- v2.1.1 的 API 需要 `use_ue8m0=False` 参数：`per_token_cast_to_fp8(x, use_ue8m0=False)`
+- `fp8_gemm_nt` 接受 tuple 参数：`fp8_gemm_nt((x_fp8, x_scale), (w_fp8, w_scale), out)`
+- `m_grouped_fp8_gemm_nt_contiguous` 的 `m_indices` 必须是 `torch.int32`
+- 首次运行会 JIT 编译 kernel（Warning: please use at least NVCC 12.9 可忽略）
+
+### 2. FlashInfer v0.5.3（从源码 JIT 模式）
+
+```bash
+cd /workspace/sjq-workspace/benchmark
+git clone --recursive https://github.com/flashinfer-ai/flashinfer.git
+cd flashinfer
+git checkout v0.5.3
+git submodule update --init --recursive
+
+# 需要先绕过 pip constraint 文件安装构建依赖
+PIP_CONSTRAINT=/dev/null pip install "setuptools>=77" "packaging>=24" "apache-tvm-ffi>=0.1,<0.2"
+PIP_CONSTRAINT=/dev/null pip install "nvidia-cutlass-dsl>=4.2.1" "nvidia-cudnn-frontend>=1.13.0"
+
+# 安装 flashinfer（JIT/editable 模式，无需预编译 CUDA）
+PIP_CONSTRAINT=/dev/null pip install -e . --no-build-isolation
+```
+
+**验证**：
+```python
+import flashinfer
+print(flashinfer.__version__)  # 0.5.3
+print(hasattr(flashinfer, 'BatchPrefillWithRaggedKVCacheWrapper'))  # True
+```
+
+**注意**：
+- 预编译 wheel 只有 x86_64，aarch64 (GB200) 必须源码安装
+- pip 的 `/etc/pip/constraint.txt` 会锁定 setuptools=75.8.2，必须用 `PIP_CONSTRAINT=/dev/null` 绕过
+- `tvm_ffi` 的 UserWarning 可忽略，不影响功能
+
+### 3. 其他 Python 包（通常已有）
+
+```bash
+pip install pandas numpy tqdm click tabulate
+```
+
+## MPS Daemon 启动
+
+```bash
+# 必须在容器内执行（宿主机的 MPS daemon 对容器无效）
+mkdir -p /var/log/nvidia-mps
+nvidia-cuda-mps-control -d
+
+# 验证
+echo "get_default_active_thread_percentage" | nvidia-cuda-mps-control
+# 应返回 100.0
+```
+
+## 快速验证脚本
+
+```bash
+python3 -c "
+import torch, deep_gemm, flashinfer
+print(f'PyTorch: {torch.__version__}, CUDA: {torch.cuda.is_available()}, GPUs: {torch.cuda.device_count()}')
+print(f'DeepGEMM: {deep_gemm.__version__}')
+print(f'FlashInfer: {flashinfer.__version__}')
+print(f'GPU: {torch.cuda.get_device_properties(0).name}, SM: {torch.cuda.get_device_properties(0).multi_processor_count}')
+# Quick kernel test
+M, N, K = 128, 768, 2048
+x = torch.randn(M, K, dtype=torch.bfloat16, device='cuda')
+w = torch.randn(N, K, dtype=torch.bfloat16, device='cuda')
+xf, xs = deep_gemm.per_token_cast_to_fp8(x, use_ue8m0=False)
+wf, ws = deep_gemm.per_block_cast_to_fp8(w, use_ue8m0=False)
+out = torch.empty(M, N, dtype=torch.bfloat16, device='cuda')
+deep_gemm.fp8_gemm_nt((xf, xs), (wf, ws), out)
+torch.cuda.synchronize()
+print('DeepGEMM kernel: OK')
+"
+```
+
+## 踩坑备忘
+
+1. **DeepGEMM v2.6.1 (latest) 编译失败**：`__nv_fp8_e4m3` 未声明，因为 MQA logits 的 .cuh 被 g++ 编译。退回 v2.1.1 解决。
+2. **DG_SKIP_CUDA_BUILD 后需手动链接 CUTLASS**：editable install 跳过了 `prepare_includes()` 步骤。
+3. **MPS daemon 必须容器内启动**：否则 `CUDA_MPS_ACTIVE_THREAD_PERCENTAGE` 无效。
+4. **interference.py 中 CUDA_VISIBLE_DEVICES 必须在 torch import 前设置**：否则 CUDA context 创建在错误设备上。
+5. **Grouped GEMM 的 m_indices 必须 int32**：DeepGEMM C++ 层用 `torch::kInt` 断言。
+6. **pip constraint 文件**：`/etc/pip/constraint.txt` 锁定了大量包版本，安装新依赖需 `PIP_CONSTRAINT=/dev/null`。
+
+## 实验文件结构
+
+```
+claude-code/coloc_exp/
+├── interference.py          # 干扰进程
+├── coloc_measure.py         # 测量进程
+├── run_full_sweep.sh        # P0 全量协调脚本
+├── run_p1_grouped.sh        # P1 grouped GEMM 脚本
+├── merge_results.py         # JSON → CSV 合并
+├── coloc_training_data.csv  # 最终训练数据（2560 行）
+└── data/                    # 原始 JSON（90 个文件）
+```
