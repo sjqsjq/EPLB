@@ -1,0 +1,174 @@
+#!/bin/bash
+###############################################################################
+# GB200 共置 Kernel 干扰实验 - 一键环境安装脚本
+#
+# 目标环境: 4x NVIDIA L20A (GB200), aarch64, CUDA 12.9
+# 容器已有: PyTorch 2.9.1+cu129, Python 3.12
+#
+# 安装: DeepGEMM v2.1.1, FlashInfer v0.5.3, DeepEP, SGLang v0.5.6
+#
+# 用法: bash build.sh [--skip-clone]
+###############################################################################
+set -e
+
+WORK_DIR="/workspace/zsh-workspace/co-kernel-predict"
+SRC_DIR="${WORK_DIR}/deps_src"
+SGLANG_DIR="${WORK_DIR}/sglang-0.5.6"
+SKIP_CLONE=false
+[ "$1" = "--skip-clone" ] && SKIP_CLONE=true
+
+log() { echo -e "\n\033[1;32m[BUILD] $1\033[0m"; }
+err() { echo -e "\n\033[1;31m[ERROR] $1\033[0m"; exit 1; }
+
+# PyTorch libs (libc10.so) must be on LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$(python3 -c "import torch; print(torch.__path__[0])")/lib:${LD_LIBRARY_PATH:-}
+
+###############################################################################
+log "Step 0: 卸载旧版本..."
+###############################################################################
+pip uninstall -y sglang deep-gemm deep-ep flashinfer-python flashinfer 2>/dev/null || true
+rm -rf /usr/local/lib/python3.12/dist-packages/{deep_gemm,deep_ep,flashinfer,sglang}* 2>/dev/null || true
+echo "卸载完成"
+
+mkdir -p "$SRC_DIR"
+
+###############################################################################
+log "Step 1: 安装 DeepGEMM v2.1.1..."
+###############################################################################
+cd "$SRC_DIR"
+if [ "$SKIP_CLONE" = false ] || [ ! -d "DeepGEMM" ]; then
+    rm -rf DeepGEMM
+    git clone https://github.com/deepseek-ai/DeepGEMM.git
+fi
+cd DeepGEMM
+git checkout v2.1.1 2>/dev/null
+git submodule update --init --recursive
+
+export TORCH_CUDA_ARCH_LIST="10.0"
+pip install -e . --no-build-isolation 2>&1 | tail -3
+
+# 链接 CUTLASS 头文件 (JIT 编译需要)
+ln -sf "$(pwd)/third-party/cutlass/include/cute" deep_gemm/include/cute
+ln -sf "$(pwd)/third-party/cutlass/include/cutlass" deep_gemm/include/cutlass
+
+# 兼容 SGLang v0.5.6: v2.1.1 缺少 get/set_compile_mode
+if ! grep -q "get_compile_mode" deep_gemm/__init__.py 2>/dev/null; then
+    cat >> deep_gemm/__init__.py << 'STUBEOF'
+
+# [build.sh] Compatibility stubs for SGLang v0.5.6
+_compile_mode = 0
+def get_compile_mode():
+    return _compile_mode
+def set_compile_mode(mode):
+    global _compile_mode
+    _compile_mode = mode
+STUBEOF
+    echo "DeepGEMM stubs added"
+fi
+
+python3 -c "import deep_gemm; print(f'DeepGEMM v{deep_gemm.__version__} OK')" || err "DeepGEMM 安装失败"
+
+###############################################################################
+log "Step 2: 安装 FlashInfer v0.5.3..."
+###############################################################################
+cd "$SRC_DIR"
+if [ "$SKIP_CLONE" = false ] || [ ! -d "flashinfer" ]; then
+    rm -rf flashinfer
+    git clone --recursive https://github.com/flashinfer-ai/flashinfer.git
+fi
+cd flashinfer
+git checkout v0.5.3 2>/dev/null
+git submodule update --init --recursive
+
+PIP_CONSTRAINT=/dev/null pip install "setuptools>=77" "packaging>=24" \
+    "apache-tvm-ffi>=0.1,<0.2" \
+    "nvidia-cutlass-dsl>=4.2.1" "nvidia-cudnn-frontend>=1.13.0" 2>&1 | tail -3
+
+PIP_CONSTRAINT=/dev/null pip install -e . --no-build-isolation 2>&1 | tail -3
+
+python3 -c "import flashinfer; print(f'FlashInfer {flashinfer.__version__} OK')" || err "FlashInfer 安装失败"
+
+###############################################################################
+log "Step 3: 安装 DeepEP (gb200_blog_part_2)..."
+###############################################################################
+cd "$SRC_DIR"
+if [ "$SKIP_CLONE" = false ] || [ ! -d "DeepEP-real" ]; then
+    rm -rf DeepEP-real
+    git clone https://github.com/fzyzcjy/DeepEP.git DeepEP-real
+fi
+cd DeepEP-real
+git checkout gb200_blog_part_2 2>/dev/null
+
+sed -i 's/#define NUM_CPU_TIMEOUT_SECS 100/#define NUM_CPU_TIMEOUT_SECS 1000/' csrc/kernels/configs.cuh 2>/dev/null || true
+sed -i "s/nvcc_dlink = \[\]/nvcc_dlink = ['-dlink']/" setup.py 2>/dev/null || true
+
+export TORCH_CUDA_ARCH_LIST="10.0"
+export CUDA_HOME=/usr/local/cuda
+rm -rf build/
+python3 setup.py install 2>&1 | tail -3
+
+python3 -c "import deep_ep; print(f'DeepEP OK')" || err "DeepEP 安装失败"
+
+###############################################################################
+log "Step 4: 安装 SGLang v0.5.6..."
+###############################################################################
+cd "$SGLANG_DIR/python"
+PIP_CONSTRAINT=/dev/null pip install -e . --no-deps 2>&1 | tail -3
+
+# 修复 profiler bug: profiler_prefill_ct 未初始化
+PROFILER_FILE="$SGLANG_DIR/python/sglang/srt/managers/scheduler_profiler_mixin.py"
+if ! grep -q "# \[build.sh\] profiler counter fix" "$PROFILER_FILE" 2>/dev/null; then
+    sed -i '/self\.profile_by_stage = profile_by_stage/a\
+\
+        # [build.sh] profiler counter fix\
+        if profile_by_stage:\
+            if self.profiler_prefill_ct is None:\
+                self.profiler_prefill_ct = 0\
+            if self.profiler_decode_ct is None:\
+                self.profiler_decode_ct = 0\
+            if self.profiler_target_prefill_ct is None:\
+                self.profiler_target_prefill_ct = 100\
+            if self.profiler_target_decode_ct is None:\
+                self.profiler_target_decode_ct = 100' "$PROFILER_FILE"
+    echo "Profiler bug fix applied"
+fi
+
+python3 -c "import sglang; print(f'SGLang {sglang.__version__} OK')" || err "SGLang 安装失败"
+
+###############################################################################
+log "Step 5: 启动 MPS daemon..."
+###############################################################################
+echo quit | nvidia-cuda-mps-control 2>/dev/null || true
+sleep 1
+mkdir -p /var/log/nvidia-mps
+nvidia-cuda-mps-control -d
+sleep 1
+MPS_PCT=$(echo "get_default_active_thread_percentage" | nvidia-cuda-mps-control 2>&1)
+echo "MPS: $MPS_PCT"
+[ "$MPS_PCT" = "100.0" ] || err "MPS 启动失败"
+
+###############################################################################
+log "Step 6: 完整验证..."
+###############################################################################
+python3 -c "
+import torch, deep_gemm, flashinfer, deep_ep, sglang
+print(f'PyTorch:    {torch.__version__}, GPUs: {torch.cuda.device_count()}x {torch.cuda.get_device_properties(0).name}')
+print(f'DeepGEMM:   v{deep_gemm.__version__}')
+print(f'FlashInfer: {flashinfer.__version__}')
+print(f'DeepEP:     OK')
+print(f'SGLang:     {sglang.__version__}')
+
+M, N, K = 128, 768, 2048
+x = torch.randn(M, K, dtype=torch.bfloat16, device='cuda')
+w = torch.randn(N, K, dtype=torch.bfloat16, device='cuda')
+xf, xs = deep_gemm.per_token_cast_to_fp8(x, use_ue8m0=False)
+wf, ws = deep_gemm.per_block_cast_to_fp8(w, use_ue8m0=False)
+out = torch.empty(M, N, dtype=torch.bfloat16, device='cuda')
+deep_gemm.fp8_gemm_nt((xf, xs), (wf, ws), out)
+torch.cuda.synchronize()
+print('DeepGEMM kernel: PASS')
+print('All verified!')
+" || err "验证失败"
+
+log "===== 安装完成 ====="
+
