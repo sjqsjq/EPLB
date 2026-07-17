@@ -1,0 +1,21 @@
+{
+  "label": "retest_sw64_ms5",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 128,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 610.27,
+  "total_comp_tokens": 240000,
+  "tps": 393.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10371.4,
+  "lat_p50_ms": 10435.2,
+  "lat_p99_ms": 11438.26,
+  "ttft_mean_ms": 4821.07,
+  "ttft_p50_ms": 4766.85,
+  "ttft_p99_ms": 9080.63,
+  "tpot_mean_ms": 179.04,
+  "tpot_p50_ms": 179.74,
+  "tpot_p99_ms": 318.94
+}

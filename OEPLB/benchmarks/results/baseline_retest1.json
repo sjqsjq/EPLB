@@ -1,0 +1,21 @@
+{
+  "label": "baseline_retest1",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 128,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 615.39,
+  "total_comp_tokens": 240000,
+  "tps": 390.0,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10457.1,
+  "lat_p50_ms": 10447.0,
+  "lat_p99_ms": 11449.89,
+  "ttft_mean_ms": 4854.88,
+  "ttft_p50_ms": 4796.21,
+  "ttft_p99_ms": 9122.76,
+  "tpot_mean_ms": 180.72,
+  "tpot_p50_ms": 181.9,
+  "tpot_p99_ms": 321.91
+}

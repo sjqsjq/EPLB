@@ -1,0 +1,21 @@
+{
+  "label": "real_baseline_rc1",
+  "dataset": "/tmp/real_production_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 512,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 390.25,
+  "total_comp_tokens": 240000,
+  "tps": 615.0,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 26597.0,
+  "lat_p50_ms": 26019.1,
+  "lat_p99_ms": 45022.61,
+  "ttft_mean_ms": 2514.27,
+  "ttft_p50_ms": 1505.99,
+  "ttft_p99_ms": 20789.76,
+  "tpot_mean_ms": 776.86,
+  "tpot_p50_ms": 779.21,
+  "tpot_p99_ms": 1280.29
+}

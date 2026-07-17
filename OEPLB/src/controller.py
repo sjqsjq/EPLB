@@ -1,0 +1,428 @@
+import logging
+import time
+import torch
+import torch.distributed
+import traceback
+
+from sglang.srt.managers.pb_oeplb.config import PBOEPLBConfig
+from sglang.srt.managers.pb_oeplb.rebalancer import try_build_swap_plan
+from sglang.srt.managers.pb_oeplb.async_swapper import AsyncSwapExecutor
+from sglang.srt.managers.pb_oeplb.fast_metadata import fast_init_by_mapping
+
+logger = logging.getLogger(__name__)
+
+MIN_RECORD_TOKENS = 32
+
+
+class PBOEPLBController:
+    """
+    v0.11: v0.10 + exponential decay statistics + fast sync_window.
+
+    Key changes from v0.10:
+    - sync_window reduced from 64 to 8 (respond to imbalance 8x faster)
+    - load tensor uses exponential decay (decay_factor=0.5) instead of
+      zeroing after each swap — this stabilizes decisions against single-
+      batch routing noise and preserves historical context
+    - All-reduce tensor is now physical-space (matching record), converted
+      to logical only at plan-build time
+
+    v0.10: v0.9 + physical-space recording (matches EPLB's on_select_experts
+    exactly), eliminating the per-call physical->logical gather.
+
+    Profiling v0.9 (torch wall-clock instrumentation) found record_next_layer
+    cost ~800-1000us/call, 5-6x more than the all_reduce it was meant to make
+    cheap (370ms allreduce vs ~1.8-2.0s cumulative record over one benchmark
+    run). Root cause: each call did reshape + long() + clamp_ + a FANCY-INDEX
+    GATHER (p2l[layer_id][flat]) + bincount + add_ — 5-6 separate CUDA kernel
+    launches, each paying CPU-side dispatch overhead on the single-threaded
+    scheduler's critical path.
+
+    Fix (mirrors EPLB's _SelectExpertsSinglePassGatherer.on_select_experts,
+    confirmed via source read of expert_distribution.py:507-511): record
+    directly in PHYSICAL expert space via ONE scatter_add_ call — no p2l
+    gather, no clamp_, no separate bincount+add_ pair. The physical->logical
+    conversion (which EPLB also defers to dump-time, see
+    _convert_global_physical_count_to_logical_count) happens ONCE per
+    sync_window, as a single vectorized scatter_add_ across all layers,
+    instead of once per recorded prefill batch per layer.
+
+    v0.9: EPLB-style local step-counter trigger, single periodic all_reduce.
+
+    Investigation into SGLang's official EPLB (see eplb_manager.py) found that
+    its `on_forward_pass_end()` is `next(self._main_generator)` where the
+    generator is `for _ in range(rebalance_num_iterations): yield` — a PURE
+    LOCAL Python integer loop. Zero communication on every-but-the-Nth call.
+    This works because forward passes are inherently synchronized across all
+    DP+EP ranks (confirmed empirically: even IDLE batches call
+    on_forward_pass_end exactly once per rank per global forward step), so a
+    local counter implicitly stays in lockstep across ranks with no all_reduce
+    needed to agree on "when".
+
+    v0.8 mistakenly used two all_reduce(MAX) calls EVERY forward pass to reach
+    consensus on "is this a P->D boundary" and "are we ready to swap" — this
+    was unnecessary (forward passes are already synchronized) and caused the
+    observed -16.6% throughput regression under DP=4.
+
+    v0.9 fix: replace the per-forward consensus with a local step counter
+    (self._steps_since_last_check), matching EPLB's pattern. Only every
+    `sync_window` forwards do we do ONE all_reduce(SUM) on the load tensor —
+    this single collective both aggregates the true global load AND serves as
+    the "did we accumulate enough tokens" signal (checked locally on the
+    already-fetched global sum, no separate readiness round needed).
+
+    Recording itself is unchanged from v0.8 and matches EPLB's own hot path
+    (`_SelectExpertsSinglePassGatherer.on_select_experts`, confirmed via source
+    inspection): pure local `bincount`/scatter, zero communication, hooked
+    into topk.py's post-select_experts callback. OEPLB's differentiator is
+    recording ONLY during prefill (targeting the load that determines the
+    upcoming decode burst's expert popularity), whereas EPLB records both
+    prefill and decode uniformly.
+    """
+
+    def __init__(self, cfg: PBOEPLBConfig, model_runner):
+        self.cfg = cfg
+        self.model_runner = model_runner
+
+        self._meta = self._fetch_metadata()
+        self.num_layers = self._meta.num_layers
+        self.num_logical_experts = self._meta.num_logical_experts
+        self.ep_size = self._meta.ep_size
+        self.num_local = self._meta.num_local_physical_experts
+
+        self.dp_size = getattr(model_runner.server_args, 'dp_size', 1)
+
+        self.num_physical_experts = self._meta.num_physical_experts
+        # v0.10: load is recorded in PHYSICAL expert space (see class
+        # docstring) — converted to logical space once per sync_window,
+        # not once per record_next_layer call.
+        self.load = torch.zeros(self.num_layers, self.num_physical_experts,
+                                dtype=torch.int64, device="cuda")
+        self.total_tokens = 0
+        self._layer_counter = 0
+        self._cached_p2l = self._meta.physical_to_logical_map
+
+        self.total_swaps = 0
+        self.skipped_busy = 0
+        self.window_count = 0
+
+        self._prefill_batch_counter = 0
+        self._sample_interval = max(1, cfg.cooldown_steps // 5)
+        self._should_record_this_batch = False
+
+        self.async_executor = AsyncSwapExecutor(
+            model_runner, self.model_runner.moe_ep_rank, self.num_local
+        )
+        self._pending_plan_start_t = None
+        self._prewarmed = (self.dp_size > 1)
+
+        # Pure local counters — no cross-rank consensus needed (see class docstring)
+        self._forward_id = 0
+        self._ready = False
+        self._warmup_forwards = 10
+        self._steps_since_last_check = 0
+        self._decay_factor = 0.5  # exponential decay: keep 50% of history each window
+
+        # Profiling counters (wall-clock, CPU-side critical-path time)
+        self._prof_record_calls = 0
+        self._prof_record_ns = 0
+        self._prof_allreduce_ns = 0
+        self._prof_planbuild_ns = 0
+        self._prof_finalize_ns = 0
+        self._prof_last_report_forward = 0
+
+        self._rank = torch.distributed.get_rank() if torch.distributed.is_initialized() else 0
+        logger.info(f"[PB-OEPLB] Init v0.11 (fast-response + decay): "
+                    f"layers={self.num_layers}, experts={self.num_logical_experts}, "
+                    f"ep={self.ep_size}, dp={self.dp_size}, local={self.num_local}, "
+                    f"thresh={cfg.threshold_ratio}, min_tok={cfg.min_prefill_tokens}, "
+                    f"sync_window={cfg.sync_window}, always_record={cfg.always_record}")
+
+    def _prewarm_expert_location_updater(self):
+        try:
+            t0 = time.perf_counter()
+            torch.cuda.synchronize()
+            torch.cuda.empty_cache()
+            updater = getattr(self.model_runner, "expert_location_updater", None)
+            if updater is not None:
+                updater._first_execution = False
+            fast_init_by_mapping(self._meta.physical_to_logical_map.clone(), self.num_logical_experts)
+            torch.cuda.synchronize()
+            if self.dp_size <= 1:
+                self._warmup_all_rank_pairs()
+            elapsed = (time.perf_counter() - t0) * 1000
+            logger.info(f"[PB-OEPLB] Pre-warmed in {elapsed:.1f}ms")
+        except Exception as e:
+            logger.warning(f"[PB-OEPLB] Pre-warm failed (non-fatal): {e}")
+
+    def _warmup_all_rank_pairs(self):
+        if self.ep_size < 2:
+            return
+        meta = self._fetch_metadata()
+        p2l = meta.physical_to_logical_map.clone()
+        pairs = [(a, b) for a in range(self.ep_size) for b in range(a + 1, self.ep_size)]
+        if len(pairs) > self.num_layers:
+            pairs = pairs[:self.num_layers]
+        warmup_p2l = p2l.clone()
+        update_layers = []
+        for layer_id, (ra, rb) in enumerate(pairs):
+            phys_a, phys_b = ra * self.num_local, rb * self.num_local
+            la = int(warmup_p2l[layer_id, phys_a].item())
+            lb = int(warmup_p2l[layer_id, phys_b].item())
+            warmup_p2l[layer_id, phys_a], warmup_p2l[layer_id, phys_b] = lb, la
+            update_layers.append(layer_id)
+        self.model_runner.update_expert_location(fast_init_by_mapping(warmup_p2l, self.num_logical_experts), update_layers)
+        self.model_runner.update_expert_location(fast_init_by_mapping(p2l, self.num_logical_experts), update_layers)
+        self._meta = self._fetch_metadata()
+        self._cached_p2l = self._meta.physical_to_logical_map
+
+    def _fetch_metadata(self):
+        from sglang.srt.eplb.expert_location import get_global_expert_location_metadata
+        return get_global_expert_location_metadata()
+
+    def record_next_layer(self, topk_ids: torch.Tensor):
+        """Zero-communication hot path — direct scatter_add_ on PHYSICAL expert
+        ids, exactly matching EPLB's on_select_experts (expert_distribution.py:
+        507-511). No p2l gather here (see class docstring for why this
+        replaced the old bincount+gather approach)."""
+        if not self._should_record_this_batch:
+            return
+        if torch.cuda.is_current_stream_capturing():
+            return
+        if topk_ids.shape[0] < MIN_RECORD_TOKENS:
+            return
+
+        _t0 = time.perf_counter_ns()
+        layer_id = self._layer_counter % self.num_layers
+        self._layer_counter += 1
+        flat = topk_ids.reshape(-1)
+        mask = flat != -1
+        self.load[layer_id].scatter_add_(
+            dim=0, index=flat.masked_fill(~mask, 0).long(), src=mask.long()
+        )
+        if layer_id == 0:
+            self.total_tokens += topk_ids.shape[0]
+        self._prof_record_calls += 1
+        self._prof_record_ns += time.perf_counter_ns() - _t0
+
+    def on_forward_pass_end(self, forward_batch):
+        self._forward_id += 1
+        if not self._prewarmed and not torch.cuda.is_current_stream_capturing():
+            self._prewarmed = True
+            self._prewarm_expert_location_updater()
+
+        self._try_finish_pending_swap()
+
+        is_idle = forward_batch.forward_mode.is_idle()
+        is_prefill = forward_batch.forward_mode.is_extend()
+        self._layer_counter = 0
+
+        # Recording decision — local-only, prefill-focused (OEPLB's differentiator
+        # vs EPLB's uniform prefill+decode recording). No cross-rank agreement needed:
+        # this only affects what THIS rank writes into its own load buffer.
+        if is_idle:
+            self._should_record_this_batch = False
+        elif self.cfg.always_record:
+            self._should_record_this_batch = True
+        elif is_prefill:
+            self._prefill_batch_counter += 1
+            self._should_record_this_batch = (self._prefill_batch_counter % self._sample_interval == 0)
+        else:
+            self._should_record_this_batch = False
+
+        if not self._ready:
+            if self._forward_id >= self._warmup_forwards:
+                self._ready = True
+                logger.info(f"[PB-OEPLB] rank={self._rank} ready after {self._forward_id} forwards")
+            return
+
+        # --- Pure local step counter (EPLB-style, zero communication) ---
+        # Implicitly synchronized across ranks: every rank calls this exactly
+        # once per global forward step (including IDLE batches), so this
+        # counter advances in lockstep with every other rank's counter with
+        # NO all_reduce needed to agree on "when to check".
+        self._steps_since_last_check += 1
+        if self._steps_since_last_check < self.cfg.sync_window:
+            return
+        self._steps_since_last_check = 0
+        self._decay_factor = 0.5  # exponential decay: keep 50% of history each window
+
+        self._decide_and_begin_swap()
+        self.load.zero_()
+        self.total_tokens = 0
+        self._prefill_batch_counter = 0
+
+    def _decide_and_begin_swap(self):
+        try:
+            _t0 = time.perf_counter_ns()
+            # Single all_reduce per sync_window (not per forward). This SUM
+            # both aggregates the true global load AND serves as the
+            # "enough tokens accumulated" signal — checked locally on the
+            # result, no separate readiness consensus round needed.
+            torch.distributed.all_reduce(
+                self.load, op=torch.distributed.ReduceOp.SUM
+            )
+            self.window_count += 1
+            self._prof_allreduce_ns += time.perf_counter_ns() - _t0
+
+            global_tokens = int(self.load.sum().item())
+            self._dump_heatmap_data(global_tokens)
+            self._maybe_report_profile()
+            self._dump_detailed_load(global_tokens)
+            if global_tokens < self.cfg.min_prefill_tokens:
+                return
+
+            if self.async_executor.busy:
+                self.skipped_busy += 1
+                return
+
+            _t1 = time.perf_counter_ns()
+            self._meta = self._fetch_metadata()
+            p2l_map = self._meta.physical_to_logical_map.clone()
+
+            # BUG FIX (v0.11): record_next_layer receives LOGICAL expert IDs
+            # (topk_ids in select_experts are logical, not physical), so
+            # self.load is ALREADY in logical space. The v0.10 scatter_add_
+            # p2l conversion was a DOUBLE conversion that scrambled expert
+            # identity after the first swap — making all subsequent swap
+            # decisions based on corrupted data (expert A's count attributed
+            # to expert B). Fix: pass self.load directly as logical_count.
+            plan = try_build_swap_plan(
+                logical_count=self.load,
+                physical_to_logical_map=p2l_map,
+                num_ranks=self.ep_size,
+                num_local=self.num_local,
+                threshold_ratio=self.cfg.threshold_ratio,
+                max_swaps_per_layer=self.cfg.max_swaps_per_layer,
+                max_total_swap_layers=self.cfg.max_total_swap_layers,
+            )
+            self._prof_planbuild_ns += time.perf_counter_ns() - _t1
+            if not plan:
+                return
+            self._pending_plan_start_t = time.perf_counter()
+            self.async_executor.begin(plan)
+            logger.info(f"[PB-OEPLB] window#{self.window_count}: "
+                       f"issued {len(plan)} swap(s) ({global_tokens} tok global, dp={self.dp_size})")
+        except Exception as e:
+            logger.error(f"[PB-OEPLB] error: {e}\n{traceback.format_exc()}")
+
+    def _dump_detailed_load(self, global_tokens):
+        """Verification A+B: cross-check token count aggregation methods."""
+        if self._rank != 0 or self.window_count not in (5, 10):
+            return
+        if global_tokens < self.cfg.min_prefill_tokens:
+            return
+        from sglang.srt.managers.pb_oeplb.rebalancer import compute_gpu_load
+        p2l = self._cached_p2l
+
+        for layer_id in [24]:
+            # VERIFY-A: use rebalancer compute_gpu_load (proven correct for swap decisions)
+            gpu_load_reb = compute_gpu_load(
+                self.load[layer_id], p2l[layer_id],
+                num_ranks=self.ep_size, num_local=self.num_local
+            )
+            logger.info(f"[VERIFY-A] w#{self.window_count} L{layer_id} rebalancer={gpu_load_reb.tolist()}")
+
+            # VERIFY-B: V2 script method (gather via p2l)
+            v2s, v2m = [], []
+            for r in range(self.ep_size):
+                s = r * self.num_local
+                e = (r + 1) * self.num_local
+                lids = p2l[layer_id, s:e].long()
+                pe = self.load[layer_id][lids]
+                v2s.append(int(pe.sum().item()))
+                v2m.append(int(pe.max().item()))
+            logger.info(f"[VERIFY-B] w#{self.window_count} L{layer_id} v2_sums={v2s} v2_maxes={v2m}")
+
+            # VERIFY-B manual: rank3 raw detail
+            r3s = 3 * self.num_local
+            r3e = 4 * self.num_local
+            r3_lids = p2l[layer_id, r3s:r3e].long().tolist()
+            r3_counts = [int(self.load[layer_id][lid].item()) for lid in r3_lids]
+            logger.info(f"[VERIFY-B-R3] w#{self.window_count} L{layer_id} "
+                        f"slots=[{r3s}..{r3e-1}] lids={r3_lids[:5]}..{r3_lids[-3:]} "
+                        f"counts={r3_counts[:5]}..{r3_counts[-3:]} "
+                        f"sum={sum(r3_counts)} max={max(r3_counts)}")
+
+            # META: load tensor info
+            total = int(self.load[layer_id].sum().item())
+            nz = int((self.load[layer_id] > 0).sum().item())
+            logger.info(f"[VERIFY-META] w#{self.window_count} L{layer_id} "
+                        f"shape={list(self.load[layer_id].shape)} total={total} "
+                        f"nonzero={nz}/{self.load.shape[1]}")
+
+    def _dump_heatmap_data(self, global_tokens):
+        """Dump per-rank load for each layer to analyze hot-spots."""
+        if self._rank != 0:
+            return
+        if global_tokens < self.cfg.min_prefill_tokens:
+            return
+        # BUG FIX: self.load is in LOGICAL expert space, NOT physical.
+        # Must use p2l_map to compute correct per-rank load (same as rebalancer).
+        p2l = self._cached_p2l  # [num_layers, num_physical_experts]
+        per_rank_load = torch.zeros(self.num_layers, self.ep_size, dtype=torch.int64, device=self.load.device)
+        for r in range(self.ep_size):
+            s, e = r * self.num_local, (r + 1) * self.num_local
+            # p2l[layer, s:e] = logical IDs on this rank's physical slots
+            logical_ids = p2l[:, s:e]  # [num_layers, num_local]
+            per_rank_load[:, r] = self.load.gather(1, logical_ids.long()).sum(dim=1)
+        # per_rank_load: [num_layers, ep_size]
+        # Pick layer 0 and layer 24 (middle) as representative
+        for layer_id in [0, 24, 47]:
+            loads = per_rank_load[layer_id].tolist()
+            total = sum(loads)
+            if total == 0:
+                continue
+            avg = total / self.ep_size
+            ratios = [l / max(avg, 1) for l in loads]
+            max_r = max(ratios)
+            std_r = (sum((r - 1.0)**2 for r in ratios) / len(ratios)) ** 0.5
+            logger.info(
+                f"[PB-OEPLB-HEATMAP] window#{self.window_count} layer={layer_id} "
+                f"rank_loads={[int(l) for l in loads]} "
+                f"ratios=[{', '.join(f'{r:.2f}' for r in ratios)}] "
+                f"max_ratio={max_r:.3f} std={std_r:.3f}"
+            )
+
+    def _maybe_report_profile(self):
+        """Log cumulative wall-clock cost breakdown every 4 windows."""
+        if self.window_count == 0 or self.window_count % 4 != 0:
+            return
+        record_ms = self._prof_record_ns / 1e6
+        allreduce_ms = self._prof_allreduce_ns / 1e6
+        planbuild_ms = self._prof_planbuild_ns / 1e6
+        finalize_ms = self._prof_finalize_ns / 1e6
+        total_ms = record_ms + allreduce_ms + planbuild_ms + finalize_ms
+        logger.info(
+            f"[PB-OEPLB-PROF] window#{self.window_count} calls={self._prof_record_calls} "
+            f"record={record_ms:.2f}ms allreduce={allreduce_ms:.2f}ms "
+            f"planbuild={planbuild_ms:.2f}ms finalize={finalize_ms:.2f}ms "
+            f"total={total_ms:.2f}ms avg_record_us={1000*record_ms/max(1,self._prof_record_calls):.2f}"
+        )
+
+    def _try_finish_pending_swap(self):
+        try:
+            plan = self.async_executor.try_finish()
+        except Exception as e:
+            logger.error(f"[PB-OEPLB] finish error: {e}\n{traceback.format_exc()}")
+            self.async_executor.pending = None
+            return
+        if plan is None:
+            return
+        try:
+            self._meta = self._fetch_metadata()
+            new_p2l = self._meta.physical_to_logical_map.clone()
+            update_layers = set()
+            for op in plan:
+                new_p2l[op.layer_id, op.phys_slot_a] = op.logical_b
+                new_p2l[op.layer_id, op.phys_slot_b] = op.logical_a
+                update_layers.add(op.layer_id)
+            _tf = time.perf_counter_ns()
+            new_meta = fast_init_by_mapping(new_p2l, self.num_logical_experts)
+            self._meta.update(new_meta, update_layer_ids=list(update_layers))
+            self._cached_p2l = self._meta.physical_to_logical_map
+            self._prof_finalize_ns += time.perf_counter_ns() - _tf
+            total_ms = (time.perf_counter() - self._pending_plan_start_t) * 1000
+            self.total_swaps += len(plan)
+            logger.info(f"[PB-OEPLB] {len(plan)} swap(s) done ({total_ms:.1f}ms) | total={self.total_swaps}")
+        except Exception as e:
+            logger.error(f"[PB-OEPLB] finalize error: {e}\n{traceback.format_exc()}")

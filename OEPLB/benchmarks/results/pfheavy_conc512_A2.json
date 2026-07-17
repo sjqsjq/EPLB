@@ -1,0 +1,21 @@
+{
+  "label": "pfheavy_conc512_A2",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 512,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 617.87,
+  "total_comp_tokens": 240000,
+  "tps": 388.4,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 41584.2,
+  "lat_p50_ms": 42194.1,
+  "lat_p99_ms": 47089.52,
+  "ttft_mean_ms": 19091.18,
+  "ttft_p50_ms": 18949.98,
+  "ttft_p99_ms": 37217.97,
+  "tpot_mean_ms": 725.58,
+  "tpot_p50_ms": 731.43,
+  "tpot_p99_ms": 1303.35
+}
