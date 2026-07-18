@@ -1,12 +1,21 @@
-"""OEPLB V2 Controller: minimal overhead, elastic swap.
+"""OEPLB V2.1 Controller: jittered low-overhead record + thorough
+threshold-based swap (no artificial global swap budget).
 
-Key changes from V1:
-- record_interval: only record every Nth forward pass (not every batch)
-- Uses V2 rebalancer (elastic threshold + global budget)
-- Removed debug scaffolding (_dump_detailed_load, _dump_heatmap_data, VERIFY-*)
-- Kept profiling counters for overhead measurement
+Changes from V2:
+- record_next_layer: MIN_RECORD_TOKENS raised (config-driven, default 64)
+  so only substantial batches get sampled.
+- on_forward_pass_end: record sampling uses a JITTERED interval (randomized
+  target within each ~record_interval-sized block) instead of a fixed
+  modulo phase, so sampled forward passes don't always land at the same
+  relative position in a repeating batch/traffic pattern -- this reduces
+  the risk of consistently missing (or consistently over-sampling) a
+  particular kind of batch.
+- _decide_and_begin_swap: calls try_build_swap_plan_v2 with a single
+  threshold_ratio (no high/target split) and no real global swap budget
+  (max_total_swap_layers defaults to 48 = effectively unbounded).
 """
 import logging
+import random
 import time
 import torch
 import torch.distributed
@@ -19,11 +28,9 @@ from sglang.srt.managers.pb_oeplb.fast_metadata import fast_init_by_mapping
 
 logger = logging.getLogger(__name__)
 
-MIN_RECORD_TOKENS = 32
-
 
 class PBOEPLBController:
-    """V2 controller: low-overhead, elastic swap."""
+    """V2.1 controller: jittered record sampling + thorough elastic swap."""
 
     def __init__(self, cfg, model_runner):
         self.cfg = cfg
@@ -61,7 +68,14 @@ class PBOEPLBController:
         self._ready = False
         self._warmup_forwards = 10
         self._steps_since_last_check = 0
-        self._record_counter = 0  # V2: count forwards for record_interval
+
+        # V2.1: jittered record scheduling. `_record_counter` counts forwards
+        # since the last (re)roll; `_next_record_target` is a randomized
+        # point within [0.5x, 1.5x] of record_interval, re-rolled every time
+        # we either hit the target or overshoot it -- this decorrelates the
+        # sampled forward-pass position from any periodic traffic pattern.
+        self._record_counter = 0
+        self._next_record_target = self._roll_next_record_target()
 
         # Profiling
         self._prof_record_calls = 0
@@ -71,11 +85,17 @@ class PBOEPLBController:
         self._prof_finalize_ns = 0
 
         self._rank = torch.distributed.get_rank() if torch.distributed.is_initialized() else 0
-        logger.info(f"[OEPLB-V2] Init: layers={self.num_layers}, experts={self.num_logical_experts}, "
+        logger.info(f"[OEPLB-V2.1] Init: layers={self.num_layers}, experts={self.num_logical_experts}, "
                     f"ep={self.ep_size}, dp={self.dp_size}, local={self.num_local}, "
-                    f"high_thresh={cfg.high_threshold}, target={cfg.target_ratio}, "
-                    f"max_total_swaps={cfg.max_total_swaps}, "
-                    f"sync_window={cfg.sync_window}, record_interval={cfg.record_interval}")
+                    f"threshold_ratio={cfg.threshold_ratio}, max_swaps_per_layer={cfg.max_swaps_per_layer}, "
+                    f"max_total_swap_layers={cfg.max_total_swap_layers}, "
+                    f"sync_window={cfg.sync_window}, record_interval={cfg.record_interval} (jittered), "
+                    f"min_record_tokens={cfg.min_record_tokens}")
+
+    def _roll_next_record_target(self):
+        base = max(1, self.cfg.record_interval)
+        jitter = max(1, base // 2)
+        return random.randint(max(1, base - jitter), base + jitter)
 
     def _prewarm_expert_location_updater(self):
         try:
@@ -90,9 +110,9 @@ class PBOEPLBController:
             if self.dp_size <= 1:
                 self._warmup_all_rank_pairs()
             elapsed = (time.perf_counter() - t0) * 1000
-            logger.info(f"[OEPLB-V2] Pre-warmed in {elapsed:.1f}ms")
+            logger.info(f"[OEPLB-V2.1] Pre-warmed in {elapsed:.1f}ms")
         except Exception as e:
-            logger.warning(f"[OEPLB-V2] Pre-warm failed (non-fatal): {e}")
+            logger.warning(f"[OEPLB-V2.1] Pre-warm failed (non-fatal): {e}")
 
     def _warmup_all_rank_pairs(self):
         if self.ep_size < 2:
@@ -124,7 +144,7 @@ class PBOEPLBController:
             return
         if torch.cuda.is_current_stream_capturing():
             return
-        if topk_ids.shape[0] < MIN_RECORD_TOKENS:
+        if topk_ids.shape[0] < self.cfg.min_record_tokens:
             return
 
         _t0 = time.perf_counter_ns()
@@ -152,17 +172,25 @@ class PBOEPLBController:
         is_prefill = forward_batch.forward_mode.is_extend()
         self._layer_counter = 0
 
-        # V2: record only every record_interval forwards
+        # V2.1: jittered record trigger -- fire once we've reached the
+        # randomized target, then re-roll a fresh (re-randomized) target for
+        # the next block. This spreads sampled forward passes irregularly
+        # in time rather than locking to a fixed periodic phase.
         self._record_counter += 1
+        record_due = self._record_counter >= self._next_record_target
+        if record_due:
+            self._record_counter = 0
+            self._next_record_target = self._roll_next_record_target()
+
         if is_idle:
             self._should_record_this_batch = False
         elif self.cfg.always_record:
-            self._should_record_this_batch = (self._record_counter % self.cfg.record_interval == 0)
+            self._should_record_this_batch = record_due
         elif is_prefill:
             self._prefill_batch_counter += 1
             self._should_record_this_batch = (
                 self._prefill_batch_counter % self._sample_interval == 0
-                and self._record_counter % self.cfg.record_interval == 0
+                and record_due
             )
         else:
             self._should_record_this_batch = False
@@ -170,7 +198,7 @@ class PBOEPLBController:
         if not self._ready:
             if self._forward_id >= self._warmup_forwards:
                 self._ready = True
-                logger.info(f"[OEPLB-V2] rank={self._rank} ready after {self._forward_id} forwards")
+                logger.info(f"[OEPLB-V2.1] rank={self._rank} ready after {self._forward_id} forwards")
             return
 
         self._steps_since_last_check += 1
@@ -208,9 +236,9 @@ class PBOEPLBController:
                 physical_to_logical_map=p2l_map,
                 num_ranks=self.ep_size,
                 num_local=self.num_local,
-                high_threshold=self.cfg.high_threshold,
-                target_ratio=self.cfg.target_ratio,
-                max_total_swaps=self.cfg.max_total_swaps,
+                threshold_ratio=self.cfg.threshold_ratio,
+                max_swaps_per_layer=self.cfg.max_swaps_per_layer,
+                max_total_swap_layers=self.cfg.max_total_swap_layers,
             )
             self._prof_planbuild_ns += time.perf_counter_ns() - _t1
 
@@ -219,7 +247,7 @@ class PBOEPLBController:
             self._pending_plan_start_t = time.perf_counter()
             self.async_executor.begin(plan)
         except Exception as e:
-            logger.error(f"[OEPLB-V2] error: {e}\n{traceback.format_exc()}")
+            logger.error(f"[OEPLB-V2.1] error: {e}\n{traceback.format_exc()}")
 
     def _maybe_report_profile(self):
         if self.window_count == 0 or self.window_count % 4 != 0:
@@ -230,7 +258,7 @@ class PBOEPLBController:
         finalize_ms = self._prof_finalize_ns / 1e6
         total_ms = record_ms + allreduce_ms + planbuild_ms + finalize_ms
         logger.info(
-            f"[OEPLB-V2-PROF] w#{self.window_count} calls={self._prof_record_calls} "
+            f"[OEPLB-V2.1-PROF] w#{self.window_count} calls={self._prof_record_calls} "
             f"record={record_ms:.2f}ms allreduce={allreduce_ms:.2f}ms "
             f"planbuild={planbuild_ms:.2f}ms finalize={finalize_ms:.2f}ms "
             f"total={total_ms:.2f}ms swaps_total={self.total_swaps} skipped_busy={self.skipped_busy}"
@@ -240,7 +268,7 @@ class PBOEPLBController:
         try:
             plan = self.async_executor.try_finish()
         except Exception as e:
-            logger.error(f"[OEPLB-V2] finish error: {e}\n{traceback.format_exc()}")
+            logger.error(f"[OEPLB-V2.1] finish error: {e}\n{traceback.format_exc()}")
             self.async_executor.pending = None
             return
         if plan is None:
@@ -260,6 +288,6 @@ class PBOEPLBController:
             self._prof_finalize_ns += time.perf_counter_ns() - _tf
             total_ms = (time.perf_counter() - self._pending_plan_start_t) * 1000
             self.total_swaps += len(plan)
-            logger.info(f"[OEPLB-V2] {len(plan)} swap(s) done ({total_ms:.1f}ms) | total={self.total_swaps}")
+            logger.info(f"[OEPLB-V2.1] {len(plan)} swap(s) done ({total_ms:.1f}ms) | total={self.total_swaps}")
         except Exception as e:
-            logger.error(f"[OEPLB-V2] finalize error: {e}\n{traceback.format_exc()}")
+            logger.error(f"[OEPLB-V2.1] finalize error: {e}\n{traceback.format_exc()}")

@@ -1,13 +1,20 @@
-"""V2 rebalancer: elastic threshold + global budget.
+"""V2.1 rebalancer: compromise between V1 (thorough per-layer correction,
+too-permissive threshold=1.15 -> touches ~30% of layers) and V2 (elastic
+2-tier threshold but hard-capped at 8 total swaps -> too little correction).
 
-Key differences from V1:
-- Two-tier threshold: high_threshold (trigger) + target_ratio (stop)
-- Global budget: max_total_swaps across ALL layers, not per-layer
-- Priority: layers sorted by imbalance ratio, worst-first
-- Each layer gets exactly 1 swap per decision (greedy: swap the single
-  hottest expert on the busiest GPU with the coldest on the least-busy GPU),
-  then move to the next-worst layer. This is more surgical than V1's
-  multi-round-per-layer approach.
+V2.1 design (per user request 2026-07-17):
+- Single threshold_ratio (not high/target 2-tier): a layer is selected iff
+  its ratio > threshold_ratio, and gets swapped in FULL multi-round fashion
+  (like V1's _build_layer_swap_sequence) until ratio drops back below
+  threshold_ratio or max_swaps_per_layer rounds are exhausted.
+- NO global cap on total swaps across layers -- every layer that qualifies
+  gets fully corrected. This was V1's behavior all along when
+  max_total_swap_layers was set generously (48); V2 introduced an
+  unjustified hard budget=8 that starved correction. V2.1 removes that.
+- The only real "compromise" knob is threshold_ratio itself: set it higher
+  than V1's 1.15 (which triggered on ~30% of (layer,step) samples) so only
+  genuinely bad layers get touched, cutting P2P/NVLink contention, while
+  still fully fixing whichever layers DO qualify (not V2's 1-swap-then-move-on).
 """
 import torch
 import logging
@@ -27,43 +34,56 @@ class SwapOp(NamedTuple):
     imbalance: float
 
 
-def _compute_layer_ratio(lc, p2l, num_ranks, num_local):
-    """Compute imbalance ratio for one layer. Returns (ratio, gpu_loads)."""
-    gpu_load = [0] * num_ranks
-    for r in range(num_ranks):
-        s, e = r * num_local, (r + 1) * num_local
-        gpu_load[r] = sum(lc[p2l[i]] for i in range(s, e))
-    max_load = max(gpu_load)
-    avg_load = max(sum(gpu_load) / num_ranks, 1.0)
-    return max_load / avg_load, gpu_load
+def _build_layer_swap_sequence(lc, p2l_orig, num_ranks, num_local, threshold_ratio, max_swaps_per_layer):
+    """Full multi-round swap loop for ONE layer -- swap until ratio drops
+    below threshold_ratio or max_swaps_per_layer rounds are used up.
+    Identical algorithm to V1 (proven correct); reused here unchanged."""
+    p2l = list(p2l_orig)
+    used_slots = set()
+    ops = []
+    initial_ratio = None
+    final_ratio = None
 
+    for _ in range(max_swaps_per_layer):
+        gpu_load = [0] * num_ranks
+        for r in range(num_ranks):
+            s, e = r * num_local, (r + 1) * num_local
+            gpu_load[r] = sum(lc[p2l[i]] for i in range(s, e))
 
-def _make_one_swap(lc, p2l, gpu_load, num_ranks, num_local):
-    """Generate exactly one swap op for one layer: hottest expert on busiest
-    GPU <-> coldest expert on least-busy GPU. Returns SwapOp or None."""
-    rank_hot = gpu_load.index(max(gpu_load))
-    rank_cold = gpu_load.index(min(gpu_load))
-    if rank_hot == rank_cold:
-        return None
+        max_load = max(gpu_load)
+        avg_load = max(sum(gpu_load) / num_ranks, 1.0)
+        ratio = max_load / avg_load
+        if initial_ratio is None:
+            initial_ratio = ratio
+        final_ratio = ratio
+        if ratio < threshold_ratio:
+            break
 
-    hot_start = rank_hot * num_local
-    hot_end = (rank_hot + 1) * num_local
-    phys_a = max(range(hot_start, hot_end), key=lambda i: lc[p2l[i]])
-    logical_a = p2l[phys_a]
+        rank_hot = gpu_load.index(max_load)
+        rank_cold = gpu_load.index(min(gpu_load))
+        if rank_hot == rank_cold:
+            break
 
-    cold_start = rank_cold * num_local
-    cold_end = (rank_cold + 1) * num_local
-    phys_b = min(range(cold_start, cold_end), key=lambda i: lc[p2l[i]])
-    logical_b = p2l[phys_b]
+        hot_start, hot_end = rank_hot * num_local, (rank_hot + 1) * num_local
+        hot_candidates = [i for i in range(hot_start, hot_end) if i not in used_slots]
+        if not hot_candidates:
+            break
+        phys_a = max(hot_candidates, key=lambda i: lc[p2l[i]])
+        logical_a = p2l[phys_a]
 
-    ratio = max(gpu_load) / max(sum(gpu_load) / num_ranks, 1.0)
-    return SwapOp(
-        layer_id=-1,  # filled by caller
-        phys_slot_a=phys_a, phys_slot_b=phys_b,
-        rank_a=rank_hot, rank_b=rank_cold,
-        logical_a=logical_a, logical_b=logical_b,
-        imbalance=ratio,
-    )
+        cold_start, cold_end = rank_cold * num_local, (rank_cold + 1) * num_local
+        cold_candidates = [i for i in range(cold_start, cold_end) if i not in used_slots]
+        if not cold_candidates:
+            break
+        phys_b = min(cold_candidates, key=lambda i: lc[p2l[i]])
+        logical_b = p2l[phys_b]
+
+        ops.append((phys_a, phys_b, rank_hot, rank_cold, logical_a, logical_b, ratio))
+        used_slots.add(phys_a)
+        used_slots.add(phys_b)
+        p2l[phys_a], p2l[phys_b] = logical_b, logical_a
+
+    return ops, initial_ratio, final_ratio
 
 
 def try_build_swap_plan_v2(
@@ -71,95 +91,54 @@ def try_build_swap_plan_v2(
     physical_to_logical_map: torch.Tensor,
     num_ranks: int,
     num_local: int,
-    high_threshold: float,
-    target_ratio: float,
-    max_total_swaps: int,
+    threshold_ratio: float,
+    max_swaps_per_layer: int,
+    max_total_swap_layers: int = 48,  # safety valve only, not a real budget
 ) -> List[SwapOp]:
-    """V2 swap planner: elastic threshold + global budget.
-
-    1. Compute ratio for all layers
-    2. Filter layers with ratio > high_threshold
-    3. Sort by ratio descending (worst-first)
-    4. For each selected layer, do 1 swap, check if ratio dropped below
-       target_ratio; if not and budget remains, allow another round
-    5. Stop when budget exhausted or no more layers above high_threshold
-    """
+    """V2.1: select layers with ratio > threshold_ratio, fully correct each
+    (multi-round) via _build_layer_swap_sequence. No artificial global swap
+    budget -- max_total_swap_layers is a safety cap (default 48 = all layers,
+    i.e. effectively unbounded) to guard against pathological cases, not a
+    tuning knob that starves correction like V2's max_total_swaps=8 did."""
     L = logical_count.shape[0]
     lc_cpu = logical_count.tolist()
     p2l_cpu = physical_to_logical_map.tolist()
 
-    # Phase 1: compute all layer ratios
-    layer_ratios = []  # (layer_id, ratio)
+    per_layer_result = {}
     for l in range(L):
-        ratio, _ = _compute_layer_ratio(lc_cpu[l], p2l_cpu[l], num_ranks, num_local)
-        if ratio > high_threshold:
-            layer_ratios.append((l, ratio))
+        ops, initial_ratio, final_ratio = _build_layer_swap_sequence(
+            lc_cpu[l], p2l_cpu[l], num_ranks, num_local,
+            threshold_ratio, max_swaps_per_layer,
+        )
+        if ops:
+            per_layer_result[l] = (ops, initial_ratio, final_ratio)
 
-    if not layer_ratios:
+    if not per_layer_result:
         return []
 
-    # Sort worst-first
-    layer_ratios.sort(key=lambda x: x[1], reverse=True)
+    sorted_layers = sorted(per_layer_result.keys(),
+                           key=lambda l: per_layer_result[l][1], reverse=True)
+    selected_layers = sorted_layers[:max_total_swap_layers]
 
-    # Phase 2: greedily assign swaps within global budget
     candidates = []
-    budget_remaining = max_total_swaps
-    p2l_working = [list(row) for row in p2l_cpu]  # mutable copy for simulation
-
-    # Multiple passes: keep going until budget empty or no improvement
-    for _pass in range(max_total_swaps):  # at most max_total_swaps passes
-        if budget_remaining <= 0:
-            break
-        made_progress = False
-        for layer_id, _ in layer_ratios:
-            if budget_remaining <= 0:
-                break
-            ratio, gpu_load = _compute_layer_ratio(
-                lc_cpu[layer_id], p2l_working[layer_id], num_ranks, num_local
-            )
-            if ratio <= target_ratio:
-                continue  # already good enough
-            if ratio <= high_threshold and _pass > 0:
-                continue  # only first pass uses high_threshold, subsequent passes only fix remaining > target
-
-            op = _make_one_swap(
-                lc_cpu[layer_id], p2l_working[layer_id], gpu_load, num_ranks, num_local
-            )
-            if op is None:
-                continue
-
-            # Simulate the swap in working copy
-            p2l_working[layer_id][op.phys_slot_a], p2l_working[layer_id][op.phys_slot_b] = (
-                op.logical_b, op.logical_a
-            )
-
+    diag_initial, diag_final = [], []
+    for l in selected_layers:
+        ops, initial_ratio, final_ratio = per_layer_result[l]
+        diag_initial.append(initial_ratio)
+        diag_final.append(final_ratio)
+        for (phys_a, phys_b, rank_hot, rank_cold, logical_a, logical_b, ratio) in ops:
             candidates.append(SwapOp(
-                layer_id=layer_id,
-                phys_slot_a=op.phys_slot_a, phys_slot_b=op.phys_slot_b,
-                rank_a=op.rank_a, rank_b=op.rank_b,
-                logical_a=op.logical_a, logical_b=op.logical_b,
+                layer_id=l, phys_slot_a=phys_a, phys_slot_b=phys_b,
+                rank_a=rank_hot, rank_b=rank_cold,
+                logical_a=logical_a, logical_b=logical_b,
                 imbalance=ratio,
             ))
-            budget_remaining -= 1
-            made_progress = True
 
-        if not made_progress:
-            break
-
-    if candidates:
-        ratios_before = [c.imbalance for c in candidates]
-        # Compute after ratios for diagnostics
-        ratios_after = []
-        for c in candidates:
-            r, _ = _compute_layer_ratio(
-                lc_cpu[c.layer_id], p2l_working[c.layer_id], num_ranks, num_local
-            )
-            ratios_after.append(r)
+    if diag_initial:
         logger.info(
-            f"[OEPLB-V2] plan: {len(candidates)} swaps across "
-            f"{len(set(c.layer_id for c in candidates))} layers, "
-            f"budget_used={max_total_swaps - budget_remaining}/{max_total_swaps}, "
-            f"avg_ratio {sum(ratios_before)/len(ratios_before):.3f} -> {sum(ratios_after)/len(ratios_after):.3f}"
+            f"[OEPLB-V2.1] plan: {len(candidates)} swaps across {len(selected_layers)} layers "
+            f"(no global cap), avg_ratio_before={sum(diag_initial)/len(diag_initial):.3f} "
+            f"avg_ratio_after={sum(diag_final)/len(diag_final):.3f} "
+            f"max_ratio_before={max(diag_initial):.3f}"
         )
-
     return candidates
