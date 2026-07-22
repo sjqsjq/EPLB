@@ -1,0 +1,21 @@
+{
+  "label": "oeplb_trace_traffic",
+  "dataset": "/tmp/focused_prefill_heavy.jsonl",
+  "num_requests": 1500,
+  "concurrency": 1024,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 256.87,
+  "total_comp_tokens": 48000,
+  "tps": 186.9,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 162978.2,
+  "lat_p50_ms": 220253.8,
+  "lat_p99_ms": 223638.61,
+  "ttft_mean_ms": 50246.78,
+  "ttft_p50_ms": 25899.07,
+  "ttft_p99_ms": 216418.26,
+  "tpot_mean_ms": 3636.5,
+  "tpot_p50_ms": 5421.59,
+  "tpot_p99_ms": 6892.66
+}

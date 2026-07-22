@@ -66,6 +66,27 @@ class AsyncSwapExecutor:
         op_temps = [None] * len(plan)  # op_temps[i] = {"a": [Tensor,...]} or {"b": [...]} or {} or {"local": True}
         p2p_ops = []
 
+        # VERIFY-WEIGHT-MOVE: checksum the first op's weight slots BEFORE the
+        # swap, on whichever rank(s) are actually involved (rank_a or rank_b).
+        import logging as _logging
+        _logger = _logging.getLogger(__name__)
+        if plan and (self.my_rank == plan[0].rank_a or self.my_rank == plan[0].rank_b):
+            op0 = plan[0]
+            w0 = routed_weights[op0.layer_id]
+            la0 = op0.phys_slot_a - op0.rank_a * self.num_local
+            lb0 = op0.phys_slot_b - op0.rank_b * self.num_local
+            local_slot = la0 if self.my_rank == op0.rank_a else lb0
+            checksum_before = float(w0[0][local_slot].float().sum().item())
+            _logger.info(f"[VERIFY-WEIGHT-MOVE] rank={self.my_rank} BEFORE swap "
+                        f"layer={op0.layer_id} phys_a={op0.phys_slot_a}(rank{op0.rank_a}) "
+                        f"phys_b={op0.phys_slot_b}(rank{op0.rank_b}) "
+                        f"my_local_slot={local_slot} weight0_checksum={checksum_before:.6f}")
+            self._verify_checksum_before = checksum_before
+            self._verify_local_slot = local_slot
+            self._verify_layer_id = op0.layer_id
+        else:
+            self._verify_checksum_before = None
+
         for i, op in enumerate(plan):
             weights = routed_weights[op.layer_id]  # List[Tensor], each (num_local, ...)
             local_a = op.phys_slot_a - op.rank_a * self.num_local
@@ -104,12 +125,32 @@ class AsyncSwapExecutor:
 
         self.pending = {"plan": plan, "op_temps": op_temps, "event": event, "reqs": reqs}
 
-    def try_finish(self):
-        """Non-blocking check. Returns the completed plan (List[SwapOp]) once the
-        transfer is confirmed done, else None (caller should retry later)."""
+    def try_finish(self, force_wait: bool = False):
+        """Non-blocking check by default. Returns the completed plan (List[SwapOp])
+        once the transfer is confirmed done, else None (caller should retry later).
+
+        BUGFIX (deadlock, found via py-spy dump showing all 8 ranks hung inside
+        the SAME torch.distributed.all_reduce call in controller.py): P2P ops are
+        issued on a dedicated low-priority CUDA stream so begin() doesn't block
+        the scheduler. But NCCL requires operations on a shared communicator to
+        be issued in the SAME RELATIVE ORDER by every rank, regardless of which
+        local CUDA stream enqueued them. If one rank's CPU thread reaches the
+        NEXT window's all_reduce (default stream) before another rank's P2P ops
+        from the PREVIOUS window have actually been submitted to NCCL (low-priority
+        stream scheduling can lag arbitrarily under load), the ranks' respective
+        NCCL op sequences diverge in TYPE (one rank's next op is "collective
+        all_reduce", another's is still "P2P send/recv") -- the communicator can
+        never resolve this and hangs forever, on every rank, in whichever call
+        happens to be next. force_wait=True (used right before issuing the next
+        window's all_reduce -- see controller.py's _decide_and_begin_swap) blocks
+        until the pending transfer is GPU-confirmed complete, restoring strict
+        cross-rank ordering at that one synchronization point, without giving up
+        the non-blocking fast path for every other forward pass in between."""
         if not self.busy:
             return None
-        if not self.pending["event"].query():
+        if force_wait:
+            self.pending["event"].synchronize()
+        elif not self.pending["event"].query():
             return None  # still in flight; do not block
 
         plan = self.pending["plan"]
@@ -127,6 +168,19 @@ class AsyncSwapExecutor:
             if "b" in temp:
                 for wi, w in enumerate(weights):
                     w[local_b].copy_(temp["b"][wi])
+
+        if getattr(self, '_verify_checksum_before', None) is not None:
+            import logging as _logging
+            _logger = _logging.getLogger(__name__)
+            w0 = routed_weights[self._verify_layer_id]
+            checksum_after = float(w0[0][self._verify_local_slot].float().sum().item())
+            changed = abs(checksum_after - self._verify_checksum_before) > 1e-3
+            _logger.info(f"[VERIFY-WEIGHT-MOVE] rank={self.my_rank} AFTER swap "
+                        f"layer={self._verify_layer_id} local_slot={self._verify_local_slot} "
+                        f"weight0_checksum_before={self._verify_checksum_before:.6f} "
+                        f"weight0_checksum_after={checksum_after:.6f} "
+                        f"CHANGED={changed}")
+            self._verify_checksum_before = None
 
         self.pending = None
         return plan

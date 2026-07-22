@@ -69,15 +69,16 @@ def analyze_config(label, snap_dirs):
             print(f"  WARN: {d} has {len(files)} files, skipping", file=sys.stderr)
             continue
         per_rank = [load_rank_layer_step(f) for f in files]
+        num_ranks = len(per_rank)
         for cat in ('dispatch', 'combine', 'expert'):
             n_steps = min(len(pr[cat]) for pr in per_rank)
             for si in range(n_steps):
                 for lid in range(48):
-                    vals = [per_rank[r][cat][si].get(lid, 0.0) for r in range(4)]
+                    vals = [per_rank[r][cat][si].get(lid, 0.0) for r in range(num_ranks)]
                     total = sum(vals)
                     if total <= 0:
                         continue
-                    avg = total / 4
+                    avg = total / num_ranks
                     mx = max(vals)
                     ratios[lid][cat].append(mx / avg)
                     if cat == 'expert':

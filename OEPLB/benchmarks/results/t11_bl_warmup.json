@@ -1,0 +1,21 @@
+{
+  "label": "t11_bl_warmup",
+  "dataset": "/tmp/warmup_500.jsonl",
+  "num_requests": 500,
+  "concurrency": 1024,
+  "ok": 500,
+  "errors": 0,
+  "total_time_s": 28.99,
+  "total_comp_tokens": 16000,
+  "tps": 552.0,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 28860.1,
+  "lat_p50_ms": 28857.0,
+  "lat_p99_ms": 28976.01,
+  "ttft_mean_ms": 14512.55,
+  "ttft_p50_ms": 14599.73,
+  "ttft_p99_ms": 27133.99,
+  "tpot_mean_ms": 462.83,
+  "tpot_p50_ms": 463.9,
+  "tpot_p99_ms": 801.32
+}

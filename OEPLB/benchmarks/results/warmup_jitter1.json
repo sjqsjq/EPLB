@@ -1,0 +1,21 @@
+{
+  "label": "warmup_jitter1",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 2.83,
+  "total_comp_tokens": 1600,
+  "tps": 565.0,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 2825.3,
+  "lat_p50_ms": 2825.4,
+  "lat_p99_ms": 2830.45,
+  "ttft_mean_ms": 1027.46,
+  "ttft_p50_ms": 983.6,
+  "ttft_p99_ms": 1117.22,
+  "tpot_mean_ms": 58.0,
+  "tpot_p50_ms": 59.4,
+  "tpot_p99_ms": 70.65
+}

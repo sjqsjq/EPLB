@@ -1,0 +1,21 @@
+{
+  "label": "fix_oe_r1",
+  "dataset": "/tmp/q235_test100.jsonl",
+  "num_requests": 100,
+  "concurrency": 1024,
+  "ok": 100,
+  "errors": 0,
+  "total_time_s": 20.49,
+  "total_comp_tokens": 100,
+  "tps": 4.9,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 11262.6,
+  "lat_p50_ms": 11742.3,
+  "lat_p99_ms": 20476.6,
+  "ttft_mean_ms": 11262.51,
+  "ttft_p50_ms": 11749.39,
+  "ttft_p99_ms": 20476.55,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

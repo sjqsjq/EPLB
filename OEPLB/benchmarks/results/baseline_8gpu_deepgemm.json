@@ -1,0 +1,21 @@
+{
+  "label": "baseline_8gpu_deepgemm",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 1024,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 413.18,
+  "total_comp_tokens": 240000,
+  "tps": 580.9,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 54921.2,
+  "lat_p50_ms": 56422.4,
+  "lat_p99_ms": 65301.47,
+  "ttft_mean_ms": 24621.56,
+  "ttft_p50_ms": 23716.89,
+  "ttft_p99_ms": 49523.22,
+  "tpot_mean_ms": 977.41,
+  "tpot_p50_ms": 999.24,
+  "tpot_p99_ms": 1761.25
+}

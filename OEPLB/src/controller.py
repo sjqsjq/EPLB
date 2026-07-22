@@ -106,7 +106,12 @@ class PBOEPLBController:
         self.window_count = 0
 
         self._prefill_batch_counter = 0
-        self._sample_interval = max(1, cfg.cooldown_steps // 5)
+        # Sample every Nth prefill batch to reduce record overhead.
+        # With sync_window=256 and 48 layers, recording every batch costs
+        # ~82us × 48 × 256 = ~1s per window on scheduler critical path.
+        # Sampling every 4th batch cuts this to ~0.25s while keeping
+        # routing statistics representative (still ~3000 calls per window).
+        self._sample_interval = 1  # record every prefill batch
         self._should_record_this_batch = False
 
         self.async_executor = AsyncSwapExecutor(
@@ -120,7 +125,16 @@ class PBOEPLBController:
         self._ready = False
         self._warmup_forwards = 10
         self._steps_since_last_check = 0
-        self._decay_factor = 0.5  # exponential decay: keep 50% of history each window
+        self._decay_factor = 0.9  # best tested value
+        # Adaptive window (experimental, opt-in via cfg.adaptive_window): shrink
+        # sync_window temporarily during a CONFIRMED workload shift (>=2
+        # consecutive low-cos_sim windows, not a single blip), grow it back once
+        # stable (>=2 consecutive high-cos_sim windows). See _decide_and_begin_swap
+        # for where this is updated and on_forward_pass_end for where it's read.
+        self._effective_sync_window = cfg.sync_window
+        self._last_cos_sim = None
+        self._window_shift_count = 0
+        self._window_stable_count = 0
 
         # Profiling counters (wall-clock, CPU-side critical-path time)
         self._prof_record_calls = 0
@@ -130,6 +144,8 @@ class PBOEPLBController:
         self._prof_finalize_ns = 0
         self._prof_last_report_forward = 0
 
+        self._prev_load = None  # for routing stability tracking
+        self._stability_history = []  # cosine similarities
         self._rank = torch.distributed.get_rank() if torch.distributed.is_initialized() else 0
         logger.info(f"[PB-OEPLB] Init v0.11 (fast-response + decay): "
                     f"layers={self.num_layers}, experts={self.num_logical_experts}, "
@@ -241,33 +257,103 @@ class PBOEPLBController:
         # counter advances in lockstep with every other rank's counter with
         # NO all_reduce needed to agree on "when to check".
         self._steps_since_last_check += 1
-        if self._steps_since_last_check < self.cfg.sync_window:
+        if self._steps_since_last_check < self._effective_sync_window:
             return
         self._steps_since_last_check = 0
-        self._decay_factor = 0.5  # exponential decay: keep 50% of history each window
+        self._decay_factor = 0.9  # best tested value
 
         self._decide_and_begin_swap()
-        self.load.zero_()
+        # Exponential decay instead of zeroing: preserve routing history
+        # so swap decisions reflect the stable/dominant pattern, not
+        # single-window noise. decay=0.3 means 70% of current window's
+        # signal is retained, 30% of history bleeds through.
+        self.load.copy_((self.load.float() * self._decay_factor).long())
         self.total_tokens = 0
         self._prefill_batch_counter = 0
 
     def _decide_and_begin_swap(self):
         try:
+            # DEADLOCK FIX: force any still-pending swap from the PREVIOUS window
+            # to genuinely finish (blocking if necessary) before this rank issues
+            # the collective all_reduce below. See async_swapper.py's try_finish()
+            # docstring for the full root-cause explanation (cross-rank NCCL op
+            # ordering divergence between the async P2P stream and the default
+            # stream's collectives). This is the ONLY blocking point -- every
+            # other forward pass in between windows still uses the non-blocking
+            # try_finish() path via on_forward_pass_end()'s _try_finish_pending_swap().
+            self._try_finish_pending_swap(force_wait=True)
+
             _t0 = time.perf_counter_ns()
-            # Single all_reduce per sync_window (not per forward). This SUM
-            # both aggregates the true global load AND serves as the
-            # "enough tokens accumulated" signal — checked locally on the
-            # result, no separate readiness consensus round needed.
+            # BUGFIX: all_reduce must NOT mutate self.load in place. self.load
+            # is a per-rank LOCAL decayed accumulator (see on_forward_pass_end);
+            # once all_reduce sums it across ranks, every rank ends up holding
+            # an IDENTICAL GLOBAL value. If that global value is decayed and
+            # left in self.load, the NEXT window's all_reduce sums 8 copies of
+            # an already-globally-summed quantity again -- compounding by
+            # ~num_ranks x decay_factor EVERY window (confirmed empirically:
+            # observed tok_global growing ~7.2x/window with decay=0.9, exactly
+            # matching 8 ranks x 0.9). Fix: reduce a CLONE for the decision;
+            # self.load itself stays per-rank-local and only ever decays its
+            # own local history.
+            global_load = self.load.clone()
             torch.distributed.all_reduce(
-                self.load, op=torch.distributed.ReduceOp.SUM
+                global_load, op=torch.distributed.ReduceOp.SUM
             )
             self.window_count += 1
             self._prof_allreduce_ns += time.perf_counter_ns() - _t0
 
-            global_tokens = int(self.load.sum().item())
-            self._dump_heatmap_data(global_tokens)
+            global_tokens = int(global_load.sum().item())
             self._maybe_report_profile()
-            self._dump_detailed_load(global_tokens)
+            # Track drift every window (even quiet ones) so adaptive window sizing
+            # has an unbroken cos_sim history to react to.
+            self._last_cos_sim = self._track_routing_stability(global_load)
+            if self.cfg.adaptive_window and self._last_cos_sim is not None:
+                if self._last_cos_sim < self.cfg.window_shift_cos_threshold:
+                    self._window_shift_count += 1
+                    self._window_stable_count = 0
+                    # ASYMMETRIC confirmation: shrinking only changes CADENCE (how
+                    # soon we check again), not what gets swapped -- rebalancer's
+                    # own threshold_ratio still gates every actual swap decision
+                    # independent of window size. A false-positive shrink costs at
+                    # most one extra all_reduce; it can't mis-place an expert. So
+                    # shrinking doesn't need the multi-window confirmation that
+                    # decay/swap-aggressiveness changes would (those DO directly
+                    # cause swaps, where a false positive wastes real P2P bandwidth
+                    # and can't be un-done cheaply). React on window_shift_confirm
+                    # (default 1) low-cos_sim window(s) -- this window's cos_sim and
+                    # its own avg_ratio_before spike are computed from the SAME
+                    # global_load snapshot, so reacting immediately costs zero extra
+                    # lag beyond the one window of latency that's unavoidable (you
+                    # can't know a window is anomalous before it's finished).
+                    if self._window_shift_count >= self.cfg.window_shift_confirm_windows:
+                        if self._effective_sync_window != self.cfg.window_floor:
+                            logger.info(f"[PB-OEPLB-WINDOW] shift confirmed "
+                                        f"({self._window_shift_count} low-cos_sim "
+                                        f"window(s)) -- shrinking sync_window "
+                                        f"{self._effective_sync_window} -> {self.cfg.window_floor}")
+                        self._effective_sync_window = self.cfg.window_floor
+                elif self._last_cos_sim > self.cfg.window_stable_cos_threshold:
+                    self._window_stable_count += 1
+                    self._window_shift_count = 0
+                    # Recovery (growing back to the larger, TTFT-friendlier window)
+                    # keeps the stricter multi-window confirmation
+                    # (window_stable_confirm_windows, default 2) -- erring toward
+                    # staying small a little longer costs a bit of extra check
+                    # overhead, which is cheap, so there's no reason to rush this
+                    # direction the way there is for reacting to a real shift.
+                    if self._window_stable_count >= self.cfg.window_stable_confirm_windows:
+                        if self._effective_sync_window != self.cfg.sync_window:
+                            logger.info(f"[PB-OEPLB-WINDOW] stable confirmed "
+                                        f"({self._window_stable_count} consecutive "
+                                        f"high-cos_sim windows) -- restoring sync_window "
+                                        f"{self._effective_sync_window} -> {self.cfg.sync_window}")
+                        self._effective_sync_window = self.cfg.sync_window
+                else:
+                    # Ambiguous middle band: require a FRESH streak of confirmations
+                    # in either direction -- don't let a borderline value count
+                    # towards either side's confirmation tally.
+                    self._window_shift_count = 0
+                    self._window_stable_count = 0
             if global_tokens < self.cfg.min_prefill_tokens:
                 return
 
@@ -279,15 +365,15 @@ class PBOEPLBController:
             self._meta = self._fetch_metadata()
             p2l_map = self._meta.physical_to_logical_map.clone()
 
-            # BUG FIX (v0.11): record_next_layer receives LOGICAL expert IDs
-            # (topk_ids in select_experts are logical, not physical), so
-            # self.load is ALREADY in logical space. The v0.10 scatter_add_
-            # p2l conversion was a DOUBLE conversion that scrambled expert
-            # identity after the first swap — making all subsequent swap
-            # decisions based on corrupted data (expert A's count attributed
-            # to expert B). Fix: pass self.load directly as logical_count.
+            # BUGFIX: topk_ids reaching record_next_layer() are PHYSICAL slot
+            # ids (fused_topk's topk_ids_logical_to_physical() already ran,
+            # since ep_dispatch_algorithm="static" whenever --enable-pb-oeplb
+            # is set) -- NOT logical expert ids. self.load (and global_load,
+            # its all-reduced snapshot) is indexed by physical slot. Pass
+            # global_load (the all-reduced decision snapshot), not the
+            # per-rank-local self.load, to the plan builder.
             plan = try_build_swap_plan(
-                logical_count=self.load,
+                logical_count=global_load,
                 physical_to_logical_map=p2l_map,
                 num_ranks=self.ep_size,
                 num_local=self.num_local,
@@ -305,7 +391,7 @@ class PBOEPLBController:
         except Exception as e:
             logger.error(f"[PB-OEPLB] error: {e}\n{traceback.format_exc()}")
 
-    def _dump_detailed_load(self, global_tokens):
+    def _dump_detailed_load(self, global_tokens, global_load):
         """Verification A+B: cross-check token count aggregation methods."""
         if self._rank != 0 or self.window_count not in (5, 10):
             return
@@ -317,54 +403,95 @@ class PBOEPLBController:
         for layer_id in [24]:
             # VERIFY-A: use rebalancer compute_gpu_load (proven correct for swap decisions)
             gpu_load_reb = compute_gpu_load(
-                self.load[layer_id], p2l[layer_id],
+                global_load[layer_id], p2l[layer_id],
                 num_ranks=self.ep_size, num_local=self.num_local
             )
             logger.info(f"[VERIFY-A] w#{self.window_count} L{layer_id} rebalancer={gpu_load_reb.tolist()}")
 
-            # VERIFY-B: V2 script method (gather via p2l)
+            # VERIFY-B: BUGFIXED -- self.load is PHYSICAL-slot indexed (topk_ids
+            # reaching record_next_layer are already logical->physical converted
+            # by fused_topk/topk_ids_logical_to_physical since ep_dispatch_algorithm
+            # ="static"). No p2l gather needed; physical slot i belongs to rank
+            # i // num_local directly.
             v2s, v2m = [], []
             for r in range(self.ep_size):
                 s = r * self.num_local
                 e = (r + 1) * self.num_local
-                lids = p2l[layer_id, s:e].long()
-                pe = self.load[layer_id][lids]
+                pe = global_load[layer_id][s:e]
                 v2s.append(int(pe.sum().item()))
                 v2m.append(int(pe.max().item()))
             logger.info(f"[VERIFY-B] w#{self.window_count} L{layer_id} v2_sums={v2s} v2_maxes={v2m}")
 
-            # VERIFY-B manual: rank3 raw detail
+            # VERIFY-B manual: rank3 raw detail (physical slots, not logical ids)
             r3s = 3 * self.num_local
             r3e = 4 * self.num_local
-            r3_lids = p2l[layer_id, r3s:r3e].long().tolist()
-            r3_counts = [int(self.load[layer_id][lid].item()) for lid in r3_lids]
+            r3_counts = [int(global_load[layer_id][slot].item()) for slot in range(r3s, r3e)]
             logger.info(f"[VERIFY-B-R3] w#{self.window_count} L{layer_id} "
-                        f"slots=[{r3s}..{r3e-1}] lids={r3_lids[:5]}..{r3_lids[-3:]} "
+                        f"slots=[{r3s}..{r3e-1}] "
                         f"counts={r3_counts[:5]}..{r3_counts[-3:]} "
                         f"sum={sum(r3_counts)} max={max(r3_counts)}")
 
             # META: load tensor info
-            total = int(self.load[layer_id].sum().item())
-            nz = int((self.load[layer_id] > 0).sum().item())
+            total = int(global_load[layer_id].sum().item())
+            nz = int((global_load[layer_id] > 0).sum().item())
             logger.info(f"[VERIFY-META] w#{self.window_count} L{layer_id} "
                         f"shape={list(self.load[layer_id].shape)} total={total} "
                         f"nonzero={nz}/{self.load.shape[1]}")
 
-    def _dump_heatmap_data(self, global_tokens):
+    def _track_routing_stability(self, global_load):
+        """Track cosine similarity between consecutive windows' load distributions.
+        High similarity (>0.95) means the routing pattern is stable; low similarity
+        means the workload just shifted (e.g. domain switch). Returns the cos_sim
+        for THIS window (or None if there's no previous window yet).
+
+        BUGFIX: this used to be gated by `if self._rank != 0: return`, which meant
+        only rank 0 ever advanced self._prev_load / computed cos_sim. global_load is
+        already all-reduced (identical bit-for-bit on every rank) by the time this
+        is called, so every rank can safely compute the SAME cos_sim from the SAME
+        tensors -- the rank-0 guard now only protects the periodic log line (avoid
+        8x spam), not the computation itself. Kept as a general-purpose diagnostic
+        signal (independent of decay/window logic) so any future consumer can rely
+        on every rank holding a consistent, unbroken cos_sim history.
+        """
+        current = global_load.float()
+        cos_sim = None
+        if self._prev_load is not None:
+            # Per-layer cosine similarity, then average
+            dot = (current * self._prev_load).sum(dim=1)
+            norm_c = current.norm(dim=1)
+            norm_p = self._prev_load.norm(dim=1)
+            valid = (norm_c > 0) & (norm_p > 0)
+            if valid.any():
+                cos_sim = (dot[valid] / (norm_c[valid] * norm_p[valid])).mean().item()
+                self._stability_history.append(cos_sim)
+                if self._rank == 0 and len(self._stability_history) % 4 == 0:
+                    recent = self._stability_history[-8:]
+                    logger.info(
+                        f"[PB-OEPLB-STABILITY] w#{self.window_count} "
+                        f"cos_sim={cos_sim:.4f} "
+                        f"recent_avg={sum(recent)/len(recent):.4f} "
+                        f"all_avg={sum(self._stability_history)/len(self._stability_history):.4f} "
+                        f"(>0.95 = stable pattern, window can be larger)"
+                    )
+        self._prev_load = current.clone()
+        return cos_sim
+
+    def _dump_heatmap_data(self, global_tokens, global_load):
         """Dump per-rank load for each layer to analyze hot-spots."""
         if self._rank != 0:
             return
         if global_tokens < self.cfg.min_prefill_tokens:
             return
-        # BUG FIX: self.load is in LOGICAL expert space, NOT physical.
-        # Must use p2l_map to compute correct per-rank load (same as rebalancer).
-        p2l = self._cached_p2l  # [num_layers, num_physical_experts]
-        per_rank_load = torch.zeros(self.num_layers, self.ep_size, dtype=torch.int64, device=self.load.device)
+        # BUGFIX (corrected from prior version): self.load IS in PHYSICAL slot
+        # space -- topk_ids reaching record_next_layer() have already been
+        # converted logical->physical by fused_topk()'s call to
+        # topk_ids_logical_to_physical() (topk.py), since ep_dispatch_algorithm
+        # ="static" whenever --enable-pb-oeplb is set. Physical slot i belongs
+        # to rank i // num_local directly -- no p2l gather needed.
+        per_rank_load = torch.zeros(self.num_layers, self.ep_size, dtype=torch.int64, device=global_load.device)
         for r in range(self.ep_size):
             s, e = r * self.num_local, (r + 1) * self.num_local
-            # p2l[layer, s:e] = logical IDs on this rank's physical slots
-            logical_ids = p2l[:, s:e]  # [num_layers, num_local]
-            per_rank_load[:, r] = self.load.gather(1, logical_ids.long()).sum(dim=1)
+            per_rank_load[:, r] = global_load[:, s:e].sum(dim=1)
         # per_rank_load: [num_layers, ep_size]
         # Pick layer 0 and layer 24 (middle) as representative
         for layer_id in [0, 24, 47]:
@@ -399,9 +526,9 @@ class PBOEPLBController:
             f"total={total_ms:.2f}ms avg_record_us={1000*record_ms/max(1,self._prof_record_calls):.2f}"
         )
 
-    def _try_finish_pending_swap(self):
+    def _try_finish_pending_swap(self, force_wait: bool = False):
         try:
-            plan = self.async_executor.try_finish()
+            plan = self.async_executor.try_finish(force_wait=force_wait)
         except Exception as e:
             logger.error(f"[PB-OEPLB] finish error: {e}\n{traceback.format_exc()}")
             self.async_executor.pending = None
@@ -420,6 +547,21 @@ class PBOEPLBController:
             new_meta = fast_init_by_mapping(new_p2l, self.num_logical_experts)
             self._meta.update(new_meta, update_layer_ids=list(update_layers))
             self._cached_p2l = self._meta.physical_to_logical_map
+
+            # BUGFIX: remap self.load (decay history) to match the new placement.
+            # Without this, decay history has counts indexed by OLD physical slots,
+            # but new forward passes record into slots under the NEW placement.
+            # The mismatch makes ratio_before stuck at the pre-swap level because
+            # 90% of the signal (decay history) still reflects the old layout.
+            # Fix: for each swapped pair, swap their counts in self.load too,
+            # so the history "follows" the experts to their new physical slots.
+            for op in plan:
+                layer = op.layer_id
+                a, b = op.phys_slot_a, op.phys_slot_b
+                self.load[layer, a], self.load[layer, b] = (
+                    self.load[layer, b].clone(), self.load[layer, a].clone()
+                )
+
             self._prof_finalize_ns += time.perf_counter_ns() - _tf
             total_ms = (time.perf_counter() - self._pending_plan_start_t) * 1000
             self.total_swaps += len(plan)

@@ -1,0 +1,21 @@
+{
+  "label": "book_bl_r1_long_long",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/bookcorpus_grid/long_long.jsonl",
+  "num_requests": 2048,
+  "concurrency": 1024,
+  "ok": 1904,
+  "errors": 144,
+  "total_time_s": 1164.02,
+  "total_comp_tokens": 1949340,
+  "tps": 1674.7,
+  "avg_output_tokens": 1023.8,
+  "lat_mean_ms": 464614.1,
+  "lat_p50_ms": 536943.9,
+  "lat_p99_ms": 594461.5,
+  "ttft_mean_ms": 330584.09,
+  "ttft_p50_ms": 393125.98,
+  "ttft_p99_ms": 503281.68,
+  "tpot_mean_ms": 131.04,
+  "tpot_p50_ms": 135.29,
+  "tpot_p99_ms": 173.01
+}

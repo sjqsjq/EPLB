@@ -1,0 +1,21 @@
+{
+  "label": "oeplb_8gpu_deepgemm",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 1024,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 409.92,
+  "total_comp_tokens": 240000,
+  "tps": 585.5,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 54558.7,
+  "lat_p50_ms": 56073.8,
+  "lat_p99_ms": 67578.08,
+  "ttft_mean_ms": 24512.39,
+  "ttft_p50_ms": 23253.03,
+  "ttft_p99_ms": 53202.62,
+  "tpot_mean_ms": 969.23,
+  "tpot_p50_ms": 991.68,
+  "tpot_p99_ms": 1747.9
+}

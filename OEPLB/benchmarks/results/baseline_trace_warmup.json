@@ -1,0 +1,21 @@
+{
+  "label": "baseline_trace_warmup",
+  "dataset": "/tmp/warmup_500.jsonl",
+  "num_requests": 500,
+  "concurrency": 1024,
+  "ok": 500,
+  "errors": 0,
+  "total_time_s": 31.79,
+  "total_comp_tokens": 16000,
+  "tps": 503.4,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 31655.1,
+  "lat_p50_ms": 31652.9,
+  "lat_p99_ms": 31775.05,
+  "ttft_mean_ms": 16098.75,
+  "ttft_p50_ms": 16191.1,
+  "ttft_p99_ms": 29990.46,
+  "tpot_mean_ms": 501.82,
+  "tpot_p50_ms": 510.5,
+  "tpot_p99_ms": 863.93
+}

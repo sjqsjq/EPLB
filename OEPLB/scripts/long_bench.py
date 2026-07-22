@@ -11,7 +11,7 @@ import asyncio, aiohttp, json, time, sys, statistics
 
 API = "http://localhost:30000/v1/completions"
 MODEL = "/workspace/Qwen3-30B-A3B-FP8"
-CONC = 512
+CONC = 1024
 
 async def send(session, req):
     t0 = time.perf_counter()

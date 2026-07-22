@@ -1,0 +1,21 @@
+{
+  "label": "v1_fixed2_trace_traffic",
+  "dataset": "/tmp/prefill_heavy_x3.jsonl",
+  "num_requests": 1500,
+  "concurrency": 1024,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 258.49,
+  "total_comp_tokens": 48000,
+  "tps": 185.7,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 170211.5,
+  "lat_p50_ms": 239658.1,
+  "lat_p99_ms": 242085.8,
+  "ttft_mean_ms": 28493.21,
+  "ttft_p50_ms": 21242.77,
+  "ttft_p99_ms": 207561.79,
+  "tpot_mean_ms": 4571.56,
+  "tpot_p50_ms": 5983.33,
+  "tpot_p99_ms": 7465.03
+}

@@ -1,0 +1,21 @@
+{
+  "label": "warmup_oeplb_r3_short_long",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 1.63,
+  "total_comp_tokens": 1600,
+  "tps": 979.9,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 1623.9,
+  "lat_p50_ms": 1624.1,
+  "lat_p99_ms": 1630.55,
+  "ttft_mean_ms": 817.45,
+  "ttft_p50_ms": 822.81,
+  "ttft_p99_ms": 828.41,
+  "tpot_mean_ms": 26.01,
+  "tpot_p50_ms": 25.83,
+  "tpot_p99_ms": 34.99
+}

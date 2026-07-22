@@ -1,0 +1,21 @@
+{
+  "label": "fix_bl_r1",
+  "dataset": "/tmp/q235_test100.jsonl",
+  "num_requests": 100,
+  "concurrency": 1024,
+  "ok": 100,
+  "errors": 0,
+  "total_time_s": 22.35,
+  "total_comp_tokens": 100,
+  "tps": 4.5,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 12266.0,
+  "lat_p50_ms": 12746.5,
+  "lat_p99_ms": 22329.3,
+  "ttft_mean_ms": 12265.91,
+  "ttft_p50_ms": 12751.59,
+  "ttft_p99_ms": 22329.28,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

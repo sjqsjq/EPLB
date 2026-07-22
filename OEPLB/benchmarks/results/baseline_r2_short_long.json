@@ -1,0 +1,21 @@
+{
+  "label": "baseline_r2_short_long",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/short_long.jsonl",
+  "num_requests": 2048,
+  "concurrency": 1024,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 47.35,
+  "total_comp_tokens": 409600,
+  "tps": 8650.7,
+  "avg_output_tokens": 200,
+  "lat_mean_ms": 23589.9,
+  "lat_p50_ms": 23589.0,
+  "lat_p99_ms": 25072.06,
+  "ttft_mean_ms": 4314.81,
+  "ttft_p50_ms": 4284.21,
+  "ttft_p99_ms": 7874.38,
+  "tpot_mean_ms": 96.86,
+  "tpot_p50_ms": 97.09,
+  "tpot_p99_ms": 116.61
+}
