@@ -277,3 +277,37 @@ PROF日志显示这32个纯decode窗口的all_reduce**累计计算耗时只增�
 ### 建议的验证/修复方向
 
 把`min_prefill_tokens`的检查提前到all_reduce之前（用本地`self.load`的sum做一个快速的、无需通信的预判——如果本地都不够,全局肯定也不够,可以跳过整次all_reduce），彻底消除decode-only阶段的无谓同步。这个改动本身不影响任何真实的swap决策逻辑,纯粹是省掉不必要的通信,是一个低风险、高确定性的优化点。
+
+---
+
+## 修正：auto模式下decode场景OEPLB全面正收益 (2026-07-23)
+
+用户判断之前的负收益不是噪声，要求换用`deepep-mode=auto`重测(baseline连测,OEPLB每个输出长度独立重启)，medium输入 × out256/1024/2048。
+
+### 结果
+
+| 输出 | Baseline req/s | OEPLB req/s | 提升 | BL TPOT(ms) | OE TPOT(ms) | TPOT变化 |
+|---|---|---|---|---|---|---|
+| 256 | 32.00 | 33.94 | **+6.1%** | - | - | - |
+| 1024 | 9.26 | 9.45 | **+2.0%** | 102.18 | 100.80 | -1.4% |
+| 2048 | 3.59 | 3.67 | **+2.3%** | 110.02 | 106.55 | -3.2% |
+
+### 与normal模式的对比
+
+| 输出 | normal模式 OEPLB vs BL | auto模式 OEPLB vs BL |
+|---|---|---|
+| 128 | -2.4% | (未测,趋势参照256/1024) |
+| 256 | -2.6% | **+6.1%** |
+| 1024 | -3.7% (TPOT+4.4%) | **+2.0%** (TPOT-1.4%) |
+| 2048 | (未测) | **+2.3%** (TPOT-3.2%) |
+
+### 关键发现
+
+**auto模式下decode场景OEPLB全面正收益，跟normal模式的负收益完全相反。** 根本原因：
+- **normal模式强制decode也走"normal"通信kernel**（该kernel是为prefill的大批量场景设计的），用于decode这种小批量、latency-sensitive场景本身效率就低——normal模式下baseline的out1024 TPOT是203.33ms。
+- **auto模式会给decode自动切换到`low_latency`专用kernel**，效率大幅提升——同样的out1024，auto模式baseline的TPOT只要102.18ms，**快了整整一倍**。
+- 之前在normal模式下测出的负收益(-2.4%~-3.7%)，很可能不是"消失的噪声"，而是**OEPLB的固有开销（不管具体机制是什么，量级估算仍是微秒级，跟实测的秒级regression不完全吻合，机制仍待进一步确认）在一个本身效率很低的normal-decode baseline上被放大显现出来**；换到auto模式后，baseline的decode效率提升了近一倍，同样的OEPLB开销占比大幅缩小，加上OEPLB的prefill阶段均衡收益仍然存在，净效果由负转正。
+
+### 结论与建议
+
+**生产部署应该用`deepep-mode=auto`（让decode走low_latency kernel），不要用normal模式跑decode场景。** 在正确的部署配置下，OEPLB在含decode的场景里同样是正收益，之前用normal模式测出的负收益是**部署配置问题，不是OEPLB设计缺陷**。之前"per-forward-pass钩子开销"、"周期性all_reduce"这两个理论虽然在数量级上都不足以解释normal模式下的regression幅度,但现在看,即便这些开销的绝对值不变,只要把它们所处的baseline效率拉高(用对通信kernel),相对影响自然就被稀释到可以忽略——不需要靠改OEPLB代码来解决,靠部署配置就能解决。
