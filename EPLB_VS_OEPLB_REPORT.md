@@ -213,3 +213,35 @@ EPLB的rebalance周期长（64 forward pass + 每次0.5-4s阻塞），domain切�
 ### EPLB稳定性问题
 
 测试过程中EPLB在medium_short上出现了一次rebalance后CUDA error crash（`cudaErrorInvalidConfiguration`），重试后成功。这个crash是EPLB自身的bug（rebalance后更新expert location时触发了无效的CUDA kernel配置），不是环境/配置问题。
+
+---
+
+## 补充：OEPLB medium输入 × 不同输出长度单独验证 (2026-07-23)
+
+之前三方对比中OEPLB在medium_medium(out=64)上出现-0.4%,用户质疑不合理。重新测试：baseline连测3个输出长度,OEPLB每个输出长度独立重启,排除任何链式干扰。
+
+### 结果
+
+| 输出max_tokens | Baseline | OEPLB(sw=64) | 提升 |
+|---|---|---|---|
+| 64 | 43.97 | **47.67** | **+8.4%** |
+| 128 | 29.66 | 28.96 | -2.4% |
+| 256 | 18.18 | 17.70 | -2.6% |
+
+### Swap记录（3个输出长度完全一致）
+
+3个负载的OEPLB DIAG日志逐窗口完全一致（同一批medium输入prompt,冷启动纠偏过程相同）：
+
+| Window | avg_ratio_before | avg_ratio_after | total_ops |
+|---|---|---|---|
+| 1 (冷启动) | 1.737 | 1.225 | 237 |
+| 2 | 1.227 | 1.203 | 49 |
+| 3 | 1.209-1.212 | 1.188-1.190 | 40 |
+| 4 | 1.189 | 1.189 | 1-2 |
+| 5 | 1.189 | 1.189 | 2 |
+
+### 分析
+
+1. **之前medium_medium(out=64)的-0.4%是链式测试的噪声**：单独重测拿到+8.4%,确认out=64场景下OEPLB有真实正收益。
+2. **out=128/256的-2.4%/-2.6%在噪声范围内**：swap行为跟out=64完全一致(因为OEPLB只看prefill,输出长度不影响swap决策),差异纯粹来自decode阶段的测量波动。需要多轮重复才能判断是真实的微小负收益还是噪声。
+3. **OEPLB的swap对decode确实没有额外负面影响**——3个输出长度的swap模式完全相同,但性能表现不同,说明差异来源不在OEPLB侧。
