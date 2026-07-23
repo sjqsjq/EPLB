@@ -245,3 +245,35 @@ EPLB的rebalance周期长（64 forward pass + 每次0.5-4s阻塞），domain切�
 1. **之前medium_medium(out=64)的-0.4%是链式测试的噪声**：单独重测拿到+8.4%,确认out=64场景下OEPLB有真实正收益。
 2. **out=128/256的-2.4%/-2.6%在噪声范围内**：swap行为跟out=64完全一致(因为OEPLB只看prefill,输出长度不影响swap决策),差异纯粹来自decode阶段的测量波动。需要多轮重复才能判断是真实的微小负收益还是噪声。
 3. **OEPLB的swap对decode确实没有额外负面影响**——3个输出长度的swap模式完全相同,但性能表现不同,说明差异来源不在OEPLB侧。
+
+---
+
+## 修正：OEPLB decode开销的真正来源是周期性all_reduce，不是placement mismatch (2026-07-23)
+
+上一节"placement对prefill最优但对decode有偏差"的解释被推翻。用户指出参考论文《Patterns behind Chaos: Forecasting Data Movement for Efficient Large-Scale MoE LLM Inference》的结论（prefill路由能较好地预测decode路由），这削弱了"两阶段路由系统性不一致"这个假设。
+
+### 真正的根因：sync_window计数器不区分prefill/decode
+
+`controller.py`的`on_forward_pass_end`里：
+```python
+self._steps_since_last_check += 1
+if self._steps_since_last_check < self._effective_sync_window:
+    return
+self._decide_and_begin_swap()  # 第一步就是 all_reduce，无条件执行
+```
+
+这个计数器**对prefill、decode、idle一视同仁地累加**。检查`min_prefill_tokens`门槛是在**all_reduce之后**才做的（`_decide_and_begin_swap`内部）。所以只要decode步数够多，每凑够64步就会：
+1. 无条件触发一次跨8-rank的all_reduce（真实的collective通信）
+2. all_reduce之后才发现`global_tokens < min_prefill_tokens`，放弃本次swap
+
+### 证据：PROF日志window数远超DIAG日志
+
+medium_out1024实测：DIAG（真正建立swap plan）只有**4次**，但PROF日志（每次进入`_decide_and_begin_swap`都会累加`window_count`）显示window数**涨到36+**——多出的32个窗口全部是纯decode步数累计触发的、被门槛挡掉的"空转"all_reduce。
+
+### 尚未完全定量证实的部分
+
+PROF日志显示这32个纯decode窗口的all_reduce**累计计算耗时只增加了约5ms**（allreduce_ms从397.07ms涨到402.16ms），单看这个数字远不足以解释+4.4%的TPOT涨幅。**更可能的机制是同步点本身造成的流水线气泡**（8个rank被迫在collective上对齐，慢的rank拖累其他rank，在单线程scheduler的critical path上这种停顿可能远大于all_reduce的原始耗时）——但这只是基于代码结构和历史经验（record_next_layer案例）的合理推测，**没有直接测量验证，不能算实锤**。
+
+### 建议的验证/修复方向
+
+把`min_prefill_tokens`的检查提前到all_reduce之前（用本地`self.load`的sum做一个快速的、无需通信的预判——如果本地都不够,全局肯定也不够,可以跳过整次all_reduce），彻底消除decode-only阶段的无谓同步。这个改动本身不影响任何真实的swap决策逻辑,纯粹是省掉不必要的通信,是一个低风险、高确定性的优化点。
