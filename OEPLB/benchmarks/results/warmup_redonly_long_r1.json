@@ -1,0 +1,21 @@
+{
+  "label": "warmup_redonly_long_r1",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 7.58,
+  "total_comp_tokens": 1600,
+  "tps": 211.0,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 7570.4,
+  "lat_p50_ms": 7570.6,
+  "lat_p99_ms": 7576.55,
+  "ttft_mean_ms": 1112.16,
+  "ttft_p50_ms": 1003.37,
+  "ttft_p99_ms": 1279.76,
+  "tpot_mean_ms": 208.33,
+  "tpot_p50_ms": 211.78,
+  "tpot_p99_ms": 221.49
+}
