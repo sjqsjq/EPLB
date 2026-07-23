@@ -1,0 +1,52 @@
+# Baseline vs 官方SGLang EPLB vs OEPLB 对比实验 (2026-07-22~23，进行中)
+
+## 目的
+
+对比三种配置在纯prefill场景（输出长度=1，几乎无decode）下的表现：
+1. **Baseline**：无任何专家负载均衡机制
+2. **SGLang官方EPLB**：`--enable-eplb --eplb-algorithm auto --ep-num-redundant-experts 8 --ep-dispatch-algorithm dynamic`
+3. **OEPLB**（我们自己的实现）：待测
+
+数据集复用之前网格实验的短/中/长输入桶（各2048条，`workload_grid/{short,medium,long}_out1.jsonl`，覆盖`max_tokens=1`），全部使用`deepep-mode=normal`（而不是之前实验一直用的`auto`）。
+
+**方法论**：baseline可以链式跑（3个输入连续测，不重启），EPLB和OEPLB每个输入长度都必须独立重启服务器（避免之前发现的"链式继承placement"这个混杂因素）。计划重复3轮。
+
+## 当前进度：不完整，仅部分数据
+
+| 配置 | short | medium | long |
+|---|---|---|---|
+| Baseline (3轮完整) | 3轮均值 **124.71** req/s | 3轮均值 **85.77** req/s | 3轮均值 **40.35** req/s |
+| EPLB iter=32 (部分：short 2轮, medium/long各1轮) | 2轮均值 **141.15** req/s | 1轮 **99.18** req/s | 1轮 **46.61** req/s |
+| EPLB iter=64 | 未测 | 未测 | 未测 |
+| OEPLB (对照) | 未测 | 未测 | 未测 |
+| 冗余专家=8但不开EPLB (隔离对照) | 未测 | 未测 | 未测 |
+
+**Baseline详细数据（3轮，total_time_s → req/s）：**
+- short: [15.85, 16.16, 17.33]s → [129.21, 126.73, 118.18] req/s，均值124.71
+- medium: [24.17, 23.75, 23.72]s → [84.73, 86.23, 86.34] req/s，均值85.77
+- long: [50.77, 50.74, 50.76]s → [40.34, 40.36, 40.35] req/s，均值40.35（3轮几乎完全一致，验证了baseline的稳定性）
+
+**EPLB iter=32详细数据（部分完成）：**
+- short: [14.47, 14.55]s → [141.53, 140.76] req/s
+- medium: [20.65]s → [99.18] req/s（仅1轮）
+- long: [43.94]s → [46.61] req/s（仅1轮）
+
+**表面上的提升幅度（未经隔离验证）：** short +13.2%, medium +15.6%, long +15.5%
+
+## ⚠️ 尚未解决的关键疑点：这个提升是EPLB动态纠偏的功劳，还是冗余专家本身的静态容量效应？
+
+EPLB的启动命令里包含 `--ep-num-redundant-experts 8`，这个参数本身会改变初始的专家物理布局（哪怕从不触发任何rebalance，多8个冗余槏位本身可能就带来一部分收益）。而baseline完全没有这个设置(redundant=0)。**目前的对比没有把"冗余专家的静态存在"和"EPLB动态决定怎么分配这些冗余专家"这两个变量分开**，直接把上面那组+13-15%的数字归功于EPLB是不严谨的。
+
+用户指出的关键点：**冗余专家的价值本身就是要靠动态复制到热点专家上才能兑现**——如果不开EPLB（`enable_eplb=False`），冗余专家会停留在`init_expert_location='trivial'`这个初始布局上，不知道哪些专家是热点，理论上不该有多少收益。这个判断需要用实验验证，不能想当然。
+
+## 另一个尚未完全搞清楚的现象：rebalance发生的时间点
+
+日志显示,iter=32配置下,EPLB确实会周期性打印`[EPLBManager] rebalance start/end`（大约每4-9秒一次,每次耗时0.5-4.4秒不等）。但初步观察显示，**部分rebalance发生在benchmark测试窗口已经结束之后的空闲期**——因为EPLBManager的iteration计数器对idle forward pass也计数（跟我们OEPLB "记录idle+forward pass都计数,但不record idle数据"的设计类似）。这意味着"调小iter数值"不能完全保证"rebalance决策使用的是测试期间的真实流量数据"，需要更细致地核对每次rebalance发生的具体时间跟benchmark请求分布的关系，才能确认EPLB是否真的针对了这批测试流量做了有效纠偏。
+
+## 待办（按优先级）
+
+1. **隔离实验**：`--ep-num-redundant-experts 8` + 不开`--enable-eplb`，同样测短/中/长(output=1)，看这一组本身能拿到多少提升。如果这组已经接近+13-15%，说明前面的提升主要来自冗余专家的静态存在，不是EPLB动态决策；如果这组接近0，则支持"EPLB的动态分配才是关键"这个判断。
+2. 补全EPLB iter=32的repeat2(medium/long)、repeat3(全部)。
+3. 测EPLB iter=64（3轮×3输入）。
+4. 测OEPLB在完全相同条件下的对照（deepep-mode=normal, output=1, 短/中/长, 独立重启, 3轮）。
+5. 全部完成后，重复整套流程但输出长度改为128。
