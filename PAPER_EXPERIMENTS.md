@@ -131,3 +131,35 @@ EPLB(iter=64, red=16, deepep-mode=normal), 同一个multidomain_v2数据集(4400
 1. **EPLB的rebalance不区分稳定期和切换期**：14次rebalance均匀分布在整个benchmark时间线上，间隔12-25秒，跟domain切换的时间点没有任何关联——EPLB没有"感知到workload变了"的能力，只是按固定周期做。
 2. **EPLB的收益(+4.9%)只有OEPLB的一半不到**：在这个多domain切换场景下，EPLB的全局rebalance既不能及时响应切换，又要付出8.7秒的阻塞代价，性价比远不如OEPLB的轻量P2P swap。
 3. **OEPLB adaptive在多domain场景下的增量价值更明显**：adaptive比静态sw=64多了2.5个百分点（+13.1% vs +10.6%），因为有更多的切换点需要"加速响应"。
+
+---
+
+## E14: Record开销对比（只记prefill vs prefill+decode全记）
+
+### 配置
+同一数据集 medium_medium(228tok输入, out=64, 2048条), deepep-mode=auto
+- 默认: `always_record=False` (只记prefill batch)
+- 全记: `--pb-oeplb-always-record` (prefill+decode都记)
+
+### 结果
+
+| 配置 | req/s | record calls | record总耗时(ms) | avg_record_us/call | allreduce(ms) |
+|---|---|---|---|---|---|
+| 只记prefill(默认) | **67.97** | 4794 | 447.19 | 93.28 | 298.63 |
+| prefill+decode全记 | **68.77** | 5640 | 492.83 | 87.38 | 278.61 |
+
+### 分析
+
+1. **吞吐差异极小（+1.2%），在噪声范围内**：只记prefill(67.97) vs 全记(68.77)，差异不到1个req/s，不能认为有统计显著差异。这个out=64的场景decode step数量相对有限，多记录的部分不够多。
+
+2. **record call次数差异**：全记版本多了846次调用(5640 vs 4794, +17.6%)，这些就是decode batch的record调用。record总耗时从447ms增加到493ms(+10.2%)。
+
+3. **单次record开销一致**：87-93us/call，不管prefill还是decode，每次scatter_add的开销基本相同。
+
+4. **EPLB的对比**：EPLB(stat模式)的`_SelectExpertsSinglePassGatherer.on_select_experts`做的操作跟OEPLB的`record_next_layer`几乎完全一样（都是scatter_add到一个per-layer计数器），但EPLB**无条件对所有batch都记录**——等价于OEPLB的always_record=True模式。这意味着EPLB在有decode的场景下，record开销比OEPLB(默认)高约10-18%。
+
+5. **结论**：在out=64这个decode占比不算极端的场景下，"只记prefill"相比"全记"节省的record开销约46ms/benchmark，对吞吐的实际影响极小。但在out=1024/2048这种decode step数量远大于prefill的场景下，差异会按比例放大——decode step可能是prefill的10-20倍，record开销差异也会放大到10-20倍。
+
+### 补充验证（更长输出场景需要的话）
+
+如果需要在out=1024上量化这个差异，可以补测。但从机制上看，OEPLB的prefill-only record策略的核心价值不仅是"省开销"（这个量级确实不大），更重要的是**信号质量**——只用prefill数据做决策，避免了decode路由噪声干扰swap判断。
