@@ -1,0 +1,21 @@
+{
+  "label": "fixed_oeplb64_r1",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/fixeddata.jsonl",
+  "num_requests": 3072,
+  "concurrency": 1024,
+  "ok": 3072,
+  "errors": 0,
+  "total_time_s": 65.34,
+  "total_comp_tokens": 98304,
+  "tps": 1504.6,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 21560.9,
+  "lat_p50_ms": 22588.1,
+  "lat_p99_ms": 32644.85,
+  "ttft_mean_ms": 6013.87,
+  "ttft_p50_ms": 5707.86,
+  "ttft_p99_ms": 12736.69,
+  "tpot_mean_ms": 501.52,
+  "tpot_p50_ms": 492.91,
+  "tpot_p99_ms": 944.42
+}

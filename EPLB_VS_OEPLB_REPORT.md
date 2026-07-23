@@ -204,3 +204,44 @@ EPLB的启动命令里包含 `--ep-num-redundant-experts 8`，这个参数本身
 2. **OEPLB(sw=64)在不使用任何冗余专家的条件下，跟EPLB(red=16)打成接近水平**：OEPLB的medium(+22.4%)仅比EPLB最优(+25.4%)低3个百分点,short(+21.2%)跟EPLB的+20-22%基本持平,long(+19.5%)比EPLB的+23%低约3-4个百分点。**考虑到OEPLB完全不占用冗余专家的显存资源，这个性价比是相当好的。**
 3. **OEPLB的最优window依然是64**：sw=32和sw=128都不如sw=64，跟之前fixeddata实验的结论一致。sw=32检查太频繁的P2P开销、sw=128检查太慢错失纠偏窗口，sw=64是当前场景下的平衡点。
 4. **EPLB的最优迭代周期取决于输入长度和冗余数量**：在red=8时iter=64最优,在red=16时iter=128在short/long上更好但medium上iter=64更好——没有一个iter值在所有条件下都最优，可能需要adaptive调整（跟我们OEPLB的adaptive_window思路类似）。
+
+---
+
+## 任务5: 各自最优参数跑 fixeddata (domain-switch场景, 2026-07-23)
+
+fixeddata.jsonl = 3072条请求（1024×Prover-V1 + 2048×BookCorpus），包含一次Prover→BookCorpus的domain切换。deepep-mode=normal，各2轮。
+
+### 结果
+
+| 配置 | R1 req/s | R2 req/s | 均值 | vs Baseline | TTFT(R1/R2) |
+|---|---|---|---|---|---|
+| Baseline | 43.37 | 42.52 | **42.95** | - | 6024/5197 ms |
+| EPLB(iter=64,red=16) | 43.81 | 44.46 | **44.14** | **+2.8%** | 5415/5362 ms |
+| OEPLB(sw=64,red=0) | 47.02 | 45.66 | **46.34** | **+7.9%** | 6014/4707 ms |
+
+### OEPLB swap记录
+
+**R1** (总ops=716, 6个窗口):
+| Window | avg_ratio_before | avg_ratio_after | total_ops |
+|---|---|---|---|
+| 1 (冷启动) | 1.737 | 1.225 | 237 |
+| 2 | 1.227 | 1.203 | 49 |
+| 3 | 1.198 | 1.194 | 14 |
+| 4 (domain切换) | 1.207 | 1.123 | 124 |
+| 5 (切换后纠偏) | 1.310 | 1.114 | 216 |
+| 6 | 1.184 | 1.137 | 76 |
+
+**R2** (总ops=725, 6个窗口): 轨迹几乎完全一致(237,49,16,139,204,80)
+
+### 关键发现
+
+**domain-switch 场景是OEPLB相对EPLB优势最明显的场景：**
+- 纯prefill(output=1)场景：OEPLB(sw=64) +21.2% vs EPLB(i64,r16) +20-25% → 基本持平
+- domain-switch(fixeddata)场景：**OEPLB +7.9% vs EPLB +2.8%** → **OEPLB领先5个百分点**
+
+EPLB在domain-switch场景下收益大幅缩水（从+20%+降到+2.8%），原因推测：
+1. EPLB的rebalance周期(64 forward pass)在这个3072请求的benchmark里触发次数有限，且每次rebalance耗时0.5-4s（期间推理被阻塞），在domain切换发生的关键窗口里可能还在用旧的routing statistics做决策
+2. EPLB的ep_dispatch_algorithm=dynamic意味着token动态路由到冗余专家上，但具体路由到哪些冗余专家是由rebalance决定的physical_to_logical_map控制的,在domain切换后这个映射还没来得及更新
+3. OEPLB的swap机制（逐slot级别的P2P交换）比EPLB的整层rebalance（需要重新计算整个物理到逻辑的映射然后一次性更新）粒度更细、响应更快，在domain切换点能在1-2个sync_window内就完成纠偏(window4+5共340个swap ops)
+
+**结论：OEPLB在不使用冗余专家(显存更省)的条件下，在domain-switch这种真实生产场景中比EPLB(最优配置,16个冗余专家)效果更好。这是OEPLB"prefill-boundary在线swap"机制相对EPLB"周期性全局rebalance"机制的核心差异化优势。**
