@@ -245,3 +245,35 @@ EPLB在domain-switch场景下收益大幅缩水（从+20%+降到+2.8%），原�
 3. OEPLB的swap机制（逐slot级别的P2P交换）比EPLB的整层rebalance（需要重新计算整个物理到逻辑的映射然后一次性更新）粒度更细、响应更快，在domain切换点能在1-2个sync_window内就完成纠偏(window4+5共340个swap ops)
 
 **结论：OEPLB在不使用冗余专家(显存更省)的条件下，在domain-switch这种真实生产场景中比EPLB(最优配置,16个冗余专家)效果更好。这是OEPLB"prefill-boundary在线swap"机制相对EPLB"周期性全局rebalance"机制的核心差异化优势。**
+
+---
+
+## 任务6: Output=128 对比 (2026-07-23)
+
+### 结果
+
+| 输入 | Baseline(2轮均值) | EPLB(i64,r16) 1轮 | OEPLB(sw64) R1 | OEPLB R2 | OEPLB均值 | OEPLB vs BL | EPLB vs BL |
+|---|---|---|---|---|---|---|---|
+| short(154tok) | **31.68** | 27.84 | 32.25 | 28.66 | 30.46 | -3.9% | **-12.1%** |
+| medium(228tok) | **28.72** | 24.98 | 30.65 | 26.40 | 28.53 | -0.7% | **-13.0%** |
+| long(494tok) | **20.41** | 20.78 | 22.18 | 20.59 | 21.39 | +4.8% | +1.8% |
+
+### 跟Output=1(纯prefill)的对比
+
+| | Output=1 EPLB vs BL | Output=128 EPLB vs BL | Output=1 OEPLB vs BL | Output=128 OEPLB vs BL |
+|---|---|---|---|---|
+| short | +20.4% | **-12.1%** | +21.2% | -3.9% |
+| medium | +25.4% | **-13.0%** | +22.4% | -0.7% |
+| long | +22.9% | +1.8% | +19.5% | +4.8% |
+
+### 关键发现
+
+1. **EPLB在有decode的场景下变成负收益**：short/medium分别 -12.1%/-13.0%。原因：(a) 16个冗余专家额外占用显存，减少了KV cache可用空间,decode阶段的batch容量受限；(b) rebalance每次耗时0.5-4s会阻塞推理,在有大量decode step的场景里这些阻塞被反复触发,累积开销更显著。
+2. **OEPLB在有decode场景下基本持平（不亏不赚）**：short/medium接近baseline(-3.9%/-0.7%,在噪声范围内),long上微正(+4.8%)。OEPLB没有冗余专家(不额外占显存),swap的P2P开销也比EPLB的全局rebalance小得多,所以"不亏"。
+3. **两种方案在有decode场景下的收益都大幅缩水**：跟我们之前网格实验里发现的"输出越长收益越小"趋势完全一致。OEPLB的核心优势场景是prefill-heavy的负载,有大量decode的场景下优势会被稀释（但至少不会变成负收益,这一点比EPLB好）。
+4. **OEPLB两轮方差较大(short: 32.25 vs 28.66)**：output=128场景下测试时间更长(60-100s/轮),GPU热状态、调度时序等随机因素的影响更大。如果要更精确的数据需要更多轮次。
+
+### Baseline详细数据
+- short: [64.34, 64.96]s → [31.83, 31.53] req/s, 均值31.68
+- medium: [71.57, 71.07]s → [28.62, 28.82] req/s, 均值28.72
+- long: [98.73, 102.04]s → [20.74, 20.07] req/s, 均值20.41
