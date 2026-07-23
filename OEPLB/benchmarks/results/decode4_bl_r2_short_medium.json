@@ -1,0 +1,21 @@
+{
+  "label": "decode4_bl_r2_short_medium",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/short_medium.jsonl",
+  "num_requests": 2048,
+  "concurrency": 1024,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 41.16,
+  "total_comp_tokens": 131072,
+  "tps": 3184.4,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 20509.1,
+  "lat_p50_ms": 20363.6,
+  "lat_p99_ms": 22882.73,
+  "ttft_mean_ms": 4201.97,
+  "ttft_p50_ms": 3993.03,
+  "ttft_p99_ms": 7914.6,
+  "tpot_mean_ms": 258.84,
+  "tpot_p50_ms": 259.65,
+  "tpot_p99_ms": 333.7
+}

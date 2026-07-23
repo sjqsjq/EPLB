@@ -187,3 +187,29 @@ EPLB的rebalance周期长（64 forward pass + 每次0.5-4s阻塞），domain切�
 | Domain-switch / 混合负载 | **OEPLB** | 在线swap响应速度快，领先5pp |
 | 有decode的场景 | **OEPLB** | EPLB会变成负收益 |
 | 长输入(>1k tok) | OEPLB(sw=32) | 长输入下sw=32比sw=64更优 |
+
+---
+
+## 补充：含decode场景三方对比（2×2负载，deepep-mode=normal, 2026-07-23）
+
+用WORKLOAD_GRID_REPORT中冷启动验证章节的4个负载组合（short×short/medium, medium×short/medium），每个负载独立重启，统一normal模式。
+
+### 结果
+
+| 负载(输入_输出) | Baseline | EPLB(i64,r16) | OEPLB(sw64) | EPLB vs BL | OEPLB vs BL |
+|---|---|---|---|---|---|
+| short_short(154tok,out=8) | 103.33 | **125.34** | **116.17** | **+21.3%** | **+12.4%** |
+| short_medium(154tok,out=64) | 51.61 | 49.95 | **52.28** | -3.2% | **+1.3%** |
+| medium_short(228tok,out=8) | 80.98 | **89.55** | **86.71** | **+10.6%** | **+7.1%** |
+| medium_medium(228tok,out=64) | 46.09 | 41.18 | 45.89 | **-10.6%** | **-0.4%** |
+
+### 与之前实验的对比修正
+
+之前Output=128实验中EPLB出现-12~13%的大幅负收益，本次实验澄清了更精确的规律：
+- **短输出(out=8)场景：EPLB和OEPLB都有正收益**，且输入越长收益越大——这跟output=1纯prefill场景的趋势一致，说明少量decode不会抵消prefill阶段的均衡收益
+- **中输出(out=64)场景：EPLB开始出现负收益**（medium_medium -10.6%），OEPLB基本持平（-0.4%）
+- **EPLB的负收益主因不是"decode本身有负面影响"**，而是：(a) rebalance阻塞推理的累积开销在有decode的场景里触发次数更多（decode步也推进iteration计数器）；(b) 16个冗余专家占用的显存减少了KV cache空间，影响decode阶段的batch容量
+
+### EPLB稳定性问题
+
+测试过程中EPLB在medium_short上出现了一次rebalance后CUDA error crash（`cudaErrorInvalidConfiguration`），重试后成功。这个crash是EPLB自身的bug（rebalance后更新expert location时触发了无效的CUDA kernel配置），不是环境/配置问题。
