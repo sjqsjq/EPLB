@@ -344,3 +344,40 @@ $$T = T_{fixed} + k \cdot (ratio - 1)$$
 | out=1024 | **7.5倍** | **-4.3%** |
 
 验证了之前的推测：decode step数量随输出长度线性增长,record开销也线性增长,"只记prefill"的优势随输出变长而放大。
+
+---
+
+## E15补充: Nsight Systems实测Profiling (2026-07-24)
+
+### 采集方法
+nsys 2026.1.3, baseline(auto模式), medium输入(228tok), output=1, conc=1024
+nsys profile --trace=cuda --delay=150 --duration=5 包裹sglang进程启动
+
+### 235B模型各阶段GPU时间占比
+
+| 阶段 | 耗时(ms) | 占比 |
+|---|---|---|
+| **Dispatch (all-to-all send)** | 2311.5 | **47.3%** |
+| **Expert GEMM (MoE computation)** | 1457.4 | **29.8%** |
+| **Combine (all-to-all recv)** | 826.2 | **16.9%** |
+| Attention | 58.8 | 1.2% |
+| Norm/Quant/Other | 231.7 | 4.7% |
+
+### 关键kernel识别
+- dispatch: `deep_ep::intranode::notify_dispatch`(44.2%) + `dispatch`(2.3%) + `get_dispatch_layout`(0.2%)
+- expert: 所有 `deep_gemm::sm90_fp8_gemm` kernel 汇总
+- combine: `deep_ep::intranode::cached_notify_combine`(12.9%) + `combine`(3.8%)
+- attention: `FlashAttnFwdSm90`(1.2%)
+
+### 修正后的理论模型
+
+之前反推的"expert计算占57.3%"严重偏高,实际只有29.8%。实测23.8%的"负载不均等待"分散在三个部分:
+1. **Expert计算等待**: ratio高→最慢GPU的expert计算拖慢整步 (影响29.8%的部分)
+2. **Combine同步等待**: 所有GPU要等最慢的算完才能开始combine (影响16.9%的部分)
+3. **Dispatch等待**: 热点GPU要接收更多token,dispatch通信量不均 (影响47.3%的部分)
+
+OEPLB的ratio降低从1.71→1.19同时改善了这三个阶段的等待时间,而不只是expert计算一项。这也解释了为什么实测+21%的收益远超"如果只优化expert"的理论上界(30%×29.8%=8.9%)——**因为同时还优化了dispatch/combine的同步等待**。
+
+### Dispatch占比为什么这么高(47.3%)
+
+`notify_dispatch`是DeepEP的all-to-all token分发kernel,在EP=8场景下每一层都要把token从8个GPU重新分配到各自负责的专家所在的GPU。这个kernel的耗时跟"有多少token需要发往最繁忙的那个GPU"直接相关——ratio越高,最忙GPU收的token越多,其他GPU就要等它收完。**这意味着OEPLB通过均衡ratio,直接减少了dispatch阶段的最大通信量,从而减少了47.3%这个最大开销项的等待时间。**
