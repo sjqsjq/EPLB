@@ -484,3 +484,54 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 4. **Attention不受影响(r不变)**：符合预期——DP-attention下各GPU处理的请求数量由DP调度决定,跟MoE expert placement无关。
 
 5. **Expert耗时大幅降低(9424-11135ms → 6163-6308ms)**：不只是不均衡度改善——expert的**绝对耗时也降低了约40%**。这是因为OEPLB的swap改变了placement后,每个GPU上的热点专家被分散了,单个GPU不再承担不成比例的计算量。
+
+### 多次采集对比（run1 + run2）
+
+**采集方法（公平性保证）：**
+1. 每次全新启动服务器（无状态继承）
+2. 流程：warmup(50条Prover) → round1(2048条medium_out1,让OEPLB冷启动收敛) → round2+round3(nsys采集窗口覆盖)
+3. nsys参数：`--trace=cuda --sample=none --delay=145 --duration=25`
+4. 两者用完全相同的数据集(medium_out1.jsonl, 228tok输入, max_tokens=1)、并发度(conc=1024)、采集时长(25s)
+5. Trace保存至 `/data/minghua/sjq/nsys_traces/` 命名格式: `{config}_{dataset}_{date}_run{N}.{nsys-rep|sqlite}`
+
+**不均衡度ratio对比（多次采集）：**
+
+| Trace | Dispatch ratio | Expert ratio | Combine ratio | Attention ratio |
+|---|---|---|---|---|
+| BL run1 | 1.340 | 1.099 | 1.125 | 1.007 |
+| BL run2 | 1.113 | 1.093 | 1.116 | 1.007 |
+| **BL范围** | **1.11-1.34** | **1.09-1.10** | **1.12** | **1.007** |
+| OE run1 | 1.064 | 1.011 | 1.033 | 1.007 |
+| OE run2 | 1.077 | 1.011 | 1.058 | 1.005 |
+| **OE范围** | **1.06-1.08** | **1.011** | **1.03-1.06** | **1.005-1.007** |
+
+**GPU均值绝对耗时对比（ms）：**
+
+| Trace | Dispatch | Expert | Combine |
+|---|---|---|---|
+| BL run1 | 1371 | 10056 | 7113 |
+| BL run2 | 2467 | 7586 | 4751 |
+| OE run1 | 2054 | 9007 | 2568 |
+| OE run2 | 2698 | 8693 | 2605 |
+
+**分析：**
+
+1. **Expert ratio最稳定**：BL两次都是1.09x，OE两次都是1.011——这个指标的可信度最高，Expert不均衡消除率稳定在**88-90%**。
+2. **Combine ratio也比较稳定**：BL 1.12/1.12，OE 1.03/1.06——Combine不均衡消除率约50-73%。
+3. **Dispatch ratio波动较大**：BL 1.34/1.11——这个指标对采集时段的请求组成很敏感（不同batch的token分发路径不同）。但OE始终低于BL。
+4. **绝对耗时在两次间波动较大**：因为nsys的25秒窗口不一定精确对齐到benchmark的同一个阶段（5秒桶分布显示有些桶kernel数偏少，说明采到了round之间的间隙）。**因此应该主要看ratio（相对不均衡度）而不是绝对耗时来做对比。**
+5. **Combine绝对耗时在OEPLB下稳定在~2600ms**（run1: 2568, run2: 2605），而BL波动大（7113 vs 4751）——OEPLB让Combine的等待时间不仅更低，而且更稳定。
+
+**已保存的trace文件：**
+
+```
+/data/minghua/sjq/nsys_traces/
+├── baseline_medium_out1_20260724_run1.nsys-rep  (269MB)
+├── baseline_medium_out1_20260724_run1.sqlite    (642MB)
+├── baseline_medium_out1_20260724_run2.nsys-rep  (217MB)
+├── baseline_medium_out1_20260724_run2.sqlite    
+├── oeplb_sw64_medium_out1_20260724_run1.nsys-rep (280MB)
+├── oeplb_sw64_medium_out1_20260724_run1.sqlite  (663MB)
+├── oeplb_sw64_medium_out1_20260724_run2.nsys-rep (269MB)
+└── oeplb_sw64_medium_out1_20260724_run2.sqlite  
+```
