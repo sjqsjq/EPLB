@@ -381,3 +381,47 @@ OEPLB的ratio降低从1.71→1.19同时改善了这三个阶段的等待时间,�
 ### Dispatch占比为什么这么高(47.3%)
 
 `notify_dispatch`是DeepEP的all-to-all token分发kernel,在EP=8场景下每一层都要把token从8个GPU重新分配到各自负责的专家所在的GPU。这个kernel的耗时跟"有多少token需要发往最繁忙的那个GPU"直接相关——ratio越高,最忙GPU收的token越多,其他GPU就要等它收完。**这意味着OEPLB通过均衡ratio,直接减少了dispatch阶段的最大通信量,从而减少了47.3%这个最大开销项的等待时间。**
+
+---
+
+## E15 最终版: Nsight Systems完整Profiling (8GPU × 25s, 2026-07-24)
+
+### 采集方法
+nsys 2026.1.3, baseline(auto模式), medium输入(228tok), output=1, conc=1024
+nsys profile --trace=cuda --delay=130 --duration=25，覆盖完整benchmark周期
+trace文件: 276MB nsys-rep + 660MB sqlite，包含8个GPU(8×DP)的完整kernel活动
+
+### 235B模型各阶段GPU时间占比
+
+| 阶段 | 耗时(ms) | 占比 | MoE内占比 |
+|---|---|---|---|
+| **Expert GEMM** | 81,235 | **48.7%** | 54.7% |
+| **Combine (notify+comm)** | 51,502 | **30.9%** | 34.7% |
+| **Dispatch (notify+comm+layout)** | 15,808 | **9.5%** | 10.6% |
+| Attention (FlashAttn) | 2,999 | 1.8% | - |
+| Norm (RMS+FusedAdd) | 4,831 | 2.9% | - |
+| EP scatter/gather | 3,544 | 2.1% | - |
+| Quant/Scale | 2,946 | 1.8% | - |
+| Activation/Rotary/TopK | 1,913 | 1.1% | - |
+| NCCL + Other | 1,922 | 1.2% | - |
+| **Total (8GPU)** | **166,700** | **100%** | - |
+
+### 跟之前5秒采集的对比
+
+| 阶段 | 5秒采集(只覆盖开头prefill) | 25秒完整周期 |
+|---|---|---|
+| Dispatch | 47.3% (虚高) | **9.5%** |
+| Expert | 29.8% | **48.7%** |
+| Combine | 16.9% | **30.9%** |
+| Attention | 1.2% | 1.8% |
+
+5秒采集严重高估了Dispatch占比（因为只覆盖了prefill开头阶段，该阶段大量token要从各GPU分发到专家所在GPU），低估了Expert和Combine。完整周期的数据才能反映真实比例。
+
+### OEPLB收益分析（修正版）
+
+OEPLB通过降低ratio(1.71→1.19)同时改善了:
+1. **Expert计算等待(48.7%的部分)**: ratio高→最慢GPU的expert batch更大→计算更慢→其他GPU等更久
+2. **Combine同步等待(30.9%的部分)**: combine是all-to-all收集结果，要等最慢GPU算完才能开始→ratio降低直接缩短这个等待
+3. **Dispatch效率(9.5%的部分)**: 均衡后发往各GPU的token数更均匀，减少最大通信量
+
+Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio成正相关——这解释了为什么实测的+21%加速远超"只优化expert"的理论预期。
