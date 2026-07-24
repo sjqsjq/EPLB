@@ -205,17 +205,23 @@ OEPLB通过swap将 $r$ 从 $r_{bl}$（baseline的默认round-robin placement）�
 
 模型在out=64场景的预测偏差仅1.4个百分点，验证了线性模型的合理性。
 
+### 模型修正 (2026-07-24)
+
+原始模型假设"OEPLB只影响expert计算"被用户指出不准确——ratio降低后，combine的同步等待时间也会缩短（所有GPU要等最慢的算完才能开始combine）。修正后的模型把expert等待和combine等待合并为"负载不均造成的总等待时间"：
+
+$$T = T_{fixed} + k \cdot (ratio - 1)$$
+
+- $k = 7.716$s per unit ratio-excess（包含expert+combine的等待贡献）
+- $T_{fixed} = 17.554$s（ratio=1时的理想耗时，包含attention/norm/dispatch/combine通信本身的固定耗时）
+- **负载不均造成的等待时间占baseline总时长: 23.8%**（不是之前说的57.3%——那个是把所有收益都归因到expert一项时算出来的虚高值）
+
 ### 推论
 
-1. **235B模型的expert计算占比(57.3%)远高于30B模型(36%)**——这意味着OEPLB在更大的MoE模型上收益更大，随模型规模增长，expert计算成为越来越大的性能瓶颈，负载均衡的天花板也在提高。
+1. **理论最大收益**（ratio降到1.0的理想极限）= **23.8%**。实测+17.4%（ratio从1.71降到1.19），达到理论上限的73.3%——剩余的6.4个百分点是因为ratio无法降到1.0（贪心算法+swap-only机制的固有限制）。
 
-2. **理论最大收益**（把ratio从1.711降到1.0的理想极限）：
-   $speedup_{max} = \frac{k \cdot (1.711 - 1.0)}{T_{fixed} + k \cdot 1.711} = \frac{3.768 \times 0.711}{4.80 + 6.45} = 23.8\%$
-   
-   我们实测的+21.1%已经接近这个理论上限的89%——说明greedy planner的效率很高,剩余的改进空间有限(约2.7个百分点)。
+2. **输出长度对收益的影响**：每增加1个decode token增加约$T_{decode} = 0.075$ms的固定耗时（不受OEPLB影响），speedup随输出长度单调递减。模型预测out=64加速+12.3%，跟实测+10.9%偏差1.4pp。
 
-3. **输出长度对收益的影响可以精确预测**：每增加1个decode token增加约$T_{decode} = 0.075$ms的固定耗时（不受OEPLB影响），speedup随输出长度单调递减：
-   $speedup(n_{out}) = \frac{k \cdot \Delta r}{T_{fixed} + k \cdot r_{bl} + n_{out} \cdot T_{decode}}$
+3. **E15的profiling采集未能完成**（235B模型8×DP的torch profiler在export阶段卡住/超时,即便只采5步也无法导出trace文件），无法做到精确的expert vs combine vs dispatch时间拆分。目前的23.8%是"expert等待+combine等待"的合并值。如果需要精确拆分，可能需要用nsys（当前环境未安装）或在代码里手动插入计时点。
 
 ---
 
