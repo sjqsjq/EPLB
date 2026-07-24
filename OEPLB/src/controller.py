@@ -1,3 +1,4 @@
+import os
 import logging
 import time
 import torch
@@ -125,7 +126,7 @@ class PBOEPLBController:
         self._ready = False
         self._warmup_forwards = 10
         self._steps_since_last_check = 0
-        self._decay_factor = 0.9  # best tested value
+        self._decay_factor = float(os.environ.get('OEPLB_DECAY_FACTOR', '0.9'))
         # Adaptive window (experimental, opt-in via cfg.adaptive_window): shrink
         # sync_window temporarily during a CONFIRMED workload shift (>=2
         # consecutive low-cos_sim windows, not a single blip), grow it back once
@@ -260,7 +261,7 @@ class PBOEPLBController:
         if self._steps_since_last_check < self._effective_sync_window:
             return
         self._steps_since_last_check = 0
-        self._decay_factor = 0.9  # best tested value
+        self._decay_factor = float(os.environ.get('OEPLB_DECAY_FACTOR', '0.9'))
 
         self._decide_and_begin_swap()
         # Exponential decay instead of zeroing: preserve routing history
