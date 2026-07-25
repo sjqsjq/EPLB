@@ -535,3 +535,54 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 ├── oeplb_sw64_medium_out1_20260724_run2.nsys-rep (269MB)
 └── oeplb_sw64_medium_out1_20260724_run2.sqlite  
 ```
+
+### 三次采集汇总（run1 + run2 + run3）
+
+**不均衡度ratio（max/avg）：**
+
+| Trace | Dispatch | Expert | Combine |
+|---|---|---|---|
+| BL run1 | 1.340 | 1.099 | 1.125 |
+| BL run2 | 1.113 | 1.093 | 1.116 |
+| BL run3 | 1.054 | 1.098 | 1.131 |
+| **BL 均值** | **1.169** | **1.097** | **1.124** |
+| OE run1 | 1.064 | 1.011 | 1.033 |
+| OE run2 | 1.077 | 1.011 | 1.058 |
+| OE run3 | 1.136 | 1.012 | 1.061 |
+| **OE 均值** | **1.092** | **1.011** | **1.051** |
+| **改善(均值)** | **-45.6%** | **-88.7%** | **-59.0%** |
+
+**GPU均值绝对耗时（ms）：**
+
+| Trace | Dispatch | Expert | Combine |
+|---|---|---|---|
+| BL run1 | 1371 | 10056 | 7113 |
+| BL run2 | 2467 | 7586 | 4751 |
+| BL run3 | 1422 | 9623 | 6271 |
+| **BL 均值** | **1753** | **9088** | **6045** |
+| OE run1 | 2054 | 9007 | 2568 |
+| OE run2 | 2698 | 8693 | 2605 |
+| OE run3 | 2404 | 8712 | 2624 |
+| **OE 均值** | **2385** | **8804** | **2599** |
+| **变化** | **+36.0%** | **-3.1%** | **-57.0%** |
+
+### 结论（3次采集验证后）
+
+1. **Expert不均衡消除率最稳定、最高**：3次采集中BL的expert ratio始终在1.093-1.099（标准差0.003），OE始终在1.011-1.012（标准差0.001）——**不均衡消除率稳定在88.7%**，这是最可信的结论。
+
+2. **Combine绝对耗时降低57.0%是最大的收益来源**：BL均值6045ms → OE均值2599ms，3次采集中OE的combine耗时高度一致（2568/2605/2624ms，标准差28ms），而BL的combine波动较大（4751-7113ms）——这说明OEPLB让combine的表现不仅更好，而且更稳定。
+
+3. **Dispatch绝对耗时增加了36%**：3次都是OE的dispatch耗时高于BL。这是OEPLB改变placement后的副作用——均衡的placement让每个GPU需要跟更分散的GPU集合交换token。但绝对值增量(+632ms)远小于Combine节省(-3446ms)。
+
+4. **Expert绝对耗时仅降低3.1%**：虽然expert不均衡度改善了88.7%，但各GPU的expert绝对耗时只降了约284ms——因为总计算量不变（同样多的token×同样多的expert），均衡只是把计算更均匀地分摊了，不是减少了总计算量。真正的收益体现在"max GPU的expert耗时降低"（从BL最慢的~11000ms降到OE的~9000ms均匀分布），但avg意义上差不多。
+
+**已保存的trace文件（`/data/minghua/sjq/nsys_traces/`）：**
+
+| 文件 | 大小 | 日期 |
+|---|---|---|
+| baseline_medium_out1_20260724_run1.nsys-rep | 269MB | 2026-07-24 |
+| baseline_medium_out1_20260724_run2.nsys-rep | 217MB | 2026-07-24 |
+| baseline_medium_out1_20260725_run3.nsys-rep | 261MB | 2026-07-25 |
+| oeplb_sw64_medium_out1_20260724_run1.nsys-rep | 280MB | 2026-07-24 |
+| oeplb_sw64_medium_out1_20260724_run2.nsys-rep | 269MB | 2026-07-24 |
+| oeplb_sw64_medium_out1_20260725_run3.nsys-rep | 262MB | 2026-07-25 |
