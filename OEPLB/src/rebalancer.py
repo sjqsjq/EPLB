@@ -129,6 +129,7 @@ def try_build_swap_plan(
     threshold_ratio: float,
     max_swaps_per_layer: int,
     max_total_swap_layers: int = 5,
+    max_total_ops: int = 250,
 ) -> List[SwapOp]:
     """Greedy global-budget swap planner.
 
@@ -141,11 +142,10 @@ def try_build_swap_plan(
     layer can monopolize the budget without actually improving.
 
     Stops when:
-    - Global budget (MAX_TOTAL_OPS=300) exhausted, OR
+    - Global budget (max_total_ops) exhausted, OR
     - The highest-ratio layer is already below threshold_ratio, OR
     - The best available swap would not improve the highest-ratio layer
     """
-    MAX_TOTAL_OPS = 300
     L = logical_count.shape[0]
     lc_cpu = [list(row) for row in logical_count.tolist()]
     p2l_cpu = [list(row) for row in physical_to_logical_map.tolist()]
@@ -163,7 +163,7 @@ def try_build_swap_plan(
     # Initialize ratios for all layers
     layer_ratios = {l: compute_ratio(l) for l in range(L)}
 
-    for _ in range(MAX_TOTAL_OPS):
+    for _ in range(max_total_ops):
         # Pick the layer with highest current ratio
         best_layer = max(layer_ratios, key=layer_ratios.get)
         ratio = layer_ratios[best_layer]

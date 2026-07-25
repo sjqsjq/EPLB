@@ -1,4 +1,3 @@
-import os
 import logging
 import time
 import torch
@@ -12,7 +11,6 @@ from sglang.srt.managers.pb_oeplb.fast_metadata import fast_init_by_mapping
 
 logger = logging.getLogger(__name__)
 
-MIN_RECORD_TOKENS = 32
 
 
 class PBOEPLBController:
@@ -112,7 +110,7 @@ class PBOEPLBController:
         # ~82us × 48 × 256 = ~1s per window on scheduler critical path.
         # Sampling every 4th batch cuts this to ~0.25s while keeping
         # routing statistics representative (still ~3000 calls per window).
-        self._sample_interval = 1  # record every prefill batch
+        self._sample_interval = cfg.sample_interval
         self._should_record_this_batch = False
 
         self.async_executor = AsyncSwapExecutor(
@@ -124,9 +122,9 @@ class PBOEPLBController:
         # Pure local counters — no cross-rank consensus needed (see class docstring)
         self._forward_id = 0
         self._ready = False
-        self._warmup_forwards = 10
+        self._warmup_forwards = cfg.warmup_forwards
         self._steps_since_last_check = 0
-        self._decay_factor = float(os.environ.get('OEPLB_DECAY_FACTOR', '0.9'))
+        self._decay_factor = cfg.decay_factor
         # Adaptive window (experimental, opt-in via cfg.adaptive_window): shrink
         # sync_window temporarily during a CONFIRMED workload shift (>=2
         # consecutive low-cos_sim windows, not a single blip), grow it back once
@@ -205,7 +203,7 @@ class PBOEPLBController:
             return
         if torch.cuda.is_current_stream_capturing():
             return
-        if topk_ids.shape[0] < MIN_RECORD_TOKENS:
+        if topk_ids.shape[0] < self.cfg.min_record_tokens:
             return
 
         _t0 = time.perf_counter_ns()
@@ -261,7 +259,7 @@ class PBOEPLBController:
         if self._steps_since_last_check < self._effective_sync_window:
             return
         self._steps_since_last_check = 0
-        self._decay_factor = float(os.environ.get('OEPLB_DECAY_FACTOR', '0.9'))
+        self._decay_factor = self.cfg.decay_factor
 
         self._decide_and_begin_swap()
         # Exponential decay instead of zeroing: preserve routing history
@@ -381,6 +379,7 @@ class PBOEPLBController:
                 threshold_ratio=self.cfg.threshold_ratio,
                 max_swaps_per_layer=self.cfg.max_swaps_per_layer,
                 max_total_swap_layers=self.cfg.max_total_swap_layers,
+                max_total_ops=self.cfg.max_total_ops,
             )
             self._prof_planbuild_ns += time.perf_counter_ns() - _t1
             if not plan:
