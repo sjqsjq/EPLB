@@ -307,50 +307,40 @@ class PBOEPLBController:
             # has an unbroken cos_sim history to react to.
             self._last_cos_sim = self._track_routing_stability(global_load)
             if self.cfg.adaptive_window and self._last_cos_sim is not None:
+                window_ceiling = self.cfg.sync_window * 2
                 if self._last_cos_sim < self.cfg.window_shift_cos_threshold:
                     self._window_shift_count += 1
                     self._window_stable_count = 0
-                    # ASYMMETRIC confirmation: shrinking only changes CADENCE (how
-                    # soon we check again), not what gets swapped -- rebalancer's
-                    # own threshold_ratio still gates every actual swap decision
-                    # independent of window size. A false-positive shrink costs at
-                    # most one extra all_reduce; it can't mis-place an expert. So
-                    # shrinking doesn't need the multi-window confirmation that
-                    # decay/swap-aggressiveness changes would (those DO directly
-                    # cause swaps, where a false positive wastes real P2P bandwidth
-                    # and can't be un-done cheaply). React on window_shift_confirm
-                    # (default 1) low-cos_sim window(s) -- this window's cos_sim and
-                    # its own avg_ratio_before spike are computed from the SAME
-                    # global_load snapshot, so reacting immediately costs zero extra
-                    # lag beyond the one window of latency that's unavoidable (you
-                    # can't know a window is anomalous before it's finished).
                     if self._window_shift_count >= self.cfg.window_shift_confirm_windows:
-                        if self._effective_sync_window != self.cfg.window_floor:
+                        new_window = max(self.cfg.window_floor,
+                                         self._effective_sync_window // 2)
+                        if new_window != self._effective_sync_window:
                             logger.info(f"[PB-OEPLB-WINDOW] shift confirmed "
                                         f"({self._window_shift_count} low-cos_sim "
-                                        f"window(s)) -- shrinking sync_window "
-                                        f"{self._effective_sync_window} -> {self.cfg.window_floor}")
-                        self._effective_sync_window = self.cfg.window_floor
+                                        f"window(s)) -- halving sync_window "
+                                        f"{self._effective_sync_window} -> {new_window}")
+                        self._effective_sync_window = new_window
                 elif self._last_cos_sim > self.cfg.window_stable_cos_threshold:
                     self._window_stable_count += 1
                     self._window_shift_count = 0
-                    # Recovery (growing back to the larger, TTFT-friendlier window)
-                    # keeps the stricter multi-window confirmation
-                    # (window_stable_confirm_windows, default 2) -- erring toward
-                    # staying small a little longer costs a bit of extra check
-                    # overhead, which is cheap, so there's no reason to rush this
-                    # direction the way there is for reacting to a real shift.
-                    if self._window_stable_count >= self.cfg.window_stable_confirm_windows:
-                        if self._effective_sync_window != self.cfg.sync_window:
+                    # Below sync_window: recover with 2-window confirmation.
+                    # At or above sync_window: grow with stricter 4-window
+                    # confirmation, capped at window_ceiling (2x sync_window).
+                    if self._effective_sync_window < self.cfg.sync_window:
+                        confirm_needed = self.cfg.window_stable_confirm_windows
+                    else:
+                        confirm_needed = 4
+                    if self._window_stable_count >= confirm_needed:
+                        new_window = min(window_ceiling,
+                                         self._effective_sync_window * 2)
+                        if new_window != self._effective_sync_window:
                             logger.info(f"[PB-OEPLB-WINDOW] stable confirmed "
                                         f"({self._window_stable_count} consecutive "
-                                        f"high-cos_sim windows) -- restoring sync_window "
-                                        f"{self._effective_sync_window} -> {self.cfg.sync_window}")
-                        self._effective_sync_window = self.cfg.sync_window
+                                        f"high-cos_sim windows) -- doubling sync_window "
+                                        f"{self._effective_sync_window} -> {new_window}")
+                        self._effective_sync_window = new_window
+                        self._window_stable_count = 0
                 else:
-                    # Ambiguous middle band: require a FRESH streak of confirmations
-                    # in either direction -- don't let a borderline value count
-                    # towards either side's confirmation tally.
                     self._window_shift_count = 0
                     self._window_stable_count = 0
             if global_tokens < self.cfg.min_prefill_tokens:
