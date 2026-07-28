@@ -38,6 +38,7 @@ BASE_ARGS = [
     "--moe-runner-backend", "deep_gemm", "--quantization", "fp8",
     "--mem-fraction-static", "0.8", "--cuda-graph-max-bs", "128",
     "--port", str(PORT), "--host", "0.0.0.0", "--trust-remote-code", "--disable-radix-cache",
+    "--watchdog-timeout", "600",
 ]
 
 def oeplb_args(sw, adaptive=False):

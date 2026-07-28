@@ -1,0 +1,21 @@
+{
+  "label": "ratio_check/rc_L512_O1_adapt8",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L512_O1.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 175.68,
+  "total_comp_tokens": 8192,
+  "tps": 46.6,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 5374.5,
+  "lat_p50_ms": 5169.68,
+  "lat_p99_ms": 10029.27,
+  "ttft_mean_ms": 5374.51,
+  "ttft_p50_ms": 5169.66,
+  "ttft_p99_ms": 10029.24,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

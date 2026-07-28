@@ -134,6 +134,7 @@ class PBOEPLBController:
         self._last_cos_sim = None
         self._window_shift_count = 0
         self._window_stable_count = 0
+        self._last_avg_ratio = None
 
         # Profiling counters (wall-clock, CPU-side critical-path time)
         self._prof_record_calls = 0
@@ -302,6 +303,14 @@ class PBOEPLBController:
             self._prof_allreduce_ns += time.perf_counter_ns() - _t0
 
             global_tokens = int(global_load.sum().item())
+            # Track current avg imbalance ratio for adaptive window grow decision
+            from sglang.srt.managers.pb_oeplb.rebalancer import compute_gpu_load
+            _ratios = []
+            for _lid in range(0, self.num_layers, max(1, self.num_layers // 8)):
+                _gl = compute_gpu_load(global_load[_lid], self._cached_p2l[_lid], self.ep_size, self.num_local)
+                _avg = max(float(_gl.float().mean().item()), 1.0)
+                _ratios.append(float(_gl.max().item()) / _avg)
+            self._last_avg_ratio = sum(_ratios) / len(_ratios) if _ratios else None
             self._maybe_report_profile()
             # Track drift every window (even quiet ones) so adaptive window sizing
             # has an unbroken cos_sim history to react to.
@@ -330,7 +339,13 @@ class PBOEPLBController:
                         confirm_needed = self.cfg.window_stable_confirm_windows
                     else:
                         confirm_needed = 4
-                    if self._window_stable_count >= confirm_needed:
+                    # OPTIMIZATION: don't grow if imbalance ratio is still high.
+                    # Stable cos_sim only means the PATTERN isn't changing, not
+                    # that the imbalance is resolved. If ratio is still above
+                    # threshold, there's ongoing value in frequent checks.
+                    if self._last_avg_ratio is not None and self._last_avg_ratio > self.cfg.threshold_ratio * 1.05:
+                        self._window_stable_count = 0  # reset, don't grow yet
+                    elif self._window_stable_count >= confirm_needed:
                         new_window = min(window_ceiling,
                                          self._effective_sync_window * 2)
                         if new_window != self._effective_sync_window:
