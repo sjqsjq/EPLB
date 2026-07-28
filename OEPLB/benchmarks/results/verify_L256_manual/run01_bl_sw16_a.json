@@ -1,0 +1,21 @@
+{
+  "label": "verify_L256_manual/run01_bl_sw16_a",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/tok256_out1.jsonl",
+  "num_requests": 2048,
+  "concurrency": 64,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 29.34,
+  "total_comp_tokens": 2048,
+  "tps": 69.8,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 911.0,
+  "lat_p50_ms": 892.01,
+  "lat_p99_ms": 1329.5,
+  "ttft_mean_ms": 910.96,
+  "ttft_p50_ms": 891.98,
+  "ttft_p99_ms": 1329.46,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

@@ -62,6 +62,8 @@ class AsyncSwapExecutor:
         if self.busy:
             raise RuntimeError("AsyncSwapExecutor: begin() called while a swap is in flight")
 
+        import time as _time
+        _t_begin_start = _time.perf_counter()
         routed_weights = self.model_runner.model.routed_experts_weights_of_layer
         op_temps = [None] * len(plan)  # op_temps[i] = {"a": [Tensor,...]} or {"b": [...]} or {} or {"local": True}
         p2p_ops = []
@@ -118,10 +120,15 @@ class AsyncSwapExecutor:
             else:
                 op_temps[i] = {}  # this rank is not involved in this particular SwapOp.
 
+        _t_temps_done = _time.perf_counter()
         with torch.cuda.stream(self.stream):
             reqs = torch.distributed.batch_isend_irecv(p2p_ops) if p2p_ops else []
             event = torch.cuda.Event()
             event.record(self.stream)
+        _t_issue_done = _time.perf_counter()
+        logger.info(f"[PB-OEPLB-TIMING] begin(): temp_alloc={(_t_temps_done-_t_begin_start)*1000:.1f}ms "
+                    f"batch_isend_irecv={(_t_issue_done-_t_temps_done)*1000:.1f}ms "
+                    f"total_begin={(_t_issue_done-_t_begin_start)*1000:.1f}ms n_ops={len(plan)}")
 
         self.pending = {"plan": plan, "op_temps": op_temps, "event": event, "reqs": reqs}
 

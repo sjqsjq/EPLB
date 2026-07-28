@@ -1,0 +1,21 @@
+{
+  "label": "final/f_L2048_O256_sw32",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L2048_O256.jsonl",
+  "num_requests": 2048,
+  "concurrency": 256,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 288.14,
+  "total_comp_tokens": 524288,
+  "tps": 1819.6,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 36007.1,
+  "lat_p50_ms": 35553.59,
+  "lat_p99_ms": 40494.63,
+  "ttft_mean_ms": 12240.21,
+  "ttft_p50_ms": 12116.06,
+  "ttft_p99_ms": 25703.88,
+  "tpot_mean_ms": 93.2,
+  "tpot_p50_ms": 92.88,
+  "tpot_p99_ms": 141.04
+}

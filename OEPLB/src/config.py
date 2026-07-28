@@ -12,6 +12,7 @@ class PBOEPLBConfig:
     min_prefill_tokens: int = 256
     max_total_swap_layers: int = 94
     max_total_ops: int = 250
+    min_swap_ops: int = 1
     always_record: bool = False
     sync_window: int = 64
     decay_factor: float = 0.9
@@ -39,6 +40,7 @@ class PBOEPLBConfig:
             min_prefill_tokens=getattr(server_args, 'pb_oeplb_min_prefill_tokens', 256),
             max_total_swap_layers=getattr(server_args, 'pb_oeplb_max_total_swap_layers', 94),
             max_total_ops=getattr(server_args, 'pb_oeplb_max_total_ops', 250),
+            min_swap_ops=getattr(server_args, 'pb_oeplb_min_swap_ops', 1),
             always_record=getattr(server_args, 'pb_oeplb_always_record', False),
             sync_window=getattr(server_args, 'pb_oeplb_sync_window', 64),
             decay_factor=getattr(server_args, 'pb_oeplb_decay_factor', 0.9),

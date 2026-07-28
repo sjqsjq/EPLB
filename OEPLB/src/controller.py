@@ -374,6 +374,17 @@ class PBOEPLBController:
             self._prof_planbuild_ns += time.perf_counter_ns() - _t1
             if not plan:
                 return
+            if len(plan) < self.cfg.min_swap_ops:
+                # Not worth the batch_isend_irecv + cross-rank sync overhead for
+                # this few ops (observed tail windows doing 1-6 swaps at ~330ms
+                # each, purely from all_reduce+begin() overhead, for negligible
+                # further ratio improvement once the bulk correction already
+                # landed in window#1/#2). Decision was already made (DIAG logged
+                # above), we just skip issuing the P2P transfer itself.
+                logger.info(f"[PB-OEPLB] window#{self.window_count}: skipped "
+                           f"{len(plan)} swap(s) (< min_swap_ops={self.cfg.min_swap_ops}, "
+                           f"not worth the P2P overhead)")
+                return
             self._pending_plan_start_t = time.perf_counter()
             self.async_executor.begin(plan)
             logger.info(f"[PB-OEPLB] window#{self.window_count}: "

@@ -1,0 +1,21 @@
+{
+  "label": "adaptive_opt/ao_L512_O256_sw16",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L512_O256.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 509.72,
+  "total_comp_tokens": 2097152,
+  "tps": 4114.3,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 15925.1,
+  "lat_p50_ms": 15783.35,
+  "lat_p99_ms": 20286.61,
+  "ttft_mean_ms": 3245.61,
+  "ttft_p50_ms": 3183.85,
+  "ttft_p99_ms": 7178.84,
+  "tpot_mean_ms": 49.72,
+  "tpot_p50_ms": 49.56,
+  "tpot_p99_ms": 65.13
+}

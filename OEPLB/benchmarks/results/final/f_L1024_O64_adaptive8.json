@@ -1,0 +1,21 @@
+{
+  "label": "final/f_L1024_O64_adaptive8",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L1024_O64.jsonl",
+  "num_requests": 4096,
+  "concurrency": 256,
+  "ok": 4096,
+  "errors": 0,
+  "total_time_s": 220.03,
+  "total_comp_tokens": 262144,
+  "tps": 1191.4,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 13745.6,
+  "lat_p50_ms": 13585.78,
+  "lat_p99_ms": 17315.24,
+  "ttft_mean_ms": 5915.5,
+  "ttft_p50_ms": 5836.39,
+  "ttft_p99_ms": 12993.97,
+  "tpot_mean_ms": 124.29,
+  "tpot_p50_ms": 124.04,
+  "tpot_p99_ms": 209.52
+}
