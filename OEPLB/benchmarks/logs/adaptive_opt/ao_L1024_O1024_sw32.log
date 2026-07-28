@@ -1,0 +1,1151 @@
+[2026-07-28 04:08:56] WARNING server_args.py:1423: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-07-28 04:08:56] WARNING server_args.py:1589: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-07-28 04:08:56] WARNING server_args.py:1640: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-07-28 04:08:57] server_args=ServerArgs(model_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_mode='auto', tokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{}', rl_quant_profile=None, trust_remote_code=True, context_length=None, is_embedding=False, enable_multimodal=None, revision=None, model_impl='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=False, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, dtype='auto', quantization='fp8', quantization_param_path=None, kv_cache_dtype='auto', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, mem_fraction_static=0.8, max_running_requests=None, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=1024, max_prefill_tokens=16384, schedule_policy='fcfs', enable_priority_scheduling=False, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=0.3, page_size=1, hybrid_kvcache_ratio=None, swa_full_tokens_ratio=0.8, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', device='cuda', tp_size=8, pp_size=1, pp_max_micro_batch_size=None, stream_interval=1, stream_output=False, random_seed=105802960, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=300, dist_timeout=None, download_dir=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, mm_process_config={}, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, crash_dump_folder=None, show_time_cost=False, enable_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, collect_tokens_histogram=False, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, served_model_name='/data/models/Qwen3-235B-A22B-FP8', weight_version='default', chat_template=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=8, load_balance_method='round_robin', load_watch_interval=0.1, prefill_round_robin_balance=False, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, attention_backend='fa3', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', nsa_prefill_backend='flashmla_sparse', nsa_decode_backend='fa3', enable_flashinfer_autotune=False, speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_moe_runner_backend=None, speculative_moe_a2a_backend=None, speculative_ngram_min_match_window_size=1, speculative_ngram_max_match_window_size=12, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_branch_length=18, speculative_ngram_capacity=10000000, ep_size=8, moe_a2a_backend='deepep', moe_runner_backend='deep_gemm', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, deepep_mode='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm='static', init_expert_location='trivial', enable_eplb=False, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, mooncake_ib_device=None, enable_pb_oeplb=True, pb_oeplb_threshold_ratio=1.02, pb_oeplb_max_swaps_per_layer=64, pb_oeplb_max_total_swap_layers=94, pb_oeplb_sync_window=32, pb_oeplb_min_prefill_tokens=256, pb_oeplb_cooldown_steps=5, pb_oeplb_always_record=False, pb_oeplb_adaptive_window=False, pb_oeplb_window_floor=32, pb_oeplb_window_shift_cos=0.85, pb_oeplb_window_stable_cos=0.95, pb_oeplb_window_shift_confirm=1, pb_oeplb_window_stable_confirm=2, pb_oeplb_min_swap_ops=8, max_mamba_cache_size=None, mamba_ssm_dtype='float32', mamba_full_memory_ratio=0.9, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='best_effort', hicache_storage_backend_extra_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, enable_double_sparsity=False, ds_channel_config_path=None, ds_heavy_channel_num=32, ds_heavy_token_num=256, ds_heavy_channel_type='qk', ds_sparse_decode_threshold=4096, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', multi_item_scoring_delimiter=None, disable_radix_cache=True, cuda_graph_max_bs=128, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], disable_cuda_graph=False, disable_cuda_graph_padding=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, disable_overlap_schedule=False, enable_mixed_chunk=False, enable_dp_attention=True, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, enable_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=4096, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, 4096], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, enable_nsa_prefill_context_parallel=False, enable_fused_qk_norm_rope=False, enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_decode_tp=None, disaggregation_decode_dp=None, disaggregation_prefill_pp=1, disaggregation_ib_device=None, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, custom_weight_loader=[], weight_loader_disable_mmap=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, mm_max_concurrent_calls=32, mm_per_request_timeout=10.0, enable_broadcast_mm_inputs_process=False, decrypted_config_file=None, decrypted_draft_config_file=None, mm_enable_dp_encoder=False, forward_hooks=None)
+[2026-07-28 04:08:57] Using default HuggingFace chat template with detected content format: string
+[2026-07-28 04:09:19 DP0 TP0 EP0] Init torch distributed begin.
+[2026-07-28 04:09:21 DP6 TP6 EP6] Init torch distributed begin.
+[2026-07-28 04:09:21 DP4 TP4 EP4] Init torch distributed begin.
+[2026-07-28 04:09:21 DP2 TP2 EP2] Init torch distributed begin.
+[2026-07-28 04:09:21 DP3 TP3 EP3] Init torch distributed begin.
+[2026-07-28 04:09:21 DP7 TP7 EP7] Init torch distributed begin.
+[2026-07-28 04:09:21 DP5 TP5 EP5] Init torch distributed begin.
+[2026-07-28 04:09:21 DP1 TP1 EP1] Init torch distributed begin.
+[Gloo] Rank 0[Gloo] Rank  is connected to [Gloo] Rank 671 is connected to  peer ranks.  is connected to 7Expected number of connected peer ranks is : 7 peer ranks. 7 peer ranks. [Gloo] Rank Expected number of connected peer ranks is : 
+Expected number of connected peer ranks is : 277 is connected to 
+
+7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank [Gloo] Rank 4[Gloo] Rank 3[Gloo] Rank  is connected to 5 is connected to 77 is connected to 7 is connected to  peer ranks. 7 peer ranks. 7Expected number of connected peer ranks is :  peer ranks. Expected number of connected peer ranks is :  peer ranks. 7Expected number of connected peer ranks is : 7Expected number of connected peer ranks is : 
+7
+7
+
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank [Gloo] Rank 56 is connected to [Gloo] Rank  is connected to 717 peer ranks.  is connected to  peer ranks. Expected number of connected peer ranks is : 7Expected number of connected peer ranks is : 7 peer ranks. 7
+Expected number of connected peer ranks is : 
+7
+[2026-07-28 04:09:22 DP0 TP0 EP0] sglang is using nccl==2.27.5
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-07-28 04:09:30 DP5 TP5 EP5] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-28 04:09:30 DP7 TP7 EP7] Init torch distributed ends. mem usage=0.95 GB
+[2026-07-28 04:09:30 DP0 TP0 EP0] Init torch distributed ends. mem usage=1.13 GB
+[2026-07-28 04:09:30 DP4 TP4 EP4] Init torch distributed ends. mem usage=1.20 GB
+[2026-07-28 04:09:30 DP6 TP6 EP6] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-28 04:09:30 DP3 TP3 EP3] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-28 04:09:30 DP2 TP2 EP2] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-28 04:09:30 DP1 TP1 EP1] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-28 04:09:31 DP3 TP3 EP3] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP4 TP4 EP4] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP7 TP7 EP7] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP2 TP2 EP2] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP5 TP5 EP5] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP6 TP6 EP6] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP1 TP1 EP1] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:31 DP0 TP0 EP0] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-28 04:09:32 DP7 TP7 EP7] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP7 TP7 EP7] Load weight begin. avail mem=93.80 GB
+[2026-07-28 04:09:32 DP3 TP3 EP3] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP2 TP2 EP2] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP4 TP4 EP4] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP6 TP6 EP6] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP0 TP0 EP0] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP1 TP1 EP1] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP5 TP5 EP5] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=32, always_record=False
+[2026-07-28 04:09:32 DP1 TP1 EP1] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP5 TP5 EP5] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP2 TP2 EP2] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP4 TP4 EP4] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP6 TP6 EP6] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP3 TP3 EP3] Load weight begin. avail mem=93.57 GB
+[2026-07-28 04:09:32 DP0 TP0 EP0] Load weight begin. avail mem=93.62 GB
+[2026-07-28 04:09:32 DP0 TP0 EP0] Detected fp8 checkpoint.
+Loading safetensors checkpoint shards:   0% Completed | 0/48 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   2% Completed | 1/48 [00:00<00:11,  4.15it/s]
+Loading safetensors checkpoint shards:   4% Completed | 2/48 [00:00<00:12,  3.70it/s]
+Loading safetensors checkpoint shards:   6% Completed | 3/48 [00:00<00:11,  3.82it/s]
+Loading safetensors checkpoint shards:   8% Completed | 4/48 [00:01<00:11,  3.86it/s]
+Loading safetensors checkpoint shards:  10% Completed | 5/48 [00:01<00:10,  4.01it/s]
+Loading safetensors checkpoint shards:  12% Completed | 6/48 [00:01<00:10,  4.02it/s]
+Loading safetensors checkpoint shards:  15% Completed | 7/48 [00:01<00:10,  4.07it/s]
+Loading safetensors checkpoint shards:  17% Completed | 8/48 [00:01<00:09,  4.12it/s]
+Loading safetensors checkpoint shards:  19% Completed | 9/48 [00:02<00:09,  4.09it/s]
+Loading safetensors checkpoint shards:  21% Completed | 10/48 [00:02<00:09,  4.09it/s]
+Loading safetensors checkpoint shards:  23% Completed | 11/48 [00:02<00:09,  4.07it/s]
+Loading safetensors checkpoint shards:  25% Completed | 12/48 [00:02<00:08,  4.06it/s]
+Loading safetensors checkpoint shards:  27% Completed | 13/48 [00:03<00:08,  4.03it/s]
+Loading safetensors checkpoint shards:  29% Completed | 14/48 [00:03<00:08,  4.12it/s]
+Loading safetensors checkpoint shards:  31% Completed | 15/48 [00:03<00:07,  4.26it/s]
+Loading safetensors checkpoint shards:  33% Completed | 16/48 [00:03<00:07,  4.36it/s]
+Loading safetensors checkpoint shards:  35% Completed | 17/48 [00:04<00:07,  4.30it/s]
+Loading safetensors checkpoint shards:  38% Completed | 18/48 [00:04<00:06,  4.36it/s]
+Loading safetensors checkpoint shards:  40% Completed | 19/48 [00:05<00:16,  1.76it/s]
+Loading safetensors checkpoint shards:  42% Completed | 20/48 [00:05<00:13,  2.08it/s]
+Loading safetensors checkpoint shards:  44% Completed | 21/48 [00:06<00:10,  2.49it/s]
+Loading safetensors checkpoint shards:  46% Completed | 22/48 [00:06<00:09,  2.69it/s]
+Loading safetensors checkpoint shards:  48% Completed | 23/48 [00:06<00:08,  3.09it/s]
+Loading safetensors checkpoint shards:  50% Completed | 24/48 [00:06<00:06,  3.44it/s]
+Loading safetensors checkpoint shards:  52% Completed | 25/48 [00:07<00:06,  3.71it/s]
+Loading safetensors checkpoint shards:  54% Completed | 26/48 [00:07<00:05,  3.94it/s]
+Loading safetensors checkpoint shards:  56% Completed | 27/48 [00:07<00:05,  4.11it/s]
+Loading safetensors checkpoint shards:  58% Completed | 28/48 [00:07<00:04,  4.21it/s]
+Loading safetensors checkpoint shards:  60% Completed | 29/48 [00:08<00:04,  4.26it/s]
+Loading safetensors checkpoint shards:  62% Completed | 30/48 [00:08<00:04,  4.27it/s]
+Loading safetensors checkpoint shards:  65% Completed | 31/48 [00:08<00:03,  4.28it/s]
+Loading safetensors checkpoint shards:  67% Completed | 32/48 [00:08<00:03,  4.36it/s]
+Loading safetensors checkpoint shards:  69% Completed | 33/48 [00:08<00:03,  4.41it/s]
+Loading safetensors checkpoint shards:  71% Completed | 34/48 [00:09<00:03,  4.52it/s]
+Loading safetensors checkpoint shards:  73% Completed | 35/48 [00:09<00:02,  4.57it/s]
+Loading safetensors checkpoint shards:  75% Completed | 36/48 [00:09<00:02,  4.58it/s]
+Loading safetensors checkpoint shards:  77% Completed | 37/48 [00:09<00:02,  4.58it/s]
+Loading safetensors checkpoint shards:  79% Completed | 38/48 [00:10<00:02,  4.65it/s]
+Loading safetensors checkpoint shards:  81% Completed | 39/48 [00:10<00:01,  4.65it/s]
+Loading safetensors checkpoint shards:  83% Completed | 40/48 [00:10<00:01,  4.68it/s]
+Loading safetensors checkpoint shards:  85% Completed | 41/48 [00:10<00:01,  4.63it/s]
+Loading safetensors checkpoint shards:  88% Completed | 42/48 [00:10<00:01,  4.59it/s]
+Loading safetensors checkpoint shards:  90% Completed | 43/48 [00:11<00:01,  4.51it/s]
+Loading safetensors checkpoint shards:  92% Completed | 44/48 [00:11<00:00,  4.45it/s]
+Loading safetensors checkpoint shards:  94% Completed | 45/48 [00:11<00:00,  4.42it/s]
+Loading safetensors checkpoint shards:  96% Completed | 46/48 [00:11<00:00,  4.58it/s]
+[2026-07-28 04:09:47 DP6 TP6 EP6] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:47 DP5 TP5 EP5] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:47 DP3 TP3 EP3] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards:  98% Completed | 47/48 [00:11<00:00,  4.65it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:12<00:00,  4.73it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:12<00:00,  3.94it/s]
+
+[2026-07-28 04:09:47 DP0 TP0 EP0] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.51 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:47 DP7 TP7 EP7] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.70 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:47 DP2 TP2 EP2] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:48 DP1 TP1 EP1] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:48 DP4 TP4 EP4] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-28 04:09:48 DP0 TP0 EP0] Using KV cache dtype: torch.bfloat16
+[2026-07-28 04:09:48 DP0 TP0 EP0] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP0 TP0 EP0] Memory pool end. avail mem=18.31 GB
+[2026-07-28 04:09:48 DP2 TP2 EP2] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP2 TP2 EP2] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP4 TP4 EP4] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP4 TP4 EP4] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP6 TP6 EP6] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP6 TP6 EP6] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP5 TP5 EP5] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP5 TP5 EP5] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP1 TP1 EP1] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP1 TP1 EP1] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP3 TP3 EP3] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP7 TP7 EP7] KV Cache is allocated. #tokens: 227276, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-28 04:09:48 DP3 TP3 EP3] Memory pool end. avail mem=18.27 GB
+[2026-07-28 04:09:48 DP7 TP7 EP7] Memory pool end. avail mem=18.50 GB
+[2026-07-28 04:09:48 DP0 TP0 EP0] Capture cuda graph begin. This can take up to several minutes. avail mem=18.22 GB
+[2026-07-28 04:09:48 DP0 TP0 EP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+[2026-07-28 04:09:48 DP4 TP4 EP4] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP5 TP5 EP5] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP2 TP2 EP2] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP6 TP6 EP6] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP1 TP1 EP1] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP3 TP3 EP3] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-28 04:09:48 DP7 TP7 EP7] Capture cuda graph begin. This can take up to several minutes. avail mem=18.41 GB
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=18.11 GB):   0%|          | 0/20 [00:00<?, ?it/s][2026-07-28 04:09:48 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:09:48 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=9216, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:09:48 DP0 TP0 EP0] Required memory for warmup: 0.37890625GB, Available memory: 18.08447265625GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][AWarning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+
+
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+DeepGEMM warmup:   6%|▋         | 1050/16384 [00:00<00:01, 10496.33it/s][A[2026-07-28 04:09:49 DP5 TP5 EP5] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP2 TP2 EP2] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP3 TP3 EP3] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP6 TP6 EP6] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP7 TP7 EP7] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP4 TP4 EP4] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:49 DP1 TP1 EP1] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+
+DeepGEMM warmup:  19%|█▉        | 3073/16384 [00:00<00:01, 10933.68it/s][A
+DeepGEMM warmup:  35%|███▍      | 5675/16384 [00:00<00:00, 16387.80it/s][A
+DeepGEMM warmup:  53%|█████▎    | 8741/16384 [00:00<00:00, 21247.06it/s][A
+DeepGEMM warmup:  72%|███████▏  | 11834/16384 [00:00<00:00, 24413.40it/s][A
+DeepGEMM warmup:  91%|█████████ | 14935/16384 [00:00<00:00, 26512.24it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 22464.21it/s]
+[2026-07-28 04:09:49 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:09:49 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=8192, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:09:49 DP0 TP0 EP0] Required memory for warmup: 0.28125GB, Available memory: 18.04736328125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  13%|█▎        | 2123/16384 [00:00<00:00, 21226.43it/s][A
+DeepGEMM warmup:  30%|███       | 4992/16384 [00:00<00:00, 25613.13it/s][A
+DeepGEMM warmup:  49%|████▉     | 8095/16384 [00:00<00:00, 28083.61it/s][A
+DeepGEMM warmup:  68%|██████▊   | 11208/16384 [00:00<00:00, 29283.18it/s][A
+DeepGEMM warmup:  87%|████████▋ | 14327/16384 [00:00<00:00, 29970.27it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 28904.92it/s]
+[2026-07-28 04:09:50 DP0 TP0 EP0] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-28 04:09:55 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:09:55 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:09:55 DP0 TP0 EP0] Required memory for warmup: 2.6875000596046448GB, Available memory: 9.32666015625GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  17%|█▋        | 2792/16384 [00:00<00:00, 27917.16it/s][A
+DeepGEMM warmup:  38%|███▊      | 6200/16384 [00:00<00:00, 31539.53it/s][A
+DeepGEMM warmup:  57%|█████▋    | 9354/16384 [00:00<00:00, 30934.25it/s][A
+DeepGEMM warmup:  76%|███████▌  | 12449/16384 [00:00<00:00, 30248.38it/s][A
+DeepGEMM warmup:  94%|█████████▍| 15477/16384 [00:00<00:00, 29894.28it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 30079.84it/s]
+[2026-07-28 04:09:56 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:09:56 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:09:56 DP0 TP0 EP0] Required memory for warmup: 2.4687500596046448GB, Available memory: 9.19970703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  19%|█▉        | 3176/16384 [00:00<00:00, 31753.44it/s][A
+DeepGEMM warmup:  42%|████▏     | 6804/16384 [00:00<00:00, 34412.88it/s][A
+DeepGEMM warmup:  63%|██████▎   | 10246/16384 [00:00<00:00, 34217.69it/s][A
+DeepGEMM warmup:  84%|████████▍ | 13801/16384 [00:00<00:00, 34741.36it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 34638.18it/s]
+Capturing batches (bs=128 avail_mem=18.11 GB):   5%|▌         | 1/20 [00:08<02:40,  8.43s/it]Capturing batches (bs=120 avail_mem=8.74 GB):   5%|▌         | 1/20 [00:08<02:40,  8.43s/it] Capturing batches (bs=120 avail_mem=8.74 GB):  10%|█         | 2/20 [00:08<01:07,  3.73s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  10%|█         | 2/20 [00:08<01:07,  3.73s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:09<00:37,  2.22s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:09<00:37,  2.22s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  20%|██        | 4/20 [00:09<00:24,  1.54s/it]Capturing batches (bs=96 avail_mem=8.72 GB):  20%|██        | 4/20 [00:09<00:24,  1.54s/it] Capturing batches (bs=96 avail_mem=8.72 GB):  25%|██▌       | 5/20 [00:10<00:17,  1.16s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  25%|██▌       | 5/20 [00:10<00:17,  1.16s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  30%|███       | 6/20 [00:12<00:20,  1.46s/it]Capturing batches (bs=80 avail_mem=8.70 GB):  30%|███       | 6/20 [00:12<00:20,  1.46s/it]Capturing batches (bs=80 avail_mem=8.70 GB):  35%|███▌      | 7/20 [00:12<00:14,  1.13s/it]Capturing batches (bs=72 avail_mem=8.69 GB):  35%|███▌      | 7/20 [00:12<00:14,  1.13s/it]Capturing batches (bs=72 avail_mem=8.69 GB):  40%|████      | 8/20 [00:13<00:10,  1.10it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  40%|████      | 8/20 [00:13<00:10,  1.10it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  45%|████▌     | 9/20 [00:13<00:08,  1.31it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  45%|████▌     | 9/20 [00:13<00:08,  1.31it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  50%|█████     | 10/20 [00:15<00:11,  1.20s/it]Capturing batches (bs=48 avail_mem=8.67 GB):  50%|█████     | 10/20 [00:15<00:11,  1.20s/it]Capturing batches (bs=48 avail_mem=8.67 GB):  55%|█████▌    | 11/20 [00:16<00:08,  1.03it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  55%|█████▌    | 11/20 [00:16<00:08,  1.03it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  60%|██████    | 12/20 [00:16<00:06,  1.22it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  60%|██████    | 12/20 [00:16<00:06,  1.22it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  65%|██████▌   | 13/20 [00:17<00:04,  1.43it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  65%|██████▌   | 13/20 [00:17<00:04,  1.43it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:17<00:03,  1.62it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:17<00:03,  1.62it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  75%|███████▌  | 15/20 [00:17<00:02,  1.81it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  75%|███████▌  | 15/20 [00:17<00:02,  1.81it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  80%|████████  | 16/20 [00:18<00:02,  1.93it/s]Capturing batches (bs=8 avail_mem=8.62 GB):  80%|████████  | 16/20 [00:18<00:02,  1.93it/s] Capturing batches (bs=8 avail_mem=8.62 GB):  85%|████████▌ | 17/20 [00:18<00:01,  2.08it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  85%|████████▌ | 17/20 [00:18<00:01,  2.08it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  90%|█████████ | 18/20 [00:19<00:00,  2.06it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  90%|█████████ | 18/20 [00:19<00:00,  2.06it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  95%|█████████▌| 19/20 [00:19<00:00,  2.08it/s]Capturing batches (bs=1 avail_mem=8.59 GB):  95%|█████████▌| 19/20 [00:19<00:00,  2.08it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:20<00:00,  2.17it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:20<00:00,  1.01s/it]
+[2026-07-28 04:10:09 DP0 TP0 EP0] Registering 19 cuda graph addresses
+[2026-07-28 04:10:09 DP6 TP6 EP6] Capture cuda graph end. Time elapsed: 20.85 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP5 TP5 EP5] Capture cuda graph end. Time elapsed: 20.86 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP3 TP3 EP3] Capture cuda graph end. Time elapsed: 20.87 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP2 TP2 EP2] Capture cuda graph end. Time elapsed: 20.90 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP4 TP4 EP4] Capture cuda graph end. Time elapsed: 20.93 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP7 TP7 EP7] Capture cuda graph end. Time elapsed: 20.92 s. mem usage=8.73 GB. avail mem=9.68 GB.
+[2026-07-28 04:10:09 DP0 TP0 EP0] Capture cuda graph end. Time elapsed: 20.96 s. mem usage=9.63 GB. avail mem=8.59 GB.
+[2026-07-28 04:10:09 DP1 TP1 EP1] Capture cuda graph end. Time elapsed: 21.11 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-28 04:10:09 DP0 TP0 EP0] max_total_num_tokens=227276, chunked_prefill_size=1024, max_prefill_tokens=16384, max_running_requests=2840, context_len=40960, available_gpu_mem=8.59 GB
+[2026-07-28 04:10:10] INFO:     Started server process [197816]
+[2026-07-28 04:10:10] INFO:     Waiting for application startup.
+[2026-07-28 04:10:10] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-28 04:10:10] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-28 04:10:10] INFO:     Application startup complete.
+[2026-07-28 04:10:10] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-07-28 04:10:10] INFO:     127.0.0.1:49786 - "GET /health HTTP/1.1" 503 Service Unavailable
+[2026-07-28 04:10:11] Endpoint '/get_model_info' is deprecated and will be removed in a future version. Please use '/model_info' instead.
+[2026-07-28 04:10:11] INFO:     127.0.0.1:49790 - "GET /get_model_info HTTP/1.1" 200 OK
+[2026-07-28 04:10:11 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:11 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:11 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:12 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:10:12 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:10:12 DP0 TP0 EP0] Required memory for warmup: 0.34381103515625GB, Available memory: 8.52978515625GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2818.83it/s]
+[2026-07-28 04:10:12 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-28 04:10:12 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-28 04:10:12 DP0 TP0 EP0] Required memory for warmup: 0.24224853515625GB, Available memory: 8.52783203125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 4091.29it/s]
+[2026-07-28 04:10:12 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:12 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:12 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:12 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:12 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:13 DP4 TP4 EP4] [PB-OEPLB] rank=4 ready after 10 forwards
+[2026-07-28 04:10:13 DP3 TP3 EP3] [PB-OEPLB] rank=3 ready after 10 forwards
+[2026-07-28 04:10:13 DP7 TP7 EP7] [PB-OEPLB] rank=7 ready after 10 forwards
+[2026-07-28 04:10:13 DP6 TP6 EP6] [PB-OEPLB] rank=6 ready after 10 forwards
+[2026-07-28 04:10:13 DP5 TP5 EP5] [PB-OEPLB] rank=5 ready after 10 forwards
+[2026-07-28 04:10:13] INFO:     127.0.0.1:49794 - "POST /generate HTTP/1.1" 200 OK
+[2026-07-28 04:10:13] The server is fired up and ready to roll!
+[2026-07-28 04:10:13 DP0 TP0 EP0] [PB-OEPLB] rank=0 ready after 10 forwards
+[2026-07-28 04:10:13 DP2 TP2 EP2] [PB-OEPLB] rank=2 ready after 10 forwards
+[2026-07-28 04:10:13 DP1 TP1 EP1] [PB-OEPLB] rank=1 ready after 10 forwards
+[2026-07-28 04:10:15 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:16] INFO:     127.0.0.1:49804 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:17 DP4 TP4 EP4] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP2 TP2 EP2] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP6 TP6 EP6] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP7 TP7 EP7] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP3 TP3 EP3] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 4, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP5 TP5 EP5] Prefill batch, #new-seq: 3, #new-token: 3, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:17 DP4 TP4 EP4] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP2 TP2 EP2] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP6 TP6 EP6] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP3 TP3 EP3] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP7 TP7 EP7] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP0 TP0 EP0] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:17 DP1 TP1 EP1] Prefill batch, #new-seq: 28, #new-token: 28, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 0, 
+[2026-07-28 04:10:17 DP5 TP5 EP5] Prefill batch, #new-seq: 29, #new-token: 29, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49806 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49814 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49828 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49834 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49838 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49844 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49850 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49866 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49872 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49874 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49878 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49888 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49892 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49894 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49908 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49918 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49922 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49930 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49942 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49958 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49960 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49970 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49982 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:49998 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50014 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50024 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50034 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50050 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50056 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50062 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50076 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50080 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50094 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50100 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50108 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50110 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50118 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50132 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50142 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50150 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50162 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50176 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50192 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50208 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50214 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50224 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50236 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50246 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50254 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50266 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50282 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50286 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50302 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50316 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50324 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50332 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50344 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50346 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50352 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50354 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50362 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50372 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50380 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50394 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50406 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50414 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50428 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50440 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50448 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50464 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50466 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50478 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50484 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50490 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50494 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50504 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50516 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50526 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50530 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50538 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50540 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50544 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50550 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50558 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50568 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50580 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50586 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50594 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50596 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50612 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50628 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50640 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50646 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50662 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50674 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50688 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50692 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50700 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50706 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50710 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50722 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50738 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50750 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50754 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50768 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50772 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50782 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50792 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50800 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50814 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50828 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50830 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50834 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50844 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50850 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50858 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50866 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50878 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50884 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50890 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50900 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50904 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50908 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50922 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50932 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50946 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50958 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50966 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50976 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50978 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50992 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:50998 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51002 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51018 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51028 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51040 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51042 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51048 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51064 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51074 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51086 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51092 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51098 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51112 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51126 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51128 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51140 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51156 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51162 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51170 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51186 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51188 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51200 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51202 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51216 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51228 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51242 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51254 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51262 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51276 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51288 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51304 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51314 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51326 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51330 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51344 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51346 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51362 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51370 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51384 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51388 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51390 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51404 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51406 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51416 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51426 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51432 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51438 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51452 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51468 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51470 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51482 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51488 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51492 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51508 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51520 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51534 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51536 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51542 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51548 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51556 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51564 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51578 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51586 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51590 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51600 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51614 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51628 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51638 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51650 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51666 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51672 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51688 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51692 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51700 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51714 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51730 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51742 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51746 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51762 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51778 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51782 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51794 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51802 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51806 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51816 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51820 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51822 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51836 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51848 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51858 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51868 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51876 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51886 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51888 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51902 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51906 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51912 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51924 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51932 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51946 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51948 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51956 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51972 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51978 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51982 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:51992 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52002 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52008 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52018 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52022 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52030 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52044 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52060 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52062 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52078 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52084 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52090 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52092 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52104 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52110 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52118 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52130 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52142 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52156 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:18] INFO:     127.0.0.1:52158 - "GET /health HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49806 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 969, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49894 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49888 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49942 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49838 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49828 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49866 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49874 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49892 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49930 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49960 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49918 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49872 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49958 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49922 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 1, 
+[2026-07-28 04:10:19 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 1, 
+[2026-07-28 04:10:19 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-28 04:10:19 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49982 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50024 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50094 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50034 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50056 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50076 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50050 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50080 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:49970 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50014 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50100 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50110 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50132 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50108 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50150 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50142 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50192 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50208 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50214 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50236 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50224 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50254 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50266 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50246 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50282 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50286 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50324 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50316 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50302 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50344 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50346 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50332 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50372 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50352 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50484 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50448 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50478 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50414 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50394 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50428 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50440 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50464 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50406 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50380 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50540 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50526 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50550 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50516 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50494 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50530 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50504 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50490 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50558 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50538 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50568 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50580 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50646 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50612 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50706 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50596 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50628 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50674 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50662 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50640 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50594 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50750 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50754 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50738 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50710 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50768 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50722 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50772 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50792 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50828 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50866 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50884 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50904 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50900 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50890 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50922 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50958 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50966 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50976 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51028 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51018 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:50998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51042 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51048 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51040 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51064 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51086 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51074 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51098 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51112 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51128 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51126 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51140 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51156 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51170 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51186 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51200 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51188 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51202 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:19] INFO:     127.0.0.1:51228 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51216 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51242 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51262 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51254 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51304 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51314 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51288 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51276 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51330 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51344 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51384 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51346 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51404 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51390 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51406 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51452 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51416 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51468 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51432 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51426 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51492 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51508 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51488 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51482 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51536 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51534 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51520 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51542 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51548 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51556 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51564 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51578 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51614 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51628 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51600 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51666 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51638 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51650 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51868 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51848 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51820 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51794 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51762 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51746 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51714 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51778 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51802 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51806 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51822 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51742 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51836 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51730 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51886 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51906 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51888 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51912 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51924 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51956 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51948 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51982 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51972 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:51992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52008 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52018 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52022 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52060 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52044 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52078 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52104 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52090 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52084 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52130 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52110 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52158 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52142 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20] INFO:     127.0.0.1:52156 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-28 04:10:20 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 30, 
+[2026-07-28 04:10:20 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 30, 
+[2026-07-28 04:10:20 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 30, 
+[2026-07-28 04:10:20 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP2 TP2 EP2] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 1, #queue-req: 28, 
+[2026-07-28 04:10:20 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 1, #queue-req: 29, 
+[2026-07-28 04:10:20 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:20 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:20 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:20 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:20 DP3 TP3 EP3] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 1, #queue-req: 28, 
+[2026-07-28 04:10:20 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:21 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 2, #queue-req: 28, 
+[2026-07-28 04:10:21 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 28, 
+[2026-07-28 04:10:21 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 28, 
+[2026-07-28 04:10:21 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP6 TP6 EP6] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 26, 
+[2026-07-28 04:10:21 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:21 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:21 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:21 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 27, 
+[2026-07-28 04:10:21 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:21 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:21 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 27, 
+[2026-07-28 04:10:22 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:22 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:22 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:22 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:22 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:22 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 26, 
+[2026-07-28 04:10:22 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:22 DP4 TP4 EP4] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.02, #running-req: 4, #queue-req: 25, 
+[2026-07-28 04:10:23 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP1 TP1 EP1] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 23, 
+[2026-07-28 04:10:23 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:23 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 5, #queue-req: 25, 
+[2026-07-28 04:10:23 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 23, 
+[2026-07-28 04:10:23 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 6, #queue-req: 24, 
+[2026-07-28 04:10:23 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.03, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP1 TP1 EP1] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 21, 
+[2026-07-28 04:10:23 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:23 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 23, 
+[2026-07-28 04:10:23 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:23 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:23 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:23 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:24 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:24 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 10, #queue-req: 21, 
+[2026-07-28 04:10:24 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 8, #queue-req: 22, 
+[2026-07-28 04:10:24 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.04, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:24 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:24 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:24 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 21, 
+[2026-07-28 04:10:24 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:24 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:24 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 9, #queue-req: 21, 
+[2026-07-28 04:10:24 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:25 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:25 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 20, 
+[2026-07-28 04:10:25 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 10, #queue-req: 20, 
+[2026-07-28 04:10:25 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 18, 
+[2026-07-28 04:10:25 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 11, #queue-req: 19, 
+[2026-07-28 04:10:25 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.05, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:25 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:25 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:25 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:25 DP7 TP7 EP7] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 12, #queue-req: 17, 
+[2026-07-28 04:10:25 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:25 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 12, #queue-req: 18, 
+[2026-07-28 04:10:25 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:26 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 13, #queue-req: 17, 
+[2026-07-28 04:10:26 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.06, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP1 TP1 EP1] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 14, 
+[2026-07-28 04:10:26 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 14, #queue-req: 16, 
+[2026-07-28 04:10:26 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 15, 
+[2026-07-28 04:10:26 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 15, 
+[2026-07-28 04:10:26 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:26 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:26 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 15, #queue-req: 15, 
+[2026-07-28 04:10:26 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 14, 
+[2026-07-28 04:10:26 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:26 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.07, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:27 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:27 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 16, #queue-req: 14, 
+[2026-07-28 04:10:27 DP5 TP5 EP5] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 16, #queue-req: 13, 
+[2026-07-28 04:10:27 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 13, 
+[2026-07-28 04:10:27 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:27 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:27 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 17, #queue-req: 12, 
+[2026-07-28 04:10:27 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:27 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:27 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.08, #running-req: 18, #queue-req: 13, 
+[2026-07-28 04:10:27 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:28 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 18, #queue-req: 12, 
+[2026-07-28 04:10:28 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP5 TP5 EP5] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 18, #queue-req: 11, 
+[2026-07-28 04:10:28 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 19, #queue-req: 11, 
+[2026-07-28 04:10:28 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 20, #queue-req: 10, 
+[2026-07-28 04:10:28 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:28 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.09, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:29 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 21, #queue-req: 9, 
+[2026-07-28 04:10:29 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 22, #queue-req: 8, 
+[2026-07-28 04:10:29 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.10, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 23, #queue-req: 7, 
+[2026-07-28 04:10:29 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:29 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:30 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:30 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.11, #running-req: 24, #queue-req: 6, 
+[2026-07-28 04:10:31 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=93 total_ops=238 avg_ratio_before=1.615 avg_ratio_after=1.186 max_ratio_before=2.113 max_ratio_after=1.395
+[2026-07-28 04:10:31 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=82 phys_a=67(rank4) phys_b=43(rank2) my_local_slot=3 weight0_checksum=-756928.937500
+[2026-07-28 04:10:31 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=82 phys_a=67(rank4) phys_b=43(rank2) my_local_slot=11 weight0_checksum=-21824.640625
+[2026-07-28 04:10:32 DP5 TP5 EP5] [PB-OEPLB-TIMING] begin(): temp_alloc=2.1ms batch_isend_irecv=930.5ms total_begin=932.6ms n_ops=238
+[2026-07-28 04:10:32 DP5 TP5 EP5] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP7 TP7 EP7] [PB-OEPLB-TIMING] begin(): temp_alloc=6.7ms batch_isend_irecv=925.9ms total_begin=932.6ms n_ops=238
+[2026-07-28 04:10:32 DP2 TP2 EP2] [PB-OEPLB-TIMING] begin(): temp_alloc=15.5ms batch_isend_irecv=913.3ms total_begin=928.9ms n_ops=238
+[2026-07-28 04:10:32 DP6 TP6 EP6] [PB-OEPLB-TIMING] begin(): temp_alloc=5.4ms batch_isend_irecv=923.7ms total_begin=929.0ms n_ops=238
+[2026-07-28 04:10:32 DP0 TP0 EP0] [PB-OEPLB-TIMING] begin(): temp_alloc=17.4ms batch_isend_irecv=911.6ms total_begin=928.9ms n_ops=238
+[2026-07-28 04:10:32 DP4 TP4 EP4] [PB-OEPLB-TIMING] begin(): temp_alloc=22.1ms batch_isend_irecv=907.1ms total_begin=929.2ms n_ops=238
+[2026-07-28 04:10:32 DP7 TP7 EP7] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP1 TP1 EP1] [PB-OEPLB-TIMING] begin(): temp_alloc=6.8ms batch_isend_irecv=922.3ms total_begin=929.1ms n_ops=238
+[2026-07-28 04:10:32 DP2 TP2 EP2] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP6 TP6 EP6] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP3 TP3 EP3] [PB-OEPLB-TIMING] begin(): temp_alloc=22.5ms batch_isend_irecv=911.1ms total_begin=933.6ms n_ops=238
+[2026-07-28 04:10:32 DP4 TP4 EP4] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP1 TP1 EP1] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP3 TP3 EP3] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP0 TP0 EP0] [PB-OEPLB] window#1: issued 238 swap(s) (154779648 tok global, dp=8)
+[2026-07-28 04:10:32 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 25, #queue-req: 5, 
+[2026-07-28 04:10:32 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 5, 
+[2026-07-28 04:10:32 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=82 local_slot=3 weight0_checksum_before=-756928.937500 weight0_checksum_after=-21824.640625 CHANGED=True
+[2026-07-28 04:10:32 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=82 local_slot=11 weight0_checksum_before=-21824.640625 weight0_checksum_after=-756928.937500 CHANGED=True
+[2026-07-28 04:10:32 DP5 TP5 EP5] [PB-OEPLB] 238 swap(s) done (1353.0ms) | total=238
+[2026-07-28 04:10:32 DP7 TP7 EP7] [PB-OEPLB] 238 swap(s) done (1353.2ms) | total=238
+[2026-07-28 04:10:32 DP4 TP4 EP4] [PB-OEPLB] 238 swap(s) done (1350.0ms) | total=238
+[2026-07-28 04:10:32 DP2 TP2 EP2] [PB-OEPLB] 238 swap(s) done (1350.2ms) | total=238
+[2026-07-28 04:10:32 DP1 TP1 EP1] [PB-OEPLB] 238 swap(s) done (1350.5ms) | total=238
+[2026-07-28 04:10:32 DP3 TP3 EP3] [PB-OEPLB] 238 swap(s) done (1355.6ms) | total=238
+[2026-07-28 04:10:32 DP0 TP0 EP0] [PB-OEPLB] 238 swap(s) done (1351.7ms) | total=238
+[2026-07-28 04:10:32 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 3, 
+[2026-07-28 04:10:32 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 26, #queue-req: 4, 
+[2026-07-28 04:10:32 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP6 TP6 EP6] [PB-OEPLB] 238 swap(s) done (1353.6ms) | total=238
+[2026-07-28 04:10:32 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.12, #running-req: 27, #queue-req: 3, 
+[2026-07-28 04:10:32 DP4 TP4 EP4] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 27, #queue-req: 2, 
+[2026-07-28 04:10:32 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:32 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 28, #queue-req: 2, 
+[2026-07-28 04:10:33 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 2, 
+[2026-07-28 04:10:33 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 2, 
+[2026-07-28 04:10:33 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.13, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 29, #queue-req: 1, 
+[2026-07-28 04:10:33 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 896, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 986, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 668, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 149, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:33 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 607, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 678, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:33 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, token usage: 0.14, #running-req: 30, #queue-req: 0, 
+[2026-07-28 04:10:34 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 110, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:34 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 138, #cached-token: 0, token usage: 0.14, #running-req: 31, #queue-req: 0, 
+[2026-07-28 04:10:35 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 BEFORE swap layer=72 phys_a=6(rank0) phys_b=54(rank3) my_local_slot=6 weight0_checksum=-2178949.500000
+[2026-07-28 04:10:35 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 BEFORE swap layer=72 phys_a=6(rank0) phys_b=54(rank3) my_local_slot=6 weight0_checksum=-1816866.625000
+[2026-07-28 04:10:35 DP6 TP6 EP6] [PB-OEPLB-TIMING] begin(): temp_alloc=0.4ms batch_isend_irecv=0.7ms total_begin=1.1ms n_ops=41
+[2026-07-28 04:10:35 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP6 TP6 EP6] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=41 avg_ratio_before=1.188 avg_ratio_after=1.170 max_ratio_before=1.399 max_ratio_after=1.399
+[2026-07-28 04:10:35 DP5 TP5 EP5] [PB-OEPLB-TIMING] begin(): temp_alloc=0.5ms batch_isend_irecv=1.0ms total_begin=1.5ms n_ops=41
+[2026-07-28 04:10:35 DP1 TP1 EP1] [PB-OEPLB-TIMING] begin(): temp_alloc=0.6ms batch_isend_irecv=0.9ms total_begin=1.5ms n_ops=41
+[2026-07-28 04:10:35 DP5 TP5 EP5] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP1 TP1 EP1] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP3 TP3 EP3] [PB-OEPLB-TIMING] begin(): temp_alloc=3.3ms batch_isend_irecv=0.8ms total_begin=4.1ms n_ops=41
+[2026-07-28 04:10:35 DP3 TP3 EP3] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP0 TP0 EP0] [PB-OEPLB-TIMING] begin(): temp_alloc=3.4ms batch_isend_irecv=1.1ms total_begin=4.5ms n_ops=41
+[2026-07-28 04:10:35 DP0 TP0 EP0] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP2 TP2 EP2] [PB-OEPLB-TIMING] begin(): temp_alloc=0.6ms batch_isend_irecv=1.1ms total_begin=1.7ms n_ops=41
+[2026-07-28 04:10:35 DP2 TP2 EP2] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP4 TP4 EP4] [PB-OEPLB-TIMING] begin(): temp_alloc=0.7ms batch_isend_irecv=1.2ms total_begin=1.9ms n_ops=41
+[2026-07-28 04:10:35 DP4 TP4 EP4] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP7 TP7 EP7] [PB-OEPLB-TIMING] begin(): temp_alloc=0.7ms batch_isend_irecv=1.3ms total_begin=2.0ms n_ops=41
+[2026-07-28 04:10:35 DP7 TP7 EP7] [PB-OEPLB] window#2: issued 41 swap(s) (174928384 tok global, dp=8)
+[2026-07-28 04:10:35 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 AFTER swap layer=72 local_slot=6 weight0_checksum_before=-2178949.500000 weight0_checksum_after=-1816866.625000 CHANGED=True
+[2026-07-28 04:10:35 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 AFTER swap layer=72 local_slot=6 weight0_checksum_before=-1816866.625000 weight0_checksum_after=-2178949.500000 CHANGED=True
+[2026-07-28 04:10:35 DP3 TP3 EP3] [PB-OEPLB] 41 swap(s) done (73.8ms) | total=279
+[2026-07-28 04:10:35 DP0 TP0 EP0] [PB-OEPLB] 41 swap(s) done (73.0ms) | total=279
+[2026-07-28 04:10:35 DP5 TP5 EP5] [PB-OEPLB] 41 swap(s) done (73.1ms) | total=279
+[2026-07-28 04:10:35 DP7 TP7 EP7] [PB-OEPLB] 41 swap(s) done (72.0ms) | total=279
+[2026-07-28 04:10:35 DP6 TP6 EP6] [PB-OEPLB] 41 swap(s) done (76.2ms) | total=279
+[2026-07-28 04:10:35 DP4 TP4 EP4] [PB-OEPLB] 41 swap(s) done (72.2ms) | total=279
+[2026-07-28 04:10:35 DP2 TP2 EP2] [PB-OEPLB] 41 swap(s) done (72.4ms) | total=279
+[2026-07-28 04:10:35 DP1 TP1 EP1] [PB-OEPLB] 41 swap(s) done (74.9ms) | total=279
+[2026-07-28 04:10:35 DP0 TP0 EP0] Decode batch, #running-req: 32, #token: 33632, token usage: 0.15, cuda graph: True, gen throughput (token/s): 38.84, #queue-req: 0, 
+[2026-07-28 04:10:35 DP5 TP5 EP5] Decode batch, #running-req: 32, #token: 33446, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.98, #queue-req: 0, 
+[2026-07-28 04:10:35 DP6 TP6 EP6] Decode batch, #running-req: 32, #token: 33436, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.98, #queue-req: 0, 
+[2026-07-28 04:10:35 DP2 TP2 EP2] Decode batch, #running-req: 32, #token: 33754, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.98, #queue-req: 0, 
+[2026-07-28 04:10:35 DP7 TP7 EP7] Decode batch, #running-req: 32, #token: 33375, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.98, #queue-req: 0, 
+[2026-07-28 04:10:35 DP1 TP1 EP1] Decode batch, #running-req: 32, #token: 33886, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.94, #queue-req: 0, 
+[2026-07-28 04:10:35 DP3 TP3 EP3] Decode batch, #running-req: 32, #token: 33902, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.91, #queue-req: 0, 
+[2026-07-28 04:10:35 DP4 TP4 EP4] Decode batch, #running-req: 32, #token: 33930, token usage: 0.15, cuda graph: True, gen throughput (token/s): 39.91, #queue-req: 0, 
+[2026-07-28 04:10:37 DP0 TP0 EP0] Decode batch, #running-req: 32, #token: 34912, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.38, #queue-req: 0, 
+[2026-07-28 04:10:37 DP1 TP1 EP1] Decode batch, #running-req: 32, #token: 35166, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.37, #queue-req: 0, 
+[2026-07-28 04:10:37 DP6 TP6 EP6] Decode batch, #running-req: 32, #token: 34716, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.34, #queue-req: 0, 
+[2026-07-28 04:10:37 DP2 TP2 EP2] Decode batch, #running-req: 32, #token: 35034, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.36, #queue-req: 0, 
+[2026-07-28 04:10:37 DP7 TP7 EP7] Decode batch, #running-req: 32, #token: 34655, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.33, #queue-req: 0, 
+[2026-07-28 04:10:37 DP5 TP5 EP5] Decode batch, #running-req: 32, #token: 34726, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.34, #queue-req: 0, 
+[2026-07-28 04:10:37 DP3 TP3 EP3] Decode batch, #running-req: 32, #token: 35182, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.34, #queue-req: 0, 
+[2026-07-28 04:10:37 DP4 TP4 EP4] Decode batch, #running-req: 32, #token: 35210, token usage: 0.15, cuda graph: True, gen throughput (token/s): 759.34, #queue-req: 0, 

@@ -1,0 +1,1342 @@
+[2026-07-26 16:51:39] WARNING server_args.py:1416: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-07-26 16:51:39] WARNING server_args.py:1582: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-07-26 16:51:39] WARNING server_args.py:1633: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-07-26 16:51:40] server_args=ServerArgs(model_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_mode='auto', tokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{}', rl_quant_profile=None, trust_remote_code=True, context_length=None, is_embedding=False, enable_multimodal=None, revision=None, model_impl='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=False, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, dtype='auto', quantization='fp8', quantization_param_path=None, kv_cache_dtype='auto', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, mem_fraction_static=0.8, max_running_requests=None, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=1024, max_prefill_tokens=16384, schedule_policy='fcfs', enable_priority_scheduling=False, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=0.3, page_size=1, hybrid_kvcache_ratio=None, swa_full_tokens_ratio=0.8, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', device='cuda', tp_size=8, pp_size=1, pp_max_micro_batch_size=None, stream_interval=1, stream_output=False, random_seed=1024418383, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=300, dist_timeout=None, download_dir=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, mm_process_config={}, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, crash_dump_folder=None, show_time_cost=False, enable_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, collect_tokens_histogram=False, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, served_model_name='/data/models/Qwen3-235B-A22B-FP8', weight_version='default', chat_template=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=8, load_balance_method='round_robin', load_watch_interval=0.1, prefill_round_robin_balance=False, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, attention_backend='fa3', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', nsa_prefill_backend='flashmla_sparse', nsa_decode_backend='fa3', enable_flashinfer_autotune=False, speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_moe_runner_backend=None, speculative_moe_a2a_backend=None, speculative_ngram_min_match_window_size=1, speculative_ngram_max_match_window_size=12, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_branch_length=18, speculative_ngram_capacity=10000000, ep_size=8, moe_a2a_backend='deepep', moe_runner_backend='deep_gemm', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, deepep_mode='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm='static', init_expert_location='trivial', enable_eplb=False, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, mooncake_ib_device=None, enable_pb_oeplb=True, pb_oeplb_threshold_ratio=1.02, pb_oeplb_max_swaps_per_layer=64, pb_oeplb_max_total_swap_layers=94, pb_oeplb_sync_window=64, pb_oeplb_min_prefill_tokens=256, pb_oeplb_cooldown_steps=5, pb_oeplb_always_record=False, max_mamba_cache_size=None, mamba_ssm_dtype='float32', mamba_full_memory_ratio=0.9, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='best_effort', hicache_storage_backend_extra_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, enable_double_sparsity=False, ds_channel_config_path=None, ds_heavy_channel_num=32, ds_heavy_token_num=256, ds_heavy_channel_type='qk', ds_sparse_decode_threshold=4096, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', multi_item_scoring_delimiter=None, disable_radix_cache=True, cuda_graph_max_bs=128, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], disable_cuda_graph=False, disable_cuda_graph_padding=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, disable_overlap_schedule=False, enable_mixed_chunk=False, enable_dp_attention=True, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, enable_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=4096, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, 4096], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, enable_nsa_prefill_context_parallel=False, enable_fused_qk_norm_rope=False, enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_decode_tp=None, disaggregation_decode_dp=None, disaggregation_prefill_pp=1, disaggregation_ib_device=None, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, custom_weight_loader=[], weight_loader_disable_mmap=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, mm_max_concurrent_calls=32, mm_per_request_timeout=10.0, enable_broadcast_mm_inputs_process=False, decrypted_config_file=None, decrypted_draft_config_file=None, mm_enable_dp_encoder=False, forward_hooks=None)
+[2026-07-26 16:51:40] Using default HuggingFace chat template with detected content format: string
+[2026-07-26 16:51:56 DP0 TP0 EP0] Init torch distributed begin.
+[2026-07-26 16:51:57 DP1 TP1 EP1] Init torch distributed begin.
+[2026-07-26 16:51:57 DP5 TP5 EP5] Init torch distributed begin.
+[2026-07-26 16:51:57 DP3 TP3 EP3] Init torch distributed begin.
+[2026-07-26 16:51:58 DP7 TP7 EP7] Init torch distributed begin.
+[2026-07-26 16:51:58 DP6 TP6 EP6] Init torch distributed begin.
+[2026-07-26 16:51:58 DP4 TP4 EP4] Init torch distributed begin.
+[2026-07-26 16:51:58 DP2 TP2 EP2] Init torch distributed begin.
+[Gloo] Rank [Gloo] Rank [Gloo] Rank 10[Gloo] Rank 2 is connected to  is connected to 3 is connected to 77 is connected to 7 peer ranks.  peer ranks. 7 peer ranks. Expected number of connected peer ranks is : Expected number of connected peer ranks is :  peer ranks. Expected number of connected peer ranks is : [Gloo] Rank 77Expected number of connected peer ranks is : 74
+[Gloo] Rank 
+7
+ is connected to [Gloo] Rank 6
+[Gloo] Rank 75 is connected to 7 peer ranks.  is connected to 7 is connected to Expected number of connected peer ranks is : 7 peer ranks. 77 peer ranks. Expected number of connected peer ranks is :  peer ranks. 
+Expected number of connected peer ranks is : 7Expected number of connected peer ranks is : 7
+7
+
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : [Gloo] Rank 7[Gloo] Rank 1
+3 is connected to  is connected to [Gloo] Rank 775[Gloo] Rank  peer ranks. [Gloo] Rank  peer ranks.  is connected to 7Expected number of connected peer ranks is : 6Expected number of connected peer ranks is : 7 is connected to 7 is connected to 7 peer ranks. 7
+7
+Expected number of connected peer ranks is :  peer ranks.  peer ranks. 7Expected number of connected peer ranks is : Expected number of connected peer ranks is : 
+77
+
+[2026-07-26 16:51:58 DP0 TP0 EP0] sglang is using nccl==2.27.5
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : [Gloo] Rank 00
+ is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. [Gloo] Rank [Gloo] Rank Expected number of connected peer ranks is : 0[Gloo] Rank 
+000 is connected to  is connected to [Gloo] Rank  is connected to [Gloo] Rank 00000[Gloo] Rank  peer ranks. [Gloo] Rank  peer ranks.  is connected to  peer ranks.  is connected to 0Expected number of connected peer ranks is : 0Expected number of connected peer ranks is : 0Expected number of connected peer ranks is : 0 is connected to 0 is connected to 0 peer ranks. 0 peer ranks. 0
+0
+Expected number of connected peer ranks is : 
+Expected number of connected peer ranks is :  peer ranks.  peer ranks. 00Expected number of connected peer ranks is : Expected number of connected peer ranks is : 
+
+00
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-07-26 16:52:00 DP0 TP0 EP0] Init torch distributed ends. mem usage=1.13 GB
+[2026-07-26 16:52:00 DP5 TP5 EP5] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:00 DP3 TP3 EP3] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:00 DP7 TP7 EP7] Init torch distributed ends. mem usage=0.95 GB
+[2026-07-26 16:52:00 DP6 TP6 EP6] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:00 DP4 TP4 EP4] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:00 DP2 TP2 EP2] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:00 DP1 TP1 EP1] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:52:01 DP0 TP0 EP0] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP4 TP4 EP4] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP3 TP3 EP3] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP1 TP1 EP1] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP5 TP5 EP5] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP2 TP2 EP2] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP7 TP7 EP7] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:01 DP6 TP6 EP6] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:52:02 DP0 TP0 EP0] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:02 DP0 TP0 EP0] Load weight begin. avail mem=93.62 GB
+[2026-07-26 16:52:02 DP0 TP0 EP0] Detected fp8 checkpoint.
+[2026-07-26 16:52:02 DP4 TP4 EP4] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:02 DP4 TP4 EP4] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:52:03 DP5 TP5 EP5] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP5 TP5 EP5] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:52:03 DP2 TP2 EP2] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP3 TP3 EP3] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP3 TP3 EP3] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:52:03 DP2 TP2 EP2] Load weight begin. avail mem=93.57 GB
+Loading safetensors checkpoint shards:   0% Completed | 0/48 [00:00<?, ?it/s]
+[2026-07-26 16:52:03 DP6 TP6 EP6] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP6 TP6 EP6] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:52:03 DP7 TP7 EP7] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP7 TP7 EP7] Load weight begin. avail mem=93.80 GB
+[2026-07-26 16:52:03 DP1 TP1 EP1] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=64, always_record=False
+[2026-07-26 16:52:03 DP1 TP1 EP1] Load weight begin. avail mem=93.57 GB
+Loading safetensors checkpoint shards:   2% Completed | 1/48 [00:00<00:11,  3.97it/s]
+Loading safetensors checkpoint shards:   4% Completed | 2/48 [00:00<00:11,  3.98it/s]
+Loading safetensors checkpoint shards:   6% Completed | 3/48 [00:00<00:11,  4.03it/s]
+Loading safetensors checkpoint shards:   8% Completed | 4/48 [00:01<00:11,  3.99it/s]
+Loading safetensors checkpoint shards:  10% Completed | 5/48 [00:01<00:10,  4.05it/s]
+Loading safetensors checkpoint shards:  12% Completed | 6/48 [00:01<00:10,  3.90it/s]
+Loading safetensors checkpoint shards:  15% Completed | 7/48 [00:01<00:10,  3.94it/s]
+Loading safetensors checkpoint shards:  17% Completed | 8/48 [00:02<00:09,  4.02it/s]
+Loading safetensors checkpoint shards:  19% Completed | 9/48 [00:02<00:09,  4.07it/s]
+Loading safetensors checkpoint shards:  21% Completed | 10/48 [00:02<00:09,  4.05it/s]
+Loading safetensors checkpoint shards:  23% Completed | 11/48 [00:02<00:09,  4.08it/s]
+Loading safetensors checkpoint shards:  25% Completed | 12/48 [00:02<00:08,  4.08it/s]
+Loading safetensors checkpoint shards:  27% Completed | 13/48 [00:03<00:08,  4.10it/s]
+Loading safetensors checkpoint shards:  29% Completed | 14/48 [00:03<00:08,  4.04it/s]
+Loading safetensors checkpoint shards:  31% Completed | 15/48 [00:03<00:08,  4.05it/s]
+Loading safetensors checkpoint shards:  33% Completed | 16/48 [00:03<00:07,  4.05it/s]
+Loading safetensors checkpoint shards:  35% Completed | 17/48 [00:04<00:07,  4.06it/s]
+Loading safetensors checkpoint shards:  38% Completed | 18/48 [00:04<00:07,  4.09it/s]
+Loading safetensors checkpoint shards:  40% Completed | 19/48 [00:05<00:16,  1.78it/s]
+Loading safetensors checkpoint shards:  42% Completed | 20/48 [00:06<00:13,  2.11it/s]
+Loading safetensors checkpoint shards:  44% Completed | 21/48 [00:06<00:10,  2.49it/s]
+Loading safetensors checkpoint shards:  46% Completed | 22/48 [00:06<00:09,  2.74it/s]
+Loading safetensors checkpoint shards:  48% Completed | 23/48 [00:06<00:08,  3.12it/s]
+Loading safetensors checkpoint shards:  50% Completed | 24/48 [00:06<00:07,  3.40it/s]
+Loading safetensors checkpoint shards:  52% Completed | 25/48 [00:07<00:06,  3.63it/s]
+Loading safetensors checkpoint shards:  54% Completed | 26/48 [00:07<00:05,  3.75it/s]
+Loading safetensors checkpoint shards:  56% Completed | 27/48 [00:07<00:05,  3.93it/s]
+Loading safetensors checkpoint shards:  58% Completed | 28/48 [00:07<00:04,  4.09it/s]
+Loading safetensors checkpoint shards:  60% Completed | 29/48 [00:08<00:04,  4.20it/s]
+Loading safetensors checkpoint shards:  62% Completed | 30/48 [00:08<00:04,  4.28it/s]
+Loading safetensors checkpoint shards:  65% Completed | 31/48 [00:08<00:03,  4.33it/s]
+Loading safetensors checkpoint shards:  67% Completed | 32/48 [00:08<00:03,  4.35it/s]
+Loading safetensors checkpoint shards:  69% Completed | 33/48 [00:09<00:03,  4.34it/s]
+Loading safetensors checkpoint shards:  71% Completed | 34/48 [00:09<00:03,  4.34it/s]
+Loading safetensors checkpoint shards:  73% Completed | 35/48 [00:09<00:02,  4.35it/s]
+Loading safetensors checkpoint shards:  75% Completed | 36/48 [00:09<00:02,  4.35it/s]
+Loading safetensors checkpoint shards:  77% Completed | 37/48 [00:09<00:02,  4.26it/s]
+Loading safetensors checkpoint shards:  79% Completed | 38/48 [00:10<00:02,  4.26it/s]
+Loading safetensors checkpoint shards:  81% Completed | 39/48 [00:10<00:02,  4.29it/s]
+Loading safetensors checkpoint shards:  83% Completed | 40/48 [00:10<00:01,  4.28it/s]
+Loading safetensors checkpoint shards:  85% Completed | 41/48 [00:10<00:01,  4.24it/s]
+Loading safetensors checkpoint shards:  88% Completed | 42/48 [00:11<00:01,  4.29it/s]
+Loading safetensors checkpoint shards:  90% Completed | 43/48 [00:11<00:01,  4.26it/s]
+Loading safetensors checkpoint shards:  92% Completed | 44/48 [00:11<00:00,  4.18it/s]
+Loading safetensors checkpoint shards:  94% Completed | 45/48 [00:11<00:00,  4.21it/s]
+Loading safetensors checkpoint shards:  96% Completed | 46/48 [00:12<00:00,  4.24it/s]
+Loading safetensors checkpoint shards:  98% Completed | 47/48 [00:12<00:00,  4.26it/s]
+[2026-07-26 16:52:15 DP4 TP4 EP4] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:12<00:00,  4.26it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:12<00:00,  3.82it/s]
+
+[2026-07-26 16:52:15 DP5 TP5 EP5] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:15 DP0 TP0 EP0] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.51 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:15 DP6 TP6 EP6] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:16 DP7 TP7 EP7] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.70 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:16 DP2 TP2 EP2] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:16 DP1 TP1 EP1] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:16 DP3 TP3 EP3] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:52:16 DP0 TP0 EP0] Using KV cache dtype: torch.bfloat16
+[2026-07-26 16:52:17 DP2 TP2 EP2] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP2 TP2 EP2] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP4 TP4 EP4] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP4 TP4 EP4] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP0 TP0 EP0] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP6 TP6 EP6] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP0 TP0 EP0] Memory pool end. avail mem=18.31 GB
+[2026-07-26 16:52:17 DP6 TP6 EP6] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP1 TP1 EP1] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP1 TP1 EP1] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP5 TP5 EP5] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP5 TP5 EP5] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP3 TP3 EP3] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP3 TP3 EP3] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:52:17 DP7 TP7 EP7] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:52:17 DP7 TP7 EP7] Memory pool end. avail mem=18.50 GB
+[2026-07-26 16:52:17 DP0 TP0 EP0] Capture cuda graph begin. This can take up to several minutes. avail mem=18.22 GB
+[2026-07-26 16:52:17 DP0 TP0 EP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+[2026-07-26 16:52:17 DP1 TP1 EP1] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP4 TP4 EP4] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP6 TP6 EP6] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP2 TP2 EP2] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP5 TP5 EP5] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP3 TP3 EP3] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:52:17 DP7 TP7 EP7] Capture cuda graph begin. This can take up to several minutes. avail mem=18.41 GB
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=18.11 GB):   0%|          | 0/20 [00:00<?, ?it/s][2026-07-26 16:52:17 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:17 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=9216, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-07-26 16:52:17 DP0 TP0 EP0] Required memory for warmup: 0.37890625GB, Available memory: 18.08447265625GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][AWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+DeepGEMM warmup:  14%|█▎        | 2242/16384 [00:00<00:00, 22416.97it/s][A[2026-07-26 16:52:17 DP5 TP5 EP5] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP7 TP7 EP7] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP4 TP4 EP4] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP3 TP3 EP3] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP1 TP1 EP1] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP6 TP6 EP6] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:17 DP2 TP2 EP2] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+
+DeepGEMM warmup:  28%|██▊       | 4609/16384 [00:00<00:00, 22920.18it/s][A
+DeepGEMM warmup:  46%|████▋     | 7580/16384 [00:00<00:00, 26002.23it/s][A
+DeepGEMM warmup:  64%|██████▍   | 10541/16384 [00:00<00:00, 27419.48it/s][A
+DeepGEMM warmup:  83%|████████▎ | 13623/16384 [00:00<00:00, 28641.82it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 27414.36it/s]
+[2026-07-26 16:52:18 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:18 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=8192, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:52:18 DP0 TP0 EP0] Required memory for warmup: 0.28125GB, Available memory: 18.04736328125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  12%|█▏        | 1962/16384 [00:00<00:00, 19616.23it/s][A
+DeepGEMM warmup:  29%|██▉       | 4797/16384 [00:00<00:00, 24751.75it/s][A
+DeepGEMM warmup:  48%|████▊     | 7844/16384 [00:00<00:00, 27362.07it/s][A
+DeepGEMM warmup:  65%|██████▍   | 10581/16384 [00:00<00:00, 26663.46it/s][A
+DeepGEMM warmup:  83%|████████▎ | 13636/16384 [00:00<00:00, 28040.77it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 27536.41it/s]
+[2026-07-26 16:52:19 DP0 TP0 EP0] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:52:22 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:22 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:52:22 DP0 TP0 EP0] Required memory for warmup: 2.6875000596046448GB, Available memory: 9.32470703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  18%|█▊        | 3010/16384 [00:00<00:00, 30091.56it/s][A
+DeepGEMM warmup:  37%|███▋      | 6037/16384 [00:00<00:00, 30191.53it/s][A
+DeepGEMM warmup:  57%|█████▋    | 9392/16384 [00:00<00:00, 31721.55it/s][A
+DeepGEMM warmup:  77%|███████▋  | 12565/16384 [00:00<00:00, 30798.43it/s][A
+DeepGEMM warmup:  96%|█████████▌| 15649/16384 [00:00<00:00, 30326.26it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 30169.55it/s]
+[2026-07-26 16:52:23 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:23 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:52:23 DP0 TP0 EP0] Required memory for warmup: 2.4687500596046448GB, Available memory: 9.19970703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  19%|█▉        | 3192/16384 [00:00<00:00, 31916.15it/s][A
+DeepGEMM warmup:  39%|███▉      | 6384/16384 [00:00<00:00, 31234.75it/s][A
+DeepGEMM warmup:  61%|██████▏   | 10053/16384 [00:00<00:00, 33692.85it/s][A
+DeepGEMM warmup:  84%|████████▍ | 13763/16384 [00:00<00:00, 35025.14it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 34523.95it/s]
+Capturing batches (bs=128 avail_mem=18.11 GB):   5%|▌         | 1/20 [00:06<02:03,  6.51s/it]Capturing batches (bs=120 avail_mem=8.74 GB):   5%|▌         | 1/20 [00:06<02:03,  6.51s/it] Capturing batches (bs=120 avail_mem=8.74 GB):  10%|█         | 2/20 [00:06<00:52,  2.93s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  10%|█         | 2/20 [00:06<00:52,  2.93s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:07<00:30,  1.78s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:07<00:30,  1.78s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  20%|██        | 4/20 [00:07<00:20,  1.25s/it]Capturing batches (bs=96 avail_mem=8.72 GB):  20%|██        | 4/20 [00:07<00:20,  1.25s/it] Capturing batches (bs=96 avail_mem=8.72 GB):  25%|██▌       | 5/20 [00:08<00:14,  1.02it/s]Capturing batches (bs=88 avail_mem=8.71 GB):  25%|██▌       | 5/20 [00:08<00:14,  1.02it/s]Capturing batches (bs=88 avail_mem=8.71 GB):  30%|███       | 6/20 [00:08<00:11,  1.25it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  30%|███       | 6/20 [00:08<00:11,  1.25it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  35%|███▌      | 7/20 [00:09<00:09,  1.43it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  35%|███▌      | 7/20 [00:09<00:09,  1.43it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  40%|████      | 8/20 [00:09<00:07,  1.57it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  40%|████      | 8/20 [00:09<00:07,  1.57it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  45%|████▌     | 9/20 [00:10<00:06,  1.63it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  45%|████▌     | 9/20 [00:10<00:06,  1.63it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  50%|█████     | 10/20 [00:10<00:05,  1.80it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  50%|█████     | 10/20 [00:10<00:05,  1.80it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  55%|█████▌    | 11/20 [00:11<00:04,  1.96it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  55%|█████▌    | 11/20 [00:11<00:04,  1.96it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  60%|██████    | 12/20 [00:11<00:03,  2.11it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  60%|██████    | 12/20 [00:11<00:03,  2.11it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  65%|██████▌   | 13/20 [00:11<00:03,  2.19it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  65%|██████▌   | 13/20 [00:11<00:03,  2.19it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:12<00:02,  2.24it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:12<00:02,  2.24it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  75%|███████▌  | 15/20 [00:12<00:02,  2.21it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  75%|███████▌  | 15/20 [00:12<00:02,  2.21it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  80%|████████  | 16/20 [00:13<00:01,  2.30it/s]Capturing batches (bs=8 avail_mem=8.62 GB):  80%|████████  | 16/20 [00:13<00:01,  2.30it/s] Capturing batches (bs=8 avail_mem=8.62 GB):  85%|████████▌ | 17/20 [00:13<00:01,  2.39it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  85%|████████▌ | 17/20 [00:13<00:01,  2.39it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  90%|█████████ | 18/20 [00:13<00:00,  2.43it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  90%|█████████ | 18/20 [00:13<00:00,  2.43it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  95%|█████████▌| 19/20 [00:14<00:00,  2.45it/s]Capturing batches (bs=1 avail_mem=8.59 GB):  95%|█████████▌| 19/20 [00:14<00:00,  2.45it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:14<00:00,  2.30it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:14<00:00,  1.34it/s]
+[2026-07-26 16:52:32 DP0 TP0 EP0] Registering 19 cuda graph addresses
+[2026-07-26 16:52:32 DP4 TP4 EP4] Capture cuda graph end. Time elapsed: 15.59 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:32 DP6 TP6 EP6] Capture cuda graph end. Time elapsed: 15.59 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:32 DP5 TP5 EP5] Capture cuda graph end. Time elapsed: 15.58 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:32 DP2 TP2 EP2] Capture cuda graph end. Time elapsed: 15.59 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:32 DP7 TP7 EP7] Capture cuda graph end. Time elapsed: 15.63 s. mem usage=8.73 GB. avail mem=9.68 GB.
+[2026-07-26 16:52:32 DP1 TP1 EP1] Capture cuda graph end. Time elapsed: 15.65 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:32 DP0 TP0 EP0] Capture cuda graph end. Time elapsed: 15.65 s. mem usage=9.63 GB. avail mem=8.59 GB.
+[2026-07-26 16:52:32 DP3 TP3 EP3] Capture cuda graph end. Time elapsed: 15.65 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:52:33 DP0 TP0 EP0] max_total_num_tokens=227258, chunked_prefill_size=1024, max_prefill_tokens=16384, max_running_requests=2840, context_len=40960, available_gpu_mem=8.59 GB
+[2026-07-26 16:52:33] INFO:     Started server process [682492]
+[2026-07-26 16:52:33] INFO:     Waiting for application startup.
+[2026-07-26 16:52:33] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-26 16:52:33] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-26 16:52:33] INFO:     Application startup complete.
+[2026-07-26 16:52:33] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-07-26 16:52:34] Endpoint '/get_model_info' is deprecated and will be removed in a future version. Please use '/model_info' instead.
+[2026-07-26 16:52:34] INFO:     127.0.0.1:34636 - "GET /get_model_info HTTP/1.1" 200 OK
+[2026-07-26 16:52:34 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:34 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:34 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:34 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:35 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:35 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:52:35 DP0 TP0 EP0] Required memory for warmup: 0.34381103515625GB, Available memory: 8.52978515625GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3043.71it/s]
+[2026-07-26 16:52:35 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:52:35 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:52:35 DP0 TP0 EP0] Required memory for warmup: 0.24224853515625GB, Available memory: 8.52783203125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 4057.77it/s]
+[2026-07-26 16:52:35 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:35 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:35 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:35 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:36 DP7 TP7 EP7] [PB-OEPLB] rank=7 ready after 10 forwards
+[2026-07-26 16:52:36 DP4 TP4 EP4] [PB-OEPLB] rank=4 ready after 10 forwards
+[2026-07-26 16:52:36 DP6 TP6 EP6] [PB-OEPLB] rank=6 ready after 10 forwards
+[2026-07-26 16:52:36 DP5 TP5 EP5] [PB-OEPLB] rank=5 ready after 10 forwards
+[2026-07-26 16:52:36] INFO:     127.0.0.1:34640 - "POST /generate HTTP/1.1" 200 OK
+[2026-07-26 16:52:36] The server is fired up and ready to roll!
+[2026-07-26 16:52:36 DP1 TP1 EP1] [PB-OEPLB] rank=1 ready after 10 forwards
+[2026-07-26 16:52:36 DP0 TP0 EP0] [PB-OEPLB] rank=0 ready after 10 forwards
+[2026-07-26 16:52:36 DP3 TP3 EP3] [PB-OEPLB] rank=3 ready after 10 forwards
+[2026-07-26 16:52:36 DP2 TP2 EP2] [PB-OEPLB] rank=2 ready after 10 forwards
+[2026-07-26 16:52:37 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:38] INFO:     127.0.0.1:34646 - "GET /health HTTP/1.1" 200 OK
+[2026-07-26 16:52:38] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:38 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:39 DP1 TP1 EP1] Decode batch, #running-req: 1, #token: 273, token usage: 0.00, cuda graph: True, gen throughput (token/s): 5.96, #queue-req: 0, 
+[2026-07-26 16:52:42] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:42 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:43 DP2 TP2 EP2] Decode batch, #running-req: 1, #token: 268, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.89, #queue-req: 0, 
+[2026-07-26 16:52:44] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:44 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:45 DP3 TP3 EP3] Decode batch, #running-req: 1, #token: 311, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.37, #queue-req: 0, 
+[2026-07-26 16:52:45] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:45 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:46 DP4 TP4 EP4] Decode batch, #running-req: 1, #token: 319, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.04, #queue-req: 0, 
+[2026-07-26 16:52:46 DP4 TP4 EP4] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.73ms planbuild=0.00ms finalize=0.00ms total=1943.73ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP2 TP2 EP2] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.76ms planbuild=0.00ms finalize=0.00ms total=1943.76ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP3 TP3 EP3] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1944.65ms planbuild=0.00ms finalize=0.00ms total=1944.65ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP5 TP5 EP5] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.67ms planbuild=0.00ms finalize=0.00ms total=1943.67ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP1 TP1 EP1] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.96ms planbuild=0.00ms finalize=0.00ms total=1943.96ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP7 TP7 EP7] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1944.12ms planbuild=0.00ms finalize=0.00ms total=1944.12ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP6 TP6 EP6] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.98ms planbuild=0.00ms finalize=0.00ms total=1943.98ms avg_record_us=0.00
+[2026-07-26 16:52:46 DP0 TP0 EP0] [PB-OEPLB-PROF] window#4 calls=0 record=0.00ms allreduce=1943.93ms planbuild=0.00ms finalize=0.00ms total=1943.93ms avg_record_us=0.00
+[2026-07-26 16:52:46] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:46 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 273, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:47 DP5 TP5 EP5] Decode batch, #running-req: 1, #token: 306, token usage: 0.00, cuda graph: True, gen throughput (token/s): 2.77, #queue-req: 0, 
+[2026-07-26 16:52:50] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:50 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:50 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 509, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 511, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 555, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 542, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 473, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:50 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 539, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:51 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 530, token usage: 0.00, cuda graph: True, gen throughput (token/s): 10.24, #queue-req: 0, 
+[2026-07-26 16:52:51 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 527, token usage: 0.00, cuda graph: True, gen throughput (token/s): 6.34, #queue-req: 0, 
+[2026-07-26 16:52:51 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 557, token usage: 0.00, cuda graph: True, gen throughput (token/s): 4.31, #queue-req: 0, 
+[2026-07-26 16:52:51 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 573, token usage: 0.00, cuda graph: True, gen throughput (token/s): 14.16, #queue-req: 0, 
+[2026-07-26 16:52:51 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 560, token usage: 0.00, cuda graph: True, gen throughput (token/s): 8.02, #queue-req: 0, 
+[2026-07-26 16:52:51 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 575, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.86, #queue-req: 0, 
+[2026-07-26 16:52:51 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 539, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.91, #queue-req: 0, 
+[2026-07-26 16:52:51 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 569, token usage: 0.00, cuda graph: True, gen throughput (token/s): 3.91, #queue-req: 0, 
+[2026-07-26 16:52:52 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 637, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.01, #queue-req: 0, 
+[2026-07-26 16:52:52 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 607, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.01, #queue-req: 0, 
+[2026-07-26 16:52:52 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 653, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.01, #queue-req: 0, 
+[2026-07-26 16:52:52 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 640, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.01, #queue-req: 0, 
+[2026-07-26 16:52:52 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 610, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.01, #queue-req: 0, 
+[2026-07-26 16:52:52 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:52:52 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 BEFORE swap layer=24 phys_a=89(rank5) phys_b=50(rank3) my_local_slot=9 weight0_checksum=-581174.687500
+[2026-07-26 16:52:52 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 BEFORE swap layer=24 phys_a=89(rank5) phys_b=50(rank3) my_local_slot=2 weight0_checksum=445372.218750
+[2026-07-26 16:52:53 DP1 TP1 EP1] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP6 TP6 EP6] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP2 TP2 EP2] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP5 TP5 EP5] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP3 TP3 EP3] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP7 TP7 EP7] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP4 TP4 EP4] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP0 TP0 EP0] [PB-OEPLB] window#6: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:52:53 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 AFTER swap layer=24 local_slot=2 weight0_checksum_before=445372.218750 weight0_checksum_after=-581174.687500 CHANGED=True
+[2026-07-26 16:52:53 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 AFTER swap layer=24 local_slot=9 weight0_checksum_before=-581174.687500 weight0_checksum_after=445372.218750 CHANGED=True
+[2026-07-26 16:52:53 DP4 TP4 EP4] [PB-OEPLB] 242 swap(s) done (979.8ms) | total=242
+[2026-07-26 16:52:53 DP6 TP6 EP6] [PB-OEPLB] 242 swap(s) done (981.6ms) | total=242
+[2026-07-26 16:52:53 DP7 TP7 EP7] [PB-OEPLB] 242 swap(s) done (981.7ms) | total=242
+[2026-07-26 16:52:53 DP0 TP0 EP0] [PB-OEPLB] 242 swap(s) done (982.1ms) | total=242
+[2026-07-26 16:52:53 DP1 TP1 EP1] [PB-OEPLB] 242 swap(s) done (982.2ms) | total=242
+[2026-07-26 16:52:53 DP3 TP3 EP3] [PB-OEPLB] 242 swap(s) done (985.4ms) | total=242
+[2026-07-26 16:52:53 DP5 TP5 EP5] [PB-OEPLB] 242 swap(s) done (989.7ms) | total=242
+[2026-07-26 16:52:53 DP2 TP2 EP2] [PB-OEPLB] 242 swap(s) done (991.6ms) | total=242
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:53 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 496, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 500, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 468, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 459, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 473, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 475, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:53 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 516, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.04, #queue-req: 0, 
+[2026-07-26 16:52:53 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 491, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.15, #queue-req: 0, 
+[2026-07-26 16:52:53 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 493, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.15, #queue-req: 0, 
+[2026-07-26 16:52:54 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 572, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.61, #queue-req: 0, 
+[2026-07-26 16:52:54 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 518, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.61, #queue-req: 0, 
+[2026-07-26 16:52:54 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 546, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.61, #queue-req: 0, 
+[2026-07-26 16:52:54 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 509, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.61, #queue-req: 0, 
+[2026-07-26 16:52:54 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 534, token usage: 0.00, cuda graph: True, gen throughput (token/s): 37.61, #queue-req: 0, 
+[2026-07-26 16:52:54 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 596, token usage: 0.00, cuda graph: True, gen throughput (token/s): 82.34, #queue-req: 0, 
+[2026-07-26 16:52:54 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 571, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.84, #queue-req: 0, 
+[2026-07-26 16:52:54 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 573, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.84, #queue-req: 0, 
+[2026-07-26 16:52:54 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 BEFORE swap layer=53 phys_a=71(rank4) phys_b=97(rank6) my_local_slot=1 weight0_checksum=-653728.187500
+[2026-07-26 16:52:54 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=53 phys_a=71(rank4) phys_b=97(rank6) my_local_slot=7 weight0_checksum=548638.687500
+[2026-07-26 16:52:54 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=45 avg_ratio_before=1.258 avg_ratio_after=1.234 max_ratio_before=1.494 max_ratio_after=1.494
+[2026-07-26 16:52:54 DP2 TP2 EP2] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP6 TP6 EP6] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP4 TP4 EP4] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP0 TP0 EP0] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP1 TP1 EP1] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP5 TP5 EP5] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP7 TP7 EP7] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP3 TP3 EP3] [PB-OEPLB] window#7: issued 45 swap(s) (172890 tok global, dp=8)
+[2026-07-26 16:52:54 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 AFTER swap layer=53 local_slot=1 weight0_checksum_before=-653728.187500 weight0_checksum_after=548638.687500 CHANGED=True
+[2026-07-26 16:52:54 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=53 local_slot=7 weight0_checksum_before=548638.687500 weight0_checksum_after=-653728.187500 CHANGED=True
+[2026-07-26 16:52:55 DP2 TP2 EP2] [PB-OEPLB] 45 swap(s) done (49.7ms) | total=287
+[2026-07-26 16:52:55 DP1 TP1 EP1] [PB-OEPLB] 45 swap(s) done (49.4ms) | total=287
+[2026-07-26 16:52:55 DP4 TP4 EP4] [PB-OEPLB] 45 swap(s) done (50.1ms) | total=287
+[2026-07-26 16:52:55 DP5 TP5 EP5] [PB-OEPLB] 45 swap(s) done (49.8ms) | total=287
+[2026-07-26 16:52:55 DP6 TP6 EP6] [PB-OEPLB] 45 swap(s) done (50.7ms) | total=287
+[2026-07-26 16:52:55 DP3 TP3 EP3] [PB-OEPLB] 45 swap(s) done (49.5ms) | total=287
+[2026-07-26 16:52:55 DP0 TP0 EP0] [PB-OEPLB] 45 swap(s) done (52.3ms) | total=287
+[2026-07-26 16:52:55 DP7 TP7 EP7] [PB-OEPLB] 45 swap(s) done (53.2ms) | total=287
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.68, #queue-req: 0, 
+[2026-07-26 16:52:55 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.67, #queue-req: 0, 
+[2026-07-26 16:52:55 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.67, #queue-req: 0, 
+[2026-07-26 16:52:55 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.67, #queue-req: 0, 
+[2026-07-26 16:52:55 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.67, #queue-req: 0, 
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 275, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 243, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 279, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:55 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 270, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 264, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:55 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 576, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:56 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:52:56 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 619, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.72, #queue-req: 0, 
+[2026-07-26 16:52:56 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 556, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.72, #queue-req: 0, 
+[2026-07-26 16:52:56 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 567, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.79, #queue-req: 0, 
+[2026-07-26 16:52:56 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 658, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.80, #queue-req: 0, 
+[2026-07-26 16:52:56 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 579, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.79, #queue-req: 0, 
+[2026-07-26 16:52:56 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 586, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.79, #queue-req: 0, 
+[2026-07-26 16:52:56 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 601, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.79, #queue-req: 0, 
+[2026-07-26 16:52:56 DP2 TP2 EP2] [PB-OEPLB-PROF] window#8 calls=94 record=27.78ms allreduce=1944.36ms planbuild=8.16ms finalize=52.20ms total=2032.51ms avg_record_us=295.56
+[2026-07-26 16:52:56 DP5 TP5 EP5] [PB-OEPLB-PROF] window#8 calls=0 record=0.00ms allreduce=1944.22ms planbuild=7.82ms finalize=44.26ms total=1996.29ms avg_record_us=0.00
+[2026-07-26 16:52:56 DP6 TP6 EP6] [PB-OEPLB-PROF] window#8 calls=188 record=45.17ms allreduce=1944.73ms planbuild=8.04ms finalize=44.44ms total=2042.38ms avg_record_us=240.24
+[2026-07-26 16:52:56 DP4 TP4 EP4] [PB-OEPLB-PROF] window#8 calls=94 record=27.98ms allreduce=1944.25ms planbuild=8.14ms finalize=42.19ms total=2022.56ms avg_record_us=297.63
+[2026-07-26 16:52:56 DP1 TP1 EP1] [PB-OEPLB-PROF] window#8 calls=94 record=28.97ms allreduce=1944.78ms planbuild=8.39ms finalize=45.00ms total=2027.14ms avg_record_us=308.14
+[2026-07-26 16:52:56 DP3 TP3 EP3] [PB-OEPLB-PROF] window#8 calls=94 record=29.42ms allreduce=1945.59ms planbuild=8.22ms finalize=46.64ms total=2029.87ms avg_record_us=313.02
+[2026-07-26 16:52:56 DP7 TP7 EP7] [PB-OEPLB-PROF] window#8 calls=94 record=28.94ms allreduce=1945.05ms planbuild=7.90ms finalize=48.16ms total=2030.05ms avg_record_us=307.85
+[2026-07-26 16:52:56 DP0 TP0 EP0] [PB-OEPLB-PROF] window#8 calls=94 record=35.12ms allreduce=1944.90ms planbuild=8.25ms finalize=47.92ms total=2036.18ms avg_record_us=373.61
+[2026-07-26 16:52:56 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP2 TP2 EP2] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=59 avg_ratio_before=1.261 avg_ratio_after=1.224 max_ratio_before=1.539 max_ratio_after=1.476
+[2026-07-26 16:52:56 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 BEFORE swap layer=62 phys_a=98(rank6) phys_b=62(rank3) my_local_slot=2 weight0_checksum=-2201598.750000
+[2026-07-26 16:52:56 DP5 TP5 EP5] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 BEFORE swap layer=62 phys_a=98(rank6) phys_b=62(rank3) my_local_slot=14 weight0_checksum=613297.750000
+[2026-07-26 16:52:56 DP4 TP4 EP4] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP7 TP7 EP7] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP1 TP1 EP1] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP6 TP6 EP6] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP0 TP0 EP0] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:56 DP3 TP3 EP3] [PB-OEPLB] window#8: issued 59 swap(s) (1534999 tok global, dp=8)
+[2026-07-26 16:52:57 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 AFTER swap layer=62 local_slot=2 weight0_checksum_before=-2201598.750000 weight0_checksum_after=613297.750000 CHANGED=True
+[2026-07-26 16:52:57 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 AFTER swap layer=62 local_slot=14 weight0_checksum_before=613297.750000 weight0_checksum_after=-2201598.750000 CHANGED=True
+[2026-07-26 16:52:57 DP6 TP6 EP6] [PB-OEPLB] 59 swap(s) done (47.0ms) | total=346
+[2026-07-26 16:52:57 DP5 TP5 EP5] [PB-OEPLB] 59 swap(s) done (47.0ms) | total=346
+[2026-07-26 16:52:57 DP7 TP7 EP7] [PB-OEPLB] 59 swap(s) done (56.1ms) | total=346
+[2026-07-26 16:52:57 DP1 TP1 EP1] [PB-OEPLB] 59 swap(s) done (57.5ms) | total=346
+[2026-07-26 16:52:57 DP4 TP4 EP4] [PB-OEPLB] 59 swap(s) done (58.2ms) | total=346
+[2026-07-26 16:52:57 DP2 TP2 EP2] [PB-OEPLB] 59 swap(s) done (58.8ms) | total=346
+[2026-07-26 16:52:57 DP0 TP0 EP0] [PB-OEPLB] 59 swap(s) done (55.7ms) | total=346
+[2026-07-26 16:52:57 DP3 TP3 EP3] [PB-OEPLB] 59 swap(s) done (62.1ms) | total=346
+[2026-07-26 16:52:57 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.50, #queue-req: 0, 
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:57 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.42, #queue-req: 0, 
+[2026-07-26 16:52:57 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.42, #queue-req: 0, 
+[2026-07-26 16:52:57 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 523, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 493, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 530, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 520, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 476, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 518, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:57 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 527, token usage: 0.00, cuda graph: True, gen throughput (token/s): 62.67, #queue-req: 0, 
+[2026-07-26 16:52:57 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 518, token usage: 0.00, cuda graph: True, gen throughput (token/s): 62.67, #queue-req: 0, 
+[2026-07-26 16:52:57 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 557, token usage: 0.00, cuda graph: True, gen throughput (token/s): 62.67, #queue-req: 0, 
+[2026-07-26 16:52:57 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 552, token usage: 0.00, cuda graph: True, gen throughput (token/s): 62.67, #queue-req: 0, 
+[2026-07-26 16:52:57 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 510, token usage: 0.00, cuda graph: True, gen throughput (token/s): 62.67, #queue-req: 0, 
+[2026-07-26 16:52:58 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 610, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.23, #queue-req: 0, 
+[2026-07-26 16:52:58 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 602, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.28, #queue-req: 0, 
+[2026-07-26 16:52:58 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 566, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.27, #queue-req: 0, 
+[2026-07-26 16:52:58 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP6 TP6 EP6] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=8 avg_ratio_before=1.230 avg_ratio_after=1.227 max_ratio_before=1.491 max_ratio_after=1.491
+[2026-07-26 16:52:58 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=22 phys_a=69(rank4) phys_b=112(rank7) my_local_slot=0 weight0_checksum=-924423.500000
+[2026-07-26 16:52:58 DP5 TP5 EP5] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=22 phys_a=69(rank4) phys_b=112(rank7) my_local_slot=5 weight0_checksum=1035960.875000
+[2026-07-26 16:52:58 DP1 TP1 EP1] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP0 TP0 EP0] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP2 TP2 EP2] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP3 TP3 EP3] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP7 TP7 EP7] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP4 TP4 EP4] [PB-OEPLB] window#9: issued 8 swap(s) (1346232 tok global, dp=8)
+[2026-07-26 16:52:58 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=22 local_slot=0 weight0_checksum_before=-924423.500000 weight0_checksum_after=1035960.875000 CHANGED=True
+[2026-07-26 16:52:58 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=22 local_slot=5 weight0_checksum_before=1035960.875000 weight0_checksum_after=-924423.500000 CHANGED=True
+[2026-07-26 16:52:58 DP5 TP5 EP5] [PB-OEPLB] 8 swap(s) done (48.9ms) | total=354
+[2026-07-26 16:52:58 DP6 TP6 EP6] [PB-OEPLB] 8 swap(s) done (48.7ms) | total=354
+[2026-07-26 16:52:58 DP3 TP3 EP3] [PB-OEPLB] 8 swap(s) done (41.5ms) | total=354
+[2026-07-26 16:52:58 DP2 TP2 EP2] [PB-OEPLB] 8 swap(s) done (47.9ms) | total=354
+[2026-07-26 16:52:58 DP1 TP1 EP1] [PB-OEPLB] 8 swap(s) done (51.1ms) | total=354
+[2026-07-26 16:52:58 DP7 TP7 EP7] [PB-OEPLB] 8 swap(s) done (57.3ms) | total=354
+[2026-07-26 16:52:58 DP0 TP0 EP0] [PB-OEPLB] 8 swap(s) done (55.7ms) | total=354
+[2026-07-26 16:52:58 DP4 TP4 EP4] [PB-OEPLB] 8 swap(s) done (56.5ms) | total=354
+[2026-07-26 16:52:58 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 637, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.79, #queue-req: 0, 
+[2026-07-26 16:52:58 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 607, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.79, #queue-req: 0, 
+[2026-07-26 16:52:58 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 598, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.79, #queue-req: 0, 
+[2026-07-26 16:52:58 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 590, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.79, #queue-req: 0, 
+[2026-07-26 16:52:58 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 632, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.79, #queue-req: 0, 
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 246, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:52:59 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 497, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 459, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:59 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:59 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:59 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 508, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:52:59 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 501, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:52:59 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 513, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.07, #queue-req: 0, 
+[2026-07-26 16:52:59 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 551, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.09, #queue-req: 0, 
+[2026-07-26 16:52:59 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 510, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.09, #queue-req: 0, 
+[2026-07-26 16:53:00 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 588, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.92, #queue-req: 0, 
+[2026-07-26 16:53:00 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 563, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.92, #queue-req: 0, 
+[2026-07-26 16:53:00 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 567, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.92, #queue-req: 0, 
+[2026-07-26 16:53:00 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 525, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.92, #queue-req: 0, 
+[2026-07-26 16:53:00 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 574, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.92, #queue-req: 0, 
+[2026-07-26 16:53:00 DP0 TP0 EP0] [PB-OEPLB-STABILITY] w#10 cos_sim=0.9902 recent_avg=0.8831 all_avg=0.8831 (>0.95 = stable pattern, window can be larger)
+[2026-07-26 16:53:00 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=56 phys_a=37(rank2) phys_b=112(rank7) my_local_slot=0 weight0_checksum=-699510.500000
+[2026-07-26 16:53:00 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP6 TP6 EP6] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP7 TP7 EP7] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP3 TP3 EP3] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=48 avg_ratio_before=1.244 avg_ratio_after=1.222 max_ratio_before=1.521 max_ratio_after=1.521
+[2026-07-26 16:53:00 DP5 TP5 EP5] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP1 TP1 EP1] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=56 phys_a=37(rank2) phys_b=112(rank7) my_local_slot=5 weight0_checksum=-866590.000000
+[2026-07-26 16:53:00 DP0 TP0 EP0] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP2 TP2 EP2] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP4 TP4 EP4] [PB-OEPLB] window#10: issued 48 swap(s) (1931070 tok global, dp=8)
+[2026-07-26 16:53:00 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=56 local_slot=0 weight0_checksum_before=-699510.500000 weight0_checksum_after=-866590.000000 CHANGED=True
+[2026-07-26 16:53:00 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=56 local_slot=5 weight0_checksum_before=-866590.000000 weight0_checksum_after=-699510.500000 CHANGED=True
+[2026-07-26 16:53:00 DP4 TP4 EP4] [PB-OEPLB] 48 swap(s) done (41.0ms) | total=402
+[2026-07-26 16:53:00 DP5 TP5 EP5] [PB-OEPLB] 48 swap(s) done (42.9ms) | total=402
+[2026-07-26 16:53:00 DP0 TP0 EP0] [PB-OEPLB] 48 swap(s) done (43.1ms) | total=402
+[2026-07-26 16:53:00 DP6 TP6 EP6] [PB-OEPLB] 48 swap(s) done (45.1ms) | total=402
+[2026-07-26 16:53:00 DP1 TP1 EP1] [PB-OEPLB] 48 swap(s) done (47.4ms) | total=402
+[2026-07-26 16:53:00 DP2 TP2 EP2] [PB-OEPLB] 48 swap(s) done (46.3ms) | total=402
+[2026-07-26 16:53:00 DP7 TP7 EP7] [PB-OEPLB] 48 swap(s) done (49.9ms) | total=402
+[2026-07-26 16:53:00 DP3 TP3 EP3] [PB-OEPLB] 48 swap(s) done (52.4ms) | total=402
+[2026-07-26 16:53:00 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 593, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.54, #queue-req: 0, 
+[2026-07-26 16:53:00 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 631, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.53, #queue-req: 0, 
+[2026-07-26 16:53:00 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 590, token usage: 0.00, cuda graph: True, gen throughput (token/s): 76.53, #queue-req: 0, 
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 246, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:01 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 491, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 270, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:01 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 521, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:01 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 539, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:53:01 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 509, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:53:01 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 481, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:53:01 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 545, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:53:01 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 541, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.69, #queue-req: 0, 
+[2026-07-26 16:53:02 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 567, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.68, #queue-req: 0, 
+[2026-07-26 16:53:02 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 586, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.66, #queue-req: 0, 
+[2026-07-26 16:53:02 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 597, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.66, #queue-req: 0, 
+[2026-07-26 16:53:02 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=18 avg_ratio_before=1.221 avg_ratio_after=1.215 max_ratio_before=1.557 max_ratio_after=1.557
+[2026-07-26 16:53:02 DP6 TP6 EP6] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=68 phys_a=65(rank4) phys_b=2(rank0) my_local_slot=1 weight0_checksum=-2592852.250000
+[2026-07-26 16:53:02 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 BEFORE swap layer=68 phys_a=65(rank4) phys_b=2(rank0) my_local_slot=2 weight0_checksum=-1636584.000000
+[2026-07-26 16:53:02 DP1 TP1 EP1] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP3 TP3 EP3] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP2 TP2 EP2] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP5 TP5 EP5] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP7 TP7 EP7] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP4 TP4 EP4] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP0 TP0 EP0] [PB-OEPLB] window#11: issued 18 swap(s) (2899692 tok global, dp=8)
+[2026-07-26 16:53:02 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 AFTER swap layer=68 local_slot=2 weight0_checksum_before=-1636584.000000 weight0_checksum_after=-2592852.250000 CHANGED=True
+[2026-07-26 16:53:02 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=68 local_slot=1 weight0_checksum_before=-2592852.250000 weight0_checksum_after=-1636584.000000 CHANGED=True
+[2026-07-26 16:53:02 DP7 TP7 EP7] [PB-OEPLB] 18 swap(s) done (41.8ms) | total=420
+[2026-07-26 16:53:02 DP3 TP3 EP3] [PB-OEPLB] 18 swap(s) done (47.4ms) | total=420
+[2026-07-26 16:53:02 DP1 TP1 EP1] [PB-OEPLB] 18 swap(s) done (48.9ms) | total=420
+[2026-07-26 16:53:02 DP2 TP2 EP2] [PB-OEPLB] 18 swap(s) done (49.5ms) | total=420
+[2026-07-26 16:53:02 DP6 TP6 EP6] [PB-OEPLB] 18 swap(s) done (61.2ms) | total=420
+[2026-07-26 16:53:02 DP5 TP5 EP5] [PB-OEPLB] 18 swap(s) done (50.8ms) | total=420
+[2026-07-26 16:53:02 DP0 TP0 EP0] [PB-OEPLB] 18 swap(s) done (55.0ms) | total=420
+[2026-07-26 16:53:02 DP4 TP4 EP4] [PB-OEPLB] 18 swap(s) done (58.2ms) | total=420
+[2026-07-26 16:53:02 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 619, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.72, #queue-req: 0, 
+[2026-07-26 16:53:02 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 589, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.72, #queue-req: 0, 
+[2026-07-26 16:53:02 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 621, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.70, #queue-req: 0, 
+[2026-07-26 16:53:02 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 561, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.70, #queue-req: 0, 
+[2026-07-26 16:53:02 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 625, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.70, #queue-req: 0, 
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 444, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 503, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 516, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:03 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 284, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:03 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:03 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:03 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:03 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 460, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.13, #queue-req: 0, 
+[2026-07-26 16:53:03 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 534, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.32, #queue-req: 0, 
+[2026-07-26 16:53:03 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.32, #queue-req: 0, 
+[2026-07-26 16:53:04 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 553, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.78, #queue-req: 0, 
+[2026-07-26 16:53:04 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 513, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.73, #queue-req: 0, 
+[2026-07-26 16:53:04 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 578, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.72, #queue-req: 0, 
+[2026-07-26 16:53:04 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 619, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.72, #queue-req: 0, 
+[2026-07-26 16:53:04 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 566, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.73, #queue-req: 0, 
+[2026-07-26 16:53:04 DP7 TP7 EP7] [PB-OEPLB-PROF] window#12 calls=282 record=43.49ms allreduce=1946.03ms planbuild=46.85ms finalize=100.37ms total=2136.73ms avg_record_us=154.22
+[2026-07-26 16:53:04 DP2 TP2 EP2] [PB-OEPLB-PROF] window#12 calls=282 record=43.60ms allreduce=1945.65ms planbuild=74.36ms finalize=109.38ms total=2172.98ms avg_record_us=154.61
+[2026-07-26 16:53:04 DP4 TP4 EP4] [PB-OEPLB-PROF] window#12 calls=188 record=35.64ms allreduce=1944.98ms planbuild=56.66ms finalize=88.76ms total=2126.03ms avg_record_us=189.55
+[2026-07-26 16:53:04 DP5 TP5 EP5] [PB-OEPLB-PROF] window#12 calls=94 record=30.65ms allreduce=1945.03ms planbuild=70.20ms finalize=85.00ms total=2130.87ms avg_record_us=326.03
+[2026-07-26 16:53:04 DP3 TP3 EP3] [PB-OEPLB-PROF] window#12 calls=282 record=45.65ms allreduce=1946.97ms planbuild=52.37ms finalize=107.11ms total=2152.10ms avg_record_us=161.89
+[2026-07-26 16:53:04 DP0 TP0 EP0] [PB-OEPLB-PROF] window#12 calls=282 record=50.11ms allreduce=1945.88ms planbuild=38.32ms finalize=110.04ms total=2144.36ms avg_record_us=177.71
+[2026-07-26 16:53:04 DP1 TP1 EP1] [PB-OEPLB-PROF] window#12 calls=282 record=43.75ms allreduce=1945.74ms planbuild=51.36ms finalize=101.47ms total=2142.33ms avg_record_us=155.14
+[2026-07-26 16:53:04 DP6 TP6 EP6] [PB-OEPLB-PROF] window#12 calls=376 record=59.58ms allreduce=1945.71ms planbuild=53.27ms finalize=85.43ms total=2143.99ms avg_record_us=158.47
+[2026-07-26 16:53:04 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=2 phys_a=79(rank4) phys_b=35(rank2) my_local_slot=15 weight0_checksum=-196366.312500
+[2026-07-26 16:53:04 DP7 TP7 EP7] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.217 avg_ratio_after=1.216 max_ratio_before=1.540 max_ratio_after=1.540
+[2026-07-26 16:53:04 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=2 phys_a=79(rank4) phys_b=35(rank2) my_local_slot=3 weight0_checksum=307628.687500
+[2026-07-26 16:53:04 DP5 TP5 EP5] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP3 TP3 EP3] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP0 TP0 EP0] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP1 TP1 EP1] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP4 TP4 EP4] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP6 TP6 EP6] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP2 TP2 EP2] [PB-OEPLB] window#12: issued 3 swap(s) (3365498 tok global, dp=8)
+[2026-07-26 16:53:04 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=2 local_slot=15 weight0_checksum_before=-196366.312500 weight0_checksum_after=307628.687500 CHANGED=True
+[2026-07-26 16:53:04 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=2 local_slot=3 weight0_checksum_before=307628.687500 weight0_checksum_after=-196366.312500 CHANGED=True
+[2026-07-26 16:53:04 DP6 TP6 EP6] [PB-OEPLB] 3 swap(s) done (37.2ms) | total=423
+[2026-07-26 16:53:04 DP4 TP4 EP4] [PB-OEPLB] 3 swap(s) done (62.5ms) | total=423
+[2026-07-26 16:53:04 DP0 TP0 EP0] [PB-OEPLB] 3 swap(s) done (47.9ms) | total=423
+[2026-07-26 16:53:04 DP1 TP1 EP1] [PB-OEPLB] 3 swap(s) done (45.9ms) | total=423
+[2026-07-26 16:53:04 DP2 TP2 EP2] [PB-OEPLB] 3 swap(s) done (65.3ms) | total=423
+[2026-07-26 16:53:04 DP7 TP7 EP7] [PB-OEPLB] 3 swap(s) done (69.0ms) | total=423
+[2026-07-26 16:53:04 DP5 TP5 EP5] [PB-OEPLB] 3 swap(s) done (69.7ms) | total=423
+[2026-07-26 16:53:04 DP3 TP3 EP3] [PB-OEPLB] 3 swap(s) done (71.2ms) | total=423
+[2026-07-26 16:53:04 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.97, #queue-req: 0, 
+[2026-07-26 16:53:04 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 614, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.57, #queue-req: 0, 
+[2026-07-26 16:53:04 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 620, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.58, #queue-req: 0, 
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.12, #queue-req: 0, 
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:05 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:05 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.34, #queue-req: 0, 
+[2026-07-26 16:53:05 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.34, #queue-req: 0, 
+[2026-07-26 16:53:05 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 229, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.32, #queue-req: 0, 
+[2026-07-26 16:53:05 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 221, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.30, #queue-req: 0, 
+[2026-07-26 16:53:05 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 548, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:05 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:05 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:05 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:05 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 529, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:05 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:05 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:06 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.14, #queue-req: 0, 
+[2026-07-26 16:53:06 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 536, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.14, #queue-req: 0, 
+[2026-07-26 16:53:06 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 568, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.14, #queue-req: 0, 
+[2026-07-26 16:53:06 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 630, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.31, #queue-req: 0, 
+[2026-07-26 16:53:06 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 611, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.31, #queue-req: 0, 
+[2026-07-26 16:53:06 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 534, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.34, #queue-req: 0, 
+[2026-07-26 16:53:06 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 589, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.35, #queue-req: 0, 
+[2026-07-26 16:53:06 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 624, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.22, #queue-req: 0, 
+[2026-07-26 16:53:06 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP4 TP4 EP4] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP7 TP7 EP7] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=3 avg_ratio_before=1.218 avg_ratio_after=1.218 max_ratio_before=1.548 max_ratio_after=1.548
+[2026-07-26 16:53:06 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 BEFORE swap layer=72 phys_a=16(rank1) phys_b=99(rank6) my_local_slot=0 weight0_checksum=-425021.312500
+[2026-07-26 16:53:06 DP0 TP0 EP0] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP3 TP3 EP3] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP2 TP2 EP2] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 BEFORE swap layer=72 phys_a=16(rank1) phys_b=99(rank6) my_local_slot=3 weight0_checksum=-35249.406250
+[2026-07-26 16:53:06 DP1 TP1 EP1] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP5 TP5 EP5] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP6 TP6 EP6] [PB-OEPLB] window#13: issued 3 swap(s) (4104310 tok global, dp=8)
+[2026-07-26 16:53:06 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 AFTER swap layer=72 local_slot=0 weight0_checksum_before=-425021.312500 weight0_checksum_after=-35249.406250 CHANGED=True
+[2026-07-26 16:53:06 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 AFTER swap layer=72 local_slot=3 weight0_checksum_before=-35249.406250 weight0_checksum_after=-425021.312500 CHANGED=True
+[2026-07-26 16:53:06 DP7 TP7 EP7] [PB-OEPLB] 3 swap(s) done (40.0ms) | total=426
+[2026-07-26 16:53:06 DP2 TP2 EP2] [PB-OEPLB] 3 swap(s) done (40.2ms) | total=426
+[2026-07-26 16:53:06 DP4 TP4 EP4] [PB-OEPLB] 3 swap(s) done (42.8ms) | total=426
+[2026-07-26 16:53:06 DP5 TP5 EP5] [PB-OEPLB] 3 swap(s) done (42.1ms) | total=426
+[2026-07-26 16:53:06 DP3 TP3 EP3] [PB-OEPLB] 3 swap(s) done (45.7ms) | total=426
+[2026-07-26 16:53:06 DP0 TP0 EP0] [PB-OEPLB] 3 swap(s) done (46.8ms) | total=426
+[2026-07-26 16:53:06 DP1 TP1 EP1] [PB-OEPLB] 3 swap(s) done (49.4ms) | total=426
+[2026-07-26 16:53:06 DP6 TP6 EP6] [PB-OEPLB] 3 swap(s) done (62.2ms) | total=426
+[2026-07-26 16:53:07 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.54, #queue-req: 0, 
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:07 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.53, #queue-req: 0, 
+[2026-07-26 16:53:07 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 74.53, #queue-req: 0, 
+[2026-07-26 16:53:07 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 500, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 530, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 551, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 466, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 502, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 477, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 447, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 455, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:07 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 534, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.99, #queue-req: 0, 
+[2026-07-26 16:53:07 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 585, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.99, #queue-req: 0, 
+[2026-07-26 16:53:07 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 511, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.98, #queue-req: 0, 
+[2026-07-26 16:53:07 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 500, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.98, #queue-req: 0, 
+[2026-07-26 16:53:07 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 489, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.99, #queue-req: 0, 
+[2026-07-26 16:53:08 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 610, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.61, #queue-req: 0, 
+[2026-07-26 16:53:08 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 584, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.61, #queue-req: 0, 
+[2026-07-26 16:53:08 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 529, token usage: 0.00, cuda graph: True, gen throughput (token/s): 68.61, #queue-req: 0, 
+[2026-07-26 16:53:08 DP0 TP0 EP0] [PB-OEPLB-STABILITY] w#14 cos_sim=0.9977 recent_avg=0.9339 all_avg=0.9339 (>0.95 = stable pattern, window can be larger)
+[2026-07-26 16:53:08 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 580, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.91, #queue-req: 0, 
+[2026-07-26 16:53:08 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 591, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.90, #queue-req: 0, 
+[2026-07-26 16:53:08 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 614, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.90, #queue-req: 0, 
+[2026-07-26 16:53:08 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 569, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.90, #queue-req: 0, 
+[2026-07-26 16:53:08 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 665, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.90, #queue-req: 0, 
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 231, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 259, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:09 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:09 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 497, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.64, #queue-req: 0, 
+[2026-07-26 16:53:09 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 498, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.70, #queue-req: 0, 
+[2026-07-26 16:53:09 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 537, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.71, #queue-req: 0, 
+[2026-07-26 16:53:10 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 577, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.42, #queue-req: 0, 
+[2026-07-26 16:53:10 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 522, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.42, #queue-req: 0, 
+[2026-07-26 16:53:10 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 522, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.42, #queue-req: 0, 
+[2026-07-26 16:53:10 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 532, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.42, #queue-req: 0, 
+[2026-07-26 16:53:10 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 552, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.42, #queue-req: 0, 
+[2026-07-26 16:53:10 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=15 avg_ratio_before=1.219 avg_ratio_after=1.211 max_ratio_before=1.553 max_ratio_after=1.445
+[2026-07-26 16:53:10 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=82 phys_a=98(rank6) phys_b=39(rank2) my_local_slot=7 weight0_checksum=-897204.875000
+[2026-07-26 16:53:10 DP4 TP4 EP4] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP5 TP5 EP5] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 BEFORE swap layer=82 phys_a=98(rank6) phys_b=39(rank2) my_local_slot=2 weight0_checksum=-975084.750000
+[2026-07-26 16:53:10 DP3 TP3 EP3] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP7 TP7 EP7] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP1 TP1 EP1] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP0 TP0 EP0] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP2 TP2 EP2] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP6 TP6 EP6] [PB-OEPLB] window#15: issued 15 swap(s) (4649806 tok global, dp=8)
+[2026-07-26 16:53:10 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 AFTER swap layer=82 local_slot=2 weight0_checksum_before=-975084.750000 weight0_checksum_after=-897204.875000 CHANGED=True
+[2026-07-26 16:53:10 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=82 local_slot=7 weight0_checksum_before=-897204.875000 weight0_checksum_after=-975084.750000 CHANGED=True
+[2026-07-26 16:53:10 DP6 TP6 EP6] [PB-OEPLB] 15 swap(s) done (37.8ms) | total=441
+[2026-07-26 16:53:10 DP7 TP7 EP7] [PB-OEPLB] 15 swap(s) done (38.8ms) | total=441
+[2026-07-26 16:53:10 DP0 TP0 EP0] [PB-OEPLB] 15 swap(s) done (41.0ms) | total=441
+[2026-07-26 16:53:10 DP4 TP4 EP4] [PB-OEPLB] 15 swap(s) done (45.8ms) | total=441
+[2026-07-26 16:53:10 DP5 TP5 EP5] [PB-OEPLB] 15 swap(s) done (45.2ms) | total=441
+[2026-07-26 16:53:10 DP1 TP1 EP1] [PB-OEPLB] 15 swap(s) done (45.1ms) | total=441
+[2026-07-26 16:53:10 DP2 TP2 EP2] [PB-OEPLB] 15 swap(s) done (48.5ms) | total=441
+[2026-07-26 16:53:10 DP3 TP3 EP3] [PB-OEPLB] 15 swap(s) done (46.1ms) | total=441
+[2026-07-26 16:53:10 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 577, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.31, #queue-req: 0, 
+[2026-07-26 16:53:10 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 617, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.21, #queue-req: 0, 
+[2026-07-26 16:53:10 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 578, token usage: 0.00, cuda graph: True, gen throughput (token/s): 77.21, #queue-req: 0, 
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:11 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 504, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 506, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 477, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 460, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 510, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 524, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 533, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 529, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:11 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 551, token usage: 0.00, cuda graph: True, gen throughput (token/s): 66.04, #queue-req: 0, 
+[2026-07-26 16:53:11 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 495, token usage: 0.00, cuda graph: True, gen throughput (token/s): 66.04, #queue-req: 0, 
+[2026-07-26 16:53:11 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 528, token usage: 0.00, cuda graph: True, gen throughput (token/s): 66.04, #queue-req: 0, 
+[2026-07-26 16:53:11 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 524, token usage: 0.00, cuda graph: True, gen throughput (token/s): 66.04, #queue-req: 0, 
+[2026-07-26 16:53:11 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 478, token usage: 0.00, cuda graph: True, gen throughput (token/s): 66.04, #queue-req: 0, 
+[2026-07-26 16:53:11 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 568, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.95, #queue-req: 0, 
+[2026-07-26 16:53:12 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 595, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.98, #queue-req: 0, 
+[2026-07-26 16:53:12 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 590, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.98, #queue-req: 0, 
+[2026-07-26 16:53:12 DP7 TP7 EP7] [PB-OEPLB-PROF] window#16 calls=470 record=58.82ms allreduce=1946.72ms planbuild=82.69ms finalize=131.14ms total=2219.37ms avg_record_us=125.16
+[2026-07-26 16:53:12 DP0 TP0 EP0] [PB-OEPLB-PROF] window#16 calls=470 record=65.44ms allreduce=1946.59ms planbuild=74.51ms finalize=143.32ms total=2229.87ms avg_record_us=139.24
+[2026-07-26 16:53:12 DP1 TP1 EP1] [PB-OEPLB-PROF] window#16 calls=470 record=59.37ms allreduce=1946.53ms planbuild=90.99ms finalize=138.34ms total=2235.23ms avg_record_us=126.31
+[2026-07-26 16:53:12 DP5 TP5 EP5] [PB-OEPLB-PROF] window#16 calls=188 record=38.15ms allreduce=1945.85ms planbuild=105.43ms finalize=127.99ms total=2217.42ms avg_record_us=202.90
+[2026-07-26 16:53:12 DP2 TP2 EP2] [PB-OEPLB-PROF] window#16 calls=470 record=58.73ms allreduce=1946.34ms planbuild=108.96ms finalize=145.05ms total=2259.07ms avg_record_us=124.95
+[2026-07-26 16:53:12 DP3 TP3 EP3] [PB-OEPLB-PROF] window#16 calls=470 record=62.16ms allreduce=1947.85ms planbuild=87.45ms finalize=159.57ms total=2257.03ms avg_record_us=132.25
+[2026-07-26 16:53:12 DP6 TP6 EP6] [PB-OEPLB-PROF] window#16 calls=564 record=74.27ms allreduce=1946.41ms planbuild=89.69ms finalize=115.65ms total=2226.01ms avg_record_us=131.68
+[2026-07-26 16:53:12 DP4 TP4 EP4] [PB-OEPLB-PROF] window#16 calls=282 record=44.22ms allreduce=1945.57ms planbuild=88.49ms finalize=118.50ms total=2196.77ms avg_record_us=156.80
+[2026-07-26 16:53:12 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 575, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.37, #queue-req: 0, 
+[2026-07-26 16:53:12 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 608, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.38, #queue-req: 0, 
+[2026-07-26 16:53:12 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 604, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.38, #queue-req: 0, 
+[2026-07-26 16:53:12 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 631, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.38, #queue-req: 0, 
+[2026-07-26 16:53:12 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 558, token usage: 0.00, cuda graph: True, gen throughput (token/s): 81.37, #queue-req: 0, 
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 533, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 485, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 543, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 513, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 490, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:12] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:12] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:13 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:13 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:13 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 243, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:13 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 529, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.35, #queue-req: 0, 
+[2026-07-26 16:53:13 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 508, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.58, #queue-req: 0, 
+[2026-07-26 16:53:13 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 561, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.58, #queue-req: 0, 
+[2026-07-26 16:53:13 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 535, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.51, #queue-req: 0, 
+[2026-07-26 16:53:13 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 583, token usage: 0.00, cuda graph: True, gen throughput (token/s): 61.51, #queue-req: 0, 
+[2026-07-26 16:53:13 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 60.33, #queue-req: 0, 
+[2026-07-26 16:53:13 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 579, token usage: 0.00, cuda graph: True, gen throughput (token/s): 60.33, #queue-req: 0, 
+[2026-07-26 16:53:13 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 540, token usage: 0.00, cuda graph: True, gen throughput (token/s): 60.33, #queue-req: 0, 
+[2026-07-26 16:53:14 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP4 TP4 EP4] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP1 TP1 EP1] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.214 avg_ratio_after=1.212 max_ratio_before=1.448 max_ratio_after=1.448
+[2026-07-26 16:53:14 DP5 TP5 EP5] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 BEFORE swap layer=14 phys_a=100(rank6) phys_b=2(rank0) my_local_slot=4 weight0_checksum=-376974.218750
+[2026-07-26 16:53:14 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 BEFORE swap layer=14 phys_a=100(rank6) phys_b=2(rank0) my_local_slot=2 weight0_checksum=-409429.000000
+[2026-07-26 16:53:14 DP3 TP3 EP3] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP2 TP2 EP2] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP7 TP7 EP7] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP6 TP6 EP6] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP0 TP0 EP0] [PB-OEPLB] window#17: issued 5 swap(s) (4254419 tok global, dp=8)
+[2026-07-26 16:53:14 DP6 TP6 EP6] [VERIFY-WEIGHT-MOVE] rank=6 AFTER swap layer=14 local_slot=4 weight0_checksum_before=-376974.218750 weight0_checksum_after=-409429.000000 CHANGED=True
+[2026-07-26 16:53:14 DP0 TP0 EP0] [VERIFY-WEIGHT-MOVE] rank=0 AFTER swap layer=14 local_slot=2 weight0_checksum_before=-409429.000000 weight0_checksum_after=-376974.218750 CHANGED=True
+[2026-07-26 16:53:14 DP4 TP4 EP4] [PB-OEPLB] 5 swap(s) done (39.8ms) | total=446
+[2026-07-26 16:53:14 DP3 TP3 EP3] [PB-OEPLB] 5 swap(s) done (39.6ms) | total=446
+[2026-07-26 16:53:14 DP2 TP2 EP2] [PB-OEPLB] 5 swap(s) done (41.9ms) | total=446
+[2026-07-26 16:53:14 DP5 TP5 EP5] [PB-OEPLB] 5 swap(s) done (44.0ms) | total=446
+[2026-07-26 16:53:14 DP1 TP1 EP1] [PB-OEPLB] 5 swap(s) done (45.3ms) | total=446
+[2026-07-26 16:53:14 DP7 TP7 EP7] [PB-OEPLB] 5 swap(s) done (49.0ms) | total=446
+[2026-07-26 16:53:14 DP6 TP6 EP6] [PB-OEPLB] 5 swap(s) done (53.8ms) | total=446
+[2026-07-26 16:53:14 DP0 TP0 EP0] [PB-OEPLB] 5 swap(s) done (53.7ms) | total=446
+[2026-07-26 16:53:14 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 609, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.89, #queue-req: 0, 
+[2026-07-26 16:53:14 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 588, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.45, #queue-req: 0, 
+[2026-07-26 16:53:14 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 641, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.45, #queue-req: 0, 
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.61, #queue-req: 0, 
+[2026-07-26 16:53:14 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.61, #queue-req: 0, 
+[2026-07-26 16:53:14 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:14 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 499, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:14 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:14 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:14 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:14 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 500, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:14 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:14] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:14 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 285, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.14, #queue-req: 0, 
+[2026-07-26 16:53:14 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 239, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.13, #queue-req: 0, 
+[2026-07-26 16:53:14 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 255, token usage: 0.00, cuda graph: True, gen throughput (token/s): 64.13, #queue-req: 0, 
+[2026-07-26 16:53:14 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:14 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:14 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:15 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:14 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:15 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:15 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 550, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.62, #queue-req: 0, 
+[2026-07-26 16:53:15 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 549, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.62, #queue-req: 0, 
+[2026-07-26 16:53:15 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 542, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.51, #queue-req: 0, 
+[2026-07-26 16:53:16 DP0 TP0 EP0] [PB-OEPLB-STABILITY] w#18 cos_sim=0.9961 recent_avg=0.9902 all_avg=0.9545 (>0.95 = stable pattern, window can be larger)
+[2026-07-26 16:53:16 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 555, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.45, #queue-req: 0, 
+[2026-07-26 16:53:16 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 566, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.44, #queue-req: 0, 
+[2026-07-26 16:53:16 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 592, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.31, #queue-req: 0, 
+[2026-07-26 16:53:16 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 565, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.33, #queue-req: 0, 
+[2026-07-26 16:53:16 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 563, token usage: 0.00, cuda graph: True, gen throughput (token/s): 69.33, #queue-req: 0, 
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.17, #queue-req: 0, 
+[2026-07-26 16:53:16 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.17, #queue-req: 0, 
+[2026-07-26 16:53:16 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.16, #queue-req: 0, 
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:53:16 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:16 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:16 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 553, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:16 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:16 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:16 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 458, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:16 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 547, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:16 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:53:16 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 525, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:17 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 571, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.70, #queue-req: 0, 
+[2026-07-26 16:53:17 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 587, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.70, #queue-req: 0, 
+[2026-07-26 16:53:17 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 581, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.70, #queue-req: 0, 
+[2026-07-26 16:53:17 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 559, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.71, #queue-req: 0, 
+[2026-07-26 16:53:17 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 492, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.70, #queue-req: 0, 
+[2026-07-26 16:53:17 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP0 TP0 EP0] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP1 TP1 EP1] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 BEFORE swap layer=13 phys_a=88(rank5) phys_b=113(rank7) my_local_slot=8 weight0_checksum=-662068.687500
+[2026-07-26 16:53:17 DP2 TP2 EP2] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=13 phys_a=88(rank5) phys_b=113(rank7) my_local_slot=1 weight0_checksum=-509003.687500
+[2026-07-26 16:53:17 DP3 TP3 EP3] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP6 TP6 EP6] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP5 TP5 EP5] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP7 TP7 EP7] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=2 avg_ratio_before=1.212 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:17 DP4 TP4 EP4] [PB-OEPLB] window#19: issued 2 swap(s) (5076897 tok global, dp=8)
+[2026-07-26 16:53:17 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=13 local_slot=1 weight0_checksum_before=-509003.687500 weight0_checksum_after=-662068.687500 CHANGED=True
+[2026-07-26 16:53:17 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 AFTER swap layer=13 local_slot=8 weight0_checksum_before=-662068.687500 weight0_checksum_after=-509003.687500 CHANGED=True
+[2026-07-26 16:53:17 DP6 TP6 EP6] [PB-OEPLB] 2 swap(s) done (40.1ms) | total=448
+[2026-07-26 16:53:17 DP1 TP1 EP1] [PB-OEPLB] 2 swap(s) done (41.6ms) | total=448
+[2026-07-26 16:53:17 DP0 TP0 EP0] [PB-OEPLB] 2 swap(s) done (43.4ms) | total=448
+[2026-07-26 16:53:17 DP2 TP2 EP2] [PB-OEPLB] 2 swap(s) done (45.0ms) | total=448
+[2026-07-26 16:53:17 DP7 TP7 EP7] [PB-OEPLB] 2 swap(s) done (45.4ms) | total=448
+[2026-07-26 16:53:17 DP5 TP5 EP5] [PB-OEPLB] 2 swap(s) done (46.6ms) | total=448
+[2026-07-26 16:53:17 DP3 TP3 EP3] [PB-OEPLB] 2 swap(s) done (59.8ms) | total=448
+[2026-07-26 16:53:18 DP4 TP4 EP4] [PB-OEPLB] 2 swap(s) done (102.2ms) | total=448
+[2026-07-26 16:53:18 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 530, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.98, #queue-req: 0, 
+[2026-07-26 16:53:18 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 594, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.03, #queue-req: 0, 
+[2026-07-26 16:53:18 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 576, token usage: 0.00, cuda graph: True, gen throughput (token/s): 55.03, #queue-req: 0, 
+[2026-07-26 16:53:18 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 639, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.95, #queue-req: 0, 
+[2026-07-26 16:53:18 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 572, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.95, #queue-req: 0, 
+[2026-07-26 16:53:18 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 667, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.95, #queue-req: 0, 
+[2026-07-26 16:53:18 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 651, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.95, #queue-req: 0, 
+[2026-07-26 16:53:18 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 661, token usage: 0.00, cuda graph: True, gen throughput (token/s): 72.95, #queue-req: 0, 
+[2026-07-26 16:53:18] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:18 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:18 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 529, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 266, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:18 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 546, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:18 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 492, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:18 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 523, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:19 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 544, token usage: 0.00, cuda graph: True, gen throughput (token/s): 59.99, #queue-req: 0, 
+[2026-07-26 16:53:19 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 539, token usage: 0.00, cuda graph: True, gen throughput (token/s): 60.03, #queue-req: 0, 
+[2026-07-26 16:53:19 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 533, token usage: 0.00, cuda graph: True, gen throughput (token/s): 60.03, #queue-req: 0, 
+[2026-07-26 16:53:19 DP7 TP7 EP7] [PB-OEPLB-PROF] window#20 calls=658 record=73.61ms allreduce=1947.55ms planbuild=93.48ms finalize=164.85ms total=2279.49ms avg_record_us=111.86
+[2026-07-26 16:53:19 DP0 TP0 EP0] [PB-OEPLB-PROF] window#20 calls=752 record=87.92ms allreduce=1947.35ms planbuild=84.56ms finalize=179.43ms total=2299.26ms avg_record_us=116.91
+[2026-07-26 16:53:19 DP6 TP6 EP6] [PB-OEPLB-PROF] window#20 calls=752 record=89.77ms allreduce=1947.20ms planbuild=100.24ms finalize=148.86ms total=2286.09ms avg_record_us=119.38
+[2026-07-26 16:53:19 DP1 TP1 EP1] [PB-OEPLB-PROF] window#20 calls=752 record=82.26ms allreduce=1947.16ms planbuild=100.56ms finalize=164.04ms total=2294.03ms avg_record_us=109.39
+[2026-07-26 16:53:19 DP5 TP5 EP5] [PB-OEPLB-PROF] window#20 calls=376 record=53.22ms allreduce=1946.54ms planbuild=115.64ms finalize=156.63ms total=2272.03ms avg_record_us=141.54
+[2026-07-26 16:53:19 DP4 TP4 EP4] [PB-OEPLB-PROF] window#20 calls=470 record=58.95ms allreduce=1946.90ms planbuild=99.29ms finalize=200.98ms total=2306.12ms avg_record_us=125.43
+[2026-07-26 16:53:19 DP2 TP2 EP2] [PB-OEPLB-PROF] window#20 calls=564 record=66.14ms allreduce=1947.23ms planbuild=119.30ms finalize=171.55ms total=2304.23ms avg_record_us=117.28
+[2026-07-26 16:53:19 DP3 TP3 EP3] [PB-OEPLB-PROF] window#20 calls=658 record=77.34ms allreduce=1948.67ms planbuild=98.24ms finalize=199.36ms total=2323.62ms avg_record_us=117.54
+[2026-07-26 16:53:19 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP0 TP0 EP0] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=62 phys_a=75(rank4) phys_b=122(rank7) my_local_slot=10 weight0_checksum=-507363.156250
+[2026-07-26 16:53:19 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP6 TP6 EP6] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP7 TP7 EP7] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP1 TP1 EP1] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP5 TP5 EP5] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 BEFORE swap layer=62 phys_a=75(rank4) phys_b=122(rank7) my_local_slot=11 weight0_checksum=-1457876.125000
+[2026-07-26 16:53:19 DP2 TP2 EP2] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP4 TP4 EP4] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.212 avg_ratio_after=1.212 max_ratio_before=1.465 max_ratio_after=1.465
+[2026-07-26 16:53:19 DP3 TP3 EP3] [PB-OEPLB] window#20: issued 1 swap(s) (5278143 tok global, dp=8)
+[2026-07-26 16:53:19 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=62 local_slot=10 weight0_checksum_before=-507363.156250 weight0_checksum_after=-1457876.125000 CHANGED=True
+[2026-07-26 16:53:19 DP4 TP4 EP4] [VERIFY-WEIGHT-MOVE] rank=4 AFTER swap layer=62 local_slot=11 weight0_checksum_before=-1457876.125000 weight0_checksum_after=-507363.156250 CHANGED=True
+[2026-07-26 16:53:19 DP3 TP3 EP3] [PB-OEPLB] 1 swap(s) done (38.5ms) | total=449
+[2026-07-26 16:53:19 DP5 TP5 EP5] [PB-OEPLB] 1 swap(s) done (40.4ms) | total=449
+[2026-07-26 16:53:19 DP1 TP1 EP1] [PB-OEPLB] 1 swap(s) done (40.6ms) | total=449
+[2026-07-26 16:53:19 DP0 TP0 EP0] [PB-OEPLB] 1 swap(s) done (41.9ms) | total=449
+[2026-07-26 16:53:19 DP2 TP2 EP2] [PB-OEPLB] 1 swap(s) done (42.0ms) | total=449
+[2026-07-26 16:53:19 DP4 TP4 EP4] [PB-OEPLB] 1 swap(s) done (42.8ms) | total=449
+[2026-07-26 16:53:19 DP7 TP7 EP7] [PB-OEPLB] 1 swap(s) done (47.8ms) | total=449
+[2026-07-26 16:53:19 DP6 TP6 EP6] [PB-OEPLB] 1 swap(s) done (47.5ms) | total=449
+[2026-07-26 16:53:19 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 595, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.96, #queue-req: 0, 
+[2026-07-26 16:53:19 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 558, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.96, #queue-req: 0, 
+[2026-07-26 16:53:19 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 544, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.96, #queue-req: 0, 
+[2026-07-26 16:53:19 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 589, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.96, #queue-req: 0, 
+[2026-07-26 16:53:19 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 612, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.95, #queue-req: 0, 
+[2026-07-26 16:53:20 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 624, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.50, #queue-req: 0, 
+[2026-07-26 16:53:20 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 613, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.40, #queue-req: 0, 
+[2026-07-26 16:53:20 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 619, token usage: 0.00, cuda graph: True, gen throughput (token/s): 75.34, #queue-req: 0, 
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42388 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:44636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42376 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42360 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42466 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42446 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42444 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42412 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 551, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 528, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 544, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 482, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 483, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20] INFO:     127.0.0.1:42434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:53:20 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 576, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:20 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:53:21 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:21 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:53:21 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 569, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.21, #queue-req: 0, 
+[2026-07-26 16:53:21 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 594, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.21, #queue-req: 0, 
+[2026-07-26 16:53:21 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 562, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.21, #queue-req: 0, 
+[2026-07-26 16:53:21 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 527, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.34, #queue-req: 0, 
+[2026-07-26 16:53:21 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 478, token usage: 0.00, cuda graph: True, gen throughput (token/s): 57.33, #queue-req: 0, 
+[2026-07-26 16:53:21 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=1 avg_ratio_before=1.211 avg_ratio_after=1.211 max_ratio_before=1.456 max_ratio_after=1.456
+[2026-07-26 16:53:21 DP5 TP5 EP5] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP6 TP6 EP6] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP0 TP0 EP0] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP1 TP1 EP1] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP4 TP4 EP4] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=69 phys_a=36(rank2) phys_b=115(rank7) my_local_slot=3 weight0_checksum=-2278666.000000
+[2026-07-26 16:53:21 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=69 phys_a=36(rank2) phys_b=115(rank7) my_local_slot=4 weight0_checksum=-1585959.000000
+[2026-07-26 16:53:21 DP3 TP3 EP3] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP7 TP7 EP7] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP2 TP2 EP2] [PB-OEPLB] window#21: issued 1 swap(s) (5065655 tok global, dp=8)
+[2026-07-26 16:53:21 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=69 local_slot=3 weight0_checksum_before=-2278666.000000 weight0_checksum_after=-1585959.000000 CHANGED=True
+[2026-07-26 16:53:21 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=69 local_slot=4 weight0_checksum_before=-1585959.000000 weight0_checksum_after=-2278666.000000 CHANGED=True
+[2026-07-26 16:53:21 DP3 TP3 EP3] [PB-OEPLB] 1 swap(s) done (38.8ms) | total=450
+[2026-07-26 16:53:21 DP5 TP5 EP5] [PB-OEPLB] 1 swap(s) done (41.5ms) | total=450
+[2026-07-26 16:53:21 DP6 TP6 EP6] [PB-OEPLB] 1 swap(s) done (42.2ms) | total=450
+[2026-07-26 16:53:21 DP7 TP7 EP7] [PB-OEPLB] 1 swap(s) done (41.9ms) | total=450
+[2026-07-26 16:53:21 DP0 TP0 EP0] [PB-OEPLB] 1 swap(s) done (42.3ms) | total=450
+[2026-07-26 16:53:21 DP1 TP1 EP1] [PB-OEPLB] 1 swap(s) done (43.2ms) | total=450
+[2026-07-26 16:53:21 DP4 TP4 EP4] [PB-OEPLB] 1 swap(s) done (44.3ms) | total=450
+[2026-07-26 16:53:21 DP2 TP2 EP2] [PB-OEPLB] 1 swap(s) done (53.7ms) | total=450
+[2026-07-26 16:53:21 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 592, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.15, #queue-req: 0, 
+[2026-07-26 16:53:21 DP7 TP7 EP7] Decode batch, #running-req: 2, #token: 548, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.16, #queue-req: 0, 
+[2026-07-26 16:53:21 DP6 TP6 EP6] Decode batch, #running-req: 2, #token: 549, token usage: 0.00, cuda graph: True, gen throughput (token/s): 58.13, #queue-req: 0, 
+[2026-07-26 16:53:22 DP3 TP3 EP3] Decode batch, #running-req: 2, #token: 642, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.13, #queue-req: 0, 
+[2026-07-26 16:53:22 DP2 TP2 EP2] Decode batch, #running-req: 2, #token: 674, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.13, #queue-req: 0, 
+[2026-07-26 16:53:22 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 649, token usage: 0.00, cuda graph: True, gen throughput (token/s): 79.13, #queue-req: 0, 
+[2026-07-26 16:53:22 DP4 TP4 EP4] Decode batch, #running-req: 2, #token: 558, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.81, #queue-req: 0, 
+[2026-07-26 16:53:22 DP5 TP5 EP5] Decode batch, #running-req: 2, #token: 607, token usage: 0.00, cuda graph: True, gen throughput (token/s): 78.80, #queue-req: 0, 
+[2026-07-26 16:53:22] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-07-26 16:53:24] Gracefully exiting... Remaining number of requests 0. Remaining requests remaining_rids=[].

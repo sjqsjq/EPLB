@@ -1,0 +1,1369 @@
+[2026-07-26 16:36:05] WARNING server_args.py:1416: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-07-26 16:36:05] WARNING server_args.py:1582: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-07-26 16:36:05] WARNING server_args.py:1633: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-07-26 16:36:05] server_args=ServerArgs(model_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_path='/data/models/Qwen3-235B-A22B-FP8', tokenizer_mode='auto', tokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{}', rl_quant_profile=None, trust_remote_code=True, context_length=None, is_embedding=False, enable_multimodal=None, revision=None, model_impl='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=False, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, dtype='auto', quantization='fp8', quantization_param_path=None, kv_cache_dtype='auto', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, mem_fraction_static=0.8, max_running_requests=None, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=1024, max_prefill_tokens=16384, schedule_policy='fcfs', enable_priority_scheduling=False, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=0.3, page_size=1, hybrid_kvcache_ratio=None, swa_full_tokens_ratio=0.8, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', device='cuda', tp_size=8, pp_size=1, pp_max_micro_batch_size=None, stream_interval=1, stream_output=False, random_seed=916261396, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=300, dist_timeout=None, download_dir=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, mm_process_config={}, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, crash_dump_folder=None, show_time_cost=False, enable_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, collect_tokens_histogram=False, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, served_model_name='/data/models/Qwen3-235B-A22B-FP8', weight_version='default', chat_template=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=8, load_balance_method='round_robin', load_watch_interval=0.1, prefill_round_robin_balance=False, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, attention_backend='fa3', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', nsa_prefill_backend='flashmla_sparse', nsa_decode_backend='fa3', enable_flashinfer_autotune=False, speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_moe_runner_backend=None, speculative_moe_a2a_backend=None, speculative_ngram_min_match_window_size=1, speculative_ngram_max_match_window_size=12, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_branch_length=18, speculative_ngram_capacity=10000000, ep_size=8, moe_a2a_backend='deepep', moe_runner_backend='deep_gemm', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, deepep_mode='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm='static', init_expert_location='trivial', enable_eplb=False, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, mooncake_ib_device=None, enable_pb_oeplb=True, pb_oeplb_threshold_ratio=1.02, pb_oeplb_max_swaps_per_layer=64, pb_oeplb_max_total_swap_layers=94, pb_oeplb_sync_window=16, pb_oeplb_min_prefill_tokens=256, pb_oeplb_cooldown_steps=5, pb_oeplb_always_record=False, max_mamba_cache_size=None, mamba_ssm_dtype='float32', mamba_full_memory_ratio=0.9, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='best_effort', hicache_storage_backend_extra_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, enable_double_sparsity=False, ds_channel_config_path=None, ds_heavy_channel_num=32, ds_heavy_token_num=256, ds_heavy_channel_type='qk', ds_sparse_decode_threshold=4096, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', multi_item_scoring_delimiter=None, disable_radix_cache=True, cuda_graph_max_bs=128, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], disable_cuda_graph=False, disable_cuda_graph_padding=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, disable_overlap_schedule=False, enable_mixed_chunk=False, enable_dp_attention=True, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, enable_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=4096, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, 4096], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, enable_nsa_prefill_context_parallel=False, enable_fused_qk_norm_rope=False, enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_decode_tp=None, disaggregation_decode_dp=None, disaggregation_prefill_pp=1, disaggregation_ib_device=None, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, custom_weight_loader=[], weight_loader_disable_mmap=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, mm_max_concurrent_calls=32, mm_per_request_timeout=10.0, enable_broadcast_mm_inputs_process=False, decrypted_config_file=None, decrypted_draft_config_file=None, mm_enable_dp_encoder=False, forward_hooks=None)
+[2026-07-26 16:36:05] Using default HuggingFace chat template with detected content format: string
+[2026-07-26 16:36:21 DP1 TP1 EP1] Init torch distributed begin.
+[2026-07-26 16:36:21 DP5 TP5 EP5] Init torch distributed begin.
+[2026-07-26 16:36:21 DP3 TP3 EP3] Init torch distributed begin.
+[2026-07-26 16:36:22 DP6 TP6 EP6] Init torch distributed begin.
+[2026-07-26 16:36:22 DP7 TP7 EP7] Init torch distributed begin.
+[2026-07-26 16:36:22 DP4 TP4 EP4] Init torch distributed begin.
+[2026-07-26 16:36:22 DP2 TP2 EP2] Init torch distributed begin.
+[2026-07-26 16:36:22 DP0 TP0 EP0] Init torch distributed begin.
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank [Gloo] Rank [Gloo] Rank 62 is connected to  is connected to 77 peer ranks.  peer ranks. 3Expected number of connected peer ranks is : [Gloo] Rank Expected number of connected peer ranks is : [Gloo] Rank [Gloo] Rank  is connected to 707147
+ is connected to 
+ is connected to  is connected to  peer ranks. 777Expected number of connected peer ranks is :  peer ranks.  peer ranks.  peer ranks. 7Expected number of connected peer ranks is : Expected number of connected peer ranks is : Expected number of connected peer ranks is : 
+777
+
+
+[Gloo] Rank 2 is connected to 7[Gloo] Rank  peer ranks. 0Expected number of connected peer ranks is :  is connected to 77
+ peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1[Gloo] Rank  is connected to 3[Gloo] Rank 7 is connected to 4 peer ranks. 7 is connected to Expected number of connected peer ranks is :  peer ranks. 77[Gloo] Rank Expected number of connected peer ranks is :  peer ranks. 
+57Expected number of connected peer ranks is :  is connected to 
+7[Gloo] Rank [Gloo] Rank 7
+76 peer ranks.  is connected to  is connected to Expected number of connected peer ranks is : 7 peer ranks. 77Expected number of connected peer ranks is :  peer ranks. 
+7Expected number of connected peer ranks is : 
+7
+[2026-07-26 16:36:23 DP0 TP0 EP0] sglang is using nccl==2.27.5
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to [Gloo] Rank 00 peer ranks.  is connected to Expected number of connected peer ranks is : 0[Gloo] Rank 00 is connected to  peer ranks. [Gloo] Rank [Gloo] Rank 
+0Expected number of connected peer ranks is : 00 peer ranks. 0 is connected to  is connected to Expected number of connected peer ranks is : 
+0[Gloo] Rank 00 peer ranks. 0 peer ranks. 
+Expected number of connected peer ranks is : [Gloo] Rank  is connected to Expected number of connected peer ranks is : 0000
+ is connected to  peer ranks. 
+0Expected number of connected peer ranks is :  peer ranks. 0Expected number of connected peer ranks is : 
+0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank [Gloo] Rank 00 is connected to  is connected to 00 peer ranks.  peer ranks. Expected number of connected peer ranks is : Expected number of connected peer ranks is : 00
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-07-26 16:36:27 DP6 TP6 EP6] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP4 TP4 EP4] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP7 TP7 EP7] Init torch distributed ends. mem usage=0.95 GB
+[2026-07-26 16:36:27 DP0 TP0 EP0] Init torch distributed ends. mem usage=1.13 GB
+[2026-07-26 16:36:27 DP3 TP3 EP3] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP2 TP2 EP2] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP5 TP5 EP5] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP1 TP1 EP1] Init torch distributed ends. mem usage=1.18 GB
+[2026-07-26 16:36:27 DP3 TP3 EP3] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP1 TP1 EP1] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP6 TP6 EP6] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP4 TP4 EP4] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP5 TP5 EP5] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP2 TP2 EP2] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:27 DP7 TP7 EP7] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:28 DP0 TP0 EP0] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-07-26 16:36:29 DP1 TP1 EP1] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP1 TP1 EP1] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:36:29 DP6 TP6 EP6] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP6 TP6 EP6] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:36:29 DP5 TP5 EP5] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP5 TP5 EP5] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:36:29 DP3 TP3 EP3] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP3 TP3 EP3] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:36:29 DP7 TP7 EP7] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP7 TP7 EP7] Load weight begin. avail mem=93.80 GB
+[2026-07-26 16:36:29 DP4 TP4 EP4] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP4 TP4 EP4] Load weight begin. avail mem=93.57 GB
+[2026-07-26 16:36:29 DP0 TP0 EP0] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP0 TP0 EP0] Load weight begin. avail mem=93.62 GB
+[2026-07-26 16:36:29 DP0 TP0 EP0] Detected fp8 checkpoint.
+[2026-07-26 16:36:29 DP2 TP2 EP2] [PB-OEPLB] Init v0.11 (fast-response + decay): layers=94, experts=128, ep=8, dp=8, local=16, thresh=1.02, min_tok=256, sync_window=16, always_record=False
+[2026-07-26 16:36:29 DP2 TP2 EP2] Load weight begin. avail mem=93.57 GB
+Loading safetensors checkpoint shards:   0% Completed | 0/48 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   2% Completed | 1/48 [00:00<00:09,  4.72it/s]
+Loading safetensors checkpoint shards:   4% Completed | 2/48 [00:00<00:10,  4.30it/s]
+Loading safetensors checkpoint shards:   6% Completed | 3/48 [00:00<00:11,  3.76it/s]
+Loading safetensors checkpoint shards:   8% Completed | 4/48 [00:01<00:12,  3.60it/s]
+Loading safetensors checkpoint shards:  10% Completed | 5/48 [00:01<00:11,  3.85it/s]
+Loading safetensors checkpoint shards:  12% Completed | 6/48 [00:01<00:10,  3.98it/s]
+Loading safetensors checkpoint shards:  15% Completed | 7/48 [00:01<00:10,  3.95it/s]
+Loading safetensors checkpoint shards:  17% Completed | 8/48 [00:02<00:09,  4.04it/s]
+Loading safetensors checkpoint shards:  19% Completed | 9/48 [00:02<00:09,  4.06it/s]
+Loading safetensors checkpoint shards:  21% Completed | 10/48 [00:02<00:09,  3.82it/s]
+Loading safetensors checkpoint shards:  23% Completed | 11/48 [00:02<00:10,  3.55it/s]
+Loading safetensors checkpoint shards:  25% Completed | 12/48 [00:03<00:11,  3.25it/s]
+Loading safetensors checkpoint shards:  27% Completed | 13/48 [00:03<00:10,  3.38it/s]
+Loading safetensors checkpoint shards:  29% Completed | 14/48 [00:03<00:11,  3.07it/s]
+Loading safetensors checkpoint shards:  31% Completed | 15/48 [00:04<00:11,  3.00it/s]
+Loading safetensors checkpoint shards:  33% Completed | 16/48 [00:04<00:10,  3.05it/s]
+Loading safetensors checkpoint shards:  35% Completed | 17/48 [00:04<00:09,  3.10it/s]
+Loading safetensors checkpoint shards:  38% Completed | 18/48 [00:05<00:10,  3.00it/s]
+Loading safetensors checkpoint shards:  40% Completed | 19/48 [00:06<00:19,  1.50it/s]
+Loading safetensors checkpoint shards:  42% Completed | 20/48 [00:07<00:15,  1.76it/s]
+Loading safetensors checkpoint shards:  44% Completed | 21/48 [00:07<00:13,  2.06it/s]
+Loading safetensors checkpoint shards:  46% Completed | 22/48 [00:07<00:11,  2.33it/s]
+Loading safetensors checkpoint shards:  48% Completed | 23/48 [00:07<00:09,  2.65it/s]
+Loading safetensors checkpoint shards:  50% Completed | 24/48 [00:08<00:08,  2.92it/s]
+Loading safetensors checkpoint shards:  52% Completed | 25/48 [00:08<00:07,  3.20it/s]
+Loading safetensors checkpoint shards:  54% Completed | 26/48 [00:08<00:06,  3.45it/s]
+Loading safetensors checkpoint shards:  56% Completed | 27/48 [00:08<00:05,  3.65it/s]
+Loading safetensors checkpoint shards:  58% Completed | 28/48 [00:09<00:05,  3.78it/s]
+Loading safetensors checkpoint shards:  60% Completed | 29/48 [00:09<00:04,  3.84it/s]
+Loading safetensors checkpoint shards:  62% Completed | 30/48 [00:09<00:04,  3.92it/s]
+Loading safetensors checkpoint shards:  65% Completed | 31/48 [00:09<00:04,  3.97it/s]
+Loading safetensors checkpoint shards:  67% Completed | 32/48 [00:10<00:04,  3.74it/s]
+Loading safetensors checkpoint shards:  69% Completed | 33/48 [00:10<00:03,  3.82it/s]
+Loading safetensors checkpoint shards:  71% Completed | 34/48 [00:10<00:03,  3.92it/s]
+Loading safetensors checkpoint shards:  73% Completed | 35/48 [00:10<00:03,  3.96it/s]
+Loading safetensors checkpoint shards:  75% Completed | 36/48 [00:11<00:03,  3.93it/s]
+Loading safetensors checkpoint shards:  77% Completed | 37/48 [00:11<00:02,  3.95it/s]
+Loading safetensors checkpoint shards:  79% Completed | 38/48 [00:11<00:02,  4.00it/s]
+Loading safetensors checkpoint shards:  81% Completed | 39/48 [00:11<00:02,  4.02it/s]
+Loading safetensors checkpoint shards:  83% Completed | 40/48 [00:12<00:02,  3.97it/s]
+Loading safetensors checkpoint shards:  85% Completed | 41/48 [00:12<00:01,  3.87it/s]
+Loading safetensors checkpoint shards:  88% Completed | 42/48 [00:12<00:01,  3.89it/s]
+Loading safetensors checkpoint shards:  90% Completed | 43/48 [00:12<00:01,  3.88it/s]
+Loading safetensors checkpoint shards:  92% Completed | 44/48 [00:13<00:01,  3.87it/s]
+Loading safetensors checkpoint shards:  94% Completed | 45/48 [00:13<00:00,  3.86it/s]
+Loading safetensors checkpoint shards:  96% Completed | 46/48 [00:13<00:00,  3.82it/s]
+[2026-07-26 16:36:43 DP6 TP6 EP6] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:43 DP5 TP5 EP5] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:43 DP2 TP2 EP2] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:43 DP1 TP1 EP1] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:43 DP7 TP7 EP7] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.70 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:43 DP4 TP4 EP4] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards:  98% Completed | 47/48 [00:13<00:00,  3.86it/s]
+[2026-07-26 16:36:43 DP3 TP3 EP3] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:14<00:00,  3.95it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:14<00:00,  3.38it/s]
+
+[2026-07-26 16:36:44 DP0 TP0 EP0] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.51 GB, mem usage=34.11 GB.
+[2026-07-26 16:36:44 DP0 TP0 EP0] Using KV cache dtype: torch.bfloat16
+[2026-07-26 16:36:44 DP2 TP2 EP2] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP2 TP2 EP2] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP7 TP7 EP7] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP7 TP7 EP7] Memory pool end. avail mem=18.50 GB
+[2026-07-26 16:36:44 DP6 TP6 EP6] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP6 TP6 EP6] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP4 TP4 EP4] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP4 TP4 EP4] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP3 TP3 EP3] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP3 TP3 EP3] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP5 TP5 EP5] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP5 TP5 EP5] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP0 TP0 EP0] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP0 TP0 EP0] Memory pool end. avail mem=18.31 GB
+[2026-07-26 16:36:44 DP1 TP1 EP1] KV Cache is allocated. #tokens: 227258, K size: 20.37 GB, V size: 20.37 GB
+[2026-07-26 16:36:44 DP1 TP1 EP1] Memory pool end. avail mem=18.27 GB
+[2026-07-26 16:36:44 DP2 TP2 EP2] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:36:44 DP7 TP7 EP7] Capture cuda graph begin. This can take up to several minutes. avail mem=18.41 GB
+[2026-07-26 16:36:44 DP3 TP3 EP3] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:36:44 DP4 TP4 EP4] Capture cuda graph begin. This can take up to several minutes. avail mem=18.16 GB
+[2026-07-26 16:36:44 DP6 TP6 EP6] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:36:44 DP5 TP5 EP5] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:36:44 DP1 TP1 EP1] Capture cuda graph begin. This can take up to several minutes. avail mem=18.17 GB
+[2026-07-26 16:36:44 DP0 TP0 EP0] Capture cuda graph begin. This can take up to several minutes. avail mem=18.22 GB
+[2026-07-26 16:36:44 DP0 TP0 EP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=18.11 GB):   0%|          | 0/20 [00:00<?, ?it/s][2026-07-26 16:36:45 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:36:45 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=9216, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:36:45 DP0 TP0 EP0] Required memory for warmup: 0.37890625GB, Available memory: 18.08447265625GB
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][AWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+DeepGEMM warmup:  15%|█▍        | 2430/16384 [00:00<00:00, 24291.91it/s][A
+DeepGEMM warmup:  32%|███▏      | 5272/16384 [00:00<00:00, 26714.11it/s][A[2026-07-26 16:36:45 DP5 TP5 EP5] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP6 TP6 EP6] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP4 TP4 EP4] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP2 TP2 EP2] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP7 TP7 EP7] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP3 TP3 EP3] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:45 DP1 TP1 EP1] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+
+DeepGEMM warmup:  51%|█████     | 8332/16384 [00:00<00:00, 28487.26it/s][A
+DeepGEMM warmup:  70%|██████▉   | 11421/16384 [00:00<00:00, 29433.45it/s][A
+DeepGEMM warmup:  88%|████████▊ | 14385/16384 [00:00<00:00, 29504.33it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 28950.92it/s]
+[2026-07-26 16:36:45 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:36:45 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=8192, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:36:45 DP0 TP0 EP0] Required memory for warmup: 0.28125GB, Available memory: 18.04736328125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  11%|█         | 1815/16384 [00:00<00:00, 18144.83it/s][A
+DeepGEMM warmup:  27%|██▋       | 4473/16384 [00:00<00:00, 23102.79it/s][A
+DeepGEMM warmup:  46%|████▌     | 7537/16384 [00:00<00:00, 26542.92it/s][A
+DeepGEMM warmup:  65%|██████▍   | 10634/16384 [00:00<00:00, 28287.52it/s][A
+DeepGEMM warmup:  82%|████████▏ | 13463/16384 [00:00<00:00, 26865.32it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 26923.25it/s]
+[2026-07-26 16:36:46 DP0 TP0 EP0] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-07-26 16:36:52 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:36:52 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:36:52 DP0 TP0 EP0] Required memory for warmup: 2.6875000596046448GB, Available memory: 9.32470703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  19%|█▉        | 3165/16384 [00:00<00:00, 31642.18it/s][A
+DeepGEMM warmup:  40%|████      | 6595/16384 [00:00<00:00, 33201.27it/s][A
+DeepGEMM warmup:  61%|██████    | 9916/16384 [00:00<00:00, 31340.31it/s][A
+DeepGEMM warmup:  80%|███████▉  | 13062/16384 [00:00<00:00, 30565.34it/s][A
+DeepGEMM warmup:  98%|█████████▊| 16127/16384 [00:00<00:00, 30149.87it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 30729.34it/s]
+[2026-07-26 16:36:53 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:36:53 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:36:53 DP0 TP0 EP0] Required memory for warmup: 2.4687500596046448GB, Available memory: 9.19970703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  20%|█▉        | 3204/16384 [00:00<00:00, 32038.81it/s][A
+DeepGEMM warmup:  43%|████▎     | 6987/16384 [00:00<00:00, 35441.88it/s][A
+DeepGEMM warmup:  66%|██████▌   | 10768/16384 [00:00<00:00, 36520.18it/s][A
+DeepGEMM warmup:  89%|████████▊ | 14535/16384 [00:00<00:00, 36970.47it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 36491.48it/s]
+Capturing batches (bs=128 avail_mem=18.11 GB):   5%|▌         | 1/20 [00:09<02:53,  9.11s/it]Capturing batches (bs=120 avail_mem=8.74 GB):   5%|▌         | 1/20 [00:09<02:53,  9.11s/it] Capturing batches (bs=120 avail_mem=8.74 GB):  10%|█         | 2/20 [00:09<01:12,  4.01s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  10%|█         | 2/20 [00:09<01:12,  4.01s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:09<00:40,  2.37s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:09<00:40,  2.37s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  20%|██        | 4/20 [00:10<00:25,  1.62s/it]Capturing batches (bs=96 avail_mem=8.72 GB):  20%|██        | 4/20 [00:10<00:25,  1.62s/it] Capturing batches (bs=96 avail_mem=8.72 GB):  25%|██▌       | 5/20 [00:10<00:17,  1.19s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  25%|██▌       | 5/20 [00:10<00:17,  1.19s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  30%|███       | 6/20 [00:11<00:12,  1.08it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  30%|███       | 6/20 [00:11<00:12,  1.08it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  35%|███▌      | 7/20 [00:11<00:09,  1.31it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  35%|███▌      | 7/20 [00:11<00:09,  1.31it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  40%|████      | 8/20 [00:12<00:07,  1.51it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  40%|████      | 8/20 [00:12<00:07,  1.51it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  45%|████▌     | 9/20 [00:12<00:06,  1.71it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  45%|████▌     | 9/20 [00:12<00:06,  1.71it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  50%|█████     | 10/20 [00:12<00:05,  1.89it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  50%|█████     | 10/20 [00:12<00:05,  1.89it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  55%|█████▌    | 11/20 [00:13<00:04,  2.05it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  55%|█████▌    | 11/20 [00:13<00:04,  2.05it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  60%|██████    | 12/20 [00:13<00:03,  2.15it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  60%|██████    | 12/20 [00:13<00:03,  2.15it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  65%|██████▌   | 13/20 [00:14<00:03,  2.25it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  65%|██████▌   | 13/20 [00:14<00:03,  2.25it/s]Capturing batches (bs=24 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:14<00:02,  2.34it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:14<00:02,  2.34it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  75%|███████▌  | 15/20 [00:14<00:02,  2.36it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  75%|███████▌  | 15/20 [00:14<00:02,  2.36it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  80%|████████  | 16/20 [00:15<00:01,  2.40it/s]Capturing batches (bs=8 avail_mem=8.62 GB):  80%|████████  | 16/20 [00:15<00:01,  2.40it/s] Capturing batches (bs=8 avail_mem=8.62 GB):  85%|████████▌ | 17/20 [00:15<00:01,  2.39it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  85%|████████▌ | 17/20 [00:15<00:01,  2.39it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  90%|█████████ | 18/20 [00:16<00:00,  2.35it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  90%|█████████ | 18/20 [00:16<00:00,  2.35it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  95%|█████████▌| 19/20 [00:16<00:00,  2.35it/s]Capturing batches (bs=1 avail_mem=8.59 GB):  95%|█████████▌| 19/20 [00:16<00:00,  2.35it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:17<00:00,  2.38it/s]Capturing batches (bs=1 avail_mem=8.59 GB): 100%|██████████| 20/20 [00:17<00:00,  1.17it/s]
+[2026-07-26 16:37:02 DP0 TP0 EP0] Registering 19 cuda graph addresses
+[2026-07-26 16:37:02 DP4 TP4 EP4] Capture cuda graph end. Time elapsed: 17.86 s. mem usage=9.89 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:02 DP1 TP1 EP1] Capture cuda graph end. Time elapsed: 17.86 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:02 DP2 TP2 EP2] Capture cuda graph end. Time elapsed: 17.94 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:02 DP0 TP0 EP0] Capture cuda graph end. Time elapsed: 17.88 s. mem usage=9.63 GB. avail mem=8.59 GB.
+[2026-07-26 16:37:02 DP7 TP7 EP7] Capture cuda graph end. Time elapsed: 17.93 s. mem usage=8.73 GB. avail mem=9.68 GB.
+[2026-07-26 16:37:02 DP3 TP3 EP3] Capture cuda graph end. Time elapsed: 17.93 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:02 DP6 TP6 EP6] Capture cuda graph end. Time elapsed: 17.94 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:02 DP5 TP5 EP5] Capture cuda graph end. Time elapsed: 17.93 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-07-26 16:37:03 DP0 TP0 EP0] max_total_num_tokens=227258, chunked_prefill_size=1024, max_prefill_tokens=16384, max_running_requests=2840, context_len=40960, available_gpu_mem=8.59 GB
+[2026-07-26 16:37:03] INFO:     Started server process [630179]
+[2026-07-26 16:37:03] INFO:     Waiting for application startup.
+[2026-07-26 16:37:03] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-26 16:37:03] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-07-26 16:37:03] INFO:     Application startup complete.
+[2026-07-26 16:37:03] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-07-26 16:37:04] Endpoint '/get_model_info' is deprecated and will be removed in a future version. Please use '/model_info' instead.
+[2026-07-26 16:37:04] INFO:     127.0.0.1:45086 - "GET /get_model_info HTTP/1.1" 200 OK
+[2026-07-26 16:37:04 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:04 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:04 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:04 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:04 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:05 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:37:05 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:37:05 DP0 TP0 EP0] Required memory for warmup: 0.34381103515625GB, Available memory: 8.52978515625GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3332.82it/s]
+[2026-07-26 16:37:05 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-07-26 16:37:05 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-07-26 16:37:05 DP0 TP0 EP0] Required memory for warmup: 0.24224853515625GB, Available memory: 8.52783203125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 4322.35it/s]
+[2026-07-26 16:37:05 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:05 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:05 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:06 DP4 TP4 EP4] [PB-OEPLB] rank=4 ready after 10 forwards
+[2026-07-26 16:37:06 DP7 TP7 EP7] [PB-OEPLB] rank=7 ready after 10 forwards
+[2026-07-26 16:37:06 DP6 TP6 EP6] [PB-OEPLB] rank=6 ready after 10 forwards
+[2026-07-26 16:37:06] INFO:     127.0.0.1:45090 - "POST /generate HTTP/1.1" 200 OK
+[2026-07-26 16:37:06] The server is fired up and ready to roll!
+[2026-07-26 16:37:06 DP5 TP5 EP5] [PB-OEPLB] rank=5 ready after 10 forwards
+[2026-07-26 16:37:06 DP3 TP3 EP3] [PB-OEPLB] rank=3 ready after 10 forwards
+[2026-07-26 16:37:06 DP2 TP2 EP2] [PB-OEPLB] rank=2 ready after 10 forwards
+[2026-07-26 16:37:06 DP0 TP0 EP0] [PB-OEPLB] rank=0 ready after 10 forwards
+[2026-07-26 16:37:06 DP1 TP1 EP1] [PB-OEPLB] rank=1 ready after 10 forwards
+[2026-07-26 16:37:08 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 1, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:09] INFO:     127.0.0.1:57524 - "GET /health HTTP/1.1" 200 OK
+[2026-07-26 16:37:09] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:09 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:09] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:09 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:09] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:10 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:10] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:10 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:10] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:10 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 273, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:12 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 555, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 539, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 473, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 542, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 511, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 509, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:12 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:13 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:13 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 BEFORE swap layer=24 phys_a=89(rank5) phys_b=50(rank3) my_local_slot=9 weight0_checksum=-581174.687500
+[2026-07-26 16:37:13 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 BEFORE swap layer=24 phys_a=89(rank5) phys_b=50(rank3) my_local_slot=2 weight0_checksum=445372.218750
+[2026-07-26 16:37:13 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:13 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=242 avg_ratio_before=1.804 avg_ratio_after=1.252 max_ratio_before=2.589 max_ratio_after=1.483
+[2026-07-26 16:37:14 DP1 TP1 EP1] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP0 TP0 EP0] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP4 TP4 EP4] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP5 TP5 EP5] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP3 TP3 EP3] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP7 TP7 EP7] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP6 TP6 EP6] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 468, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 496, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP2 TP2 EP2] [PB-OEPLB] window#1: issued 242 swap(s) (197776 tok global, dp=8)
+[2026-07-26 16:37:14 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 459, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 475, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 500, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:14 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:14 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 AFTER swap layer=24 local_slot=2 weight0_checksum_before=445372.218750 weight0_checksum_after=-581174.687500 CHANGED=True
+[2026-07-26 16:37:14 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 AFTER swap layer=24 local_slot=9 weight0_checksum_before=-581174.687500 weight0_checksum_after=445372.218750 CHANGED=True
+[2026-07-26 16:37:14 DP4 TP4 EP4] [PB-OEPLB] 242 swap(s) done (1181.5ms) | total=242
+[2026-07-26 16:37:14 DP1 TP1 EP1] [PB-OEPLB] 242 swap(s) done (1182.5ms) | total=242
+[2026-07-26 16:37:14 DP0 TP0 EP0] [PB-OEPLB] 242 swap(s) done (1182.3ms) | total=242
+[2026-07-26 16:37:14 DP5 TP5 EP5] [PB-OEPLB] 242 swap(s) done (1184.1ms) | total=242
+[2026-07-26 16:37:14 DP6 TP6 EP6] [PB-OEPLB] 242 swap(s) done (1182.2ms) | total=242
+[2026-07-26 16:37:14 DP3 TP3 EP3] [PB-OEPLB] 242 swap(s) done (1184.3ms) | total=242
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14 DP7 TP7 EP7] [PB-OEPLB] 242 swap(s) done (1194.2ms) | total=242
+[2026-07-26 16:37:14 DP2 TP2 EP2] [PB-OEPLB] 242 swap(s) done (1201.3ms) | total=242
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:14 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 279, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:14] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 497, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 576, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 504, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 519, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:37:15 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 492, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 264, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:15 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 485, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 273, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 530, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 484, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 520, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:15 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:15 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:15 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 245, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:15] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16 DP4 TP4 EP4] Prefill batch, #new-seq: 2, #new-token: 459, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP3 TP3 EP3] Prefill batch, #new-seq: 2, #new-token: 508, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 517, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP5 TP5 EP5] Prefill batch, #new-seq: 2, #new-token: 497, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 481, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 476, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 503, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 531, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 520, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 516, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:16 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 284, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:16 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP6 TP6 EP6] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 BEFORE swap layer=42 phys_a=37(rank2) phys_b=31(rank1) my_local_slot=15 weight0_checksum=-889594.312500
+[2026-07-26 16:37:17 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP4 TP4 EP4] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17 DP0 TP0 EP0] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP1 TP1 EP1] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17 DP3 TP3 EP3] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17 DP5 TP5 EP5] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP7 TP7 EP7] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=90 avg_ratio_before=1.303 avg_ratio_after=1.224 max_ratio_before=1.587 max_ratio_after=1.504
+[2026-07-26 16:37:17 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 BEFORE swap layer=42 phys_a=37(rank2) phys_b=31(rank1) my_local_slot=5 weight0_checksum=-62849.609375
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP2 TP2 EP2] [PB-OEPLB] window#2: issued 90 swap(s) (3788506 tok global, dp=8)
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 AFTER swap layer=42 local_slot=15 weight0_checksum_before=-889594.312500 weight0_checksum_after=-62849.609375 CHANGED=True
+[2026-07-26 16:37:17 DP2 TP2 EP2] [VERIFY-WEIGHT-MOVE] rank=2 AFTER swap layer=42 local_slot=5 weight0_checksum_before=-62849.609375 weight0_checksum_after=-889594.312500 CHANGED=True
+[2026-07-26 16:37:17 DP0 TP0 EP0] [PB-OEPLB] 90 swap(s) done (233.3ms) | total=332
+[2026-07-26 16:37:17 DP4 TP4 EP4] [PB-OEPLB] 90 swap(s) done (233.8ms) | total=332
+[2026-07-26 16:37:17 DP3 TP3 EP3] [PB-OEPLB] 90 swap(s) done (233.8ms) | total=332
+[2026-07-26 16:37:17 DP5 TP5 EP5] [PB-OEPLB] 90 swap(s) done (234.2ms) | total=332
+[2026-07-26 16:37:17 DP1 TP1 EP1] [PB-OEPLB] 90 swap(s) done (234.6ms) | total=332
+[2026-07-26 16:37:17 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP6 TP6 EP6] [PB-OEPLB] 90 swap(s) done (241.2ms) | total=332
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP7 TP7 EP7] [PB-OEPLB] 90 swap(s) done (234.7ms) | total=332
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP2 TP2 EP2] [PB-OEPLB] 90 swap(s) done (230.7ms) | total=332
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17 DP6 TP6 EP6] Prefill batch, #new-seq: 2, #new-token: 486, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:17 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 282, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:17 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:17] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 224, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 284, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 530, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:18 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 0, 
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 259, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 231, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:18 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 465, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:18 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:18] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 504, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:19 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 279, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 282, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 513, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:19 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 249, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 259, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:19 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:19] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 243, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 249, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=21 avg_ratio_before=1.225 avg_ratio_after=1.217 max_ratio_before=1.523 max_ratio_after=1.523
+[2026-07-26 16:37:20 DP0 TP0 EP0] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 BEFORE swap layer=74 phys_a=120(rank7) phys_b=58(rank3) my_local_slot=8 weight0_checksum=-786027.000000
+[2026-07-26 16:37:20 DP4 TP4 EP4] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP1 TP1 EP1] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP5 TP5 EP5] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 BEFORE swap layer=74 phys_a=120(rank7) phys_b=58(rank3) my_local_slot=10 weight0_checksum=-1057018.500000
+[2026-07-26 16:37:20 DP6 TP6 EP6] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP2 TP2 EP2] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP7 TP7 EP7] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP3 TP3 EP3] [PB-OEPLB] window#3: issued 21 swap(s) (10056927 tok global, dp=8)
+[2026-07-26 16:37:20 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 494, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:20 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:20 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP3 TP3 EP3] [VERIFY-WEIGHT-MOVE] rank=3 AFTER swap layer=74 local_slot=10 weight0_checksum_before=-1057018.500000 weight0_checksum_after=-786027.000000 CHANGED=True
+[2026-07-26 16:37:20 DP7 TP7 EP7] [VERIFY-WEIGHT-MOVE] rank=7 AFTER swap layer=74 local_slot=8 weight0_checksum_before=-786027.000000 weight0_checksum_after=-1057018.500000 CHANGED=True
+[2026-07-26 16:37:20 DP1 TP1 EP1] [PB-OEPLB] 21 swap(s) done (309.8ms) | total=353
+[2026-07-26 16:37:20 DP4 TP4 EP4] [PB-OEPLB] 21 swap(s) done (318.1ms) | total=353
+[2026-07-26 16:37:20 DP0 TP0 EP0] [PB-OEPLB] 21 swap(s) done (327.0ms) | total=353
+[2026-07-26 16:37:20 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP7 TP7 EP7] [PB-OEPLB] 21 swap(s) done (327.9ms) | total=353
+[2026-07-26 16:37:20 DP6 TP6 EP6] [PB-OEPLB] 21 swap(s) done (308.7ms) | total=353
+[2026-07-26 16:37:20 DP5 TP5 EP5] [PB-OEPLB] 21 swap(s) done (311.8ms) | total=353
+[2026-07-26 16:37:20 DP3 TP3 EP3] [PB-OEPLB] 21 swap(s) done (311.3ms) | total=353
+[2026-07-26 16:37:20 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:20] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:20 DP2 TP2 EP2] [PB-OEPLB] 21 swap(s) done (339.2ms) | total=353
+[2026-07-26 16:37:20 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 264, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 450, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:21 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 262, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 270, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 249, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 279, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:21 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 259, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:21 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 266, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:21] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 270, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 273, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 245, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 528, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:22 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:22] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 465, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:23 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 246, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 260, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 472, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:23 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 273, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:23 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 260, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23 DP5 TP5 EP5] [PB-OEPLB-PROF] window#4 calls=1222 record=116.80ms allreduce=267.97ms planbuild=33.86ms finalize=61.67ms total=480.29ms avg_record_us=95.58
+[2026-07-26 16:37:23 DP1 TP1 EP1] [PB-OEPLB-PROF] window#4 calls=1128 record=108.82ms allreduce=267.49ms planbuild=29.00ms finalize=55.31ms total=460.62ms avg_record_us=96.47
+[2026-07-26 16:37:23 DP7 TP7 EP7] [PB-OEPLB-PROF] window#4 calls=1128 record=110.78ms allreduce=267.99ms planbuild=16.24ms finalize=72.14ms total=467.15ms avg_record_us=98.21
+[2026-07-26 16:37:23 DP3 TP3 EP3] [PB-OEPLB-PROF] window#4 calls=1222 record=119.76ms allreduce=267.96ms planbuild=34.70ms finalize=61.99ms total=484.43ms avg_record_us=98.01
+[2026-07-26 16:37:23 DP2 TP2 EP2] [PB-OEPLB-PROF] window#4 calls=1410 record=137.70ms allreduce=267.39ms planbuild=37.35ms finalize=112.40ms total=554.85ms avg_record_us=97.66
+[2026-07-26 16:37:23 DP4 TP4 EP4] [PB-OEPLB-PROF] window#4 calls=1222 record=117.98ms allreduce=267.87ms planbuild=20.82ms finalize=53.65ms total=460.32ms avg_record_us=96.55
+[2026-07-26 16:37:23 DP0 TP0 EP0] [PB-OEPLB-PROF] window#4 calls=188 record=41.11ms allreduce=267.88ms planbuild=12.07ms finalize=54.77ms total=375.83ms avg_record_us=218.65
+[2026-07-26 16:37:23 DP6 TP6 EP6] [PB-OEPLB-PROF] window#4 calls=1222 record=133.21ms allreduce=267.96ms planbuild=37.52ms finalize=63.05ms total=501.73ms avg_record_us=109.01
+[2026-07-26 16:37:23 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 250, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:23] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 289, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 264, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 538, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:24 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 224, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 246, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 282, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 272, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 232, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 530, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:24 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:24 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 280, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 232, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 270, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:24] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 231, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 515, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:25 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 287, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 258, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 515, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:25 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:25 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:25] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 265, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 288, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 288, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 456, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:26 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 289, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 279, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26 DP0 TP0 EP0] [PB-OEPLB-STABILITY] w#5 cos_sim=0.9997 recent_avg=0.8825 all_avg=0.8825 (>0.95 = stable pattern, window can be larger)
+[2026-07-26 16:37:26 DP4 TP4 EP4] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP2 TP2 EP2] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP1 TP1 EP1] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP7 TP7 EP7] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP3 TP3 EP3] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP5 TP5 EP5] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP6 TP6 EP6] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP0 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=94 total_ops=5 avg_ratio_before=1.218 avg_ratio_after=1.216 max_ratio_before=1.526 max_ratio_after=1.526
+[2026-07-26 16:37:26 DP4 TP4 EP4] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP2 TP2 EP2] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 BEFORE swap layer=69 phys_a=17(rank1) phys_b=88(rank5) my_local_slot=1 weight0_checksum=-320243.250000
+[2026-07-26 16:37:26 DP3 TP3 EP3] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP7 TP7 EP7] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP6 TP6 EP6] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 BEFORE swap layer=69 phys_a=17(rank1) phys_b=88(rank5) my_local_slot=8 weight0_checksum=-1220644.250000
+[2026-07-26 16:37:26 DP0 TP0 EP0] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP5 TP5 EP5] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP1 TP1 EP1] [PB-OEPLB] window#5: issued 5 swap(s) (22153583 tok global, dp=8)
+[2026-07-26 16:37:26 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 236, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:26] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP1 TP1 EP1] [VERIFY-WEIGHT-MOVE] rank=1 AFTER swap layer=69 local_slot=1 weight0_checksum_before=-320243.250000 weight0_checksum_after=-1220644.250000 CHANGED=True
+[2026-07-26 16:37:27 DP5 TP5 EP5] [VERIFY-WEIGHT-MOVE] rank=5 AFTER swap layer=69 local_slot=8 weight0_checksum_before=-1220644.250000 weight0_checksum_after=-320243.250000 CHANGED=True
+[2026-07-26 16:37:27 DP4 TP4 EP4] [PB-OEPLB] 5 swap(s) done (194.9ms) | total=358
+[2026-07-26 16:37:27 DP3 TP3 EP3] [PB-OEPLB] 5 swap(s) done (197.0ms) | total=358
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP0 TP0 EP0] [PB-OEPLB] 5 swap(s) done (196.7ms) | total=358
+[2026-07-26 16:37:27 DP6 TP6 EP6] [PB-OEPLB] 5 swap(s) done (197.3ms) | total=358
+[2026-07-26 16:37:27 DP7 TP7 EP7] [PB-OEPLB] 5 swap(s) done (198.5ms) | total=358
+[2026-07-26 16:37:27 DP1 TP1 EP1] [PB-OEPLB] 5 swap(s) done (199.6ms) | total=358
+[2026-07-26 16:37:27 DP5 TP5 EP5] [PB-OEPLB] 5 swap(s) done (197.7ms) | total=358
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 266, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP2 TP2 EP2] [PB-OEPLB] 5 swap(s) done (203.5ms) | total=358
+[2026-07-26 16:37:27 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 537, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 245, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 522, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:27 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 267, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 272, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 274, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 232, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 511, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:27 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:27 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:27 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 262, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 288, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:27 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:27] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 262, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 278, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 503, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:28 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 244, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 485, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:28 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 271, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 247, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 284, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 246, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 290, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 509, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:28 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 465, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:28 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:28 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 227, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:28] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 241, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 232, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 237, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 443, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:29 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 527, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:29 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 224, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 251, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 232, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 243, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 223, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 277, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 230, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:29] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 551, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:30 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 519, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:30 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 238, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 260, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 284, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 269, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 497, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:30 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 234, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 253, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 281, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:30 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 521, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 243, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 262, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 228, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 286, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:30] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 255, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 268, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 259, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 470, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:31 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 485, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:31 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 285, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 239, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 287, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 261, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 252, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 276, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57634 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 263, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 225, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57544 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57678 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57576 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57672 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57644 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31 DP1 TP1 EP1] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.84, #queue-req: 0, 
+[2026-07-26 16:37:31 DP0 TP0 EP0] Decode batch, #running-req: 2, #token: 0, token usage: 0.00, cuda graph: False, gen throughput (token/s): 2.40, #queue-req: 0, 
+[2026-07-26 16:37:31 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 235, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 220, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 505, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:31 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 221, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 483, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-07-26 16:37:31 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 248, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:31 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 254, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 0, 
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57590 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:31] INFO:     127.0.0.1:57656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-07-26 16:37:32 DP5 TP5 EP5] Decode batch, #running-req: 1, #token: 220, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.52, #queue-req: 0, 
+[2026-07-26 16:37:32 DP4 TP4 EP4] Decode batch, #running-req: 1, #token: 235, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.52, #queue-req: 0, 
+[2026-07-26 16:37:32 DP3 TP3 EP3] Decode batch, #running-req: 1, #token: 221, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.52, #queue-req: 0, 
+[2026-07-26 16:37:32 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 283, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:32 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 242, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:32 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 257, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:32 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 229, #cached-token: 0, token usage: 0.00, #running-req: 2, #queue-req: 0, 
+[2026-07-26 16:37:32 DP6 TP6 EP6] Decode batch, #running-req: 1, #token: 0, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.55, #queue-req: 0, 
+[2026-07-26 16:37:32 DP7 TP7 EP7] Decode batch, #running-req: 1, #token: 0, token usage: 0.00, cuda graph: False, gen throughput (token/s): 1.58, #queue-req: 0, 
+[2026-07-26 16:37:32 DP2 TP2 EP2] Decode batch, #running-req: 1, #token: 0, token usage: 0.00, cuda graph: True, gen throughput (token/s): 1.48, #queue-req: 0, 
+[2026-07-26 16:37:32] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-07-26 16:37:34] Gracefully exiting... Remaining number of requests 0. Remaining requests remaining_rids=[].
