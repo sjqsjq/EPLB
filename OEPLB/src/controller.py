@@ -15,67 +15,55 @@ logger = logging.getLogger(__name__)
 
 class PBOEPLBController:
     """
-    v0.11: v0.10 + exponential decay statistics + fast sync_window.
+    在线 MoE expert 负载均衡状态机：周期性检查各 rank 的专家负载不均衡度，
+    超过阈值时通过 rank 间 P2P 交换物理专家权重来纠正。当前架构的关键设计点：
 
-    Key changes from v0.10:
-    - sync_window reduced from 64 to 8 (respond to imbalance 8x faster)
-    - load tensor uses exponential decay (decay_factor=0.5) instead of
-      zeroing after each swap — this stabilizes decisions against single-
-      batch routing noise and preserves historical context
-    - All-reduce tensor is now physical-space (matching record), converted
-      to logical only at plan-build time
+    1. 本地计数器触发，零额外通信。每个 rank 只看自己的本地 forward 计数器
+       (`_steps_since_last_check`) 判断"是否到 sync_window"，不需要每次
+       forward 都做跨 rank 共识。这样做是安全的：forward pass 本身就是
+       DP+EP 全体 rank 隐式同步的（即使是 IDLE batch，每个 rank 每个 global
+       forward step 也恰好调用一次 `on_forward_pass_end`），所以本地计数器
+       天然和其他 rank 保持一致，不需要额外的 all_reduce 来对齐"什么时候
+       检查"。每 `sync_window` 个 forward 才做一次 all_reduce(SUM)，这一次
+       collective 同时完成"聚合全局负载"和"判断是否积累够 token"两件事，
+       不需要单独一轮"是否ready"的共识。这个设计对齐了 SGLang 官方 EPLB
+       自己的本地计数器触发机制(`eplb_manager.py`)。
 
-    v0.10: v0.9 + physical-space recording (matches EPLB's on_select_experts
-    exactly), eliminating the per-call physical->logical gather.
+    2. 物理空间直接记录，最小化 hot path 开销。`record_next_layer` 直接对
+       physical slot 做一次 `scatter_add_`，不做逐次的物理↔逻辑 id 转换、
+       不做 clamp_、不做单独的 bincount+add_。物理转逻辑的转换只在每个
+       sync_window 做一次向量化批处理（覆盖所有层），而不是每个 prefill
+       batch 每层都做一次。这样设计的原因：更早期的写法每次
+       `record_next_layer` 调用要花 ~800-1000us（reshape+long()+clamp_+
+       fancy-index gather+bincount+add_，5-6 次独立 CUDA kernel launch，
+       每次都要在单线程 CPU 调度器的关键路径上付 dispatch 开销），比它想要
+       摊薄的 all_reduce 本身还贵 5-6 倍（370ms allreduce vs 单次 benchmark
+       累计 ~1.8-2.0s 的 record 开销）。现在的写法直接匹配 SGLang 官方
+       EPLB 自己的热路径(`_SelectExpertsSinglePassGatherer.on_select_experts`)：
+       纯本地 scatter，零通信。
 
-    Profiling v0.9 (torch wall-clock instrumentation) found record_next_layer
-    cost ~800-1000us/call, 5-6x more than the all_reduce it was meant to make
-    cheap (370ms allreduce vs ~1.8-2.0s cumulative record over one benchmark
-    run). Root cause: each call did reshape + long() + clamp_ + a FANCY-INDEX
-    GATHER (p2l[layer_id][flat]) + bincount + add_ — 5-6 separate CUDA kernel
-    launches, each paying CPU-side dispatch overhead on the single-threaded
-    scheduler's critical path.
+    3. 指数衰减代替硬清零。每个 sync_window 做完决策后，load 历史按
+       `decay_factor`（默认 0.9）衰减而不是清零。这样单批次的路由噪声不会
+       主导决策，但最近的负载模式依然占主导——在"响应速度"和"抗噪声"之间
+       取一个折中，而不是二选一。
 
-    Fix (mirrors EPLB's _SelectExpertsSinglePassGatherer.on_select_experts,
-    confirmed via source read of expert_distribution.py:507-511): record
-    directly in PHYSICAL expert space via ONE scatter_add_ call — no p2l
-    gather, no clamp_, no separate bincount+add_ pair. The physical->logical
-    conversion (which EPLB also defers to dump-time, see
-    _convert_global_physical_count_to_logical_count) happens ONCE per
-    sync_window, as a single vectorized scatter_add_ across all layers,
-    instead of once per recorded prefill batch per layer.
+    4. 异步 P2P swap + 精确一处的强制同步，避免死锁。swap 操作在独立的低
+       优先级 CUDA stream 上发起，非阻塞返回；`try_finish()` 默认只做非阻塞
+       的 `event.query()` 检查，真正确认 GPU 上传输完成才做 shadow buffer
+       → live weight 的拷贝并翻转路由表。但在每轮决策发起下一次 all_reduce
+       之前，必须先用 `force_wait=True` 阻塞等上一轮 P2P 传输在 GPU 上真正
+       确认完成——原因是 NCCL 要求同一个通信组里所有 rank 发起 collective
+       的"相对顺序"完全一致，不管是哪个本地 CUDA stream 发起的；如果一个
+       rank 的 CPU 线程先跑到了下一轮的 all_reduce（默认 stream），而另一个
+       rank 上一轮的 P2P op（低优先级 stream）还没真正提交给 NCCL，两个
+       rank 在 NCCL 眼里的 op 序列类型就会分叉（一个是"collective"，另一个
+       还是"P2P"），通信组永远等不到对方，直接死锁。这个强制同步只发生在
+       这一个点上，其余每次 forward pass 之间仍然走非阻塞的快路径。
 
-    v0.9: EPLB-style local step-counter trigger, single periodic all_reduce.
-
-    Investigation into SGLang's official EPLB (see eplb_manager.py) found that
-    its `on_forward_pass_end()` is `next(self._main_generator)` where the
-    generator is `for _ in range(rebalance_num_iterations): yield` — a PURE
-    LOCAL Python integer loop. Zero communication on every-but-the-Nth call.
-    This works because forward passes are inherently synchronized across all
-    DP+EP ranks (confirmed empirically: even IDLE batches call
-    on_forward_pass_end exactly once per rank per global forward step), so a
-    local counter implicitly stays in lockstep across ranks with no all_reduce
-    needed to agree on "when".
-
-    v0.8 mistakenly used two all_reduce(MAX) calls EVERY forward pass to reach
-    consensus on "is this a P->D boundary" and "are we ready to swap" — this
-    was unnecessary (forward passes are already synchronized) and caused the
-    observed -16.6% throughput regression under DP=4.
-
-    v0.9 fix: replace the per-forward consensus with a local step counter
-    (self._steps_since_last_check), matching EPLB's pattern. Only every
-    `sync_window` forwards do we do ONE all_reduce(SUM) on the load tensor —
-    this single collective both aggregates the true global load AND serves as
-    the "did we accumulate enough tokens" signal (checked locally on the
-    already-fetched global sum, no separate readiness round needed).
-
-    Recording itself is unchanged from v0.8 and matches EPLB's own hot path
-    (`_SelectExpertsSinglePassGatherer.on_select_experts`, confirmed via source
-    inspection): pure local `bincount`/scatter, zero communication, hooked
-    into topk.py's post-select_experts callback. OEPLB's differentiator is
-    recording ONLY during prefill (targeting the load that determines the
-    upcoming decode burst's expert popularity), whereas EPLB records both
-    prefill and decode uniformly.
+    5. 只在 prefill 阶段记录路由决策（OEPLB 相对官方 EPLB 的差异化设计）。
+       官方 EPLB 在 prefill 和 decode 阶段均匀记录；OEPLB 只记录 prefill，
+       因为 prefill 阶段的专家热度分布决定了紧随其后的 decode 阶段会调用
+       哪些专家——这是"提前纠偏"而不是"事后纠偏"。
     """
 
     def __init__(self, cfg: PBOEPLBConfig, model_runner):
@@ -135,6 +123,20 @@ class PBOEPLBController:
         self._window_shift_count = 0
         self._window_stable_count = 0
         self._last_avg_ratio = None
+
+        # Sensitivity calibration (opt-in via cfg.calibrate_adaptive_sensitivity,
+        # requires adaptive_window=True). Measures the prefill:decode
+        # forward-pass ratio over the first `calibration_forwards` non-idle
+        # forwards, then picks a sensitivity tier (see _apply_sensitivity_tier)
+        # that overrides window_floor/window_shift_confirm_windows/
+        # window_stable_confirm_windows for the rest of this run. Deliberately
+        # does NOT touch sync_window itself -- validated empirically (L512,
+        # O=1/64/256, bracketed baseline measurements) that the achievable gain
+        # magnitude scales cleanly with this ratio (~+18% at O=1 down to ~+4%
+        # at O=256) but WHICH static window is best does not correlate with it.
+        self._calib_done = not (cfg.adaptive_window and cfg.calibrate_adaptive_sensitivity)
+        self._calib_prefill_fwd = 0
+        self._calib_decode_fwd = 0
 
         # Profiling counters (wall-clock, CPU-side critical-path time)
         self._prof_record_calls = 0
@@ -232,6 +234,9 @@ class PBOEPLBController:
         is_prefill = forward_batch.forward_mode.is_extend()
         self._layer_counter = 0
 
+        if not self._calib_done:
+            self._update_sensitivity_calibration(is_idle, is_prefill)
+
         # Recording decision — local-only, prefill-focused (OEPLB's differentiator
         # vs EPLB's uniform prefill+decode recording). No cross-rank agreement needed:
         # this only affects what THIS rank writes into its own load buffer.
@@ -271,7 +276,162 @@ class PBOEPLBController:
         self.total_tokens = 0
         self._prefill_batch_counter = 0
 
+    def _update_sensitivity_calibration(self, is_idle: bool, is_prefill: bool):
+        """Count prefill vs decode forward passes (non-idle only, mirrors the
+        denominator used elsewhere for recording decisions), then once the
+        calibration window has elapsed, all_reduce the counts across ranks and
+        pick a sensitivity tier from the GLOBAL aggregate. See
+        _apply_sensitivity_tier for the empirical basis.
+
+        BUGFIX (found via live test on 2026-07-30): trigger timing must be a
+        purely local step-counter check (self._forward_id increments
+        unconditionally every call, so it's implicitly lockstep-synchronized
+        across ranks -- same pattern as _steps_since_last_check), and the
+        decision must be made from all-reduced GLOBAL counts, not each rank's
+        own local counts. In DP mode, different ranks can genuinely be in
+        different phases (prefill vs decode) at the same global step, so local
+        counts are real per-rank views, not just noise around a shared number.
+        Confirmed empirically: on a near-0.5-boundary workload, two ranks
+        computed decode_fraction=0.496 and 0.500 from their own local counts
+        and picked DIFFERENT tiers -- which would have desynchronized
+        window_floor/window_shift_confirm_windows across ranks, breaking the
+        lockstep invariant every other part of this controller depends on."""
+        if not is_idle:
+            if is_prefill:
+                self._calib_prefill_fwd += 1
+            else:
+                self._calib_decode_fwd += 1
+        if self._forward_id < self._warmup_forwards + self.cfg.calibration_forwards:
+            return
+        counts = torch.tensor(
+            [self._calib_prefill_fwd, self._calib_decode_fwd],
+            dtype=torch.float32, device=self.load.device,
+        )
+        torch.distributed.all_reduce(counts, op=torch.distributed.ReduceOp.SUM)
+        total = counts[0].item() + counts[1].item()
+        decode_fraction = counts[1].item() / total if total > 0 else 0.0
+        self._apply_sensitivity_tier(decode_fraction)
+        self._warm_start_placement()
+        self._calib_done = True
+
+    def _apply_sensitivity_tier(self, decode_fraction: float):
+        """Pick how aggressively adaptive_window should react, based on the
+        measured prefill:decode forward-pass ratio -- NOT which sync_window
+        value to use.
+
+        Empirical basis (bracketed baseline measurements, L=512, final_grid
+        O=1/64/256, this-session validation -- see COMPREHENSIVE_EXPERIMENT_LOG
+        entry for the full data): achievable OEPLB gain over baseline scales
+        cleanly with output length / decode-heaviness (~+14-22% at O=1,
+        ~+8-10% at O=64, ~+3-4.5% at O=256), but which specific static
+        sync_window wins does NOT correlate with this ratio (differences
+        between windows within a single O tier were 1.5-8 points, no
+        monotonic trend). So this tier selection only touches how eagerly
+        adaptive_window shrinks/holds its window, not sync_window itself.
+
+        Tier boundaries calibrated from direct measurement on this session's
+        validation runs (L512, final_grid, same tuned params, calibration_forwards=256):
+        O=1 -> decode_fraction~0.03, O=64 -> ~0.78, O=256 -> ~0.93. Note these are
+        NOT evenly spread -- decode_fraction saturates toward 1.0 quickly once O
+        exceeds single digits (each request contributes one prefill-forward-pass
+        share but O decode-forward-pass shares), so the O=64/O=256 boundary sits
+        much higher (~0.86, roughly midway between the two measured values) than
+        a naive guess would suggest."""
+        if decode_fraction < 0.5:
+            tier = "prefill-heavy"
+            self.cfg.window_floor = 8
+            self.cfg.window_shift_confirm_windows = 1
+        elif decode_fraction < 0.86:
+            tier = "balanced"
+            self.cfg.window_floor = 32
+            self.cfg.window_shift_confirm_windows = 1
+        else:
+            tier = "decode-heavy"
+            self.cfg.window_floor = self.cfg.sync_window  # effectively disables shrinking
+            self.cfg.window_shift_confirm_windows = 3
+        logger.info(f"[PB-OEPLB-CALIB] rank={self._rank} GLOBAL decode_fraction={decode_fraction:.3f} "
+                    f"(this rank's local counts: prefill_fwd={self._calib_prefill_fwd}, "
+                    f"decode_fwd={self._calib_decode_fwd}) "
+                    f"-> tier={tier}, window_floor={self.cfg.window_floor}, "
+                    f"shift_confirm={self.cfg.window_shift_confirm_windows}")
+
+    def _warm_start_placement(self):
+        """After calibration, use the accumulated load stats to compute a
+        better-than-trivial initial placement via EPLB's greedy algorithm,
+        then apply it using SGLang's official ExpertLocationUpdater (which
+        handles weight movement layer-by-layer, avoiding the superlinear
+        overhead of batching 200+ P2P ops into one massive batch_isend_irecv).
+
+        This replaces the expensive cold-start swap burst (previously 223 ops,
+        1.8s of batch_isend_irecv overhead alone) with a single bulk re-assignment
+        that uses the same code path as the official EPLB rebalance."""
+        try:
+            import time as _time
+            _t0 = _time.perf_counter()
+            global_load = self.load.clone()
+            torch.distributed.all_reduce(global_load, op=torch.distributed.ReduceOp.SUM)
+
+            if global_load.sum() == 0:
+                logger.info("[PB-OEPLB-WARMSTART] no load data yet, skipping warm-start")
+                return
+
+            from sglang.srt.eplb import eplb_algorithms
+            current_p2l = self._meta.physical_to_logical_map
+
+            physical_to_logical_map_new, _, _ = eplb_algorithms.rebalance_experts(
+                tokens_per_expert=global_load.unsqueeze(0),
+                num_physical_experts=self.num_local * self.ep_size,
+                num_local_physical_experts=self.num_local,
+                num_groups=None,
+                num_nodes=1,
+                algorithm=eplb_algorithms.EplbAlgorithm.deepseek,
+            )
+            physical_to_logical_map_new = physical_to_logical_map_new.squeeze(0).to(current_p2l.device)
+
+            # Check if the new placement is actually different
+            changed_layers = (physical_to_logical_map_new != current_p2l).any(dim=1)
+            num_changed = changed_layers.sum().item()
+            if num_changed == 0:
+                logger.info("[PB-OEPLB-WARMSTART] placement unchanged, skipping")
+                return
+
+            update_layer_ids = changed_layers.nonzero(as_tuple=True)[0].tolist()
+            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts)
+
+            # Use SGLang's official ExpertLocationUpdater (layer-by-layer P2P,
+            # NOT our AsyncSwapExecutor's single massive batch)
+            self.model_runner.update_expert_location(new_meta, update_layer_ids)
+            self._meta = self._fetch_metadata()
+            self._cached_p2l = self._meta.physical_to_logical_map
+
+            # Reset load to match new placement (old counts are meaningless now)
+            self.load.zero_()
+            self.total_tokens = 0
+
+            elapsed = (_time.perf_counter() - _t0) * 1000
+            logger.info(f"[PB-OEPLB-WARMSTART] bulk re-placement done: "
+                       f"{num_changed} layers changed in {elapsed:.1f}ms")
+        except Exception as e:
+            logger.warning(f"[PB-OEPLB-WARMSTART] failed (non-fatal, falling back to "
+                          f"incremental swap): {e}")
+
     def _decide_and_begin_swap(self):
+        if not self._calib_done:
+            return
+
+        # Hard-reset detection: if ratio jumped significantly after a period
+        # of convergence, the workload domain likely shifted. Clear the decayed
+        # history (which is now contaminated with old-domain signal) and let
+        # this window's fresh data speak for itself on the NEXT window.
+        if not hasattr(self, '_prev_window_ratio'):
+            self._prev_window_ratio = None
+            self._converged_ratio = None
+            self._skip_next_for_reset = False
+
+        if self._skip_next_for_reset:
+            self._skip_next_for_reset = False
+            # This window has clean-only data after the reset. Proceed normally.
+
         try:
             # DEADLOCK FIX: force any still-pending swap from the PREVIOUS window
             # to genuinely finish (blocking if necessary) before this rank issues
@@ -300,6 +460,37 @@ class PBOEPLBController:
                 global_load, op=torch.distributed.ReduceOp.SUM
             )
             self.window_count += 1
+
+            # Compute current avg_ratio for hard-reset detection
+            _layer_ratios = []
+            for _lid in range(self.num_layers):
+                _lc = global_load[_lid]
+                _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
+                _avg = max(sum(_loads) / self.ep_size, 1.0)
+                _layer_ratios.append(max(_loads) / _avg)
+            _current_avg_ratio = sum(_layer_ratios) / len(_layer_ratios) if _layer_ratios else 1.0
+
+            if self._prev_window_ratio is not None:
+                # Track "converged" as the best ratio we've seen recently
+                if self._converged_ratio is None or self._prev_window_ratio < self._converged_ratio + 0.005:
+                    self._converged_ratio = min(self._converged_ratio or 99, self._prev_window_ratio)
+
+                # Detect domain shift: ratio jumped >0.03 above our converged level
+                if (self._converged_ratio is not None and
+                    _current_avg_ratio > self._converged_ratio + 0.03 and
+                    self._prev_window_ratio < self._converged_ratio + 0.015):
+                    logger.info(f"[PB-OEPLB-RESET] domain shift detected: "
+                               f"converged={self._converged_ratio:.3f} "
+                               f"prev={self._prev_window_ratio:.3f} "
+                               f"current={_current_avg_ratio:.3f} "
+                               f"-> zeroing load history for clean re-profiling")
+                    self.load.zero_()
+                    self.total_tokens = 0
+                    self._converged_ratio = None
+                    self._prev_window_ratio = _current_avg_ratio
+                    self._skip_next_for_reset = True
+                    return
+            self._prev_window_ratio = _current_avg_ratio
             self._prof_allreduce_ns += time.perf_counter_ns() - _t0
 
             global_tokens = int(global_load.sum().item())

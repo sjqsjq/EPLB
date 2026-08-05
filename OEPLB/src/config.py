@@ -12,7 +12,7 @@ class PBOEPLBConfig:
     min_prefill_tokens: int = 256
     max_total_swap_layers: int = 94
     max_total_ops: int = 250
-    min_swap_ops: int = 1
+    min_swap_ops: int = 8
     always_record: bool = False
     sync_window: int = 64
     decay_factor: float = 0.9
@@ -25,6 +25,16 @@ class PBOEPLBConfig:
     window_stable_cos_threshold: float = 0.95
     window_shift_confirm_windows: int = 1
     window_stable_confirm_windows: int = 2
+
+    # --- Adaptive window sensitivity calibration (opt-in, requires
+    # adaptive_window=True). Measures the prefill:decode forward-pass ratio
+    # during an initial calibration window and uses it to pick how
+    # aggressively adaptive_window should react (see controller.py's
+    # _apply_sensitivity_tier) -- NOT which sync_window value to use (empirically
+    # validated: window choice itself doesn't correlate with this ratio, only
+    # the overall achievable gain magnitude does). ---
+    calibrate_adaptive_sensitivity: bool = False
+    calibration_forwards: int = 256
 
     # --- Tuning parameters (env-var only, rarely changed) ---
     warmup_forwards: int = 10
@@ -52,6 +62,9 @@ class PBOEPLBConfig:
             window_stable_cos_threshold=getattr(server_args, 'pb_oeplb_window_stable_cos', 0.95),
             window_shift_confirm_windows=getattr(server_args, 'pb_oeplb_window_shift_confirm', 1),
             window_stable_confirm_windows=getattr(server_args, 'pb_oeplb_window_stable_confirm', 2),
+            # Adaptive window sensitivity calibration (CLI)
+            calibrate_adaptive_sensitivity=getattr(server_args, 'pb_oeplb_calibrate_adaptive_sensitivity', False),
+            calibration_forwards=getattr(server_args, 'pb_oeplb_calibration_forwards', 256),
             # Tuning (env-var only)
             warmup_forwards=int(os.environ.get('OEPLB_WARMUP_FORWARDS', 10)),
             sample_interval=int(os.environ.get('OEPLB_SAMPLE_INTERVAL', 1)),

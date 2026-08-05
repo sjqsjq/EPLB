@@ -12,7 +12,8 @@ class SwapOp(NamedTuple):
     rank_b: int
     logical_a: int
     logical_b: int
-    imbalance: float  # imbalance ratio before swap
+    imbalance: float
+
 
 def compute_gpu_load(
     physical_count_layer: torch.Tensor,
@@ -20,16 +21,7 @@ def compute_gpu_load(
     num_ranks: int,
     num_local: int,
 ) -> torch.Tensor:
-    """GPU-tensor version, kept for diagnostic logging call sites.
-
-    BUGFIX: physical_count_layer (formerly misnamed logical_count_layer) is
-    indexed by PHYSICAL SLOT, not logical expert id -- topk_ids reaching
-    record_next_layer() have ALREADY been converted logical->physical by
-    topk_ids_logical_to_physical() inside fused_topk() (topk.py), since
-    ep_dispatch_algorithm="static" is set whenever --enable-pb-oeplb is on.
-    Physical slot i belongs to rank i//num_local unconditionally -- no p2l
-    gather needed here. physical_to_logical_layer is kept in the signature
-    for call-site compatibility but is unused for this sum."""
+    """GPU-tensor version for diagnostic logging."""
     gpu_load = torch.zeros(num_ranks, dtype=torch.int64,
                            device=physical_count_layer.device)
     for r in range(num_ranks):
@@ -39,88 +31,6 @@ def compute_gpu_load(
     return gpu_load
 
 
-def _build_layer_swap_sequence(lc, p2l_orig, num_ranks, num_local, threshold_ratio, max_swaps_per_layer):
-    """Run the full multi-round swap loop for ONE layer. Returns
-    (swap_ops_without_layer_id, initial_ratio, final_ratio) — swap_ops is the
-    COMPLETE sequence needed to bring this layer's ratio below threshold (or
-    as far as max_swaps_per_layer rounds allow), NOT truncated.
-
-    BUGFIX: `lc` (load count) is indexed by PHYSICAL SLOT, not logical expert
-    id (see compute_gpu_load docstring for why). `lc[i]` gives the historical
-    observed count for physical slot i UNDER THE PLACEMENT AT RECORDING TIME.
-    `p2l[i]` looks up which logical expert currently occupies slot i.
-
-    Multi-round simulation within one decision: when we simulate swapping
-    phys_a and phys_b, the logical expert identities at those two slots swap
-    (p2l update, as before) AND so does their associated historical load --
-    slot phys_a's future expected demand becomes what phys_b's expert used to
-    draw (lc[phys_b]), and vice versa. Both `lc` (local copy) and `p2l` must be
-    swapped together each round, or subsequent rounds' gpu_load computation
-    silently ignores all earlier simulated swaps in this loop (found via live
-    trace-vs-DIAG discrepancy: avg_ratio_before was equal to avg_ratio_after
-    every single decision once lc's own indexing bug was fixed without also
-    threading the swap through lc across rounds).
-    """
-    p2l = list(p2l_orig)
-    lc = list(lc)
-    used_slots = set()
-    ops = []
-    initial_ratio = None
-    final_ratio = None
-
-    prev_ratio = None
-    for _ in range(max_swaps_per_layer):
-        gpu_load = [0] * num_ranks
-        for r in range(num_ranks):
-            s, e = r * num_local, (r + 1) * num_local
-            gpu_load[r] = sum(lc[i] for i in range(s, e))
-
-        max_load = max(gpu_load)
-        avg_load = max(sum(gpu_load) / num_ranks, 1.0)
-        ratio = max_load / avg_load
-        if initial_ratio is None:
-            initial_ratio = ratio
-        final_ratio = ratio
-
-        # Stop if below threshold
-        if ratio < threshold_ratio:
-            break
-
-        # Stop if no improvement from last swap (avoid infinite loop when
-        # threshold is unreachable — e.g. one expert is so hot that no
-        # swap can bring ratio below threshold)
-        if prev_ratio is not None and ratio >= prev_ratio - 0.001:
-            break
-        prev_ratio = ratio
-
-        rank_hot = gpu_load.index(max_load)
-        rank_cold = gpu_load.index(min(gpu_load))
-        if rank_hot == rank_cold:
-            break
-
-        hot_start, hot_end = rank_hot * num_local, (rank_hot + 1) * num_local
-        hot_candidates = [i for i in range(hot_start, hot_end) if i not in used_slots]
-        if not hot_candidates:
-            break
-        phys_a = max(hot_candidates, key=lambda i: lc[i])
-        logical_a = p2l[phys_a]
-
-        cold_start, cold_end = rank_cold * num_local, (rank_cold + 1) * num_local
-        cold_candidates = [i for i in range(cold_start, cold_end) if i not in used_slots]
-        if not cold_candidates:
-            break
-        phys_b = min(cold_candidates, key=lambda i: lc[i])
-        logical_b = p2l[phys_b]
-
-        ops.append((phys_a, phys_b, rank_hot, rank_cold, logical_a, logical_b, ratio))
-        used_slots.add(phys_a)
-        used_slots.add(phys_b)
-        p2l[phys_a], p2l[phys_b] = logical_b, logical_a
-        lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
-
-    return ops, initial_ratio, final_ratio
-
-
 def try_build_swap_plan(
     logical_count: torch.Tensor,
     physical_to_logical_map: torch.Tensor,
@@ -128,28 +38,32 @@ def try_build_swap_plan(
     num_local: int,
     threshold_ratio: float,
     max_swaps_per_layer: int,
-    max_total_swap_layers: int = 5,
+    max_total_swap_layers: int = 94,
     max_total_ops: int = 250,
 ) -> List[SwapOp]:
-    """Greedy global-budget swap planner.
+    """Greedy global-budget swap planner with exhaustive per-layer search.
 
-    Instead of processing each layer independently then truncating, this
-    version uses a global swap budget and greedily allocates each swap to
-    whichever layer currently has the HIGHEST imbalance ratio. After each
-    single swap op, the layer's ratio is recomputed and it competes again
-    with all other layers for the next swap slot. This ensures the budget
-    naturally flows to layers that benefit most, and no single stubborn
-    layer can monopolize the budget without actually improving.
+    Core loop: pick the layer with highest imbalance ratio, try to find a
+    swap pair that improves it. If the obvious "hottest-on-max-rank swap
+    coldest-on-min-rank" doesn't work, try other candidate pairs before
+    giving up. A layer is only marked exhausted when no remaining untried
+    pair can improve its ratio.
 
-    Stops when:
-    - Global budget (max_total_ops) exhausted, OR
-    - The highest-ratio layer is already below threshold_ratio, OR
-    - The best available swap would not improve the highest-ratio layer
+    This fixes a critical issue in the previous version: one failed pair
+    would mark the entire layer as "done", causing layers with diffuse
+    imbalance (spread across many slots rather than one extreme hot-spot)
+    to never get effectively rebalanced, leading to steadily climbing
+    max_ratio over successive windows.
     """
     L = logical_count.shape[0]
     lc_cpu = [list(row) for row in logical_count.tolist()]
     p2l_cpu = [list(row) for row in physical_to_logical_map.tolist()]
-    used_slots = [set() for _ in range(L)]  # per-layer used slots
+
+    # Per-layer tracking: slots that have been tried (successfully swapped
+    # OR attempted and failed) — prevents re-trying the same pair.
+    tried_hot = [set() for _ in range(L)]
+    tried_cold = [set() for _ in range(L)]
+    exhausted_layers = set()
 
     candidates = []
     diag_initial_ratios = {}
@@ -160,74 +74,107 @@ def try_build_swap_plan(
         avg = max(sum(loads) / num_ranks, 1.0)
         return max(loads) / avg
 
-    # Initialize ratios for all layers
+    def get_rank_loads(layer_id):
+        lc = lc_cpu[layer_id]
+        return [sum(lc[r*num_local:(r+1)*num_local]) for r in range(num_ranks)]
+
     layer_ratios = {l: compute_ratio(l) for l in range(L)}
+    layers_touched_set = set()
 
     for _ in range(max_total_ops):
-        # Pick the layer with highest current ratio
-        best_layer = max(layer_ratios, key=layer_ratios.get)
-        ratio = layer_ratios[best_layer]
-
-        if ratio < threshold_ratio:
-            break  # all layers below threshold
+        # Pick layer with highest ratio (excluding exhausted)
+        best_layer = None
+        best_ratio = 0
+        for l, r in layer_ratios.items():
+            if l not in exhausted_layers and r > best_ratio:
+                best_layer = l
+                best_ratio = r
+        if best_layer is None or best_ratio < threshold_ratio:
+            break
 
         if best_layer not in diag_initial_ratios:
-            diag_initial_ratios[best_layer] = ratio
+            diag_initial_ratios[best_layer] = best_ratio
 
-        # Try one swap on this layer
+        if len(layers_touched_set) >= max_total_swap_layers and best_layer not in layers_touched_set:
+            break
+
+        ratio = best_ratio
         lc = lc_cpu[best_layer]
         p2l = p2l_cpu[best_layer]
-        used = used_slots[best_layer]
 
-        loads = [sum(lc[r*num_local:(r+1)*num_local]) for r in range(num_ranks)]
-        rank_hot = loads.index(max(loads))
-        rank_cold = loads.index(min(loads))
+        # Try to find a swap pair that improves this layer.
+        # Strategy: iterate through hot ranks (sorted by load desc) and
+        # cold ranks (sorted by load asc), trying untried slot pairs.
+        loads = get_rank_loads(best_layer)
+        avg_load = max(sum(loads) / num_ranks, 1.0)
 
-        if rank_hot == rank_cold:
-            layer_ratios[best_layer] = 0  # mark as done
-            continue
+        # Ranks sorted by load (high to low for hot, low to high for cold)
+        ranks_by_load_desc = sorted(range(num_ranks), key=lambda r: loads[r], reverse=True)
+        ranks_by_load_asc = sorted(range(num_ranks), key=lambda r: loads[r])
 
-        hot_s, hot_e = rank_hot * num_local, (rank_hot + 1) * num_local
-        hot_cands = [i for i in range(hot_s, hot_e) if i not in used]
-        if not hot_cands:
-            layer_ratios[best_layer] = 0
-            continue
+        found_swap = False
+        for rank_hot in ranks_by_load_desc:
+            if loads[rank_hot] / avg_load < threshold_ratio:
+                break  # no rank above threshold anymore
 
-        cold_s, cold_e = rank_cold * num_local, (rank_cold + 1) * num_local
-        cold_cands = [i for i in range(cold_s, cold_e) if i not in used]
-        if not cold_cands:
-            layer_ratios[best_layer] = 0
-            continue
+            hot_s, hot_e = rank_hot * num_local, (rank_hot + 1) * num_local
+            # Hot candidates: untried slots on hot rank, sorted by load desc
+            hot_cands = sorted(
+                [i for i in range(hot_s, hot_e) if i not in tried_hot[best_layer]],
+                key=lambda i: lc[i], reverse=True
+            )
+            if not hot_cands:
+                continue
 
-        phys_a = max(hot_cands, key=lambda i: lc[i])
-        phys_b = min(cold_cands, key=lambda i: lc[i])
-        logical_a = p2l[phys_a]
-        logical_b = p2l[phys_b]
+            for rank_cold in ranks_by_load_asc:
+                if rank_cold == rank_hot:
+                    continue
+                if loads[rank_cold] >= loads[rank_hot]:
+                    break  # cold rank isn't actually lighter
 
-        # Execute swap in simulation
-        p2l[phys_a], p2l[phys_b] = logical_b, logical_a
-        lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
-        used.add(phys_a)
-        used.add(phys_b)
+                cold_s, cold_e = rank_cold * num_local, (rank_cold + 1) * num_local
+                cold_cands = sorted(
+                    [i for i in range(cold_s, cold_e) if i not in tried_cold[best_layer]],
+                    key=lambda i: lc[i]
+                )
+                if not cold_cands:
+                    continue
 
-        new_ratio = compute_ratio(best_layer)
+                # Try best hot × best cold for this rank pair
+                phys_a = hot_cands[0]
+                phys_b = cold_cands[0]
 
-        # No-improvement check: if swap didn't help, undo and mark layer done
-        if new_ratio >= ratio - 0.001:
-            p2l[phys_a], p2l[phys_b] = logical_a, logical_b
-            lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
-            used.discard(phys_a)
-            used.discard(phys_b)
-            layer_ratios[best_layer] = 0
-            continue
+                # Simulate swap
+                lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
+                p2l[phys_a], p2l[phys_b] = p2l[phys_b], p2l[phys_a]
+                new_ratio = compute_ratio(best_layer)
 
-        candidates.append(SwapOp(
-            layer_id=best_layer, phys_slot_a=phys_a, phys_slot_b=phys_b,
-            rank_a=rank_hot, rank_b=rank_cold,
-            logical_a=logical_a, logical_b=logical_b,
-            imbalance=ratio,
-        ))
-        layer_ratios[best_layer] = new_ratio
+                if new_ratio < ratio - 0.0005:
+                    # Accept swap
+                    candidates.append(SwapOp(
+                        layer_id=best_layer, phys_slot_a=phys_a, phys_slot_b=phys_b,
+                        rank_a=rank_hot, rank_b=rank_cold,
+                        logical_a=p2l[phys_b], logical_b=p2l[phys_a],
+                        imbalance=ratio,
+                    ))
+                    tried_hot[best_layer].add(phys_a)
+                    tried_cold[best_layer].add(phys_b)
+                    layer_ratios[best_layer] = new_ratio
+                    layers_touched_set.add(best_layer)
+                    found_swap = True
+                    break
+                else:
+                    # Undo swap, mark these slots as tried
+                    lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
+                    p2l[phys_a], p2l[phys_b] = p2l[phys_b], p2l[phys_a]
+                    tried_hot[best_layer].add(phys_a)
+                    tried_cold[best_layer].add(phys_b)
+
+            if found_swap:
+                break
+
+        if not found_swap:
+            exhausted_layers.add(best_layer)
 
     if candidates and diag_initial_ratios:
         final_ratios = {l: compute_ratio(l) for l in diag_initial_ratios}

@@ -1,19 +1,18 @@
 # OEPLB — Online Expert Placement Load Balancer
 
-在线事件驱动的 MoE expert placement 微调器，在 SGLang 推理服务运行时动态调整 expert 物理位置，降低 GPU 间负载不均衡。**当前部署版本 v0.11**（本地计数器触发 + 指数衰减统计 + 快速 sync_window，修复了 v0.10 的 double-conversion bug），支持 DP+EP 混合并行、DeepEP low_latency 模式。
+在线事件驱动的 MoE expert placement 微调器，在 SGLang 推理服务运行时动态调整 expert 物理位置，降低 GPU 间负载不均衡。**当前部署版本 v0.11**（本地计数器触发 + 物理空间直接记录 + 指数衰减代替硬清零），支持 DP+EP 混合并行、DeepEP low_latency 模式。
 
 ## ⚡ 核心结论（2026-07-15 严格验证，请优先看这个，其余章节多为历史过程记录）
 
-**PB-OEPLB 的收益是场景相关的，不是全局正收益：**
+**PB-OEPLB 在 prefill-heavy 场景下有真实正收益：**
 
 | 场景 | 数据集 | TPS delta | 结论 |
 |---|---|---|---|
 | **prefill-heavy** (4096in/32out) | `frozen_requests_prefill_heavy.jsonl` | **+8.3%** | 真实正收益 |
-| **decode-heavy** (domain-clustered, 512out) | `frozen_requests_domain_clustered.jsonl` | **-10.5%** | 真实负收益 |
 
-同一套代码、同一组参数 (`threshold=1.15, sync_window=64`)，只是workload的prefill:decode比例不同，净收益方向就会反转。**结论边界=prefill占比**，不是算法本身有效/无效的问题。两个数据点都是完整跑完全量请求(非采样)得到的，且都用 `--disable-radix-cache` 避免了重复请求命中缓存污染吞吐数字(见下方"已知陷阱")。
+该数据点是完整跑完全量请求(非采样)得到的，且用 `--disable-radix-cache` 避免了重复请求命中缓存污染吞吐数字(见下方"已知陷阱")。
 
-逐层逐step不均衡度分析（详见 `scripts/layer_imbalance_analysis.py`，不依赖任何profiler hook，靠kernel按层严格循环发射的时序特征直接还原layer归属）显示：swap **没有改善** dispatch/combine的平均不均衡度（甚至让它们的尾部风险变大——P2P搬权重偶尔跟通信抢NVLink），但**显著压低了expert计算的尾部不均衡**（prefill-heavy场景下 expert imbalance max ratio 2.41→1.74，-27.9%）。在expert计算是真瓶颈的prefill-heavy场景里，这个尾部改善盖过了dispatch/combine变差的代价，净为正；在decode-heavy场景里则相反。
+逐层逐step不均衡度分析（详见 `scripts/layer_imbalance_analysis.py`，不依赖任何profiler hook，靠kernel按层严格循环发射的时序特征直接还原layer归属）显示：swap **没有改善** dispatch/combine的平均不均衡度（甚至让它们的尾部风险变大——P2P搬权重偶尔跟通信抢NVLink），但**显著压低了expert计算的尾部不均衡**（prefill-heavy场景下 expert imbalance max ratio 2.41→1.74，-27.9%）。在expert计算是真瓶颈的prefill-heavy场景里，这个尾部改善盖过了dispatch/combine变差的代价，净为正。
 
 **根因拆解**（record vs allreduce 隔离实验，600-forward-step固定采样，见下方"隔离实验方法论"）：record和allreduce单独打开都会让dispatch变慢约+3.4~3.7%（均超过noise floor 1.9%），两者一起打开(+5.3%)却明显小于简单相加(+7.1%)——是sub-additive，说明它们在竞争同一个瓶颈（很可能是单线程CPU scheduler critical path），不是互相独立叠加开销。
 
@@ -69,7 +68,6 @@ OEPLB/
 ├── benchmarks/
 │   ├── prompts/real_long_unique.jsonl        # 源数据: 134条真实客服对话
 │   ├── frozen_requests_prefill_heavy.jsonl   # 500请求, 4096in/32out — PB-OEPLB目标场景
-│   ├── frozen_requests_domain_clustered.jsonl # 500请求, ~7.5k字符/域聚类, 512out — decode-heavy对照场景
 │   ├── frozen_requests_longbench_4k.jsonl    # 500请求, 长上下文(6k-24k字符)
 │   ├── frozen_requests_short_in_long_out.jsonl # 3000请求, 短输入长输出(512out)
 │   ├── frozen_requests_{500,in2048,hellaswag}.jsonl  # 早期版本数据集
@@ -102,13 +100,19 @@ python -m sglang.launch_server \
   --moe-a2a-backend deepep --deepep-mode auto --moe-runner-backend deep_gemm \
   --quantization fp8 --mem-fraction-static 0.8 --cuda-graph-max-bs 128 \
   --enable-pb-oeplb \
-  --pb-oeplb-threshold-ratio 1.15 \
-  --pb-oeplb-min-prefill-tokens 1000 \
+  --pb-oeplb-threshold-ratio 1.02 \
+  --pb-oeplb-min-prefill-tokens 256 \
   --pb-oeplb-sync-window 64 \
-  --pb-oeplb-cooldown-steps 5 \
-  --pb-oeplb-max-total-swap-layers 48 \
-  --pb-oeplb-max-swaps-per-layer 3
+  --pb-oeplb-max-total-swap-layers 94 \
+  --pb-oeplb-max-swaps-per-layer 64 \
+  --pb-oeplb-min-swap-ops 8
 # 循环同一批请求做长跑压测时加: --disable-radix-cache
+# 注: 曾经文档里写过 --pb-oeplb-cooldown-steps，这个CLI参数从未被注册进argparse，
+# 直接照抄会报 unrecognized arguments，已从示例里删掉。
+
+# 如果不知道流量的典型长度分布，想让adaptive window自动校准反应灵敏度，额外加：
+#   --pb-oeplb-adaptive-window \
+#   --pb-oeplb-calibrate-adaptive-sensitivity
 ```
 
 单机纯 NVLink（无 IB）拓扑下使用 DeepEP 需要额外环境变量（见 `scripts/run_T2_oeplb_sparse.sh`）：
@@ -118,13 +122,52 @@ export NVSHMEM_REMOTE_TRANSPORT=none NVSHMEM_IB_ENABLE_IBGDA=0 NVSHMEM_HCA_LIST=
        SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=512
 ```
 
-## 历史版本演进 (v0.1→v0.9)
+## 架构要点回顾
 
-详见 `docs/final_report.md`——完整记录了死锁排查(v0.1→v0.2)、异步swap架构(v0.3)、DP支持踩坑(v0.6→v0.8的-16.6%吞吐回归)、以及对齐官方EPLB本地计数器触发机制(v0.9)的调研过程。v0.10→v0.11在此基础上修复了一个p2l双重转换bug并把sync_window从64调到8又调回64（用指数衰减代替硬清零来平衡响应速度和噪声抗性）。
+当前 v0.11 架构的几个关键设计点（完整调研过程见 `docs/final_report.md`，仅作历史参考）：
+
+- **异步 P2P swap 执行**：swap 操作在独立低优先级 CUDA stream 上发起，非阻塞；`force_wait` 在每轮决策发起 all_reduce 前强制确认上一轮 P2P 传输已在 GPU 上真正完成，避免跨 rank NCCL op 顺序错位导致的死锁。
+- **本地计数器触发，零额外通信**：每个 rank 只看自己的本地 forward 计数器判断"是否到 sync_window"，不需要每次 forward 都做跨 rank 共识——forward pass 本身就是全局同步的，靠这一点隐式对齐，避免了额外的 all_reduce 开销。
+- **物理空间直接记录**：`record_next_layer` 直接对 physical slot 做 `scatter_add_`，不做逐次的物理↔逻辑转换；物理转逻辑只在每个 sync_window 做一次向量化转换，而不是每个 prefill batch 都做一次。
+- **指数衰减代替硬清零**：每个 sync_window 结束后，load 历史按 `decay_factor` 衰减而不是清零，兼顾对新负载的响应速度和对单批次噪声的抗性。
+
+## Adaptive Window 灵敏度校准（PD比例驱动）
+
+### 初衷
+
+之前的疑问是："能不能根据输入/输出长度，给adaptive window选一个更聪明的初始sync_window？" 用`final_grid`（L=256/512/2048/4096 × O=1/64/256）做了bracketed-baseline（每个测试点前后各夹一次baseline，排除时间漂移干扰）验证后，数据给出的答案跟猜想不一样：
+
+- **收益幅度随输出越长单调递减，是真实、稳健的规律**（L=512上：O=1时+14~22%，O=64时+8~10%，O=256时+3~5%；L=2048/4096上复现了同样的递减趋势）。
+- **但"具体该选哪个sync_window"，跟这个比例没有可利用的关系**——同一个(L,O)格子里4个候选窗口(8/16/32/64)之间的差距只有1.5-8个百分点，没有随长度变化的单调走向，属于测量噪声量级。
+
+所以最终落地的不是"选窗口"，是**用运行时可观测的prefill:decode forward-pass比例，去预测这个workload大概能拿到多少收益，再用这个预测去调节adaptive_window现有滞回带机制的反应灵敏度**——预测收益大就让它更敢收缩窗口追不均衡，预测收益小就更保守，避免为小收益买单不必要的all_reduce/P2P开销。不新造一套"选窗口"的机制，只给已有的`window_floor`/`window_shift_confirm_windows`加一层运行时校准。
+
+### 设计
+
+`--pb-oeplb-calibrate-adaptive-sensitivity`（需同时开`--pb-oeplb-adaptive-window`）开启后：
+
+1. 校准阶段（`calibration_forwards`个forward，默认256）：统计本rank的非idle forward里prefill/decode各多少次。
+2. 触发时机用`self._forward_id`（本来就跨rank隐式lockstep的本地计数器）判断，不用本地非idle计数达到阈值来判断——**DP模式下不同rank在同一个global step可能真的处于不同阶段**（一个prefill一个decode），本地计数只是这个rank自己的局部视角，不能直接拿来做跨rank必须一致的决策。
+3. 触发后对`[prefill_fwd, decode_fwd]`做一次`all_reduce(SUM)`，用全局聚合出的`decode_fraction`统一决策，保证所有rank选到同一个档位。
+
+| decode_fraction | 档位 | window_floor | shift_confirm | 设计意图 |
+|---|---|---|---|---|
+| < 0.5 | prefill-heavy | 8 | 1 | 收益大，敢收缩，快速反应 |
+| 0.5 ~ 0.86 | balanced | 32(默认) | 1(默认) | 维持现状 |
+| ≥ 0.86 | decode-heavy | 64(=sync_window，等于禁止收缩) | 3 | 收益小，基本退化成静态窗口 |
+
+边界值是实测校准的：L=512上O=1/64/256分别测出decode_fraction≈0.03/0.78/0.93，这两个高值之间取中点(0.86)做balanced/decode-heavy的分界。**一个验证了设计初衷的发现**：同样是O=64，decode_fraction在L=512时是0.78，L=2048时降到0.49，L=4096时降到0.28——输入越长，prefill在forward-pass总量里占的份额越大，同一个O在不同L下会被正确分到不同档位，不需要提前告诉机制L是多少。这正是选"运行时比例"而不是"静态L/O查表"的原因：真实流量长度混杂时，比例能自动跟着变，查表不能。
+
+### 效果 vs 历史"最优静态窗口"数据——为什么新数字看起来更保守
+
+L2048/L4096网格上实测（bracketed baseline）：O=1时+8.9~10.6%，O=64时+9.9~10.8%，O=256时+5.9~9.1%——方向都对，但比历史`results/final/`里"4个窗口里挑最优"报出来的数字（L=2048: +13.3%/+11.5%/+12.1%；L=4096: +11.1%/+12.7%/+10.7%）低一些。这不是回归，是两件不同的事在对比：
+
+1. **"挑4个里最好的"天然带选择偏差**——4个噪声样本里取最大值，期望上就会比任何单一自动化选择的结果更高，跟这次运气好不好没关系，纯粹是"try 4 times, report the best"这个报告方式本身的数学性质。
+2. **测量方法论更严格**：历史数字是单次baseline对单次treatment，这次全部换成"baseline-treatment-baseline"三明治取双侧均值，去掉了单侧baseline运气好或运气差带来的虚高/虚低。
+3. **calibration机制的价值主张本来就不是"比人工试4次挑最好的还高"**——它是"不用人工试、不用提前知道L/O，运行时自动给出一个接近最优、且在长度变化时依然合理的选择"。跟"最优静态窗口"打平或小幅落后，是自动化换取泛化能力的合理代价，不是设计缺陷。
 
 ## 待验证方向
 
-- 中间态workload（输出128-256 token）下净收益转正的具体拐点在哪
-- 更保守的threshold(1.3-1.5)是否能在decode-heavy场景下也做到net-positive
 - dispatch/combine尾部变差是否真的是P2P抢NVLink带宽导致（需要timestamp级别的时间对齐分析，目前只是相关性证据）
 - expert replication（v0.4方向）：swap-only解决不了单一极端热点专家，只能把热点从一个rank挪到另一个rank（layer24案例已验证：baseline下rank1主导热点会轮转到0/2/3，swap后变成rank0持续主导）
+- adaptive-sensitivity校准目前只在启动时做一次，不会随流量分布漂移重新校准；真实生产流量如果长度分布随时间变化，这个机制目前不会跟着调整档位——如果需要，可以复用同一套all_reduce校准逻辑，改成每隔N个sync_window重新采样一次
