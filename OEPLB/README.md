@@ -16,6 +16,41 @@
 
 **根因拆解**（record vs allreduce 隔离实验，600-forward-step固定采样，见下方"隔离实验方法论"）：record和allreduce单独打开都会让dispatch变慢约+3.4~3.7%（均超过noise floor 1.9%），两者一起打开(+5.3%)却明显小于简单相加(+7.1%)——是sub-additive，说明它们在竞争同一个瓶颈（很可能是单线程CPU scheduler critical path），不是互相独立叠加开销。
 
+
+## 实验示范：L512_O1 单域Placement全面对比
+
+**数据集**: `benchmarks/final_grid/L512_O1.jsonl` (8192条, DeepSeek-Prover-V1数学证明, ~500 token/条, O=1纯prefill)
+
+**配置**: `--pb-oeplb-sync-window 16 --pb-oeplb-threshold-ratio 1.02 --pb-oeplb-max-total-ops 300` (decay_factor=0.5, 默认)
+
+**结果**:
+
+| Placement | total_tps | vs Baseline | 说明 |
+|---|---|---|---|
+| 最差(ratio=2.61) | 16514.8 | -17.7% | 每rank堆2个热专家 |
+| Baseline(trivial round-robin) | 20061.4 | — | SGLang默认 |
+| Frozen-EPLB(一次性EPLB+冻结) | 22668.1 | +13.0% | 16冗余专家, auto模式 |
+| **OEPLB** | **23363.5** | **+16.5%** | 无冗余, auto模式 |
+| EPLB-continuous(官方) | 22908.5 | +14.2% | 16冗余, deepep-mode=normal |
+| 最优placement(理论天花板) | 24353.9 | +21.4% | 预计算oracle, 无冗余 |
+
+**OEPLB超越EPLB +2.3个百分点，达到理论天花板的76%。** 且不需要冗余专家、不放弃deepep-mode=auto/CUDA graph。
+
+**复现步骤**:
+```bash
+source oeplb_env.sh  # H20 NVLink环境变量
+# Baseline
+python3 -m sglang.launch_server --model-path <MODEL> --tp 8 --dp 8 --ep-size 8 \
+  --enable-dp-attention --moe-a2a-backend deepep --deepep-mode auto \
+  --moe-runner-backend deep_gemm --quantization fp8 --mem-fraction-static 0.8 \
+  --cuda-graph-max-bs 128 --disable-radix-cache --watchdog-timeout 600
+# OEPLB
+# 同上 + 添加:
+  --enable-pb-oeplb --pb-oeplb-threshold-ratio 1.02 --pb-oeplb-min-prefill-tokens 256 \
+  --pb-oeplb-sync-window 16 --pb-oeplb-max-total-swap-layers 94 \
+  --pb-oeplb-max-swaps-per-layer 64 --pb-oeplb-min-swap-ops 8 --pb-oeplb-max-total-ops 300
+```
+
 ## 已知陷阱（踩过的坑，下次直接抄作业）
 
 1. **循环数据集做长跑测试，必须加 `--disable-radix-cache`**。500条请求循环15次给同一个服务器发，如果不关radix cache，第2轮起会命中缓存直接跳过prefill，TPS会虚高2-3倍（实测从预期~380飙到~1100），完全看不出prefill开销。

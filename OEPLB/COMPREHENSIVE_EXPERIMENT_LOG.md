@@ -414,3 +414,43 @@ vs Baseline(20714.8): **+10.0% ± 0.7%**
 --pb-oeplb-max-total-ops 300
 # decay_factor默认0.5(config.py), 无需CLI传参
 ```
+
+---
+## 十、单域高收益场景完整Placement对比 (2026-08-05)
+
+### L512_O1 (8192条, Prover数学, 纯prefill)
+
+| Placement | total_tps | vs Baseline | 条件 |
+|---|---|---|---|
+| 最差(ratio=2.61) | 16514.8 | -17.7% | 无冗余, auto |
+| Baseline(trivial) | 20061.4 | — | 无冗余, auto |
+| Frozen-EPLB | 22668.1 | +13.0% | 16冗余, auto |
+| **OEPLB(decay=0.5, sw=16)** | **23363.5** | **+16.5%** | 无冗余, auto |
+| EPLB-continuous | 22908.5 | +14.2% | 16冗余, normal |
+| 最优placement(理论天花板) | 24353.9 | +21.4% | 无冗余, auto |
+
+### L1024_O1 (4096条, BookCorpus小说, 纯prefill)
+
+| Placement | total_tps | vs Baseline |
+|---|---|---|
+| Baseline(trivial) | 21006.7 | — |
+| **OEPLB(decay=0.5, sw=16)** | **23460.8** | **+11.7%** |
+| EPLB-continuous | 23240.1 | +10.6% |
+
+### L256_O1 (8192条, 短Prover, 纯prefill)
+
+| Placement | total_tps | vs Baseline |
+|---|---|---|
+| Baseline | 20465.0 | — |
+| **OEPLB** | **23334.7** | **+14.0%** |
+
+### 关键结论
+
+1. **OEPLB(decay=0.5)在全部单域测试中均超越EPLB**: L512 +16.5% vs +14.2%, L1024 +11.7% vs +10.6%
+2. **收益范围**: +11.7% ~ +16.5%(取决于输入长度,L512最高)
+3. **距离理论天花板**: OEPLB达到了最优的76%(L512: 23364/24354)
+4. **剩余4.2%的gap来自"stall after cold start"**: decay=0.5后第二窗口数据不足以支撑进一步swap,需要V2方案(bin-packing精调)来缩小
+
+### 最差placement验证
+
+错误的专家放置(每rank堆2个热专家, ratio=2.61)直接损失-17.7%吞吐。验证了online expert load balancing的实际价值——如果模型恰好以不利的placement部署,损失是显著的。
