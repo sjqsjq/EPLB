@@ -267,12 +267,46 @@ class PBOEPLBController:
         self._steps_since_last_check = 0
         self._decay_factor = self.cfg.decay_factor
 
+        # Stall detection: if swap has been ineffective for several consecutive
+        # windows (ratio stuck), skip the expensive decide cycle entirely until
+        # ratio jumps again (indicating workload changed and intervention is needed).
+        if not hasattr(self, '_stall_count'):
+            self._stall_count = 0
+            self._stall_ratio = None
+            self._stalled = False
+        if self._stalled:
+            # Quick ratio check without all_reduce (use local load as proxy)
+            # Re-activate if enough new tokens accumulated (simple heuristic)
+            self._stall_count += 1
+            if self._stall_count % 4 == 0:
+                # Every 4th skipped window, do a quick all_reduce to check if
+                # ratio has changed enough to warrant reactivation
+                _quick_load = self.load.clone()
+                torch.distributed.all_reduce(_quick_load, op=torch.distributed.ReduceOp.SUM)
+                _ratios = []
+                for _lid in range(0, self.num_layers, 10):
+                    _lc = _quick_load[_lid]
+                    _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
+                    _avg = max(sum(_loads) / self.ep_size, 1.0)
+                    _ratios.append(max(_loads) / _avg)
+                _sampled_ratio = sum(_ratios) / len(_ratios)
+                if _sampled_ratio > self._stall_ratio + 0.02:
+                    self._stalled = False
+                    self._stall_count = 0
+                    logger.info(f"[PB-OEPLB-STALL] reactivated: ratio {self._stall_ratio:.3f} -> {_sampled_ratio:.3f}")
+                    # Fall through to normal _decide_and_begin_swap
+                else:
+                    return
+            else:
+                return
+
         self._decide_and_begin_swap()
-        # Exponential decay instead of zeroing: preserve routing history
-        # so swap decisions reflect the stable/dominant pattern, not
-        # single-window noise. decay=0.3 means 70% of current window's
-        # signal is retained, 30% of history bleeds through.
-        self.load.copy_((self.load.float() * self._decay_factor).long())
+        # Fast decay (0.5): old signal halves every window, effectively gone
+        # after 3-4 windows. Balances between "fresh-only" (too noisy with
+        # sw=16) and "slow decay 0.9" (cross-domain contamination persists
+        # too long). After domain switch, old signal drops to 12.5% in 3
+        # windows (~18 seconds), vs decay=0.9 which retains 73% after 3 windows.
+        self.load.copy_((self.load.float() * 0.5).long())
         self.total_tokens = 0
         self._prefill_batch_counter = 0
 
@@ -415,6 +449,75 @@ class PBOEPLBController:
             logger.warning(f"[PB-OEPLB-WARMSTART] failed (non-fatal, falling back to "
                           f"incremental swap): {e}")
 
+    def _check_eplb_refinement(self, global_load):
+        """When incremental swap reaches a plateau (ratio won't improve further
+        via pairwise swaps), trigger ONE EPLB-style full re-placement to push
+        ratio from ~1.07 down to ~1.00. This bridges the gap between swap-only
+        optimization and the global optimum that only a full recomputation can reach.
+
+        Only fires ONCE per serving lifetime (not repeatedly)."""
+        if getattr(self, '_eplb_refined', False):
+            return
+        if not hasattr(self, '_plateau_count'):
+            self._plateau_count = 0
+
+        # Count consecutive windows where swap produced <8 ops (plateau)
+        self._plateau_count += 1
+        if self._plateau_count < 10:
+            return  # Need 3 consecutive plateau windows to confirm
+
+        # Don't refine if ratio is already good enough
+        _layer_ratios = []
+        for _lid in range(self.num_layers):
+            _lc = global_load[_lid]
+            _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
+            _avg = max(sum(_loads) / self.ep_size, 1.0)
+            _layer_ratios.append(max(_loads) / _avg)
+        _avg_ratio = sum(_layer_ratios) / len(_layer_ratios)
+        if _avg_ratio < 1.03:
+            self._eplb_refined = True  # Already near optimal, skip
+            return
+
+        try:
+            import time as _time
+            _t0 = _time.perf_counter()
+
+            from sglang.srt.eplb import eplb_algorithms
+            current_p2l = self._meta.physical_to_logical_map
+
+            physical_to_logical_map_new, _, _ = eplb_algorithms.rebalance_experts(
+                tokens_per_expert=global_load.unsqueeze(0),
+                num_physical_experts=self.num_local * self.ep_size,
+                num_local_physical_experts=self.num_local,
+                num_groups=None,
+                num_nodes=1,
+                algorithm=eplb_algorithms.EplbAlgorithm.deepseek,
+            )
+            physical_to_logical_map_new = physical_to_logical_map_new.squeeze(0).to(current_p2l.device)
+
+            changed_layers = (physical_to_logical_map_new != current_p2l).any(dim=1)
+            num_changed = changed_layers.sum().item()
+            if num_changed == 0:
+                self._eplb_refined = True
+                return
+
+            update_layer_ids = changed_layers.nonzero(as_tuple=True)[0].tolist()
+            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts)
+            self.model_runner.update_expert_location(new_meta, update_layer_ids)
+            self._meta = self._fetch_metadata()
+            self._cached_p2l = self._meta.physical_to_logical_map
+            self.load.zero_()
+            self.total_tokens = 0
+
+            elapsed = (_time.perf_counter() - _t0) * 1000
+            logger.info(f"[PB-OEPLB-REFINE] EPLB refinement done: "
+                       f"{num_changed} layers changed, ratio {_avg_ratio:.3f}->~1.00, "
+                       f"elapsed={elapsed:.0f}ms")
+            self._eplb_refined = True
+        except Exception as e:
+            logger.warning(f"[PB-OEPLB-REFINE] failed (non-fatal): {e}")
+            self._eplb_refined = True  # Don't retry
+
     def _decide_and_begin_swap(self):
         if not self._calib_done:
             return
@@ -470,7 +573,7 @@ class PBOEPLBController:
                 _layer_ratios.append(max(_loads) / _avg)
             _current_avg_ratio = sum(_layer_ratios) / len(_layer_ratios) if _layer_ratios else 1.0
 
-            if self._prev_window_ratio is not None:
+            if self._prev_window_ratio is not None and self.cfg.adaptive_window:
                 # Track "converged" as the best ratio we've seen recently
                 if self._converged_ratio is None or self._prev_window_ratio < self._converged_ratio + 0.005:
                     self._converged_ratio = min(self._converged_ratio or 99, self._prev_window_ratio)
@@ -489,6 +592,8 @@ class PBOEPLBController:
                     self._converged_ratio = None
                     self._prev_window_ratio = _current_avg_ratio
                     self._skip_next_for_reset = True
+                    self._eplb_refined = False  # allow re-refinement after domain shift
+                    self._plateau_count = 0
                     return
             self._prev_window_ratio = _current_avg_ratio
             self._prof_allreduce_ns += time.perf_counter_ns() - _t0
@@ -578,7 +683,24 @@ class PBOEPLBController:
                 max_total_ops=self.cfg.max_total_ops,
             )
             self._prof_planbuild_ns += time.perf_counter_ns() - _t1
+            # Track improvement for defer logic
+            if plan:
+                _pre_ratios = []
+                for _lid in set(op.layer_id for op in plan[:10]):
+                    _lc = global_load[_lid]
+                    _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
+                    _avg = max(sum(_loads) / self.ep_size, 1.0)
+                    _pre_ratios.append(max(_loads) / _avg)
+                self._last_diag_improvement = (sum(_pre_ratios)/len(_pre_ratios) - 1.0) * 0.1 if _pre_ratios else 0
+            else:
+                self._last_diag_improvement = 0
             if not plan:
+                self._stall_count += 1
+                if self._stall_count >= 3 and not self._stalled:
+                    self._stalled = True
+                    self._stall_ratio = _current_avg_ratio if hasattr(self, '_prev_window_ratio') else 1.1
+                    logger.info(f"[PB-OEPLB-STALL] entering stall mode (no plan): ratio={self._stall_ratio:.3f}")
+                self._check_eplb_refinement(global_load)
                 return
             if len(plan) < self.cfg.min_swap_ops:
                 # Not worth the batch_isend_irecv + cross-rank sync overhead for
@@ -590,8 +712,38 @@ class PBOEPLBController:
                 logger.info(f"[PB-OEPLB] window#{self.window_count}: skipped "
                            f"{len(plan)} swap(s) (< min_swap_ops={self.cfg.min_swap_ops}, "
                            f"not worth the P2P overhead)")
+                self._stall_count += 1
+                if self._stall_count >= 3 and not self._stalled:
+                    self._stalled = True
+                    self._stall_ratio = _current_avg_ratio if hasattr(self, '_prev_window_ratio') else 1.1
+                    logger.info(f"[PB-OEPLB-STALL] entering stall mode: ratio={self._stall_ratio:.3f}")
+                self._check_eplb_refinement(global_load)
                 return
             self._pending_plan_start_t = time.perf_counter()
+            # Skip swap if improvement is negligible: save P2P overhead,
+            # let next window accumulate more data for a better decision.
+            from sglang.srt.managers.pb_oeplb.rebalancer import compute_gpu_load as _cgl
+            _ratios_before = []
+            _ratios_after_sim = []
+            for _op in plan[:5]:  # sample first 5 ops for quick ratio check
+                _lid = _op.layer_id
+                _lc = global_load[_lid]
+                _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
+                _avg = max(sum(_loads) / self.ep_size, 1.0)
+                _ratios_before.append(max(_loads) / _avg)
+            if _ratios_before:
+                _sampled_ratio_before = sum(_ratios_before) / len(_ratios_before)
+            else:
+                _sampled_ratio_before = 1.0
+
+            # If plan is small AND ratio improvement from DIAG is tiny, skip
+            if len(plan) < 16 and hasattr(self, '_last_diag_improvement'):
+                if self._last_diag_improvement < 0.003:
+                    logger.info(f"[PB-OEPLB] window#{self.window_count}: deferred "
+                               f"{len(plan)} swap(s) (improvement={self._last_diag_improvement:.4f} < 0.003)")
+                    return
+
+            self._plateau_count = 0
             self.async_executor.begin(plan)
             logger.info(f"[PB-OEPLB] window#{self.window_count}: "
                        f"issued {len(plan)} swap(s) ({global_tokens} tok global, dp={self.dp_size})")

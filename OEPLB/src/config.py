@@ -15,7 +15,7 @@ class PBOEPLBConfig:
     min_swap_ops: int = 8
     always_record: bool = False
     sync_window: int = 64
-    decay_factor: float = 0.9
+    decay_factor: float = 0.5
     min_record_tokens: int = 32
 
     # --- Adaptive window ---

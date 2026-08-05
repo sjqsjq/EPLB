@@ -360,3 +360,57 @@ vs Baseline(20714.8): **+10.0% ± 0.7%**
 | 低并发(conc=64) | **+7.6%** | — | ✅ |
 
 **OEPLB在全部已验证场景下均为正收益,且在全部vs-EPLB的直接对比中均胜出。**
+
+
+---
+## 九、Decay优化与最终Placement全面对比 (2026-08-05)
+
+### 关键优化：decay_factor 0.9 → 0.5
+
+**问题诊断**：decay=0.9时，域切换后旧域信号衰减极慢(3个窗口后仍剩73%)，导致：
+1. 新域的"真实不均衡度"被旧域的残留信号掩盖
+2. swap基于"旧+新混合信号"做决策，方向可能是错的
+3. ratio在域切换后"修正完立刻回弹"，永远卡在1.10-1.15无法更低
+
+**修复**：decay_factor=0.5，旧信号3个窗口后只剩12.5%(vs 0.9的73%)，域切换后18秒内完成信号切换。
+
+**效果验证**：
+| decay_factor | total_tps | vs Baseline | 说明 |
+|---|---|---|---|
+| 0(清零) | 21516.5 | +2.5% | 数据太少，决策质量差 |
+| 0.5 | **22780.4** | **+7.8%** | 快速衰减+足够信号量 |
+| 0.9(旧默认) | 22174.6 | +6.9% | 跨域污染严重 |
+
+### 最终Placement全面对比(多域长prompt, 16K条, O=1)
+
+| Placement | total_tps | vs Baseline | 条件 |
+|---|---|---|---|
+| 最差(温和, ratio=2.09) | 19124.5 | -9.5% | 无冗余, auto模式 |
+| Baseline(trivial, ratio=1.46) | 21132.6 | — | 无冗余, auto模式 |
+| **OEPLB(decay=0.5, sw=16)** | **22780.4** | **+7.8%** | 无冗余, auto模式 |
+| **EPLB-continuous** | **22847.5** | **+8.1%** | 16冗余, normal模式 |
+| 最优静态placement(ratio=1.00) | 21220.3 | +0.4% | 无冗余, auto模式 |
+
+### 结论
+
+1. **OEPLB(+7.8%)与EPLB(+8.1%)仅差0.3pp——在无冗余专家、保留auto模式/CUDA graph的条件下达到了EPLB同等水平**
+
+2. **最优静态placement在多域场景几乎无效(+0.4%)**——验证了动态方法的必要性：不存在跨域通用最优静态摆法
+
+3. **最差placement(-9.5%)验证了负载均衡的价值上界**——错误摆放直接损失近10%吞吐
+
+4. **OEPLB的架构优势**：EPLB的+8.1%需要付出deepep-mode=normal(禁CUDA graph)+ 16个冗余专家(额外显存)的代价，在有decode的场景(O>=64)下这些代价会导致-50%~-68%的灾难性退化。OEPLB无此限制。
+
+### 最终推荐配置
+
+```bash
+--enable-pb-oeplb \
+--pb-oeplb-threshold-ratio 1.02 \
+--pb-oeplb-min-prefill-tokens 256 \
+--pb-oeplb-sync-window 16 \
+--pb-oeplb-max-total-swap-layers 94 \
+--pb-oeplb-max-swaps-per-layer 64 \
+--pb-oeplb-min-swap-ops 8 \
+--pb-oeplb-max-total-ops 300
+# decay_factor默认0.5(config.py), 无需CLI传参
+```

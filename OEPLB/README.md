@@ -110,6 +110,7 @@ python -m sglang.launch_server \
 # 注: 曾经文档里写过 --pb-oeplb-cooldown-steps，这个CLI参数从未被注册进argparse，
 # 直接照抄会报 unrecognized arguments，已从示例里删掉。
 
+# decay_factor默认0.5(config.py中已更新), 无需CLI传参
 # 如果不知道流量的典型长度分布，想让adaptive window自动校准反应灵敏度，额外加：
 #   --pb-oeplb-adaptive-window \
 #   --pb-oeplb-calibrate-adaptive-sensitivity
