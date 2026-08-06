@@ -140,9 +140,9 @@ def try_build_swap_plan(
                 if not cold_cands:
                     continue
 
-                # Select the pair with maximum load difference
-                # (hot_cands already sorted desc, cold_cands sorted asc,
-                # so [0]×[0] IS the max-delta pair for this rank combination)
+                # Select the pair with maximum load difference (greedy max-delta).
+                # This is optimal for single-window convergence speed.
+                # Cross-window "heat exchange" is handled by decay=0.5 (fast signal refresh).
                 phys_a = hot_cands[0]
                 phys_b = cold_cands[0]
 
