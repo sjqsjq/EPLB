@@ -899,8 +899,12 @@ class PBOEPLBController:
             new_p2l = self._meta.physical_to_logical_map.clone()
             update_layers = set()
             for op in plan:
-                new_p2l[op.layer_id, op.phys_slot_a] = op.logical_b
-                new_p2l[op.layer_id, op.phys_slot_b] = op.logical_a
+                # Read current logical mappings from the EVOLVING new_p2l
+                # (not from op.logical_a/b which are stale for multi-step ops)
+                cur_a = new_p2l[op.layer_id, op.phys_slot_a].item()
+                cur_b = new_p2l[op.layer_id, op.phys_slot_b].item()
+                new_p2l[op.layer_id, op.phys_slot_a] = cur_b
+                new_p2l[op.layer_id, op.phys_slot_b] = cur_a
                 update_layers.add(op.layer_id)
             _tf = time.perf_counter_ns()
             new_meta = fast_init_by_mapping(new_p2l, self.num_logical_experts)

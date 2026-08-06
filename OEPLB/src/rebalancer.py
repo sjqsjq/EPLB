@@ -176,7 +176,60 @@ def try_build_swap_plan(
                 break
 
         if not found_swap:
-            exhausted_layers.add(best_layer)
+            # 3-way cyclic rotation fallback: when no pairwise swap helps,
+            # try rotating 3 slots across 3 ranks to break diffuse plateaus.
+            # Decomposed into 2 sequential pairwise SwapOps (safe with the
+            # evolving-p2l fix in controller.py's try_finish).
+            found_3way = False
+            if len(ranks_by_load_desc) >= 3 and ratio > threshold_ratio:
+                rank_hot = ranks_by_load_desc[0]
+                rank_mid = ranks_by_load_desc[len(ranks_by_load_desc)//2]
+                rank_cold = ranks_by_load_asc[0]
+                if len(set([rank_hot, rank_mid, rank_cold])) == 3:
+                    hot_s, hot_e = rank_hot * num_local, (rank_hot+1) * num_local
+                    mid_s, mid_e = rank_mid * num_local, (rank_mid+1) * num_local
+                    cold_s, cold_e = rank_cold * num_local, (rank_cold+1) * num_local
+                    h_cands = [i for i in range(hot_s, hot_e) if i not in tried_hot[best_layer]]
+                    m_cands = [i for i in range(mid_s, mid_e) if i not in tried_hot[best_layer] and i not in tried_cold[best_layer]]
+                    c_cands = [i for i in range(cold_s, cold_e) if i not in tried_cold[best_layer]]
+                    if h_cands and m_cands and c_cands:
+                        phys_h = max(h_cands, key=lambda i: lc[i])
+                        phys_m = min(m_cands, key=lambda i: lc[i])
+                        phys_c = min(c_cands, key=lambda i: lc[i])
+                        # Simulate rotation: h=m_orig, m=c_orig, c=h_orig
+                        old_h, old_m, old_c = lc[phys_h], lc[phys_m], lc[phys_c]
+                        lc[phys_h], lc[phys_m], lc[phys_c] = old_m, old_c, old_h
+                        p2l[phys_h], p2l[phys_m], p2l[phys_c] = p2l[phys_h], p2l[phys_m], p2l[phys_c]  # p2l handled by controller
+                        new_ratio = compute_ratio(best_layer)
+                        if new_ratio < ratio - 0.0005:
+                            # Decompose into 2 swaps: swap(h,c) then swap(m,h)
+                            # After swap(h,c): phys_h has c_orig, phys_c has h_orig
+                            # After swap(m,h): phys_m has h_current(=c_orig), phys_h has m_orig
+                            # Final: phys_h=m_orig, phys_m=c_orig, phys_c=h_orig ✓
+                            candidates.append(SwapOp(
+                                layer_id=best_layer, phys_slot_a=phys_h, phys_slot_b=phys_c,
+                                rank_a=rank_hot, rank_b=rank_cold,
+                                logical_a=0, logical_b=0,  # unused, controller reads from p2l
+                                imbalance=ratio,
+                            ))
+                            candidates.append(SwapOp(
+                                layer_id=best_layer, phys_slot_a=phys_m, phys_slot_b=phys_h,
+                                rank_a=rank_mid, rank_b=rank_hot,
+                                logical_a=0, logical_b=0,  # unused
+                                imbalance=ratio,
+                            ))
+                            tried_hot[best_layer].add(phys_h)
+                            tried_hot[best_layer].add(phys_m)
+                            tried_cold[best_layer].add(phys_c)
+                            layer_ratios[best_layer] = new_ratio
+                            layers_touched_set.add(best_layer)
+                            found_3way = True
+                        else:
+                            # Undo
+                            lc[phys_h], lc[phys_m], lc[phys_c] = old_h, old_m, old_c
+
+            if not found_3way:
+                exhausted_layers.add(best_layer)
 
     if candidates and diag_initial_ratios:
         final_ratios = {l: compute_ratio(l) for l in diag_initial_ratios}
