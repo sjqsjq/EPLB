@@ -463,7 +463,7 @@ class PBOEPLBController:
 
         # Count consecutive windows where swap produced <8 ops (plateau)
         self._plateau_count += 1
-        if self._plateau_count < 10:
+        if self._plateau_count < 999:  # Effectively disabled
             return  # Need 3 consecutive plateau windows to confirm
 
         # Don't refine if ratio is already good enough
