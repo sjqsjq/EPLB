@@ -140,11 +140,32 @@ def try_build_swap_plan(
                 if not cold_cands:
                     continue
 
-                # Select the pair with maximum load difference (greedy max-delta).
-                # This is optimal for single-window convergence speed.
-                # Cross-window "heat exchange" is handled by decay=0.5 (fast signal refresh).
-                phys_a = hot_cands[0]
-                phys_b = cold_cands[0]
+                # Adaptive pair selection:
+                # - When gap is large: greedy max-delta (fastest convergence)
+                # - When gap is small: pick delta closest to gap/2 (avoid overshoot
+                #   where moving the hottest slot makes cold_rank the new hot rank)
+                hot_rank_sum = loads[rank_hot]
+                cold_rank_sum = loads[rank_cold]
+                gap = hot_rank_sum - cold_rank_sum
+                
+                if hot_cands[0][0] if isinstance(hot_cands[0], tuple) else lc[hot_cands[0]] <= gap:
+                    # Max delta won't overshoot → use greedy (fast)
+                    phys_a = hot_cands[0]
+                    phys_b = cold_cands[0]
+                else:
+                    # Max delta would overshoot → find slot closest to gap/2
+                    target = gap / 2.0
+                    best_a = hot_cands[0]
+                    best_score = float('inf')
+                    for _ha in hot_cands:
+                        # delta = lc[_ha] - lc[cold_cands[0]]
+                        _delta = lc[_ha] - lc[cold_cands[0]]
+                        _score = abs(_delta - target)
+                        if _score < best_score and _delta > 0:
+                            best_score = _score
+                            best_a = _ha
+                    phys_a = best_a
+                    phys_b = cold_cands[0]
 
                 # Simulate swap
                 lc[phys_a], lc[phys_b] = lc[phys_b], lc[phys_a]
