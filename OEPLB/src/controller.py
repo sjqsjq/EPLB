@@ -301,11 +301,40 @@ class PBOEPLBController:
                 return
 
         self._decide_and_begin_swap()
-        # Fast decay (0.5): old signal halves every window, effectively gone
-        # after 3-4 windows. Balances between "fresh-only" (too noisy with
-        # sw=16) and "slow decay 0.9" (cross-domain contamination persists
-        # too long). After domain switch, old signal drops to 12.5% in 3
-        # windows (~18 seconds), vs decay=0.9 which retains 73% after 3 windows.
+
+        if not hasattr(self, '_adw_converge_count'):
+            self._adw_converge_count = 0
+            self._adw_volatile_count = 0
+            self._adw_last_ratio = None
+        if hasattr(self, '_prev_window_ratio') and self._prev_window_ratio is not None:
+            cur_r = self._prev_window_ratio
+            if self._adw_last_ratio is not None:
+                delta = abs(cur_r - self._adw_last_ratio)
+                if delta > 0.03:
+                    self._effective_sync_window = max(8, self._effective_sync_window // 2)
+                    self._adw_converge_count = 0
+                    self._adw_volatile_count = 0
+                    logger.info(f"[PB-OEPLB-ADW] ratio jump {delta:.3f} -> shrink sw to {self._effective_sync_window}")
+                elif delta < 0.003:
+                    self._adw_converge_count += 1
+                    self._adw_volatile_count = 0
+                    if self._adw_converge_count >= 3:
+                        new_sw = min(128, self._effective_sync_window * 2)
+                        if new_sw != self._effective_sync_window:
+                            self._effective_sync_window = new_sw
+                            self._adw_converge_count = 0
+                            logger.info(f"[PB-OEPLB-ADW] converged 3x -> grow sw to {self._effective_sync_window}")
+                else:
+                    self._adw_volatile_count += 1
+                    self._adw_converge_count = 0
+                    if self._adw_volatile_count >= 3:
+                        new_sw = min(128, self._effective_sync_window * 2)
+                        if new_sw != self._effective_sync_window:
+                            self._effective_sync_window = new_sw
+                            self._adw_volatile_count = 0
+                            logger.info(f"[PB-OEPLB-ADW] volatile 3x -> grow sw to {self._effective_sync_window} for stability")
+            self._adw_last_ratio = cur_r
+
         self.load.copy_((self.load.float() * 0.5).long())
         self.total_tokens = 0
         self._prefill_batch_counter = 0
