@@ -220,3 +220,79 @@ for op in plan:
 | L512_O1 | +18.4% | +9.4pp | 97.6% |
 | L1024_O1 | +15.4% | +7.8pp | — |
 | 多域prefill-heavy | +10.6% | +4.3pp | — |
+
+---
+## 最终配置参数详解
+
+### 核心参数（config.py + server_args.py 已同步）
+
+| 参数 | 默认值 | 含义 | 调优依据 |
+|---|---|---|---|
+| sync_window | 8 | 每8个forward pass做一次决策 | 长prompt最优(8步够统计);短prompt由adaptive自动涨到32-128 |
+| decay_factor | 0.5 | 负载历史每窗口衰减50% | 3窗口后旧信号只剩12.5%,快速适应域切换 |
+| threshold_ratio | 1.02 | 超过1.02的不均衡度才触发swap | 接近完美均衡,只在有意义的偏差时行动 |
+| max_total_ops | 300 | 单次决策最多300对swap | 冷启动实际用~250,留余量 |
+| max_swaps_per_layer | 64 | 单层最多64次swap | 128个slot,最多32对,64足够 |
+| min_swap_ops | 8 | 低于8对跳过(不值得P2P开销) | all_reduce+P2P固定开销~1.3ms,8对swap才划算 |
+| max_total_swap_layers | 94 | 最多动94层 | Qwen3-235B有94个MoE层 |
+| min_prefill_tokens | 256 | 累积够256个token才开始决策 | 防止数据太少做坏决策 |
+
+### Adaptive Window参数（opt-in, --pb-oeplb-adaptive-window）
+
+实际运行的Adaptive Window v2逻辑（用ratio变化驱动，不是cos_sim）：
+- ratio跳变>0.03 → 窗口减半(最低8)，快速响应域切换
+- ratio变化<0.003连续3次 → 窗口翻倍(最高128)，省all_reduce开销
+- ratio波动0.003-0.03连续3次 → 窗口翻倍，获取更多统计量
+
+| 参数 | 默认值 | 含义 |
+|---|---|---|
+| window_floor | 32 | cos_sim驱动的窗口下限(被v2的ratio逻辑覆盖) |
+| window_shift_cos_threshold | 0.85 | cos_sim<0.85判定为域切换(v1逻辑,仅adaptive_window=True时用) |
+| window_stable_cos_threshold | 0.95 | cos_sim>0.95判定为稳定(v1逻辑) |
+| window_shift_confirm_windows | 1 | 1次低cos_sim就缩窗口 |
+| window_stable_confirm_windows | 2 | 2次高cos_sim才涨窗口 |
+
+### 推荐使用方式
+
+```bash
+# 最简配置(适合已知workload类型的场景):
+--enable-pb-oeplb \
+--pb-oeplb-threshold-ratio 1.02 \
+--pb-oeplb-sync-window 8 \
+--pb-oeplb-max-total-ops 300 \
+--pb-oeplb-decay-factor 0.5
+# 其余参数用默认值
+
+# 自适应配置(适合混合workload的生产环境):
+--enable-pb-oeplb \
+--pb-oeplb-threshold-ratio 1.02 \
+--pb-oeplb-sync-window 8 \
+--pb-oeplb-max-total-ops 300 \
+--pb-oeplb-decay-factor 0.5 \
+--pb-oeplb-adaptive-window \
+--pb-oeplb-window-floor 8
+```
+
+### 参数间的关系图
+
+```
+sync_window(8) ──────────────────────────────────────┐
+  │ 每8个forward做一次决策                           │
+  ▼                                                  │
+decay_factor(0.5) ──── 每窗口衰减50%历史 ──────────┤
+  │ 3窗口后旧信号12.5%                               │
+  ▼                                                  │
+threshold_ratio(1.02) ── 触发swap的阈值 ────────────┤
+  │ ratio>1.02才动手                                │
+  ▼                                                  │
+adaptive pair selection ── 选slot策略 ───────────────┤
+  │ gap大→贪心max-delta(快)                         │
+  │ gap小→gap/2精确(避免overshoot)                  │
+  ▼                                                  │
+min_swap_ops(8) ──────── 跳过无效swap ──────────────┤
+  │ ops<8不值得P2P开销                               │
+  ▼                                                  │
+adaptive window(可选) ── 自动调整窗口大小 ──────────┘
+  │ 收敛→涨(省开销), 跳变→缩(快响应)
+  │ 自动适应: 长prompt→sw=8, 短prompt→sw=32-128
+```

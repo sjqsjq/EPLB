@@ -11,10 +11,10 @@ class PBOEPLBConfig:
     max_swaps_per_layer: int = 64
     min_prefill_tokens: int = 256
     max_total_swap_layers: int = 94
-    max_total_ops: int = 250
+    max_total_ops: int = 300
     min_swap_ops: int = 8
     always_record: bool = False
-    sync_window: int = 64
+    sync_window: int = 8
     decay_factor: float = 0.5
     min_record_tokens: int = 32
 
