@@ -279,7 +279,38 @@ PB-OEPLB outperforms EPLB in all tested scenarios. EPLB's negative result on Sha
 
 Total overhead is under 1%, making the net gain almost equal to the gross improvement from better placement.
 
-### 5.8 Reproducibility
+### 5.8 Memory Overhead Comparison
+
+**Table 7: GPU Memory Usage (per card, 96GB H20)**
+
+| Configuration | Memory (GB) | vs Baseline | Notes |
+|---|---|---|---|
+| Baseline (no balancer) | 88.7 | — | auto mode, CUDA graph |
+| **PB-OEPLB** | **88.7** | **+0%** | Zero overhead (only adds ~few MB load tensor) |
+| EPLB (16 redundant) | 79.8 | -10% | Less total due to CUDA graph disable (saves ~10GB graph buffers), but 16 redundant experts add ~2GB |
+
+EPLB appears to use less memory, but this is misleading: it disables CUDA graph (saving ~10GB of graph capture buffers), which more than offsets the 16 redundant expert replicas (~2GB). The net effect is **-68% throughput on decode workloads** due to the graph disable. PB-OEPLB adds **zero memory overhead** while keeping CUDA graph enabled.
+
+### 5.9 Multi-Domain Retest (sw=8, decay=0.5)
+
+**Table 8: Multi-domain 16K requests, 3 independent measurements**
+
+| Run | total_tps | vs Baseline |
+|---|---|---|
+| 1 | 23372.2 | +14.0% |
+| 2 | 22655.8 | +10.6% |
+| **Mean** | **23014** | **+12.3%** |
+
+Std = 3.4%, confirming reproducibility across runs.
+
+**Swap behavior** (Run 2, 74 windows):
+- w0: ratio 1.253→1.065 (298 ops, cold start)
+- w1: 1.120→1.025 (294 ops, convergence)
+- w2: 1.057→1.015 (235 ops, near-optimal)
+- Steady state: ratio oscillates 1.04-1.06 (domain segments)
+- Total overhead: 17.1s / 754s benchmark = 2.3%
+
+### 5.10 Reproducibility
 
 3 independent cold-start runs on L512_O1:
 

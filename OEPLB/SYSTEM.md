@@ -296,3 +296,14 @@ adaptive window(可选) ── 自动调整窗口大小 ────────
   │ 收敛→涨(省开销), 跳变→缩(快响应)
   │ 自动适应: 长prompt→sw=8, 短prompt→sw=32-128
 ```
+
+---
+## GPU内存开销对比
+
+| 配置 | 内存(GB/卡) | vs Baseline | 说明 |
+|---|---|---|---|
+| Baseline(无均衡器) | 88.7 | — | auto模式, CUDA graph |
+| PB-OEPLB(无冗余) | 88.7 | +0% | 仅多几MB的load张量 |
+| EPLB(16冗余) | 79.8 | -10% | 总量更低是因为禁用CUDA graph省了~10GB graph buffer,但加了16冗余专家~2GB;净效果是O=256吞吐-68% |
+
+**关键洞察**: EPLB的内存看起来更低,但实际上是因为禁用CUDA graph省了graph buffer内存,不是因为更高效——这个"省内存"的代价是decode吞吐暴跌68%。
