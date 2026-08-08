@@ -281,15 +281,20 @@ Total overhead is under 1%, making the net gain almost equal to the gross improv
 
 ### 5.8 Memory Overhead Comparison
 
-**Table 7: GPU Memory Usage (per card, 96GB H20)**
+**Table 7: GPU Memory Breakdown (per card, 96GB H20)**
 
-| Configuration | Memory (GB) | vs Baseline | Notes |
-|---|---|---|---|
-| Baseline (no balancer) | 88.7 | — | auto mode, CUDA graph |
-| **PB-OEPLB** | **88.7** | **+0%** | Zero overhead (only adds ~few MB load tensor) |
-| EPLB (16 redundant) | 79.8 | -10% | Less total due to CUDA graph disable (saves ~10GB graph buffers), but 16 redundant experts add ~2GB |
+| Configuration | Total (GB) | Model weights | KV cache | CUDA graph buffer | Overhead |
+|---|---|---|---|---|---|
+| Baseline | 88.7 | ~28.0 | **~48.8** | ~10.0 | ~1.9 |
+| **PB-OEPLB** | 88.7 | ~28.0 | **~48.8** | ~10.0 | ~1.9 |
+| EPLB (16 redundant) | 79.8 | ~30.5 | **~46.3** | 0 (disabled) | ~3.0 |
 
-EPLB appears to use less memory, but this is misleading: it disables CUDA graph (saving ~10GB of graph capture buffers), which more than offsets the 16 redundant expert replicas (~2GB). The net effect is **-68% throughput on decode workloads** due to the graph disable. PB-OEPLB adds **zero memory overhead** while keeping CUDA graph enabled.
+All configurations use `mem-fraction-static=0.8` (76.8GB pre-allocated for model + KV cache). The key comparison is **KV cache capacity**, which directly determines the maximum number of concurrent requests:
+
+- **PB-OEPLB**: Zero additional memory. The load tracking tensor is only 94×128×8B ≈ 96KB. KV cache = ~48.8GB, same as baseline.
+- **EPLB**: 16 redundant experts consume ~2.5GB of the static allocation that would otherwise be KV cache, reducing KV cache to ~46.3GB (**-5.1% fewer concurrent requests** at the same context length). Additionally, EPLB disables CUDA graph (saving ~10GB of graph buffers), but this "saved" memory is in the non-static pool and cannot be productively reused—EPLB does not increase `mem-fraction-static` to reclaim it. The CUDA graph disable causes **-68% decode throughput degradation**.
+
+**PB-OEPLB is the only configuration that maintains full KV cache capacity while keeping CUDA graph enabled.**
 
 ### 5.9 Multi-Domain Retest (sw=8, decay=0.5)
 
