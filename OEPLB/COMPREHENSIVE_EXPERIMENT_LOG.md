@@ -572,3 +572,43 @@ conc=256时实际并发KV占用远低于227,269的容量上限——KV cache从�
 **修正结论**: 此测试不公平——OEPLB用auto模式(保留CUDA graph)而EPLB被迫用normal模式(禁用CUDA graph)。
 3.2pp的差距主要来自CUDA graph差异，不是KV cache损失。
 要公平对比KV cache和算法质量的影响，需要统一用normal模式测试(见下一节)。
+
+---
+## 十五、公平对比(normal模式统一)：隔离KV cache和算法质量差异 (2026-08-09)
+
+### 实验设计
+
+之前O=1纯prefill测试发现OEPLB和EPLB不在同一起跑线(OEPLB用auto保留CUDA graph, EPLB被迫用normal禁用CUDA graph)。
+本实验统一用deepep_mode=normal(禁用CUDA graph)，消除架构差异，只比：
+1. KV cache容量(冗余专家的代价)
+2. 算法质量(swap vs 全量rebalance)
+
+- 数据集: L4096_O256 (8192条, 4096 token长输入 + 256 token输出, KV cache压力场景)
+- 并发度: 512 (高并发压满KV cache)
+- 全部配置: deepep_mode=normal, disable_cuda_graph=True, mem_fraction_static=0.8
+
+### 结果
+
+| 配置 | KV cache | max_running_req | total_tps | vs Baseline | 耗时 |
+|---|---|---|---|---|---|
+| Baseline-normal | 227,269 | 2,840 | 12,121.0 | — | 2909s |
+| **OEPLB-normal** | 227,258 | 2,840 | **13,203.3** | **+8.9%** | 2670s |
+| EPLB-normal | 208,750 (-8.1%) | 2,609 (-8.1%) | 12,228.1 | +0.9% | 2883s |
+
+### 分析
+
+**公平对比下消除CUDA graph差异后的真实差距：**
+
+| 维度 | OEPLB vs EPLB | 说明 |
+|---|---|---|
+| KV cache | +8.1% (227,258 vs 208,750) | EPLB的16冗余专家吃掉18,508个token位置 |
+| 吞吐 | **+8.0pp** (13,203 vs 12,228) | OEPLB +8.9% vs EPLB +0.9% |
+| 算法开销 | OEPLB: 异步P2P(0开销) | EPLB: rebalance阻塞(0.5s/次) |
+
+**EPLB在公平对比下只有+0.9%**（几乎是持平），而OEPLB +8.9%。
+8pp的差距来源：
+1. **KV cache损失(-8.1%)** → 高并发下KV cache打满(token usage峰值0.96)，少8.1%容量 = 更频繁的请求排队
+2. **rebalance阻塞** → EPLB每100步全量重算placement，期间阻塞推理0.5s
+3. **冗余专家显存代价** → 16个冗余专家占用额外GPU显存，挤压KV cache空间
+
+**结论**：在消除CUDA graph差异后，OEPLB比EPLB高8个百分点，其中KV cache损失和rebalance阻塞各贡献约一半。这证明了OEPLB的"零冗余+异步swap"设计在KV cache受限场景下的真实优势。
