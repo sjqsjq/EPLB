@@ -9,8 +9,12 @@ GPU: 8× NVIDIA H20 96GB, NVLink NV18 全互连, 无IB/RDMA
 OS: Ubuntu 22.04 容器
 Python: 3.11 (conda base)
 CUDA: 12.8 (nvcc)
-Driver: 580+
+Driver: 535+ (`nvidia-smi` 验证)
+CPU: 64核+, 内存: 256GB+
+存储: 300GB+ (235B模型223GB + 环境 + trace)
 ```
+
+H20 无 IB/RDMA，只有 NVLink——所有 DeepEP 通信都走 NVLink。
 
 ## 二、软件栈安装（按顺序）
 
@@ -197,7 +201,6 @@ python3 run_adaptive_optimal.py
 |------|------|
 | `OEPLB/README.md` | 项目概述、SGLang集成方法、历史版本演进 |
 | `OEPLB/COMPREHENSIVE_EXPERIMENT_LOG.md` | 最终实验结果汇总、代码优化记录 |
-| `SETUP_GUIDE_H20.md` | H20部署指南（环境搭建参考，但本文档更准确） |
 | `EPLB_VS_OEPLB_REPORT.md` | 之前的EPLB vs OEPLB对比（normal模式，旧数据，仅参考） |
 | `FINAL_235B_REPORT.md` | 235B模型上的完整实验历史（adaptive window最初验证） |
 
@@ -218,8 +221,30 @@ python3 run_adaptive_optimal.py
 
 ## 十一、已知问题
 
-- 服务器用SIGTERM关闭（不要kill -9），否则端口残留
-- DeepGEMM首次JIT编译需要1-2分钟（后续有缓存）
-- huggingface.co不可达，模型/数据集全部走ModelScope
-- 高并发+长输出可能触发watchdog timeout → 加 `--watchdog-timeout 600`
-- 每次服务器重启会产生zombie进程（不影响功能，但累积影响OS响应速度）
+| 问题 | 原因 | 解决方案 |
+|------|------|----------|
+| DeepGEMM特定shape CUDA error | H20+特定MxNxK不兼容 | `--moe-runner-backend triton` |
+| DeepEP low_latency模式crash | 无IB时IBGDA初始化失败 | buffer.py patch(见2.4) |
+| EPLB+auto模式NotImplementedError | expert_distribution recorder不支持auto dispatch | EPLB只能用`--deepep-mode normal` |
+| EPLB rebalance后CUDA error | rebalance更新location时kernel config异常 | EPLB的bug,偶发,重试可恢复 |
+| 服务器端口残留导致重启失败 | `kill -9`后子进程变僵尸占端口 | 用`kill`(SIGTERM)而不是`kill -9` |
+| 循环数据集TPS虚高 | radix cache命中跳过prefill | 必须加`--disable-radix-cache` |
+| DeepGEMM首次JIT编译慢 | 首次编译无缓存 | 需要1-2分钟，后续有缓存 |
+| huggingface.co不可达 | 网络限制 | 模型/数据集全部走ModelScope |
+| 高并发+长输出触发watchdog timeout | 单请求耗时超过默认watchdog阈值 | 加 `--watchdog-timeout 600` |
+| 服务器重启累积zombie进程 | 子进程未被完全回收 | 不影响功能，但累积影响OS响应速度，定期重启容器 |
+
+## 十二、核心参数速查表
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--pb-oeplb-threshold-ratio` | 1.02 | 不均衡度阈值，ratio低于此值不触发swap |
+| `--pb-oeplb-sync-window` | 16 | 每多少个forward pass检查一次不均衡度(推荐值,见COMPREHENSIVE_EXPERIMENT_LOG.md) |
+| `--pb-oeplb-min-prefill-tokens` | 256 | 一个窗口内至少积累这么多prefill token才做决策 |
+| `--pb-oeplb-max-swaps-per-layer` | 64 | 单层单次决策最多swap多少对slot |
+| `--pb-oeplb-max-total-swap-layers` | 94 | 全局预算涉及的最大层数(Qwen3-235B有94层MoE) |
+| `--pb-oeplb-max-total-ops` | 300 | 单次决策最大swap数(冷启动约用240-250) |
+| `--pb-oeplb-min-swap-ops` | 8 | 低于此数跳过(不值得P2P开销) |
+| decay_factor (config.py默认,无CLI) | 0.5 | 负载历史每窗口衰减系数,3窗口后旧信号仅剩12.5% |
+
+注：`--pb-oeplb-cooldown-steps` 从未注册进 argparse，不要照抄旧文档，会报 `unrecognized arguments`。

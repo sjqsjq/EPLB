@@ -121,7 +121,7 @@ OEPLB/
 | `layers/moe/topk.py` | `select_experts()` 后调用 `controller.record_next_layer(topk_ids)` |
 | `managers/scheduler.py` | 无修改 |
 
-此外，本项目额外对 **DeepEP v1.2.1 源码**打了 2 处 patch（详见 `SETUP_GUIDE_H20.md`），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
+此外，本项目额外对 **DeepEP v1.2.1 源码**打了 2 处 patch（详见 `QUICKSTART.md` §2.4），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
 
 ## 推荐配置
 
