@@ -129,14 +129,13 @@ python3 -m sglang.launch_server \
   --enable-pb-oeplb \
   --pb-oeplb-threshold-ratio 1.02 \
   --pb-oeplb-min-prefill-tokens 256 \
-  --pb-oeplb-sync-window 8 \
-  --pb-oeplb-cooldown-steps 5 \
+  --pb-oeplb-sync-window 16 \
   --pb-oeplb-max-total-swap-layers 94 \
   --pb-oeplb-max-swaps-per-layer 64 \
   --pb-oeplb-min-swap-ops 8 \
-  --pb-oeplb-adaptive-window \
-  --pb-oeplb-window-floor 8
+  --pb-oeplb-max-total-ops 300
 ```
+（`--pb-oeplb-cooldown-steps` 不存在，会报unrecognized arguments，已删除；sync_window改为推荐值16）
 
 ## 六、数据集
 
