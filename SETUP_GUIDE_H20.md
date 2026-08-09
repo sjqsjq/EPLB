@@ -1,7 +1,7 @@
 # PB-OEPLB 部署指南：8×H20 单机环境
 
 > 硬件: 8× NVIDIA H20 (96GB HBM3, NV18 全互连, 无IB/RDMA)
-> 验证日期: 2026-07-25, 基于 Qwen3-235B-A22B-FP8 (8卡EP) 和 Qwen3-30B-A3B-FP8 (4卡EP)
+> 验证日期: 2026-07-25, 基于 Qwen3-235B-A22B-FP8 (8卡EP)
 
 ---
 
@@ -88,7 +88,7 @@ huggingface-cli download Qwen/Qwen3-235B-A22B-FP8 \
 # 或 ModelScope:
 # modelscope download Qwen/Qwen3-235B-A22B-FP8
 
-# 30B模型（31GB，4卡可跑）
+# 30B模型（31GB）
 huggingface-cli download Qwen/Qwen3-30B-A3B-FP8 --local-dir /path/to/Qwen3-30B-A3B-FP8
 ```
 

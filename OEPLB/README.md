@@ -107,10 +107,7 @@ OEPLB/
 │   ├── frozen_requests_short_in_long_out.jsonl # 3000请求, 短输入长输出(512out)
 │   ├── frozen_requests_{500,in2048,hellaswag}.jsonl  # 早期版本数据集
 │   └── results/                    # 历史实验结果 JSON (按标签查找, 详见文件名前缀: T1=baseline, T2=oeplb, A/B/C/D/S=隔离实验/长跑标签)
-└── docs/
-    ├── final_report.md             # v0.1→v0.9 完整版本演进报告 (DP支持+DeepEP调研+负载均衡验证过程)
-    ├── impl_guide.md                # 原始实施指导文档 (v0.1 设计, 历史参考)
-    └── experiment_plan.md          # 原始实验方案 (v0.1 设计, 历史参考)
+└── docs/                            # (历史设计文档已清理，均为过时的4卡/旧版本记录，以8卡实现为准)
 ```
 
 ## SGLang 集成
@@ -124,14 +121,14 @@ OEPLB/
 | `layers/moe/topk.py` | `select_experts()` 后调用 `controller.record_next_layer(topk_ids)` |
 | `managers/scheduler.py` | 无修改 |
 
-此外，本项目额外对 **DeepEP 1.1.0 源码**打了 2 处 patch（详见 `docs/final_report.md` §DeepEP NVLink 适配），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
+此外，本项目额外对 **DeepEP v1.2.1 源码**打了 2 处 patch（详见 `SETUP_GUIDE_H20.md`），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
 
 ## 推荐配置
 
 ```bash
 python -m sglang.launch_server \
   --model-path <MODEL> \
-  --tp 4 --dp 4 --ep-size 4 --enable-dp-attention \
+  --tp 8 --dp 8 --ep-size 8 --enable-dp-attention \
   --moe-a2a-backend deepep --deepep-mode auto --moe-runner-backend deep_gemm \
   --quantization fp8 --mem-fraction-static 0.8 --cuda-graph-max-bs 128 \
   --enable-pb-oeplb \
@@ -205,5 +202,5 @@ L2048/L4096网格上实测（bracketed baseline）：O=1时+8.9~10.6%，O=64时+
 ## 待验证方向
 
 - dispatch/combine尾部变差是否真的是P2P抢NVLink带宽导致（需要timestamp级别的时间对齐分析，目前只是相关性证据）
-- expert replication（v0.4方向）：swap-only解决不了单一极端热点专家，只能把热点从一个rank挪到另一个rank（layer24案例已验证：baseline下rank1主导热点会轮转到0/2/3，swap后变成rank0持续主导）
+- expert replication方向：swap-only解决不了单一极端热点专家，只能把热点从一个rank挪到另一个rank（已验证案例：baseline下某rank主导热点会轮转到其他rank，swap后变成另一个rank持续主导）
 - adaptive-sensitivity校准目前只在启动时做一次，不会随流量分布漂移重新校准；真实生产流量如果长度分布随时间变化，这个机制目前不会跟着调整档位——如果需要，可以复用同一套all_reduce校准逻辑，改成每隔N个sync_window重新采样一次
