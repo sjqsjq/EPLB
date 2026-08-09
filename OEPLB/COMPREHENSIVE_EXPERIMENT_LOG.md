@@ -552,21 +552,23 @@ EPLB在此场景下的缺陷: 16冗余专家侵占KV cache + disable_cuda_graph�
 | **OEPLB** | **1576.2** | **21,042.3** | **+21.0%** | 0 |
 | EPLB | 1618.4 | 20,493.3 | +17.8% | 0 |
 
-### 分析
+### 分析与修正
 
-1. **OEPLB +21.0%** — 零KV cache损失 + 专家负载均衡, 达到最高吞吐
-2. **EPLB +17.8%** — 虽然KV cache减少8.1%(少231个并发槽位), 但EPLB的placement质量弥补了部分损失
-3. **OEPLB vs EPLB差距 = 3.2pp** — OEPLB赢在零KV cache损失
+**关键发现：O=1纯prefill场景下，KV cache不是瓶颈。**
 
-### EPLB在纯prefill极端场景下的缺陷量化
+每请求KV占用 ~4097 tokens (4096 prompt + 1 output)，请求prefill+1个token后立即释放KV cache。
+conc=256时实际并发KV占用远低于227,269的容量上限——KV cache从未打满。
+因此EPLB的8.1% KV cache损失在此场景下**不产生实际影响**。
 
-| 缺陷维度 | EPLB | OEPLB |
-|---|---|---|
-| KV cache容量 | 208,750 (-8.1%) | 227,168 (-0.04%) |
-| 最大并发请求数 | 2,609 (-8.1%) | 2,839 (-0.04%) |
-| CUDA graph | ❌ 禁用 | ✅ 启用 |
-| 冗余专家 | 16个(占额外显存) | 0个 |
-| 吞吐 | +17.8% | **+21.0%** |
-| EPLB相对OEPLB的吞吐损失 | -3.2% | — |
+**EPLB +17.8% vs OEPLB +21.0% 的3.2pp差距真实来源：**
 
-**结论**: 在纯prefill极端场景下,EPLB的KV cache损失(8.1%)和CUDA graph禁用共同导致吞吐比OEPLB低3.2个百分点。虽然EPLB在O=1(无decode)场景下CUDA graph禁用的代价较小(因为没有decode步骤),但16冗余专家对KV cache的侵占仍然造成了可测量的吞吐损失。
+| 因素 | EPLB | OEPLB | 对差距的贡献 |
+|---|---|---|---|
+| 专家负载均衡 | 16冗余专家(好) | swap纠偏(好) | ~0 (两者都有效) |
+| CUDA graph | ❌ 禁用(deepep_mode=normal) | ✅ 启用(deepep_mode=auto) | **主要来源** |
+| rebalance阻塞 | 0.5s/次(阻塞推理) | 异步P2P(不阻塞) | **次要来源** |
+| KV cache损失 | -8.1%(但O=1下不构成瓶颈) | -0.04% | **无影响** |
+
+**修正结论**: 此测试不公平——OEPLB用auto模式(保留CUDA graph)而EPLB被迫用normal模式(禁用CUDA graph)。
+3.2pp的差距主要来自CUDA graph差异，不是KV cache损失。
+要公平对比KV cache和算法质量的影响，需要统一用normal模式测试(见下一节)。

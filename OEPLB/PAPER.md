@@ -292,7 +292,9 @@ Total overhead is under 1%, making the net gain almost equal to the gross improv
 All configurations use `mem-fraction-static=0.8` (76.8GB pre-allocated for model + KV cache). The key comparison is **KV cache capacity**, which directly determines the maximum number of concurrent requests:
 
 - **PB-OEPLB**: Zero additional memory. The load tracking tensor is only 94×128×8B ≈ 96KB. KV cache = ~48.8GB, same as baseline.
-- **EPLB**: 16 redundant experts consume ~2.5GB of the static allocation that would otherwise be KV cache, reducing KV cache to ~46.3GB (**-5.1% fewer concurrent requests** at the same context length). Additionally, EPLB disables CUDA graph (saving ~10GB of graph buffers), but this "saved" memory is in the non-static pool and cannot be productively reused—EPLB does not increase `mem-fraction-static` to reclaim it. The CUDA graph disable causes **-68% decode throughput degradation**.
+- **EPLB**: 16 redundant experts consume ~2.5GB of the static allocation that would otherwise be KV cache, reducing KV cache capacity by 8.1% (from 227,269 to 208,750 tokens). Additionally, EPLB disables CUDA graph (saving ~10GB of graph buffers), but this "saved" memory is in the non-static pool and cannot be productively reused—EPLB does not increase `mem-fraction-static` to reclaim it. The CUDA graph disable causes **-68% decode throughput degradation**.
+
+**KV cache loss only matters in high-concurrency + long-output scenarios** (where decode fills KV cache): in the L4096_O256 conc=512 test, frozen-EPLB achieved -3.2% vs baseline due to KV cache pressure, while OEPLB achieved +16.0% (a 19.2pp gap). In pure prefill (O=1) scenarios where KV cache is recycled quickly, the loss has no measurable impact.
 
 **PB-OEPLB is the only configuration that maintains full KV cache capacity while keeping CUDA graph enabled.**
 
