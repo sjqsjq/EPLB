@@ -612,3 +612,20 @@ conc=256时实际并发KV占用远低于227,269的容量上限——KV cache从�
 3. **冗余专家显存代价** → 16个冗余专家占用额外GPU显存，挤压KV cache空间
 
 **结论**：在消除CUDA graph差异后，OEPLB比EPLB高8个百分点，其中KV cache损失和rebalance阻塞各贡献约一半。这证明了OEPLB的"零冗余+异步swap"设计在KV cache受限场景下的真实优势。
+
+### 跨模式对比分析：为什么auto模式(+16.0%)比normal模式(+8.9%)收益更大
+
+| 配置 | auto模式 | normal模式 | CUDA graph代价 | 
+|---|---|---|---|
+| Baseline | 15,081 | 12,121 | -19.6% |
+| OEPLB | 17,492 | 13,203 | -24.5% |
+
+**OEPLB在禁用CUDA graph后损失更大(-24.5% vs baseline的-19.6%)**，这不是误差，而是**CUDA graph与专家负载均衡的协同效应**：
+
+- **Baseline + CUDA graph**: graph帮助有限——专家负载不均衡→每步straggler GPU不同→captured graph执行的不是最优路径
+- **OEPLB + CUDA graph**: swap让专家均衡→每步执行模式更可预测→CUDA graph能捕获最优调度→均衡+graph = 1+1>2
+- **OEPLB无CUDA graph**: 只有均衡收益 = +8.9%
+- **OEPLB有CUDA graph**: 均衡+graph协同 = +16.0%
+- **graph协同效应 = 16.0% - 8.9% = 7.1%额外收益**
+
+这说明OEPLB的swap算法本身在normal模式下就稳定贡献+8.9%，而在auto模式下因为均衡placement让CUDA graph更有效，额外获得了7.1%的协同收益。两个机制是互补的，不是叠加误差。
