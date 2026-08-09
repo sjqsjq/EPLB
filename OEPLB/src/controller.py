@@ -79,6 +79,31 @@ class PBOEPLBController:
         self.dp_size = getattr(model_runner.server_args, 'dp_size', 1)
 
         self.num_physical_experts = self._meta.num_physical_experts
+
+        # BUGFIX: models with leading dense layers (e.g. DeepSeek-V2/V3's
+        # first_k_dense_replace) have fewer real MoE layers than
+        # self.num_layers (=metadata's num_hidden_layers, which counts the
+        # dense layers too). record_next_layer() is only invoked by
+        # select_experts(), which never fires for a dense layer -- so a
+        # naive `_layer_counter % self.num_layers` cycle mis-shifts every
+        # recorded index by the number of leading dense layers, silently
+        # writing MoE layer K's data into self.load[K-1] instead of
+        # self.load[K]. This desyncs self.load from physical_to_logical_map
+        # (which IS indexed by real transformer layer_id), and downstream
+        # swap plans end up citing dense layer_ids that have no entry in
+        # model_runner.model.routed_experts_weights_of_layer -> KeyError at
+        # swap execution time. Fix: derive the leading-dense-layer offset
+        # from the actual set of layer_ids that have routed expert weights,
+        # and shift record_next_layer's cycle to start there (see below).
+        # Computed lazily on first record_next_layer() call (NOT here): at
+        # __init__ time, initialize() hasn't called load_model() yet (see
+        # model_runner.py's initialize(): controller is constructed before
+        # self.model exists), so self.model_runner.model.routed_experts_
+        # weights_of_layer would raise/be absent here. record_next_layer()
+        # is only ever invoked from a live forward pass, by which point the
+        # model is guaranteed fully loaded.
+        self._layer_offset = None
+
         # v0.10: load is recorded in PHYSICAL expert space (see class
         # docstring) — converted to logical space once per sync_window,
         # not once per record_next_layer call.
@@ -209,8 +234,21 @@ class PBOEPLBController:
         if topk_ids.shape[0] < self.cfg.min_record_tokens:
             return
 
+        if self._layer_offset is None:
+            try:
+                _routed_layer_ids = sorted(
+                    self.model_runner.model.routed_experts_weights_of_layer.keys()
+                )
+                self._layer_offset = _routed_layer_ids[0] if _routed_layer_ids else 0
+            except Exception:
+                self._layer_offset = 0
+            if self._layer_offset:
+                logger.info(f"[PB-OEPLB] detected {self._layer_offset} leading "
+                           f"dense layer(s); record_next_layer offset accordingly")
+
         _t0 = time.perf_counter_ns()
-        layer_id = self._layer_counter % self.num_layers
+        _num_moe_layers = max(1, self.num_layers - self._layer_offset)
+        layer_id = self._layer_offset + (self._layer_counter % _num_moe_layers)
         self._layer_counter += 1
         flat = topk_ids.reshape(-1)
         mask = flat != -1
