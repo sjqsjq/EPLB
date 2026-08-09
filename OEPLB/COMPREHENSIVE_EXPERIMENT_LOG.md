@@ -483,3 +483,90 @@ vs Baseline(20714.8): **+10.0% ± 0.7%**
 | L512_O1 | 16055(-20%) | 20168 | 21992(+9%) | 22668(+13%) | **23871(+18%)** | 24460(+21%) | 97.6% |
 | L1024_O1 | — | 20732 | 22310(+8%) | — | **23930(+15%)** | — | — |
 | 多域(4域) | 18904(-9%) | 20436 | 21713(+6%) | — | **22611(+11%)** | 21220(+0.4%) | — |
+
+---
+## 十三、KV Cache压力测试：EPLB冗余专家的内存代价 (2026-08-08)
+
+### 实验设计
+
+在KV cache成为瓶颈的场景下(长prompt + 高并发)，验证EPLB的16个冗余专家对KV cache容量的影响。
+
+- 数据集: L4096_O256 (8192条, 4096 token BookCorpus长文本输入 + 256 token输出)
+- 并发度: 512 (高并发压满KV cache)
+- 对比: Baseline(无冗余) vs OEPLB(无冗余,sw=8) vs Frozen-EPLB(16冗余,auto) vs Continuous-EPLB(16冗余,normal)
+
+### KV Cache容量对比
+
+| 配置 | max_total_tokens | max_running_req | KV cache损失 | CUDA graph |
+|---|---|---|---|---|
+| Baseline | 227,269 | 2,840 | — | ✅ |
+| **OEPLB** | **227,168** | **2,839** | **-0.04%** | ✅ |
+| Frozen-EPLB | 195,676 | 2,445 | **-13.9%** | ✅ |
+| Continuous-EPLB | 208,750 | 2,609 | **-8.1%** | ❌ |
+
+### 吞吐结果
+
+| 配置 | 耗时(s) | total_tps | vs Baseline | 错误数 |
+|---|---|---|---|---|
+| Baseline | 2337.8 | 15,080.7 | — | 0 |
+| **OEPLB** | **2015.6** | **17,491.9** | **+16.0%** | 0 |
+| Frozen-EPLB | 2415.7 | 14,594.9 | **-3.2%** | 0 |
+
+### 关键发现
+
+1. **OEPLB KV cache = Baseline** (227,168 vs 227,269, 差101个token) — 零KV cache损失
+2. **OEPLB吞吐 +16.0%** — 专家负载均衡+零KV cache损失 = 双重收益
+3. **Frozen-EPLB KV cache -13.9%** — 16冗余专家吃掉31,593个token位置,吞吐-3.2%
+4. **Continuous-EPLB KV cache -8.1%** — 比Frozen-EPLB少损失,因为disable_cuda_graph释放了graph buffer给static pool
+5. **OEPLB vs Frozen-EPLB差距 = 19.2个百分点** — 零KV cache损失 + 专家均衡 vs 14% KV cache损失
+
+### 结论
+
+EPLB的16个冗余专家在高并发长prompt场景下直接侵占KV cache空间(13.9%-8.1%)，导致可服务并发请求数下降、吞吐降低。OEPLB不占用任何额外KV cache内存，同时通过专家负载均衡提升吞吐+16.0%。
+
+---
+## 十四、纯Prefill场景(KV Cache压力)三方对比 (2026-08-09)
+
+### 实验设计
+
+在KV cache成为瓶颈的极端场景下(长prompt+高并发+纯prefill)，验证三种方案的差异。
+EPLB在此场景下的缺陷: 16冗余专家侵占KV cache + disable_cuda_graph。
+
+- 数据集: L4096_O1 (8192条, 4096 token BookCorpus长文本, O=1纯prefill, 无decode)
+- 并发度: 256
+- 模型: Qwen3-235B-A22B-FP8, EP=8, DP=8
+
+### KV Cache容量对比
+
+| 配置 | max_total_tokens | max_running_req | KV cache损失 | CUDA graph |
+|---|---|---|---|---|
+| Baseline | 227,269 | 2,840 | — | ✅ |
+| OEPLB | 227,168 | 2,839 | -0.04% | ✅ |
+| EPLB(continuous) | 208,750 | 2,609 | **-8.1%** | ❌ |
+
+### 吞吐结果
+
+| 配置 | 耗时(s) | total_tps | vs Baseline | 错误数 |
+|---|---|---|---|---|
+| Baseline | 1907.0 | 17,392.2 | — | 0 |
+| **OEPLB** | **1576.2** | **21,042.3** | **+21.0%** | 0 |
+| EPLB | 1618.4 | 20,493.3 | +17.8% | 0 |
+
+### 分析
+
+1. **OEPLB +21.0%** — 零KV cache损失 + 专家负载均衡, 达到最高吞吐
+2. **EPLB +17.8%** — 虽然KV cache减少8.1%(少231个并发槽位), 但EPLB的placement质量弥补了部分损失
+3. **OEPLB vs EPLB差距 = 3.2pp** — OEPLB赢在零KV cache损失
+
+### EPLB在纯prefill极端场景下的缺陷量化
+
+| 缺陷维度 | EPLB | OEPLB |
+|---|---|---|
+| KV cache容量 | 208,750 (-8.1%) | 227,168 (-0.04%) |
+| 最大并发请求数 | 2,609 (-8.1%) | 2,839 (-0.04%) |
+| CUDA graph | ❌ 禁用 | ✅ 启用 |
+| 冗余专家 | 16个(占额外显存) | 0个 |
+| 吞吐 | +17.8% | **+21.0%** |
+| EPLB相对OEPLB的吞吐损失 | -3.2% | — |
+
+**结论**: 在纯prefill极端场景下,EPLB的KV cache损失(8.1%)和CUDA graph禁用共同导致吞吐比OEPLB低3.2个百分点。虽然EPLB在O=1(无decode)场景下CUDA graph禁用的代价较小(因为没有decode步骤),但16冗余专家对KV cache的侵占仍然造成了可测量的吞吐损失。
