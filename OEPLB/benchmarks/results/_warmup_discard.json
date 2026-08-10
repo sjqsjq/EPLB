@@ -1,0 +1,21 @@
+{
+  "label": "_warmup_discard",
+  "dataset": "/tmp/exp_data/L512_O1_warmup.jsonl",
+  "num_requests": 512,
+  "concurrency": 256,
+  "ok": 512,
+  "errors": 0,
+  "total_time_s": 9.28,
+  "total_comp_tokens": 512,
+  "tps": 55.2,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 4110.6,
+  "lat_p50_ms": 6329.78,
+  "lat_p99_ms": 7277.3,
+  "ttft_mean_ms": 4110.54,
+  "ttft_p50_ms": 6329.72,
+  "ttft_p99_ms": 7277.28,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

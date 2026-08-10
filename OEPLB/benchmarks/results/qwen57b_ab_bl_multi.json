@@ -1,0 +1,21 @@
+{
+  "label": "qwen57b_ab_bl_multi",
+  "dataset": "/tmp/exp_data/multidomain_16k.jsonl",
+  "num_requests": 16000,
+  "concurrency": 256,
+  "ok": 16000,
+  "errors": 0,
+  "total_time_s": 594.25,
+  "total_comp_tokens": 16000,
+  "tps": 26.9,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 9317.4,
+  "lat_p50_ms": 7013.04,
+  "lat_p99_ms": 23010.46,
+  "ttft_mean_ms": 9317.33,
+  "ttft_p50_ms": 7013.02,
+  "ttft_p99_ms": 23010.43,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

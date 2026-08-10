@@ -11,7 +11,7 @@ avg_output_tokens, lat_*_ms, ttft_*_ms, tpot_*_ms).
 import asyncio, aiohttp, json, sys, time, statistics, os
 
 API = "http://127.0.0.1:30000/v1/completions"
-MODEL = "/data/models/Qwen3-235B-A22B-FP8"
+MODEL = os.environ.get("OEPLB_MODEL", "/data/models/Qwen3-30B-A3B-FP8")
 RESULT_DIR = "/workspace/EPLB/OEPLB/benchmarks/results"
 
 

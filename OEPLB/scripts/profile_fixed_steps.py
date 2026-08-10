@@ -14,7 +14,7 @@ to grow to 56GB/rank and hang the whole server (see incident this session).
 """
 import requests, json, time, sys, os
 
-MODEL = "/workspace/Qwen3-30B-A3B-FP8"
+MODEL = os.environ.get("OEPLB_MODEL", "/data/models/Qwen3-30B-A3B-FP8")
 DATASET = "/workspace/EPLB/OEPLB/benchmarks/frozen_requests_prefill_heavy.jsonl"
 NUM_STEPS = 600   # total forward_ct ticks (prefill+decode+idle), NOT prefill-window count
 N_REQUESTS = 40   # sequential single-flight requests; ~33 fwd ticks/req => ~1300 ticks available, comfortably > NUM_STEPS
