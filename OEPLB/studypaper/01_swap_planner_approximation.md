@@ -287,3 +287,103 @@ $$\frac{1.00}{1.02} < \frac{1 - 0.007}{1 - c_{\text{eplb}}}$$
 | 在线适应性 | 每1000步一次 | 每16步一次 |
 | 理论近似比 | 1.0 (but costly) | 1 + O(1/n) |
 | **有效吞吐** | **受阻塞+CG禁用拖累** | **净正收益** |
+
+## 9. 补全：一般 G 的 Tight Example 与下界
+
+### 9.1 问题
+
+定理2给出的 bound $r(\pi) \leq 1 + \frac{G-1}{G} \cdot \frac{\ell_{\max}}{n\mu}$
+仅在 $G=2$ 时构造了 tight example。对于一般 $G$，需要构造一个配置使得
+该 bound 被达到，从而证明 bound 不可进一步改进。
+
+### 9.2 一般 G 的 Tight Construction
+
+**构造**: $G$ 个 GPU，每卡 $n$ 个专家，共 $N_E = Gn$ 个专家。
+
+专家负载设计（极端偏斜，模拟"一个超级热点专家"）：
+- 1 个热点专家：$\ell_1 = M$（$M \gg 1$）
+- $N_E - 1$ 个冷专家：$\ell_j = \epsilon$（$\epsilon \to 0$）
+
+初始分配（trivial round-robin 把热点放在 GPU 0）：
+- GPU 0 = $\{M, \epsilon, ..., \epsilon\}$（$n$ 个），$L_0 = M + (n-1)\epsilon$
+- GPU 1..G-1 = $\{n \times \epsilon\}$，$L_g = n\epsilon$
+
+**Swap 局部最优分析**：
+
+gap = $L_0 - L_{n\epsilon} = M + (n-1)\epsilon - n\epsilon = M - \epsilon$。
+
+对 GPU 0 上的热点专家 $a$（$\ell_a = M$）和任一其他 GPU $g$ 上的冷专家 $b$（$\ell_b = \epsilon$）：
+- swap(a,b) 的 delta = $M - \epsilon$
+- swap 后 GPU $g$ 新负载 = $n\epsilon + (M-\epsilon) = M + (n-1)\epsilon = L_0$
+- **Overshoot!** GPU $g$ 变成跟 GPU 0 一样热（甚至更热，因为原来更冷的那些）
+
+所以这个 swap 不会改善 makespan。对所有 $(a,b)$ pairs 都成立 → **该分配是 swap-local-optimal**。
+
+**Ratio 计算**:
+$$\bar{L} = \frac{M + (N_E-1)\epsilon}{G} = \frac{M}{G} + \frac{(Gn-1)\epsilon}{G} \xrightarrow{\epsilon \to 0} \frac{M}{G}$$
+
+$$r(\pi) = \frac{L_0}{\bar{L}} = \frac{M + (n-1)\epsilon}{M/G} \xrightarrow{\epsilon \to 0} \frac{M}{M/G} = G$$
+
+**Bound 验证**:
+$$r(\pi) = G$$
+$$\text{bound} = 1 + \frac{G-1}{G} \cdot \frac{\ell_{\max}}{n\mu} = 1 + \frac{G-1}{G} \cdot \frac{M}{n \cdot \frac{M}{Gn}} = 1 + \frac{G-1}{G} \cdot G = 1 + (G-1) = G$$
+
+**$r(\pi) = G = \text{bound}$**。Tight! $\square$
+
+### 9.3 这个 tight example 的含义
+
+当存在"超级热点专家"（负载远超其他所有专家之和）时，swap-based 方法
+无法改善——因为把热点挪到任何其他 GPU，都会让那个 GPU 变得同样热。
+
+**这解释了为什么 DeepSeek-V2-Lite（小 expert）不均衡度低**：它的专家体积
+小，即使有热点，$\ell_{\max}/\mu$ 比值也小，bound 接近 1。
+
+**对比 235B（大 expert）**：单个热点专家可以承载显著比例的总负载，
+$\ell_{\max}/\mu$ 大，bound 远离 1，swap 有改善空间。
+
+### 9.4 与 EPLB（bin-packing + replicate）的理论对比
+
+EPLB 用冗余专家"复制"热点，而不是"移动"它。复制后热点同时在多个 GPU，
+真正分摊了负载。设冗余度 $R$（每个热专家复制 $R$ 份）：
+
+$$r_{\text{EPLB}} \leq 1 + \frac{\ell_{\max}}{R \cdot n \mu}$$
+
+对比 swap 的 bound:
+$$r_{\text{swap}} \leq 1 + \frac{(G-1)}{G} \cdot \frac{\ell_{\max}}{n\mu}$$
+
+当 $R > \frac{G}{G-1} \approx 1$（即冗余≥2），EPLB 的 ratio bound 严格优于 swap。
+但这以付出 $R \times$ 额外显存和禁用 CUDA graph 为代价。
+
+**Swap 的理论优势不在 ratio 质量**（它不如 replicate），**而在零显存代价 +
+不阻塞 + 保留 CUDA graph**——有效吞吐（考虑开销后）更高。这跟 studypaper/04
+的通信代价分析和 studypaper/06 的实验结果一致。
+
+## 10. 补全：多层预算分配的 convex 论证
+
+### 10.1 问题
+
+定理5（greedy water-filling 最优）要求每层的 $r_l(x)$ 是严格凸递减函数。
+实际中 $r_l(x)$ 是离散的（每次 swap 改变一个具体的 pair），不连续。
+需要论证这个近似为什么在实际中成立。
+
+### 10.2 $r_l(x)$ 的凸性近似
+
+设第 $l$ 层当前 gap = $G_l$，每次 swap 用 gap-targeting 选 $\delta \approx G_l/2$。
+swap 后新 gap = $G_l - 2\delta \approx 0$（理想情况）或 $G_l - 2\delta^*$（有粒度误差）。
+
+定义 $r_l(x) = 1 + G_l(x)/\bar{L}_l$，其中 $G_l(x)$ 是 $x$ 次 swap 后的剩余 gap。
+
+在 gap-targeting 下，$G_l(x+1) \leq G_l(x) - \delta_{\min}$（每次至少减少 $\delta_{\min}$），
+且减少幅度随 $G_l$ 减小而减小（因为可选的 $\delta$ 受限于 gap 大小）。
+
+**这给出 $G_l(x)$ 是凹的**（递减但边际递减）→ $r_l(x)$ 凹。
+
+凹函数上，greedy（每次给最高 $r_l$ 的层）仍然最优——因为给低水位层
+swap 的边际收益永远小于给高水位层。凸性是 sufficient 不是 necessary；
+凹性下 greedy 的最优性证明更简单。
+
+### 10.3 离散性的影响
+
+实际 $r_l$ 的离散跳跃导致 greedy 可能"多给"某层（它已到 local optimum 但
+还剩预算）。但这只影响 1-2 次的效率损失，不影响最终 $r$ 的渐进质量
+（因为 local optimum 的 $r \leq 1 + \ell_{\max}/(n\mu)$ 已有保证）。

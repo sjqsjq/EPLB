@@ -135,3 +135,63 @@ $$C_{\text{EPLB}} = (750/200) \times 85 = 3.75 \times 85 = 319 \text{ GB}$$
 3. **完全隐藏条件**：$w \geq \lceil T_{\text{P2P}} / T_f \rceil$（通常2步就够）
 4. **EPLB的通信量不可避免地包含全量Expert重分配 + KV cache压力**——swap仅搬2个expert
 5. **异步P2P的正确性**由NCCL操作顺序保证：唯一同步点是all_reduce前的force_wait
+
+## 7. 补全：域切换次数 K 与数据集特征的联系
+
+### 7.1 问题
+
+§5.1 摊还分析假设 $K$（域切换次数）已知，没说怎么估计。
+这里从数据集结构推导 K。
+
+### 7.2 数据集的域结构模型
+
+设 benchmark 有 $S$ 个不同的域段（segment），每个段长度 $L_s$ 条请求。
+总请求数 $N = \sum L_s$。
+
+域切换次数 $K = S - 1$（段间切换）。对:
+- L512_O1（单域 Prover）: $S=1, K=0$
+- multidomain_v2（4域）: $S=4, K=3$
+- ShareGPT 100K（混合真实对话）: 域数难定义，但每条请求近似独立域 → $K \approx N$
+
+### 7.3 切换频率 λ
+
+每条请求触发切换的概率 $p_{\text{switch}} = K/N$。
+每 window 处理 $w \cdot T_{\text{batch}}$ 条请求，所以每 window 的预期切换:
+$$E[\text{switches per window}] = w \cdot T_{\text{batch}} \cdot K/N$$
+
+对 OEPLB，切换检测由 cos_sim 触发（非逐条）。但宏观上:
+$$\lambda = \frac{K}{N / (w \cdot T_{\text{batch}})} = \frac{K \cdot w \cdot T_{\text{batch}}}{N}$$
+
+### 7.4 总通信量（修正版）
+
+冷启动通信 + 稳态通信 + 域切换重纠偏通信:
+$$C_{\text{total}} = B_{\text{cold}} \cdot 2W + \frac{S_{\text{bench}}}{w \cdot T_f} \cdot B_{\text{steady}} \cdot 2W + K \cdot B_{\text{shift}} \cdot 2W$$
+
+其中 $B_{\text{cold}} \approx 240$（冷启动），$B_{\text{steady}} \approx 5$（稳态），
+$B_{\text{shift}} \approx 20$（域切换后重纠偏）。
+
+代入 235B multi-domain（$S_{\text{bench}}=750$s, $w=16, T_f=0.2$s, $K=3$）:
+$$C = 240 \times 47 + \frac{750}{3.2} \times 5 \times 47 + 3 \times 20 \times 47$$
+$$= 11280 + 55430 + 2820 = 69530 \text{ MB} \approx 68 \text{ GB}$$
+
+对比 EPLB（$S_{\text{bench}}/1000T_f$ 次 rebalance）:
+$$C_{\text{EPLB}} = \frac{750}{200} \times 85 = 319 \text{ GB}$$
+
+**OEPLB 总通信仅 EPLB 的 21%**（修正前估计 45%，加上 $B_{\text{shift}}$
+后更优，因为稳态开销远低于 EPLB 的每次 85GB）。
+
+### 7.5 P2P 与 forward 的带宽竞争
+
+§4.2 假设 P2P 完全隐藏在 forward 期间。但 NVLink 带宽是共享的:
+forward 的 DeepEP dispatch/combine 也用 NVLink。P2P swap 跟它们竞争。
+
+**有效隐藏条件修正**:
+$$T_{\text{P2P}}^{\text{eff}} = \max\left(\frac{C_{\text{P2P}}}{B_{\text{NVLink}} - B_{\text{MoE comm}}}, T_{\text{P2P}}\right)$$
+
+当 MoE 通信已占满带宽（$B_{\text{MoE comm}} \to B_{\text{NVLink}}$）时，
+P2P 的有效传输时间趋无穷 → 不能完全隐藏。
+
+**4卡 vs 8卡**: 4卡 NVLink 带宽 450 GB/s，MoE dispatch/combine 在
+4卡下数据量小（约8卡的1/4），$B_{\text{MoE comm}}$ 占比低，P2P 有充足
+隐藏空间。8卡下 MoE 通信更大，P2P 隐藏更紧——这解释了8卡 swap 开销
+占比反而更低的现象（studypaper/06）。

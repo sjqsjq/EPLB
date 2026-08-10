@@ -151,3 +151,92 @@ $$s_{\text{eff}} \approx s_{\text{single}} \cdot (2 - \cos(\boldsymbol{\theta}_{
    - $H_{64, 0.5} = \sum_{j=1}^{64} j^{-0.5} \approx 14.60$
    - $r \approx 4 \times 6.72 / 14.60 = 1.84$
    - **预测 Qwen2-57B baseline ratio ≈ 1.84**（如果实测接近，验证了Zipf模型）
+
+## 6. 补全：从训练目标推导偏斜度 s
+
+### 6.1 问题
+
+§4.1 说"s ≈ 0.7 for Qwen3, 0.3 for DeepSeek"是实测拟合，
+没有从理论上推导。这里从训练时的 load balancing 目标出发推导 s。
+
+### 6.2 理想均衡 vs 实际偏斜
+
+训练时的 aux loss 目标是最小化 expert 间负载方差:
+$$\mathcal{L}_{\text{aux}} = \text{Var}(\text{expert loads}) = \sum_j (f_j - 1/N_E)^2$$
+
+其中 $f_j$ 是 expert $j$ 被选中的频率。理想均衡 $f_j = 1/N_E, \forall j$（$s=0$）。
+
+但 aux loss 不是唯一目标——还有任务损失（追求模型质量），它鼓励
+专业化（某些 expert 更擅长特定输入）。这两个目标对抗:
+- aux loss: 推 $s \to 0$（均匀）
+- task loss: 推 $s \to \infty$（专业化）
+
+### 6.3 均衡点的 Lagrangian 分析
+
+设训练目标 $\mathcal{L} = \mathcal{L}_{\text{task}} + \lambda \mathcal{L}_{\text{aux}}$。
+最优路由分布是两者的帕累托前沿，由 $\lambda$ 控制。
+
+**任务损失的专业化倾向**: 对输入 $x$，router 选择最擅长的 expert
+能降低 task loss。设 expert $j$ 对 $x$ 的"擅长度"$g_j(x)$，则
+最优选择是 $j^* = \arg\max g_j(x)$。如果 expert 有领域专长
+（数学 expert 擅长数学输入），则不同输入路由到不同 expert → 分布偏斜。
+
+**Zipf 谱的来源**: 假设 expert 擅长度 $g_j$ 服从幂律分布
+$P(g > t) \propto t^{-\beta}$（少数 expert 非常擅长），则路由频率
+$p_j \propto g_j$ 也近似幂律，即 Zipf。
+
+### 6.4 从 λ 到 s 的映射
+
+aux loss 梯度 $\nabla \mathcal{L}_{\text{aux}} \propto (f_j - \bar{f})$，
+对偏离均值大的 expert 施加更强修正。这相当于"软约束"压缩分布尾部。
+
+**平衡点**: 设无 aux loss 时 $s = s_0$（纯专业化倾向）。aux loss
+以强度 $\lambda$ 压缩偏斜。平衡时:
+$$s^* = s_0 \cdot e^{-\lambda / \lambda_0}$$
+
+其中 $\lambda_0$ 是 task loss 对 specialist 的奖励强度。
+
+**不同训练策略的 s**:
+- 标准 aux loss (Qwen3, Mixtral): $\lambda$ 中等 → $s \approx 0.5-0.8$
+- Loss-free balancing (DeepSeek-V3): $\lambda$ 等效更强 → $s \approx 0.2-0.4$
+- 无 balancing: $\lambda=0$ → $s = s_0 \approx 1.0-1.5$
+
+### 6.5 域切换的瞬态 s 的精确推导
+
+§4.3 给出"$s_{\text{eff}} \approx s \cdot (2-\cos)$"，这里推导。
+
+设旧域路由分布 $\boldsymbol{\theta}_{\text{old}}$，新域 $\boldsymbol{\theta}_{\text{new}}$，
+cosine 相似度 $c = \cos(\boldsymbol{\theta}_{\text{old}}, \boldsymbol{\theta}_{\text{new}})$。
+
+变点后 $d$ 个 window，估计分布是新旧混合:
+$$\hat{\boldsymbol{\theta}} = (1-\alpha^{d+1}) \boldsymbol{\theta}_{\text{new}} + \alpha^{d+1} \boldsymbol{\theta}_{\text{old}}$$
+
+混合分布的"有效偏斜度"由新旧热点是否对齐决定:
+- 若新旧热点完全不同（$c \to 0$）：混合分布有两个峰 → 有效 $s$ 增大
+- 若新旧热点一致（$c \to 1$）：混合分布形状不变 → $s$ 不变
+
+设单域热点集中在 top-$k$ 个 expert（占比 $p$），混合后的有效集中度:
+$$p_{\text{eff}} = p_{\text{new}} + p_{\text{old}} \cdot \alpha^{d+1} \cdot (1 - c)$$
+
+(新旧热点不重叠的部分叠加)。对应:
+$$s_{\text{eff}} \approx s \cdot (1 + \alpha^{d+1}(1-c))$$
+
+对 $\alpha=0.5, d=0$（变点当 window）: $s_{\text{eff}} \approx s(1 + 0.5(1-c))$。
+对 $c=0.16$（强域切换）: $s_{\text{eff}} \approx s \times 1.42$。
+
+这比拍脑袋的 $(2-c)$ 倍（=1.84×）保守，更接近实测
+（235B 域切换 ratio 1.39 = 1.2 × 1.16，倍数约 1.16）。
+
+### 6.6 完整的 ratio 预测公式
+
+结合所有推导:
+$$\boxed{r_{\text{baseline}} \approx \frac{G \cdot H(n, s(1+\alpha(1-c_{\text{shift}})))}{H(N_E, s)}}$$
+
+其中:
+- $G$ = GPU数, $n = N_E/G$ = 每卡专家数
+- $s$ = 单域偏斜度（由训练策略决定）
+- $\alpha$ = 衰减系数, $c_{\text{shift}}$ = 域间 cosine 相似度
+- $H(N,s) = \sum_{j=1}^N j^{-s}$ 是广义调和数
+
+这个公式把模型架构、训练策略、数据集特征、OEPLB 超参全部联系起来，
+形成一个闭式的"ratio 预测器"。

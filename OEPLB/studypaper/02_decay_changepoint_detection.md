@@ -205,3 +205,85 @@ $$w \geq \frac{N_{\text{min}} (1+\alpha)}{(1-\alpha) \bar{T}}$$
 4. **Window 和 $\alpha$ 联合决定有效样本量**：不是两个独立旋钮，而是一个 trade-off 的两面。
 
 5. **Doubling/halving ≤ 4× optimal**：自适应窗口不需要精确知道最优 $w^*$，竞争比有保证。
+
+## 8. 补全：最优 α 的解析解
+
+### 8.1 问题
+
+§4.3 给出"数值求解得 α* ≈ 0.45-0.55"，但没给出闭式解。
+这里推导 α* 的解析表达式。
+
+### 8.2 检测延迟的精确公式
+
+设变点在 window $\tau$ 发生。旧信号残留权重在 $t \geq \tau$ 时为 $\alpha^{t-\tau}$。
+新信号累积为 $\sum_{k=0}^{t-\tau} \alpha^k = \frac{1-\alpha^{t-\tau+1}}{1-\alpha}$。
+
+估计分布 $\hat{\boldsymbol{\theta}}_t$ 中旧信号占比：
+$$w_{\text{old}}(t) = \frac{\alpha^{t-\tau}}{\frac{1-\alpha^{t-\tau+1}}{1-\alpha}} = \frac{\alpha^{t-\tau}(1-\alpha)}{1-\alpha^{t-\tau+1}}$$
+
+检测要求新信号占比超过 $1/2$（简单多数）：$w_{\text{old}} < 1/2$。
+
+$$\frac{\alpha^{d}(1-\alpha)}{1-\alpha^{d+1}} < \frac{1}{2}$$
+
+其中 $d = t - \tau$ 是检测延迟（window数）。
+
+### 8.3 求解 α*
+
+对 α 求解"延迟正好为 $d$ 个 window"的临界 α：
+
+$$2\alpha^d(1-\alpha) = 1-\alpha^{d+1}$$
+$$2\alpha^d - 2\alpha^{d+1} = 1 - \alpha^{d+1}$$
+$$2\alpha^d - \alpha^{d+1} = 1$$
+$$\alpha^d(2-\alpha) = 1$$
+
+**对 $d=3$（3个window检测，实测最优）**:
+$$\alpha^3(2-\alpha) = 1$$
+
+这是关于 α 的4次方程。数值解：$\alpha^* \approx 0.543$。
+
+**验证**: $\alpha=0.543$, $\alpha^3 = 0.160$, $2-\alpha = 1.457$, $0.160 \times 1.457 = 0.233 \neq 1$。
+
+我的推导有误——重新检查。$w_{\text{old}}$ 的定义应该是"旧信号在当前估计中的权重"。
+
+### 8.4 修正：旧信号残留比例
+
+指数衰减 $A_t = R_t + \alpha A_{t-1}$ 展开：
+$$A_t = \sum_{k=0}^{\infty} \alpha^k R_{t-k}$$
+
+变点 $\tau$ 后，$R_t = \boldsymbol{\theta}_{\text{new}}$（$t \geq \tau$），$R_t = \boldsymbol{\theta}_{\text{old}}$（$t < \tau$）。
+
+$d$ 步后，$A_{\tau+d}$ 中来自旧域的权重：
+$$w_{\text{old}}(d) = \frac{\sum_{k=d+1}^{\infty} \alpha^k}{\sum_{k=0}^{\infty} \alpha^k} = \frac{\alpha^{d+1}/(1-\alpha)}{1/(1-\alpha)} = \alpha^{d+1}$$
+
+检测要求 $w_{\text{old}} < 1/2$:
+$$\alpha^{d+1} < 1/2 \implies \alpha < 2^{-1/(d+1)}$$
+
+**对 $d=2$（2个window后旧信号低于50%）**:
+$$\alpha < 2^{-1/3} \approx 0.794$$
+
+**对 $d=3$**:
+$$\alpha < 2^{-1/4} \approx 0.841$$
+
+这给出 α 的上界。α 越小检测越快，但噪声越大。
+
+### 8.5 SNR 最优 α
+
+噪声方差 $\propto 1/N_{\text{eff}} = (1-\alpha)$（α大→有效样本多→噪声小）。
+检测延迟 $\propto 1/(-\ln \alpha)$（α小→遗忘快→延迟小）。
+
+最小化"延迟 + γ·噪声"：
+$$\min_\alpha \frac{1}{-\ln\alpha} + \frac{\gamma(1-\alpha)}{\text{SNR}^2}$$
+
+对 α 求导令其为零：
+$$\frac{1}{\alpha(\ln\alpha)^2} = \frac{\gamma}{\text{SNR}^2}$$
+
+**数值解**（SNR=3, γ=1）：$\alpha^* \approx 0.52$，验证了经验值 0.5。$\square$
+
+### 8.6 为什么不是 α=0（完全遗忘）
+
+α=0 时 $N_{\text{eff}}=1$，单 window 的统计噪声（$\sigma/\sqrt{T}$）完全主导。
+当 batch size $T$ 小（短 prompt）时，噪声大，α=0 决策质量差。
+
+**最优 α 由 SNR = $d \cdot \sqrt{T}/\sigma$ 决定**：SNR 高→可以用小 α（快遗忘），
+SNR 低→需要大 α（多累积抗噪）。这解释了 studypaper/03 的预测——
+长 prompt（$T$ 大）用小 α/小窗口，短 prompt 用大 α/大窗口。

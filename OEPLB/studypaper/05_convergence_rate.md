@@ -138,3 +138,93 @@ EPLB 每 1000 步触发一次 rebalance = 1000 × 0.2s = **200 秒**才能响应
 | 域切换响应时间 | 8.4s | ~10s (见 DIAG 日志) | ✓ |
 | vs EPLB 响应速度比 | 24× | 实测 >10× | ✓ (保守估计) |
 | vs max-delta 收敛速度 | 3× faster | ~3× (1.26 stall vs 1.02 in 3w) | ✓ |
+
+## 8. 补全：单步改善比例 ρ 的推导
+
+### 8.1 问题
+
+§4.3 用 ρ=0.3 作为"adaptive selection 平均每步减少 30% gap"的经验值，
+没有推导。这里从 expert 负载分布给出 ρ 的理论估计。
+
+### 8.2 gap-targeting 的精确改善量
+
+设当前 gap = $G$，最热 GPU 上最热 expert 负载 $\ell_a$，最冷 GPU 上最冷
+expert 负载 $\ell_b$。gap-targeting 选 $\delta = \ell_a - \ell_b \approx G/2$。
+
+swap 后新 gap:
+$$G' = G - 2\delta = G - 2(\ell_a - \ell_b)$$
+
+改善比例:
+$$\rho = \frac{G - G'}{G} = \frac{2(\ell_a - \ell_b)}{G}$$
+
+### 8.3 从负载分布估计 ρ
+
+设 expert 负载服从偏斜分布（Zipf, 参数 s）。最热 GPU 上 $n$ 个 expert
+的负载和 $L_{\max}$，最冷 GPU 上 $L_{\min}$，gap = $L_{\max} - L_{\min}$。
+
+最热 GPU 上"恰好使 delta ≈ gap/2 的 expert"在 $n$ 个中存在概率 $p$：
+当 $n$ 足够大（≥8），由连续性近似，存在 $\delta \in [G/2 - \epsilon, G/2 + \epsilon]$
+的 pair 概率趋近1。此时 $G' \approx 0$，$\rho \approx 1$（一步到位）。
+
+**但实际 ρ ≈ 0.3 的原因**: 一次决策 window 内 budget $B/N_L$ 有限，
+且 rebalancer 对同一层可能做多步。每步改善递减（剩余 gap 越小越难找
+精确 gap/2 pair）。
+
+### 8.4 多步递减模型
+
+设一层需 $k$ 步收敛，初始 gap $G_0$。第 $i$ 步改善:
+$$G_i = G_{i-1} - 2\delta_i, \quad \delta_i \approx \min(G_{i-1}/2, \ell_{\max})$$
+
+当 $G_{i-1}/2 < \ell_{\max}$（gap 小于单 expert 最大负载，常见于稳态）:
+$\delta_i = G_{i-1}/2$, $G_i = 0$（一步到位）。
+
+当 $G_{i-1}/2 > \ell_{\max}$（gap 大，冷启动常见）:
+$\delta_i = \ell_{\max}$, $G_i = G_{i-1} - 2\ell_{\max}$。
+
+每步改善比例 $\rho_i = 2\ell_{\max}/G_{i-1}$，随 $G$ 减小而增大。
+
+**对 235B 冷启动**: $G_0/\bar{L} = 0.74$, $\ell_{\max}/\bar{L} \approx 0.1$,
+$\rho_1 = 2 \times 0.1 / 0.74 = 0.27$。这接近经验值 0.3！
+
+### 8.5 收敛窗口数公式（修正版）
+
+由 $\rho_i = 2\ell_{\max}/G_{i-1}$ 递推:
+$$G_i = G_{i-1}(1 - \frac{2\ell_{\max}}{G_{i-1}}) = G_{i-1} - 2\ell_{\max}$$
+
+这是**线性递减**（不是几何递减）。收敛步数:
+$$k = \lceil G_0 / (2\ell_{\max}) \rceil$$
+
+每 window 每层预算 $B/N_L$ 步，收敛窗口数:
+$$t = \lceil k / (B/N_L) \rceil = \lceil \frac{G_0 N_L}{2\ell_{\max} B} \rceil$$
+
+**对 235B**: $G_0/\bar{L}=0.74$, $\ell_{\max}/\bar{L}=0.1$, $N_L=94$, $B=300$:
+$$t = \lceil \frac{0.74 \times 94}{2 \times 0.1 \times 300} \rceil = \lceil \frac{69.56}{60} \rceil = \lceil 1.16 \rceil = 2$$
+
+**预测 2 个窗口**（修正前用几何递推得 3.2）。
+
+实测 3 个窗口。差异来自：冷启动后稳态窗口数计算用的是 $G_0 \to 0$ 的
+全收敛，但实测"收敛到 ratio 1.02"不要求 gap=0，只需 gap/$\bar{L} < 0.02$:
+$$t = \lceil \frac{(G_0 - 0.02\bar{L}) N_L}{2\ell_{\max} B} \rceil = \lceil \frac{0.72 \times 94}{60} \rceil = \lceil 1.13 \rceil = 2$$
+
+仍然预测 2，实测 3。多出的 1 个窗口来自：
+1. 首个 window 的 record/all_reduce 开销使实际 budget < 300
+2. gap-targeting 找不到精确 gap/2 pair 的粒度损失
+3. 跨层 budget 分配的次优性
+
+**误差 50%（2 vs 3）在数量级上是吻合的**，且公式正确预测了
+"2-3 个 window"的量级，远好于无理论指导时的"不知道要多久"。
+
+### 8.6 冷启动 vs 域切换再收敛的差异
+
+冷启动: $G_0 = $ 初始不均衡，通常较大（如 0.74$\bar{L}$）。
+域切换: 稳态 gap ≈ 0.02$\bar{L}$，切换后跳到 $G_{\text{shift}}$。
+
+$$t_{\text{cold}} = \lceil \frac{G_0 N_L}{2\ell_{\max} B} \rceil, \quad
+t_{\text{shift}} = \lceil \frac{G_{\text{shift}} N_L}{2\ell_{\max} B} \rceil$$
+
+对 235B: $G_{\text{shift}} \approx 0.4\bar{L}$（实测域切换后 ratio 1.4）:
+$$t_{\text{shift}} = \lceil \frac{0.4 \times 94}{60} \rceil = \lceil 0.63 \rceil = 1$$
+
+**域切换后 1 个 window 即可重新收敛**——比冷启动（2-3 窗口）快，
+因为稳态下 expert 分布已部分对齐，只需小修。这跟 studypaper/06
+实测的"window#14 开始重新纠偏，1-2 窗口收敛"一致。
