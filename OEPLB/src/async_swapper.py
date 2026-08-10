@@ -57,6 +57,24 @@ class AsyncSwapExecutor:
     def busy(self) -> bool:
         return self.pending is not None
 
+
+    def _get_routed_weights(self):
+        """Model-agnostic access to routed expert weights (see controller's
+        _get_routed_experts_weights for full rationale). Returns
+        {layer_id: List[Tensor]}."""
+        model = self.model_runner.model
+        if hasattr(model, "routed_experts_weights_of_layer"):
+            return model.routed_experts_weights_of_layer
+        result = {}
+        layers = getattr(getattr(model, "model", model), "layers", None)
+        if layers is None:
+            raise RuntimeError("PB-OEPLB async_swapper: cannot find model.layers")
+        for layer_id, layer in enumerate(layers):
+            mlp = getattr(layer, "mlp", None)
+            if mlp is not None and hasattr(mlp, "get_moe_weights"):
+                result[layer_id] = mlp.get_moe_weights()
+        return result
+
     def begin(self, plan):
         """Issue P2P ops for `plan` (List[SwapOp]) on the dedicated stream. Non-blocking."""
         if self.busy:
@@ -64,7 +82,7 @@ class AsyncSwapExecutor:
 
         import time as _time
         _t_begin_start = _time.perf_counter()
-        routed_weights = self.model_runner.model.routed_experts_weights_of_layer
+        routed_weights = self._get_routed_weights()
         op_temps = [None] * len(plan)  # op_temps[i] = {"a": [Tensor,...]} or {"b": [...]} or {} or {"local": True}
         p2p_ops = []
 
@@ -162,7 +180,7 @@ class AsyncSwapExecutor:
 
         plan = self.pending["plan"]
         op_temps = self.pending["op_temps"]
-        routed_weights = self.model_runner.model.routed_experts_weights_of_layer
+        routed_weights = self._get_routed_weights()
 
         for i, op in enumerate(plan):
             weights = routed_weights[op.layer_id]

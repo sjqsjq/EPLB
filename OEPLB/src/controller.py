@@ -71,6 +71,7 @@ class PBOEPLBController:
         self.model_runner = model_runner
 
         self._meta = self._fetch_metadata()
+        self._routed_weights_cache = None
         self.num_layers = self._meta.num_layers
         self.num_logical_experts = self._meta.num_logical_experts
         self.ep_size = self._meta.ep_size
@@ -222,6 +223,48 @@ class PBOEPLBController:
         from sglang.srt.eplb.expert_location import get_global_expert_location_metadata
         return get_global_expert_location_metadata()
 
+
+    def _get_routed_experts_weights(self):
+        """Get {layer_id: List[Tensor]} for all MoE layers, model-agnostic.
+
+        DeepSeek-V2/V3 models expose `model.routed_experts_weights_of_layer`
+        directly (a LazyValue). Other MoE models (Qwen2-MoE, Qwen3-MoE, etc.)
+        don't expose this attribute, but their MoE layer class implements
+        `get_moe_weights()`. This helper provides a uniform interface so swap
+        execution works across all MoE architectures, not just DeepSeek.
+
+        Returns a dict {layer_id: List[Tensor]} where each Tensor is one
+        weight matrix of the experts on that layer (shape: (num_local, ...)).
+        Cached after first successful call.
+        """
+        if self._routed_weights_cache is not None:
+            return self._routed_weights_cache
+        model = self.model_runner.model
+        # Try the native DeepSeek attribute first
+        if hasattr(model, "routed_experts_weights_of_layer"):
+            self._routed_weights_cache = model.routed_experts_weights_of_layer
+            return self._routed_weights_cache
+        # Fallback: build it by walking model.layers and calling get_moe_weights()
+        result = {}
+        layers = getattr(getattr(model, "model", model), "layers", None)
+        if layers is None:
+            raise RuntimeError(
+                "PB-OEPLB: cannot find model.layers to build routed expert weights"
+            )
+        for layer_id, layer in enumerate(layers):
+            mlp = getattr(layer, "mlp", None)
+            if mlp is not None and hasattr(mlp, "get_moe_weights"):
+                result[layer_id] = mlp.get_moe_weights()
+        if not result:
+            raise RuntimeError(
+                "PB-OEPLB: no layer with get_moe_weights() found; "
+                "this model architecture may not be supported"
+            )
+        self._routed_weights_cache = result
+        logger.info(f"[PB-OEPLB] built routed_experts_weights via fallback: "
+                    f"{len(result)} MoE layers")
+        return self._routed_weights_cache
+
     def record_next_layer(self, topk_ids: torch.Tensor):
         """Zero-communication hot path — direct scatter_add_ on PHYSICAL expert
         ids, exactly matching EPLB's on_select_experts (expert_distribution.py:
@@ -237,7 +280,7 @@ class PBOEPLBController:
         if self._layer_offset is None:
             try:
                 _routed_layer_ids = sorted(
-                    self.model_runner.model.routed_experts_weights_of_layer.keys()
+                    self._get_routed_experts_weights().keys()
                 )
                 self._layer_offset = _routed_layer_ids[0] if _routed_layer_ids else 0
             except Exception:
