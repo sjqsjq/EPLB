@@ -373,7 +373,7 @@ class PBOEPLBController:
                             logger.info(f"[PB-OEPLB-ADW] volatile 3x -> grow sw to {self._effective_sync_window} for stability")
             self._adw_last_ratio = cur_r
 
-        self.load.copy_((self.load.float() * 0.5).long())
+        self.load.copy_((self.load.float() * self._decay_factor).long())
         self.total_tokens = 0
         self._prefill_batch_counter = 0
 
