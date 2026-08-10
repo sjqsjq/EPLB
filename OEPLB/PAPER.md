@@ -546,3 +546,53 @@ The max ratio improvements are particularly significant: combine max drops from 
 | OEPLB (sw=128) | 149.44 | 103.45 | +18.4% | +19.4% |
 
 OEPLB at sw=64 matches or exceeds the best EPLB configuration (red=16, iter=64) while using **zero redundant experts**.
+
+---
+
+## Appendix D: Expert Density and Imbalance — Scaling Analysis
+
+### D.1 Why Fewer Experts Per GPU Produces Higher Imbalance
+
+The imbalance ratio $r = \frac{\max_g L_g}{\bar{L}}$ is fundamentally governed by the **number of experts per GPU** ($n = N_E / \text{EP}$), not by $N_E$ or EP alone.
+
+**Intuition (Law of Large Numbers)**: Each GPU's total load is the sum of its $n$ individual expert loads. As $n$ increases, the per-GPU total converges to the global mean — variance shrinks as $O(1/\sqrt{n})$ — making high imbalance ratios statistically unlikely.
+
+**Quantitative model**: Assume expert loads follow a skewed distribution with mean $\mu$ and standard deviation $\sigma$ (representing routing non-uniformity). The per-GPU load $L_g = \sum_{i=1}^{n} X_i$ has:
+- $E[L_g] = n\mu$
+- $\text{Var}(L_g) = n\sigma^2$ (assuming independence across experts on same GPU)
+- $\text{CV}(L_g) = \sigma / (\mu\sqrt{n})$
+
+The expected max-to-mean ratio scales approximately as:
+
+$$E[r] \approx 1 + \frac{\sigma}{\mu\sqrt{n}} \cdot \sqrt{2 \ln(\text{EP})}$$
+
+This predicts:
+- $n=16$ (8×H20, 235B): $r \approx 1 + 0.46 \cdot \frac{\sigma}{\mu}$ — high imbalance when routing is skewed
+- $n=32$ (4×H20, 30B): $r \approx 1 + 0.33 \cdot \frac{\sigma}{\mu}$ — moderate
+- $n=64$ (4×H20, 512-expert model): $r \approx 1 + 0.23 \cdot \frac{\sigma}{\mu}$ — low, diminishing returns for OEPLB
+
+### D.2 Empirical Validation
+
+| Model | Total experts | EP | Experts/GPU | Measured baseline ratio | OEPLB benefit |
+|---|---|---|---|---|---|
+| Qwen3-235B-A22B (8×H20) | 128 | 8 | **16** | **1.74** | **+18.4%** |
+| Qwen3-30B-A3B (4×H20) | 128 | 4 | 32 | 1.34 | +0.8% |
+| DeepSeek-V2-Lite (4×H20) | 64 | 4 | 16 | 1.02–1.03 | -4.5% (overhead > benefit) |
+
+**Key finding**: DeepSeek-V2-Lite has 16 experts/GPU (same as 235B) but shows near-zero imbalance. This reveals the **second critical factor**: expert compute fraction. V2-Lite's experts are tiny (`intermediate_size=1408`, `hidden_size=2048`), so even when routing is imbalanced, the timing impact is negligible because MoE compute is a small fraction of total forward time. The 235B model's experts are ~10× larger, making the same routing skew produce a proportionally larger timing straggler.
+
+### D.3 Conditions for OEPLB Benefit
+
+PB-OEPLB produces net-positive throughput improvement when:
+
+$$\underbrace{\frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}} \times f_{\text{MoE}}}_{\text{gross benefit}} > \underbrace{\frac{T_{\text{record}} + T_{\text{allreduce}}}{T_{\text{total}}}}_{\text{fixed overhead}}$$
+
+where $f_{\text{MoE}}$ is the fraction of forward time spent in MoE expert compute.
+
+For the 8×H20 + 235B configuration: gross benefit ≈ 9.6%, overhead ≈ 0.67% → net +8.9%.
+For the 4×H20 + 30B configuration: gross benefit ≈ 0.5% (ratio only 1.02–1.03 in steady state), overhead ≈ 3.2% → net **negative**.
+
+**Implication for deployment**: PB-OEPLB is most effective when:
+1. Experts per GPU ≤ 16–20 (high imbalance potential)
+2. Expert intermediate_size ≥ 2048 (MoE compute dominates forward time)
+3. Both conditions require either large models (≥100B) or high EP counts (≥8)
