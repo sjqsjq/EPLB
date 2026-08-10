@@ -234,3 +234,41 @@ EPLB 在 Qwen2-57B 上无法启动(每个window的rebalance都崩溃)，
 - 不依赖模型类自定义的属性
 - 通过通用的 `get_moe_weights()` 接口兼容所有 MoE 架构
 - 修复成本极低(一个fallback helper),但让 OEPLB 的适用范围扩大一倍以上
+
+## 10. EPLB vs OEPLB 公平对比（Qwen2-57B，patch后）
+
+### 10.1 EPLB patch 说明
+
+官方 EPLB 在三处直接访问 `model.routed_experts_weights_of_layer`（DeepSeek
+专属属性），对 Qwen2-MoE 报 AttributeError。我们给 EPLB 打了同样的 fallback
+patch（eplb_manager.py + model_runner.py），让 EPLB 也能在 Qwen2 上工作。
+
+注意：EPLB 仍然受 `deepep_mode != normal → NotImplementedError` 限制，
+只能用 normal 模式（禁 CUDA graph），无法用 auto 模式。
+
+### 10.2 三方对比结果（多域16K，conc=256）
+
+| 配置 | deepep-mode | CUDA graph | 冗余专家 | tps | vs Baseline |
+|---|---|---|---|---|---|
+| **Baseline** | auto | ✅ | 0 | 27.1 | — |
+| **EPLB** (官方,patched) | normal | ❌禁 | 16 | 27.2 | +0.4% |
+| **OEPLB** (修复后) | auto | ✅ | 0 | **28.0** | **+3.3%** |
+
+### 10.3 分析
+
+1. **OEPLB 超越 EPLB +2.9pp**（+3.3% vs +0.4%）
+2. EPLB 几乎无提升(+0.4%)：normal模式禁CUDA graph的开销抵消了16冗余专家
+   带来的均衡收益——这跟论文PAPER.md Table 5的"EPLB在decode场景负收益"
+   同源,只是这里因为O=1纯prefill,退化效应没那么严重
+3. OEPLB保留CUDA graph(auto模式)+零冗余专家,净收益更高
+4. EPLB rebalance执行了132次(每64步一次),但每次rebalance的阻塞+CG禁用
+   代价持续存在
+
+### 10.4 对论文结论的验证
+
+这复现了PAPER.md §5.6的核心claim:
+> "EPLB's negative result is due to the forced CUDA graph disable (deepep_mode=normal),
+> which becomes the dominant overhead when the workload's natural imbalance is low."
+
+在4卡+57B上,这个效应比8卡+235B更明显(因为4卡通信开销小,straggler效应弱,
+EPLB的均衡收益空间更小,CG禁用的相对代价更大)。
