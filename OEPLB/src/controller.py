@@ -305,39 +305,13 @@ class PBOEPLBController:
         self._steps_since_last_check = 0
         self._decay_factor = self.cfg.decay_factor
 
-        # Stall detection: if swap has been ineffective for several consecutive
-        # windows (ratio stuck), skip the expensive decide cycle entirely until
-        # ratio jumps again (indicating workload changed and intervention is needed).
-        if not hasattr(self, '_stall_count'):
-            self._stall_count = 0
-            self._stall_ratio = None
-            self._stalled = False
-        if self._stalled:
-            # Quick ratio check without all_reduce (use local load as proxy)
-            # Re-activate if enough new tokens accumulated (simple heuristic)
-            self._stall_count += 1
-            if self._stall_count % 4 == 0:
-                # Every 4th skipped window, do a quick all_reduce to check if
-                # ratio has changed enough to warrant reactivation
-                _quick_load = self.load.clone()
-                torch.distributed.all_reduce(_quick_load, op=torch.distributed.ReduceOp.SUM)
-                _ratios = []
-                for _lid in range(0, self.num_layers, 10):
-                    _lc = _quick_load[_lid]
-                    _loads = [_lc[r*self.num_local:(r+1)*self.num_local].sum().item() for r in range(self.ep_size)]
-                    _avg = max(sum(_loads) / self.ep_size, 1.0)
-                    _ratios.append(max(_loads) / _avg)
-                _sampled_ratio = sum(_ratios) / len(_ratios)
-                if _sampled_ratio > self._stall_ratio + 0.02:
-                    self._stalled = False
-                    self._stall_count = 0
-                    logger.info(f"[PB-OEPLB-STALL] reactivated: ratio {self._stall_ratio:.3f} -> {_sampled_ratio:.3f}")
-                    # Fall through to normal _decide_and_begin_swap
-                else:
-                    return
-            else:
-                return
-
+        # Per PAPER.md §3.1: every sync_window forward passes, unconditionally
+        # (1) checks pending P2P, (2) all_reduce, (3) rebalance, (4) async P2P.
+        # No skip-cycle/stall-detection -- that was undocumented, and empirically
+        # found to suppress response to LATER workload shifts (its reactivation
+        # check uses a coarsely-sampled LOCAL ratio, not an all-reduced global
+        # one, and in a multi-domain run it entered stall after the cold-start
+        # convergence and never woke back up for the remaining domain switches).
         self._decide_and_begin_swap()
 
         if not hasattr(self, '_adw_converge_count'):
@@ -762,11 +736,6 @@ class PBOEPLBController:
             else:
                 self._last_diag_improvement = 0
             if not plan:
-                self._stall_count += 1
-                if self._stall_count >= 3 and not self._stalled:
-                    self._stalled = True
-                    self._stall_ratio = _current_avg_ratio if hasattr(self, '_prev_window_ratio') else 1.1
-                    logger.info(f"[PB-OEPLB-STALL] entering stall mode (no plan): ratio={self._stall_ratio:.3f}")
                 self._check_eplb_refinement(global_load)
                 return
             if len(plan) < self.cfg.min_swap_ops:
@@ -779,11 +748,6 @@ class PBOEPLBController:
                 logger.info(f"[PB-OEPLB] window#{self.window_count}: skipped "
                            f"{len(plan)} swap(s) (< min_swap_ops={self.cfg.min_swap_ops}, "
                            f"not worth the P2P overhead)")
-                self._stall_count += 1
-                if self._stall_count >= 3 and not self._stalled:
-                    self._stalled = True
-                    self._stall_ratio = _current_avg_ratio if hasattr(self, '_prev_window_ratio') else 1.1
-                    logger.info(f"[PB-OEPLB-STALL] entering stall mode: ratio={self._stall_ratio:.3f}")
                 self._check_eplb_refinement(global_load)
                 return
             self._pending_plan_start_t = time.perf_counter()
