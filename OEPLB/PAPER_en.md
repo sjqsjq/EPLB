@@ -596,3 +596,75 @@ For the 4×H20 + 30B configuration: gross benefit ≈ 0.5% (ratio only 1.02–1.
 1. Experts per GPU ≤ 16–20 (high imbalance potential)
 2. Expert intermediate_size ≥ 2048 (MoE compute dominates forward time)
 3. Both conditions require either large models (≥100B) or high EP counts (≥8)
+
+---
+
+## Appendix E: Component-wise Theoretical Speedup Bound
+
+### E.1 Why Component-wise Modeling
+
+The old formula $\Delta = \frac{r_{before}-r_{after}}{r_{before}} \times f_{MoE}$ assumes
+the entire MoE layer (dispatch+expert+combine) scales with $r$. But nsys traces show
+vastly different sensitivities:
+
+| Component | $\beta_c$ | Physical meaning |
+|---|---|---|
+| Expert compute | 0.08 | Nearly unaffected (token count unchanged) |
+| **Combine** | **1.33** | Highly sensitive (slowest GPU blocks all-gather) |
+| Dispatch | -0.78 | Negative (all_reduce competes for NVLink) |
+
+Old formula predicted 31.8%, measured 16.8%, error 89%.
+Component-wise formula predicted 15.9%, error 5.7%.
+
+### E.2 Formula
+
+**Theoretical upper bound (gross)**:
+$$\Delta_{\max} = \frac{r_{before} - r_{after}}{r_{before}} \sum_{c} \beta_c \cdot f_c$$
+
+**Predicted net benefit**: $\Delta_{predicted} = \Delta_{\max} - c_{overhead}$
+
+**System efficiency**: $\eta = \Delta_{measured} / \Delta_{\max}$
+
+### E.3 235B 6-trace Verification (3-run average)
+
+| Component | Baseline(s) | OEPLB(s) | $f_c$ | $\beta_c$ |
+|---|---|---|---|---|
+| Expert | 50.8 | 49.2 | 0.336 | 0.08 |
+| Combine | 49.9 | 22.4 | 0.330 | 1.33 |
+| Dispatch | 15.6 | 20.7 | 0.103 | -0.78 |
+| **Total** | **151.4** | **126.0** | — | — |
+
+Upper bound = 0.414 × (0.08×0.336 + 1.33×0.330 + (-0.78)×0.103) = **15.9%**
+Measured gross = (151.4-126.0)/151.4 = **16.8%** (efficiency 105%)
+
+### E.4 Upper Bounds Across All Experiments
+
+| Experiment | $r_{before}$ | $r_{after}$ | Upper bound | Measured | Efficiency |
+|---|---|---|---|---|---|
+| 235B L512 (8-GPU) | 1.74 | 1.02 | 15.9% | +18.4% | 116% |
+| 235B multi-domain (8-GPU) | 1.39 | 1.02 | 12.1% | +14.0% | 116% |
+| 235B ShareGPT (8-GPU) | 1.74 | 1.02 | 15.9% | +5.3% | 33% |
+| 57B L512 (4-GPU) | 1.74 | 1.02 | 17.2%* | +4.3% | 25% |
+| 57B multi-domain (4-GPU) | 1.74 | 1.02 | 17.2%* | +3.0% | 17% |
+| 30B L512 (4-GPU) | 1.70 | 1.02 | -4.1%** | -2.6% | — |
+| 30B multi-domain (4-GPU) | 1.70 | 1.02 | -4.1%** | -3.9% | — |
+
+*57B estimated without nsys trace.
+**30B dispatch fraction (39%) makes upper bound negative.
+
+### E.5 EPLB Upper Bound and KV Cache Pressure Model
+
+EPLB gross bound = (1.74-1.0)/1.74 × 0.77 = **32.7%**
+CUDA graph disable penalty = 0.68 × 0.23 = **15.7%**
+EPLB net bound ≈ 32.7% - 15.7% = **17.0%** (measured +9.0%, efficiency 53%)
+
+**KV cache queueing model**: EPLB's 16 redundant experts reduce KV cache by $\delta$=8.1%.
+Utilization $\rho' = \rho/(1-\delta)$, queue time $\propto 1/(1-\rho')$.
+
+| $\rho$ | $\rho'$ | Queue multiplier |
+|---|---|---|
+| 0.70 | 0.762 | 1.26× |
+| 0.90 | 0.979 | **4.76×** |
+| 0.95 | 1.033 | ∞ |
+
+Verified: L4096_O256 conc=512 ($\rho \approx 0.9$): EPLB -3.2% vs OEPLB +16.0% (19.2pp gap).

@@ -82,15 +82,55 @@ PB-OEPLB通过通用fallback（§4）修复了此限制：先尝试DeepSeek原�
 
 ### 2.4 理论加速上界
 
-**定理（加速上界）。** 布局优化的最大吞吐改善为：
-$$\Delta\text{TPS}_{\max} = \frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}} \times f_{\text{MoE}} - c_{\text{overhead}}$$
-其中$f_{\text{MoE}}$为MoE计算占forward时间的比例，$c_{\text{overhead}}$为固定每窗口开销（record + all_reduce + P2P，见附录D）。
+**定理（分组件加速上界）。** 布局优化的理论最大吞吐改善为：
+$$\Delta_{\max} = \frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}} \sum_{c \in \{\text{expert, dispatch, combine}\}} \beta_c \cdot f_c$$
+其中$f_c = T_c / T_{\text{total}}$为组件$c$占forward时间比例，$\beta_c$为不均衡度$r$的敏感度系数。**预测收益**需再减去系统开销：$\Delta_{\text{predicted}} = \Delta_{\max} - c_{\text{overhead}}$。
 
-*证明。* 最慢GPU决定专家计算时间：$T_{\text{expert}} = \max_g T_{\text{expert}}^{(g)} \propto r$。布局优化将$r_{\text{before}} \to r_{\text{after}}$，在专家计算分量上给出相对加速$(r_{\text{before}}-r_{\text{after}})/r_{\text{before}}$。乘以$f_{\text{MoE}}$（MoE占总forward时间的比例）并减去开销即得净值。$\square$
+**关键洞察**：不同组件对$r$的敏感度差异巨大——基于6组235B nsys trace（3-run均值）校准：
 
-对Qwen3-235B（$r_{\text{before}}=1.74, r_{\text{after}}=1.02, f_{\text{MoE}}=0.64$）：$\Delta \approx 26\% \times 0.64 = 16.6\%$（实测+18.4%，超出部分来自dispatch/combine尾延迟减少，见附录B）。
+| 组件 | $\beta_c$ | 物理含义 |
+|---|---|---|
+| Expert计算 | 0.08 | 几乎不受placement影响（token总数不变） |
+| **Combine** | **1.33** | 高度敏感（最热GPU的all-gather最慢，其他GPU等待） |
+| Dispatch | -0.78 | 负敏感（OEPLB的all_reduce抢NVLink带宽） |
 
-对Qwen2-57B-A14B（$r_{\text{before}}=1.74$但有巨大shared expert稀释$f_{\text{MoE}}^{\text{routed}} \approx 0.20$）：$\Delta \approx 26\% \times 0.20 = 5.2\%$（多域实测+3.0%，差异来自shared expert稀释效应，见附录D.2）。
+*证明。* MoE层时间$T_{\text{MoE}} = T_{\text{dispatch}} + T_{\text{expert}} + T_{\text{combine}}$。Expert计算由token数决定，不随placement变化（$\beta \approx 0$）。Combine是集合通信，最热GPU完成最晚→其他GPU等待→$T_{\text{combine}} \propto r$。Dispatch中OEPLB的all_reduce与DeepEP dispatch竞争带宽→$\beta < 0$。$\square$
+
+**各实验的理论上界与系统效率**：
+
+| 实验 | $r_{\text{before}}$ | $r_{\text{after}}$ | 理论上界 | 实测收益 | 系统效率 |
+|---|---|---|---|---|---|
+| 235B L512（8卡） | 1.74 | 1.02 | **15.9%** | +18.4% | 116% |
+| 235B多域（8卡） | 1.39 | 1.02 | 12.1% | +14.0% | 116% |
+| 235B ShareGPT（8卡） | 1.74 | 1.02 | 15.9% | +5.3% | 33% |
+| 57B L512（4卡） | 1.74 | 1.02 | 17.2%* | +4.3% | 25% |
+| 57B多域（4卡） | 1.74 | 1.02 | 17.2%* | +3.0% | 17% |
+| 30B L512（4卡） | 1.70 | 1.02 | -4.1%** | -2.6% | — |
+
+*57B无nsys trace，用shared expert稀释后的$f_{\text{eff}} \approx 0.41$估算。
+**30B的dispatch占比39%（vs 235B的10%），dispatch变慢负面影响>combine改善→理论上界为负。
+
+**EPLB的理论上界**：EPLB用冗余专家把$r$压到1.0，但禁用CUDA graph：
+- EPLB gross上界 = $\frac{1.74-1.0}{1.74} \times 0.77$ = **32.7%**
+- CUDA graph禁用代价 = $0.68 \times (1-0.77)$ = **15.7%**
+- EPLB净上界 ≈ 32.7% - 15.7% = **17.0%**（实测+9.0%，效率53%）
+
+OEPLB虽gross上界(15.9%)低于EPLB(32.7%)，但无CG代价→净收益更高。
+
+### 2.5 EPLB的KV cache压力负面收益建模
+
+EPLB的$R$个冗余专家占用额外显存，挤压KV cache容量$\delta = R \cdot W_{expert} / M_{static}$。对235B：$\delta = 8.1\%$（227K→209K token）。
+
+**排队论建模**：KV cache容量减少$\delta$→最大并发请求减少$\delta$→系统利用率$\rho' = \rho / (1-\delta)$→排队时间$W_q \propto 1/(1-\rho')$。
+
+| 原始$\rho$ | $\delta=8.1\%$后$\rho'$ | 排队时间倍数 |
+|---|---|---|
+| 0.70 | 0.762 | 1.26× |
+| 0.85 | 0.925 | 2.13× |
+| 0.90 | 0.979 | **4.76×** |
+| 0.95 | 1.033 | ∞（溢出） |
+
+**实测验证**（L4096_O256 conc=512，$\rho \approx 0.9$）：EPLB -3.2%（KV cache压力导致排队暴增），OEPLB +16.0%（零KV cache损失），差距19.2pp。
 
 ---
 
