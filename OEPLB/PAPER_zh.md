@@ -567,3 +567,56 @@ $$\frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}} \times f_{\text
 1. 每卡专家数 ≤ 16-20（高不均衡潜力）
 2. 专家intermediate_size ≥ 2048（MoE计算占forward时间显著）
 3. 两者均需要大模型（≥100B）或高EP数（≥8）
+
+---
+
+## 附录F：4×H20上Qwen2-57B-A14B的三组交替对比（本次实验）
+
+### F.1 实验设置
+
+- **硬件**：4× NVIDIA H20 (96GB/卡), NVLink全互连, 无IB
+- **模型**：Qwen2-57B-A14B-Instruct (28层MoE, 64专家, top-8, EP=4→16专家/卡, 有shared expert=20480)
+- **方法**：每个场景独立重启服务器，Baseline/OEPLB/EPLB交替跑（消除时间漂移和placement继承）
+- **OEPLB配置**：sw=16, decay=0.5, threshold=1.02
+- **EPLB配置**：16冗余专家, eplb-rebalance-num-iterations=64
+
+### F.2 O=1（纯prefill）结果
+
+| 场景 | Baseline | EPLB | OEPLB | OE vs BL | OE vs EPLB |
+|---|---|---|---|---|---|
+| L512_O1 (8K) | 57.7 | 58.2 | 60.4 | **+4.7%** | +3.8% |
+| 多域 16K | 27.1 | 27.1 | 27.8 | **+2.6%** | +2.6% |
+| ShareGPT 20K | 257.3 | 258.5 | 265.3 | **+3.1%** | +2.6% |
+
+OEPLB在三个prefill场景全部正收益（+2.6%~+4.7%），全部超越EPLB。
+
+### F.3 O=256（decode-heavy）结果
+
+| 场景 | Baseline | EPLB | OEPLB | OE vs BL | OE vs EPLB |
+|---|---|---|---|---|---|
+| L512_O256 (8K) tps | 6652.9 | **2502.3** | 6698.9 | +0.7% | **+167.7%** |
+| L512_O256 tpot(ms) | 28.72 | **92.71** | 29.35 | +2.2% | **-68.3%** |
+
+### F.4 关键发现：EPLB的CUDA graph禁用代价被复现
+
+**EPLB在decode场景灾难性退化-62.4%**（2502.3 vs 6652.9 tps），tpot从28.72ms恶化到92.71ms（慢3.2倍）。
+日志确认EPLB运行时`cuda graph: False`（因`deepep_mode=normal`强制禁用CUDA graph）。
+
+这完美复现了论文§2.2限制1的claim（论文报告decode场景-68%，本次复现-62.4%）。
+
+**OEPLB保持CUDA graph**（日志`cuda graph: True`），decode不损失（+0.7%），tpot仅+2.2%。
+
+OEPLB vs EPLB在decode场景差距**+167.7%**——这是OEPLB相对EPLB最有力的证据：
+EPLB的冗余专家虽能改善专家均衡，但强制禁用CUDA graph的代价在decode场景远超均衡收益。
+
+### F.5 系统效率（对比理论上界）
+
+| 实验 | 理论上界 | 实测收益 | 系统效率 |
+|---|---|---|---|
+| 57B L512_O1 | 17.2%* | +4.7% | 27% |
+| 57B多域 | 17.2%* | +2.6% | 15% |
+| 57B ShareGPT | 17.2%* | +3.1% | 18% |
+
+*57B理论上界用shared expert稀释后的f_eff≈0.41估算（无nsys trace）。
+4卡NVLink带宽充裕→straggler同步等待代价低于8卡→实际β_combine<1.33→
+实际上界低于估算的17.2%，因此系统效率被低估。需57B nsys trace精确校准。
