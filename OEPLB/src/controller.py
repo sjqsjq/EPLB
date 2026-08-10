@@ -300,17 +300,10 @@ class PBOEPLBController:
         _num_moe_layers = max(1, self.num_layers - self._layer_offset)
         layer_id = self._layer_offset + (self._layer_counter % _num_moe_layers)
         self._layer_counter += 1
-        # Optimized hot path: 1 GPU kernel (was 4).
-        # torch.bincount automatically ignores negative values (the -1 padding
-        # entries), so we skip the mask/masked_fill/.long() chain entirely.
-        # The only conversion needed is int32→int64 (bincount requirement).
-        # We use the pre-allocated int64 buffer to avoid a temporary allocation.
-        n = topk_ids.numel()
-        if self._record_index_buf.numel() < n:
-            self._record_index_buf = torch.zeros(n, dtype=torch.int64, device="cuda")
-        self._record_index_buf[:n].copy_(topk_ids.view(-1))
-        self.load[layer_id] += torch.bincount(
-            self._record_index_buf[:n], minlength=self.num_physical_experts
+        flat = topk_ids.reshape(-1)
+        mask = flat != -1
+        self.load[layer_id].scatter_add_(
+            dim=0, index=flat.masked_fill(~mask, 0).long(), src=mask.long()
         )
         if layer_id == 0:
             self.total_tokens += topk_ids.shape[0]
