@@ -619,6 +619,27 @@ class ServerArgs:
     enable_deepep_waterfill: bool = False
     elastic_ep_rejoin: bool = False
 
+    # PB-OEPLB (online expert placement load balancer)
+    enable_pb_oeplb: bool = False
+    pb_oeplb_threshold_ratio: float = 1.02
+    pb_oeplb_max_swaps_per_layer: int = 64
+    pb_oeplb_min_prefill_tokens: int = 256
+    pb_oeplb_max_total_swap_layers: int = 94
+    pb_oeplb_max_total_ops: int = 300
+    pb_oeplb_min_swap_ops: int = 8
+    pb_oeplb_always_record: bool = False
+    pb_oeplb_sync_window: int = 8
+    pb_oeplb_decay_factor: float = 0.5
+    pb_oeplb_min_record_tokens: int = 32
+    pb_oeplb_adaptive_window: bool = False
+    pb_oeplb_window_floor: int = 32
+    pb_oeplb_window_shift_cos: float = 0.85
+    pb_oeplb_window_stable_cos: float = 0.95
+    pb_oeplb_window_shift_confirm: int = 1
+    pb_oeplb_window_stable_confirm: int = 2
+    pb_oeplb_calibrate_adaptive_sensitivity: bool = False
+    pb_oeplb_calibration_forwards: int = 256
+
     # Mamba cache
     max_mamba_cache_size: Optional[int] = None
     mamba_ssm_dtype: Optional[str] = None
@@ -3304,6 +3325,15 @@ class ServerArgs:
         if self.enable_eplb:
             assert self.ep_size > 1
 
+        if self.enable_pb_oeplb:
+            assert not self.enable_eplb, (
+                "--enable-pb-oeplb and --enable-eplb are mutually exclusive "
+                "(both manage expert placement)."
+            )
+            assert self.ep_size > 1, "PB-OEPLB requires expert parallelism (ep_size > 1)."
+            if self.ep_dispatch_algorithm is None:
+                self.ep_dispatch_algorithm = "static"
+
     def _handle_elastic_ep(self):
         if self.elastic_ep_backend is not None:
             if self.enable_eplb:
@@ -5761,6 +5791,45 @@ class ServerArgs:
             "(e.g., --mooncake-ib-device mlx5_0,mlx5_1). "
             "Default is None, which triggers automatic device detection when Mooncake Backend is enabled.",
         )
+        # PB-OEPLB (online expert placement load balancer)
+        parser.add_argument("--enable-pb-oeplb", action="store_true",
+            help="Enable PB-OEPLB (online expert placement load balancer).")
+        parser.add_argument("--pb-oeplb-threshold-ratio", type=float,
+            default=ServerArgs.pb_oeplb_threshold_ratio, help="Imbalance ratio threshold to trigger a swap.")
+        parser.add_argument("--pb-oeplb-max-swaps-per-layer", type=int,
+            default=ServerArgs.pb_oeplb_max_swaps_per_layer, help="Max swaps per layer per decision window.")
+        parser.add_argument("--pb-oeplb-min-prefill-tokens", type=int,
+            default=ServerArgs.pb_oeplb_min_prefill_tokens, help="Min accumulated prefill tokens before deciding a swap.")
+        parser.add_argument("--pb-oeplb-max-total-swap-layers", type=int,
+            default=ServerArgs.pb_oeplb_max_total_swap_layers, help="Max layers touched by the global swap budget.")
+        parser.add_argument("--pb-oeplb-max-total-ops", type=int,
+            default=ServerArgs.pb_oeplb_max_total_ops, help="Max total swap ops per decision window.")
+        parser.add_argument("--pb-oeplb-min-swap-ops", type=int,
+            default=ServerArgs.pb_oeplb_min_swap_ops, help="Skip swap plan smaller than this.")
+        parser.add_argument("--pb-oeplb-always-record", action="store_true",
+            help="Record routing on decode batches too (default: prefill-only).")
+        parser.add_argument("--pb-oeplb-sync-window", type=int,
+            default=ServerArgs.pb_oeplb_sync_window, help="Forward passes between decision windows.")
+        parser.add_argument("--pb-oeplb-decay-factor", type=float,
+            default=ServerArgs.pb_oeplb_decay_factor, help="Exponential decay factor for load history.")
+        parser.add_argument("--pb-oeplb-min-record-tokens", type=int,
+            default=ServerArgs.pb_oeplb_min_record_tokens, help="Skip recording prefill batch smaller than this.")
+        parser.add_argument("--pb-oeplb-adaptive-window", action="store_true",
+            help="Enable adaptive sync window (shrink on shift, grow when stable).")
+        parser.add_argument("--pb-oeplb-window-floor", type=int,
+            default=ServerArgs.pb_oeplb_window_floor, help="Min sync window when adaptive shrinks.")
+        parser.add_argument("--pb-oeplb-window-shift-cos", type=float,
+            default=ServerArgs.pb_oeplb_window_shift_cos, help="cos_sim below this = workload shift.")
+        parser.add_argument("--pb-oeplb-window-stable-cos", type=float,
+            default=ServerArgs.pb_oeplb_window_stable_cos, help="cos_sim above this = stable.")
+        parser.add_argument("--pb-oeplb-window-shift-confirm", type=int,
+            default=ServerArgs.pb_oeplb_window_shift_confirm, help="Consecutive low-cos windows to confirm shift.")
+        parser.add_argument("--pb-oeplb-window-stable-confirm", type=int,
+            default=ServerArgs.pb_oeplb_window_stable_confirm, help="Consecutive high-cos windows to confirm stable.")
+        parser.add_argument("--pb-oeplb-calibrate-adaptive-sensitivity", action="store_true",
+            help="Calibrate adaptive window sensitivity from prefill:decode ratio.")
+        parser.add_argument("--pb-oeplb-calibration-forwards", type=int,
+            default=ServerArgs.pb_oeplb_calibration_forwards, help="Forwards for sensitivity calibration.")
         parser.add_argument(
             "--enable-deepep-waterfill",
             action="store_true",
