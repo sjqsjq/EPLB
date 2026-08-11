@@ -620,3 +620,20 @@ EPLB的冗余专家虽能改善专家均衡，但强制禁用CUDA graph的代价
 *57B理论上界用shared expert稀释后的f_eff≈0.41估算（无nsys trace）。
 4卡NVLink带宽充裕→straggler同步等待代价低于8卡→实际β_combine<1.33→
 实际上界低于估算的17.2%，因此系统效率被低估。需57B nsys trace精确校准。
+
+### F.6 O=256三数据集完整对比（decode-heavy）
+
+| 数据集 | Baseline tps | OEPLB tps | Delta | Baseline tpot | OEPLB tpot | tpot Delta |
+|---|---|---|---|---|---|---|
+| L512_O256 (8K) | 6664.6 | 6710.6 | **+0.7%** | 28.5ms | 29.1ms | +2.1% |
+| multi_O256 (16K) | 4244.6 | 4300.3 | **+1.3%** | 49.38ms | **43.51ms** | **-11.9%** |
+| sg_O256 (20K) | 8282.1 | 8431.0 | **+1.8%** | 28.61ms | 27.97ms | -2.2% |
+
+OEPLB在三个decode-heavy场景全部正收益（+0.7%~+1.8%）。
+
+**multi_O256的tpot改善-11.9%最显著**：多域切换场景下decode阶段的每token延迟
+从49.38ms降到43.51ms。这是因为域切换导致专家热点漂移，OEPLB通过swap持续
+纠偏，减少了decode阶段的straggler等待。
+
+**对比EPLB**：EPLB在decode场景因禁用CUDA graph灾难性退化-62.4%（见F.3），
+而OEPLB保持CUDA graph所以decode不损失。这是OEPLB相对EPLB的核心优势。
