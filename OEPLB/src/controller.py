@@ -1,4 +1,5 @@
 import logging
+import math
 import time
 import torch
 import torch.distributed
@@ -138,6 +139,12 @@ class PBOEPLBController:
             model_runner, self.model_runner.moe_ep_rank, self.num_local
         )
         self._pending_plan_start_t = None
+        # Swap-budget accounting (cfg.swap_budget_frac). _cum_swap_s is this
+        # rank's own blocking time inside batch_isend_irecv, which is what
+        # competes with the headroom -- not the sum across ranks.
+        self._serving_t0 = time.perf_counter()
+        self._cum_swap_s = 0.0
+        self._budget_warned = False
         self._prewarmed = (self.dp_size > 1)
 
         # Pure local counters — no cross-rank consensus needed (see class docstring)
@@ -609,6 +616,73 @@ class PBOEPLBController:
             logger.warning(f"[PB-OEPLB-REFINE] failed (non-fatal): {e}")
             self._eplb_refined = True  # Don't retry
 
+    def _effective_threshold(self, global_tokens: int):
+        """Threshold the observed window ratio must clear before we swap.
+
+        Two corrections, both opt-in, both raising the bar:
+
+        1. Dead zone. Wall time is flat in r below r_k (appendix G), so a swap
+           that moves r from inside the dead zone to further inside it buys
+           nothing and still blocks on P2P. Floor the threshold at r_k.
+
+        2. Sampling bias. The ratio we observe is max_g/mean over per-GPU token
+           counts accumulated in this window. With N tokens per layer those
+           counts carry multinomial noise, and taking a max over ep_size groups
+           turns that noise into a POSITIVE bias of ~c/sqrt(N) -- present even
+           under perfectly uniform routing. Rather than correcting the ratio
+           (which would mean touching the plan builder's per-layer arithmetic)
+           we raise the threshold by the same amount, which gates identically:
+               r_obs - bias > thr   <=>   r_obs > thr + bias
+           c depends only on ep_size (measured 5.10 at ep=8, 2.62 at ep=4;
+           order-statistics estimate sqrt(2 G ln G) gives 5.77 / 3.33).
+
+        Returns (threshold, bias) so the caller can log both.
+        """
+        thr = max(self.cfg.threshold_ratio, self.cfg.dead_zone_ratio)
+        bias = 0.0
+        if self.cfg.bias_correct:
+            c = self.cfg.bias_coeff
+            if c <= 0:
+                # Calibrated at window level against recorded routing counts by
+                # regressing the observed ratio on 1/sqrt(N) across window sizes
+                # 1..128 and four datasets: c = 5.17 +-11% at ep=8 and
+                # 2.66 +-9% at ep=4, i.e. c ~= 0.65*ep_size. The order-statistics
+                # estimate sqrt(2 G ln G) gives 5.77 / 3.33 -- the right shape but
+                # 12-25% high, so it over-corrects. Only two ep values were
+                # measured, so treat the linear form as a fit, not a law, and
+                # override with bias_coeff when a config has been calibrated.
+                c = 0.65 * self.ep_size
+            n_per_layer = max(global_tokens / max(self.num_layers, 1), 1.0)
+            bias = c / math.sqrt(n_per_layer)
+            thr += bias
+        return thr, bias
+
+    def _swap_budget_exhausted(self):
+        """True when cumulative swap time has eaten its allowance.
+
+        beta*(r-r_k) bounds what perfect balancing can win, and it is a few
+        percent on every config we measured, so once the balancer has spent
+        more than that fraction of elapsed serving time inside
+        batch_isend_irecv it cannot come out ahead no matter how good the
+        remaining decisions are. Measured: two configs at swap/headroom 1.26 and
+        1.09 both realised ~0 of their ceiling.
+        """
+        if self.cfg.swap_budget_frac <= 0:
+            return False
+        elapsed = time.perf_counter() - self._serving_t0
+        if elapsed <= 0:
+            return False
+        spent_frac = (self._cum_swap_s / elapsed)
+        if spent_frac <= self.cfg.swap_budget_frac:
+            return False
+        if not self._budget_warned:
+            self._budget_warned = True
+            logger.info(f"[PB-OEPLB] swap budget exhausted: spent "
+                        f"{self._cum_swap_s:.2f}s of {elapsed:.1f}s "
+                        f"({100*spent_frac:.2f}% > {100*self.cfg.swap_budget_frac:.2f}%) "
+                        f"-- no further swaps will be issued")
+        return True
+
     def _decide_and_begin_swap(self):
         if not self._calib_done:
             return
@@ -748,6 +822,46 @@ class PBOEPLBController:
             if global_tokens < self.cfg.min_prefill_tokens:
                 return
 
+            _thr, _bias = self._effective_threshold(global_tokens)
+            if self._swap_budget_exhausted():
+                return
+            # Plan quality, not just trigger: the plan is built from the same
+            # counts that produced the biased ratio, so when the estimate is
+            # coarse relative to the margin we are acting on, the per-expert
+            # ordering is noise and the migration corrects skew that is not
+            # there. Sit the window out and let the accumulator gather tokens.
+            # The comparison is against the MARGIN, not an absolute bound --
+            # the bias scales with ep_size, so a fixed cap would block every
+            # window on wide EP including those with real headroom.
+            if self.cfg.bias_gate > 0 and _bias > 0:
+                _margin = (_current_avg_ratio - _bias) - max(
+                    self.cfg.threshold_ratio, self.cfg.dead_zone_ratio)
+                if _margin <= 0 or _bias > self.cfg.bias_gate * _margin:
+                    if self.window_count % 8 == 1:
+                        logger.info(f"[PB-OEPLB] window#{self.window_count}: skipped "
+                                    f"-- noise/margin too high (bias={_bias:.4f}, "
+                                    f"margin={_margin:.4f}, {global_tokens} tok)")
+                    return
+            # With the bias term the corrected ratio is what we should be
+            # judging, so bail out early when even the raw ratio cannot clear
+            # the bar -- saves building a plan that would come back empty.
+            #
+            # Gated on the new knobs being active on purpose. This is a
+            # WINDOW-AVERAGE test, while the plan builder applies the threshold
+            # PER LAYER, so it is strictly more aggressive: a window whose mean
+            # ratio sits under the bar can still contain a badly skewed layer
+            # that the old path would have fixed. Enabling it unconditionally
+            # would silently change default behaviour and invalidate every
+            # measurement taken so far.
+            _early_exit_active = self.cfg.bias_correct or self.cfg.dead_zone_ratio > 0
+            if _early_exit_active and _current_avg_ratio <= _thr:
+                if _bias > 0 and self.window_count % 8 == 1:
+                    logger.info(f"[PB-OEPLB] window#{self.window_count}: "
+                                f"r={_current_avg_ratio:.4f} <= thr={_thr:.4f} "
+                                f"(bias={_bias:.4f} from {global_tokens} tok) -- no swap")
+                self._check_eplb_refinement(global_load)
+                return
+
             if self.async_executor.busy:
                 self.skipped_busy += 1
                 return
@@ -768,7 +882,7 @@ class PBOEPLBController:
                 physical_to_logical_map=p2l_map,
                 num_ranks=self.ep_size,
                 num_local=self.num_local,
-                threshold_ratio=self.cfg.threshold_ratio,
+                threshold_ratio=_thr,
                 max_swaps_per_layer=self.cfg.max_swaps_per_layer,
                 max_total_swap_layers=self.cfg.max_total_swap_layers,
                 max_total_ops=self.cfg.max_total_ops,
@@ -1008,6 +1122,7 @@ class PBOEPLBController:
 
             self._prof_finalize_ns += time.perf_counter_ns() - _tf
             total_ms = (time.perf_counter() - self._pending_plan_start_t) * 1000
+            self._cum_swap_s += total_ms / 1000.0
             self.total_swaps += len(plan)
             logger.info(f"[PB-OEPLB] {len(plan)} swap(s) done ({total_ms:.1f}ms) | total={self.total_swaps}")
         except Exception as e:
