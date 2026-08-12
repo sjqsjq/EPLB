@@ -383,7 +383,18 @@ class PBOEPLBController:
                     self._effective_sync_window = max(8, self._effective_sync_window // 2)
                     self._adw_converge_count = 0
                     self._adw_volatile_count = 0
-                    logger.info(f"[PB-OEPLB-ADW] ratio jump {delta:.3f} -> shrink sw to {self._effective_sync_window}")
+                    # Adaptive decay (opt-in via cfg.adaptive_decay): a changepoint
+                    # makes the accumulated history stale, so shrinking the window
+                    # alone still leaves alpha*old_signal in the accumulator (50%
+                    # at alpha=0.5, needing one more window to half-decay). Zeroing
+                    # the decay for this one step clears the old-domain signal
+                    # immediately, cutting response latency from M*ln2 to 0. This
+                    # is the alpha->0 step of §3.5; steady state restores alpha below.
+                    if getattr(self.cfg, 'adaptive_decay', False):
+                        self._decay_factor = 0.0
+                        logger.info(f"[PB-OEPLB-ADW] ratio jump {delta:.3f} -> shrink sw to {self._effective_sync_window}, decay->0 (clear stale history)")
+                    else:
+                        logger.info(f"[PB-OEPLB-ADW] ratio jump {delta:.3f} -> shrink sw to {self._effective_sync_window}")
                 elif delta < 0.003:
                     self._adw_converge_count += 1
                     self._adw_volatile_count = 0

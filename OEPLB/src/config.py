@@ -76,6 +76,9 @@ class PBOEPLBConfig:
 
     # --- Adaptive window ---
     adaptive_window: bool = False
+    # Adaptive decay: on a detected changepoint, zero the decay for one step to
+    # clear stale old-domain history (§3.5). Requires adaptive_window=True.
+    adaptive_decay: bool = False
     window_floor: int = 32
     window_shift_cos_threshold: float = 0.85
     window_stable_cos_threshold: float = 0.95
@@ -123,6 +126,7 @@ class PBOEPLBConfig:
             swap_budget_frac=_f(server_args, 'pb_oeplb_swap_budget_frac', 'OEPLB_SWAP_BUDGET_FRAC', 0.0),
             # Adaptive window (CLI)
             adaptive_window=getattr(server_args, 'pb_oeplb_adaptive_window', False),
+            adaptive_decay=_b(server_args, 'pb_oeplb_adaptive_decay', 'OEPLB_ADAPTIVE_DECAY', False),
             window_floor=getattr(server_args, 'pb_oeplb_window_floor', 32),
             window_shift_cos_threshold=getattr(server_args, 'pb_oeplb_window_shift_cos', 0.85),
             window_stable_cos_threshold=getattr(server_args, 'pb_oeplb_window_stable_cos', 0.95),
