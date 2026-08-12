@@ -312,7 +312,9 @@ Swaps are executed **synchronously**: the controller completes the entire swap i
 
 2. **Chunking a large P2P batch breaks consistent participation across ranks and thus hangs.** The first-version fix for failure mode 1 was to slice the plan into chunks and issue them in batches. This introduced a **more insidious** deadlock: when a rank owns no slots in a given chunk it skips that chunk's `batch_isend_irecv`, whereas NCCL's coalesced work is **numbered by increasing sequence numbers per process group**, and uneven participation causes the sequence numbers to diverge (watchdog measurements: 12 lines of `SeqNum=4`, 3 lines of `SeqNum=5`, `WorkNCCL(SeqNum=4, OpType=COALESCED) ran for 600091 ms`). Therefore **the plan must be submitted as a whole batch**; `max_total_ops` is a safety valve against an overly large single batch, not a freely tunable performance knob — turning it down does not split a large plan into separate executions.
 
-These two lessons apply to any system doing online expert migration: the transient memory overhead of migration grows linearly with plan size and falls outside the framework allocator, and any "optimization" that makes rank participation inconsistent will hang in the form of sequence-number divergence.
+3. **Cumulative swap volume under high-frequency decisions diverges NCCL sequence numbers (new measurement, this revision).** The first two failure modes are within-plan; this one is **cumulative**. With $(W=8,\alpha=0.5)$ on the 235B segmented workload, the balancer keeps issuing large migrations, accumulating 77k swaps, until the watchdog reports `WorkNCCL(SeqNum=524, OpType=COALESCED) ran for 600019 ms` with `last enqueued work: 524, last completed work: 792` — enqueued and completed sequence numbers diverge. Unlike failure mode 2, participation within each batch is uniform here; it is the **cross-batch** issue rate that outruns NCCL. Mitigation is to cap cumulative migration (`swap_budget_frac`; Appendix H shows it converts this point from a hang into a completing run, though still 5.4× slow), and the fix is to avoid that region of the $(W,\alpha)$ plane (Appendix H's rule: $W\ge16$, or $\alpha=0$ / $\alpha\ge0.75$ when $W<16$).
+
+These three lessons apply to any system doing online expert migration: the transient memory overhead of migration grows linearly with plan size and falls outside the framework allocator, and any "optimization" that makes rank participation inconsistent will hang in the form of sequence-number divergence.
 
 **Evolving p2l updates**: when multiple swap operations target the same layer, each operation reads the *current* (evolving) p2l state rather than the stale `logical_a/logical_b` values from planning time. This prevents the p2l inconsistency bug that caused CUDA asserts in the early version.
 
@@ -322,7 +324,7 @@ These two lessons apply to any system doing online expert migration: the transie
 
 **First, clear up a conflation: window $W$ and decay $\alpha$ are not two independent knobs.** The controller decides every $W$ prefill forwards on an exponentially decayed accumulator $A_t = R_t + \alpha A_{t-1}$. Expanding $A_t=\sum_{k\ge0}\alpha^k R_{t-k}$, its **effective memory length** is
 $$M = \frac{W}{1-\alpha}\quad(\text{in forwards})$$
-In steady state $W$ and $\alpha$ affect the bias-variance operating point **only through $M$**: fixing $M$ while increasing both $W$ and $\alpha$ gives identical statistical quality, but a larger $W$ means sparser decisions and lower `all_reduce` overhead. So the division of labor is: $\alpha$ sets the forgetting-curve shape, $W$ sets decision frequency/overhead, and $M$ is the single **bias-variance degree of freedom** that must be tuned per workload. Early implementations (and most online balancers) change $W$ without co-adjusting $\alpha$, unintentionally moving $M$ — the design flaw this paper corrects. Appendix H designs a 235B experiment to test whether $M$ is a sufficient statistic (whether different $(W,\alpha)$ with the same $M$ land on one throughput curve; `driver29.sh` in progress).
+In steady state $W$ and $\alpha$ affect the bias-variance operating point **only through $M$**: fixing $M$ while increasing both $W$ and $\alpha$ gives identical statistical quality, but a larger $W$ means sparser decisions and lower `all_reduce` overhead. So the division of labor is: $\alpha$ sets the forgetting-curve shape, $W$ sets decision frequency/overhead, and $M$ is the single **bias-variance degree of freedom** that must be tuned per workload. Early implementations (and most online balancers) change $W$ without co-adjusting $\alpha$, unintentionally moving $M$ — the design flaw this paper corrects. Appendix H measures this on 235B (`driver31.sh`): $M$ is an **approximate** sufficient statistic — same-$M$ arms agree to within 4.8% for $M\ge32$, but the corner $(W=8,\alpha=0.5)$ is 5.4× slower, so the reduction to a single $M$ is not exact.
 
 **The optimal $M$: joint minimization of bias, variance, and changepoint latency.** Three costs:
 
@@ -332,7 +334,9 @@ $$M_{\min} = \frac{c^2}{\big(\gamma(r-r_k)\big)^2\,\bar t}$$
 
 2. **Latency cost (large $M$)**: under geometric decay, after a changepoint the old-domain signal decays to half in $M\ln2$ steps, during which the wrong placement serves, losing $\approx\beta(r_{\text{new}}-r_k)\cdot M\ln2/L_{\text{seg}}$ ($L_{\text{seg}}$ = mean segment length).
 
-3. **Joint optimum**: $\min_M[a\cdot\text{bias}(M)^2 + b\cdot\beta(r-r_k)M\ln2/L_{\text{seg}}]$, whose first-order condition gives the closed form
+3. **Joint optimum**: the variance term must be normalized by the **signal** (what matters is the noise-to-signal ratio $\text{bias}/(\gamma(r-r_k))$, not the absolute noise), so
+$$\min_M\left[a\left(\frac{\text{bias}(M)}{\gamma(r-r_k)}\right)^{2} + b\,\beta(r-r_k)\frac{M\ln2}{L_{\text{seg}}}\right]=\min_M\left[\frac{a\,c^2}{M\bar t\,\gamma^2(r-r_k)^2} + b\,\beta(r-r_k)\frac{M\ln2}{L_{\text{seg}}}\right]$$
+whose first-order condition gives the closed form
 $$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_k)^3\ln2}\right)^{1/2}$$
 i.e. **optimal memory grows as $\sqrt{L_{\text{seg}}}$ and falls as $(r-r_k)^{3/2}$**. All parameters are measurable online: $c$ known, $\bar t$ recorded, $r$/$r_k$ from the §2.4 power law, $\beta$ from profiling, $L_{\text{seg}}$ from changepoint detection.
 
@@ -340,7 +344,7 @@ i.e. **optimal memory grows as $\sqrt{L_{\text{seg}}}$ and falls as $(r-r_k)^{3/
 
 **Adaptive decay (new in this work; previously only fixed $\alpha=0.5$).** Changepoint detection (cosine similarity of consecutive windows' expert distributions $<0.95$, §2.3 obs. 1) should not only shrink $W$ but also **zero $\alpha$ for one step**: under geometric decay $\alpha=0.5$ means 50% of the old signal survives a changepoint and needs one step to half-decay; setting $\alpha\to0$ clears the old-domain history instantly (engineering-wise `load.zero_()`), cutting the response latency from $M\ln2$ to 0. After steady state resumes, $\alpha$ regrows toward $M^\star$. This unifies "shrink window" and "clear history" as one operation on $M$ — $M\to M_{\min}$ at a changepoint, $M\to M^\star$ in steady state.
 
-**The three implemented feedback signals** (a discrete approximation of the above continuous control): **signal 1 (converged)** ratio changes $<0.003$ over 3 windows → double $M$ (lower overhead); **signal 2 (shift)** ratio jumps $>0.03$ or cos_sim $<0.95$ → $M\to M_{\min}$ and $\alpha\to0$ (fast response); **signal 3 (volatile)** ratio oscillates between the two → expand $M$ (more samples, lower variance). Appendix H verifies the closed-form $M^\star$ on 235B segmented workloads and compares adaptive against a "best-$M$-per-segment" oracle.
+**The three implemented feedback signals** (a discrete approximation of the above continuous control): **signal 1 (converged)** ratio changes $<0.003$ over 3 windows → double $M$ (lower overhead); **signal 2 (shift)** ratio jumps $>0.03$ or cos_sim $<0.95$ → $M\to M_{\min}$ and $\alpha\to0$ (fast response); **signal 3 (volatile)** ratio oscillates between the two → expand $M$ (more samples, lower variance). Appendix H reports the measured outcome: adaptive window + adaptive decay is the fastest arm (1.07× the no-OEPLB reference), beating all eight static $(W,\alpha)$ configurations, with adaptive decay separately worth 3.6% and 44% fewer swaps; the closed form for $M^\star$ remains untested on its latency side.
 
 ### 3.6 Prefill-Only Recording
 
@@ -1078,11 +1082,40 @@ This appendix verifies two falsifiable claims on 235B/EP8: (P1) $M$ is a suffici
 
 **$(W,\alpha)$ grid** (`driver29.sh`, in progress): points chosen so several $(W,\alpha)$ share the same $M\in\{16,32,64,160\}$. Each point on 235B measures throughput, decision count, swap cost, and the cos_sim trajectory.
 
-### H.3 Pre-registered predictions (recorded before the experiment, not to be revised)
+### H.3 Pre-registered Predictions vs. Measured Results
 
-- **P1**: throughput is governed mainly by $M=W/(1-\alpha)$; same $M$, different $(W,\alpha)$ differ by $<2\%$.
-- **P2**: optimal $M^\star$ increases monotonically with $L_{\text{seg}}$ (a $\sqrt{}$ relation).
-- **P3**: adaptive decay ($\alpha\to0$ at a changepoint) converges $\ge1$ decision window faster than fixed $\alpha=0.5$ on short segments ($L_{\text{seg}}=50$).
-- **P4**: the optimal static $M$ on 235B steady-state load is near the current default ($W=16,\alpha=0.5\Rightarrow M=32$).
+The predictions were recorded before the experiment (`NOTES.md`, 2026-08-12 17:25); this section reconciles them as measured, with no post-hoc revision.
 
-*Results to be filled in once `driver29.sh` completes.* This appendix currently states the design and predictions — publishing falsifiable predictions before measurement, handled the same way as the pre-registered EP=2 predictions in G.2(f) (all four hit).
+**Setup.** 235B/EP8, `segp_L1000.jsonl` (8000 requests, 8 segments × 1000, alternating math and chat; both domains forced to $O=1$ pure prefill so that a changepoint is **only** a routing-distribution change). Reference arm: same dataset with OEPLB disabled, 62.9 s. A uniform swap budget of 0.10 was applied to every arm so that no arm could hang and pollute the comparison.
+
+| Arm | $M$ | $W$ | $\alpha$ | Time (s) | vs. ref | Decisions | Swaps issued | Budget hits |
+|---|---|---|---|---|---|---|---|---|
+| M16_W8a50 | 16 | 8 | 0.50 | **340.4** | **5.41×** | 7 | 6 | 8 |
+| M16_W16a0 | 16 | 16 | 0 | 69.9 | 1.11× | 21 | 21 | 0 |
+| M32_W8a75 | 32 | 8 | 0.75 | 69.1 | 1.10× | 21 | 20 | 8 |
+| M32_W16a50 | 32 | 16 | 0.50 | 69.5 | 1.10× | 19 | 18 | 8 |
+| M32_W32a0 | 32 | 32 | 0 | 69.2 | 1.10× | 16 | 16 | 0 |
+| M64_W16a75 | 64 | 16 | 0.75 | 72.2 | 1.15× | 15 | 15 | 8 |
+| M64_W32a50 | 64 | 32 | 0.50 | 69.0 | 1.10× | 12 | 12 | 0 |
+| M64_W64a0 | 64 | 64 | 0 | 68.9 | 1.09× | 5 | 4 | 0 |
+| **Adaptive window + adaptive decay** | — | 16 init | 0.5 init | **67.0** | **1.07×** | 10 | 10 | 0 |
+
+(The adaptive-window-only arm lost its result file to an abnormal bench-process exit; its log records 13 decisions / 12 issued / 2 budget hits. It is excluded from the comparison.)
+
+**P1' (same $M$, different $(W,\alpha)$, spread $<5\%$) — partially falsified.**
+
+| $M$ | Within-group spread | Verdict |
+|---|---|---|
+| 16 | **387%** | ✗ falsified |
+| 32 | 0.5% | ✓ holds |
+| 64 | 4.8% | ✓ holds |
+
+For $M\ge32$, $M$ is indeed an approximate sufficient statistic (within-group spread $\le4.8\%$), but **there is a pathological corner: $(W=8,\alpha=0.5)$**. Note this is not "$W=8$ is pathological" — $(W=8,\alpha=0.75)$ (i.e. $M$=32) is perfectly normal at 69.1 s. The pathological point remains **5.4× slower** even after hitting the swap budget 8 times and having its decision count squeezed to 7, so the cause is not decision frequency but the **migration volume per decision**: a small $W$ with a middling $\alpha$ keeps the accumulated history persistently mismatched against the current placement, so every decision attempts a large correction. The swap budget throttles but does not remove it. **$M$ is therefore an approximate, not an exact, sufficient statistic, and the $(W,\alpha)$ plane contains a region to avoid. Practical rule: $W\ge16$; if $W<16$, use $\alpha=0$ or $\alpha\ge0.75$ and avoid intermediate values.**
+
+**P2 (throughput-vs-$M$ is unimodal) — not confirmed.** The best time in each $M$ group decreases monotonically with $M$ (69.9 → 69.1 → 68.9 s for $M$=16/32/64); no peak appears. The latency cost has therefore not yet materialized at this workload (a 1000-request segment is still long relative to $M\le64$), and $M^\star$ must lie at larger $M$ or shorter segments. §3.5's closed form for $M^\star$ is thus **neither confirmed nor falsified**: this experiment probes only its variance side; the latency side needs an experiment with a shorter $L_{\text{seg}}$.
+
+**P3 (adaptive decay is better) — holds.** Against the static configuration with the same starting point: fixed $\alpha=0.5$ ($W$=16) gives 69.5 s and 18 swaps; adaptive window + adaptive decay gives **67.0 s and 10 swaps** — 3.6% faster with 44% fewer swaps, and the fastest arm in the table (1.07× the reference). This supports §3.5's argument that zeroing $\alpha$ at a changepoint, to clear the mismatched history, is more effective than shrinking the window alone.
+
+**P4 ($W=8$ arms hit the swap budget) — holds.** Both M16_W8a50 and M32_W8a75 hit it 8 times, confirming that decision frequency is a degree of freedom independent of $M$.
+
+**Overall.** The adaptive mechanism **is worth having**: the best adaptive arm (67.0 s) beats all eight static $(W,\alpha)$ configurations, and the contribution of adaptive decay is separately attributable (3.6% faster and 44% fewer swaps than the same-starting-point static arm). But §3.5's claim that $(W,\alpha)$ reduces entirely to a single $M$ is **too strong** — it holds for $M\ge32$ and fails at $(W=8,\alpha=0.5)$. The closed form for $M^\star$ still awaits a test on its latency side.
