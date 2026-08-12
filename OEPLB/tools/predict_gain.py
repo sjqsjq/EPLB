@@ -112,13 +112,28 @@ def predict(ep: int, r_before: float, r_lpt: float, beta: float, rk: float,
     # Placement vs routing ceiling gap
     placement_gap = beta * max(0.0, r_lpt - rk)
 
+    # Rough overhead floor as a FRACTION of serving time. This is the reason a
+    # positive-beta model (e.g. 30B: beta=+0.20 measured, NOT negative) can still
+    # net-lose: the recording + all_reduce + swap-blocking overhead is a roughly
+    # fixed few-percent tax, and if the ceiling does not clear it, eta goes to 0
+    # or negative. Empirically the record tax alone is ~0.3% (235B, 16 exp/GPU)
+    # to ~1.6% (30B, 32 exp/GPU, all forwards recorded in pure prefill), and
+    # swap+all_reduce adds a comparable amount. We use a conservative 2% floor;
+    # this is a heuristic, not a measured beta<0 test, and the true call needs a
+    # T(r) sweep (see the 30B case in the paper, where ceiling>overhead on paper
+    # yet the measured gain was negative due to a 7.1s CPU-side overhead).
+    overhead_floor = 0.02
+
     # Recommendation
-    if beta < 0:
-        rec = "SKIP: f_sens likely negative (dispatch-dominated model), balancer will hurt"
-    elif ceiling < 0.005:
-        rec = "SKIP: ceiling < 0.5%, not worth the overhead"
-    elif ceiling < 0.015:
-        rec = "MARGINAL: ceiling 0.5-1.5%, might break even after swap overhead"
+    if ceiling < 0.005:
+        rec = "SKIP: ceiling < 0.5%, below any plausible overhead floor"
+    elif ceiling < overhead_floor:
+        rec = (f"LIKELY NET-NEGATIVE: ceiling {100*ceiling:.1f}% is below the "
+               f"~{100*overhead_floor:.0f}% overhead floor (record+all_reduce+swap). "
+               f"beta>0 does NOT guarantee a positive gain -- a T(r) sweep is needed. "
+               f"cf. 30B in the paper: positive beta, negative measured gain.")
+    elif ceiling < 2 * overhead_floor:
+        rec = f"MARGINAL: ceiling {100*ceiling:.1f}% ~ 1-2x the overhead floor; gain may be small or negative"
     elif r_lpt > rk:
         rec = f"ENABLE+REDUNDANCY: r_LPT={r_lpt:.4f} > r_k={rk:.4f}, placement alone leaves {100*placement_gap:.1f}% on the table; consider redundant experts"
     else:
