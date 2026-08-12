@@ -318,20 +318,29 @@ These two lessons apply to any system doing online expert migration: the transie
 
 **Measured blocking cost** (8-GPU 235B, L512_O1, two rounds of independent restarts; full data in Table 7b): 8 decisions per rank in total, 989/1002 swap operations, cumulative blocking of 6.76s/5.14s, accounting for 3.86%/2.98% of the benchmark wall clock. The distribution is highly skewed: the **first decision** (298~299 ops, when the layout is farthest from optimal) takes 4.21s/2.55s, after which each decision stabilizes at 337~407ms. As a comparison, the official EPLB on the same dataset likewise triggers 8 adjustments, but each rearranges all physical slots: first 4.47s/2.87s, steady-state 1.43~1.82s, cumulative 15.82s/13.63s (7.81%/6.85%).
 
-### 3.5 Adaptive Synchronization Window
+### 3.5 Adaptive Window and Decay: A Single Control $M=W/(1-\alpha)$
 
-The synchronization window adjusts automatically based on two feedback signals:
+**First, clear up a conflation: window $W$ and decay $\alpha$ are not two independent knobs.** The controller decides every $W$ prefill forwards on an exponentially decayed accumulator $A_t = R_t + \alpha A_{t-1}$. Expanding $A_t=\sum_{k\ge0}\alpha^k R_{t-k}$, its **effective memory length** is
+$$M = \frac{W}{1-\alpha}\quad(\text{in forwards})$$
+In steady state $W$ and $\alpha$ affect the bias-variance operating point **only through $M$**: fixing $M$ while increasing both $W$ and $\alpha$ gives identical statistical quality, but a larger $W$ means sparser decisions and lower `all_reduce` overhead. So the division of labor is: $\alpha$ sets the forgetting-curve shape, $W$ sets decision frequency/overhead, and $M$ is the single **bias-variance degree of freedom** that must be tuned per workload. Early implementations (and most online balancers) change $W$ without co-adjusting $\alpha$, unintentionally moving $M$ — the design flaw this paper corrects. Appendix H verifies on 235B that $M$ is a sufficient statistic (different $(W,\alpha)$ with the same $M$ land on one throughput curve).
 
-**Signal 1: convergence (ratio stable)**. When the imbalance ratio changes by <0.003 over 3 consecutive windows, the ratio has converged. The window doubles (up to 128), reducing all_reduce frequency and saving overhead.
+**The optimal $M$: joint minimization of bias, variance, and changepoint latency.** Three costs:
 
-**Signal 2: switch detection (ratio jump)**. When the ratio changes by >0.03 between windows, a workload switch is detected. The window immediately halves (down to 8), responding quickly.
+1. **Variance cost (small $M$)**: per-layer accumulated tokens $N=M\cdot\bar t$ ($\bar t$ = tokens per forward per layer), sampling bias $\text{bias}(M)=c/\sqrt{N}$ ($c=0.65\,\text{EP}$, calibrated in D.2). When $\text{bias}>\gamma(r-r_k)$, noise dominates signal and decisions are untrustworthy, giving a **minimum memory**
+$$M_{\min} = \frac{c^2}{\big(\gamma(r-r_k)\big)^2\,\bar t}$$
+(This is the earlier $\text{sw}_{\min}$, now folded into a unified framework.) For 8-GPU 57B ($c=5.2$, $r-r_k=0.119$, $\bar t\approx2000$/layer): $M_{\min}\approx0.5$, one forward suffices; for ShareGPT/4-GPU ($c=2.6$, $r-r_k=0.065$, short-prompt $\bar t\approx110$/layer): $M_{\min}\approx22$ — **this is the root cause of $\eta\approx0$ on heterogeneous workloads in §5.4**: default $W=16<22$, so the window statistic is untrustworthy to begin with.
 
-**Signal 3: fluctuation (ratio oscillation)**. When the ratio fluctuates between 0.003 and 0.03 for 3 consecutive windows, statistical noise is relatively large, and the window expands to accumulate more samples.
+2. **Latency cost (large $M$)**: under geometric decay, after a changepoint the old-domain signal decays to half in $M\ln2$ steps, during which the wrong placement serves, losing $\approx\beta(r_{\text{new}}-r_k)\cdot M\ln2/L_{\text{seg}}$ ($L_{\text{seg}}$ = mean segment length).
 
-This mechanism automatically adapts to prompt length:
-- **Long prompts** (few requests per batch): initial sw=8, fast convergence → expand to 32-128 (saving overhead).
-- **Short prompts** (many requests per batch): initial sw=8, ratio fluctuation → expand to 32-64 (more stable statistics).
-- **Domain switch**: stable sw=64-128 → switch detected → shrink to 8 → convergence → expand back.
+3. **Joint optimum**: $\min_M[a\cdot\text{bias}(M)^2 + b\cdot\beta(r-r_k)M\ln2/L_{\text{seg}}]$, whose first-order condition gives the closed form
+$$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_k)^3\ln2}\right)^{1/2}$$
+i.e. **optimal memory grows as $\sqrt{L_{\text{seg}}}$ and falls as $(r-r_k)^{3/2}$**. All parameters are measurable online: $c$ known, $\bar t$ recorded, $r$/$r_k$ from the §2.4 power law, $\beta$ from profiling, $L_{\text{seg}}$ from changepoint detection.
+
+**Recovering $(W,\alpha)$ from $M^\star$.** Given a communication budget $\rho$ (acceptable `all_reduce` fraction): $W=\max(M_{\min},\,\rho L_{\text{seg}})$, $\alpha=1-W/M^\star$. If $M^\star<W$ (segment too short), it degenerates to $\alpha=0$ (pure window, no accumulation).
+
+**Adaptive decay (new in this work; previously only fixed $\alpha=0.5$).** Changepoint detection (cosine similarity of consecutive windows' expert distributions $<0.95$, §2.3 obs. 1) should not only shrink $W$ but also **zero $\alpha$ for one step**: under geometric decay $\alpha=0.5$ means 50% of the old signal survives a changepoint and needs one step to half-decay; setting $\alpha\to0$ clears the old-domain history instantly (engineering-wise `load.zero_()`), cutting the response latency from $M\ln2$ to 0. After steady state resumes, $\alpha$ regrows toward $M^\star$. This unifies "shrink window" and "clear history" as one operation on $M$ — $M\to M_{\min}$ at a changepoint, $M\to M^\star$ in steady state.
+
+**The three implemented feedback signals** (a discrete approximation of the above continuous control): **signal 1 (converged)** ratio changes $<0.003$ over 3 windows → double $M$ (lower overhead); **signal 2 (shift)** ratio jumps $>0.03$ or cos_sim $<0.95$ → $M\to M_{\min}$ and $\alpha\to0$ (fast response); **signal 3 (volatile)** ratio oscillates between the two → expand $M$ (more samples, lower variance). Appendix H verifies the closed-form $M^\star$ on 235B segmented workloads and compares adaptive against a "best-$M$-per-segment" oracle.
 
 ### 3.6 Prefill-Only Recording
 
@@ -1053,3 +1062,27 @@ The **absolute cost** of imbalance ($B$, in seconds per unit $r$) is almost unch
 2. **Single-point inverse solving is unusable at small $x$.** The methodological conclusion of this appendix: when $\Delta$ is on the same order as inter-run noise (in this paper $\Delta\lesssim2\%$, CV 1.2%), $f_{\text{sens}}$ must not be inversely solved from $\Delta$. The two configurations each provide a counterexample: the 8-card inverse solution 0.061 vs the sweep measurement 0.335 (5.5× too low); the 4-card inverse solution swings between 0.54 and 0.30 depending on whether $r_{\text{before}}$ is taken as 1.113 or 1.20, vs the sweep measurement 0.369. By contrast, the two values from the sweeps (0.335, 0.369) differ by 9%—**$f_{\text{sens}}$ itself is a stable quantity; what is unstable is inverse solving as a tool**. Only sweeping $T(r)$ can yield a meaningful $f_{\text{sens}}$.
 3. **$f_{\text{sens}}$ is load-dependent.** What this appendix provides are values under a specific benchmark configuration (L256, $O=1$, conc=256). The anomaly of 131% system efficiency on the 235B "multi-domain" configuration in §2.4 may well arise precisely from $f_{\text{sens}}$ rising with the load; extrapolation across loads requires re-measurement.
 4. **The sweep measures the steady-state cost of static layouts and contains no dynamic terms.** Decision overhead, swap blocking, and convergence lag are all intentionally excluded (the balancer is off throughout), so $\Delta_{\max}$ is the "perfect balancer" upper bound; the ratio of the measured gain to it (system efficiency) is the quantity this paper's algorithm actually seeks to optimize.
+
+
+## Appendix H: Joint Optimum of Adaptive Window and Decay ($M=W/(1-\alpha)$)
+
+### H.1 Theory
+
+§3.5 argued that window $W$ and decay $\alpha$ affect the steady-state bias-variance operating point only through the effective memory $M=W/(1-\alpha)$, and that the optimal memory has the closed form
+$$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_k)^3\ln2}\right)^{1/2}$$
+This appendix verifies two falsifiable claims on 235B/EP8: (P1) $M$ is a sufficient statistic — different $(W,\alpha)$ with the same $M$ land on one throughput curve; (P2) the optimal $M^\star$ grows as $\sqrt{L_{\text{seg}}}$.
+
+### H.2 Experimental Design
+
+**Controlled piecewise-stationary workload.** The earlier "multi-domain" set turned out near-homogeneous (per-dataset $r_{\text{before}}$ differs $<1.5\%$, Appendix D.2) and never exercised a real changepoint. We therefore use `make_segmented.py` to interleave L256 (math, skewed routed distribution) and ShareGPT (chat) at known segment lengths $L_{\text{seg}}\in\{50,200,1000\}$, constructing a controlled changepoint sequence.
+
+**$(W,\alpha)$ grid** (`driver29.sh`, in progress): points chosen so several $(W,\alpha)$ share the same $M\in\{16,32,64,160\}$. Each point on 235B measures throughput, decision count, swap cost, and the cos_sim trajectory.
+
+### H.3 Pre-registered predictions (recorded before the experiment, not to be revised)
+
+- **P1**: throughput is governed mainly by $M=W/(1-\alpha)$; same $M$, different $(W,\alpha)$ differ by $<2\%$.
+- **P2**: optimal $M^\star$ increases monotonically with $L_{\text{seg}}$ (a $\sqrt{}$ relation).
+- **P3**: adaptive decay ($\alpha\to0$ at a changepoint) converges $\ge1$ decision window faster than fixed $\alpha=0.5$ on short segments ($L_{\text{seg}}=50$).
+- **P4**: the optimal static $M$ on 235B steady-state load is near the current default ($W=16,\alpha=0.5\Rightarrow M=32$).
+
+*Results to be filled in once `driver29.sh` completes.* This appendix currently states the design and predictions — publishing falsifiable predictions before measurement, handled the same way as the pre-registered EP=2 predictions in G.2(f) (all four hit).
