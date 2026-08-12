@@ -285,6 +285,19 @@ $$\text{selected\_slot} = \begin{cases} \arg\max_s \text{load}[s] & \text{if } \
 
 此简单切换解决了一个关键停滞点：之前仅max-delta的规划器收敛到ratio 1.26后无法继续改善（638个有效swap配对存在，但贪心启发式因过冲选择恶化ratio的配对）。采用自适应选择后，ratio在3个窗口内收敛到**1.02**（表2）。
 
+**swap的边际效率与最优停止（本文实测建模）。** 上面的算法收敛到ratio 1.02，但§2.4的死区结果表明**这是过度收敛**——一旦$r\le r_k$，继续压低不换回任何时间。把8卡57B默认配置的完整决策轨迹（附录G/`driver27.sh`的`g8_base`臂，21次决策、343个op）按"越过$r_k$的有效降幅"分解：
+
+| 决策 | ops | $r$前→后 | 越过$r_k$=1.099的有效降幅 |
+|---|---|---|---|
+| #1 | 139 | 1.216→1.017 | **0.117（全部有效行程）** |
+| #2–#21 | 204 | 1.03↔1.01 反复 | **0.000（全在死区内）** |
+
+**首次决策的139个op走完了全部有效行程，其后20次决策、204个op（占总量59%）对吞吐的贡献严格为零。** 这直接量化了收益-代价失衡：默认臂的累计swap阻塞为3.94s，而该配置的headroom（$\beta(r_b-r_k)T_{\text{flat}}=0.285\times0.119\times82.86$）只有2.81s——**阻塞是可用空间的1.4倍**，注定净负。
+
+这给出swap的最优停止条件。设剩余服务时间$T_{\text{rem}}$、单次swap阻塞$t_{\text{swap}}$、下一步预期有效降幅$\mathbb{E}[\Delta r_{\text{eff}}]$，则继续swap的净收益为
+$$\beta\cdot\mathbb{E}[\Delta r_{\text{eff}}]\cdot T_{\text{rem}} - t_{\text{swap}} > 0,\qquad \Delta r_{\text{eff}}=\max(0,r-r_k)-\max(0,r'-r_k)$$
+当$r$已低于$r_k$时$\Delta r_{\text{eff}}\equiv0$，左式恒负，应立即停止。这正是§2.4的$r_k$感知阈值（`dead_zone_ratio`旋钮）所做的——用一个硬门槛$r\le r_k$近似这个连续判据。附录D.3的验证表明该近似已足够：把停止阈值从1.02改到$r_k$=1.099，决策数从72降到8，$\eta$从26%升到100%。**更精细的bandit式自适应停止（按$T_{\text{rem}}$动态调整）是留待未来的优化，但当前的硬阈值已经吃掉了这条失衡的绝大部分。**
+
 ### 3.4 同步P2P执行与阻塞代价
 
 Swap以**同步**方式执行：控制器在`_decide_and_begin_swap()`内部完成整个交换，直到所有P2P传输结束才返回。
@@ -307,7 +320,13 @@ Swap以**同步**方式执行：控制器在`_decide_and_begin_swap()`内部完�
 
 ### 3.5 自适应同步窗口
 
-同步窗口根据两个反馈信号自动调整：
+**核心问题：决策频率是偏差-方差权衡。** 小窗口（sw=8）获得新鲜数据（低偏差），但累积token少→抽样偏差$c/\sqrt{N}$大（§2.4），决策质量差；大窗口（sw=128）累积充分→低方差，但对域切换反应慢→偏差上升。最优窗口大小取决于两个竞争信号的时间尺度：负载变化的尺度（决定偏差代价）和路由的统计性质（决定方差代价）。
+
+**定量关系（来自本文的 bias 标定）：** 窗口内单层token数$N=\text{tokens\_per\_forward}\times\text{sw}/L$，其抽样偏差为$c/\sqrt{N}$（$c=0.65\times\text{EP}$）。当 bias > $\gamma\times(r-r_k)$（$\gamma=0.5$为默认的 bias\_gate）时，统计量的噪声大于信号，据此决策会降低收益。因此**最小有效窗口大小**为
+$$\text{sw}_{\min} = \frac{c^2 L}{\big(\gamma(r-r_k)\big)^2 \times \text{tokens\_per\_forward}}$$
+以8卡57B为例（$c=5.2$，$L=28$，$r-r_k=0.119$，tokens/fwd$\approx$57000）：$\text{sw}_{\min}=0.4$——即每个forward已经足够，不需要聚合。反观ShareGPT/4卡（$c=2.6$，$r-r_k=0.065$，短prompt窗口平均tokens/fwd$\approx$3000）：$\text{sw}_{\min}=22$——需要聚合22个forward才能使噪声低于信号的一半。**这正是§5.4中异质负载η=0的底层原因**：default sw=16 < 22，窗口统计量不可信。
+
+同步窗口根据三个反馈信号自动调整：
 
 **信号1：收敛（ratio稳定）**。当不均衡度在3个连续窗口内变化<0.003时，ratio已收敛。窗口翻倍（最高128），减少all_reduce频率，节省开销。
 
@@ -316,15 +335,21 @@ Swap以**同步**方式执行：控制器在`_decide_and_begin_swap()`内部完�
 **信号3：波动（ratio震荡）**。当ratio在0.003到0.03之间波动3个连续窗口时，统计噪声较大，窗口扩张以积累更多样本。
 
 此机制自动适应prompt长度：
-- **长prompt**（每batch少量请求）：初始sw=8，快速收敛→扩张到32-128（节省开销）。
-- **短prompt**（每batch大量请求）：初始sw=8，ratio波动→扩张到32-64（更稳定的统计）。
+- **长prompt**（每batch少量请求）：初始sw=8，快速收敛→扩张到32-128（节省开销）。$\text{sw}_{\min}$很小，default已足够。
+- **短prompt**（每batch大量请求）：初始sw=8，但$\text{sw}_{\min}$可能>8→信号3触发扩张到32-64。
 - **域切换**：稳定sw=64-128→检测到切换→收缩到8→收敛→扩张回来。
 
 ### 3.6 仅Prefill记录
 
-控制器仅在`forward_batch.forward_mode.is_extend()`（prefill）时记录路由数据。Decode和idle批次完全跳过。这减少约50%记录开销（混合负载中decode步骤数通常为prefill的10:1），同时通过全局共享布局惠及decode。
+控制器仅在`forward_batch.forward_mode.is_extend()`（prefill）时记录路由数据。Decode和idle批次完全跳过。设计依据有三：
 
-**重要细节**：当CUDA graph捕获/回放时（decode阶段），`record_next_layer`通过`torch.cuda.is_current_stream_capturing()`检查直接返回——**零开销**。仅在prefill阶段（不走CUDA graph）才真正执行记录。这意味着在纯prefill（O=1）场景下，所有forward都执行record，开销最大；在混合prefill+decode场景下，decode的record被跳过，开销更低。
+**1. 充分性论证。** Prefill和decode的路由分布由同一个router权重和同一个prompt语义空间决定。在域内（prompt来自同一分布），prefill阶段观察到的per-expert频率是decode阶段的**充分统计量**——两者的max/mean结构相同，只是总token数不同。实测验证：附录D.2中四个数据集的$r_{\text{before}}$全部用**纯prefill录制**的计数算出，与DIAG（同时记录prefill+decode）的自报值吻合到$\le1\%$。
+
+**2. 开销控制。** 混合负载中decode步骤数是prefill的10:1，因此跳过decode减少约50%记录开销。更重要的是CUDA graph约束：decode阶段走CUDA graph时`record_next_layer`通过`torch.cuda.is_current_stream_capturing()`检查直接返回——**零开销**。仅在prefill阶段（不走CUDA graph）才真正执行记录。
+
+**3. 窗口大小的含义变化。** 仅prefill记录意味着一个sync_window=16的窗口**不是**16个forward，而是16个**prefill** forward——在decode-heavy负载下物理时间比等时间窗口长得多，自动提供了更多的稳定性。这与§3.5的信噪比分析一致：每个prefill forward贡献的token数远大于decode forward（因为prefill批次的token数=请求长度，而decode批次每token只有1），因此同样多的prefill forward聚合出的$N$已经足够使bias可控。
+
+**充分性的边界条件。** 当域切换时（prompt分布突变），prefill作为decode的充分统计量的假设不成立——新域的前几个prefill窗口还没积累到足够的新域信号。这正是§3.5中"域切换→窗口收缩"机制的作用：收缩到sw=8使均衡器尽快用新域数据覆盖旧域残留。§3.5实现中的`load.zero_()`（检测到域切换时清零累积计数）是对应的工程保障。
 
 ---
 
@@ -352,6 +377,8 @@ PB-OEPLB作为SGLang 0.5.6.post2的patch实现，修改三个文件：
 ---
 
 ## 5. 评估
+
+> **正确性声明。** PB-OEPLB的专家交换在数学上是恒等变换（权重不变、路由不变），附录E的实验证实swap机制不引入额外数值误差——静态布局零swap即复现全部扰动（mean|Δ|=9.59e-2 vs swap后9.92e-2），baseline逐bit确定（50385/50385 token相同）。因此本节的吞吐数字不以牺牲正确性为代价。
 
 ### 5.1 实验环境
 

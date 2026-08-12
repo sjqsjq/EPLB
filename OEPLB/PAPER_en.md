@@ -285,6 +285,19 @@ $$\text{selected\_slot} = \begin{cases} \arg\max_s \text{load}[s] & \text{if } \
 
 This simple switch resolves a critical stagnation point: the previous max-delta-only planner could not improve further after converging to a ratio of 1.26 (638 effective swap pairs existed, but the greedy heuristic, due to overshooting, selected pairs that worsened the ratio). With adaptive selection, the ratio converges to **1.02** within 3 windows (Table 2).
 
+**Marginal swap efficiency and optimal stopping (measured, this work).** The algorithm above converges to ratio 1.02, but the dead-zone result of §2.4 shows **this is over-convergence** — once $r\le r_k$, pushing lower buys no time back. Decomposing the full decision trajectory of the 8-GPU 57B default configuration (Appendix G / the `g8_base` arm of `driver27.sh`, 21 decisions, 343 ops) by "effective reduction below $r_k$":
+
+| Decision | ops | $r$ before→after | Effective reduction below $r_k$=1.099 |
+|---|---|---|---|
+| #1 | 139 | 1.216→1.017 | **0.117 (the entire useful distance)** |
+| #2–#21 | 204 | 1.03↔1.01 oscillating | **0.000 (all inside the dead zone)** |
+
+**The first decision's 139 ops cover the entire useful distance; the subsequent 20 decisions and 204 ops (59% of the total) contribute exactly zero to throughput.** This directly quantifies the cost–benefit imbalance: the default arm's cumulative swap blocking is 3.94s, while this configuration's headroom ($\beta(r_b-r_k)T_{\text{flat}}=0.285\times0.119\times82.86$) is only 2.81s — **the blocking is 1.4× the available space**, guaranteeing a net loss.
+
+This yields an optimal stopping condition for swaps. Let $T_{\text{rem}}$ be the remaining serving time, $t_{\text{swap}}$ the per-swap blocking, and $\mathbb{E}[\Delta r_{\text{eff}}]$ the expected effective reduction of the next step; then continuing to swap is net-positive when
+$$\beta\cdot\mathbb{E}[\Delta r_{\text{eff}}]\cdot T_{\text{rem}} - t_{\text{swap}} > 0,\qquad \Delta r_{\text{eff}}=\max(0,r-r_k)-\max(0,r'-r_k)$$
+When $r$ is already below $r_k$, $\Delta r_{\text{eff}}\equiv0$, the left side is always negative, and one should stop immediately. This is exactly what §2.4's $r_k$-aware threshold (the `dead_zone_ratio` knob) does — approximating this continuous criterion with a hard cutoff $r\le r_k$. The verification in Appendix D.3 shows this approximation suffices: changing the stopping threshold from 1.02 to $r_k$=1.099 cuts decisions from 72 to 8 and raises $\eta$ from 26% to 100%. **A finer bandit-style adaptive stop (adjusting dynamically with $T_{\text{rem}}$) is left for future work, but the current hard threshold already captures the bulk of this imbalance.**
+
 ### 3.4 Synchronous P2P Execution and Blocking Cost
 
 Swaps are executed **synchronously**: the controller completes the entire swap inside `_decide_and_begin_swap()` and does not return until all P2P transfers have finished.
