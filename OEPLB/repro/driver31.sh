@@ -15,7 +15,7 @@
 LOGD=/workspace/logs
 SFX=server; PAT="sglang.launch_$SFX"
 export OEPLB_MODEL=/data/models/Qwen3-235B-A22B-FP8
-DS=$LOGD/seg_L1000.jsonl
+DS=$LOGD/segp_L1000.jsonl  # pure-prefill (max_tokens=1) so the changepoint is ONLY a routing-distribution change; the earlier seg_L1000 mixed max_tokens 1 vs 2048, making each switch also a prefill/decode-ratio switch and every arm 10x slower
 BUDGET=0.10
 boot () {  # $1=launch $2=tag $3=envstr
   pkill -9 -f "$PAT"; for i in $(seq 1 40); do pgrep -f "$PAT" >/dev/null || break; sleep 3; done; sleep 8
@@ -25,7 +25,7 @@ boot () {  # $1=launch $2=tag $3=envstr
   echo "[d31] $2 ready"
 }
 run () {  # $1=tag
-  cd /workspace/EPLB/OEPLB/scripts && timeout 1800 python3 run_grid_bench.py _d31_$1 $DS 256 > /dev/null 2>&1
+  cd /workspace/EPLB/OEPLB/scripts && timeout 900 python3 run_grid_bench.py _d31_$1 $DS 256 > /dev/null 2>&1
   L=$LOGD/server235b_$1.log
   D=$(grep "DIAG" $L 2>/dev/null|grep -c "DP0")
   S=$(grep "swap(s) done" $L 2>/dev/null|grep -c "DP0")
