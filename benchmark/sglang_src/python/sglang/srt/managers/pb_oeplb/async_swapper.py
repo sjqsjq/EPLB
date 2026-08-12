@@ -22,6 +22,17 @@ class AsyncSwapExecutor:
 
     This matches the official ExpertLocationUpdater's approach (synchronous
     batch_isend_irecv + req.wait()) which has no stability issues.
+
+    IMPORTANT -- the plan must be transferred in a SINGLE batch_isend_irecv.
+    Splitting it into chunks to bound the receive-buffer memory looks safe but
+    is not: within a chunk a rank posts ops only if it owns one of the two slots
+    being swapped, so ranks that own nothing in that chunk skip the call
+    entirely. ProcessGroupNCCL numbers each coalesced work item per process
+    group, so uneven participation makes the sequence numbers diverge and the
+    next collective deadlocks (measured: ranks 0/1 completed all 9 chunks while
+    2/5/6 stalled, watchdog reported SeqNum=4 on some ranks and SeqNum=5 on
+    others, 600 s timeout). With one batch every rank participates exactly once.
+    Bound the memory with --pb-oeplb-max-total-ops instead.
     """
 
     def __init__(self, model_runner, my_rank: int, num_local: int):
@@ -113,11 +124,35 @@ class AsyncSwapExecutor:
 
         _t_alloc = time.perf_counter()
 
-        # Synchronous P2P on default PG -- all ranks participate
+        # NCCL allocates its P2P channel buffers with a raw cudaMalloc, i.e.
+        # outside the PyTorch caching allocator. After a large prefill the
+        # allocator can be holding every free block, so that raw alloc fails
+        # (observed: "Failed to CUDA calloc 10485760 bytes" on 3 of 8 ranks on
+        # the first, largest swap plan -- 132 ops x ~27.5 MB of fp8 expert
+        # weights). Returning cached blocks to the driver first gives NCCL room.
+        # Cost is a few ms and it only matters on the first swap, when the
+        # channel buffers are created.
         if p2p_ops:
-            reqs = torch.distributed.batch_isend_irecv(p2p_ops)
-            for req in reqs:
-                req.wait()
+            torch.cuda.empty_cache()
+
+        # Synchronous P2P on default PG -- all ranks participate.
+        # A per-rank failure here would leave the ranks desynced (some complete
+        # their transfers, some do not) and hang the server until the watchdog
+        # fires, so retry once rather than letting the exception escape to the
+        # caller's blanket `except Exception`.
+        if p2p_ops:
+            try:
+                reqs = torch.distributed.batch_isend_irecv(p2p_ops)
+                for req in reqs:
+                    req.wait()
+            except Exception as ex:
+                logger.error(f"[PB-OEPLB] rank={self.my_rank} P2P swap failed "
+                             f"({type(ex).__name__}: {ex}); retrying once after "
+                             f"empty_cache()")
+                torch.cuda.empty_cache()
+                reqs = torch.distributed.batch_isend_irecv(p2p_ops)
+                for req in reqs:
+                    req.wait()
 
         _t_p2p = time.perf_counter()
 

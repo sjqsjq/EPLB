@@ -1,0 +1,15 @@
+#!/bin/bash
+. /workspace/logs/env_235b.sh
+export CUDA_VISIBLE_DEVICES=0,1
+exec python3 -m sglang.launch_server \
+  --model-path /data/models/Qwen2-57B-A14B-Instruct \
+  --tp 2 --dp 2 --ep-size 2 --enable-dp-attention \
+  --moe-a2a-backend deepep --deepep-mode auto \
+  --moe-runner-backend deep_gemm --quantization fp8 \
+  --mem-fraction-static 0.85 --cuda-graph-max-bs 128 \
+  --port 30000 --host 0.0.0.0 --trust-remote-code \
+  --disable-radix-cache --watchdog-timeout 600 \
+  --enable-pb-oeplb --pb-oeplb-threshold-ratio 1.02 --pb-oeplb-min-prefill-tokens 256 \
+  --pb-oeplb-sync-window 16 --pb-oeplb-decay-factor 0.5 \
+  --pb-oeplb-max-total-swap-layers 28 --pb-oeplb-max-swaps-per-layer 32 \
+  --pb-oeplb-min-swap-ops 8 --pb-oeplb-max-total-ops 300

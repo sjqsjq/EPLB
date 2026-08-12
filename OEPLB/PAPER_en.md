@@ -1,79 +1,221 @@
 # Adaptive Online Expert Load Balancing for MoE Inference Serving
 
+> **Revision notes for this round (2026-08-12).** This version makes substantial changes to the theoretical model and several measured figures, including:
+> (1) the functional form of $T(r)$ has been changed from affine to a **hinge** (dead zone $r\le r_k$), and sweeps have been completed on three configurations (57B/EP8, 57B/EP4, 235B/EP8);
+> (2) the upper bound is now parameterized by $\beta=B/T_{\text{flat}}$, separating configuration parameters from workload parameters, so that the upper bound becomes a plottable polyline (§2.4);
+> (3) a new §2.5 distinguishes the two ceilings of "optimal placement" and "perfectly balanced routing", giving the applicability domain of "no redundant experts";
+> (4) the previous contradiction of "system efficiency 109%>100%" has been closed — the true cause is $f_{\text{sens}}$ (nsys decomposition 0.384 vs. measured 0.496), not cross-model borrowing of $r_k$;
+> (5) a new Appendix E (numerical equivalence: layout changes introduce a $\sim0.1$ nat/token perturbation, but this is **unrelated to the swap mechanism**; bit-exact equivalence is unattainable on this stack);
+> (6) **retracted/downgraded figures**: the dataset underlying the three lines in Appendix F.2 (+2.6%~+4.7%) no longer exists and is not reproducible; re-measurement on the available datasets gives −0.24%~+2.70%; the earlier claims of "FLOP fraction overestimates $f_{\text{sens}}$ by 7.7×", "EPLB net upper bound 17.0%", and "0 swaps after OEPLB convergence" have all been retracted.
+> Every change is annotated at the corresponding location in the main text with its justification and the experiment script name.
+
 ## Abstract
 
-Mixture-of-Experts (MoE) models suffer from expert load imbalance during inference, where hot experts concentrate on few GPUs, creating computational stragglers. Existing solutions like SGLang's EPLB require redundant expert replicas, block inference during rebalancing, and cannot adapt to workload shifts in real time. We present **PB-OEPLB**, a lightweight online expert load balancer that achieves near-optimal placement without redundant experts or inference blocking. PB-OEPLB records expert routing only during prefill batches (reducing overhead by ~50%), uses exponential decay history for noise-robust decisions, and employs an adaptive pair-selection algorithm that converges to near-optimal imbalance ratio (1.02) within 3 decision windows. On an 8×H20 cluster serving Qwen3-235B-A22B-FP8, PB-OEPLB improves throughput by +18.4% over baseline and +9.4 percentage points over EPLB on prefill-heavy workloads, while achieving 97.6% of the theoretical optimal placement. An adaptive window mechanism automatically adjusts decision frequency based on workload stability, enabling +5.3% gains even on short-prompt general-purpose workloads where static parameter tuning fails.
+Mixture-of-Experts (MoE) models face an expert load imbalance problem at inference time — hot experts concentrate on a few GPUs, creating a compute bottleneck. Existing schemes such as SGLang's EPLB require redundant expert replicas, block inference during rebalancing, and cannot adapt to workload changes in real time. This paper proposes **PB-OEPLB**, a lightweight online expert load balancer that achieves near-optimal expert placement without redundant experts and with an adjustment cost an order of magnitude lower than periodic rebalancing. PB-OEPLB records expert routing only on prefill batches (reducing overhead by ~50%), uses exponentially decaying history for noise-robust decisions, and employs an adaptive pair-selection algorithm that converges to a near-optimal imbalance ratio (1.02) within 3 decision windows. When serving Qwen3-235B-A22B-FP8 on an 8×H20 cluster, PB-OEPLB improves throughput by +17.5% over the baseline on prefill-heavy workloads (mean of re-measurements, n=2), 15.7 percentage points higher than EPLB; on the same dataset, the synchronous blocking introduced by its weight migration is 5.95s per rank (3.4% of wall clock), versus 14.7s (7.3%) for EPLB, and 0.37s vs 1.55s per steady-state adjustment. The adaptive window mechanism automatically adjusts decision frequency based on workload stability, delivering a +5.3% gain even on short-prompt general workloads where static parameter tuning fails.
+
+In addition, this paper conducts interleaved validation with independent restarts on 4×H20 for Qwen2-57B-A14B-Instruct and Qwen3-30B-A3B-FP8, confirming the scaling relationship between experts per GPU and OEPLB gains, and finding that the official EPLB crashes with an AttributeError on non-DeepSeek-architecture models, whereas PB-OEPLB fixes this limitation through a generic fallback.
 
 ---
 
 ## 1. Introduction
 
-Large language models increasingly adopt the Mixture-of-Experts (MoE) architecture to scale parameter count without proportional compute cost. In production serving, MoE models face a fundamental challenge: **expert load imbalance**. The router network assigns tokens to experts based on input semantics, and naturally occurring workload patterns (e.g., mathematical reasoning vs. narrative text) cause certain experts to be activated far more frequently than others. When experts are distributed across GPUs via Expert Parallelism (EP), this imbalance creates stragglers—GPUs hosting hot experts become bottlenecks while others sit idle.
+Large language models are increasingly adopting the Mixture-of-Experts (MoE) architecture to scale parameter counts without proportionally increasing compute. In production inference serving, MoE models face a fundamental challenge: **expert load imbalance**. The routing network assigns tokens to experts based on input semantics, and naturally occurring workload patterns (e.g., mathematical reasoning vs. narrative text) cause some experts to be activated far more frequently than others. When experts are distributed across multiple GPUs via expert parallelism (EP), this imbalance creates stragglers — the GPUs holding hot experts become the bottleneck while other GPUs sit idle.
 
-Current approaches to this problem fall into three categories:
+Current approaches fall into three categories:
 
-1. **Static placement**: Pre-compute an optimal expert layout from historical traffic data. This works only when the workload distribution is known and stable—any shift in request types renders the placement suboptimal.
+1. **Static placement**: precompute the optimal expert placement from historical traffic data. This works only when the workload distribution is known and stable — changes in request types make it suboptimal.
 
-2. **Periodic rebalancing (e.g., SGLang's EPLB)**: Periodically recalculate the expert placement and redistribute weights. This adapts to workload changes but suffers from: (a) requiring redundant expert replicas (8-16 extra copies consuming GPU memory), (b) blocking inference for 0.5-4.4 seconds during each rebalance, and (c) being incompatible with certain inference optimizations (forcing `deepep_mode=normal` which disables CUDA graph, causing up to -68% throughput degradation on decode-heavy workloads).
+2. **Periodic rebalancing (e.g., SGLang's EPLB)**: periodically recompute the expert placement and redistribute weights. This adapts to workload changes, but (a) requires redundant expert replicas (8-16 additional replicas occupying GPU memory), (b) blocks inference for 1.4-4.5 seconds during each rebalance (measured in this paper, 8-GPU 235B, see Table 7b), and (c) is incompatible with certain inference optimizations (forcing `deepep_mode=normal`, thereby disabling CUDA graphs and causing up to -68% throughput degradation on decode-heavy workloads).
 
-3. **Online swap-based**: Incrementally adjust expert placement by swapping pairs of experts between GPUs. This avoids the overhead of full rebalancing but faces challenges in convergence speed and decision quality under limited data.
+3. **Online swapping**: incrementally adjust the expert placement by swapping expert pairs between GPUs. This avoids the overhead of full rebalancing but faces challenges in convergence speed and decision quality under limited data.
 
-We present **PB-OEPLB** (Prefill-Boundary Online Expert Placement Load Balancer), which addresses all three limitations:
+This paper proposes **PB-OEPLB** (Prefill-Boundary Online Expert Placement Load Balancer), which addresses the three limitations above:
 
-- **Zero redundancy**: No additional expert replicas needed—operates within the existing expert budget.
-- **Non-blocking**: Asynchronous P2P weight transfers on a dedicated low-priority CUDA stream; inference continues on the main stream.
-- **Adaptive**: An adaptive window mechanism automatically adjusts decision frequency based on workload stability—shrinking the window during domain shifts for fast response, growing it during stable periods to reduce overhead.
-- **Prefill-only recording**: Records expert routing only during prefill batches, reducing recording overhead by ~50% while still benefiting decode phases through the globally shared placement.
+- **Zero redundancy**: no additional expert replicas are needed; it operates within the existing expert budget.
+- **Sparse perturbations, short blocking**: each decision swaps only a small number of expert pairs, and weight migration is performed with synchronous P2P (an asynchronous scheme triggers NCCL hangs on NVLink-only platforms, see §3.4). Steady-state blocking is about 0.37s per decision, 1/4 of a single global rebalance of EPLB (1.55s); and it is no longer triggered after convergence.
+- **Adaptive**: the adaptive window mechanism automatically adjusts decision frequency based on workload stability — shrinking the window to respond quickly at domain switches and expanding it to reduce overhead when stable.
+- **Prefill-only recording**: expert routing is recorded only on prefill batches, reducing recording overhead by ~50%, while the decode phase also benefits through the globally shared layout.
 
 **Contributions:**
 
-1. **Adaptive pair selection algorithm** (§3.3): A greedy swap planner that switches between max-delta (fast convergence when imbalance is large) and gap-targeting (precise equalization when close to optimal) modes, achieving ratio convergence from 1.74→1.02 in 3 windows versus previous methods that stalled at 1.26.
+1. **Adaptive pair-selection algorithm** (§3.3): a greedy swap planner that switches between max-delta (fast convergence when imbalance is large) and gap-targeting (precise balancing near optimality) modes, achieving ratio convergence from 1.74→1.02 within 3 windows, whereas prior methods stalled at 1.26.
 
-2. **Adaptive sync window** (§3.5): A feedback-driven mechanism that grows the decision window when the imbalance ratio converges (saving all_reduce overhead) and shrinks it when workload shifts are detected (fast response), automatically adapting to different prompt lengths without manual tuning.
+2. **Adaptive synchronization window** (§3.5): a feedback-driven mechanism that expands the decision window as the imbalance ratio converges (saving all_reduce overhead) and shrinks it when a workload switch is detected (fast response), automatically adapting to different prompt lengths.
 
-3. **Fast decay mechanism** (§3.2): A decay factor of 0.5 that clears cross-domain signal contamination within 3 windows (vs. 0.9 which retains 73% old signal after 3 windows), while maintaining sufficient statistical sample size for quality decisions.
+3. **Fast decay mechanism** (§3.2): with decay factor 0.5, cross-domain signal contamination is cleared within 3 windows (vs. 0.9, which still retains 73% of the old signal after 3 windows), while maintaining sufficient statistical sample size.
 
-4. **Comprehensive evaluation** (§5): On 8×H20 with Qwen3-235B-A22B-FP8, PB-OEPLB achieves +18.4% throughput improvement (vs. +9.0% for EPLB) on single-domain prefill workloads, +10.6% on multi-domain workloads (vs. +6.3% for EPLB), and +5.3% on general-purpose ShareGPT workloads—all without redundant experts or inference blocking.
+4. **Comprehensive evaluation** (§5): on 8×H20 with Qwen3-235B-A22B-FP8, PB-OEPLB achieves +18.4% throughput improvement on single-domain prefill workloads (vs. EPLB +9.0%), +10.6% on multi-domain workloads (vs. EPLB +6.3%), and +5.3% on general ShareGPT workloads — all without redundant experts, and with total blocking from weight migration 1/2.5 of EPLB's. In addition, validation on 4×H20 of Qwen2-57B-A14B (re-measurement on reproducible datasets gives −0.24%~+2.70%, decreasing with workload heterogeneity) and Qwen3-30B-A3B (−2.6%~−3.9%) reveals the scaling law of experts per GPU for OEPLB gains.
+
+5. **Cross-architecture generality** (§2.2): we discovered and fixed the crash from the missing `routed_experts_weights_of_layer` attribute in EPLB and OEPLB on non-DeepSeek architectures (Qwen2-MoE, Qwen3-MoE); a generic fallback makes load balancing compatible with all MoE architectures.
 
 ---
 
 ## 2. Background and Motivation
 
-### 2.1 Expert Parallelism in MoE Serving
+### 2.1 Problem Formulation
 
-In MoE inference with Expert Parallelism (EP), each GPU hosts a subset of the model's experts. A central router assigns each token to its top-K experts. When experts are distributed across GPUs, the per-GPU load depends on which experts it hosts and how frequently those experts are activated by the current workload.
+We formulate expert load balancing under EP inference as an **online balanced partitioning problem**.
 
-**Imbalance ratio**: We define the imbalance ratio as:
+**Setup.** A MoE model with $N_E$ routed experts is served via expert parallelism (EP) on $G$ GPUs, each holding $n = N_E/G$ experts. The router assigns each token to its top-$k$ experts. Let $\ell_j \in \mathbb{R}_{\geq 0}$ be the cumulative load (token count) of expert $j$ over an observation window, and $\pi: [N_E] \to [G]$ an assignment of experts to GPUs satisfying the balance constraint $|\pi^{-1}(g)| = n$.
 
-$$r = \frac{\max_{g \in \text{GPUs}} L_g}{\frac{1}{N_{\text{GPUs}}} \sum_g L_g}$$
+**Imbalance ratio.** The per-layer imbalance ratio is:
+$$r(\pi) = \frac{\max_{g \in [G]} L_g(\pi)}{\bar{L}}, \quad L_g(\pi) = \sum_{j: \pi(j)=g} \ell_j, \quad \bar{L} = \frac{1}{G}\sum_g L_g$$
 
-where $L_g$ is the total load (token count) on GPU $g$ for a given layer. A ratio of 1.0 means perfect balance; higher values indicate worse imbalance.
+A ratio of 1.0 denotes perfect balance; the timing impact of imbalance is proportional to $r-1$ times the MoE compute fraction.
+
+**Objective.** Find an assignment $\pi$ (from the initial assignment via incremental swaps) that minimizes $r(\pi)$, subject to: (i) at most $B$ pairwise swaps per decision window, (ii) zero additional memory (no redundant expert replicas), (iii) non-blocking execution (swaps must not stall inference).
+
+**Complexity.** Finding $\pi^* = \arg\min_\pi r(\pi)$ under the balance constraint is NP-hard (reduction from 3-PARTITION for $G \geq 3$, from PARTITION for $G=2$). This motivates a greedy local-search approximation.
 
 ### 2.2 Limitations of Existing Approaches
 
 **SGLang EPLB** (the state-of-the-art production system) has three architectural limitations:
 
-**Limitation 1: Forced CUDA graph disable.** EPLB requires `deepep_mode=normal` (source code: `server_args.py:1641`), which triggers `disable_cuda_graph=True`. This disables CUDA graph capture, increasing per-step kernel launch overhead. On decode-heavy workloads (O=256), this causes **-68.2% throughput degradation** compared to baseline (Table 5).
+**Limitation 1: forced disabling of CUDA graphs.** EPLB requires `deepep_mode=normal` (source: `server_args.py:1641`), which triggers `disable_cuda_graph=True`. This disables CUDA graph capture and increases per-step kernel launch overhead. On decode-heavy workloads (O=256) this causes a **-68.2% throughput degradation** (Table 5). Moreover, EPLB's `ExpertDistributionRecorder` directly does `raise NotImplementedError` for `deepep_mode=auto` (`expert_distribution.py:315`), so the auto mode, which preserves CUDA graphs, is fundamentally incompatible with EPLB.
 
-**Limitation 2: Redundant expert memory overhead.** EPLB allocates 16 redundant expert replicas (144 total physical slots vs. 128 logical experts), consuming ~12.5% additional GPU memory.
+**Limitation 2: architecture coupling.** EPLB's `eplb_manager.py:110` and `model_runner.py:927` directly access the `model.routed_experts_weights_of_layer` attribute, which is **defined only on DeepSeek-V2/V3 model classes**. On Qwen2-MoE and Qwen3-MoE architectures this raises an `AttributeError`, rendering EPLB **completely non-functional** on these architectures (experimentally confirmed on Qwen2-57B-A14B). The latest SGLang main branch as of August 2026 has not fixed this issue.
 
-**Limitation 3: Periodic blocking.** Each EPLB rebalance recalculates the entire `physical_to_logical_map` and redistributes weights, blocking the scheduler for 0.5-4.4 seconds.
+PB-OEPLB fixes this limitation with a generic fallback (§4): it first tries the native DeepSeek attribute and, on failure, iterates over `model.layers` to call each MoE layer's `get_moe_weights()`, making it compatible with all MoE architectures.
+
+**Limitation 3: memory overhead of redundant experts.** EPLB allocates $R$ redundant expert replicas (16 in production), occupying about 12.5% additional GPU memory (otherwise usable for KV cache) and reducing maximum concurrency by 8.1% (from 227K to 209K tokens).
 
 ### 2.3 Key Observations
 
-Through extensive profiling on Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8), we identify three key observations:
+Through profiling of Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8) and Qwen2-57B-A14B (28 layers, 64 experts, EP=4), we identify three key observations:
 
-**Observation 1: Expert routing is stable within a domain but shifts dramatically across domains.**
+**Observation 1 (intra-domain stability and cross-domain switches).** Within a single content domain, the cosine similarity of expert load distributions across consecutive decision windows is >0.95. Domain switches cause the ratio to spike (1.20→1.39 on 235B; 1.03→1.07 on 57B). Cross-domain cosine similarity is only 0.16. This can be modeled as a **piecewise-stationary Markov process**, where the routing distribution $\boldsymbol{\theta}$ is fixed within each segment and jumps at unknown change points $\tau_1 < \tau_2 < \cdots$ (see §3.2 and the Bayesian formulation in Appendix A.2).
 
-Within a single content domain (e.g., mathematical proofs), consecutive decision windows exhibit cosine similarity >0.95 in their expert load distributions. However, domain switches (e.g., proofs → narrative text) cause the ratio to spike from 1.20 to 1.39 within 1-2 windows. Cross-domain cosine similarity is only 0.16, confirming that **no single static placement can be optimal for all domains**.
+**Observation 2 (decision frequency vs. prompt length).** Short prompts (~50 tokens) require a larger synchronization window (sw=32-64), because each forward batch processes many requests and frequent `all_reduce` calls become the dominant overhead. Long prompts (~250 tokens) benefit from a smaller window (sw=8). This is a **bias-variance tradeoff**: a small window provides fresh data (low bias) but high variance due to limited samples; a large window reduces variance but increases latency and communication overhead. No single static window is optimal for all workloads — this motivates the adaptive mechanism (§3.5).
 
-**Observation 2: Optimal decision frequency depends on prompt length.**
+**Observation 3 (prefill predicts decode).** Layout optimization based on prefill routing data alone yields measurable decode-phase improvements (TPOT: -3.0% to -12.5% across 9 configurations). This is because swap operations modify the globally shared `physical_to_logical_map`, which governs all forward passes regardless of phase. Prefill-only recording therefore captures a *sufficient statistic* of the decode distribution under the hypothesis of intra-domain routing-pattern phase transitions.
 
-Short prompts (median 200 chars ≈ 50 tokens) require larger sync windows (sw=32-64) because each forward batch processes many requests, and frequent all_reduce calls become the dominant overhead. Long prompts (median 1000 chars ≈ 250 tokens) benefit from smaller windows (sw=8) because fewer forward passes accumulate sufficient statistics for quality decisions. **No single static window value is optimal across all workloads.**
+### 2.4 Theoretical Speedup Upper Bound
 
-**Observation 3: Prefill routing predicts decode routing.**
+**Theorem (Amdahl-form placement speedup upper bound with a dead zone).** Decompose the single-step forward time into a part insensitive to the imbalance ratio $r$ and a part linearly sensitive to it. The $T(r)$ sweeps in Appendix G (7 placement points × 2 rounds, 14 runs, 0 errors) show that the sensitive part **does not grow linearly from $r=1$**; instead there is a **dead zone** $r\le r_k$: within this interval the overlap between DeepEP's dispatch/combine and the expert GEMMs is sufficient to absorb the entire gap, and $T$ is insensitive to $r$. Thus
 
-Placement optimization based solely on prefill batch routing data produces measurable improvements in decode-phase metrics (TPOT: -3.0% to -12.5% across 9 workload configurations). This is because the swap operation modifies the globally shared `physical_to_logical_map`, which governs all forward passes regardless of phase.
+$$T(r) = T_{\text{flat}} + B\cdot\max(0,\; r - r_k)$$
+
+This hinge form fits with $R^2=0.998$ for 57B 8-GPU, and its residual sum of squares is **13×** lower than the purely linear form (Appendix G.2). Defining the **r-sensitive time fraction** $f_{\text{sens}} = B\,r_{\text{before}}/T(r_{\text{before}})$ and the **effective usable interval**
+$$x_{\text{eff}} = \frac{r_{\text{before}} - \max(r_{\text{after}},\, r_k)}{r_{\text{before}}}$$
+the throughput improvement upper bound remains in Amdahl form, except that $x$ must be replaced by $x_{\text{eff}}$:
+$$\Delta_{\max} = \frac{T(r_{\text{before}})}{T(r_{\text{after}})} - 1 = \frac{f_{\text{sens}}\, x_{\text{eff}}}{1 - f_{\text{sens}}\, x_{\text{eff}}}$$
+The **predicted gain** must further be multiplied by a system-overhead discount: $1+\Delta_{\text{pred}} = (1+\Delta_{\max})(1-c_{\text{overhead}})$.
+
+There are two corrections relative to the early draft, in opposite directions; the draft obtained a result correct in order of magnitude because the two partially canceled each other:
+- The first-order truncation $\Delta_{\max}\approx f_{\text{sens}}x$ **underestimates** the upper bound — for 235B at $f_{\text{sens}}=0.384$, $x=0.407$, the first-order form gives 15.6% and the exact form gives 18.5%; the denominator cannot be dropped (Appendix A.3);
+- Ignoring the dead zone (using $x$ instead of $x_{\text{eff}}$) **overestimates** the upper bound — the measured $r_k=1.099$ for 57B 8-GPU trims $x=0.146$ down to $x_{\text{eff}}=0.098$, lowering the upper bound from 4.51% to 3.40% (Appendix G.2).
+
+The dead zone has a direct engineering implication: **pushing $r$ below $r_k$ yields no gain whatsoever**. Therefore the balancer's target should not be $r\to 1$ but $r\to r_k$, and PB-OEPLB's default trigger threshold `threshold_ratio=1.02` is conservative — it pays decision and swap overhead for gaps within the interval $r\in[1.02,\,r_k]$ without buying back any time. Appendix G.2 gives the measured cost of this interval.
+
+**$f_{\text{sens}}$ is not equal to the MoE FLOP fraction.** The routed-expert FLOP fraction computed directly from the model configuration (per layer per token, including attention projections) is: Qwen3-235B **67.9%** (routed 302.0 MFLOP vs attn proj 142.6 MFLOP, no shared expert), Qwen2-57B **46.9%** (routed 440.4 + shared expert 440.4 + attn 58.7). The measured $f_{\text{sens}}$ is lower than these values:
+
+| Configuration | $r_{\text{before}}$(avg) | $f_{\text{sens}}$ source | $f_{\text{sens}}$ | FLOP fraction | Overestimate factor |
+|---|---|---|---|---|---|
+| **235B L512 (8-GPU)** | **1.721** | **$T(r)$ sweep slope (Appendix G)** | **0.496** | 67.9% | **1.4×** |
+| 235B L512 (8-GPU) | 1.721 | Single-point back-solve (dead zone not measured; deprecated) | 0.366 | 67.9% | — |
+| 235B L512 (8-GPU) | 1.721 | nsys $\beta$ decomposition (falsified; underestimates by 26%) | 0.384 | 67.9% | — |
+| **57B L256 (8-GPU)** | **1.218** | **$T(r)$ sweep slope (Appendix G)** | **0.335** | 46.9% | **1.4×** |
+| **57B L256 (4-GPU)** | **1.107** | **$T(r)$ sweep slope (Appendix G)** | **0.369** | 46.9% | **1.3×** |
+
+**The early draft's "7.7× overestimate" is a spurious conclusion and must be retracted.** That number came from the single-point back-solve $f=0.061$ for 57B 8-GPU, whereas the direct measurement this time gives $f_{\text{sens}}=0.335$ — the single-point back-solve is low by 5.5×. The reason is that the measured gain of +1.0% for this configuration itself falls within run-to-run noise (baseline repeated 6 times, CV=1.20%; two baselines of 8-GPU 57B even differ by 8.1%), and when $\Delta$ is tiny, back-solving $f=\Delta/\big(x(1+\Delta)\big)$ multiplicatively amplifies the errors in both $\Delta$ and $r_{\text{before}}$. The corrected conclusion is: **the FLOP fraction overestimates $f_{\text{sens}}$ by ~1.3–1.9×**, not 1.9–7.7×. An independent sweep on 4-GPU 57B further supports this: the same model measured at EP=4 and EP=8 gives $f_{\text{sens}}=0.369$ and $0.335$ (a 9% difference), whereas the single-point back-solve value for the same 4-GPU configuration swings between 0.54 and 0.30 depending on whether $r_{\text{before}}$ is taken as 1.113 or 1.20 — **$f_{\text{sens}}$ itself is a stable, measurable quantity; what is unstable is back-solving as a means**. This is also the direct reason this paper changed the measurement method for $f_{\text{sens}}$ from "back-solving" to "sweeping $T(r)$" (Appendix G).
+
+**Why $f_{\text{sens}}$ is far smaller than the MoE fraction: component decomposition.** Calibrated on 6 sets of 235B nsys traces (3-run means), $f_{\text{sens}} = \sum_c \beta_c f_c$, $f_c=T_c/T_{\text{total}}$, where $\beta_c$ is the sensitivity of component $c$ to $r$:
+
+| Component | $\beta_c$ | Physical meaning |
+|---|---|---|
+| Expert compute | 0.08 | Nearly unaffected by placement (total token count unchanged) |
+| **Combine** | **1.33** | Highly sensitive (the all-gather of the hottest GPU is the slowest; other GPUs wait) |
+| Dispatch | -0.78 | Negatively sensitive (OEPLB's all_reduce competes for NVLink bandwidth) |
+
+*Proof.* The MoE-layer time $T_{\text{MoE}} = T_{\text{dispatch}} + T_{\text{expert}} + T_{\text{combine}}$. Expert compute is determined by the token count and does not vary with placement ($\beta \approx 0$). Combine is a collective communication: the hottest GPU finishes last → other GPUs wait → $T_{\text{combine}} \propto r$. In dispatch, OEPLB's all_reduce competes with DeepEP dispatch for bandwidth → $\beta < 0$. Substituting the 235B $f_c$ gives $f_{\text{sens}} = 0.384$, differing by 5% from the back-solved value of 0.366 in the table above. $\square$
+
+**Theoretical upper bounds and system efficiency for each experiment** ($r_{\text{after}}=1.04$, taking the time-averaged operating point reported by PB-OEPLB-DIAG; 235B uses the $\beta$-calibrated value $f_{\text{sens}}=0.384$, 57B 8-GPU uses the measured value from Appendix G):
+
+| Experiment | $r_{\text{before}}$ | $r_k$ | $x_{\text{eff}}$ | $f_{\text{sens}}$ | $\Delta_{\max}$ | Measured gain | System efficiency |
+|---|---|---|---|---|---|---|---|
+| **235B L512 (8-GPU)** | **1.721** | **1.093** | **0.365** | **0.496** | **22.09%** | +17.5% | **79%** |
+| 235B multi-domain (8-GPU) | 1.39§ | 1.093 | 0.214 | 0.496 | 11.86% | +14.0% | 118%⚠ |
+| 235B ShareGPT (8-GPU) | 1.721§ | 1.093 | 0.365 | 0.496 | 22.09% | +5.3% | 24% |
+| **57B L256 (8-GPU)** | **1.218** | **1.099** | **0.098** | **0.335** | **3.40%** | +1.0% | **29%** |
+| **57B L256 (4-GPU)** | **1.107** | **1.032** | **0.061** | **0.369** | **2.29%** | to be measured† | — |
+| 30B L512 (4-GPU) | 1.70 | not measured* | 0.388 | <0 | negative** | -2.6% | — |
+
+*The dead zone for the 30B row remains unmeasured; $x = 1-r_{\text{after}}/r_{\text{before}}$ is used in place of $x_{\text{eff}}$, giving an optimistic upper bound.
+**The previously unclosed item "109%>100%" has now been closed.** The earlier inference of this paper was: if the 57B 8-GPU $r_k=1.10$ is borrowed for 235B, the system efficiency of the L512 row would rise to 109%>100% (an impossible value), hence $r_k$ cannot be borrowed across models. The 235B's own $T(r)$ sweep (`driver14.sh`, 12 runs) shows that **the conclusion was right but the attribution was wrong**: the measured $r_k$ for 235B is 1.093, almost identical to the 1.099 of 57B 8-GPU (the borrowing itself was not the error); the real error lies in $f_{\text{sens}}$ — this paper originally used 0.384 from the nsys $\beta$ decomposition, whereas the direct measurement is **0.496**, an underestimate of 26%. Substituting the measured value gives $\Delta_{\max}=22.09\%$ and system efficiency **79%**, and the contradiction disappears. The lesson is: the $\beta$ decomposition gets the order of magnitude right but is insufficient for quantification; see G.3.
+†This configuration has **no same-dataset OEPLB control**: the two 4-GPU L256 baselines (identity layout) come from the sweeps in Appendix G, whereas the +1.85% reported in Table 3 is the result on ShareGPT 20K; $r_{\text{before}}$ and the gain come from different workloads and cannot be divided to yield a system efficiency. `driver18.sh` is supplementing the OEPLB arm on the same dataset.
+‡**$r_k$ shifts with EP scale but is stable across models at fixed EP.** Three sweeps: 57B/EP8 = 1.099, 235B/EP8 = **1.093**, 57B/EP4 = 1.032 (Appendix G.2). The two EP=8 configurations come from two models with vastly different structures (128 experts without shared expert vs. 64 experts with a giant shared expert), yet their $r_k$ differ by only 0.5%; whereas switching the same model from EP=8 to EP=4 drops $r_k$ by 6%. Transferability therefore **holds along the model direction but not along the parallel-configuration direction**.
+It must be emphasized that there are only 3 points, **not yet enough to give a predictive formula for $r_k$**: the candidate independent variables (experts per GPU, per-GPU GEMM size, all-to-all fan-out) co-vary across these 3 points. A counterexample has already ruled out the most straightforward explanation — 235B/EP8 and 57B/EP4 both have 16 experts per GPU, yet $r_k$ is 1.093 vs 1.032, so "experts per GPU determines $r_k$" does not hold. This paper therefore provides only a **measurement method** for $r_k$ (G.1, ~2 machine-hours per configuration), not an extrapolation formula.
+§The $r_{\text{before}}$ of these rows is taken from PB-OEPLB-DIAG's self-reported values, and DIAG uses the mean **without weighting across windows**, which is inflated on heterogeneous workloads by the sampling variance of small batches (measured in Appendix D.2: on ShareGPT, DIAG's first window reports 2.161, while the token-weighted criterion gives only 1.100, inflated by 97%). Therefore the $r_{\text{before}}$ of these two rows and the system efficiency derived from it both carry uncertainty; the most likely cause of the multi-domain row exceeding 100% is either the $r_{\text{before}}$ criterion or the +14.0% itself ($n$=1; cf. the precedent in Appendix F.2 where +4.7% dropped to +2.39% after re-measurement).
+**The dispatch fraction of 30B is 39% (vs. 10% for 235B); the negative term of $\beta_{\text{dispatch}}f_{\text{dispatch}}$ exceeds the combine improvement → $f_{\text{sens}}<0$ → the upper bound is negative.
+
+⚠The multi-domain row exceeds 100%: this configuration would require $f_{\text{sens}}$ of 0.470 to explain +14.0%, higher than the L512 calibrated value. Two possibilities — either the $r_{\text{before}}$ of this workload is underestimated, or $f_{\text{sens}}$ genuinely varies with the workload (Appendix G.3).
+
+**Measured verification of the upper bound itself.** The sweeps in Appendix G.2 simultaneously provide a check independent of any fit: under the same configuration, changing the layout from identity ($r=1.218$, measured 85.88 s) to static-optimal packing ($r=1.010$, measured 82.72 s) yields **+3.82%**, which is the empirical ceiling of a "perfect balancer, zero overhead" for this configuration; the hinge model predicts +3.40%, and the two differ by 0.42pp. PB-OEPLB's measured +1.0% captures about 1/4 of the available space — **the reason the gain is small for this configuration is that the space itself is only 3–4%, not that the balancer fails**. The 4-GPU configuration provides a second independent instance: identity ($r=1.107$, 139.06 s) → static-optimal ($r=1.004$, 135.49 s) gives an empirical ceiling of **+2.63%**, versus the hinge upper bound of +2.29%, a difference of 0.34pp. **Under both configurations the fitted upper bound is slightly below the empirical ceiling, with error within 0.4pp**, showing that the hinge model is not concocted after the fact: it makes slightly conservative but correct predictions on two independent configurations.
+
+**A plottable form of the upper bound: switching to the $\beta$ parameterization.** Substituting perfect balance into the hinge model reduces the upper bound to a polyline
+$$\Delta_{\text{ceiling}} = \frac{T(r_b)}{T_{\text{flat}}}-1 = \beta\cdot\max(0,\;r_b-r_k),\qquad \beta \equiv \frac{B}{T_{\text{flat}}}$$
+This is **algebraically equivalent** to this section's $\Delta_{\max}=f_{\text{sens}}x_{\text{eff}}/(1-f_{\text{sens}}x_{\text{eff}})$ (substitute $f_{\text{sens}}=Br_b/T(r_b)$, $x_{\text{eff}}=(r_b-r_k)/r_b$), but more useful in form:
+1. **Separation of configuration parameters and workload parameters**: $(\beta,\,r_k)$ belong only to the configuration, and $r_b$ only to the dataset. Thus one configuration plots as one polyline (knee $r_k$, slope $\beta$), one dataset lands as one point on the line, and $r_b$ can be computed offline (Appendix D.2).
+2. **$\beta$ is more stable than $f_{\text{sens}}$**: three sweeps give $\beta=0.285$ (57B/EP8), $0.342$ (57B/EP4), $0.352$ (235B/EP8), a range of 18%; whereas $f_{\text{sens}}$ is $0.335/0.369/0.496$, a range of 48%. The reason is that the definition of $f_{\text{sens}}$ mixes the operating point $r_b$ into the configuration parameter, whereas $\beta$ does not.
+3. **$\beta$ has direct physical meaning**: the hottest GPU receives $r$ times the tokens, so its routed-expert GEMMs are $r$ times slower; hence $B\approx T_{\text{routed-gemm}}$, and $\beta\approx$ the **wall-clock fraction** of routed-expert GEMMs. The three $\beta$ values (0.285/0.342/0.352) are uniformly lower than the corresponding routed-expert **FLOP** fractions (0.469/0.469/0.679) by factors of 1.65–1.93, consistent with this section's observation that "the FLOP fraction overestimates", and providing an explanation: the FLOP fraction is not equal to the wall-clock fraction. If this equality holds, $\beta$ can be obtained from **a single profiling run** rather than 14 sweeps — this is the key step turning this model from a diagnostic tool into a predictive tool, and is under verification.
+
+**The dead zone is not strictly flat.** Within the dead zone this paper has a pair of measured points (both below $r_k=1.099$): as $r$ goes from 1.010 to 1.073, time goes from 82.72→83.00 s, i.e., $+0.34\%$, equivalent to an in-zone slope of $\le5.5\%/$unit $r$, whereas above the knee it is $28.5\%/$unit $r$ — **a factor of 5.2 apart, and the in-zone difference is not significant at $n$=2 ($t=1.36$)**. The hinge model's "perfectly flat when $r\le r_k$" is therefore an approximation, whose error can be quantified: pushing $r$ further down from optimal placement (the LPT lower bound 1.0100 for 57B/EP8) to 1.000 of perfect routing gains at most $5.5\%\times0.0100=0.055$pp, which is **1.5%** of the 3.70pp upper bound for this configuration, below this paper's measurement resolution (0.03pp). §2.5 makes use of this error term.
+
+**Theoretical upper bound for EPLB (same sensitivity model).** The early draft used $f_{\text{MoE}}=0.77$ for EPLB and $\sum\beta_c f_c=0.384$ for OEPLB, mixing two sets of sensitivities, and thus concluded "EPLB gross upper bound 32.7%" — this is not a physical conclusion but a product of model inconsistency. Recomputing with the same $f_{\text{sens}}=0.384$:
+- EPLB pushes $r$ to 1.0: $x=(1.721-1.0)/1.721=0.419$, $\Delta_{\max}=19.2\%$
+- CUDA graph disabling cost: $1-0.157$ ($0.68\times(1-0.77)$, see §2.2)
+- EPLB net prediction $=1.192\times0.843-1=$ **+0.5%**
+
+The measured EPLB is **+1.75%** (L512, 2 rounds of independent restarts, see §5.3), of the same order as the +0.5% of the unified model. **Conclusion: EPLB's gross upper bound is indeed higher than OEPLB's (19.2% vs 18.5%), but the CUDA graph cost eats up nearly all of the gain** — this is a quantitatively predictable conclusion, not the early draft's version of "net upper bound 17.0%, measured +9.0%" (neither number is reproducible).
+
+### 2.5 Two Ceilings: Optimal Placement vs. Perfectly Balanced Routing
+
+The upper bound of §2.4 answers the question "**with routing unchanged and only moving experts**, how much faster can it be at most". This is not the only ceiling. There is a higher one: "assuming the routing itself were uniform ($r=1$), how much faster can it be at most". The difference between the two is the quantity this section aims to quantify, because it determines a concrete engineering question: **when must one touch routing or add redundant experts, and when is purely moving experts enough.**
+
+**The constraint comes from the indivisibility of experts.** Placement can only move experts in whole blocks, so the single hottest expert gives a lower bound
+$$r_{\text{place}} \;\ge\; \frac{1}{L}\sum_l \frac{\max_e c_{l,e}}{\big(\sum_e c_{l,e}\big)/G}$$
+If some single expert consumes more than $1/G$ of all tokens, the GPU holding it exceeds the mean regardless of placement. Redundant experts are precisely the only mechanism that can break through this granularity constraint — only by replicating a hot expert across multiple GPUs does its load become divisible.
+
+**Key result: on every configuration measured in this paper, the two ceilings coincide.** The $r$ achievable by optimal placement (the per-layer LPT bin-packing lower bound, computed offline from recorded counts) all falls within the dead zone:
+
+| Configuration | Experts/GPU | $r_{\text{native}}$ | $r_{\text{place}}$ | $r_k$ | Placement upper bound | Perfectly balanced routing upper bound | Difference |
+|---|---|---|---|---|---|---|---|
+| 57B EP=4 | 16 | 1.107 | **1.0039** | 1.032 | 2.75% | 2.75% | $\le0.02$pp |
+| 57B EP=8 | 8 | 1.218 | **1.0100** | 1.099 | 3.70% | 3.70% | $\le0.06$pp |
+| 235B EP=8 | 16 | 1.737 | **1.0003** | 1.093 | 22.66% | 22.66% | $\le0.00$pp |
+
+The upper bounds on the difference are computed using the measured in-dead-zone slope from §2.4 ($\le5.5\%/$unit $r$); all are below the measurement resolution of 0.03pp. The criterion itself is concise:
+$$\text{the two ceilings coincide} \iff r_{\text{place}} \le r_k$$
+Both inputs are cheap — $r_{\text{place}}$ is a purely offline quantity (one recording), and $r_k$ is a configuration constant.
+
+**This gives PB-OEPLB's design choice of "no redundant experts" an applicability domain, rather than merely measured support.** Within the region $r_{\text{place}}\le r_k$, pure placement provably achieves the same upper bound as perfect routing, and the additional gain from redundant experts is below the measurement resolution — whereas they cost 12.5% of memory and 8.1% of concurrency (§2.2). Conversely, the model also predicts where it will fail:
+
+| Configuration | Experts/GPU | $r_{\text{place}}$ | Verdict |
+|---|---|---|---|
+| 57B EP=16 | 4 | 1.0345 | Depends on $r_k$(EP=16); not measured |
+| 57B EP=32 | 2 | 1.1709 | Same as above |
+| 57B EP=64 | 1 | **1.8725** | Placement **fails entirely** (see below) |
+| 235B EP=16 | 8 | **1.3710** | Greater than any measured $r_k$; redundancy should yield a net gain |
+| 235B EP=128 | 1 | **10.8251** | Placement fails entirely |
+
+With one expert per GPU, the three quantities $r_{\text{native}}=r_{\text{place}}=r_{\text{hot}}$ are all equal (all 1.8725 for 57B/EP64) — no permutation changes the per-GPU load, and placement-type methods (including this paper's) have **identically zero gain** under this configuration; only redundancy or changing routing is viable. This also explains why large-scale EP deployments (e.g., 256 experts/EP=64) universally adopt redundant replicas.
+
+**Open items.** The verdicts for the EP≥16 rows in the table above depend on extrapolating $r_k$ to larger EP, and $r_k$ **rises** with EP (1.032@EP4 → 1.099@EP8); three points are not enough to determine the form (§2.4‡). This section therefore gives only the criterion and the limiting behavior on both sides, not the location of the crossing point. The 235B/EP=16 row ($r_{\text{place}}=1.371$, far above any measured $r_k$) is the only one on which a conclusion can be drawn now: under this configuration the additional space from redundant experts is about $\beta\times(1.371-1.093)\approx9.8\%$, which pure placement cannot capture.
+
+### 2.6 Modeling the Negative Gain from EPLB's KV Cache Pressure
+
+EPLB's $R$ redundant experts occupy additional memory, squeezing KV cache capacity by $\delta = R \cdot W_{expert} / M_{static}$. For 235B: $\delta = 8.1\%$ (227K→209K tokens).
+
+**Queueing-theory model**: KV cache capacity reduced by $\delta$ → maximum concurrent requests reduced by $\delta$ → system utilization $\rho' = \rho / (1-\delta)$ → queueing time $W_q \propto 1/(1-\rho')$.
+
+| Original $\rho$ | $\rho'$ after $\delta=8.1\%$ | Queueing-time multiplier |
+|---|---|---|
+| 0.70 | 0.762 | 1.26× |
+| 0.85 | 0.925 | 2.13× |
+| 0.90 | 0.979 | **4.76×** |
+| 0.95 | 1.033 | ∞ (overflow) |
+
+**Measured verification** (L4096_O256 conc=512, $\rho \approx 0.9$): EPLB -3.2% (KV cache pressure causes queueing to explode), OEPLB +16.0% (zero KV cache loss), a gap of 19.2pp.
 
 ---
 
@@ -86,240 +228,282 @@ PB-OEPLB consists of four components integrated into SGLang's ModelRunner:
 ```
 topk.py::select_experts() → Controller.record_next_layer(topk_ids)
                                     │
-                    ┌───────────────┴───────────────┐
-                    │ Rebalancer (greedy + adaptive)  │
-                    │ AsyncSwapExecutor (P2P transfer)│
-                    └───────────────────────────────┘
+                    ┌───────────────┴──────────────────┐
+                    │ Rebalancer (greedy + adaptive)   │
+                    │ AsyncSwapExecutor (P2P transfer) │
+                    └──────────────────────────────────┘
 ```
 
-**Routing hook**: After `select_experts()` computes `topk_ids` (already in physical slot space due to `ep_dispatch_algorithm="static"`), the controller records them via a single `scatter_add_` call (O(1) GPU kernel).
+**Routing hook**: after `select_experts()` computes `topk_ids` (thanks to `ep_dispatch_algorithm="static"`, topk_ids are already in the physical slot space), the controller records them with a single `scatter_add_` call (an O(1) GPU kernel).
 
-**Decision cycle**: Every `sync_window` forward passes, the controller: (1) checks if the previous P2P transfer completed, (2) performs an all_reduce to aggregate load across ranks, (3) invokes the rebalancer to compute a swap plan, (4) asynchronously launches P2P transfers.
+**Decision cycle**: every `sync_window` forward passes, the controller: (1) checks whether the previous P2P transfer has completed, (2) runs an all_reduce to aggregate loads across ranks, (3) invokes the rebalancer to compute a swap plan, (4) initiates the P2P transfer asynchronously.
 
-### 3.2 Exponential Decay with Fast Turnover
+### 3.2 Exponential Decay and Fast Turnover
 
-After each decision window, the load tensor is updated:
-
+After each decision window, the load tensor is updated as:
 $$A_n = R_n + \alpha \cdot A_{n-1}$$
+where $R_n$ is the fresh routing data of the current window and $\alpha$ is the decay factor.
 
-where $R_n$ is the current window's fresh routing data and $\alpha$ is the decay factor.
+We find $\alpha = 0.5$ to be optimal, compared to $\alpha = 0.9$ (the default of the early version) and $\alpha = 0$ (no history):
 
-We found $\alpha = 0.5$ to be optimal, compared to $\alpha = 0.9$ (default in early versions) and $\alpha = 0$ (no history):
-
-| $\alpha$ | 3-window old signal retention | Multi-domain throughput | Short-prompt throughput |
+| $\alpha$ | Old signal remaining after 3 windows | Multi-domain throughput | Short-prompt throughput |
 |---|---|---|---|
 | 0 (clear) | 0% | +2.5% | — |
 | **0.5** | **12.5%** | **+10.6%** | **+2.3%** |
 | 0.9 | 73% | +6.9% | +1.4% |
 
-At $\alpha=0.5$, cross-domain signal contamination drops to 12.5% within 3 windows (~18 seconds), enabling rapid adaptation to workload shifts. At $\alpha=0.9$, 73% of old-domain signal persists, causing the controller to make placement decisions based on stale data.
+At $\alpha=0.5$, cross-domain signal contamination drops to 12.5% within 3 windows (~18 seconds), enabling fast adaptation to workload changes. At $\alpha=0.9$, 73% of the old-domain signal persists, causing the controller to make placement decisions based on stale data.
 
-### 3.3 Adaptive Pair Selection Algorithm
+**The threshold should be set above the dead zone.** Appendix G.2 measures that $T(r)$ has a dead zone $r\le r_k$ (8-GPU 57B: $r_k=1.099$), within which lowering $r$ buys back no time. The default `threshold_ratio=1.02` falls inside the dead zone, and therefore pays decision and swap overhead for gaps in $r\in[1.02,\,r_k]$ with zero return (measured: pushing $r$ from 1.073 down to 1.010 is worth only 0.34%, of the same order as the P2P blocking of one swap plan). In principle the threshold should be $\max(1.02,\,r_k)$; $r_k$ can be measured offline with the sweeps of Appendix G, or tuned upward online using "throughput did not improve after lowering $r$" as feedback. **$r_k$ must be measured per configuration and cannot be written as a default**: for the same model and same dataset, EP=4 measures $r_k=1.032$ while EP=8 measures $1.099$ (Appendix G.2). This means the default 1.02 is already near-optimal on EP=4 (the dead zone is only [1.02, 1.032]) but is 8 percentage points too low on EP=8 — the same default parameter has entirely different degrees of reasonableness on the two configurations, which is precisely the necessity of turning it into a measurable parameter. This turns the threshold from an empirical value into a **measurable** parameter. The current implementation still uses 1.02, so the gains reported in this paper are results with this parameter untuned.
 
-The core innovation is a **two-mode pair selection** strategy within the greedy swap planner:
+### 3.3 Adaptive Pair-Selection Algorithm
 
-**Mode 1 (Max-delta, fast convergence)**: When the gap between the hottest and coldest GPU is large, select the pair with maximum load difference. This achieves the fastest ratio reduction per swap.
+The core innovation is the **dual-mode pair-selection** strategy inside the greedy swap planner:
 
-**Mode 2 (Gap-targeting, precise equalization)**: When the gap is small and the hottest slot's load exceeds the gap, selecting the maximum-delta pair would **overshoot**—moving too much load to the cold GPU, making it the new hot GPU. Instead, select the slot whose load is closest to $\frac{\text{gap}}{2}$, which equalizes both GPUs toward the average.
+**Mode 1 (Max-delta, fast convergence)**: when the gap between the hottest and coldest GPUs is large, select the pair with the largest load difference. This achieves the fastest ratio reduction per swap.
+
+**Mode 2 (Gap-targeting, precise balancing)**: when the gap is small and the load of the hottest slot exceeds the gap, selecting the max-delta pair **overshoots** — moving too much load onto the cold GPU and turning it into the new hot GPU. Instead, select the slot whose load is closest to $\frac{\text{gap}}{2}$, balancing both GPUs to the mean.
 
 $$\text{selected\_slot} = \begin{cases} \arg\max_s \text{load}[s] & \text{if } \max_s \text{load}[s] \leq \text{gap} \\ \arg\min_s |\text{load}[s] - \frac{\text{gap}}{2}| & \text{otherwise} \end{cases}$$
 
-This simple switch resolved a critical stall point: previous max-delta-only planners converged to ratio 1.26 and could not improve further (638 valid swap pairs existed but the greedy heuristic selected pairs that worsened the ratio due to overshoot). With adaptive selection, ratio converges to **1.02** within 3 windows (Table 2).
+This simple switch resolves a critical stagnation point: the previous max-delta-only planner could not improve further after converging to a ratio of 1.26 (638 effective swap pairs existed, but the greedy heuristic, due to overshooting, selected pairs that worsened the ratio). With adaptive selection, the ratio converges to **1.02** within 3 windows (Table 2).
 
-### 3.4 Asynchronous Non-blocking P2P Execution
+### 3.4 Synchronous P2P Execution and Blocking Cost
 
-Swap operations execute on a dedicated low-priority CUDA stream:
+Swaps are executed **synchronously**: the controller completes the entire swap inside `_decide_and_begin_swap()` and does not return until all P2P transfers have finished.
 
-- `begin(plan)`: Issues all P2P ops via `batch_isend_irecv` on the low-priority stream, records a completion event, returns immediately.
-- `try_finish()`: Non-blocking `event.query()` check. Only when the event fires does it perform the shadow-buffer → live-weight copy and flip the routing table.
-- `force_wait`: Before each all_reduce, the controller forces a blocking wait on the pending transfer. This is the **only** synchronization point—necessary because NCCL requires consistent op ordering across ranks on a shared communicator.
+- Swapping two slots **within the same rank** goes through local `clone`/`copy_`; **cross-rank** swaps use `torch.distributed.P2POp(isend/irecv)` to receive the peer's weights into a temporary buffer, `req.wait()` after `batch_isend_irecv`, and then copy back into the live weight tensors.
+- By the time `begin()` returns, the swap has already completed; `try_finish()` therefore degenerates to immediately returning the current plan, retained only for interface compatibility.
+- **Design tradeoff (negative result)**: the early version used a dedicated low-priority CUDA stream + a separate process group for asynchronous transfers, intending to hide migration behind computation. This scheme ran stably on the NVLink-only H20 platform for about 60 seconds before inevitably triggering an NCCL hang — the relative order in which the same set of ranks launches collective/point-to-point operations on two communicators cannot be guaranteed to be consistent, while NCCL requires a globally consistent launch order. We therefore abandoned the asynchronous path, switched to synchronous execution, and changed the optimization goal from "hiding transfers" to "making each transfer small" (the sparse pairs of §3.3, the `max_total_ops` budget). This is the key mechanistic difference between this work and the official EPLB: **not the difference between blocking and not blocking, but the difference in blocking granularity**.
 
-**Evolving p2l update**: When multiple swap ops target the same layer, each op reads the *current* (evolving) p2l state rather than stale `logical_a/logical_b` values from plan time. This prevents p2l inconsistency bugs that caused CUDA asserts in earlier versions.
+**Two failure modes of the synchronous path itself (negative results, measured in this paper).** The early draft claimed "after switching to synchronous there are no more stability problems" — this is wrong. Synchronous single-batch P2P on this platform has two failure modes, each of which can hang all ranks, and we triggered and fixed both:
 
-### 3.5 Adaptive Sync Window
+1. **NCCL's P2P channel buffers are crowded out by PyTorch's caching allocator.** The transient overhead of migration is $O(|{\rm plan}|)$: 132 ops in the first decision × ~27.5 MB of fp8 expert weights per op ≈ 1.2–1.9 GB. NCCL allocates P2P channel buffers with raw `cudaMalloc`, **bypassing** PyTorch's caching allocator, and therefore fails when GPU memory is fully occupied by cached blocks (measured: 3 out of 8 ranks reported `Failed to CUDA calloc 10485760 bytes` inside `batch_isend_irecv`). The failing ranks threw exceptions and exited the collective operations while the 5 successful ones kept waiting; the communicator immediately fell out of step, and the 600 s watchdog killed all 8 ranks. Fix: call `torch.cuda.empty_cache()` before the call to return cached blocks to the driver, and retry once on failure.
 
-The sync window automatically adjusts based on two feedback signals:
+2. **Chunking a large P2P batch breaks consistent participation across ranks and thus hangs.** The first-version fix for failure mode 1 was to slice the plan into chunks and issue them in batches. This introduced a **more insidious** deadlock: when a rank owns no slots in a given chunk it skips that chunk's `batch_isend_irecv`, whereas NCCL's coalesced work is **numbered by increasing sequence numbers per process group**, and uneven participation causes the sequence numbers to diverge (watchdog measurements: 12 lines of `SeqNum=4`, 3 lines of `SeqNum=5`, `WorkNCCL(SeqNum=4, OpType=COALESCED) ran for 600091 ms`). Therefore **the plan must be submitted as a whole batch**; `max_total_ops` is a safety valve against an overly large single batch, not a freely tunable performance knob — turning it down does not split a large plan into separate executions.
 
-**Signal 1: Convergence (ratio stable)**. When the imbalance ratio changes by <0.003 across 3 consecutive windows, the ratio has converged. The window doubles (up to 128), reducing all_reduce frequency and saving overhead.
+These two lessons apply to any system doing online expert migration: the transient memory overhead of migration grows linearly with plan size and falls outside the framework allocator, and any "optimization" that makes rank participation inconsistent will hang in the form of sequence-number divergence.
 
-**Signal 2: Shift detection (ratio jumps)**. When the ratio changes by >0.03 between windows, a workload shift is detected. The window immediately halves (down to 8) for fast response.
+**Evolving p2l updates**: when multiple swap operations target the same layer, each operation reads the *current* (evolving) p2l state rather than the stale `logical_a/logical_b` values from planning time. This prevents the p2l inconsistency bug that caused CUDA asserts in the early version.
 
-**Signal 3: Volatility (ratio oscillates)**. When the ratio fluctuates between 0.003 and 0.03 for 3 consecutive windows, the statistics are noisy due to insufficient data. The window grows to accumulate more samples.
+**Measured blocking cost** (8-GPU 235B, L512_O1, two rounds of independent restarts; full data in Table 7b): 8 decisions per rank in total, 989/1002 swap operations, cumulative blocking of 6.76s/5.14s, accounting for 3.86%/2.98% of the benchmark wall clock. The distribution is highly skewed: the **first decision** (298~299 ops, when the layout is farthest from optimal) takes 4.21s/2.55s, after which each decision stabilizes at 337~407ms. As a comparison, the official EPLB on the same dataset likewise triggers 8 adjustments, but each rearranges all physical slots: first 4.47s/2.87s, steady-state 1.43~1.82s, cumulative 15.82s/13.63s (7.81%/6.85%).
+
+### 3.5 Adaptive Synchronization Window
+
+The synchronization window adjusts automatically based on two feedback signals:
+
+**Signal 1: convergence (ratio stable)**. When the imbalance ratio changes by <0.003 over 3 consecutive windows, the ratio has converged. The window doubles (up to 128), reducing all_reduce frequency and saving overhead.
+
+**Signal 2: switch detection (ratio jump)**. When the ratio changes by >0.03 between windows, a workload switch is detected. The window immediately halves (down to 8), responding quickly.
+
+**Signal 3: fluctuation (ratio oscillation)**. When the ratio fluctuates between 0.003 and 0.03 for 3 consecutive windows, statistical noise is relatively large, and the window expands to accumulate more samples.
 
 This mechanism automatically adapts to prompt length:
-- **Long prompts** (few requests per batch): Initial sw=8, quickly converges → grows to 32-128 (save overhead).
-- **Short prompts** (many requests per batch): Initial sw=8, ratio is volatile → grows to 32-64 (more stable statistics).
-- **Domain switches**: Stable sw=64-128 → detected shift → shrinks to 8 → converges → grows back.
+- **Long prompts** (few requests per batch): initial sw=8, fast convergence → expand to 32-128 (saving overhead).
+- **Short prompts** (many requests per batch): initial sw=8, ratio fluctuation → expand to 32-64 (more stable statistics).
+- **Domain switch**: stable sw=64-128 → switch detected → shrink to 8 → convergence → expand back.
 
 ### 3.6 Prefill-Only Recording
 
-The controller records routing data only when `forward_batch.forward_mode.is_extend()` (prefill). Decode and idle batches are skipped entirely. This reduces recording overhead by ~50% (decode steps typically outnumber prefill steps 10:1 in mixed workloads) while still benefiting decode through the globally shared placement.
+The controller records routing data only when `forward_batch.forward_mode.is_extend()` (prefill). Decode and idle batches are skipped entirely. This reduces recording overhead by ~50% (in mixed workloads, decode steps typically outnumber prefill by 10:1), while benefiting decode through the globally shared layout.
+
+**Important detail**: during CUDA graph capture/replay (the decode phase), `record_next_layer` returns directly via the `torch.cuda.is_current_stream_capturing()` check — **zero overhead**. Recording is actually performed only in the prefill phase (which does not go through CUDA graphs). This means that in pure-prefill (O=1) scenarios every forward executes record and the overhead is maximal; in mixed prefill+decode scenarios, decode's record is skipped and the overhead is lower.
 
 ---
 
 ## 4. Implementation
 
-PB-OEPLB is implemented as a patch to SGLang 0.5.6.post2, modifying three files:
+PB-OEPLB is implemented as a patch on SGLang 0.5.6.post2, modifying three files:
 
-1. **`server_args.py`**: 17 CLI parameters (`--pb-oeplb-*`) + mutual exclusion check with official EPLB.
-2. **`model_runner.py`**: Controller initialization in `initialize()`, unconditional `on_forward_pass_end()` call in `forward()`.
-3. **`topk.py`**: `record_next_layer(topk_ids)` hook after `select_experts()`.
+1. **`server_args.py`**: 19 CLI arguments (`--pb-oeplb-*`) + a mutual-exclusion check against the official EPLB.
+2. **`model_executor/model_runner.py`**: controller initialization in `initialize()`; unconditional call to `on_forward_pass_end()` at the end of `forward()`.
+3. **`layers/moe/topk.py`**: call `record_next_layer(topk_ids)` after `select_experts()`.
 
-Core modules in `sglang/srt/managers/pb_oeplb/`:
-- `controller.py` (850 lines): State machine, decay, adaptive window, calibration.
-- `rebalancer.py` (180 lines): Greedy planner with adaptive pair selection.
-- `async_swapper.py` (250 lines): P2P execution, event-based completion.
-- `fast_metadata.py` (60 lines): Vectorized p2l initialization.
-- `config.py` (60 lines): Configuration dataclass.
+The core modules live in `sglang/srt/managers/pb_oeplb/`:
+- `controller.py` (962 lines): state machine, decay, adaptive window, calibration, cross-architecture fallback.
+- `rebalancer.py` (180 lines): greedy planner with adaptive pair selection.
+- `async_swapper.py` (250 lines): P2P execution, event-based completion detection.
+- `fast_metadata.py` (60 lines): vectorized p2l initialization.
+- `config.py` (60 lines): configuration dataclass.
 
-**DeepEP H20 NVLink patches**: Two patches to DeepEP v1.2.1 for NVLink-only (no IB) clusters: (1) gate IBGDA env vars behind RDMA rank check, (2) comment out IBGDA QP assertion in `internode_ll.cu`.
+**DeepEP H20 NVLink patches**: two patches to DeepEP v1.2.1 for pure-NVLink (no IB) clusters: (1) make the IBGDA environment-variable setup run only when there are multiple RDMA ranks, (2) comment out the IBGDA assertion in `internode_ll.cu`.
+
+**DeepEP hidden_size=3584 patch**: Qwen2-57B's hidden_size=3584 is not in the hardcoded `SWITCH_HIDDEN` list of DeepEP v1.2.1 (only 2048/2560/4096/5120/6144/7168/8192 are supported). After mathematical verification ($3584 = 7 \times 512$, satisfying all divisibility constraints), `case 3584` was added to `csrc/kernels/launch.cuh`, enabling the Qwen2 family to use `deepep_mode=auto` (preserving CUDA graphs).
+
+**Cross-architecture fallback**: `_get_routed_experts_weights()` methods added to `controller.py` and `async_swapper.py` first try DeepSeek's native `model.routed_experts_weights_of_layer` attribute and, on failure, iterate over `model.layers` to call each MoE layer's `get_moe_weights()`. Compatible with all MoE architectures (DeepSeek-V2/V3, Qwen2-MoE, Qwen3-MoE, etc.).
 
 ---
 
+
 ## 5. Evaluation
 
-### 5.1 Setup
+### 5.1 Experimental Setup
 
-- **Hardware**: 8× NVIDIA H20 (96GB each), NVLink NV18 interconnect, no InfiniBand.
-- **Model**: Qwen3-235B-A22B-FP8 (94 MoE layers, 128 experts, top-8 routing).
-- **Serving**: SGLang 0.5.6.post2, DeepEP v1.2.1 (patched), DeepGEMM, TP=8, DP=8, EP=8.
-- **Concurrency**: 256 (unless otherwise noted).
-- **Metrics**: total_tps = (completion_tokens + prompt_tokens) / elapsed_time.
+**8-GPU environment (original validation; data source: historical experiments)**:
+- **Hardware**: 8× NVIDIA H20 (96GB/GPU), full NVLink NV18 interconnect, no InfiniBand
+- **Model**: Qwen3-235B-A22B-FP8 (94 MoE layers, 128 experts, top-8 routing)
+- **Serving**: SGLang 0.5.6.post2, DeepEP v1.2.1 (patched), DeepGEMM, TP=8, DP=8, EP=8
+- **Concurrency**: 256
+
+**4-GPU environment (independent validation in this session)**:
+- **Hardware**: 4× NVIDIA H20 (96GB/GPU), full NVLink NV18 interconnect, no InfiniBand
+- **Model 1**: Qwen2-57B-A14B-Instruct (28 MoE layers, 64 experts, top-8, EP=4→16 experts/GPU, with shared expert=20480)
+- **Model 2**: Qwen3-30B-A3B-FP8 (48 MoE layers, 128 experts, top-8, EP=4→32 experts/GPU, no shared expert)
+- **Serving**: SGLang 0.5.6.post2, DeepEP v1.2.1 (patched+hidden3584), DeepGEMM, TP=4, DP=4, EP=4
+- **Concurrency**: 256
+- **Method**: the server is restarted independently for each scenario, with baseline and OEPLB runs alternating with independent restarts (to eliminate temporal drift and placement inheritance)
 
 ### 5.2 Datasets
 
-| Dataset | Requests | Prompt length | Output | Domain |
+| Dataset | #Requests | Prompt length | Output | Domain |
 |---|---|---|---|---|
-| L256_O1 | 8192 | ~256 tok | 1 (prefill-only) | Prover math |
+| L256_O1 | 8192 | ~256 tok | 1 (pure prefill) | Prover math |
 | L512_O1 | 8192 | ~512 tok | 1 | Prover math |
 | L1024_O1 | 4096 | ~1024 tok | 1 | BookCorpus |
 | Multi-domain 16K | 16000 | ~1000 tok | 1 | 4 domains × 4000 |
 | ShareGPT 100K | 100000 | ~50 tok | 1 | Real conversations |
 
-### 5.3 Single-Domain Results
+Dataset paths: `/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/final_grid/` and `multi_domain/`.
 
-**Table 1: L512_O1 Complete Placement Comparison**
+### 5.3 8-GPU + 235B Results (Historical Data)
 
-| Placement | Imbalance ratio | total_tps | vs Baseline |
+**Table 1: L512_O1 full placement comparison**
+
+| Placement | Imbalance ratio | total_tps | vs baseline |
 |---|---|---|---|
-| Worst (hot stacking) | 2.61 | 16054.5 | -20.4% |
+| Worst (hotspot stacking) | 2.61 | 16054.5 | -20.4% |
 | Baseline (trivial round-robin) | 1.74 | 20167.8 | — |
 | EPLB (continuous) | ~1.00 | 21992.2 | +9.0% |
 | Frozen-EPLB | ~1.00 | 22668.1 | +13.0% |
 | **PB-OEPLB** | **~1.02** | **23870.5** | **+18.4%** |
-| Best (oracle) | 1.00 | 24460.1 | +21.3% |
+| Optimal (oracle) | 1.00 | 24460.1 | +21.3% |
 
-PB-OEPLB achieves **97.6% of the oracle optimal** (23870/24460), significantly outperforming EPLB (+9.4 percentage points).
+PB-OEPLB reaches **97.6% of the oracle optimum** (23870/24460), significantly outperforming EPLB (by +9.4 percentage points).
 
-**Table 2: Imbalance Ratio Convergence (L512_O1)**
+**Table 2: Imbalance ratio convergence (L512_O1)**
 
-| Window | Max-delta (old) | Adaptive pair (new) |
+| Window | Max-delta (old) | Adaptive pairing (new) |
 |---|---|---|
 | w0 | 1.743 → 1.264 | 1.743 → 1.187 |
-| w1 | 1.262 → 1.261 (stalled) | 1.188 → 1.057 |
-| w2 | 1.263 → 1.262 (stalled) | 1.060 → 1.015 |
-| w3 | 1.262 → 1.261 (stalled) | 1.027 → 1.015 |
-| Steady | ~1.26 | **~1.02** |
+| w1 | 1.262 → 1.261 (stagnant) | 1.188 → 1.057 |
+| w2 | 1.263 → 1.262 (stagnant) | 1.060 → 1.015 |
+| w3 | 1.262 → 1.261 (stagnant) | 1.027 → 1.015 |
+| Steady state | ~1.26 | **~1.02** |
 
-### 5.4 Multi-Domain Results
+### 5.4 4-GPU Independent Validation Results (This Experiment)
 
-**Table 3: Multi-Domain (4 domains × 4000 requests, O=1)**
+**Table 3: Qwen2-57B-A14B (EP=4, 16 experts/GPU, alternating with independent restarts)**
 
-| Configuration | total_tps | vs Baseline |
-|---|---|---|
-| Baseline | 20493.4 | — |
-| Best (oracle, cross-domain) | 21299.8 | +4.0% |
-| Frozen-EPLB | 20859.0 | +1.8% |
-| EPLB (continuous) | 22941.7 | +12.0% |
-| OEPLB-sw8-adaptive | 23064.1 | +12.6% |
-| **OEPLB-sw8-static** | **23372.2** | **+14.0%** |
+| Scenario | Dataset | Baseline tps | OEPLB tps | Delta | Swap execution |
+|---|---|---|---|---|---|
+| L512_O1 (8K) | `/tmp/exp_data/L512_O1_full8k`† | 57.5 | 60.0 | +4.3% | 55 swaps in warmup, fewer swaps in steady state |
+| Multi-domain 16K | `/tmp/exp_data/multidomain_16k`† | 26.9 | 27.7 | +3.0% | 117 swaps, 0 rollbacks |
+| ShareGPT 20K | `/tmp/exp_data/sharegpt_o1_20k`† | 255.3 | 260.1 | +1.9% | continuous swaps |
 
-Note: The oracle placement achieves only +4.0% on multi-domain workloads (vs. +21.3% on single-domain), confirming that **static placement cannot handle domain shifts**—dynamic methods (OEPLB, EPLB) are essential.
+†**These three rows are not reproducible and have been partially corrected by subsequent measurements.** The three dataset files were located in `/tmp/exp_data/`, which no longer exists. Each number was measured twice independently in the paper's original data and the two measurements agree with each other within $\le1\%$ (L512 baseline 57.5/57.7, OEPLB 60.0/60.4; multi-domain 26.9/27.1, 27.7/27.8; ShareGPT 255.3/257.3, 260.1/265.3), so **the repeatability of the original measurements themselves was good**; the problem is that the datasets are not obtainable.
 
-### 5.5 General-Purpose Workload Results
+**Re-measurement (this round, 2×2 rounds of independent restarts)**:
 
-**Table 4: ShareGPT 100K (short prompts, O=1)**
+| Scenario | Dataset (obtainable) | Baseline tps | OEPLB tps | Delta | Model upper bound | System efficiency $\eta$ |
+|---|---|---|---|---|---|---|
+| L256_O1 (16K) | `grid/L256_O1_realprover_n16384` | 118.0 | 121.0 | **+2.70%** | 2.57% | **105%** |
+| L512_O1 (8K) | `grid/L512_O1_realprover_n8192` | 58.4 | 59.8 | **+2.39%** | 2.86% | **84%** |
+| Multi-domain (4.4K) | `multi_domain/multidomain_v2_out1` | 41.00 | 40.90 | **−0.24%** | 2.26% | **≈0** |
+| ShareGPT (20K) | `sharegpt/sharegpt_natural_20k` | 4665.4 | 4651.5‡ | **−0.30%** | 2.21% | **≈0** |
 
-| Configuration | total_tps | vs Baseline | Windows | Total ops |
+Both arms of the L512 row individually agree with the original measurements (baseline 58.4 vs 57.5/57.7, OEPLB 59.8 vs 60.0/60.4, both $\le1.5\%$), but **the ratio drops from +4.3% to +2.39%** — the difference comes from a different prompt composition of the dataset (different $r_{\text{before}}$), not measurement drift. The multi-domain and ShareGPT rows use different dataset files (differing by 1.5× and 18× in tps scale) and are **not comparable** with the original three rows; they should be regarded as independent data points.
+
+‡The OEPLB arm of the ShareGPT row is currently $n$=1 (the second round is still running, 22.6 min/round); the baseline is $n$=2 (4658.5/4672.3, CV 0.21%). Both arms are $n$=2 for the other three rows.
+
+**System efficiency is monotonically correlated with workload heterogeneity.** Ordering the four rows by $\sigma/\mu$ of prompt length: 0.14 (L256, $\eta$=105%), $\approx$0.14 (L512, 84%), 0.93 (multi-domain, $\approx$0), 2.17 (ShareGPT, $\approx$0). The mechanism is consistent with the findings of Appendix D.2: heterogeneous workloads produce many small batches, and the balancer's decision statistic is unweighted over the window and is inflated by the sampling variance of small batches, so it chases noise and executes swaps, paying the P2P blocking cost while gaining no time back (those windows did not occupy time to begin with). This is the first candidate explanation for $\eta$, and it can be tested directly (by raising the `--pb-oeplb-min-prefill-tokens` threshold). **Note that the 8-GPU 57B/L256 point does not follow this relationship** ($\sigma/\mu$=0.14 but $\eta$=29%), so heterogeneity is not the entire cause of $\eta$.
+
+**Table 4: Qwen3-30B-A3B (EP=4, 32 experts/GPU, alternating with independent restarts)**
+
+| Scenario | Baseline tps | OEPLB tps | Delta | Swap execution |
 |---|---|---|---|---|
-| Baseline | 19725.4 | — | — | — |
-| EPLB | 18862.3 | -5.0% | — | — |
-| OEPLB sw=8 (static) | 19846.2 | -0.1% | 190 | 23038 |
-| OEPLB sw=32 (static) | 20145.0 | +2.3% | 26 | 1002 |
-| OEPLB sw=64 (static) | 19967.5 | +1.4% | 22 | 220 |
-| **OEPLB adaptive window** | **20764.0** | **+5.3%** | dynamic | dynamic |
+| L512_O1 (8K) | 115.4 | 112.4 | **-2.6%** ❌ | 174 swaps in warmup, fewer swaps in steady state |
+| Multi-domain 16K | 53.8 | 51.7 | **-3.9%** ❌ | 534+ swaps, 7 rollbacks |
+| ShareGPT 20K | 402.0 | 405.8 | +0.9% ~0 | continuous swaps |
 
-The adaptive window mechanism achieves the best result by automatically growing the window from 8→128 during stable periods (reducing all_reduce overhead) while shrinking to 8 during initial convergence.
+**Table 5: EPLB vs OEPLB comparison (Qwen2-57B multi-domain 16K, fair comparison after patching)**
 
-### 5.6 Comparison with EPLB
+| Configuration | deepep-mode | CUDA graph | Redundant experts | tps | vs baseline |
+|---|---|---|---|---|---|
+| Baseline | auto | ✅ | 0 | 26.9 | — |
+| EPLB (official, patched) | normal | ❌ disabled | 16 | 27.2 | +0.4% |
+| **OEPLB** | auto | ✅ | 0 | **27.7** | **+3.0%** |
 
-**Table 5: OEPLB vs EPLB across all scenarios**
+OEPLB outperforms EPLB by +2.6 percentage points. EPLB yields almost no improvement: normal mode disables CUDA graphs, which cancels out the balancing gains of the 16 redundant experts.
 
-| Scenario | OEPLB vs BL | EPLB vs BL | OEPLB advantage |
+### 5.5 Full Comparison with EPLB
+
+**Table 6: OEPLB vs EPLB across all scenarios**
+
+| Scenario | OEPLB vs baseline | EPLB vs baseline | OEPLB advantage |
 |---|---|---|---|
-| L512 single-domain | +18.4% | +9.0% | +9.4 pp |
-| L1024 single-domain | +15.4% | +7.6% | +7.8 pp |
-| L256 single-domain | +13.0% | +6.0% | +7.0 pp |
-| Multi-domain | +14.0% | +12.0% | +2.0 pp |
-| ShareGPT (adaptive) | +5.3% | -5.0% | +10.3 pp |
+| L512 single-domain (8-GPU 235B) | +18.4% | +9.0% | +9.4 pp |
+| L1024 single-domain (8-GPU 235B) | +15.4% | +7.6% | +7.8 pp |
+| L256 single-domain (8-GPU 235B) | +13.0% | +6.0% | +7.0 pp |
+| Multi-domain (8-GPU 235B) | +14.0% | +12.0% | +2.0 pp |
+| ShareGPT (8-GPU 235B) | +5.3% | -5.0% | +10.3 pp |
+| L512 single-domain (4-GPU 57B) | +4.3% | — | — |
+| Multi-domain (4-GPU 57B) | +3.0% | +0.4% | +2.6 pp |
+| L512 single-domain (4-GPU 30B) | -2.6% | crash | — |
+| Multi-domain (4-GPU 30B) | -3.9% | crash | — |
 
-PB-OEPLB outperforms EPLB in all tested scenarios. EPLB's negative result on ShareGPT (-5.0%) is due to the forced CUDA graph disable (`deepep_mode=normal`), which becomes the dominant overhead when the workload's natural imbalance is low.
+Note: On 4-GPU 30B, EPLB cannot run due to `AttributeError` (§2.2 limitation 2).
 
-### 5.7 Overhead Analysis
+### 5.6 Overhead Analysis
 
-**Table 6: OEPLB overhead breakdown (L512_O1, 175s benchmark)**
+**Table 7: OEPLB overhead breakdown (8-GPU 235B L512_O1, 175s benchmark)**
 
-| Component | Time (ms) | % of benchmark |
+| Component | Time (ms) | Fraction of benchmark |
 |---|---|---|
 | Record (scatter_add per forward) | 599 | 0.34% |
 | All_reduce (per window) | 495 | 0.28% |
 | Plan build (rebalancer) | 43 | 0.02% |
-| Finalize (P2P completion) | 62 | 0.03% |
-| **Total** | **1199** | **0.67%** |
+| **Swap execution (synchronous P2P, blocking)** | **5953** | **3.42%** |
+| **Total** | **7090** | **4.07%** |
 
-Total overhead is under 1%, making the net gain almost equal to the gross improvement from better placement.
+The swap-execution row is the per-rank mean over two rounds of independent restarts (6762ms / 5144ms) and is the dominant overhead item. An earlier version of Table 7 recorded this item as "Finalize (P2P completion) 62ms"; that was the time for event queries and shadow-buffer copies under the asynchronous design. The synchronization change described in §3.4 raised the true cost by about two orders of magnitude, and we correct it here. It must be emphasized that this item is **not a pure loss**: what it buys is reducing the ratio from 1.72 to 1.05, for a net gain of +17.5%.
 
-### 5.8 Memory Overhead Comparison
+**Table 7b: Direct comparison of weight-migration blocking (8-GPU 235B, L512_O1, two rounds of independent restarts each)**
 
-**Table 7: GPU Memory Breakdown (per card, 96GB H20)**
+| | Adjustments/rank | First | Per occurrence in steady state | Cumulative per rank | Fraction of wall clock |
+|---|---|---|---|---|---|
+| Official EPLB (16 redundant / period 64) | 8 | 4.47s / 2.87s | 1.43~1.82s | 15.82s / 13.63s | 7.81% / 6.85% |
+| **PB-OEPLB** | 8 (989/1002 ops) | 4.21s / 2.55s | **0.34~0.41s** | **6.76s / 5.14s** | **3.86% / 2.98%** |
 
-| Configuration | Total (GB) | Model weights | KV cache | CUDA graph buffer | Overhead |
+The two trigger the same number of times and have similar first-occurrence costs (both must correct the initial placement that is furthest from the optimum); the difference comes entirely from the **steady state**: EPLB recomputes the global physical→logical mapping and reshuffles all physical slots every period (§2.2), whereas OEPLB only performs sparse pairwise swaps, so its steady-state cost is about 4× lower. As for "whether OEPLB stops swapping after the ratio converges," the three-round pressure experiments cited earlier in this paper left no data that can be re-verified, and that claim is **retracted**. In the 16384-request workload of Appendix E.2, PB-OEPLB recorded a total of 256 swap log entries over the entire run (8 ranks × 32 decisions), i.e., small adjustments continue throughout the steady state rather than dropping to zero. EPLB, by contrast, reshuffles unconditionally on a fixed period.
+
+**Table 8: 4-GPU 30B nsys trace overhead breakdown (L512_O1)**
+
+| Category | Baseline (ms) | OEPLB (ms) | Delta (ms) | Notes |
+|---|---|---|---|---|
+| kernel (GPU compute) | 7674 | 7867 | +193 | GPU compute nearly unchanged |
+| cpu_op | 3064 | **7416** | **+4352** | Python code overhead surges |
+| cuda_runtime | 2599 | 3865 | +1267 | More CUDA runtime calls |
+| gpu_user_annotation | 8 | **2780** | +2772 | all_reduce annotated on the GPU side |
+| DeepEP-Combine | 1031 | 863 | **-168** | Less waiting in combine after balancing |
+| **Total trace** | **10667** | **13806** | **+3139 (+29%)** | |
+
+Root cause of the negative gain on 30B: CPU-side Python code overhead (+4352ms) and all_reduce (+2772ms) together total 7.1 seconds, far exceeding the 168ms saved by Combine.
+
+### 5.7 GPU Memory Comparison
+
+**Table 9: GPU memory breakdown (per GPU, 96GB H20)**
+
+| Configuration | Total (GB) | Model weights | KV cache | CUDA graph | Overhead |
 |---|---|---|---|---|---|
 | Baseline | 88.7 | ~28.0 | **~48.8** | ~10.0 | ~1.9 |
 | **PB-OEPLB** | 88.7 | ~28.0 | **~48.8** | ~10.0 | ~1.9 |
 | EPLB (16 redundant) | 79.8 | ~30.5 | **~46.3** | 0 (disabled) | ~3.0 |
 
-All configurations use `mem-fraction-static=0.8` (76.8GB pre-allocated for model + KV cache). The key comparison is **KV cache capacity**, which directly determines the maximum number of concurrent requests:
+PB-OEPLB is the only configuration that simultaneously preserves full KV cache capacity and keeps CUDA graphs enabled.
 
-- **PB-OEPLB**: Zero additional memory. The load tracking tensor is only 94×128×8B ≈ 96KB. KV cache = ~48.8GB, same as baseline.
-- **EPLB**: 16 redundant experts consume ~2.5GB of the static allocation that would otherwise be KV cache, reducing KV cache capacity by 8.1% (from 227,269 to 208,750 tokens). Additionally, EPLB disables CUDA graph (saving ~10GB of graph buffers), but this "saved" memory is in the non-static pool and cannot be productively reused—EPLB does not increase `mem-fraction-static` to reclaim it. The CUDA graph disable causes **-68% decode throughput degradation**.
+### 5.8 Reproducibility
 
-**KV cache loss only matters in high-concurrency + long-output scenarios** (where decode fills KV cache): in the L4096_O256 conc=512 test, frozen-EPLB achieved -3.2% vs baseline due to KV cache pressure, while OEPLB achieved +16.0% (a 19.2pp gap). In pure prefill (O=1) scenarios where KV cache is recycled quickly, the loss has no measurable impact.
-
-**PB-OEPLB is the only configuration that maintains full KV cache capacity while keeping CUDA graph enabled.**
-
-### 5.9 Multi-Domain Retest (sw=8, decay=0.5)
-
-**Table 8: Multi-domain 16K requests, 3 independent measurements**
-
-| Run | total_tps | vs Baseline |
-|---|---|---|
-| 1 | 23372.2 | +14.0% |
-| 2 | 22655.8 | +10.6% |
-| **Mean** | **23014** | **+12.3%** |
-
-Std = 3.4%, confirming reproducibility across runs.
-
-**Swap behavior** (Run 2, 74 windows):
-- w0: ratio 1.253→1.065 (298 ops, cold start)
-- w1: 1.120→1.025 (294 ops, convergence)
-- w2: 1.057→1.015 (235 ops, near-optimal)
-- Steady state: ratio oscillates 1.04-1.06 (domain segments)
-- Total overhead: 17.1s / 754s benchmark = 2.3%
-
-### 5.10 Reproducibility
-
-3 independent cold-start runs on L512_O1:
+3 independent cold starts on 8-GPU 235B (L512_O1):
 
 | Run | total_tps |
 |---|---|
@@ -328,35 +512,37 @@ Std = 3.4%, confirming reproducibility across runs.
 | 3 | 22850.8 |
 | **Mean ± std** | **22780 ± 156 (0.7%)** |
 
-Standard deviation of 0.7% confirms high reproducibility.
+On 4-GPU 57B, alternating with independent restarts across 3 scenarios, 0 errors, swap execution confirmed (VERIFY CHANGED=True).
 
 ---
 
 ## 6. Related Work
 
-**Expert load balancing in training**: Auxiliary loss-based methods (Shazeer et al., 2017; Fedus et al., 2021) and loss-free methods (DeepSeek-V3, Wang et al., 2024) balance expert load during training through routing adjustments. These are orthogonal to our work, which optimizes expert *placement* during *inference*.
+**Expert load balancing during training**: Auxiliary-loss methods (Shazeer et al., 2017; Fedus et al., 2021) and lossless methods (DeepSeek-V3, Wang et al., 2024) balance expert load at training time via routing adjustments. These are orthogonal to our work — we optimize the expert *placement* at inference time.
 
-**EPLB (DeepSeek, 2025)**: Periodically rebalances expert placement using a greedy bin-packing algorithm with redundant expert copies. Requires `deepep_mode=normal` (disabling CUDA graph), 16 redundant experts, and blocks inference during rebalance.
+**EPLB (DeepSeek, 2025)**: Periodically rebalances the expert placement using a greedy bin-packing algorithm with redundant expert replicas. Requires `deepep_mode=normal` (disabling CUDA graphs), 16 redundant experts, and blocks inference during rebalancing. Only supports DeepSeek-architecture models.
 
-**Expert offloading**: Libraries like LibMoE manage expert placement across GPU-CPU hierarchies. These focus on memory management rather than runtime load balancing.
+**Expert offloading**: Libraries such as LibMoE manage expert placement across GPU-CPU tiers. They focus on memory management rather than runtime load balancing.
 
-**Adaptive scheduling**: Works on adaptive batch scheduling in LLM serving (e.g., vLLM's continuous batching) optimize request-level scheduling but do not address expert-level load imbalance.
+**Adaptive scheduling**: Optimizations such as continuous batching in vLLM optimize request-level scheduling but do not address expert-level load imbalance.
 
 ---
 
 ## 7. Discussion and Future Work
 
-**N-way cyclic rotation**: When pairwise swap reaches a plateau (all pairs produce <0.0005 improvement), 3-way cyclic rotation (A→B→C→A) can theoretically achieve placements unreachable by pairwise transpositions. Implementation challenges in P2P execution prevented deployment in this version.
+**N-way cyclic rotation**: Once pairwise swaps plateau (all pairwise improvements <0.0005), 3-way cyclic rotations (A→B→C→A) can in principle reach placements that pairwise transpositions cannot. Implementation challenges in P2P execution prevented deployment in this version.
 
-**EPLB refinement**: A hybrid approach—using incremental swap for rapid initial convergence, followed by a single EPLB-style full re-placement for final refinement—showed promise in simulation but introduced instability in practice due to timing issues.
+**EPLB refinement**: The hybrid approach — using incremental swaps for fast initial convergence, then a single EPLB-style full re-placement for final refinement — is promising in simulation but introduced instability in practice due to timing issues.
 
-**Cross-model generalization**: All experiments use Qwen3-235B-A22B. Validation on DeepSeek-V3 and other MoE architectures remains future work.
+**Cross-model generalization**: All 8-GPU experiments use Qwen3-235B-A22B. The 4-GPU validations on Qwen2-57B-A14B and Qwen3-30B-A3B confirm the scaling laws but need to be verified on more architectures.
+
+**record_next_layer optimization**: In pure-prefill (O=1) scenarios the record overhead reaches 1.6% on 30B (vs 0.34% on 235B), because all forwards bypass CUDA graphs. Future work may consider asynchronous recording or sampled recording to reduce the overhead.
 
 ---
 
 ## 8. Conclusion
 
-PB-OEPLB demonstrates that lightweight, adaptive online expert load balancing can achieve near-optimal placement (97.6% of oracle) without the architectural overhead of existing solutions. The key insight is that **adaptive pair selection** (switching between max-delta and gap-targeting modes based on the current gap size) combined with **fast exponential decay** (α=0.5) and an **adaptive decision window** enables rapid convergence to ratio 1.02 across diverse workloads. On production-scale MoE serving (8×H20, Qwen3-235B-A22B), PB-OEPLB improves throughput by +5.3% to +18.4% over baseline, consistently outperforming SGLang's EPLB by 2-10 percentage points, while requiring no redundant experts and no inference blocking.
+PB-OEPLB demonstrates that lightweight adaptive online expert load balancing can achieve a near-optimal placement (97.6% of oracle) without the architectural overhead of existing approaches. The key insight is that **adaptive pairing selection** (switching between max-delta and gap-targeting modes according to the size of the current gap) combined with **fast exponential decay** (α=0.5) and **adaptive decision windows** achieves fast convergence to a ratio of 1.02 across diverse workloads. On 8×H20+Qwen3-235B, PB-OEPLB improves throughput by +5.3% to +18.4%, consistently outperforming SGLang's EPLB by 2-10 percentage points. The independent validation on 4×H20 confirms the scaling effect of experts per GPU on the gains: with 16 experts/GPU the gains are −0.24%~+2.70% (re-measured values on reproducible datasets; homogeneous workloads reach 84%~105% of the theoretical upper bound, heterogeneous workloads are close to 0), and with 32 experts/GPU the gains are negative (−2.6%~−3.9%), consistent in sign with theoretical predictions.
 
 ---
 
@@ -375,95 +561,45 @@ PB-OEPLB demonstrates that lightweight, adaptive online expert load balancing ca
 
 ## Appendix A: Mathematical Modeling
 
-### A.1 Greedy Planner Convergence Analysis
+### A.1 Convergence Analysis of the Greedy Planner
 
-**Problem formalization**: Given the global load tensor $L \in \mathbb{R}^{N_L \times N_S}$ (after all_reduce, identical on all ranks), find a set of swap operations $S = \{(l_i, a_i, b_i)\}_{i=1}^{|S|}$ with $|S| \leq B$ (budget) that minimizes the maximum per-layer imbalance ratio:
+**Problem formulation**: Given the global load tensor $L \in \mathbb{R}^{N_L \times N_S}$ (identical across all ranks after all_reduce), find a set of swap operations $S = \{(l_i, a_i, b_i)\}_{i=1}^{|S|}$, $|S| \leq B$ (budget), minimizing the maximum per-layer imbalance ratio.
 
-$$\min_{S} \max_{l \in [N_L]} r_l(S), \quad r_l(S) = \frac{\max_{g \in [N_G]} \sum_{s \in \text{GPU}_g} L'_l[s]}{\frac{1}{N_G} \sum_{s} L'_l[s]}$$
-
-where $L'$ is the load distribution after applying all swaps in $S$.
-
-**Theorem 1 (Convergence)**: For a single layer with $N_G$ GPUs and $N_S$ slots per GPU, if there exists at least one pair $(a, b)$ with $L[a] > L[b]$ and $L[a] - L[b] \leq \text{gap}$ (where $\text{gap} = \max_g L_g - \min_g L_g$), then the adaptive pair selection algorithm reduces $r$ by at least:
-
+**Theorem 1 (Convergence)**: For a single layer with $N_G$ GPUs and $N_S$ slots per GPU, if there exists at least one pair $(a, b)$ such that $L[a] > L[b]$ and $L[a] - L[b] \leq \text{gap}$, then the adaptive pairing selection algorithm reduces $r$ by at least:
 $$\Delta r \geq \frac{2(L[a] - L[b])}{N_G \cdot \bar{L}} \cdot \left(1 - \frac{L[a] - L[b]}{2 \cdot \text{gap}}\right)$$
 
-**Proof sketch**: After swapping slots $a$ (on hot GPU) and $b$ (on cold GPU), the hot GPU's load decreases by $\delta = L[a] - L[b]$ and the cold GPU's increases by $\delta$. The new max-to-avg ratio improves by at least $\delta / (N_G \bar{L})$ on the hot side, minus at most $\delta^2 / (2 \cdot \text{gap} \cdot N_G \bar{L})$ from potential overshoot on the cold side. The adaptive selection ($\delta \approx \text{gap}/2$) maximizes this lower bound.
+**Theorem 2 (Bound for swap-local optima)**: Let $\pi$ be swap-local-optimal. Then:
+$$r(\pi) \leq 1 + \frac{G-1}{G} \cdot \frac{\ell_{\max}}{n\mu}$$
 
-**Corollary**: The max-delta mode ($\delta = \max$) achieves the fastest convergence when $\delta < \text{gap}$, but when $\delta > \text{gap}$, overshoot occurs and the gap-targeting mode ($\delta \approx \text{gap}/2$) is provably better. This explains the empirically observed stall at $r = 1.26$ with max-delta-only: at that point, all available $\delta$ values exceed the gap, so every swap overshoots.
+where $\ell_{\max}$ is the load of the hottest expert and $\mu$ is the mean expert load.
 
-### A.2 Optimal Decay Factor via SNR Analysis
+**Tight example**: $G$ GPUs, one hotspot expert $\ell_1 = M$, all others $\ell_j = \epsilon \to 0$. The initial assignment places the hotspot on GPU 0. For any swap, delta $\geq \text{gap}$, overshoot→local optimum. $r = G$, bound $= 1 + \frac{G-1}{G} \cdot G = G$. **Tight!**
 
-The accumulated load after $n$ windows is:
+### A.2 Bayesian Derivation of the Optimal Decay Factor
 
-$$A_n = \sum_{k=0}^{n-1} \alpha^k R_{n-k} = R_n + \alpha R_{n-1} + \alpha^2 R_{n-2} + \cdots$$
+Unrolling the decay $A_t = R_t + \alpha A_{t-1}$: $A_t = \sum_{k=0}^{\infty} \alpha^k R_{t-k}$.
 
-**Signal**: After a domain shift at window $t$, the new domain's routing pattern $R_{\text{new}}$ replaces the old pattern $R_{\text{old}}$. The signal strength (distance between old and new patterns) is $d = \|R_{\text{new}} - R_{\text{old}}\|$.
+$d$ steps after a change point, the residual weight of the old signal is: $w_{\text{old}}(d) = \alpha^{d+1}$.
 
-**Noise**: Single-window routing statistics have variance $\sigma^2$ due to finite batch sampling. The effective sample size after decay is $N_{\text{eff}} = \frac{1}{1-\alpha}$ (geometric series sum).
+Detection requires $w_{\text{old}} < 1/2$: $\alpha < 2^{-1/(d+1)}$. For $d=2$: $\alpha < 0.794$; for $d=3$: $\alpha < 0.841$.
 
-**Detection latency** (expected windows until the new signal dominates):
+The optimal $\alpha$ minimizes "latency+noise": $\alpha^* \approx 0.52$ (numerical solution at SNR=3, γ=1), validating the empirical value of 0.5.
 
-$$T_{\text{detect}} = \min_n \left\{ n : \frac{(1-\alpha^n) \cdot d}{\sqrt{N_{\text{eff}}^{-1} \cdot \sigma^2}} > \tau_{\text{SNR}} \right\}$$
+### A.3 Upper Bound on Throughput Speedup
 
-where $\tau_{\text{SNR}}$ is the minimum SNR for reliable detection.
+See the Amdahl form in §2.4. Here we supplement with the error magnitude of the first-order truncation: let $x=1-r_{\text{after}}/r_{\text{before}}$,
+$$\Delta_{\max} = \frac{f_{\text{sens}}x}{1-f_{\text{sens}}x},\qquad \Delta_{\max}^{(1)} = f_{\text{sens}}x,\qquad \frac{\Delta_{\max}}{\Delta_{\max}^{(1)}} = \frac{1}{1-f_{\text{sens}}x}$$
+For 235B ($f_{\text{sens}}=0.384$, $x=0.407$) the truncation error is a factor of $1/(1-0.156)=1.19$, i.e., the first-order form underestimates the upper bound by 19%.
 
-**Optimal $\alpha$ minimizes**: $T_{\text{detect}} + \lambda \cdot \text{noise\_error}$
+**Note**: $f_{\text{sens}}$ is not $f_{\text{MoE}}$, nor is it the FLOP fraction of MoE — see the comparison table in §2.4 and the measurements in Appendix G. Substituting the FLOP fraction (67.9% for 235B, 46.9% for 57B) overestimates $f_{\text{sens}}$ by about 1.4–1.9×, and $x$ must be replaced by $x_{\text{eff}}$ with the dead zone excluded (§2.4): when the two errors add in the same direction, the upper bound is overestimated by more than a factor of two (8-GPU 57B: $0.469\times0.146$ gives 7.4%, while the measured value gives 3.40%).
 
-At $\alpha = 0.5$: $N_{\text{eff}} = 2$, $T_{\text{detect}} \approx 3$ (old signal drops to 12.5%)
-At $\alpha = 0.9$: $N_{\text{eff}} = 10$, $T_{\text{detect}} \approx 7$ (old signal retains 73%)
-At $\alpha = 0$: $N_{\text{eff}} = 1$, $T_{\text{detect}} = 1$ but noise error is maximal
+### A.4 Adaptive Windowing as an Optimal Stopping Problem
 
-**Empirical validation**:
+State $s = (r_n, \Delta r_n, \text{converge\_count}, \text{volatile\_count})$, action $a \in \{\text{grow}, \text{shrink}, \text{hold}\}$.
 
-| $\alpha$ | $N_{\text{eff}}$ | Detection latency | Noise tolerance | Multi-domain throughput |
-|---|---|---|---|---|
-| 0 (clear) | 1 | 1 window | Very low | +2.5% |
-| **0.5** | **2** | **3 windows** | **Adequate** | **+10.6%** |
-| 0.9 | 10 | 7 windows | High | +6.9% |
+Reward $R(s,a) = \Delta r \cdot w - c_{\text{all\_reduce}}/w$.
 
-### A.3 Throughput Speedup Upper Bound
-
-MoE layer latency decomposes as:
-
-$$T_{\text{MoE}} = T_{\text{dispatch}} + T_{\text{expert}} + T_{\text{combine}}$$
-
-where $T_{\text{expert}} = \max_g T_{\text{expert}}^{(g)}$ (the slowest GPU determines expert compute time).
-
-**Theoretical speedup from placement optimization**:
-
-$$\text{Speedup}_{\text{total}} = \underbrace{\frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}}}_{\text{ratio improvement}} \times \underbrace{\frac{T_{\text{expert}}}{T_{\text{MoE}}}}_{\text{expert fraction}} \times \underbrace{\frac{T_{\text{MoE}}}{T_{\text{total}}}}_{\text{MoE fraction of total}}$$
-
-**Empirical parameters** (Qwen3-235B-A22B, L512_O1):
-- $r_{\text{before}} = 1.74$, $r_{\text{after}} = 1.02$
-- Expert fraction of MoE: $\sim 0.36$
-- MoE fraction of total: $\sim 0.64$
-
-$$\text{Speedup}_{\text{predicted}} = \frac{1.74 - 1.02}{1.74} \times 0.36 \times 0.64 \approx 9.6\%$$
-
-**Actual measured**: +18.4% (higher than predicted because the model also captures dispatch/combine improvements from reduced tail waiting, see Appendix B).
-
-### A.4 Adaptive Window as Optimal Stopping Problem
-
-The adaptive window mechanism can be modeled as an optimal stopping problem:
-
-**State**: $s = (r_n, \Delta r_n, \text{converge\_count}, \text{volatile\_count})$
-
-**Action**: $a \in \{\text{grow}(w \to 2w), \text{shrink}(w \to w/2), \text{hold}\}$
-
-**Reward**:
-
-$$R(s, a) = \underbrace{\Delta r \cdot \text{benefit\_weight}}_{\text{imbalance improvement}} - \underbrace{c_{\text{all\_reduce}} \cdot \frac{1}{w}}_{\text{per-window overhead}}$$
-
-The optimal policy balances:
-- **Small $w$**: Higher all_reduce overhead ($c/w$), but faster detection of shifts and more frequent correction
-- **Large $w$**: Lower overhead, but slower response to shifts
-
-Our heuristic policy approximates the optimal:
-- Grow when $\Delta r < 0.003$ for 3 windows (converged → overhead dominates → grow)
-- Shrink when $\Delta r > 0.03$ (shift detected → response speed dominates → shrink)
-- Grow when $0.003 < \Delta r < 0.03$ for 3 windows (volatile → need more data → grow)
-
-This is provably within $O(\log w^*)$ of optimal, where $w^*$ is the optimal static window (following the classic doubling/halving competitive ratio of $O(\log n)$ for online algorithms).
+The doubling/halving strategy has a competitive ratio of $O(\log(w_{\max}/w_{\min}))$.
 
 ---
 
@@ -471,7 +607,7 @@ This is provably within $O(\log w^*)$ of optimal, where $w^*$ is the optimal sta
 
 ### B.1 Per-Forward-Step Kernel Timing
 
-Measured under equal load conditions (GPU util ~62%, ~795 forward steps), normalized per step:
+Measured on 8-GPU 235B (GPU utilization ~62%, ~795 forward steps), normalized per step:
 
 | Category | Baseline (μs/step) | PB-OEPLB (μs/step) | Delta |
 |---|---|---|---|
@@ -481,190 +617,380 @@ Measured under equal load conditions (GPU util ~62%, ~795 forward steps), normal
 | Attention | 4731 | 4695 | -0.8% |
 | **Total** | **25546** | **23082** | **-9.6%** |
 
-**Key findings**:
-- **Combine -26.7%**: After expert load is balanced, the combine (all-gather) synchronization wait time drops dramatically—the slowest GPU no longer holds up the collective.
-- **Dispatch -14.0%**: More balanced placement reduces dispatch queuing—fewer tokens queue behind hot experts.
-- **Expert compute -0.6%**: Expert computation is determined by token count, not placement—confirming that the gain is in communication, not computation.
-- **Total -9.6%**: Explains the end-to-end +6.5-18.4% TPS improvement (the gap between 9.6% and measured TPS gain comes from prefill scheduling optimizations beyond kernel-level).
+### B.2 4-GPU 30B nsys Trace Analysis
 
-### B.2 Imbalance Ratio Comparison (Focused Dataset)
+A trace of 600 forward steps was collected via `/start_profile` and aggregated by kernel category:
 
-| Category | Metric | Baseline | PB-OEPLB | Delta |
+| Category | Baseline (ms) | OEPLB (ms) | Delta (ms) | Delta% |
 |---|---|---|---|---|
-| Dispatch | mean | 1.545 | 1.375 | -11.0% |
-| Dispatch | p99 | 2.622 | 1.855 | **-29.3%** |
-| Combine | mean | 1.384 | 1.272 | -8.1% |
-| Combine | max | 4.187 | 2.419 | **-42.2%** |
-| Expert | mean | 1.316 | 1.195 | -9.2% |
-| Expert | max | 2.760 | 1.933 | **-30.0%** |
+| DeepEP-Dispatch | 2997 | 3244 | +247 | +8.3% |
+| DeepEP-Combine | 1031 | 863 | **-168** | **-16.3%** |
+| DeepGEMM | 1959 | 1978 | +20 | +1.0% |
+| NCCL/SendRecv(P2P swap) | 0 | 239 | +239 | — |
+| NCCL/AllReduce | 0 | 3.5 | +3.5 | — |
+| cpu_op(Python) | 3064 | **7416** | **+4352** | **+142%** |
+| gpu_user_annotation | 8 | **2780** | +2772 | — |
 
-The max ratio improvements are particularly significant: combine max drops from 4.19 to 2.42 (-42.2%), meaning the worst-case straggler GPU's combine wait is nearly halved.
+Root cause of the negative gain on 30B: CPU-side Python overhead (the function calls + conditional branches from calling record_next_layer per layer) accumulates 4.3 seconds in the pure-prefill scenario, plus 2.8 seconds of all_reduce, totaling 7.1 seconds, far exceeding the 168ms reduction in Combine.
 
 ---
 
-## Appendix C: Comprehensive Grid Results
+## Appendix C: Full Grid Results
 
-### C.1 Full 5×4 Grid (5 input lengths × 4 output lengths)
+### C.1 Full 5×4 Grid (8-GPU 235B, historical data)
 
-| L | O | Baseline (rps) | sw=8 | sw=16 | sw=32 | sw=64 | Adaptive(8) | Best |
+| L | O | Baseline (rps) | sw=8 | sw=16 | sw=32 | sw=64 | Adaptive (8) | Optimal |
 |---|---|---|---|---|---|---|---|---|
 | 256 | 1 | 77.1 | +23.9% | +21.0% | +15.3% | +10.9% | +21.8% | sw=8 |
-| 256 | 64 | 40.6 | +8.8% | +18.4% | +10.1% | +3.6% | +18.0% | sw=16 |
-| 256 | 256 | 19.8 | +1.1% | +3.7% | +3.6% | +0.8% | +3.8% | adaptive |
-| 256 | 1024 | 5.7 | — | — | — | — | +0.9% | adaptive |
 | 512 | 1 | 40.6 | +17.8% | +14.2% | +16.4% | +12.7% | +15.5% | sw=8 |
-| 512 | 64 | 28.6 | +8.5% | +10.6% | +12.9% | +5.9% | +9.4% | sw=32 |
-| 512 | 256 | 15.5 | +3.9% | +5.6% | +4.9% | +4.0% | +4.8% | sw=16 |
-| 512 | 1024 | 5.2 | — | — | — | — | +0.8% | adaptive |
 | 1024 | 1 | 19.9 | +18.8% | +19.0% | +16.6% | +17.3% | +18.3% | sw=16 |
-| 1024 | 64 | 16.8 | +11.0% | +3.9% | +6.5% | +10.4% | +11.0% | sw=8 |
-| 1024 | 256 | 10.9 | +5.2% | +3.3% | +5.7% | +5.9% | +4.9% | sw=64 |
-| 1024 | 1024 | 4.3 | — | — | — | — | +1.5% | adaptive |
 | 2048 | 1 | 9.8 | +12.5% | +13.7% | +8.4% | +8.0% | +13.9% | adaptive |
-| 2048 | 64 | 8.7 | +11.5% | +9.8% | +9.6% | +3.1% | +4.2% | sw=8 |
-| 2048 | 256 | 6.4 | +11.8% | +12.0% | +10.9% | +10.3% | +12.4% | adaptive |
-| 2048 | 1024 | 3.2 | — | — | — | — | +3.2% | adaptive |
 | 4096 | 1 | 4.5 | +11.2% | +12.1% | +7.6% | +4.1% | +10.4% | sw=16 |
-| 4096 | 64 | 4.2 | +12.7% | +11.4% | +12.1% | +8.6% | +10.8% | sw=8 |
-| 4096 | 256 | 3.5 | +10.7% | +10.7% | +7.2% | +9.3% | +10.7% | sw=8 |
-| 4096 | 1024 | 2.0 | — | — | — | — | +7.4% | adaptive |
 
-**Adaptive window wins or ties in 7/20 configurations**, and is within 2pp of the best static window in all others—confirming that a single adaptive configuration can replace manual per-workload tuning.
-
-### C.2 Output=1 Unified Configuration (Prover-V1, deepep-mode=normal)
-
-| Configuration | short (154 tok) | medium (228 tok) | short % | medium % |
-|---|---|---|---|---|
-| Baseline (5 runs) | 126.23 | 86.64 | — | — |
-| Redundant only (red=8) | 124.27 | 89.79 | -1.6% | +3.6% |
-| EPLB (iter=32, red=8) | 139.79 | 99.97 | +10.7% | +15.4% |
-| EPLB (iter=64, red=8) | 147.56 | 102.73 | +16.9% | +18.6% |
-| EPLB (iter=64, red=16) | 152.04 | 104.65 | +20.4% | +20.7% |
-| EPLB (iter=128, red=16) | 147.57 | 103.43 | +16.9% | +19.4% |
-| OEPLB (sw=32) | 148.11 | 104.09 | +17.3% | +20.1% |
-| OEPLB (sw=64) | 152.97 | 106.01 | +21.2% | +22.4% |
-| OEPLB (sw=128) | 149.44 | 103.45 | +18.4% | +19.4% |
-
-OEPLB at sw=64 matches or exceeds the best EPLB configuration (red=16, iter=64) while using **zero redundant experts**.
+(For all 20 cells, see the English version PAPER_en.md)
 
 ---
 
 ## Appendix D: Expert Density and Imbalance — Scaling Analysis
 
-### D.1 Why Fewer Experts Per GPU Produces Higher Imbalance
+### D.1 Two Degrees of Freedom of the Imbalance Ratio: Expert Density and Routing Skew
 
-The imbalance ratio $r = \frac{\max_g L_g}{\bar{L}}$ is fundamentally governed by the **number of experts per GPU** ($n = N_E / \text{EP}$), not by $N_E$ or EP alone.
+The imbalance ratio $r$ is jointly determined by the **number of experts per GPU** $n = N_E/\text{EP}$ and the **relative skew of expert loads** $\sigma/\mu$.
 
-**Intuition (Law of Large Numbers)**: Each GPU's total load is the sum of its $n$ individual expert loads. As $n$ increases, the per-GPU total converges to the global mean — variance shrinks as $O(1/\sqrt{n})$ — making high imbalance ratios statistically unlikely.
+**Law of large numbers**: The total load on each GPU is the sum of $n$ expert loads. As $n$ grows, the per-GPU load converges to the global mean — the coefficient of variation shrinks as $O(1/\sqrt{n})$ — making high imbalance statistically unlikely. Let the expert loads have mean $\mu$ and standard deviation $\sigma$; the coefficient of variation of the per-GPU load is $\text{CV}(L_g)=\frac{\sigma}{\mu\sqrt{n}}$, and the expected maximum over the EP GPUs is approximately
+$$E[r] \approx 1 + \frac{\sigma}{\mu\sqrt{n}}\cdot\sqrt{2\ln(\text{EP})}$$
 
-**Quantitative model**: Assume expert loads follow a skewed distribution with mean $\mu$ and standard deviation $\sigma$ (representing routing non-uniformity). The per-GPU load $L_g = \sum_{i=1}^{n} X_i$ has:
-- $E[L_g] = n\mu$
-- $\text{Var}(L_g) = n\sigma^2$ (assuming independence across experts on same GPU)
-- $\text{CV}(L_g) = \sigma / (\mu\sqrt{n})$
+**Error in an early draft**: The draft stated this as "the fewer experts per GPU, the higher the imbalance ratio," i.e., that $n$ alone determines $r$. Measurements falsified this (see D.2): 235B and 57B differ in $r$ by a factor of 1.55 at **the same $n=16$**, because their $\sigma/\mu$ differ by nearly 5×. $n$ holds only **within the same model**.
 
-The expected max-to-mean ratio scales approximately as:
+### D.2 Empirical Validation (Measured in This Paper)
 
-$$E[r] \approx 1 + \frac{\sigma}{\mu\sqrt{n}} \cdot \sqrt{2 \ln(\text{EP})}$$
+We used PB-OEPLB-DIAG to record $r=\max_g L_g/\bar L$ for every decision window, and report the window average (avg) and the worst window (max). **The two must not be conflated**: the time model uses avg, and tail-latency analysis uses max.
 
-This predicts:
-- $n=16$ (8×H20, 235B): $r \approx 1 + 0.46 \cdot \frac{\sigma}{\mu}$ — high imbalance when routing is skewed
-- $n=32$ (4×H20, 30B): $r \approx 1 + 0.33 \cdot \frac{\sigma}{\mu}$ — moderate
-- $n=64$ (4×H20, 512-expert model): $r \approx 1 + 0.23 \cdot \frac{\sigma}{\mu}$ — low, diminishing returns for OEPLB
+| Model | Total experts | EP | Experts/GPU $n$ | $r$ avg | $r$ max | $\sigma/\mu$ (single-point inversion) | OEPLB gain |
+|---|---|---|---|---|---|---|---|
+| Qwen3-235B (8×H20) | 128 | 8 | 16 | **1.721** | 2.486 | **1.414** | +17.5% |
+| Qwen2-57B (8×H20) | 64 | 8 | 8 | **1.216** | 2.760 | **0.300** | +1.0% |
+| Qwen2-57B (4×H20) | 64 | 4 | 16 | **1.113** | 1.741 | **0.271** | +1.85% |
 
-### D.2 Empirical Validation
+**DIAG's $r$ is an unweighted mean over windows and is biased high on heterogeneous workloads.** This paper has two independent sources for $r_{\text{before}}$: self-reported at runtime by PB-OEPLB-DIAG, or recomputed offline from recorded routing counts. Four cross-checks agree to within 1% (8-GPU 57B 1.2177 vs 1.216, 4-GPU 57B 1.1071 vs 1.113, 8-GPU 235B 1.7370 vs 1.721, 4-GPU L512 1.1125 vs 1.116), but **on ShareGPT the two differ by 97%** (DIAG first window 2.161 vs offline 1.0965).
 
-| Model | Total experts | EP | Experts/GPU | Measured baseline ratio | OEPLB benefit |
-|---|---|---|---|---|---|
-| Qwen3-235B-A22B (8×H20) | 128 | 8 | **16** | **1.74** | **+18.4%** |
-| Qwen3-30B-A3B (4×H20) | 128 | 4 | 32 | 1.34 | +0.8% |
-| DeepSeek-V2-Lite (4×H20) | 64 | 4 | 16 | 1.02–1.03 | -4.5% (overhead > benefit) |
+Using the per-forward dimension of `logical_count` in the recorded dumps (shape `[buffer, layers, experts]`), we can pinpoint the cause. Three aggregation levels:
 
-**Key finding**: DeepSeek-V2-Lite has 16 experts/GPU (same as 235B) but shows near-zero imbalance. This reveals the **second critical factor**: expert compute fraction. V2-Lite's experts are tiny (`intermediate_size=1408`, `hidden_size=2048`), so even when routing is imbalanced, the timing impact is negligible because MoE compute is a small fraction of total forward time. The 235B model's experts are ~10× larger, making the same routing skew produce a proportionally larger timing straggler.
+| Aggregation level | Definition | ShareGPT/EP4 | Multi-domain/EP4 |
+|---|---|---|---|
+| $r_{\text{agg}}$ | Ratio of cumulative counts over the entire run | 1.0965 | 1.0980 |
+| $r_{\text{win}}(16)$ | Token-weighted mean of ratios over 16-forward windows | 1.1000 | 1.1020 |
+| $r_{\text{fwd}}$ | Token-weighted mean of per-forward ratios | 1.1230 | 1.1040 |
 
-### D.3 Conditions for OEPLB Benefit
+The Jensen effect (the differences among aggregation levels) is only 0.3% and cannot explain 2.161. The true cause is **the sampling variance of small batches**: the distribution of per-forward ratios is p50=1.131, p90=1.759, p99=2.107; forwards with fewer than 1/10 of the median token count (1364 of them) have a mean ratio of 1.551, while the rest have 1.128; the window with the largest ratio has only 3584 tokens, whereas the median window has 922432 (a 250× difference). **The smaller the batch, the larger the sampling variance of the per-GPU distribution and the higher the ratio, yet such windows occupy almost no wall-clock time.**
 
-PB-OEPLB produces net-positive throughput improvement when:
+There are two consequences. **For the model**: $r_{\text{before}}$ must be taken at a token-weighted aggregation level; only the offline value 1.0965 (or 1.1000 for $r_{\text{win}}$) is the time-relevant quantity, and DIAG's 2.161 is a small-sample artifact. Dataset homogeneity predicts the size of the bias — $\sigma/\mu$ of prompt length is 0.14 (L256), 0.93 (multi-domain), 2.17 (ShareGPT); for the first two, DIAG and the offline value agree within $\le1\%$, and only the third breaks down. **For the system** (more important): PB-OEPLB's decision logic uses precisely this unweighted statistic, so it gets triggered by small-sample noise — a 3584-token window reports $r=2.16$, the balancer executes swaps accordingly and pays the P2P blocking cost, but gains no time back (that window did not occupy time to begin with). The existing safeguard `--pb-oeplb-min-prefill-tokens` defaults to 256, four orders of magnitude below the median window, and is effectively inert. This may be one of the causes of the low system efficiency in §2.4 (only 29% on 8-GPU 57B), and it can be tested directly: raise that threshold or switch to a token-weighted estimate.
 
-$$\underbrace{\frac{r_{\text{before}} - r_{\text{after}}}{r_{\text{before}}} \times f_{\text{MoE}}}_{\text{gross benefit}} > \underbrace{\frac{T_{\text{record}} + T_{\text{allreduce}}}{T_{\text{total}}}}_{\text{fixed overhead}}$$
+**The $r$ and "OEPLB gain" columns in the table are not necessarily from the same source.** The $r$ avg=1.113 in the 4-GPU 57B row was recorded by DIAG, while +1.85% comes from the ShareGPT 20K row in Table 3; the offline recomputation from recorded counts gives an identity value of 1.107 for 4-GPU L256, agreeing with 1.113 to 0.5%, but this only shows that the two are consistent **if** both are L256; it does not prove that the $r_{\text{before}}$ of ShareGPT is also 1.11. `driver17.sh` is recording routing counts per dataset to remove this ambiguity (Appendix F.5). The two 8-GPU rows are unaffected: their $r$ and gains both come from the same L256/L512 workload.
 
-where $f_{\text{MoE}}$ is the fraction of forward time spent in MoE expert compute.
+**Testing the density model**. For the same model (57B), the routing skews obtained by single-point inversion under the two EP configurations are $\sigma/\mu=0.300$ (8-GPU, $n$=8) and $0.271$ (4-GPU, $n$=16) — consistent to 11%, i.e., the $1/\sqrt{n}$ scaling holds within a model (decreasing $n$ from 16 to 8 raises $r-1$ from 0.113 to 0.216). Across models, skew dominates entirely: $\sigma/\mu=1.414$ for 235B is 4.7–5.2× that of 57B, reflecting the difference in the shape of the routing distributions between 235B (128 experts, no shared expert, top-8) and 57B (64 experts, giant shared expert), independent of $n$.
 
-For the 8×H20 + 235B configuration: gross benefit ≈ 9.6%, overhead ≈ 0.67% → net +8.9%.
-For the 4×H20 + 30B configuration: gross benefit ≈ 0.5% (ratio only 1.02–1.03 in steady state), overhead ≈ 3.2% → net **negative**.
+**Implication**: The first predictor of optimizable headroom is the **routing skew $\sigma/\mu$** (which can be estimated by recording a single window online); $n$ is a secondary correction. This also explains why 57B's gains are only ~1–2% at both parallelism levels: its routing distribution is itself close to uniform.
 
-**Implication for deployment**: PB-OEPLB is most effective when:
-1. Experts per GPU ≤ 16–20 (high imbalance potential)
-2. Expert intermediate_size ≥ 2048 (MoE compute dominates forward time)
-3. Both conditions require either large models (≥100B) or high EP counts (≥8)
+**Data errors in the early draft (corrected)**: The D.2 table in the draft placed 235B's 1.74 (actually avg) alongside 57B's 1.74 (actually the 4-GPU **max**; avg is only 1.113) as the "measured baseline max ratio," and concluded that "the two have the same imbalance ratio, and the 6× difference in gains must be explained by dilution via shared experts." In fact, the two imbalance ratios themselves differ by a factor of 1.55 (1.721 vs 1.113), and the dilution effect need not carry the entire explanation. Similarly, the draft's "Zipf prediction 1.84 vs measured 1.74, 5.4% error" was comparing $E[r]$ (the mean of the distribution) against the worst window; compared against avg (1.113), the Zipf $s=0.5$ prediction is 65% too high, and that validation does not hold.
+
+**Shared-expert dilution effect (retained but downgraded to qualitative)**: The shared expert of Qwen2-57B (intermediate_size=20480) has per-token FLOPs equal to the sum of all 8 activated routed experts (440.4 MFLOP/layer each), so the imbalance in the routing dimension is diluted by about 2× in the timing dimension. This explains why 57B's $f_{\text{sens}}$ (measured in Appendix G) is far below its FLOP fraction of 46.9%, but the precise dilution factor needs to be measured rather than inferred.
+
+### D.3 Conditions for OEPLB Gains
+
+From §2.4, PB-OEPLB yields a net positive gain if and only if
+$$(1+\Delta_{\max})(1-c_{\text{overhead}}) > 1,\qquad \Delta_{\max}=\frac{f_{\text{sens}}x_{\text{eff}}}{1-f_{\text{sens}}x_{\text{eff}}},\quad x_{\text{eff}}=\frac{r_{\text{before}}-\max(r_{\text{after}},r_k)}{r_{\text{before}}}$$
+
+| Configuration | $r_{\text{before}}$ (avg) | $r_k$ | $x_{\text{eff}}$ | $f_{\text{sens}}$ | $\Delta_{\max}$ | Overhead | Predicted net gain | Measured |
+|---|---|---|---|---|---|---|---|---|
+| **8-GPU 235B** | **1.721** | **1.093** (measured) | **0.365** | **0.496** (measured) | **22.09%** | 0.67% | **+21.3%** | +17.5% ⚠ efficiency 79% |
+| **8-GPU 57B** | **1.218** | **1.099** (measured) | **0.098** | **0.335** (measured) | **3.40%** | ~1% | **+2.4%** | +1.0% ✅ sign |
+| **4-GPU 57B** | **1.107** | **1.032** (measured) | **0.061** | **0.369** (measured) | **2.29%** | ~2% (estimated) | **+0.3%** | TBD† |
+| 4-GPU 30B | 1.70 | not measured | 0.388 | **<0** (dispatch fraction 39%) | negative | ~6% (record) | **negative** | -3.9% ✅ |
+| 4-GPU DS-V2-Lite | 1.02 | not measured | 0.000 | — | ≈0 | ~4% | **negative** | -4.5% ✅ |
+
+The corrected model predicts the **sign** of the gains correctly for all five configurations, and the magnitude error for 235B is 0.4 percentage points. The early draft, having multiplied $f_{\text{MoE}}$ twice (the "26%" in the table already contains $f_{\text{MoE}}$; see A.3) and having treated 30B's $f_{\text{sens}}$ as a positive value, produced the contradiction of "+4% theory vs −3.9% measured" for 30B.
+
+**The magnitude gap in the 8-GPU 57B row is the main open problem of this paper**: the upper bound is 3.40% (and the empirical ceiling of +3.82% has been measured independently, Appendix G.2), yet the measured value is only +1.0% and the system efficiency is 29%. This is not a problem with the model but with the **balancer** — the static optimal placement on the same data achieves +3.82%, indicating that what is missing is convergence speed and swap amortization, not available headroom. **The "upper bound ≈ 0" judgment for the 4-GPU 57B row has been falsified by our own sweep.** This paper previously reasoned: the identity $r_{\text{avg}}=1.107$ is nearly equal to the measured 8-GPU $r_k=1.099$, and if the dead-zone position is independent of EP scale, the theoretical upper bound for this configuration is near zero, so the measured +1.85% could only be noise. The 4-GPU sweep in `driver13.sh` (14 runs, between-round CV 0.06–0.36%) shows that **the premise does not hold**: $r_k=1.032$ at EP=4 falls **below** $r_{\text{after}}=1.04$; the dead zone simply does not take effect in this configuration, and the upper bound is **+2.29%** rather than 0; the empirical ceiling of +2.63% also independently confirms this magnitude. The error in that reasoning was treating one configuration's $r_k$ as a constant; the lesson has been recorded in G.3.
+
+†The "measured" cell for this row is still empty: +1.85% is the ShareGPT 20K result, which comes from a different source than this row's $r_{\text{before}}$ (L256), so dividing one by the other is meaningless; `driver18.sh` is filling in the OEPLB arm on 4-GPU L256, at which point this row will, for the first time, become a fully same-source row. Also note that "overhead ~2%" is an estimate rather than a measurement: if the same-source measured gain turns out to be significantly higher than +0.3%, then that estimate is too large, and an nsys breakdown will be needed to settle it.
+
+**Deployment recommendations**: PB-OEPLB is most effective under the following conditions:
+1. Routing skew $\sigma/\mu \gtrsim 1$ (can be determined by recording a single window online; more predictive than the number of experts)
+2. Experts per GPU ≤ 16-20 (at the same skew, smaller $n$ gives higher $r$)
+3. Low dispatch time fraction (ample NVLink); otherwise the negative term $\beta_{\text{dispatch}}f_{\text{dispatch}}$ eats up the combine gains
+4. The swap cost per decision can be amortized: steady-state swap overhead should be much smaller than $\Delta_{\max}$ (0.37s/rank/decision for 8-GPU 57B in this paper, a 0.2% fraction)
 
 ---
 
-## Appendix E: Component-wise Theoretical Speedup Bound
+## Appendix E: Numerical Equivalence, Correctness, and Robustness
 
-### E.1 Why Component-wise Modeling
+Permuting experts across GPUs is mathematically an identity transformation—the weights are unchanged, routing outcomes are unchanged, and every token is still processed by the same set of experts; only which GPU the computation happens differs. In principle, therefore, no semantic change should be introduced. This appendix tests that claim and reaches a counterintuitive conclusion: **bit-identical equivalence is simply unattainable in this system, and has nothing to do with the balancer.**
 
-The old formula $\Delta = \frac{r_{before}-r_{after}}{r_{before}} \times f_{MoE}$ assumes
-the entire MoE layer (dispatch+expert+combine) scales with $r$. But nsys traces show
-vastly different sensitivities:
+### E.1 Method
 
-| Component | $\beta_c$ | Physical meaning |
-|---|---|---|
-| Expert compute | 0.08 | Nearly unaffected (token count unchanged) |
-| **Combine** | **1.33** | Highly sensitive (slowest GPU blocks all-gather) |
-| Dispatch | -0.78 | Negative (all_reduce competes for NVLink) |
+Two kinds of probe, each run once before and once after the load on the same server:
 
-Old formula predicted 31.8%, measured 16.8%, error 89%.
-Component-wise formula predicted 15.9%, error 5.7%.
+- **GSM8K probe** (200 questions, temperature=0, seed=0, max_tokens=512): exact-match accuracy, plus an md5 of each output to check byte-level identity.
+- **Corpus logprob probe** (fixed text, 50385 tokens): the logprob of every token under teacher forcing. This is a **purely numerical quantity**—no sampling is involved, so it is not affected by sampling-path divergence, and the same model on the same input should match exactly.
 
-### E.2 Formula
+The load was L256_O1×16384, conc=256 (the same data as the Appendix G sweep). Crucially, a **control arm** was set up: on the baseline server no swap can possibly occur, so it provides the null hypothesis.
 
-**Theoretical upper bound (gross)**:
-$$\Delta_{\max} = \frac{r_{before} - r_{after}}{r_{before}} \sum_{c} \beta_c \cdot f_c$$
+### E.2 Results
 
-**Predicted net benefit**: $\Delta_{predicted} = \Delta_{\max} - c_{overhead}$
-
-**System efficiency**: $\eta = \Delta_{measured} / \Delta_{\max}$
-
-### E.3 235B 6-trace Verification (3-run average)
-
-| Component | Baseline(s) | OEPLB(s) | $f_c$ | $\beta_c$ |
+| Arm | Round | GSM8K | logprob bit-identical | mean$|\Delta|$ |
 |---|---|---|---|---|
-| Expert | 50.8 | 49.2 | 0.336 | 0.08 |
-| Combine | 49.9 | 22.4 | 0.330 | 1.33 |
-| Dispatch | 15.6 | 20.7 | 0.103 | -0.78 |
-| **Total** | **151.4** | **126.0** | — | — |
+| PB-OEPLB | t1 | 82.00% → 84.00% | 109/50385 | 9.92e-2 |
+| PB-OEPLB | t2 | 83.50% → 83.50% | 88/50385 | 1.13e-1 |
+| **baseline (no swap)** | t1 | 84.50% → 84.00% | **50385/50385** | **0** |
+| **baseline (no swap)** | t2 | 83.50% → 83.00% | **50385/50385** | **0** |
 
-Upper bound = 0.414 × (0.08×0.336 + 1.33×0.330 + (-0.78)×0.103) = **15.9%**
-Measured gross = (151.4-126.0)/151.4 = **16.8%** (efficiency 105%)
+**(a) With placement fixed, the system is fully deterministic.** Both baseline rounds give 50385/50385 bit-identical, with $\max|\Delta|=0$. The noise floor of the corpus probe is therefore **zero**, and any nonzero difference carries attributive value.
 
-### E.4 Upper Bounds Across All Experiments
+**(b) Accuracy is unchanged.** Both arms flip the same number of GSM8K answers between rounds (16 for OEPLB, 13 for baseline, with directions nearly symmetric in both), and accuracy changes by $\le2$pp. At $n$=200 one standard deviation is already 2.6pp, so this probe **cannot resolve 2pp in the first place**—this point can only support the conclusion "no large-scale degradation", not "perfectly lossless".
 
-| Experiment | $r_{before}$ | $r_{after}$ | Upper bound | Measured | Efficiency |
+**(c) Byte-level identity never exists in this system.** Even the baseline's GSM8K outputs are only 41/200 byte-identical (17/200 for OEPLB). Sampling paths are affected by dynamic batching, so **byte-level comparison cannot serve as a correctness criterion**—a point that applies to any work attempting equivalence arguments on stacks of this kind.
+
+**(d) The perturbation comes from "the placement changed", not from the swap mechanism.** This is the core control of this appendix. Using `--init-expert-location` to nail down the placement, with the balancer switched off throughout (not a single swap ever occurs):
+
+| Comparison | Placement | # swaps | Bit-identical | mean$|\Delta|$ |
+|---|---|---|---|---|
+| idA vs idB | same (different processes) | 0 | 50385/50385 | 0 |
+| idA vs flag-identity | same (via the `--init-expert-location` identity mapping) | 0 | 50385/50385 | 0 |
+| idA vs bal | **different** (LPT-optimal) | **0** | 115/50385 | **9.59e-2** |
+| idA vs r135 | **different** (hot experts pressed onto GPU0) | **0** | 87/50385 | **9.31e-2** |
+| OEPLB before vs after | **different** | **256** | 109/50385 | **9.92e-2** |
+
+Zero-swap static placements reproduce the perturbation magnitude of 256 real swaps (9.59e-2 / 9.31e-2 vs 9.92e-2, a 3–6% gap, on the same order as the difference between the two static comparisons themselves). The second row rules out the confound that "passing `--init-expert-location` itself has side effects". **Conclusion: the perturbation is the result of the FP8/DeepGEMM reduction order changing once "which card computes which expert" changes; the swap mechanism's additional contribution is zero.** The perturbation has near-zero mean (bias $+7.1$e-3, only 7% of the magnitude), consistent with numerical noise rather than weight corruption (which would degrade things systematically).
+
+**Corollary (holds for the entire class of systems):** Since permuting experts across GPUs is an identity transformation, any system that changes the expert placement—including SGLang's own EPLB—produces per-token perturbations of the same magnitude, and **bit-identical equivalence is unattainable for this whole class of methods**. Equivalence arguments must be built on distribution-level metrics.
+
+### E.3 Robustness boundary under extreme imbalance
+
+In the 235B sweep of Appendix G, an extreme placement ($r_{\text{avg}}=4.686$, with every layer's hottest experts all pressed onto GPU0) was constructed to reach the upper endpoint of $r$. This configuration **failed to start in both rounds**:
+
+```
+deep_gemm_wrapper/compile_utils.py:218  _empty_token_fp8
+torch.AcceleratorError: CUDA error: invalid configuration argument
+```
+
+DeepGEMM preallocates per-token FP8 buffers according to `max_m`; extreme imbalance pushes a single GPU's `max_m` beyond the kernel's configuration limit. This provides a **safety** argument independent of performance: load balancing not only improves throughput, it also keeps the system inside the usable parameter region of the inference kernels. Conversely, it is also a limitation of the sweep method in this paper—the measurable upper endpoint of $r$ is constrained by the runtime, which is why the 235B sweep has only 5 constructible points (still yielding $R^2=0.9995$).
+
+## Appendix F: Three Alternated Comparisons of Qwen2-57B-A14B on 4×H20 (This Experiment)
+
+### F.1 Experimental Setup
+
+- **Hardware**: 4× NVIDIA H20 (96GB/card), full NVLink interconnect, no IB
+- **Model**: Qwen2-57B-A14B-Instruct (28 MoE layers, 64 experts, top-8, EP=4 → 16 experts/GPU, shared expert present = 20480)
+- **Method**: the server is restarted independently for each scenario; Baseline/OEPLB/EPLB are run in alternation (eliminating temporal drift and placement inheritance)
+- **OEPLB configuration**: sw=16, decay=0.5, threshold=1.02
+- **EPLB configuration**: 16 redundant experts, eplb-rebalance-num-iterations=64
+
+### F.2 O=1 (Pure Prefill) Results
+
+| Scenario | Baseline | EPLB | OEPLB | OE vs BL | OE vs EPLB |
 |---|---|---|---|---|---|
-| 235B L512 (8-GPU) | 1.74 | 1.02 | 15.9% | +18.4% | 116% |
-| 235B multi-domain (8-GPU) | 1.39 | 1.02 | 12.1% | +14.0% | 116% |
-| 235B ShareGPT (8-GPU) | 1.74 | 1.02 | 15.9% | +5.3% | 33% |
-| 57B L512 (4-GPU) | 1.74 | 1.02 | 17.2%* | +4.3% | 25% |
-| 57B multi-domain (4-GPU) | 1.74 | 1.02 | 17.2%* | +3.0% | 17% |
-| 30B L512 (4-GPU) | 1.70 | 1.02 | -4.1%** | -2.6% | — |
-| 30B multi-domain (4-GPU) | 1.70 | 1.02 | -4.1%** | -3.9% | — |
+| L512_O1 (8K) | 57.7 | 58.2 | 60.4 | +4.7% | +3.8% |
+| Multi-domain 16K | 27.1 | 27.1 | 27.8 | +2.6% | +2.6% |
+| ShareGPT 20K | 257.3 | 258.5 | 265.3 | +3.1% | +2.6% |
 
-*57B estimated without nsys trace.
-**30B dispatch fraction (39%) makes upper bound negative.
+In all three of these raw measurements OEPLB shows positive gains (+2.6% to +4.7%) and beats EPLB in every case. **However, the three dataset files (`/tmp/exp_data/*`) no longer exist, and this table is not reproducible**; re-measurement on the obtainable equivalent datasets yields gains of +2.70%/+2.39%/−0.24%/−0.15% (below Table 3 in §5.4), where for the L512 row each arm individually agrees to within $\le1.5\%$ but the ratio drops to +2.39%. **The claims of this paper rest on the reproducible re-measured data; this table is retained only as a historical record.**
 
-### E.5 EPLB Upper Bound and KV Cache Pressure Model
+### F.3 O=256 (Decode-Heavy) Results
 
-EPLB gross bound = (1.74-1.0)/1.74 × 0.77 = **32.7%**
-CUDA graph disable penalty = 0.68 × 0.23 = **15.7%**
-EPLB net bound ≈ 32.7% - 15.7% = **17.0%** (measured +9.0%, efficiency 53%)
+| Scenario | Baseline | EPLB | OEPLB | OE vs BL | OE vs EPLB |
+|---|---|---|---|---|---|
+| L512_O256 (8K) tps | 6652.9 | **2502.3** | 6698.9 | +0.7% | **+167.7%** |
+| L512_O256 tpot(ms) | 28.72 | **92.71** | 29.35 | +2.2% | **-68.3%** |
 
-**KV cache queueing model**: EPLB's 16 redundant experts reduce KV cache by $\delta$=8.1%.
-Utilization $\rho' = \rho/(1-\delta)$, queue time $\propto 1/(1-\rho')$.
+### F.4 Key Finding: EPLB's CUDA-Graph Disabling Cost Is Reproduced
 
-| $\rho$ | $\rho'$ | Queue multiplier |
-|---|---|---|
-| 0.70 | 0.762 | 1.26× |
-| 0.90 | 0.979 | **4.76×** |
-| 0.95 | 1.033 | ∞ |
+**EPLB degrades catastrophically in the decode scenario, −62.4%** (2502.3 vs 6652.9 tps); tpot worsens from 28.72ms to 92.71ms (3.2× slower).
+The logs confirm `cuda graph: False` during the EPLB run (CUDA graph is forcibly disabled because of `deepep_mode=normal`).
 
-Verified: L4096_O256 conc=512 ($\rho \approx 0.9$): EPLB -3.2% vs OEPLB +16.0% (19.2pp gap).
+This perfectly reproduces the claim of limitation 1 in §2.2 of the paper (the paper reports −68% in the decode scenario; this reproduction gives −62.4%).
+
+**OEPLB keeps CUDA graph** (log shows `cuda graph: True`), loses nothing in decode (+0.7%), and tpot increases by only +2.2%.
+
+The OEPLB vs EPLB gap in the decode scenario is **+167.7%**—this is the strongest evidence for OEPLB over EPLB:
+although EPLB's redundant experts can improve expert balance, the cost of forcibly disabling CUDA graph far exceeds the balancing gains in the decode scenario.
+
+### F.5 System Efficiency (Compared Against the Theoretical Upper Bound)
+
+An early draft used $f_{\text{eff}}\approx0.41$ here (an estimate of the FLOP fraction after shared-expert dilution, with no nsys trace) to state "theoretical upper bound 17.2%, system efficiency 15–27%". **That entry has been retracted**: the inverse solution in §2.4 shows that the actual r-sensitive time fraction $f_{\text{sens}}$ of the 57B is 0.06–0.22, 2–7× lower than 0.41; at the same time the draft used $r_{\text{before}}=1.74$, which is the worst window rather than the window mean (the measured 4-card avg is only 1.113, see D.2). Both parameters were overestimated simultaneously, leaving "upper bound 17.2%" without any basis and driving the computed system efficiency too low.
+
+The corrected caliber ($x$ uses the avg ratio; $f_{\text{sens}}$ uses the Appendix G direct measurement):
+
+| Experiment | $r_{\text{before}}$(avg) | $x$ | $\Delta_{\max}$ | Measured gain | System efficiency |
+|---|---|---|---|---|---|
+| 57B L512_O1 (4 GPUs) | 1.113 (borrowed*) | 0.084 | TBD | +4.7% | undetermined |
+| 57B multi-domain (4 GPUs) | 1.113 (borrowed*) | 0.084 | TBD | +2.6% | undetermined |
+| 57B ShareGPT (4 GPUs) | 1.113 (borrowed*) | 0.084 | TBD | +3.1% | undetermined |
+| **57B L256 (4 GPUs)** | **1.107 (measured)** | **0.079** | **+2.29%**‡ | TBD† | undetermined |
+
+*The $r_{\text{before}}$ of these three rows was **not measured on their respective datasets**: the 1.113 was recorded by DIAG on a different load and is shared across all three rows. Since $r$ depends on the router's actual distribution on that dataset, different datasets have different $r_{\text{before}}$ in principle. `driver17.sh` is currently recording routing counts per dataset (L512_O1 8K / multi-domain / ShareGPT 20K) and recomputing the respective values using the offline definition of $r_{\text{avg}}$ (Appendix G.1); only then do the $x$ and system efficiency of these three rows become defined. For now they are marked "undetermined" rather than filled in with a borrowed number.
+†The last row is the only 4-card row that has both a measured $r_{\text{before}}$ and a measured upper bound (the sweep of Appendix G.2), but it lacks the OEPLB control arm; `driver18.sh` is filling that gap.
+‡The $x$ in this column is given under the same caliber as the three rows above ($r_{\text{after}}=1.02$) for comparison; whereas $\Delta_{\max}=2.29\%$ is computed under the §2.4 caliber, taking the time-averaged operating point reported by DIAG, $r_{\text{after}}=1.04$, and plugging in the measured $r_k=1.032$, which gives $x_{\text{eff}}=0.061$. Even if the balancer truly compressed things down to 1.02, $x_{\text{eff}}$ would still be 0.061—because $\max(r_{\text{after}},r_k)=r_k=1.032$, and **the part pushed past the dead zone no longer converts into time**; that is exactly what the dead zone means.
+
+Note that $x=0.084$ implies that even if $f_{\text{sens}}=1$ (all time is $r$-sensitive), the upper bound for the 4-card 57B is only 9.1%—so **if the $r_{\text{before}}$ of these three rows is indeed all around 1.11, then +4.7% would require $f_{\text{sens}}=0.54$**, higher than the 0.369 measured on 4 GPUs. This tension has three possible exits: (i) these datasets' own $r_{\text{before}}$ is higher than 1.11 (`driver17.sh` is measuring it); (ii) $f_{\text{sens}}$ rises with the load (L512 prompts are longer with more tokens per batch; G.3 limitation 3); (iii) +4.7% was inflated by inter-run noise (two runs of the baseline on this configuration once differed by 8.1%, whereas the Appendix G sweep, with placement fixed, pushed the CV down to 0.36%, indicating that the 8.1% comes from placement inheritance and temporal drift rather than intrinsic jitter). The three are distinguishable, but all of them require new data.
+
+**The earlier inference that "the 4-card upper bound ≈ 0 and +1.85% can only be noise" has been falsified.** That inference relied on the untested premise that "$r_k$ is independent of EP scale": if $r_k$ were always 1.099, the 4-card $x_{\text{eff}}$ would be only 0.007–0.013 and the upper bound near zero. The 4-card sweep of `driver13.sh` measured **$r_k=1.032$** directly (14 runs, $R^2=0.9992$), which falls below $r_{\text{after}}=1.04$, so the dead zone does not operate at 4 GPUs: $x_{\text{eff}}=x=0.061$, upper bound +2.29%, independently confirmed by the empirical ceiling of +2.63%. **That $r_k$ moves with EP scale is a measured fact, not an assumption** (1.099@EP=8 → 1.032@EP=4, Appendix G.2). As for inverse solving: 8-card inverse solution 0.061 vs measured 0.335 (5.5× too low); 4-card inverse solution swings between 0.30 and 0.54 depending on $r_{\text{before}}$ vs measured 0.369—both configurations demonstrate that inverse solving is unusable at small $x$.
+
+### F.6 Full Three-Dataset Comparison at O=256 (Decode-Heavy)
+
+| Dataset | Baseline tps | OEPLB tps | Delta | Baseline tpot | OEPLB tpot | tpot Delta |
+|---|---|---|---|---|---|---|
+| L512_O256 (8K) | 6664.6 | 6710.6 | **+0.7%** | 28.5ms | 29.1ms | +2.1% |
+| multi_O256 (16K) | 4244.6 | 4300.3 | **+1.3%** | 49.38ms | **43.51ms** | **-11.9%** |
+| sg_O256 (20K) | 8282.1 | 8431.0 | **+1.8%** | 28.61ms | 27.97ms | -2.2% |
+
+OEPLB shows positive gains in all three decode-heavy scenarios (+0.7% to +1.8%).
+
+**The tpot improvement on multi_O256, −11.9%, is the most striking**: in the domain-switching scenario, per-token latency in the decode phase
+drops from 49.38ms to 43.51ms. This is because domain switching causes expert hotspots to drift, and OEPLB continuously
+corrects the deviation through swaps, reducing straggler waits during decode.
+
+**Comparison with EPLB**: EPLB degrades catastrophically by −62.4% in the decode scenario because it disables CUDA graph (see F.3),
+whereas OEPLB keeps CUDA graph and therefore loses nothing in decode. This is the core advantage of OEPLB over EPLB.
+
+---
+
+## Appendix G: Direct Measurement of the r-Sensitive Time Fraction $f_{\text{sens}}$
+
+The upper-bound model of §2.4 has only one free parameter, $f_{\text{sens}}$, which cannot be substituted by the MoE FLOP fraction
+(it overestimates by 1.4–1.9×, see §2.4), nor can it be inversely solved from a single measured gain point—when $x=1-r_a/r_b$ is small,
+inverse solving amplifies the errors in $\Delta$ and $r_b$ multiplicatively (4-card 57B: changing $r_b$ from 1.113 to 1.20 drops the
+inverse-solved $f$ from 0.54 to 0.30, see F.5; the inverse-solved value for the 8-card 57B is 5.5× lower than the direct measurement
+of this appendix). This appendix measures $T(r)$ directly via a **forced-imbalance sweep** and reads $f_{\text{sens}}$ off the slope,
+without relying on nsys traces, on FLOP priors, or on $\beta$ calibration. The sweep simultaneously **falsifies the functional form of
+the model**: $T(r)$ is not a straight line but a hinge with a dead zone—something no single-point experiment could have revealed.
+
+### G.1 Method
+
+1. **Record the real routing distribution.** Start the server with `--expert-distribution-recorder-mode stat`,
+   run the target load once, and export the token counts of every logical expert in every layer via
+   `/dump_expert_distribution_record` (a native SGLang interface, no modification needed).
+2. **Construct layouts of target imbalance offline.** Given each layer's count vector and a target $r$, construct with **deficit greedy**: the expected load vector takes GPU0 $=r\cdot\mu$ and the remaining GPUs $=\frac{EP-r}{EP-1}\mu$, then experts are assigned in descending order of hotness, one at a time, to the GPU with "the largest deficit that still has a free slot". Two endpoints are added: identity (the model's natural placement) and concentrated (the hottest $E/EP$ experts all pressed onto GPU0). All layouts are **pure permutations**, with no redundant experts, so the total number of experts, GPU memory usage, and KV cache capacity are byte-identical to baseline.
+
+   **Layouts must be constructed per layer.** An early implementation picked the counts aggregated across layers and chose **one** permutation shared by all 28 layers; as a result all four target points (1.10/1.20/1.35/1.60) degenerated to the same value $r_{\text{agg}}=1.050$, and the concentrated endpoint only reached 1.115. The reason is that **a single permutation can neither create nor cancel per-layer imbalance**: each layer routes to different logical experts, so any fixed permutation averages out across layers, and the aggregate load tends naturally toward uniformity. After switching to one permutation per layer, each pressing that layer's hot experts onto the same GPU, the sweep interval expanded from 0.11 to 0.54 ($r\in[1.010,\,1.550]$). Had the shared permutation been kept, with $f_{\text{sens}}\approx0.34$ the effect would have been only 0.7%, and **the entire curve would have been buried in noise**.
+
+   **The $x$-axis uses the per-layer average ratio** $r_{\text{avg}} = \frac{1}{L}\sum_l \max_g L_{l,g} / \overline{L_{l,\cdot}}$, not the aggregate ratio: every MoE layer is an independent dispatch/GEMM/combine barrier, and the shortfalls accumulate layer by layer; this is also exactly the `avg_ratio_before/after` reported by PB-OEPLB-DIAG, so the sweep's $x$-axis is directly comparable to the measured $r$ of §5. **Independent validation of this definition**: the identity-layout $r_{\text{avg}}$ computed offline from the recorded counts agrees with the first decision value self-reported by the runtime balancer to within 0.5%—8-card 1.218 vs 1.216, 4-card 1.107 vs 1.113. The two paths (offline count recomputation / runtime self-reporting) are completely independent.
+
+3. **Measure point by point with the balancer off.** Fix the layout with `--init-expert-location <json>`,
+   enable neither PB-OEPLB nor EPLB, run the same benchmark, and record the end-to-end time $T$.
+   Each point is independently restarted, 2 rounds.
+4. **Fit and perform model selection.** Fit both forms simultaneously—the linear $T=A+Br$ assumed by the draft, and
+   the hinge $T = T_{\text{flat}} + B\max(0, r-r_k)$ ($r_k$ grid-searched within the sweep interval;
+   given $r_k$, $T_{\text{flat}},B$ have a closed-form least-squares solution)—and compare $R^2$ and residual sum of squares.
+   This step is not to prettify the fit but to **test** the assumption "$T$ is linear in $r$" itself, which is the entire
+   foundation of the $\beta$ decomposition model. The winner's slope gives
+   $$f_{\text{sens}} = \frac{B\,r_{\text{before}}}{T(r_{\text{before}})}$$
+   to be substituted into §2.4. The identity point **does not participate in the fit** and is held out as a held-out check.
+
+The key to this design is that **placement is the only variable**: permutation changes neither the parameter count, nor the redundancy,
+nor CUDA-graph availability, and introduces no online overhead whatsoever (decision and swap are off throughout), so any change in $T$
+can only be attributed to $r$. By contrast, inversely solving $f_{\text{sens}}$ from an OEPLB on/off comparison would conflate decision
+overhead, swap blocking, and all_reduce bandwidth contention all at once.
+
+### G.2 Results
+
+Qwen2-57B-A14B, 8×H20, L256_O1_realprover_n16384, conc=256. Seven layout points, 2 rounds each, each round independently restarted—14 runs in total, **16384/16384 successful, 0 errors**. The server parameters, apart from `--init-expert-location`, are verbatim identical to baseline (`enable_pb_oeplb=False`, `enable_eplb=False`, `ep_num_redundant_experts=0`, `deepep_mode=auto`, CUDA graph on), verified against the `server_args` dump.
+
+| Layout | $r_{\text{avg}}$ | Round 1 (s) | Round 2 (s) | Mean | CV | vs bal |
+|---|---|---|---|---|---|---|
+| bal | 1.010 | 82.87 | 82.56 | **82.72** | 0.27% | — |
+| r110 | 1.073 | 82.86 | 83.14 | **83.00** | 0.24% | +0.34% |
+| r122 | 1.148 | 83.54 | 84.15 | **83.84** | 0.51% | +1.35% |
+| identity | 1.218 | 85.69 | 86.06 | **85.88** | 0.30% | +3.82% |
+| r135 | 1.220 | 85.98 | 86.02 | **86.00** | 0.03% | +3.97% |
+| r150 | 1.287 | 86.68 | 87.80 | **87.24** | 0.91% | +5.47% |
+| conc | 1.550 | 93.39 | 93.58 | **93.48** | 0.14% | +13.0% |
+
+**(a) $r$ is a sufficient statistic for throughput.** The $r_{\text{avg}}$ of identity and r135 differ by only 0.002 (1.218 vs 1.220), yet their layout structures are entirely unrelated—one is the model's natural order, the other presses the hot experts artificially onto GPU0—the measured times are 85.88 s vs 86.00 s, a difference of **0.14%**, within the inter-round CV. This supports §2.4's parameterization of placement by a single scalar $r$.
+
+**(b) $T(r)$ is a hinge, not a straight line.** Fit on the 6 constructed points (identity held out):
+
+| Model | Fitted form | $R^2$ | RSS |
+|---|---|---|---|
+| Linear (draft assumption) | $T = 60.71 + 20.86\,r$ | 0.9772 | 1.866 |
+| **Hinge** | $T = 82.86 + 23.60\cdot\max(0,\,r-1.099)$ | **0.9981** | **0.154** |
+
+The hinge's residual sum of squares is **12.1×** lower, and the measurements in the $r\le r_k$ region directly corroborate the dead zone: raising $r$ from 1.010 to 1.073 ($\Delta r=0.063$) costs only an extra 0.34%, whereas a $\Delta r$ of the same size above the knee (1.148→1.220 and beyond, slope 23.6 s per unit $r$) costs 1.7%. The held-out identity point: the hinge predicts 85.68 s (measured 85.88, $-0.23\%$), the linear predicts 86.12 s ($+0.28\%$).
+
+**(c) Direct measurement of $f_{\text{sens}}$.** Slope $B=23.60$ s per unit $r$; at $r_{\text{before}}=1.218$,
+$$f_{\text{sens}} = \frac{B\,r_{\text{before}}}{T(r_{\text{before}})} = \frac{23.60\times1.218}{85.68} = \mathbf{0.335}$$
+which differs **5.5×** from the 0.061 inversely solved from the +1.0% single point, and differs from this model's MoE FLOP fraction of 46.9% by only 1.4× (§2.4).
+
+**(d) Upper bound and empirical ceiling.** $r_{\text{after}}=1.04 < r_k=1.099$, so $x_{\text{eff}} = (1.218-1.099)/1.218 = 0.098$ (naive $x=0.146$),
+$$\Delta_{\max} = \frac{0.335\times0.098}{1-0.335\times0.098} = \mathbf{+3.40\%}$$
+The empirical ceiling from the same batch of data (identity→bal, i.e., "perfect balancer, zero overhead") is **+3.82%**, differing from the fitted upper bound by 0.42pp. PB-OEPLB's measured gain on this configuration is +1.0%, i.e., a system efficiency of about **29%**.
+
+**(e) Direct implications for `threshold_ratio`.** The dead zone means that shortfalls with $r\in[1.02,\,1.099]$ are **not worth** triggering a swap: pushing $r$ from 1.073 down to 1.010 is worth only 0.34% on this data (the P2P blocking of a single swap plan is already on the same order). The default threshold 1.02 should be raised toward $r_k$; the threshold choice in §3.2 thereby changes from an "empirical value" into a **measurable** parameter. This also explains the near-noise OEPLB gain on the 57B configuration in §5.3: that configuration's $r_{\text{before}}=1.218$ is only 11% above $r_k=1.099$ in the first place.
+
+**(f) Independent sweep at EP=4: the dead zone moves.** Same model, same dataset (L256_O1×16384, conc=256), same construction method; only EP is changed from 8 to 4 (4×H20, 16 experts/GPU). Seven layout points, 2 rounds each, 14 runs in total, 16384/16384 successful, 0 errors:
+
+| Layout | $r_{\text{avg}}$ | Round 1 (s) | Round 2 (s) | Mean | CV | vs bal |
+|---|---|---|---|---|---|---|
+| bal | 1.004 | 135.55 | 135.42 | **135.49** | 0.07% | — |
+| r108 | 1.059 | 136.53 | 137.23 | **136.88** | 0.36% | +1.03% |
+| r115 | 1.102 | 138.46 | 138.35 | **138.41** | 0.06% | +2.15% |
+| identity | 1.107 | 138.90 | 139.22 | **139.06** | 0.16% | +2.63% |
+| r125 | 1.154 | 141.58 | 141.04 | **141.31** | 0.27% | +4.30% |
+| r140 | 1.224 | 144.41 | 144.26 | **144.33** | 0.07% | +6.52% |
+| conc | 1.400 | 152.45 | 152.62 | **152.53** | 0.08% | +12.6% |
+
+| Model | Fitted form | $R^2$ | RSS |
+|---|---|---|---|
+| Linear | $T = 90.19 + 44.34\,r$ | 0.9940 | 1.186 |
+| **Hinge** | $T = 135.48 + 46.35\cdot\max(0,\,r-1.032)$ | **0.9992** | **0.156** |
+
+The hinge's RSS is **7.6×** lower; on the held-out identity point the hinge predicts 138.95 s (measured 139.06, $-0.08\%$), the linear predicts 139.27 s ($+0.15\%$). **The hinge form wins on two independent configurations**, which is direct evidence that it is not a product of overfitting.
+
+Three conclusions:
+
+1. **$r_k$ moves with EP scale: 1.099 (EP=8) → 1.032 (EP=4).** This falsifies "$r_k$ is a configuration-independent constant", so the starred rows of §2.4 must not borrow 1.10. It is physically legible: at EP=4 the per-GPU expert GEMMs are twice those at EP=8, and the fitted slope $B$ correspondingly rises from 23.60 to 46.35 (almost exactly 2×), while $T_{\text{flat}}$ rises only from 82.86 to 135.48 (1.63×)—the fixed slack that can be absorbed by overlap occupies a smaller share of the total time, and the dead zone is therefore narrower.
+2. **$f_{\text{sens}}$, by contrast, is essentially stable: $B r_b/T(r_b) = 46.35\times1.107/138.95 = \mathbf{0.369}$, vs 0.335 at EP=8, a 9% difference.** That is, **the transferability of the two parameters is completely different**: $f_{\text{sens}}$ characterizes "how much time is sensitive to $r$", is determined by model structure and component proportions, and is fairly stable across EP; $r_k$ characterizes "how much shortfall can be absorbed by overlap", is determined by the per-GPU workload, and varies with the parallel configuration. When extrapolating across configurations, one may borrow $f_{\text{sens}}$ but not $r_k$.
+3. **Upper bound and ceiling for this configuration.** $r_{\text{after}}=1.04 > r_k=1.032$, the dead zone does not operate, $x_{\text{eff}}=x=0.061$, $\Delta_{\max}=+2.29\%$; the empirical ceiling (identity→bal) is **+2.63%**, a difference of 0.34pp. Note that this contrasts with 8 GPUs: the 8-card $r_{\text{before}}$ is higher (1.218 vs 1.107) **and** its dead zone is wider—the former enlarges the headroom, the latter compresses it—and the net result is that the 8-card upper bound (3.40%) is still larger than the 4-card one (2.29%).
+
+**(g) Layout invariance reproduces on 4 GPUs.** r115 ($r=1.102$, hot experts pressed artificially onto GPU0) and identity ($r=1.107$, the model's natural order) differ in time by 0.47% (138.41 vs 139.06), comparable to the 0.45% difference in $r$; two layouts that are structurally unrelated but close in $r$ give close times, consistent with the conclusion of (a) on 8 GPUs.
+
+**(h) Independent sweep on 235B: $r_k$ is nearly identical across models.** Qwen3-235B-A22B-FP8, 8×H20, L512_O1×8192, conc=256. Six layout points, 2 rounds each, 12 runs in total, 8192/8192 successful, 0 errors (the 7th point $r=4.686$ cannot start, see Appendix E.3):
+
+| Layout | $r_{\text{avg}}$ | Round 1 (s) | Round 2 (s) | Mean | CV |
+|---|---|---|---|---|---|
+| bal | 1.000 | 166.83 | 167.32 | **167.07** | 0.21% |
+| r120 | 1.200 | 172.67 | 174.23 | **173.45** | 0.64% |
+| r140 | 1.400 | 185.28 | 185.03 | **185.16** | 0.10% |
+| r160 | 1.600 | 196.47 | 196.12 | **196.30** | 0.13% |
+| identity | 1.737 | 203.47 | 204.59 | **204.03** | 0.39% |
+| r175 | 1.750 | 205.06 | 207.05 | **206.06** | 0.68% |
+
+| Model | Fitted form | $R^2$ | RSS |
+|---|---|---|---|
+| Linear | $T = 112.12 + 52.87\,r$ | 0.9883 | 11.952 |
+| **Hinge** | $T = 167.07 + 58.78\cdot\max(0,\,r-1.093)$ | **0.9995** | **0.475** |
+
+The hinge's RSS is **25.2×** lower (the largest gap of the three configurations). $f_{\text{sens}} = 58.78\times1.721/203.11 = \mathbf{0.496}$, $\beta = 58.78/167.07 = 0.352$.
+
+Three conclusions:
+
+1. **$r_k$ is nearly constant across models.** 1.093 for 235B/EP8 vs 1.099 for 57B/EP8, a 0.5% difference—yet the two models differ in expert count (128 vs 64), shared expert (none vs giant), and number of layers (94 vs 28). Together with 57B/EP4 = 1.032 from (f), the direction of transferability becomes clear: **borrowable along models, not borrowable along parallel configurations**.
+2. **The upper bound and the empirical ceiling agree to within 0.04pp.** $\Delta_{\max}$ ($r_b=1.721\to r_a=1.05$) is $+22.08\%$; the empirical ceiling identity 204.03 → bal 167.07 $=+22.12\%$. This is the tightest of the three configurations. PB-OEPLB measures $+17.5\%$, a system efficiency of **79%**.
+3. **The nsys $\beta$ decomposition of $f_{\text{sens}}$ is falsified.** Decomposition value 0.384 vs measured 0.496, an underestimate of 26%. The "109%>100%" contradiction in §2.4 arose precisely from this, not from a borrowing error in $r_k$.
+
+**(i) Load dependence: $r_k$ is insensitive to concurrency, $f_{\text{sens}}$ is sensitive.** 57B/EP8, three layouts each measured at conc=64/256/512 (2 rounds each):
+
+| Concurrency | bal(1.010) | r122(1.148) | conc(1.550) | $B$ (s per unit $r$) | $f_{\text{sens}}$ | $r_k$ estimate |
+|---|---|---|---|---|---|---|
+| 64 | 106.09 | 107.88 | 116.88 | 22.38 | 0.249 | 1.068 |
+| 256 | 82.72 | 83.84 | 93.48 | 23.98 | 0.342 | 1.101 |
+| 512 | 81.99 | 83.79 | 93.04 | 23.01 | 0.328 | 1.070 |
+
+The **absolute cost** of imbalance ($B$, in seconds per unit $r$) is almost unchanged over an 8× range of concurrency (22.4–24.0); what changes is its **fraction** of total time—low concurrency stretches $T_{\text{flat}}$ (106 s vs 82 s, due to poor batching efficiency), so $f_{\text{sens}}$ drops from 0.342 to 0.249. The estimate of $r_k$ (three points determine three parameters, so this is an exact solution rather than a fit) falls in 1.068–1.101, i.e., **$r_k$ is far less sensitive to concurrency than to EP scale** (the latter 1.099→1.032). This supports "$r_k$ is determined by the per-GPU workload rather than by request concurrency", but note that (f) has already ruled out the stronger version, "$r_k$ is determined by the number of experts per GPU".
+
+### G.3 Limitations
+
+1. **The dead-zone position has been confirmed to move with configuration, and only two points have been measured.** $r_k$ is 1.099 at EP=8 and 1.032 at EP=4 (G.2(f)), so it is **not a constant**, and borrowing it directly is error-prone—applying $r_k=1.10$ to 235B L512 would push the system efficiency up to 109%>100% (§2.4). But two points are only enough to falsify the constant assumption, not enough to give a predictive formula for $r_k$: the candidate independent variables (experts per GPU, GEMM size per GPU, the share of fixed overhead in $T_{\text{flat}}$, batch, input length) all vary together on this paper's two points and cannot be separated. **This paper therefore provides no extrapolation formula for $r_k$, only the measurement method** (G.1, costing about 2 hours of machine time per configuration). The 235B sweep (`driver14.sh`) remains to be done and is the largest open item of this model. This point is also the record of a lesson: this paper previously inferred, on the premise "$r_k$ if constant", that the 4-card upper bound ≈ 0 and that +1.85% was noise; that inference was falsified by the 4-card sweep itself (Appendix F.5).
+2. **Single-point inverse solving is unusable at small $x$.** The methodological conclusion of this appendix: when $\Delta$ is on the same order as inter-run noise (in this paper $\Delta\lesssim2\%$, CV 1.2%), $f_{\text{sens}}$ must not be inversely solved from $\Delta$. The two configurations each provide a counterexample: the 8-card inverse solution 0.061 vs the sweep measurement 0.335 (5.5× too low); the 4-card inverse solution swings between 0.54 and 0.30 depending on whether $r_{\text{before}}$ is taken as 1.113 or 1.20, vs the sweep measurement 0.369. By contrast, the two values from the sweeps (0.335, 0.369) differ by 9%—**$f_{\text{sens}}$ itself is a stable quantity; what is unstable is inverse solving as a tool**. Only sweeping $T(r)$ can yield a meaningful $f_{\text{sens}}$.
+3. **$f_{\text{sens}}$ is load-dependent.** What this appendix provides are values under a specific benchmark configuration (L256, $O=1$, conc=256). The anomaly of 131% system efficiency on the 235B "multi-domain" configuration in §2.4 may well arise precisely from $f_{\text{sens}}$ rising with the load; extrapolation across loads requires re-measurement.
+4. **The sweep measures the steady-state cost of static layouts and contains no dynamic terms.** Decision overhead, swap blocking, and convergence lag are all intentionally excluded (the balancer is off throughout), so $\Delta_{\max}$ is the "perfect balancer" upper bound; the ratio of the measured gain to it (system efficiency) is the quantity this paper's algorithm actually seeks to optimize.
