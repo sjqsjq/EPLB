@@ -161,6 +161,23 @@ This is **algebraically equivalent** to this section's $\Delta_{\max}=f_{\text{s
 
 **The dead zone is not strictly flat.** Within the dead zone this paper has a pair of measured points (both below $r_k=1.099$): as $r$ goes from 1.010 to 1.073, time goes from 82.72→83.00 s, i.e., $+0.34\%$, equivalent to an in-zone slope of $\le5.5\%/$unit $r$, whereas above the knee it is $28.5\%/$unit $r$ — **a factor of 5.2 apart, and the in-zone difference is not significant at $n$=2 ($t=1.36$)**. The hinge model's "perfectly flat when $r\le r_k$" is therefore an approximation, whose error can be quantified: pushing $r$ further down from optimal placement (the LPT lower bound 1.0100 for 57B/EP8) to 1.000 of perfect routing gains at most $5.5\%\times0.0100=0.055$pp, which is **1.5%** of the 3.70pp upper bound for this configuration, below this paper's measurement resolution (0.03pp). §2.5 makes use of this error term.
 
+**Three control dimensions of the gain.** The bound $\Delta=\beta\max(0,r_b-r_k)$ factorizes the influences on gain into three orthogonal dimensions, each independently measurable and predictable:
+
+| Dimension | Controls which parameter | Direction of effect | Representative measurement |
+|---|---|---|---|
+| **GPU count / EP** | $r_k$ (dead-zone width) | Larger EP → higher $r_k$ → wider dead zone → less effective headroom | EP=2: $r_k$=1.012, headroom 0.37%; EP=8: $r_k$=1.099, headroom 3.4% |
+| **Model architecture** | $\beta$ (sensitivity slope) | Higher routed-expert GEMM share → larger $\beta$ → more gain per unit of $r$ | 235B: $\beta$=0.352; 57B: $\beta$=0.285; 24% apart |
+| **Dataset / workload** | $r_{\text{before}}$ (native imbalance) | Greater routing skew → higher $r_b$ → more recoverable headroom | L256: $r_b$=1.218 → ceiling 3.4%; L512: 1.229 → 3.7% |
+
+Their contributions are **multiplicative** ($\beta\times(r_b-r_k)$), so if any one is zero the gain is zero:
+- Few GPUs (EP=2) → $r_b-r_k\approx0$: even large $\beta$ yields no headroom
+- Dispatch-dominated model (e.g. 30B) → $\beta<0$: gain is negative regardless of $r_b$
+- Near-uniform routing → $r_b\approx1$: no skew to recover regardless of configuration
+
+Conversely, **when all three are favorable the gain is substantial**: 235B/EP8 on L512 gives $\beta\times(r_b-r_k)=0.352\times(1.737-1.093)=22.7\%$; measured +17.5% ($\eta$=79%).
+
+**Practical implication**: before deployment, run `predict_gain.py` (needs only config.json + one recording) to evaluate each dimension's contribution. The weakest dimension is the bottleneck — if it is $r_k$ (GPU count), adding GPUs or reducing EP will not help; if $\beta$ (model), a different model or dispatch implementation is needed; if $r_b$ (data), a different dataset or routing algorithm is needed.
+
 **Theoretical upper bound for EPLB (same sensitivity model).** The early draft used $f_{\text{MoE}}=0.77$ for EPLB and $\sum\beta_c f_c=0.384$ for OEPLB, mixing two sets of sensitivities, and thus concluded "EPLB gross upper bound 32.7%" — this is not a physical conclusion but a product of model inconsistency. Recomputing with the same $f_{\text{sens}}=0.384$:
 - EPLB pushes $r$ to 1.0: $x=(1.721-1.0)/1.721=0.419$, $\Delta_{\max}=19.2\%$
 - CUDA graph disabling cost: $1-0.157$ ($0.68\times(1-0.77)$, see §2.2)
