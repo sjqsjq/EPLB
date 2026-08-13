@@ -21,6 +21,15 @@ Measured here: **+19.43%** (r1 +18.43%, r2 +20.46%). `_d38_*`.
 Pitfall: baseline must NOT pass `--init-expert-location` (identity), or the gain
 reads as negative (see d36 mistake, fixed in d38).
 
+## 1b. Drifting multi-domain workload: two distinct quantities (§5.3)
+Claim: on a drifting multi-domain workload, OEPLB's **headline gain vs identity is +9.76%** and its
+**adaptation benefit vs the static optimum is +5.80%**. These two quantities MUST be kept separate
+(different baselines). `driver39.sh` (headline), `driver35.sh` (adaptation).
+Expected (2 restarts each): driver39 identity 824.7s -> OEPLB 751.4s = **+9.76%**;
+driver35 static-optimal 801.2s -> OEPLB 757.2s = **+5.80%**.
+Pitfall: do not report driver35's +5.80% as the headline gain (its baseline is the static optimum,
+not identity). OEPLB beating the static optimum occurs only when the workload drifts over time.
+
 ## 2. T(r) sweep: the bound model (§2.4, App. G)
 Claim: hinge `T(r)=T_flat+β·T_flat·max(0,r−r_k)`, R²>0.996; fitted bound agrees
 with the empirical ceiling (identity→bal) to within 0.4pp.

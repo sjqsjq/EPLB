@@ -51,6 +51,28 @@ bash repro/driver38.sh
 
 ---
 
+## 1b. 多域漂移负载：两个不同的量（论文 §5.3）
+
+**论文声明**：漂移多域负载下，OEPLB 相对 identity 的**头条收益 +9.76%**，相对静态最优的
+**adaptation benefit +5.80%**。这两个量**必须分开**，参照基线不同。`driver39.sh`（头条）与
+`driver35.sh`（adaptation）。
+
+```bash
+bash repro/driver39.sh   # identity 基线 -> 头条收益
+bash repro/driver35.sh   # 静态最优(bal)基线 -> adaptation benefit
+```
+
+**预期**（各 2 轮独立重启）：
+| 实验 | 基线 | OEPLB | 量 |
+|---|---|---|---|
+| driver39 | identity 824.7 s | 751.4 s | **头条 +9.76%** |
+| driver35 | 静态最优 801.2 s | 757.2 s | **adaptation +5.80%** |
+
+**失败排查**：
+- 若把 driver35 的 +5.80% 当成头条收益，是混淆了两个量——它的基线是静态最优，不是 identity。
+- OEPLB 比静态最优还快（757.2 < 801.2）只在负载随时间漂移时出现：静态最优只对聚合分布最优，
+  OEPLB 逐域跟随。若负载不漂移，OEPLB 不应超过静态最优。
+
 ## 2. T(r) 扫描：上界模型的核心证据（论文 §2.4、附录 G）
 
 **论文声明**：$T(r)=T_{flat}+\beta T_{flat}\max(0,r-r_k)$（铰链，死区），拟合 $R^2>0.996$，
