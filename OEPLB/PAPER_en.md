@@ -424,6 +424,8 @@ Dataset paths: `/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/final_grid/
 
 PB-OEPLB reaches **97.6% of the oracle optimum** (23870/24460), significantly outperforming EPLB (by +9.4 percentage points).
 
+**The 235B single-domain gain has been independently re-confirmed a third time (`driver38.sh`)**: identity baseline 201.2 s (CV 0.02%), OEPLB 168.5 s (CV 1.18%), gain **+19.43%** (r1 +18.43%, r2 +20.46%), consistent with (and slightly above) the paper's +17.5%; corresponding $\eta=19.4/22.1=88\%$. On the long-prompt drifting multi-domain workload (`prefill_heavy_universal.jsonl`, 16000 requests), the **headline gain vs the identity baseline is +9.76%** (`driver39.sh`, 2 independent restarts, identity 824.7 s CV 0.13% → OEPLB 751.4 s, r1 +8.08%, r2 +11.49%). Note that `driver35.sh` had used the static-optimal (bal) placement as its baseline, so its +5.80% measures the **adaptation benefit** (OEPLB vs static-optimal), not the headline gain. The two quantities are computed from their own same-run data: headline (+9.76%) from d39; adaptation benefit (+5.80%, bal 801.2 s → OEPLB 757.2 s, same run) from d35. Ordering the three placements by time: identity(824.7) > static-optimal(806.7) > OEPLB(751.4): OEPLB is fastest and **beats the static optimum** — because the static optimum is optimal only for the aggregate distribution, not for each drifting domain, whereas OEPLB follows domain by domain.
+
 **Table 2: Imbalance ratio convergence (L512_O1)**
 
 | Window | Max-delta (old) | Adaptive pairing (new) |
