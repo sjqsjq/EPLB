@@ -11,7 +11,7 @@
 
 ## 摘要
 
-混合专家（MoE）模型在推理时面临专家负载不均衡问题——热点专家集中在少数GPU上，造成计算瓶颈。现有方案如SGLang的EPLB需要冗余专家副本、重平衡期间阻塞推理、且无法实时适应负载变化。本文提出**PB-OEPLB**，一种轻量级在线专家负载均衡器，在无需冗余专家、且调整代价比周期性重平衡低一个数量级的前提下实现近似最优的专家布局。PB-OEPLB仅在prefill批次记录专家路由（减少约50%开销），使用指数衰减历史进行噪声鲁棒决策，并采用自适应配对选择算法在3个决策窗口内收敛到近似最优不均衡度（1.02）。在8×H20集群上服务Qwen3-235B-A22B-FP8时，PB-OEPLB在prefill密集型负载上相比基线提升吞吐+17.5%（复测均值，n=2），相比EPLB高出15.7个百分点；在同一数据集上，其权重迁移引入的同步阻塞为每rank 5.95s（占墙钟3.4%），而EPLB为14.7s（7.3%），稳态每次调整0.37s vs 1.55s。自适应窗口机制根据负载稳定性自动调整决策频率，即使在短prompt通用负载上静态参数调优失效的场景也能获得+5.3%的增益。
+混合专家（MoE）模型在推理时面临专家负载不均衡问题——热点专家集中在少数GPU上，造成计算瓶颈。现有方案如SGLang的EPLB需要冗余专家副本、重平衡期间阻塞推理、且无法实时适应负载变化。本文提出**PB-OEPLB**，一种轻量级在线专家负载均衡器，在无需冗余专家、且调整代价比周期性重平衡低约4倍（稳态0.37s vs 1.55s）的前提下实现近似最优的专家布局。PB-OEPLB仅在prefill批次记录专家路由（减少约50%开销），使用指数衰减历史进行噪声鲁棒决策，并采用自适应配对选择算法在3个决策窗口内收敛到近似最优不均衡度（1.02）。在8×H20集群上服务Qwen3-235B-A22B-FP8时，PB-OEPLB在prefill密集型负载上相比基线提升吞吐+17.5%（复测均值，n=2），相比EPLB高出15.7个百分点；在同一数据集上，其权重迁移引入的同步阻塞为每rank 5.95s（占墙钟3.4%），而EPLB为14.7s（7.3%），稳态每次调整0.37s vs 1.55s。自适应窗口机制根据负载稳定性自动调整决策频率，即使在短prompt通用负载上静态参数调优失效的场景也能获得+5.3%的增益。
 
 此外，本文在4×H20上对Qwen2-57B-A14B-Instruct和Qwen3-30B-A3B-FP8进行了独立重启交替验证：收益由理论上界$\Delta_{\max}$（由不均衡度、模型结构、卡数决定）与系统效率$\eta$（由swap开销与上界之比决定）共同刻画——30B的上界为正但固定开销致$\eta<0$，是这一两层结构的典型案例。并发现官方EPLB在非DeepSeek架构模型上存在AttributeError崩溃，PB-OEPLB通过通用fallback修复。
 
@@ -44,7 +44,7 @@
 
 3. **快速衰减机制**（§3.2）：衰减因子0.5，3个窗口内清除跨域信号污染（vs 0.9在3个窗口后仍保留73%旧信号），同时保持足够的统计样本量。
 
-4. **全面评估**（§5）：在8×H20上使用Qwen3-235B-A22B-FP8，PB-OEPLB在单域prefill负载上实现+18.4%吞吐提升（vs EPLB +9.0%；此为单次测量的gross值，2轮独立重启复测的稳健均值为+17.5%，摘要采用后者），多域负载+10.6%（vs EPLB +6.3%），通用ShareGPT负载+5.3%——均无需冗余专家，且权重迁移的阻塞总量为EPLB的1/2.5。此外在4×H20上验证了Qwen2-57B-A14B（可复现数据集上重测为−0.24%~+2.70%，随负载异质性递减）和Qwen3-30B-A3B（默认配置−2.6%~−3.9%；其$T(r)$上界实为正$+6.36\%$，负收益源于固定开销超过上界，swap预算约束可止损至+0.5%），揭示了收益由上界$\Delta_{\max}$与系统效率$\eta$共同决定的两层结构。
+4. **全面评估**（§5）：在8×H20上使用Qwen3-235B-A22B-FP8，PB-OEPLB在单域prefill负载上实现+18.4%吞吐提升（vs EPLB +9.0%；此为单次测量的gross值，2轮独立重启复测的稳健均值为+17.5%，摘要采用后者），多域负载+10.6%⚠（vs EPLB +6.3%⚠；此二数来自历史单次批次，不同测量轮次给出+14.0%/+12.0%，均依赖已删除的`/tmp/exp_data/`数据集，不可复现），通用ShareGPT负载+5.3%——均无需冗余专家，且权重迁移的阻塞总量为EPLB的1/2.5。此外在4×H20上验证了Qwen2-57B-A14B（可复现数据集上重测为−0.24%~+2.70%，随负载异质性递减）和Qwen3-30B-A3B（默认配置−2.6%~−3.9%；其$T(r)$上界实为正$+6.36\%$，负收益源于固定开销超过上界，swap预算约束可止损至+0.5%），揭示了收益由上界$\Delta_{\max}$与系统效率$\eta$共同决定的两层结构。
 
 5. **跨架构通用性**（§2.2）：发现并修复了EPLB和OEPLB在非DeepSeek架构（Qwen2-MoE、Qwen3-MoE）上的`routed_experts_weights_of_layer`属性缺失崩溃，通过通用fallback使负载均衡兼容所有MoE架构。
 
@@ -71,7 +71,7 @@ $$r(\pi) = \frac{\max_{g \in [G]} L_g(\pi)}{\bar{L}}, \quad L_g(\pi) = \sum_{j: 
 
 **SGLang EPLB**（state-of-the-art生产系统）有三个架构限制：
 
-**限制1：强制禁用CUDA graph。** EPLB要求`deepep_mode=normal`（源码：`server_args.py:1641`），触发`disable_cuda_graph=True`。这禁用CUDA graph捕获，增加每步kernel launch开销。在decode密集型负载（O=256）上造成**-68.2%吞吐退化**（表5）。此外，EPLB的`ExpertDistributionRecorder`对`deepep_mode=auto`直接`raise NotImplementedError`（`expert_distribution.py:315`），因此保留CUDA graph的auto模式与EPLB根本不兼容。
+**限制1：强制禁用CUDA graph。** EPLB要求`deepep_mode=normal`（源码：`server_args.py:1641`），触发`disable_cuda_graph=True`。这禁用CUDA graph捕获，增加每步kernel launch开销。在decode密集型负载（O=256）上造成约**−62%~−68%吞吐退化**（附录F.3在4卡57B上复现为−62.4%；原始测量−68.2%的数据集已不可获取）。此外，EPLB的`ExpertDistributionRecorder`对`deepep_mode=auto`直接`raise NotImplementedError`（`expert_distribution.py:315`），因此保留CUDA graph的auto模式与EPLB根本不兼容。
 
 **限制2：架构耦合。** EPLB的`eplb_manager.py:110`和`model_runner.py:927`直接访问`model.routed_experts_weights_of_layer`属性，该属性**仅在DeepSeek-V2/V3模型类上定义**。对Qwen2-MoE和Qwen3-MoE架构，这会引发`AttributeError`，使EPLB在这些架构上**完全无法工作**（在Qwen2-57B-A14B上实验确认）。截至2026年8月的SGLang最新main分支未修复此问题。
 
@@ -129,7 +129,7 @@ $$\Delta_{\max} = \frac{T(r_{\text{before}})}{T(r_{\text{after}})} - 1 = \frac{f
 
 *证明。* MoE层时间$T_{\text{MoE}} = T_{\text{dispatch}} + T_{\text{expert}} + T_{\text{combine}}$。Expert计算由token数决定，不随placement变化（$\beta \approx 0$）。Combine是集合通信，最热GPU完成最晚→其他GPU等待→$T_{\text{combine}} \propto r$。Dispatch中OEPLB的all_reduce与DeepEP dispatch竞争带宽→$\beta < 0$。代入235B的$f_c$得$f_{\text{sens}} = 0.384$，与上表反解的0.366相差5%。$\square$
 
-**各实验的理论上界与系统效率**（$r_{\text{after}}=1.04$，取PB-OEPLB-DIAG报告的时间平均工作点；235B用$\beta$校准值$f_{\text{sens}}=0.384$，57B 8卡用附录G实测值）：
+**各实验的理论上界与系统效率**（$r_{\text{after}}=1.04$，取PB-OEPLB-DIAG报告的时间平均工作点；235B用附录G实测值$f_{\text{sens}}=0.496$（nsys $\beta$分解给出的0.384已被否证，低估26%），57B 8卡用附录G实测值）：
 
 | 实验 | $r_{\text{before}}$ | $r_k$ | $x_{\text{eff}}$ | $f_{\text{sens}}$ | $\Delta_{\max}$ | 实测收益 | 系统效率 |
 |---|---|---|---|---|---|---|---|
