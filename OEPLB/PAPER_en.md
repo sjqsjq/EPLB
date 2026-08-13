@@ -284,7 +284,7 @@ The core innovation is the **dual-mode pair-selection** strategy inside the gree
 
 $$\text{selected\_slot} = \begin{cases} \arg\max_s \text{load}[s] & \text{if } \max_s \text{load}[s] \leq \text{gap} \\ \arg\min_s |\text{load}[s] - \frac{\text{gap}}{2}| & \text{otherwise} \end{cases}$$
 
-This simple switch resolves a critical stagnation point: the previous max-delta-only planner could not improve further after converging to a ratio of 1.26 (638 effective swap pairs existed, but the greedy heuristic, due to overshooting, selected pairs that worsened the ratio). With adaptive selection, the ratio converges to **1.02** within 3 windows (Table 2).
+This simple switch resolves a critical stagnation point: the previous max-delta-only planner could not improve further after converging to a ratio of 1.26 (ratio-improving pairs still existed, but the greedy heuristic, due to overshooting, selected pairs that worsened the ratio). With adaptive selection, the ratio converges to **1.02** within 3 windows (Table 2).
 
 **Marginal swap efficiency and optimal stopping (measured, this work).** The algorithm above converges to ratio 1.02, but the dead-zone result of §2.4 shows **this is over-convergence** — once $r\le r_k$, pushing lower buys no time back. Decomposing the full decision trajectory of the 8-GPU 57B default configuration (Appendix G / the `g8_base` arm of `driver27.sh`, 21 decisions, 343 ops) by "effective reduction below $r_k$":
 
@@ -309,7 +309,7 @@ Swaps are executed **synchronously**: the controller completes the entire swap i
 
 **Two failure modes of the synchronous path itself (negative results, measured in this paper).** The early draft claimed "after switching to synchronous there are no more stability problems" — this is wrong. Synchronous single-batch P2P on this platform has two failure modes, each of which can hang all ranks, and we triggered and fixed both:
 
-1. **NCCL's P2P channel buffers are crowded out by PyTorch's caching allocator.** The transient overhead of migration is $O(|{\rm plan}|)$: 132 ops in the first decision × ~27.5 MB of fp8 expert weights per op ≈ 1.2–1.9 GB. NCCL allocates P2P channel buffers with raw `cudaMalloc`, **bypassing** PyTorch's caching allocator, and therefore fails when GPU memory is fully occupied by cached blocks (measured: 3 out of 8 ranks reported `Failed to CUDA calloc 10485760 bytes` inside `batch_isend_irecv`). The failing ranks threw exceptions and exited the collective operations while the 5 successful ones kept waiting; the communicator immediately fell out of step, and the 600 s watchdog killed all 8 ranks. Fix: call `torch.cuda.empty_cache()` before the call to return cached blocks to the driver, and retry once on failure.
+1. **NCCL's P2P channel buffers are crowded out by PyTorch's caching allocator.** The transient overhead of migration is $O(|{\rm plan}|)$: 132 ops in the first decision × ~27.5 MB of fp8 expert weights per op ≈ 3.6 GB (peak is higher because each op needs both send and receive buffers). NCCL allocates P2P channel buffers with raw `cudaMalloc`, **bypassing** PyTorch's caching allocator, and therefore fails when GPU memory is fully occupied by cached blocks (measured: 3 out of 8 ranks reported `Failed to CUDA calloc 10485760 bytes` inside `batch_isend_irecv`). The failing ranks threw exceptions and exited the collective operations while the 5 successful ones kept waiting; the communicator immediately fell out of step, and the 600 s watchdog killed all 8 ranks. Fix: call `torch.cuda.empty_cache()` before the call to return cached blocks to the driver, and retry once on failure.
 
 2. **Chunking a large P2P batch breaks consistent participation across ranks and thus hangs.** The first-version fix for failure mode 1 was to slice the plan into chunks and issue them in batches. This introduced a **more insidious** deadlock: when a rank owns no slots in a given chunk it skips that chunk's `batch_isend_irecv`, whereas NCCL's coalesced work is **numbered by increasing sequence numbers per process group**, and uneven participation causes the sequence numbers to diverge (watchdog measurements: 12 lines of `SeqNum=4`, 3 lines of `SeqNum=5`, `WorkNCCL(SeqNum=4, OpType=COALESCED) ran for 600091 ms`). Therefore **the plan must be submitted as a whole batch**; `max_total_ops` is a safety valve against an overly large single batch, not a freely tunable performance knob — turning it down does not split a large plan into separate executions.
 
@@ -547,14 +547,16 @@ PB-OEPLB is the only configuration that simultaneously preserves full KV cache c
 
 ### 5.8 Reproducibility
 
-3 independent cold starts on 8-GPU 235B (L512_O1):
+3 independent cold starts on 8-GPU 235B (L512_O1_realprover_n8192, conc=256, with PB-OEPLB, `driver32.sh`):
 
-| Run | total_tps |
-|---|---|
-| 1 | 22603.6 |
-| 2 | 22885.2 |
-| 3 | 22850.8 |
-| **Mean ± std** | **22780 ± 156 (0.7%)** |
+| Run | Time (s) | Output tps |
+|---|---|---|
+| 1 | 170.1 | 48.2 |
+| 2 | 177.1 | 46.3 |
+| 3 | 175.8 | 46.6 |
+| **Mean ± CV** | **174.3 ± 2.2%** | **47.0 ± 2.2%** |
+
+(The early draft reported 22780 ± 156 tps under a different metric (input tokens/s) on a dataset that is no longer available; this table replaces it. CV=2.2% is higher than the static-placement sweeps (0.06–0.36%) because OEPLB's swaps introduce nondeterminism.)
 
 On 4-GPU 57B, alternating with independent restarts across 3 scenarios, 0 errors, swap execution confirmed (VERIFY CHANGED=True).
 
@@ -751,7 +753,9 @@ $$(1+\Delta_{\max})(1-c_{\text{overhead}}) > 1,\qquad \Delta_{\max}=\frac{f_{\te
 | **8-GPU 57B** | **1.218** | **1.099** (measured) | **0.098** | **0.335** (measured) | **3.40%** | ~1% | **+2.4%** | +1.0% ✅ sign |
 | **4-GPU 57B** | **1.107** | **1.032** (measured) | **0.061** | **0.369** (measured) | **2.29%** | ~2% (estimated) | **+0.3%** | TBD† |
 | 4-GPU 30B | 1.338 | 1.031 (measured) | 0.230 | **+0.207** (measured) | +6.36% | ~7s fixed | **net-negative ($\eta<0$)** | −3.8%~+0.5% ✅magnitude |
-| 4-GPU DS-V2-Lite | 1.02 | not measured | 0.000 | — | ≈0 | ~4% | **negative** | -4.5% ✅ |
+| 4-GPU DS-V2-Lite | 1.02 | not measured | ~0 | — | ≈0 | ~4% | **negative** | −4.5%⚠ |
+
+⚠DS-V2-Lite row: model weights deleted from machine; the −4.5% measurement comes from an early draft with no traceable result file. Kept as qualitative reference only ($r_{\text{before}}\approx1.02$ → no headroom → predicted negative or zero, directionally consistent).
 
 The corrected model predicts the sign correctly for the four 235B/57B configurations. **30B is a subtler case: its bound is positive ($+6.36\%$) yet the realized gain is negative** — not a sign error in the model, but fixed overhead (the 7.1s of §B.2) exceeding the realized gain, i.e. $\eta<0$. Capturing this requires both the bound model ($\Delta_{\max}$) and the overhead model ($\eta$ gate): the bound alone would say "do it", the measurement alone would misread it as "$\beta<0$". The swap budget stanches 30B from −3.8% to +0.5% (`driver30.sh`), confirming overhead is the cause.
 
@@ -1067,7 +1071,7 @@ The **absolute cost** of imbalance ($B$, in seconds per unit $r$) is almost unch
 
 1. **The dead-zone position moves with EP but is now predictable.** Four sweeps (57B/EP2, EP4, EP8; 235B/EP8) give $r_k-1 = 0.00408\cdot\text{EP}^{1.52}$, with a cross-model blind-test error of 3.8%. The exponent decomposes into $T_{\text{gemm}}\propto\text{EP}^{-0.99}$ (theoretical $-1$) ÷ $\text{slack}\propto\text{EP}^{+0.53}$ — the ratio recovers 1.52 exactly. Caveats: only one model gives the EP trend; the cross-model check is a single point; all four are on the same hardware (H20, NVLink, no IB). The per-config measurement method (G.1, ~2 h) remains the fallback.
 2. **Single-point inverse solving is unusable at small $x$.** The methodological conclusion of this appendix: when $\Delta$ is on the same order as inter-run noise (in this paper $\Delta\lesssim2\%$, CV 1.2%), $f_{\text{sens}}$ must not be inversely solved from $\Delta$. The two configurations each provide a counterexample: the 8-card inverse solution 0.061 vs the sweep measurement 0.335 (5.5× too low); the 4-card inverse solution swings between 0.54 and 0.30 depending on whether $r_{\text{before}}$ is taken as 1.113 or 1.20, vs the sweep measurement 0.369. By contrast, the two values from the sweeps (0.335, 0.369) differ by 9%—**$f_{\text{sens}}$ itself is a stable quantity; what is unstable is inverse solving as a tool**. Only sweeping $T(r)$ can yield a meaningful $f_{\text{sens}}$.
-3. **$f_{\text{sens}}$ is load-dependent.** What this appendix provides are values under a specific benchmark configuration (L256, $O=1$, conc=256). The anomaly of 131% system efficiency on the 235B "multi-domain" configuration in §2.4 may well arise precisely from $f_{\text{sens}}$ rising with the load; extrapolation across loads requires re-measurement.
+3. **$f_{\text{sens}}$ is load-dependent.** What this appendix provides are values under a specific benchmark configuration (L256, $O=1$, conc=256). The anomaly of 118% system efficiency on the 235B "multi-domain" configuration in §2.4 (early draft computed 131%, now corrected) may well arise precisely from $f_{\text{sens}}$ rising with the load; extrapolation across loads requires re-measurement.
 4. **The sweep measures the steady-state cost of static layouts and contains no dynamic terms.** Decision overhead, swap blocking, and convergence lag are all intentionally excluded (the balancer is off throughout), so $\Delta_{\max}$ is the "perfect balancer" upper bound; the ratio of the measured gain to it (system efficiency) is the quantity this paper's algorithm actually seeks to optimize.
 
 
