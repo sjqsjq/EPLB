@@ -95,7 +95,7 @@ Through profiling of Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8) and Qwen
 
 $$T(r) = T_{\text{flat}} + B\cdot\max(0,\; r - r_k)$$
 
-This hinge form fits with $R^2=0.998$ for 57B 8-GPU, and its residual sum of squares is **13×** lower than the purely linear form (Appendix G.2). Defining the **r-sensitive time fraction** $f_{\text{sens}} = B\,r_{\text{before}}/T(r_{\text{before}})$ and the **effective usable interval**
+This hinge form fits with $R^2=0.998$ for 57B 8-GPU, and its residual sum of squares is **12.1×** lower than the purely linear form (1.866/0.154, Appendix G.2). Defining the **r-sensitive time fraction** $f_{\text{sens}} = B\,r_{\text{before}}/T(r_{\text{before}})$ and the **effective usable interval**
 $$x_{\text{eff}} = \frac{r_{\text{before}} - \max(r_{\text{after}},\, r_k)}{r_{\text{before}}}$$
 the throughput improvement upper bound remains in Amdahl form, except that $x$ must be replaced by $x_{\text{eff}}$:
 $$\Delta_{\max} = \frac{T(r_{\text{before}})}{T(r_{\text{after}})} - 1 = \frac{f_{\text{sens}}\, x_{\text{eff}}}{1 - f_{\text{sens}}\, x_{\text{eff}}}$$
@@ -157,7 +157,7 @@ The dead zone has a direct engineering implication: **pushing $r$ below $r_k$ yi
 $$\Delta_{\text{ceiling}} = \frac{T(r_b)}{T_{\text{flat}}}-1 = \beta\cdot\max(0,\;r_b-r_k),\qquad \beta \equiv \frac{B}{T_{\text{flat}}}$$
 This is **algebraically equivalent** to this section's $\Delta_{\max}=f_{\text{sens}}x_{\text{eff}}/(1-f_{\text{sens}}x_{\text{eff}})$ (substitute $f_{\text{sens}}=Br_b/T(r_b)$, $x_{\text{eff}}=(r_b-r_k)/r_b$), but more useful in form:
 1. **Separation of configuration parameters and workload parameters**: $(\beta,\,r_k)$ belong only to the configuration, and $r_b$ only to the dataset. Thus one configuration plots as one polyline (knee $r_k$, slope $\beta$), one dataset lands as one point on the line, and $r_b$ can be computed offline (Appendix D.2).
-2. **$\beta$ is more stable than $f_{\text{sens}}$**: three sweeps give $\beta=0.285$ (57B/EP8), $0.342$ (57B/EP4), $0.352$ (235B/EP8), a range of 18%; whereas $f_{\text{sens}}$ is $0.335/0.369/0.496$, a range of 48%. The reason is that the definition of $f_{\text{sens}}$ mixes the operating point $r_b$ into the configuration parameter, whereas $\beta$ does not.
+2. **$\beta$ is more stable than $f_{\text{sens}}$**: three sweeps give $\beta=0.285$ (57B/EP8), $0.342$ (57B/EP4), $0.352$ (235B/EP8), a range of 19%; whereas $f_{\text{sens}}$ is $0.335/0.369/0.496$, a range of 48%. The reason is that the definition of $f_{\text{sens}}$ mixes the operating point $r_b$ into the configuration parameter, whereas $\beta$ does not.
 3. **$\beta$ has direct physical meaning**: the hottest GPU receives $r$ times the tokens, so its routed-expert GEMMs are $r$ times slower; hence $B\approx T_{\text{routed-gemm}}$, and $\beta\approx$ the **wall-clock fraction** of routed-expert GEMMs. The three $\beta$ values (0.285/0.342/0.352) are uniformly lower than the corresponding routed-expert **FLOP** fractions (0.469/0.469/0.679) by factors of 1.37–1.93, consistent with this section's observation that "the FLOP fraction overestimates", and providing an explanation: the FLOP fraction is not equal to the wall-clock fraction. **Can a single profiling replace the sweep?** `driver23b.sh` profiled all four configurations: even after isolating routed-expert GEMMs (`deep_gemm::sm90_fp8_gemm` kernels, precisely separated from attention/shared-expert `cutlass` kernels), the ratio $\beta$/routed-GEMM% scatters across **0.53–1.25**, not $\approx1$. The physical reason: the profiler measures the kernel-time fraction across all GPUs (total occupancy), whereas $\beta$ measures the **critical-path** wall-clock fraction — the two are not equivalent whenever dispatch/combine overlaps with GEMM, and the degree of overlap varies with architecture (dispatch 29% on 57B vs 13% on 235B) and EP size. **$\beta$ is therefore not predictable from profiling; precise calibration requires a $T(r)$ sweep (~2 h/config).** The FLOP-based estimate ($\beta\approx$FLOP$_\text{routed}/1.6$, error ±30%) is useful for quick screening, but quantitative prediction demands a sweep. $\beta$ remains the one link in the prediction chain that still costs machine time.
 
 **The dead zone is not strictly flat.** Within the dead zone this paper has a pair of measured points (both below $r_k=1.099$): as $r$ goes from 1.010 to 1.073, time goes from 82.72→83.00 s, i.e., $+0.34\%$, equivalent to an in-zone slope of $\le5.5\%/$unit $r$, whereas above the knee it is $28.5\%/$unit $r$ — **a factor of 5.2 apart, and the in-zone difference is not significant at $n$=2 ($t=1.36$)**. The hinge model's "perfectly flat when $r\le r_k$" is therefore an approximation, whose error can be quantified: pushing $r$ further down from optimal placement (the LPT lower bound 1.0100 for 57B/EP8) to 1.000 of perfect routing gains at most $5.5\%\times0.0100=0.055$pp, which is **1.5%** of the 3.70pp upper bound for this configuration, below this paper's measurement resolution (0.03pp). §2.5 makes use of this error term.
@@ -229,8 +229,8 @@ EPLB's $R$ redundant experts occupy additional memory, squeezing KV cache capaci
 | Original $\rho$ | $\rho'$ after $\delta=8.1\%$ | Queueing-time multiplier |
 |---|---|---|
 | 0.70 | 0.762 | 1.26× |
-| 0.85 | 0.925 | 2.13× |
-| 0.90 | 0.979 | **4.76×** |
+| 0.85 | 0.925 | 2.00× |
+| 0.90 | 0.979 | **4.83×** |
 | 0.95 | 1.033 | ∞ (overflow) |
 
 **Measured verification** (L4096_O256 conc=512, $\rho \approx 0.9$): EPLB -3.2% (KV cache pressure causes queueing to explode), OEPLB +16.0% (zero KV cache loss), a gap of 19.2pp.
@@ -418,7 +418,7 @@ Dataset paths: `/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/final_grid/
 | Worst (hotspot stacking) | 2.61 | 16054.5 | -20.4% |
 | Baseline (trivial round-robin) | 1.74 | 20167.8 | — |
 | EPLB (continuous) | ~1.00 | 21992.2 | +9.0% |
-| Frozen-EPLB | ~1.00 | 22668.1 | +13.0% |
+| Frozen-EPLB | ~1.00 | 22668.1 | +12.4% |
 | **PB-OEPLB** | **~1.02** | **23870.5** | **+18.4%** |
 | Optimal (oracle) | 1.00 | 24460.1 | +21.3% |
 
@@ -476,10 +476,10 @@ Both arms of all four rows are $n$=2 (independent restarts). Per-arm CV: L256 0.
 | Configuration | deepep-mode | CUDA graph | Redundant experts | tps | vs baseline |
 |---|---|---|---|---|---|
 | Baseline | auto | ✅ | 0 | 26.9 | — |
-| EPLB (official, patched) | normal | ❌ disabled | 16 | 27.2 | +0.4% |
+| EPLB (official, patched) | normal | ❌ disabled | 16 | 27.2 | +1.1% |
 | **OEPLB** | auto | ✅ | 0 | **27.7** | **+3.0%** |
 
-OEPLB outperforms EPLB by +2.6 percentage points. EPLB yields almost no improvement: normal mode disables CUDA graphs, which cancels out the balancing gains of the 16 redundant experts.
+OEPLB outperforms EPLB by **+1.9 percentage points** (+3.0% vs +1.1%). EPLB yields almost no improvement: normal mode disables CUDA graphs, which cancels out the balancing gains of the 16 redundant experts. (This table's dataset `multidomain_16k` is in the deleted `/tmp/exp_data/` and is not reproducible; it is kept only as a mechanism comparison of EPLB vs OEPLB.)
 
 ### 5.5 Full Comparison with EPLB
 
@@ -1054,7 +1054,7 @@ Three conclusions:
 | Linear | $T = 112.12 + 52.87\,r$ | 0.9883 | 11.952 |
 | **Hinge** | $T = 167.07 + 58.78\cdot\max(0,\,r-1.093)$ | **0.9995** | **0.475** |
 
-The hinge's RSS is **25.2×** lower (the largest gap of the three configurations). $f_{\text{sens}} = 58.78\times1.721/203.11 = \mathbf{0.496}$, $\beta = 58.78/167.07 = 0.352$.
+The hinge's RSS is **25.2×** lower (the largest gap of the three configurations). $f_{\text{sens}} = 58.78\times1.721/203.98 = \mathbf{0.496}$ (where $T(1.721)=167.07+58.78\times0.628=203.98$), $\beta = 58.78/167.07 = 0.352$.
 
 Three conclusions:
 
