@@ -67,6 +67,8 @@ A ratio of 1.0 denotes perfect balance; the timing impact of imbalance is propor
 
 **Complexity.** Finding $\pi^* = \arg\min_\pi r(\pi)$ under the balance constraint is NP-hard (reduction from 3-PARTITION for $G \geq 3$, from PARTITION for $G=2$). This motivates a greedy local-search approximation.
 
+**Measured imbalance.** On 3 real non-concatenated datasets (MMLU multi-subject QA 25tok, prover math 1253tok, book BookCorpus 4438tok), identity placement (experts 0-15→GPU0, 16-31→GPU1, ...) yields per-layer max/min ratio **mean 2.26–4.38×, with the most extreme layer at 11.79×** (book). LPT greedy optimal placement reduces the ratio to **~1.00 (53–73% reduction)** — i.e., moving expert positions (without changing routing or adding redundancy) suffices for near-perfect balance. Key finding: **the hotspot GPU differs by dataset** (MMLU hot=GPU4, prover hot=GPU5, book hot=GPU0), so a static placement optimized for one domain is ineffective for another → dynamic/adaptive placement is necessary.
+
 ### 2.2 Limitations of Existing Approaches
 
 **SGLang EPLB** (the state-of-the-art production system) has three architectural limitations:
@@ -84,6 +86,8 @@ PB-OEPLB fixes this limitation with a generic fallback (§4): it first tries the
 Through profiling of Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8) and Qwen2-57B-A14B (28 layers, 64 experts, EP=4), we identify three key observations:
 
 **Observation 1 (intra-domain stability and cross-domain switches).** Within a single content domain, the cosine similarity of expert load distributions across consecutive decision windows is >0.95. Domain switches cause the ratio to spike (1.20→1.39 on 235B). The measured cross-domain cosine similarity bottoms out around 0.86 (>0.999 within a domain), enough as a changepoint signal; the 0.16 cited in an early draft was a hypothetical value, not measured, and is corrected here. This can be modeled as a **piecewise-stationary Markov process**, where the routing distribution $\boldsymbol{\theta}$ is fixed within each segment and jumps at unknown change points $\tau_1 < \tau_2 < \cdots$ (see §3.2 and the Bayesian formulation in Appendix A.2).
+
+**Cross-domain routing measurement (94×128 heatmap).** We directly measured the prefill-stage (94 layers × 128 experts) frequency matrix on 3 datasets. Cross-domain global expert-frequency Spearman ρ is **near zero**: MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216 — different domains route to **entirely different expert sets**. The top-5 hotspot experts are completely non-overlapping across domains (MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}). This means a placement that disperses domain A's hot experts may concentrate domain B's new hotspots → **static placement inevitably fails under domain shifts**. The heatmap (Fig 7) visually confirms this: the bright regions (hot experts) of the 3 datasets are almost non-overlapping.
 
 **Observation 2 (decision frequency vs. prompt length).** Short prompts (~50 tokens) require a larger synchronization window (sw=32-64), because each forward batch processes many requests and frequent `all_reduce` calls become the dominant overhead. Long prompts (~250 tokens) benefit from a smaller window (sw=8). This is a **bias-variance tradeoff**: a small window provides fresh data (low bias) but high variance due to limited samples; a large window reduces variance but increases latency and communication overhead. No single static window is optimal for all workloads — this motivates the adaptive mechanism (§3.5).
 
