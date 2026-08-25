@@ -89,6 +89,8 @@ PB-OEPLB通过通用fallback（§4）修复了此限制：先尝试DeepSeek原�
 
 **跨域路由实测（94×128热力图）。** 在3个数据集上直接测量prefill阶段的(94层×128专家)频率矩阵。跨域全局专家频率Spearman ρ**几乎为0**：MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216——不同域路由到**完全不同的专家集**。各域top-5热点专家完全不重叠（MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}）。这意味着为域A分散热专家的放置对域B不仅不是最优、甚至可能集中了B的新热点→**静态放置在域切换负载下必然失败**。热力图（Fig 7）直观展示了这一现象：3个数据集的亮区（热专家）几乎不重叠。
 
+**跨域放置迁移实测。** 逐层为域A计算LPT最优放置，再apply到域B的decode路由：同域对角线ratio=1.00（完美），但跨域非对角=2.1–4.1（Fig 9）。关键发现：**MMLU的最优放置apply到prover后ratio=3.667，比默认identity(3.510)还差**——"最优"放置跨域后比不做还糟。这定量证明了静态放置在域切换负载下的必然失败。
+
 **观察2（决策频率与prompt长度的关系）。** 短prompt（~50 token）需要更大的同步窗口（sw=32-64），因为每个forward batch处理大量请求，频繁的`all_reduce`调用成为主要开销。长prompt（~250 token）受益于更小窗口（sw=8）。这是一个**偏差-方差权衡**：小窗口提供新鲜数据（低偏差）但样本有限导致高方差；大窗口减少方差但增加延迟和通信开销。不存在单一静态窗口对所有负载最优——这促使了自适应机制（§3.5）。
 
 **观察3（prefill预测decode）。** 我们按DataFore（ISCA 2026）Ob3的方法学直接测量prefill→decode专家路由相关性：逐层计算prefill阶段与decode阶段专家频率直方图的Spearman ρ，跨请求聚合（pooling）。在Qwen3-235B-A22B上用MMLU（O=10，与DataFore的`MAX_NEW_TOKENS=10`一致）测得**mean ρ=0.833，94/94层≥0.7（强相关）**，在同一模型上复现了DataFore"most layers≥0.7"的结论；top-5热点专家overlap为49–58%（DataFore Qwen3约60%）。扩展到真实非拼接数据集、不同prompt长度（均O=10）：长prompt达近完美相关——prover数学1253 tok ρ=0.980（94/94）、book 4438 tok ρ=0.967（94/94）。这直接证明对任务结构化与长prompt负载，prefill路由是decode分布的*充分统计量*。（间接支撑：仅基于prefill路由数据的布局优化也产生可测量的decode阶段改善，TPOT 9种配置下-3.0%到-12.5%，因swap修改全局共享的`physical_to_logical_map`，该映射控制所有forward pass而不论阶段。）充分统计量的强度随prompt长度和任务结构化程度变化（短自由文本较弱——见§3.5/§3.6边界），这正是§3.5自适应窗口在异质负载上放大M的原因。
