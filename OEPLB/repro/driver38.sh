@@ -15,7 +15,7 @@ boot () {
   done
   sleep 8
   setsid nohup bash $1 > $LOGD/server235b_$2.log 2>&1 &
-  for i in $(seq 1 320); do grep -q "ready to roll" $LOGD/server235b_$2.log && break; grep -q "Traceback" $LOGD/server235b_$2.log && break; sleep 4; done
+  for i in $(seq 1 320); do grep -q "ready to roll" $LOGD/server235b_$2.log && break; grep -q "Scheduler hit an exception" $LOGD/server235b_$2.log && break; sleep 4; done
   grep -q "ready to roll" $LOGD/server235b_$2.log || { echo "[d38] $2 FAILED"; return 1; }
   echo "[d38] $2 ready"
 }

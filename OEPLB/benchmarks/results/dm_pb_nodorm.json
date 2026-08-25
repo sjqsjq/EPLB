@@ -1,0 +1,21 @@
+{
+  "label": "dm_pb_nodorm",
+  "dataset": "/tmp/L4096_O256_sub1k.jsonl",
+  "num_requests": 1000,
+  "concurrency": 128,
+  "ok": 1000,
+  "errors": 0,
+  "total_time_s": 296.32,
+  "total_comp_tokens": 256000,
+  "tps": 863.9,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 37173.1,
+  "lat_p50_ms": 37059.43,
+  "lat_p99_ms": 42387.1,
+  "ttft_mean_ms": 13592.99,
+  "ttft_p50_ms": 13660.56,
+  "ttft_p99_ms": 28196.7,
+  "tpot_mean_ms": 92.47,
+  "tpot_p50_ms": 92.44,
+  "tpot_p99_ms": 147.03
+}

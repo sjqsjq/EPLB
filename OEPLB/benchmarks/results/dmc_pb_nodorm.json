@@ -1,0 +1,21 @@
+{
+  "label": "dmc_pb_nodorm",
+  "dataset": "/tmp/spliced_cc_1k.jsonl",
+  "num_requests": 1000,
+  "concurrency": 128,
+  "ok": 1000,
+  "errors": 0,
+  "total_time_s": 278.14,
+  "total_comp_tokens": 512000,
+  "tps": 1840.8,
+  "avg_output_tokens": 512,
+  "lat_mean_ms": 34826.2,
+  "lat_p50_ms": 34568.28,
+  "lat_p99_ms": 38876.16,
+  "ttft_mean_ms": 7260.18,
+  "ttft_p50_ms": 7174.38,
+  "ttft_p99_ms": 16447.55,
+  "tpot_mean_ms": 53.95,
+  "tpot_p50_ms": 53.79,
+  "tpot_p99_ms": 69.53
+}

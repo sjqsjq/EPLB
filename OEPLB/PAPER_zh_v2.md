@@ -69,7 +69,7 @@ $r=1$为完美均衡。在线负载均衡的目标是：在每层前向后，通
 
 **观察2：最优决策频率依赖有效memory M=W/(1−α)，而非W单独。** 窗口$W$和衰减$\alpha$不是两个独立旋钮——展开衰减累积器$A_t = R_t + \alpha A_{t-1} = \sum_k \alpha^k R_{t-k}$，其有效memory长度$M = W/(1-\alpha)$。固定$M$同时增大$W$和$\alpha$可给出相同统计质量但更大$W$意味着更稀疏决策。**设计含义**：用$\alpha=0.5$以$W=64$达到$M=128$，比$W=128, \alpha=0$少一半all_reduce调用——$\alpha$是廉价memory杠杆。
 
-**观察3：prefill阶段路由预测decode阶段。** 基于prefill路由数据优化的布局对decode阶段有可测量改善（TPOT −3.0%至−12.5%，multi_O256 −11.9%最显著）。原因是swap修改全局共享的`physical_to_logical_map`，对所有forward生效。**设计含义**：仅prefill记录即可，decode阶段CUDA graph下记录自动跳过（`torch.cuda.is_current_stream_capturing()`），零额外开销。
+**观察3：prefill阶段路由预测decode阶段。** 我们按DataFore（ISCA 2026）Ob3方法学直接测量：逐层Spearman ρ（prefill vs decode专家频率直方图，跨请求聚合）。在Qwen3-235B-A22B上用MMLU（O=10，同DataFore `MAX_NEW_TOKENS=10`）测得**mean ρ=0.833，94/94层≥0.7**，复现DataFore"most layers≥0.7"；扩展到长prompt真实数据集（均O=10）：prover数学1253tok ρ=0.980、book 4438tok ρ=0.967（均94/94层强）。即对任务结构化QA与长prompt，prefill路由是decode分布的**充分统计量**。短自由文本较弱（详见§3.5自适应窗口）。间接支撑：基于prefill路由的布局对decode有可测量改善（TPOT −3.0%至−12.5%，multi_O256 −11.9%最显著），因swap修改全局共享`physical_to_logical_map`对所有forward生效。**设计含义**：仅prefill记录即可，decode阶段CUDA graph下记录自动跳过（`torch.cuda.is_current_stream_capturing()`），零额外开销。数据集与trace已开源（见可复现性）。
 
 ## 5. 系统设计
 

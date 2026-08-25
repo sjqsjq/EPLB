@@ -87,7 +87,7 @@ PB-OEPLB通过通用fallback（§4）修复了此限制：先尝试DeepSeek原�
 
 **观察2（决策频率与prompt长度的关系）。** 短prompt（~50 token）需要更大的同步窗口（sw=32-64），因为每个forward batch处理大量请求，频繁的`all_reduce`调用成为主要开销。长prompt（~250 token）受益于更小窗口（sw=8）。这是一个**偏差-方差权衡**：小窗口提供新鲜数据（低偏差）但样本有限导致高方差；大窗口减少方差但增加延迟和通信开销。不存在单一静态窗口对所有负载最优——这促使了自适应机制（§3.5）。
 
-**观察3（prefill预测decode）。** 仅基于prefill路由数据的布局优化产生可测量的decode阶段改善（TPOT：9种配置下-3.0%到-12.5%）。这是因为swap操作修改了全局共享的`physical_to_logical_map`，该映射控制所有forward pass而不论阶段。仅prefill记录因此在域内路由模式相变的假设下捕获了decode分布的*充分统计量*。
+**观察3（prefill预测decode）。** 我们按DataFore（ISCA 2026）Ob3的方法学直接测量prefill→decode专家路由相关性：逐层计算prefill阶段与decode阶段专家频率直方图的Spearman ρ，跨请求聚合（pooling）。在Qwen3-235B-A22B上用MMLU（O=10，与DataFore的`MAX_NEW_TOKENS=10`一致）测得**mean ρ=0.833，94/94层≥0.7（强相关）**，在同一模型上复现了DataFore"most layers≥0.7"的结论；top-5热点专家overlap为49–58%（DataFore Qwen3约60%）。扩展到真实非拼接数据集、不同prompt长度（均O=10）：长prompt达近完美相关——prover数学1253 tok ρ=0.980（94/94）、book 4438 tok ρ=0.967（94/94）。这直接证明对任务结构化与长prompt负载，prefill路由是decode分布的*充分统计量*。（间接支撑：仅基于prefill路由数据的布局优化也产生可测量的decode阶段改善，TPOT 9种配置下-3.0%到-12.5%，因swap修改全局共享的`physical_to_logical_map`，该映射控制所有forward pass而不论阶段。）充分统计量的强度随prompt长度和任务结构化程度变化（短自由文本较弱——见§3.5/§3.6边界），这正是§3.5自适应窗口在异质负载上放大M的原因。
 
 ### 2.4 理论加速上界
 
@@ -356,6 +356,16 @@ $$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_
 控制器仅在`forward_batch.forward_mode.is_extend()`（prefill）时记录路由数据。Decode和idle批次完全跳过。设计依据有三：
 
 **1. 充分性论证。** Prefill和decode的路由分布由同一个router权重和同一个prompt语义空间决定。在域内（prompt来自同一分布），prefill阶段观察到的per-expert频率是decode阶段的**充分统计量**——两者的max/mean结构相同，只是总token数不同。实测验证：附录D.2中四个数据集的$r_{\text{before}}$全部用**纯prefill录制**的计数算出，与DIAG自报值在**同质负载**上吻合到$\le1\%$（L256 1.2177 vs 1.216、L512 1.1125 vs 1.116、多域 1.0980 vs 1.109、235B 1.737 vs 1.721）。**唯一的例外是ShareGPT（1.0965 vs DIAG首窗2.161，差97%），但该偏差的成因是DIAG对窗口不加权、被小batch抽样方差抬高，而非prefill采样不充分**——用token加权的逐窗口口径重算得1.1000，与纯prefill的离线值吻合0.3%（附录D.2）。因此充分性论证成立，失效的是DIAG的统计口径。
+
+**1b. 充分性的直接实测（DataFore Ob3方法学）。** 上面的充分性论证由直接的prefill→decode相关性测量支撑（§2.3观察3），均在Qwen3-235B-A22B、EP8、O=10、聚合pooling下测得：
+
+| 数据集 | prompt长度 | 域 | mean ρ | layers≥0.7 | top-5 overlap |
+|--------|-----------|-----|--------|-----------|---------------|
+| MMLU | 25 tok | 多学科QA | 0.833 | 94/94 | 49% |
+| prover | 1253 tok | 数学 | 0.980 | 94/94 | 90% |
+| book(L4096) | 4438 tok | BookCorpus | 0.967 | 94/94 | 91% |
+
+ρ高的区间（此处0.83–0.98，94层全强相关）即prefill-only recording是充分统计量的区间——任务结构化QA与长prompt。边界（ρ减弱处）是短自由文本；§3.5自适应窗口在该处放大M以恢复可信统计量。数据集与trace已开源（见可复现性章节）。
 
 **2. 开销控制。** 混合负载中decode步骤数是prefill的10:1，因此跳过decode减少约50%记录开销。更重要的是CUDA graph约束：decode阶段走CUDA graph时`record_next_layer`通过`torch.cuda.is_current_stream_capturing()`检查直接返回——**零开销**。仅在prefill阶段（不走CUDA graph）才真正执行记录。
 

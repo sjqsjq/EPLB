@@ -87,7 +87,7 @@ Through profiling of Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8) and Qwen
 
 **Observation 2 (decision frequency vs. prompt length).** Short prompts (~50 tokens) require a larger synchronization window (sw=32-64), because each forward batch processes many requests and frequent `all_reduce` calls become the dominant overhead. Long prompts (~250 tokens) benefit from a smaller window (sw=8). This is a **bias-variance tradeoff**: a small window provides fresh data (low bias) but high variance due to limited samples; a large window reduces variance but increases latency and communication overhead. No single static window is optimal for all workloads — this motivates the adaptive mechanism (§3.5).
 
-**Observation 3 (prefill predicts decode).** Layout optimization based on prefill routing data alone yields measurable decode-phase improvements (TPOT: -3.0% to -12.5% across 9 configurations). This is because swap operations modify the globally shared `physical_to_logical_map`, which governs all forward passes regardless of phase. Prefill-only recording therefore captures a *sufficient statistic* of the decode distribution under the hypothesis of intra-domain routing-pattern phase transitions.
+**Observation 3 (prefill predicts decode).** We directly measure the prefill→decode expert-routing correlation following DataFore (ISCA 2026) Ob3's methodology: per-layer Spearman ρ between the prefill-stage and decode-stage expert-frequency histograms, aggregated (pooled) across requests. On Qwen3-235B-A22B with MMLU (O=10, matching DataFore's `MAX_NEW_TOKENS=10`), we obtain **mean ρ = 0.833 with 94/94 layers ≥ 0.7 (strong)**, reproducing DataFore's "most layers ≥ 0.7" claim on the same model. The top-5 hottest-expert overlap is 49–58% (DataFore Qwen3: ~60%). Extending to real non-concatenated datasets at varied prompt lengths (all O=10): long prompts reach near-perfect correlation — prover-math 1253 tok ρ=0.980 (94/94), book 4438 tok ρ=0.967 (94/94). This directly establishes that prefill routing is a *sufficient statistic* of the decode distribution for task-structured and long-prompt workloads. (Indirect support: layout optimization based on prefill routing data alone also yields measurable decode-phase improvements, TPOT -3.0% to -12.5% across 9 configurations, because swaps modify the globally shared `physical_to_logical_map` governing all forward passes regardless of phase.) The sufficient-statistic strength varies with prompt length and task structure (short free-form prompts are weaker — see §3.5/§3.6 boundary), which is exactly why the adaptive window (§3.5) enlarges M on heterogeneous workloads.
 
 ### 2.4 Theoretical Speedup Upper Bound
 
@@ -352,6 +352,16 @@ i.e. **optimal memory grows as $\sqrt{L_{\text{seg}}}$ and falls as $(r-r_k)^{3/
 The controller records routing data only when `forward_batch.forward_mode.is_extend()` (prefill). Decode and idle batches are skipped entirely. This reduces recording overhead by ~50% (in mixed workloads, decode steps typically outnumber prefill by 10:1), while benefiting decode through the globally shared layout.
 
 **Important detail**: during CUDA graph capture/replay (the decode phase), `record_next_layer` returns directly via the `torch.cuda.is_current_stream_capturing()` check — **zero overhead**. Recording is actually performed only in the prefill phase (which does not go through CUDA graphs). This means that in pure-prefill (O=1) scenarios every forward executes record and the overhead is maximal; in mixed prefill+decode scenarios, decode's record is skipped and the overhead is lower.
+
+**Empirical sufficiency (measured, DataFore Ob3 methodology).** The sufficient-statistic claim is backed by direct prefill→decode correlation measurements (§2.3 Obs 3), all on Qwen3-235B-A22B, EP8, O=10, aggregate-pooled:
+
+| Dataset | prompt len | domain | mean ρ | layers ≥0.7 | top-5 ov |
+|---------|-----------|--------|--------|------------|----------|
+| MMLU | 25 tok | multi-subject QA | 0.833 | 94/94 | 49% |
+| prover | 1253 tok | math | 0.980 | 94/94 | 90% |
+| book (L4096) | 4438 tok | BookCorpus | 0.967 | 94/94 | 91% |
+
+Prefill-only recording is a sufficient statistic wherever ρ is high (here 0.83–0.98, all 94 layers strong) — i.e. for task-structured QA and long prompts. The boundary (where it weakens) is short free-form prompts; the adaptive window (§3.5) enlarges M there to restore a trustworthy statistic. Datasets and traces are released (see Reproducibility).
 
 ---
 
