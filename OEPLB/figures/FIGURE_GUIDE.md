@@ -215,3 +215,98 @@
 | optimal是什么？ | LPT贪心：按频率降序，每次放最轻GPU。NP-hard的4/3近似 |
 | 为什么optimal降到1.0？ | 没有单专家>1/8总量，16专家/GPU足够粒度分散 |
 | identity和optimal用的是同一份数据吗？ | 是，同一份(94,128)频率矩阵，只是"哪个专家放哪GPU"不同 |
+
+---
+
+## Fig 9: 跨域放置迁移矩阵
+
+![Fig9](fig9_cross_domain_transfer.png)
+
+**为什么测**：定量证明"静态最优放置跨域后失效"。不只是说"域间路由不同"(Fig4)，而是直接测量"为域A算的最优放置用在域B上ratio变成多少"。
+
+**横轴**：Applied to（decode路由数据来自哪个域）。
+**纵轴**：Placement from（用哪个域的prefill数据算LPT最优放置）。
+**颜色**：Yellow→Red，越红=ratio越高（越不均衡）。
+**对角线**：同域=1.00（完美）。
+**非对角线**：跨域=2.1-4.1。
+
+**关键现象**：MMLU的最优放置→prover=3.667，比identity(3.510)还差——"最优"放置跨域后比不做更糟。
+
+**对论文启发**（§2.3 Obs1）：静态放置必然跨域失败→需要动态自适应。
+
+---
+
+## Fig 10: Identity→LPT放置ratio降低（swap timeline）
+
+![Fig10](fig10_swap_timeline.png)
+
+**为什么测**：展示"OEPLB在做什么"——从identity放置出发，swap专家对，ratio怎么降。
+
+**横轴**：MoE层（book数据集的7个代表层0/10/20/40/62/80/93）。
+**纵轴**：max/min ratio。红=identity，绿=LPT最优。
+**柱上数字**：identity ratio（红）和optimal ratio（绿）。
+
+**关键现象**：Layer 62 identity=11.79→LPT=1.000（降91.5%）。所有层降56-91%。
+
+**对论文启发**（§2.4 理论上界）：每层的ratio→1.0后，MoE时间降低(r-1)×MoE占比。
+
+---
+
+## Fig 11: Prefill引导放置效果（PD ρ→ratio降低闭环）
+
+![Fig11](fig11_remap_effect.png)
+
+**为什么测**：闭环验证"PD相关性高→prefill引导放置有效"。3个数据集的PD ρ都高(0.83-0.98)，那基于prefill数据的放置是否真能降低ratio？
+
+**横轴**：3个数据集。红=identity ratio，绿=Remap(prefill-guided LPT) ratio。
+**柱上数字**：ratio值。蓝色注释：该数据集的PD ρ。
+
+**关键现象**：MMLU ρ=0.833→ratio 2.26→1.00(降56%)；prover ρ=0.980→3.51→1.00(降72%)；book ρ=0.967→4.38→1.00(降77%)。**ρ越高，identity ratio越高（路由越偏斜），但Remap也越有效（降得越多）**。
+
+**对论文启发**（§3.6 闭环）：PD相关→prefill引导放置→ratio降到1.0→decode受益。这是"prefill-only recording充分"到"实际有效"的完整闭环。
+
+---
+
+## Fig 12: 热点GPU域切换时间线
+
+![Fig12](fig12_domain_switch_timeline.png)
+
+**为什么测**：可视化"域切换时straggler GPU瞬间变化"——Fig3的per-GPU负载是聚合的，这里展示逐forward的hot GPU如何随域切换。
+
+**横轴**：Forward pass（MMLU→prover→book拼接，各200 forward）。
+**纵轴**：Hotspot GPU ID（0-7，该forward中负载最重的GPU）。
+**红色虚线**：域边界。**红色标注**：各域的热点GPU（MMLU=GPU4, prover=GPU5, book=GPU0）。
+
+**关键现象**：在MMLU段，热点集中在GPU4；prover段跳到GPU5；book段跳到GPU0。域边界处**瞬间切换**。→静态放置无法同时服务3个域。
+
+**对论文启发**（§3.5 自适应窗口）：域切换→cos_sim下降→shrink window→重新放置。
+
+---
+
+## Fig 13: 多粒度不均衡度（per-forward vs per-window vs aggregate）
+
+![Fig13](fig13_multi_granularity.png)
+
+**为什么测**：回答"聚合是不是太粗泛"——之前的Fig1/Fig2用全run聚合数据算ratio，但MoE实际每个forward经历的是瞬时ratio，OEPLB看的是窗口级ratio。三者有什么差异？
+
+**左面板（时间线）**：
+- **横轴**：Prefill forward pass（0-166）。
+- **纵轴**：Mean max/min ratio（identity放置，94层均值）。
+- **蓝线**：Per-forward（每个forward单独算ratio）= 瞬时MoE batch级别。
+- **橙线**：Per-window（16个forward聚合）= OEPLB的sync_window级别。
+- **红虚线**：Aggregate（全部166个forward聚合）= Fig1/Fig2用的。
+
+**右面板（分布直方图）**：
+- **横轴**：ratio值。**纵轴**：密度。
+- 蓝=per-forward分布，橙=per-window分布，红虚线=aggregate。
+
+**关键发现**：
+| 粒度 | mean | std | 含义 |
+|------|------|-----|------|
+| Per-forward | **4.50×** | 0.94 | MoE all-to-all每个forward实际经历的不均衡 |
+| Per-window(W=16) | 2.80× | 0.26 | OEPLB的sync_window看到的 |
+| Aggregate | 2.25× | 0 | Fig1/Fig2的全run聚合（理论下界） |
+
+**核心洞察**：**聚合(2.25×)严重低估了实际不均衡——MoE每个forward实际承受4.5×的straggler**，是聚合的2倍。OEPLB窗口级(2.8×)在两者之间。LPT optimal→1.0在所有粒度都成立。
+
+**对论文启发**（§2.1 + §3.5）：聚合ratio是"结构性下界"（路由本身偏斜的体现），但MoE实际体验的瞬时不均衡远高于此。OEPLB的sync_window级别(2.8×)比聚合更接近真实。这解释了为什么OEPLB的实际收益(+17.5%)高于"聚合ratio×MoE占比"的理论估计——因为实际ratio更高。
