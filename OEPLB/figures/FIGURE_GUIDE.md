@@ -484,3 +484,92 @@
 - OEPLB后所有域entropy≥2.13→**没有GPU持续过载**（接近均匀3.0）。
 
 **对论文启发**（§3.3配对选择 + §5评估）：OEPLB的核心效果是**消除持续straggler**——从"某个GPU一直过载"变为"热点在各GPU间轮转"。entropy是量化这一效果的有效指标。
+
+---
+
+## 方法论说明：OEPLB trace数据是怎么获得的
+
+### 数据采集链路
+1. **服务器启动**：`--enable-pb-oeplb` + `SGLANG_OEPLB_ROUTING_TRACE=1`
+2. **Routing tracer钩子**：`SimpleRoutingRecorder`挂在`topk.py::select_experts()`之后
+3. **每个forward pass记录**：`(94, 128)`直方图 + `is_prefill`标志
+   - `layer_hists[l][e]` = 层l中物理slot e被选中的token数
+   - `ep_dispatch_algorithm="static"` → topk_ids在**物理slot空间**
+4. **物理slot → GPU映射**：slot s → GPU s//16（固定，不随swap改变）
+5. **OEPLB swap的效果**：swap改变了`physical_to_logical_map`（slot s现在持有不同的逻辑专家），但**slot→GPU映射不变**。tracer记录的是物理slot被选中的次数→反映**swap后MoE all-to-all的实际负载**
+6. **per-GPU负载** = 该GPU上16个slot的选择数总和
+7. **热点GPU** = argmax(per-GPU负载)
+8. **Entropy** = Shannon entropy of 热点GPU分布（跨所有forward的统计）
+
+### Entropy含义
+- **定义**：对每个forward计算热点GPU（8选1），统计7个域内每个GPU成为热点的频率p_g，entropy = -sum(p_g × log2(p_g))
+- **范围**：0（永远同一个GPU是热点→持续straggler）到log₂8=3.0（8个GPU等概率成为热点→完全分散）
+- **合理值**：
+  - **<1.0**：热点高度集中，某个GPU持续过载（identity的典型情况）
+  - **1.0-2.0**：热点有偏好但有一定变化（identity的某些域）
+  - **>2.0**：热点在各GPU间轮转，没有持续straggler（OEPLB的目标）
+  - **≈3.0**：完美均匀（理论上限，实际接近2.7-2.9就很好）
+
+### 数据真实性
+- 是的，记录的是**每个forward的token路由的具体数量**（每个token选8个专家，统计128个物理slot各被选了多少次）
+- 不是采样、不是估计，是**完整的逐token计数**
+- 数据来自rank0（DP=8中的一个worker），对prefill forward统计
+
+---
+
+## Fig 16: 逐域OEPLB收敛分析
+
+![Fig16](fig16_per_domain_convergence.png)
+
+**为什么测**：展示OEPLB在每个域的收敛过程——域切换时ratio跳多高、第一次swap降多少、稳态维持多少。
+
+**横轴**：7个域。3组柱：
+- **红**：域切换时的第一个决策ratio before（域切换时的spike）
+- **橙**：第一次swap后的ratio
+- **绿**：稳态（最后5次决策的平均）
+
+**关键现象**：
+
+| 域 | 域切换spike | 第一次swap后 | 稳态 | 大决策数(>10%降) |
+|----|-----------|------------|------|----------------|
+| MMLU | **1.467** | 1.118 (-24%) | 1.047 | 6 |
+| ARC_sci | 1.134 | 1.031 (-9%) | 1.027 | 4 |
+| GSM8K | 1.045 | 1.016 (-3%) | 1.034 | 1 |
+| CSQA | 1.043 | 1.020 (-2%) | 1.022 | 0 |
+| OBQA | 1.043 | 1.022 (-2%) | 1.021 | 0 |
+| prover | 1.049 | 1.021 (-3%) | 1.051 | 2 |
+| ARC-E | 1.030 | 1.013 (-2%) | 1.014 | 0 |
+
+- **MMLU的spike最高(1.467)**——第一个域，identity放置离最优最远→第一swap降幅最大(-24%)
+- **GSM8K/CSQA/OBQA/ARC-E的spike低(~1.04)**——这些域的路由与前一域相似→切换时跳变小
+- **稳态ratio 1.01-1.05**——OEPLB在域内维持近完美均衡
+
+---
+
+## Fig 17b: 逐域Identity vs OEPLB per-forward ratio
+
+![Fig17b](fig17b_identity_vs_oeplb_per_domain.png)
+
+**为什么测**：直接对比"不开OEPLB"和"开OEPLB"的逐forward不均衡度，量化OEPLB的实际效果。
+
+**横轴**：7个域。红=identity(无OEPLB)，绿=有OEPLB。
+**柱上数字**：mean ratio值。蓝色标注：降低百分比。
+
+**关键现象**：
+
+| 域 | identity mean ± std | OEPLB mean ± std | 降低 |
+|----|---------------------|------------------|------|
+| MMLU | 1.117 ± 0.041 | 0.985 ± 0.267 | -11.8% |
+| ARC_sci | 1.093 ± 0.018 | 0.968 ± 0.286 | -11.4% |
+| GSM8K | 1.093 ± 0.021 | 0.980 ± 0.264 | -10.3% |
+| CSQA | 1.074 ± 0.022 | 0.977 ± 0.276 | -9.0% |
+| OBQA | 1.078 ± 0.029 | 0.965 ± 0.272 | -10.5% |
+| **prover** | **1.166 ± 0.006** | **1.002 ± 0.323** | **-14.1%** |
+| ARC-E | 1.090 ± 0.022 | 0.986 ± 0.306 | -9.5% |
+
+**核心洞察**：
+- **prover最关键**：identity下ratio=1.166±0.006（极稳定，std极小→永远GPU5过载），OEPLB后1.002（降到~1.0但std大0.323→热点轮转导致波动）。**OEPLB把"持续固定straggler"变成"轮转无持续straggler"**。
+- **所有域OEPLB降9-14%**——一致的效果。
+- **identity的std极低(0.006-0.041)**：因为identity下路由模式稳定（每次forward都route到同样几个专家→热点GPU固定）。OEPLB的std高(0.26-0.33)因为swap后热点GPU轮转。
+
+**对论文启发**（§3.3 + §5评估）：OEPLB的核心价值不是"降低平均ratio"（只降9-14%），而是**消除持续straggler**——从"某个GPU永远过载"变成"热点在各GPU间轮转"。这在实际MoE计算中更重要：持续straggler意味着那个GPU的all-to-all receive永远成为瓶颈，而轮转意味着没有GPU持续成为瓶颈。
