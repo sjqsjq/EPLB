@@ -358,3 +358,69 @@
 - **收益空间**：per-forward identity 3.7-6.4× → LPT 1.0，降低73-84%（比聚合的53-73%更大）。
 
 **对论文启发**（§2.4 理论上界 + §2.1动机）：论文应使用per-forward ratio做动机论证（MoE实际经历的straggler），聚合作为理论下界参考。理论上界Δ_max = f_sens × x_eff，其中r_before应该用per-forward（而非聚合）→理论上界更高→OEPLB的实际收益(+17.5%)与更高的per-forward ratio更一致。
+
+---
+
+## Fig 14: 7个域特定短prompt数据集PD相关性
+
+![Fig14](fig14_7dataset_pd_correlation.png)
+
+**为什么测**：验证PD相关性在多种域特定短prompt下的一致性。之前只测了MMLU(1个QA数据集)，需要更多域来确认"QA/推理类ρ高"不是偶然。
+
+**横轴**：7个数据集（按ρ降序排列）。
+**纵轴**：Mean Spearman ρ（prefill→decode, conc=256, O=10, 聚合pooling）。
+**绿色柱**：QA/推理类（ARC/MMLU/CommonsenseQA/OpenBookQA）。
+**橙色柱**：数学类（GSM8K/prover）。
+**绿色虚线**：y=0.7（强相关阈值）。
+**柱后文字**：ρ值 + layers≥0.7 + prompt长度。
+
+**关键现象**：
+
+| 任务类型 | ρ范围 | layers≥0.7 | 含义 |
+|---------|-------|-----------|------|
+| **QA/推理**（ARC/MMLU/CSQA/OBQA） | **0.776-0.849** | 83-94/94 | prefill强预测decode |
+| **数学**（GSM8K/prover） | 0.443-0.686 | 0-37/94 | prefill弱预测decode |
+
+- **ARC-Challenge(31tok) ρ=0.849最高**，94/94层全强——科学推理的question→answer路由高度一致。
+- **OpenBookQA(15tok) ρ=0.776**——虽是最短(15tok)但仍是QA→强相关。**任务结构 >> prompt长度**。
+- **prover(107tok) ρ=0.443最低**——形式化证明的题干(数学表述)和答案(推导步骤)路由差异最大。
+- **GSM8K(60tok) ρ=0.686**——数学应用题，介于QA和证明之间（应用题有一定叙事成分）。
+
+**对论文启发**（§2.3观察3的验证 + §3.6充分性边界）：prefill-only recording在**QA/推理类负载**下是充分统计量（ρ 0.78-0.85, 83-94/94层强），无论prompt多短。数学类负载（尤其形式化证明）prefill→decode预测弱→需更大窗口(§3.5 M*=f(L_seg)增大)补偿。**论文应明确标注PD相关性的适用域：QA/推理类充分，数学类需补偿**。
+
+---
+
+## Fig 12b: Identity vs LPT热点GPU时间线（7域，含OEPLB模拟）
+
+![Fig12b](fig12b_identity_vs_lpt_hot_gpu.png)
+
+**为什么测**：Fig12只展示了identity放置下热点GPU随域切换。这张图**对比identity vs LPT最优放置**（模拟OEPLB启用后），展示OEPLB的效果——"启用后热点GPU是否还集中在某一张卡"。
+
+**上下两个面板，7个域（各100 forward）拼接**：
+- **上面板（红色）**：Identity（默认连续放置）下每forward的热点GPU ID。
+- **下面板（绿色）**：LPT最优放置下每forward的热点GPU ID（模拟OEPLB rebalance后）。
+- **灰色竖虚线**：域边界。**下方标注**：各域在identity/LPT下的众数热点GPU + entropy。
+
+**关键现象**：
+
+| 域 | identity hot GPU | identity entropy | LPT hot GPU | LPT entropy | 变化 |
+|----|-----------------|-----------------|-------------|-------------|------|
+| MMLU(QA) | GPU4 | 1.89 | GPU4 | **2.91** | entropy↑（分散） |
+| GSM8K(math) | GPU4 | 1.43 | GPU6 | **2.89** | hot GPU变了+分散 |
+| ARC(sci) | GPU4 | **0.57** | GPU7 | **2.73** | ARC极集中(identity entropy=0.57)→LPT大幅分散 |
+| CSQA(cmns) | GPU4 | 1.46 | GPU4 | 2.78 | hot不变但entropy↑ |
+| OBQA(sci) | GPU4 | 1.43 | GPU1 | 2.77 | hot GPU变了 |
+| prover(math) | GPU5 | **0.00** | GPU5 | **2.84** | prover完全固定在GPU5(identity entropy=0!)→LPT大幅分散 |
+| ARC-E(sci) | GPU4 | 1.37 | GPU4 | 2.82 | entropy↑ |
+
+**核心洞察**：
+1. **identity下6/7域的热点GPU=GPU4**（因默认连续放置，热门专家集中在64-79范围→GPU4）——这解释了为什么静态放置在"GPU4优化"上对多数域有效，但对prover(GPU5)无效。
+2. **prover在identity下entropy=0.00**——每forward的热点GPU永远是GPU5（prover的数学路由极度集中在GPU5的专家上）。LPT后entropy升到2.84——LPT把热专家分散了，热点在GPU间轮转。
+3. **ARC在identity下entropy=0.57**——几乎总在GPU4。LPT后2.73——大幅改善。
+4. **LPT后所有域的entropy≈2.7-2.9**（接近最大值log₂8=3.0）——LPT使热点GPU在8卡间近似均匀分布，**没有GPU持续过载**。
+
+**对论文启发**（§2.3观察1 + §3.5 adaptive window + §3.3配对选择）：
+- **identity下热点GPU固定不变→straggler持续→需要OEPLB**。
+- **LPT后热点GPU轮转→无持续straggler→OEPLB有效**。
+- **不同域的identity entropy不同**（ARC 0.57 vs CSQA 1.46 vs MMLU 1.89）→不同域的"不均衡稳定性"不同→**adaptive window应根据entropy调整**（entropy低=路由极集中→需要更频繁决策；entropy高=已较分散→可以放宽）。
+- 这可指导adaptive window的设计：**entropy作为窗口大小的信号**——低entropy→shrink window（快速反应）；高entropy→grow window（减少开销）。
