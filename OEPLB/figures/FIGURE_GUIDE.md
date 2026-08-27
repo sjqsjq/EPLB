@@ -310,3 +310,51 @@
 **核心洞察**：**聚合(2.25×)严重低估了实际不均衡——MoE每个forward实际承受4.5×的straggler**，是聚合的2倍。OEPLB窗口级(2.8×)在两者之间。LPT optimal→1.0在所有粒度都成立。
 
 **对论文启发**（§2.1 + §3.5）：聚合ratio是"结构性下界"（路由本身偏斜的体现），但MoE实际体验的瞬时不均衡远高于此。OEPLB的sync_window级别(2.8×)比聚合更接近真实。这解释了为什么OEPLB的实际收益(+17.5%)高于"聚合ratio×MoE占比"的理论估计——因为实际ratio更高。
+
+---
+
+## Fig 1b: Per-Forward不均衡度分布（箱线图，3数据集）
+
+![Fig1b](fig1b_per_forward_ratio.png)
+
+**为什么测**：Fig1用聚合（全run）ratio，但MoE每个forward实际经历的straggler可能更高（大数定律把不同forward的差异平均掉了）。这张图展示per-forward的分布，与聚合对比。
+
+**横轴**：3个数据集（MMLU/prover/book）。
+**纵轴**：Mean max/min Imbalance Ratio（identity放置，94层均值）。
+**箱线图**：per-forward的ratio分布（箱=四分位距，须=极值，点=离群）。颜色按数据集。
+**红色钻石(◆)**：aggregate ratio（Fig1/Fig2用的全run聚合值）。
+
+**关键现象**：
+| 数据集 | per-forward median | aggregate | per-forward高多少 |
+|--------|-------------------|-----------|-----------------|
+| MMLU | 3.82× | 2.26× | 1.7× |
+| prover | 3.68× | 3.51× | 1.05×（接近） |
+| book | 6.36× | 4.38× | 1.45× |
+
+- **MMLU差距最大**：短prompt(25tok)→每个forward只有~25×8=200选择/层→直方图稀疏→不同forward路由差异大→聚合平滑掉了很多。
+- **prover接近**：长prompt(1253tok)→每个forward充分采样→per-forward已接近聚合。
+- **book仍有差距**：4438tok prompt但极端层(L62=11.79×)拉高per-forward。
+
+**对论文启发**（§2.1 + Fig1的补充）：聚合ratio是"结构性下界"（路由偏斜的体现），但MoE每个forward实际经历的straggler是聚合的1.5-1.7×。短prompt负载的实际不均衡比聚合图(Fig1)显示的更严重。论文动机论证应同时引用两个角度。
+
+---
+
+## Fig 2b: Per-Forward Identity vs LPT Optimal（3数据集，含聚合对比）
+
+![Fig2b](fig2b_per_forward_identity_vs_optimal.png)
+
+**为什么测**：Fig2用聚合数据展示identity→LPT的降低。这里用per-forward数据重做，同时保留聚合柱作对比——展示不同粒度下OEPLB的理论收益空间。
+
+**横轴**：3个数据集。3组柱并排：
+- **左柱(红色半透明)**：Aggregate identity（Fig2用的全run聚合ratio）。
+- **中柱(橙色+误差棒)**：Per-forward identity median（MoE每个forward实际经历的ratio）。
+- **右柱(绿色)**：Per-forward LPT optimal（每个forward单独算LPT最优→ratio）。
+**误差棒**：per-forward identity的标准差。
+**柱上数字**：具体ratio值。
+
+**关键现象**：
+- **per-forward identity(3.7-6.4×) > aggregate identity(2.3-4.4×)**：MoE实际经历的不均衡比聚合高1.5-1.7×。
+- **per-forward LPT optimal → 1.000（所有数据集）**：在每个forward的时间尺度上，LPT都能降到~1.0。放置机会在任何粒度都存在。
+- **收益空间**：per-forward identity 3.7-6.4× → LPT 1.0，降低73-84%（比聚合的53-73%更大）。
+
+**对论文启发**（§2.4 理论上界 + §2.1动机）：论文应使用per-forward ratio做动机论证（MoE实际经历的straggler），聚合作为理论下界参考。理论上界Δ_max = f_sens × x_eff，其中r_before应该用per-forward（而非聚合）→理论上界更高→OEPLB的实际收益(+17.5%)与更高的per-forward ratio更一致。
