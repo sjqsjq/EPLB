@@ -424,3 +424,63 @@
 - **LPT后热点GPU轮转→无持续straggler→OEPLB有效**。
 - **不同域的identity entropy不同**（ARC 0.57 vs CSQA 1.46 vs MMLU 1.89）→不同域的"不均衡稳定性"不同→**adaptive window应根据entropy调整**（entropy低=路由极集中→需要更频繁决策；entropy高=已较分散→可以放宽）。
 - 这可指导adaptive window的设计：**entropy作为窗口大小的信号**——低entropy→shrink window（快速反应）；高entropy→grow window（减少开销）。
+
+---
+
+## Fig 15: OEPLB真实在线运行——swap决策时间线 + 热点GPU
+
+![Fig15](fig15_oeplb_real_timeline.png)
+
+**为什么测**：之前Fig12/Fig12b都是identity vs LPT模拟。这张图是**真实OEPLB在线运行**——启动`--enable-pb-oeplb`+routing tracer，发7个域特定数据集(各4000 req, O=10, conc=256)，记录每次swap决策前后的ratio和每forward的热点GPU。展示"OEPLB实际在做什么"。
+
+**上面板**：OEPLB的97次决策（7域×~14次决策/域）
+- **横轴**：决策序号(1-97)。标注7个域名。
+- **纵轴**：Mean max/min ratio。红=决策前(窗口累积ratio)，绿=决策后(swap后ratio)。
+- **关键现象**：
+  - 每个域的第一条决策降幅最大（#1: 1.47→1.12, -24%; #9: 1.25→1.05, -16%; #11: 1.35→1.09, -19%; #17: 1.49→1.12, -25%; #76: 1.72→1.16, -33%）→**域切换时ratio跳升，OEPLB检测到→swap→降回**。
+  - 域内后续决策ratio低（~1.03-1.05）→稳态维护。
+  - 决策#76（ARC-E域开始）ratio=1.72→最高跳升→OEPLB用-33%的swap修复。
+
+**下面板**：OEPLB启用后每forward的热点GPU
+- **横轴**：Prefill forward (0-1146, 7域各~163 forward)。
+- **纵轴**：该forward的热点GPU ID（物理slot空间，反映OEPLB swap后的实际放置）。
+- **绿色标注**：各域的众数hot GPU + entropy。
+- **关键现象**：
+  - entropy=2.13-2.90（vs identity的0.00-1.89）→**OEPLB使热点GPU在8卡间近似均匀轮转**。
+  - 没有任何一个GPU持续过载——与identity下"6/7域=GPU4"形成鲜明对比。
+  - 不同域的热点GPU不同（MMLU=GPU4, ARC=GPU3, GSM8K=GPU5, CSQA=GPU6）→OEPLB为每个域生成了不同的swap plan。
+
+**对论文启发**（§3.1架构 + §3.5自适应 + §5评估）：
+- 证明OEPLB的在线swap机制在真实多域负载下有效——域切换时检测ratio跳升→swap→修复。
+- 97次决策中只有~7次是大决策（域切换处），其余是稳态维护→OEPLB的开销主要在域切换时，稳态开销低。
+- entropy数据支撑"adaptive window"设计：低entropy域(prover 2.13)路由集中→可grow window；高entropy域(MMLU 2.90)路由跳→需shrink window。
+
+---
+
+## Fig 15b: 热点GPU Entropy — Identity vs OEPLB对比
+
+![Fig15b](fig15b_oeplb_entropy_comparison.png)
+
+**为什么测**：定量展示OEPLB对热点GPU分散的效果——identity下热点固定(低entropy)，OEPLB后热点轮转(高entropy)。
+
+**横轴**：7个数据集。**纵轴**：热点GPU entropy (bits, max=log₂8=3.0)。
+**红色柱**：identity (无OEPLB)。**绿色柱**：OEPLB启用后。
+
+**关键现象**：
+
+| 域 | identity entropy | OEPLB entropy | 提升 |
+|----|-----------------|--------------|------|
+| ARC | **0.57** | 2.39 | +4.2× |
+| prover | **0.00** | 2.13 | ∞ (从固定到分散) |
+| MMLU | 1.89 | **2.90** | +1.5× |
+| GSM8K | 1.43 | 2.65 | +1.9× |
+| CSQA | 1.46 | 2.62 | +1.8× |
+| OBQA | 1.43 | 2.67 | +1.9× |
+| ARC-E | 1.37 | 2.39 | +1.7× |
+
+**核心洞察**：
+- identity下prover entropy=0.00（每forward热点永远GPU5）→OEPLB后2.13→**从固定straggler变为轮转**。
+- identity下ARC entropy=0.57（几乎总是GPU4）→OEPLB后2.39→**大幅分散**。
+- OEPLB后所有域entropy≥2.13→**没有GPU持续过载**（接近均匀3.0）。
+
+**对论文启发**（§3.3配对选择 + §5评估）：OEPLB的核心效果是**消除持续straggler**——从"某个GPU一直过载"变为"热点在各GPU间轮转"。entropy是量化这一效果的有效指标。
