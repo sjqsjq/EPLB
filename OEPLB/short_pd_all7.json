@@ -1,0 +1,69 @@
+{
+  "datasets": [
+    {
+      "name": "MMLU",
+      "domain": "multi-subject QA (57 subjects)",
+      "len_tok": 25,
+      "rho": 0.788,
+      "layers_ge07": "88/94",
+      "top5": "29%",
+      "source": "ModelScope"
+    },
+    {
+      "name": "GSM8K",
+      "domain": "math word problems",
+      "len_tok": 60,
+      "rho": 0.686,
+      "layers_ge07": "37/94",
+      "top5": "31%",
+      "source": "ModelScope"
+    },
+    {
+      "name": "prover_short",
+      "domain": "DeepSeek-Prover math",
+      "len_tok": 107,
+      "rho": 0.443,
+      "layers_ge07": "0/94",
+      "top5": "21%",
+      "source": "OEPLBdata"
+    },
+    {
+      "name": "ARC-Challenge",
+      "domain": "science reasoning",
+      "len_tok": 31,
+      "rho": 0.849,
+      "layers_ge07": "94/94",
+      "top5": "63%",
+      "source": "HF-mirror"
+    },
+    {
+      "name": "ARC-Easy",
+      "domain": "science (easy)",
+      "len_tok": 31,
+      "rho": 0.841,
+      "layers_ge07": "94/94",
+      "top5": "65%",
+      "source": "HF-mirror"
+    },
+    {
+      "name": "OpenBookQA",
+      "domain": "science QA",
+      "len_tok": 15,
+      "rho": 0.776,
+      "layers_ge07": "83/94",
+      "top5": "57%",
+      "source": "HF-mirror"
+    },
+    {
+      "name": "CommonsenseQA",
+      "domain": "commonsense reasoning",
+      "len_tok": 20,
+      "rho": 0.804,
+      "layers_ge07": "89/94",
+      "top5": "63%",
+      "source": "HF-mirror"
+    }
+  ],
+  "config": "Qwen3-235B-A22B-FP8, EP8, conc=256, O=10, aggregate pooled",
+  "finding": "All domain-specific QA/reasoning datasets have rho 0.78-0.85 (strong). Math (GSM8K 0.69, prover 0.44) is lower. Task structure (QA>math) matters more than prompt length."
+}
