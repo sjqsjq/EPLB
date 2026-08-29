@@ -573,3 +573,68 @@
 - **identity的std极低(0.006-0.041)**：因为identity下路由模式稳定（每次forward都route到同样几个专家→热点GPU固定）。OEPLB的std高(0.26-0.33)因为swap后热点GPU轮转。
 
 **对论文启发**（§3.3 + §5评估）：OEPLB的核心价值不是"降低平均ratio"（只降9-14%），而是**消除持续straggler**——从"某个GPU永远过载"变成"热点在各GPU间轮转"。这在实际MoE计算中更重要：持续straggler意味着那个GPU的all-to-all receive永远成为瓶颈，而轮转意味着没有GPU持续成为瓶颈。
+
+---
+
+## Fig 12c: 9数据集热点GPU时间线 + entropy/switch-rate（Fig 12的扩展深化）
+
+![Fig12c](fig12c_9dataset_hot_gpu.png)
+
+**为什么测**：Fig 12只用了3个数据集，需扩展到9个验证规律的普遍性。同时引入entropy和switch_rate两个新指标，从"热点GPU是什么"深入到"热点GPU有多稳定"。
+
+**上面板（散点图）**：9个数据集按entropy排序拼接，每个forward的热点GPU。红色=pinned（entropy<1），蓝色=volatile（entropy≥1）。
+**下面板（柱状图）**：每个数据集的entropy（彩色柱）+ switch_rate（灰色柱）。绿色虚线=entropy=1.0分界。
+
+### 深层发现：两种路由原型
+
+| 类型 | entropy | switch_rate | 代表数据集 | 特征 |
+|------|--------|------------|-----------|------|
+| **Pinned（钉死型）** | <1.0 | <0.2 | prover(0.00), ARC-C(0.57), prover_1253(0.06) | 热点GPU几乎不变→**结构性straggler** |
+| **Volatile（跳变型）** | ≥1.0 | ≥0.4 | book(1.89), MMLU(1.89), GSM8K(1.43), CSQA(1.46) | 热点GPU频繁跳→**时序性straggler** |
+
+### 对OEPLB的深层含义
+
+**Pinned类型（如prover: entropy=0, switch_rate=0.00）**：
+- 热点GPU永远固定（prover每forward都是GPU5）→ **GPU5是结构性straggler**
+- 这是路由分布本身的问题——prover的路由极度集中在GPU5的专家上
+- OEPLB的价值：**一次swap修复结构性问题**——把prover的热专家从GPU5移走，ratio从1.166降到1.006
+- 修复后路由仍然稳定（还是同样的专家热）→不需要频繁决策→**grow window**
+- Fig 17b验证：prover降幅最大(-14%)且std最小(0.006→0.002)
+
+**Volatile类型（如book: entropy=1.89, switch_rate=0.51）**：
+- 热点GPU每~2个forward变一次→**没有GPU持续过载**
+- 时序性straggler：这个forward是GPU3，下个forward是GPU0→平均下来各GPU负载相近
+- ratio本身就较低(book 1.120 vs prover 1.166)→OEPLB的边际收益较小
+- 但swap能优化"平均"放置→仍有5-7%收益
+- **不需要频繁决策**（热点在跳，追逐噪声无意义）→也可**grow window**，但原因不同（不是"已修复"而是"追不上也不值得追"）
+
+### 对adaptive window的设计启示
+
+| 条件 | entropy | cos_sim | window调整 | 理由 |
+|------|---------|---------|-----------|------|
+| 域切换 | — | 低（<0.95） | **shrink** | 新域路由不同→需快速重新放置 |
+| pinned域内 | 低（<1.0） | 高（>0.95） | **grow** | 结构性straggler已修复→稳态 |
+| volatile域内 | 高（≥1.0） | 高 | **grow** | 热点在跳→追逐无意义→减少开销 |
+
+**核心洞察**：两种路由原型都导向"grow window in-domain"——但原因不同。pinned是因为"已修复不需要再决策"；volatile是因为"追不上也没用"。**shrink window只在域切换（cos_sim下降）时发生**。这验证了现有adaptive window设计的合理性，并提供了entropy作为cos_sim的补充信号。
+
+### Identity放置的"幸运巧合"
+
+7/9数据集的热点GPU=GPU4（因identity把专家64-79放GPU4，而这些专家恰好多任务的热点）。这是**identity放置的属性**，不是路由的属性。如果换一种初始放置，热点GPU会变但entropy（时序稳定性）不变。因此entropy是**路由本身的性质**，与放置无关——这使它成为adaptive window的可靠信号。
+
+---
+
+## Fig 12d: 两种路由原型对比（pinned vs volatile）
+
+![Fig12d](fig12d_pinned_vs_volatile.png)
+
+**为什么测**：把pinned（prover）和volatile（book）并排对比，直观展示两种截然不同的路由行为，帮助读者理解为什么不同域需要不同的OEPLB策略。
+
+**左面板（prover, pinned）**：100个forward的热点GPU——**全是一条红线（GPU5）**。entropy=0, switch_rate=0。→ 结构性straggler，OEPLB一次swap可修复。
+
+**右面板（book, volatile）**：100个forward的热点GPU——**蓝点散布在各GPU**。entropy=1.89, switch_rate=0.51。→ 时序性straggler，热点跳来跳去，OEPLB优化"平均"但边际收益小。
+
+**对论文启发**（§3.5 adaptive window理论依据）：
+- pinned域的OEPLB收益最高（一次swap修复ratio 1.166→1.006, -14%），因为结构性straggler一旦修复就不再出现
+- volatile域的OEPLB收益较低（5-7%），因为时序性straggler没有持久解——但也没有持久伤害
+- adaptive window应结合**cos_sim**（域切换检测→shrink）和**entropy**（域内稳定性→grow），两者互补
