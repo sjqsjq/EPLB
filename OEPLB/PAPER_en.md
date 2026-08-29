@@ -67,7 +67,7 @@ A ratio of 1.0 denotes perfect balance; the timing impact of imbalance is propor
 
 **Complexity.** Finding $\pi^* = \arg\min_\pi r(\pi)$ under the balance constraint is NP-hard (reduction from 3-PARTITION for $G \geq 3$, from PARTITION for $G=2$). This motivates a greedy local-search approximation.
 
-**Measured imbalance.** On 3 real non-concatenated datasets (MMLU multi-subject QA 25tok, prover math 1253tok, book BookCorpus 4438tok), identity placement (experts 0-15→GPU0, 16-31→GPU1, ...) yields per-layer max/min ratio **mean 2.26–4.38×, with the most extreme layer at 11.79×** (book). LPT greedy optimal placement reduces the ratio to **~1.00 (53–73% reduction)** — i.e., moving expert positions (without changing routing or adding redundancy) suffices for near-perfect balance. Key finding: **the hotspot GPU differs by dataset** (MMLU hot=GPU4, prover hot=GPU5, book hot=GPU0), so a static placement optimized for one domain is ineffective for another → dynamic/adaptive placement is necessary.
+**Measured imbalance.** On 3 real non-concatenated datasets (MMLU multi-subject QA 25tok, prover math 1253tok, book BookCorpus 4438tok), identity placement (experts 0-15→GPU0, 16-31→GPU1, ...) yields per-layer max/min ratio **mean 2.26–4.38×, with the most extreme layer at 11.79×** (book, Fig 1). Per-forward granularity yields even higher ratios (median 3.7–6.4×, 1.5–1.7× the aggregate, Fig 1b/13). LPT greedy optimal placement reduces the ratio to **~1.00 (53–73% reduction, Fig 2)** — i.e., moving expert positions (without changing routing or adding redundancy) suffices for near-perfect balance. Key finding: **the hotspot GPU differs by dataset** (MMLU hot=GPU4, prover hot=GPU5, book hot=GPU0, Fig 3), so a static placement optimized for one domain is ineffective for another → dynamic/adaptive placement is necessary.
 
 ### 2.2 Limitations of Existing Approaches
 
@@ -87,13 +87,13 @@ Through profiling of Qwen3-235B-A22B (94 MoE layers, 128 experts, EP=8) and Qwen
 
 **Observation 1 (intra-domain stability and cross-domain switches).** Within a single content domain, the cosine similarity of expert load distributions across consecutive decision windows is >0.95. Domain switches cause the ratio to spike (1.20→1.39 on 235B). The measured cross-domain cosine similarity bottoms out around 0.86 (>0.999 within a domain), enough as a changepoint signal; the 0.16 cited in an early draft was a hypothetical value, not measured, and is corrected here. This can be modeled as a **piecewise-stationary Markov process**, where the routing distribution $\boldsymbol{\theta}$ is fixed within each segment and jumps at unknown change points $\tau_1 < \tau_2 < \cdots$ (see §3.2 and the Bayesian formulation in Appendix A.2).
 
-**Cross-domain routing measurement (94×128 heatmap).** We directly measured the prefill-stage (94 layers × 128 experts) frequency matrix on 3 datasets. Cross-domain global expert-frequency Spearman ρ is **near zero**: MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216 — different domains route to **entirely different expert sets**. The top-5 hotspot experts are completely non-overlapping across domains (MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}). This means a placement that disperses domain A's hot experts may concentrate domain B's new hotspots → **static placement inevitably fails under domain shifts**. The heatmap (Fig 7) visually confirms this: the bright regions (hot experts) of the 3 datasets are almost non-overlapping.
+**Cross-domain routing measurement (94×128 heatmap).** We directly measured the prefill-stage (94 layers × 128 experts) frequency matrix on 3 datasets (Fig 7). Cross-domain global expert-frequency Spearman ρ is **near zero** (Fig 4): MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216 — different domains route to **entirely different expert sets**. The top-5 hotspot experts are completely non-overlapping across domains (Fig 7) (MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}). This means a placement that disperses domain A's hot experts may concentrate domain B's new hotspots → **static placement inevitably fails under domain shifts**. The heatmap (Fig 7) visually confirms this: the bright regions (hot experts) of the 3 datasets are almost non-overlapping.
 
-**Cross-domain placement transfer (measured).** Per-layer LPT optimal placement computed for domain A, applied to domain B's routing: same-domain diagonal = 1.00 (perfect), cross-domain off-diagonal = 2.1–4.1 (Fig 9). Key finding: **MMLU's optimal placement applied to prover yields ratio=3.667, WORSE than the default identity placement (3.510)** — "optimal" placement transferred across domains is worse than doing nothing. This quantitatively proves static placement inevitably fails under domain shifts.
+**Cross-domain placement transfer (measured).** Per-layer LPT optimal placement computed for domain A, applied to domain B's routing: same-domain diagonal = 1.00 (perfect), cross-domain off-diagonal = 2.1–4.1 (Fig 9). The hotspot GPU entropy under identity is 0–1.9 (concentrated); after OEPLB it rises to 2.1–2.9 (distributed, Fig 12b). Key finding: **MMLU's optimal placement applied to prover yields ratio=3.667, WORSE than the default identity placement (3.510)** — "optimal" placement transferred across domains is worse than doing nothing. This quantitatively proves static placement inevitably fails under domain shifts.
 
 **Observation 2 (decision frequency vs. prompt length).** Short prompts (~50 tokens) require a larger synchronization window (sw=32-64), because each forward batch processes many requests and frequent `all_reduce` calls become the dominant overhead. Long prompts (~250 tokens) benefit from a smaller window (sw=8). This is a **bias-variance tradeoff**: a small window provides fresh data (low bias) but high variance due to limited samples; a large window reduces variance but increases latency and communication overhead. No single static window is optimal for all workloads — this motivates the adaptive mechanism (§3.5).
 
-**Observation 3 (prefill predicts decode).** We directly measure the prefill→decode expert-routing correlation following DataFore (ISCA 2026) Ob3's methodology: per-layer Spearman ρ between the prefill-stage and decode-stage expert-frequency histograms, aggregated (pooled) across requests. On Qwen3-235B-A22B with MMLU (O=10, matching DataFore's `MAX_NEW_TOKENS=10`), we obtain **mean ρ = 0.833 with 94/94 layers ≥ 0.7 (strong)**, reproducing DataFore's "most layers ≥ 0.7" claim on the same model. The top-5 hottest-expert overlap is 49–58% (DataFore Qwen3: ~60%). Extending to real non-concatenated datasets at varied prompt lengths (all O=10): long prompts reach near-perfect correlation — prover-math 1253 tok ρ=0.980 (94/94), book 4438 tok ρ=0.967 (94/94). This directly establishes that prefill routing is a *sufficient statistic* of the decode distribution for task-structured and long-prompt workloads. (Indirect support: layout optimization based on prefill routing data alone also yields measurable decode-phase improvements, TPOT -3.0% to -12.5% across 9 configurations, because swaps modify the globally shared `physical_to_logical_map` governing all forward passes regardless of phase.) The sufficient-statistic strength varies with prompt length and task structure (short free-form prompts are weaker — see §3.5/§3.6 boundary), which is exactly why the adaptive window (§3.5) enlarges M on heterogeneous workloads.
+**Observation 3 (prefill predicts decode).** We directly measure the prefill→decode expert-routing correlation following DataFore (ISCA 2026) Ob3's methodology: per-layer Spearman ρ between the prefill-stage and decode-stage expert-frequency histograms, aggregated (pooled) across requests. On Qwen3-235B-A22B with MMLU (O=10, matching DataFore's `MAX_NEW_TOKENS=10`), we obtain **mean ρ = 0.833 with 94/94 layers ≥ 0.7 (strong, Fig 5)**, reproducing DataFore's "most layers ≥ 0.7" claim on the same model. The top-5 hottest-expert overlap is 49–58% (Fig 6) (DataFore Qwen3: ~60%). Extending to real non-concatenated datasets at varied prompt lengths (all O=10): long prompts reach near-perfect correlation — prover-math 1253 tok ρ=0.980 (94/94), book 4438 tok ρ=0.967 (94/94) (Fig 8). This directly establishes that prefill routing is a *sufficient statistic* of the decode distribution for task-structured and long-prompt workloads. (Indirect support: layout optimization based on prefill routing data alone also yields measurable decode-phase improvements, TPOT -3.0% to -12.5% across 9 configurations, because swaps modify the globally shared `physical_to_logical_map` governing all forward passes regardless of phase.) The sufficient-statistic strength varies with prompt length and task structure (short free-form prompts are weaker — see §3.5/§3.6 boundary), which is exactly why the adaptive window (§3.5) enlarges M on heterogeneous workloads.
 
 ### 2.4 Theoretical Speedup Upper Bound
 
@@ -353,13 +353,15 @@ i.e. **optimal memory grows as $\sqrt{L_{\text{seg}}}$ and falls as $(r-r_k)^{3/
 
 **The three implemented feedback signals** (a discrete approximation of the above continuous control): **signal 1 (converged)** ratio changes $<0.003$ over 3 windows → double $M$ (lower overhead); **signal 2 (shift)** ratio jumps $>0.03$ or cos_sim $<0.95$ → $M\to M_{\min}$ and $\alpha\to0$ (fast response); **signal 3 (volatile)** ratio oscillates between the two → expand $M$ (more samples, lower variance). Appendix H reports the measured outcome: adaptive window + adaptive decay is the fastest arm (1.07× the no-OEPLB reference), beating all eight static $(W,\alpha)$ configurations, with adaptive decay separately worth 3.6% and 44% fewer swaps; the $M^\star$ closed form's **directional prediction** ($M^\star\propto\sqrt{L_{\text{seg}}}$) is confirmed by d31+d34; stationary calibration (Appendix H.4) confirms M16–M64 all reach the ceiling (no interior peak, consistent with theory); the **exact value** of $M^\star$ is not calibrated (long benchmarks show no peak, short ones too noisy), but the theoretical explanation for adaptive is complete (it tracks the non-stationary optimal $M^\star$, analogous to Adam adaptive learning rates).
 
+Furthermore, per-forward hotspot GPU entropy provides a new signal for adaptive window sizing (Fig 12b): under identity, prover entropy=0 (always GPU5), ARC=0.57 (almost always GPU4); after OEPLB all rise to 2.1–2.9 (Fig 15b). **Low identity entropy → stable routing → can grow window; high identity entropy → hotspot jumps → need to shrink window.** Multi-granularity analysis (Fig 13) shows per-forward ratio (4.5×) is 2× the aggregate (2.3×) — the MoE actually experiences worse straggler than aggregate figures suggest.
+
 ### 3.6 Prefill-Only Recording
 
 The controller records routing data only when `forward_batch.forward_mode.is_extend()` (prefill). Decode and idle batches are skipped entirely. This reduces recording overhead by ~50% (in mixed workloads, decode steps typically outnumber prefill by 10:1), while benefiting decode through the globally shared layout.
 
 **Important detail**: during CUDA graph capture/replay (the decode phase), `record_next_layer` returns directly via the `torch.cuda.is_current_stream_capturing()` check — **zero overhead**. Recording is actually performed only in the prefill phase (which does not go through CUDA graphs). This means that in pure-prefill (O=1) scenarios every forward executes record and the overhead is maximal; in mixed prefill+decode scenarios, decode's record is skipped and the overhead is lower.
 
-**Empirical sufficiency (measured, DataFore Ob3 methodology).** The sufficient-statistic claim is backed by direct prefill→decode correlation measurements (§2.3 Obs 3), all on Qwen3-235B-A22B, EP8, O=10, aggregate-pooled:
+**Empirical sufficiency (measured, DataFore Ob3 methodology, Fig 5/6/14).** The sufficient-statistic claim is backed by direct prefill→decode correlation measurements (§2.3 Obs 3), all on Qwen3-235B-A22B, EP8, O=10, aggregate-pooled:
 
 | Dataset | prompt len | domain | mean ρ | layers ≥0.7 | top-5 ov |
 |---------|-----------|--------|--------|------------|----------|
@@ -367,7 +369,7 @@ The controller records routing data only when `forward_batch.forward_mode.is_ext
 | prover | 1253 tok | math | 0.980 | 94/94 | 90% |
 | book (L4096) | 4438 tok | BookCorpus | 0.967 | 94/94 | 91% |
 
-Prefill-only recording is a sufficient statistic wherever ρ is high (here 0.83–0.98, all 94 layers strong) — i.e. for task-structured QA and long prompts. The boundary (where it weakens) is short free-form prompts; the adaptive window (§3.5) enlarges M there to restore a trustworthy statistic. Datasets and traces are released (see Reproducibility).
+Prefill-only recording is a sufficient statistic wherever ρ is high (here 0.83–0.98, all 94 layers strong, Fig 5/14). LPT placement from prefill frequency reduces ratio to ~1.0 (56–77% reduction, Fig 11) — i.e. for task-structured QA and long prompts. The boundary (where it weakens) is short free-form prompts; the adaptive window (§3.5) enlarges M there to restore a trustworthy statistic. Datasets and traces are released (see Reproducibility).
 
 ---
 
@@ -514,6 +516,22 @@ OEPLB outperforms EPLB by **+1.9 percentage points** (+3.0% vs +1.1%). EPLB yiel
 | Multi-domain (4-GPU 30B) | -3.9% | crash | — |
 
 Note: On 4-GPU 30B, EPLB cannot run due to `AttributeError` (§2.2 limitation 2).
+
+### 5.5b OEPLB Runtime Analysis
+
+On 7 domain-specific short-prompt datasets (conc=256, O=10, --enable-pb-oeplb + routing tracer), OEPLB made 97 swap decisions (Fig 15):
+
+| Metric | Result |
+|--------|--------|
+| Total decisions | 97 (7 domains × ~14/domain) |
+| Big decisions (>10% reduction) at domain switches | ~7 (1 per domain) |
+| Steady-state reduction | 1–3% (maintenance) |
+| Domain-switch spike ratio | 1.35–1.72 (Fig 16) |
+| Steady-state ratio | 1.01–1.05 |
+| Identity hotspot entropy | 0–1.9 (concentrated) |
+| OEPLB entropy | 2.1–2.9 (distributed, Fig 15b) |
+
+Per-domain comparison (Fig 17b): OEPLB reduces per-forward ratio by 4–14%. Prover is most significant: identity 1.166±0.006 (always GPU5, entropy=0) → OEPLB 1.006±0.002 (near-perfect, entropy=2.82) — **eliminating persistent straggler** is OEPLB's core value, not just reducing mean ratio.
 
 ### 5.6 Overhead Analysis
 

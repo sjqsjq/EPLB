@@ -53,7 +53,7 @@ PB-OEPLB是唯一同时实现零冗余、CUDA graph兼容、在线自适应和�
 
 给定$N$个专家分布在$G$个GPU上（EP），每层MoE的前向产生一个专家负载向量$L \in \mathbb{Z}_{\geq 0}^{G}$。定义**不均衡度**：
 $$r = \frac{\max_{g} L_g}{\frac{1}{G}\sum_g L_g}$$
-$r=1$为完美均衡。在线负载均衡的目标是：在每层前向后，通过GPU间P2P交换专家权重对，使$r$最小化。该问题归约自3-PARTITION（NP-hard），但实际中只需近似解。**实测**：3个真实数据集上identity放置的逐层max/min均值2.26–4.38×（最极端11.79×），LPT最优放置降到~1.00（降低53–73%）；但不同数据集热点GPU不同（MMLU=GPU4, prover=GPU5, book=GPU0）→静态放置无法跨域适应。
+$r=1$为完美均衡。在线负载均衡的目标是：在每层前向后，通过GPU间P2P交换专家权重对，使$r$最小化。该问题归约自3-PARTITION（NP-hard），但实际中只需近似解。**实测**：3个真实数据集上identity放置的逐层max/min均值2.26–4.38×（最极端11.79×，Fig 1/1b），LPT最优放置降到~1.00（降低53–73%，Fig 2）；但不同数据集热点GPU不同（MMLU=GPU4, prover=GPU5, book=GPU0，Fig 3）→静态放置无法跨域适应。
 
 问题的三个核心约束为：（i）**零冗余**——不分配额外专家副本（$N=G \times k$，$k$为每GPU专家数，无冗余）；（ii）**有界细粒度阻塞**——每次调整阻塞$\leq 0.37$秒（EPLB的1/4），以单次同步`batch_isend_irecv`完成；（iii）**CUDA graph兼容**——不关闭`deepep_mode=auto`的CUDA graph路径。
 
@@ -65,11 +65,11 @@ $r=1$为完美均衡。在线负载均衡的目标是：在每层前向后，通
 
 本节给出三个驱动系统设计的关键观察。
 
-**观察1：路由分布在域内稳定、跨域突变。** 在单一内容域（如数学证明）内，连续决策窗口的专家负载分布余弦相似度>0.95（稳定）；域切换时ratio从1.20跳至1.39（1–2窗内），跨域cos_sim仅0.86。这可建模为分段平稳Markov过程。**实测（94×128热力图）**：跨域全局专家频率Spearman ρ≈0（MMLU vs prover=0.054, vs book=−0.038），各域top-5热点专家完全不重叠→为域A优化的静态放置对域B无效甚至有害。**实测**：逐层LPT最优放置跨域迁移后ratio=2.1–4.1（同域=1.00），MMLU最优→prover(3.67)甚至比identity(3.51)更差。**设计含义**：changepoint需快速响应（清陈旧历史），但不应shrink到极小窗（小窗ratio噪声大→noise-chase→更小窗→恶性循环）。
+**观察1：路由分布在域内稳定、跨域突变。** 在单一内容域（如数学证明）内，连续决策窗口的专家负载分布余弦相似度>0.95（稳定）；域切换时ratio从1.20跳至1.39（1–2窗内），跨域cos_sim仅0.86。这可建模为分段平稳Markov过程。**实测（94×128热力图）**：跨域全局专家频率Spearman ρ≈0（Fig 4/7）（MMLU vs prover=0.054, vs book=−0.038），各域top-5热点专家完全不重叠→为域A优化的静态放置对域B无效甚至有害（Fig 7/9）。**实测**：逐层LPT最优放置跨域迁移后ratio=2.1–4.1（同域=1.00），MMLU最优→prover(3.67)甚至比identity(3.51)更差（Fig 9）。OEPLB后热点GPU entropy从0–1.9升到2.1–2.9（Fig 12b/15b）。**设计含义**：changepoint需快速响应（清陈旧历史），但不应shrink到极小窗（小窗ratio噪声大→noise-chase→更小窗→恶性循环）。
 
 **观察2：最优决策频率依赖有效memory M=W/(1−α)，而非W单独。** 窗口$W$和衰减$\alpha$不是两个独立旋钮——展开衰减累积器$A_t = R_t + \alpha A_{t-1} = \sum_k \alpha^k R_{t-k}$，其有效memory长度$M = W/(1-\alpha)$。固定$M$同时增大$W$和$\alpha$可给出相同统计质量但更大$W$意味着更稀疏决策。**设计含义**：用$\alpha=0.5$以$W=64$达到$M=128$，比$W=128, \alpha=0$少一半all_reduce调用——$\alpha$是廉价memory杠杆。
 
-**观察3：prefill阶段路由预测decode阶段。** 我们按DataFore（ISCA 2026）Ob3方法学直接测量：逐层Spearman ρ（prefill vs decode专家频率直方图，跨请求聚合）。在Qwen3-235B-A22B上用MMLU（O=10，同DataFore `MAX_NEW_TOKENS=10`）测得**mean ρ=0.833，94/94层≥0.7**，复现DataFore"most layers≥0.7"；扩展到长prompt真实数据集（均O=10）：prover数学1253tok ρ=0.980、book 4438tok ρ=0.967（均94/94层强）。即对任务结构化QA与长prompt，prefill路由是decode分布的**充分统计量**。短自由文本较弱（详见§3.5自适应窗口）。间接支撑：基于prefill路由的布局对decode有可测量改善（TPOT −3.0%至−12.5%，multi_O256 −11.9%最显著），因swap修改全局共享`physical_to_logical_map`对所有forward生效。**设计含义**：仅prefill记录即可，decode阶段CUDA graph下记录自动跳过（`torch.cuda.is_current_stream_capturing()`），零额外开销。数据集与trace已开源（见可复现性）。
+**观察3：prefill阶段路由预测decode阶段。** 我们按DataFore（ISCA 2026）Ob3方法学直接测量：逐层Spearman ρ（prefill vs decode专家频率直方图，跨请求聚合）。在Qwen3-235B-A22B上用MMLU（O=10，同DataFore `MAX_NEW_TOKENS=10`）测得**mean ρ=0.833，94/94层≥0.7（Fig 5）**，复现DataFore"most layers≥0.7"；扩展到长prompt真实数据集（均O=10）：prover数学1253tok ρ=0.980、book 4438tok ρ=0.967（Fig 8）。7个域特定数据集验证（Fig 14）：QA/推理类ρ=0.78–0.85，数学类0.44–0.69（均94/94层强）。即对任务结构化QA与长prompt，prefill路由是decode分布的**充分统计量**。短自由文本较弱（详见§3.5自适应窗口）。间接支撑：基于prefill路由的布局对decode有可测量改善（TPOT −3.0%至−12.5%，multi_O256 −11.9%最显著），因swap修改全局共享`physical_to_logical_map`对所有forward生效。**设计含义**：仅prefill记录即可，decode阶段CUDA graph下记录自动跳过（`torch.cuda.is_current_stream_capturing()`），零额外开销。数据集与trace已开源（见可复现性）。
 
 ## 5. 系统设计
 

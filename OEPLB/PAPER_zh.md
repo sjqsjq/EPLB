@@ -67,7 +67,7 @@ $$r(\pi) = \frac{\max_{g \in [G]} L_g(\pi)}{\bar{L}}, \quad L_g(\pi) = \sum_{j: 
 
 **复杂度。** 在平衡约束下找到$\pi^* = \arg\min_\pi r(\pi)$是NP-hard的（$G \geq 3$时归约自3-PARTITION，$G=2$时归约自PARTITION）。这促使我们采用贪心局部搜索近似。
 
-**实测不均衡度。** 在3个真实非拼接数据集（MMLU多学科QA 25tok、prover数学1253tok、book BookCorpus 4438tok）上，identity放置（专家0-15→GPU0, 16-31→GPU1, ...）的逐层max/min ratio**均值2.26–4.38×，最极端层达11.79×**（book）。而LPT贪心最优放置将ratio降到**~1.00（降低53–73%）**——即"移动专家位置"（不改路由、不加冗余）就足以达到近完美均衡。关键发现：**不同数据集的热点GPU完全不同**（MMLU热点=GPU4, prover=GPU5, book=GPU0），为数据集A优化的静态放置对数据集B无效→需要动态自适应。
+**实测不均衡度。** 在3个真实非拼接数据集（MMLU多学科QA 25tok、prover数学1253tok、book BookCorpus 4438tok）上，identity放置（专家0-15→GPU0, 16-31→GPU1, ...）的逐层max/min ratio**均值2.26–4.38×，最极端层达11.79×**（book，Fig 1）。逐forward粒度下ratio更高（median 3.7–6.4×，是聚合的1.5–1.7×，Fig 1b/13）。而LPT贪心最优放置将ratio降到**~1.00（降低53–73%，Fig 2）**——即"移动专家位置"（不改路由、不加冗余）就足以达到近完美均衡。关键发现：**不同数据集的热点GPU完全不同**（MMLU热点=GPU4, prover=GPU5, book=GPU0，Fig 3），为数据集A优化的静态放置对数据集B无效→需要动态自适应。
 
 ### 2.2 现有方法的限制
 
@@ -87,13 +87,13 @@ PB-OEPLB通过通用fallback（§4）修复了此限制：先尝试DeepSeek原�
 
 **观察1（域内稳定与跨域切换）。** 在单一内容域内，连续决策窗口的专家负载分布余弦相似度>0.95。域切换导致比值飙升（235B上1.20→1.39）。实测的跨域余弦相似度最低约0.86（同域内>0.999），足以作为变点信号；早期草稿引用的0.16是理论假设值，非实测，已更正。这可建模为**分段平稳Markov过程**，其中路由分布$\boldsymbol{\theta}$在每个段内固定，在未知变点$\tau_1 < \tau_2 < \cdots$处跳变（见§3.2和附录A.2的贝叶斯表述）。
 
-**跨域路由实测（94×128热力图）。** 在3个数据集上直接测量prefill阶段的(94层×128专家)频率矩阵。跨域全局专家频率Spearman ρ**几乎为0**：MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216——不同域路由到**完全不同的专家集**。各域top-5热点专家完全不重叠（MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}）。这意味着为域A分散热专家的放置对域B不仅不是最优、甚至可能集中了B的新热点→**静态放置在域切换负载下必然失败**。热力图（Fig 7）直观展示了这一现象：3个数据集的亮区（热专家）几乎不重叠。
+**跨域路由实测（94×128热力图）。** 在3个数据集上直接测量prefill阶段的(94层×128专家)频率矩阵（Fig 7）。跨域全局专家频率Spearman ρ**几乎为0**（Fig 4）：MMLU vs prover=0.054, MMLU vs book=−0.038, prover vs book=−0.216——不同域路由到**完全不同的专家集**。各域top-5热点专家完全不重叠（Fig 7亮区不重叠）（MMLU={110,64,30,91,76}, prover={99,54,94,51,80}, book={34,103,67,10,69}）。这意味着为域A分散热专家的放置对域B不仅不是最优、甚至可能集中了B的新热点→**静态放置在域切换负载下必然失败**。热力图（Fig 7）直观展示了这一现象：3个数据集的亮区（热专家）几乎不重叠。
 
-**跨域放置迁移实测。** 逐层为域A计算LPT最优放置，再apply到域B的decode路由：同域对角线ratio=1.00（完美），但跨域非对角=2.1–4.1（Fig 9）。关键发现：**MMLU的最优放置apply到prover后ratio=3.667，比默认identity(3.510)还差**——"最优"放置跨域后比不做还糟。这定量证明了静态放置在域切换负载下的必然失败。
+**跨域放置迁移实测。** 逐层为域A计算LPT最优放置，再apply到域B的decode路由：同域对角线ratio=1.00（完美），但跨域非对角=2.1–4.1（Fig 9）。热点GPU在identity下极集中（entropy 0–1.9），OEPLB后分散（entropy 2.1–2.9，Fig 12b）。关键发现：**MMLU的最优放置apply到prover后ratio=3.667，比默认identity(3.510)还差**——"最优"放置跨域后比不做还糟。这定量证明了静态放置在域切换负载下的必然失败。
 
 **观察2（决策频率与prompt长度的关系）。** 短prompt（~50 token）需要更大的同步窗口（sw=32-64），因为每个forward batch处理大量请求，频繁的`all_reduce`调用成为主要开销。长prompt（~250 token）受益于更小窗口（sw=8）。这是一个**偏差-方差权衡**：小窗口提供新鲜数据（低偏差）但样本有限导致高方差；大窗口减少方差但增加延迟和通信开销。不存在单一静态窗口对所有负载最优——这促使了自适应机制（§3.5）。
 
-**观察3（prefill预测decode）。** 我们按DataFore（ISCA 2026）Ob3的方法学直接测量prefill→decode专家路由相关性：逐层计算prefill阶段与decode阶段专家频率直方图的Spearman ρ，跨请求聚合（pooling）。在Qwen3-235B-A22B上用MMLU（O=10，与DataFore的`MAX_NEW_TOKENS=10`一致）测得**mean ρ=0.833，94/94层≥0.7（强相关）**，在同一模型上复现了DataFore"most layers≥0.7"的结论；top-5热点专家overlap为49–58%（DataFore Qwen3约60%）。扩展到真实非拼接数据集、不同prompt长度（均O=10）：长prompt达近完美相关——prover数学1253 tok ρ=0.980（94/94）、book 4438 tok ρ=0.967（94/94）。这直接证明对任务结构化与长prompt负载，prefill路由是decode分布的*充分统计量*。（间接支撑：仅基于prefill路由数据的布局优化也产生可测量的decode阶段改善，TPOT 9种配置下-3.0%到-12.5%，因swap修改全局共享的`physical_to_logical_map`，该映射控制所有forward pass而不论阶段。）充分统计量的强度随prompt长度和任务结构化程度变化（短自由文本较弱——见§3.5/§3.6边界），这正是§3.5自适应窗口在异质负载上放大M的原因。
+**观察3（prefill预测decode）。** 我们按DataFore（ISCA 2026）Ob3的方法学直接测量prefill→decode专家路由相关性：逐层计算prefill阶段与decode阶段专家频率直方图的Spearman ρ，跨请求聚合（pooling）。在Qwen3-235B-A22B上用MMLU（O=10，与DataFore的`MAX_NEW_TOKENS=10`一致）测得**mean ρ=0.833，94/94层≥0.7（强相关，Fig 5）**，在同一模型上复现了DataFore"most layers≥0.7"的结论；top-5热点专家overlap为49–58%（Fig 6）（DataFore Qwen3约60%）。扩展到真实非拼接数据集、不同prompt长度（均O=10）：长prompt达近完美相关——prover数学1253 tok ρ=0.980（94/94）、book 4438 tok ρ=0.967（94/94）（Fig 8长度依赖曲线）。这直接证明对任务结构化与长prompt负载，prefill路由是decode分布的*充分统计量*。（间接支撑：仅基于prefill路由数据的布局优化也产生可测量的decode阶段改善，TPOT 9种配置下-3.0%到-12.5%，因swap修改全局共享的`physical_to_logical_map`，该映射控制所有forward pass而不论阶段。）充分统计量的强度随prompt长度和任务结构化程度变化（短自由文本较弱——见§3.5/§3.6边界），这正是§3.5自适应窗口在异质负载上放大M的原因。在7个域特定短prompt数据集上验证（Fig 14）：QA/推理类（ARC/MMLU/CommonsenseQA/OpenBookQA）ρ=0.78–0.85（83–94/94层强），数学类（GSM8K/prover）ρ=0.44–0.69——**任务结构 >> prompt长度**，QA类短prompt也强相关。
 
 ### 2.4 理论加速上界
 
@@ -357,13 +357,15 @@ $$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_
 
 **实现的三个反馈信号**（是上述连续控制的离散近似）：**信号1（收敛）**ratio在3窗内变化$<0.003$→$M$翻倍（降开销）；**信号2（切换）**ratio跳变$>0.03$或cos_sim$<0.95$→$M\to M_{\min}$且$\alpha\to0$（快响应）；**信号3（波动）**ratio在两者之间震荡→$M$扩张（增样本降方差）。附录H给出实测结果：自适应窗口+自适应衰减是全表最快臂（1.07×无OEPLB参照），优于全部8个静态$(W,\alpha)$配置，其中自适应衰减单独贡献3.6%与44%的swap削减。$M^\star$闭式的**方向性预测**（$M^\star\propto\sqrt{L_{\text{seg}}}$，短段最优$M$小、长段最优$M$大）已由$d$31+$d$34证实；静态负载校准（附录H.4）确认$M$16–$M$64全达天花板（无内部峰，符合理论）；$M^\star$的**精确数值**因长benchmark无峰、短benchmark太噪而未定标，但adaptive机制的理论说明完整（跟踪非平稳最优$M^\star$，类比Adam自适应学习率）。
 
+此外，逐forward的热点GPUentropy提供了自适应窗口的新信号（Fig 12b）：identity下prover entropy=0（永远GPU5过载），ARC=0.57（几乎固定GPU4）；OEPLB后全部升到2.1–2.9（Fig 15b）。**低identity entropy → 路由稳定 → 可grow window；高identity entropy → 热点跳变 → 需shrink window**。多粒度分析（Fig 13）显示per-forward ratio（4.5×）是聚合（2.3×）的2倍——MoE实际经历的straggler比聚合图显示的更严重。
+
 ### 3.6 仅Prefill记录
 
 控制器仅在`forward_batch.forward_mode.is_extend()`（prefill）时记录路由数据。Decode和idle批次完全跳过。设计依据有三：
 
 **1. 充分性论证。** Prefill和decode的路由分布由同一个router权重和同一个prompt语义空间决定。在域内（prompt来自同一分布），prefill阶段观察到的per-expert频率是decode阶段的**充分统计量**——两者的max/mean结构相同，只是总token数不同。实测验证：附录D.2中四个数据集的$r_{\text{before}}$全部用**纯prefill录制**的计数算出，与DIAG自报值在**同质负载**上吻合到$\le1\%$（L256 1.2177 vs 1.216、L512 1.1125 vs 1.116、多域 1.0980 vs 1.109、235B 1.737 vs 1.721）。**唯一的例外是ShareGPT（1.0965 vs DIAG首窗2.161，差97%），但该偏差的成因是DIAG对窗口不加权、被小batch抽样方差抬高，而非prefill采样不充分**——用token加权的逐窗口口径重算得1.1000，与纯prefill的离线值吻合0.3%（附录D.2）。因此充分性论证成立，失效的是DIAG的统计口径。
 
-**1b. 充分性的直接实测（DataFore Ob3方法学）。** 上面的充分性论证由直接的prefill→decode相关性测量支撑（§2.3观察3），均在Qwen3-235B-A22B、EP8、O=10、聚合pooling下测得：
+**1b. 充分性的直接实测（DataFore Ob3方法学，Fig 5/6/14）。** 上面的充分性论证由直接的prefill→decode相关性测量支撑（§2.3观察3），均在Qwen3-235B-A22B、EP8、O=10、聚合pooling下测得：
 
 | 数据集 | prompt长度 | 域 | mean ρ | layers≥0.7 | top-5 overlap |
 |--------|-----------|-----|--------|-----------|---------------|
@@ -371,7 +373,7 @@ $$M^\star = \left(\frac{a\,c^2\,L_{\text{seg}}}{b\,\beta\,\bar t\,\gamma^2 (r-r_
 | prover | 1253 tok | 数学 | 0.980 | 94/94 | 90% |
 | book(L4096) | 4438 tok | BookCorpus | 0.967 | 94/94 | 91% |
 
-ρ高的区间（此处0.83–0.98，94层全强相关）即prefill-only recording是充分统计量的区间——任务结构化QA与长prompt。边界（ρ减弱处）是短自由文本；§3.5自适应窗口在该处放大M以恢复可信统计量。数据集与trace已开源（见可复现性章节）。
+ρ高的区间（此处0.83–0.98，94层全强相关，Fig 5/14）即prefill-only recording是充分统计量的区间。基于prefill频率的LPT放置将ratio降到~1.0（降低56–77%，Fig 11）——任务结构化QA与长prompt。边界（ρ减弱处）是短自由文本；§3.5自适应窗口在该处放大M以恢复可信统计量。数据集与trace已开源（见可复现性章节）。
 
 **2. 开销控制。** 混合负载中decode步骤数是prefill的10:1，因此跳过decode减少约50%记录开销。更重要的是CUDA graph约束：decode阶段走CUDA graph时`record_next_layer`通过`torch.cuda.is_current_stream_capturing()`检查直接返回——**零开销**。仅在prefill阶段（不走CUDA graph）才真正执行记录。
 
@@ -531,6 +533,22 @@ OEPLB超越EPLB **+1.9个百分点**（+3.0% vs +1.1%）。EPLB几乎无提升�
 | 多域（4卡30B） | -3.9% | 崩溃 | — |
 
 注：4卡30B上EPLB因`AttributeError`无法运行（§2.2限制2）。
+
+### 5.5b OEPLB在线运行分析
+
+在7个域特定短prompt数据集上（conc=256, O=10, --enable-pb-oeplb + routing tracer），OEPLB共做97次swap决策（Fig 15）：
+
+| 指标 | 结果 |
+|------|------|
+| 总决策数 | 97（7域×~14次/域） |
+| 域切换处的大决策(>10%降幅) | ~7次（每域1次） |
+| 稳态决策降幅 | 1–3%（维护性微调） |
+| 域切换spike ratio | 1.35–1.72（Fig 16） |
+| 稳态ratio | 1.01–1.05 |
+| identity热点GPU entropy | 0–1.9（集中） |
+| OEPLB后entropy | 2.1–2.9（分散，Fig 15b） |
+
+逐域对比（Fig 17b）：OEPLB将per-forward ratio降低4–14%。prover域最显著：identity 1.166±0.006（永远GPU5，entropy=0）→ OEPLB 1.006±0.002（近完美，entropy=2.82）——**消除持续straggler**是OEPLB的核心价值，而非仅仅降低平均ratio。
 
 ### 5.6 开销分析
 
