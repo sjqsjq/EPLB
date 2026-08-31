@@ -1,0 +1,33 @@
+{
+  "experiment": "Fixed adaptive OEPLB vs same-session baseline (2 constructions)",
+  "construction_A": {
+    "dataset": "crossdomain_freq6_O10.jsonl (6 segments book<->prover, 4438tok, 4200 req, conc=32, O=10)",
+    "baseline": {
+      "time_s": 983,
+      "tps": 42.7
+    },
+    "oeplb_adaptive_fixed": {
+      "time_s": 895,
+      "tps": 46.9,
+      "vs_baseline": "+9.0%"
+    }
+  },
+  "construction_B": {
+    "dataset": "crossdomain_universal_16k_O10.jsonl (4 domains, 1000tok, 16000 req, conc=256, O=10)",
+    "baseline": {
+      "time_s": 1043,
+      "tps": 153.4
+    },
+    "oeplb_adaptive_fixed": {
+      "time_s": 959,
+      "tps": 166.8,
+      "vs_baseline": "+8.1%"
+    }
+  },
+  "fixes": [
+    "auto dead_zone_ratio from EP power law (r_k=1+0.00408*EP^1.52)",
+    "cooldown=3 after RESET (prevent ADW thrashing)",
+    "window_shift_confirm_windows 1->2 (less noise-sensitive)"
+  ],
+  "finding": "Adaptive gives consistent 8-9% across both constructions without per-workload alpha tuning. On construction B it even beats all fixed alpha values."
+}
