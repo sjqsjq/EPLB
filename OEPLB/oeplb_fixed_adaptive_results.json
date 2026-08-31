@@ -1,0 +1,24 @@
+{
+  "experiment": "OEPLB fixed adaptive vs baseline (same session)",
+  "dataset": "crossdomain_freq6_O10.jsonl (6 segments book<->prover, 4438tok, 4200 req, conc=32, O=10)",
+  "baseline": {
+    "time_s": 983,
+    "tps": 42.7
+  },
+  "oeplb_adaptive_fixed": {
+    "time_s": 895,
+    "tps": 46.9,
+    "vs_baseline": "+9.0%"
+  },
+  "fixes_applied": [
+    "auto dead_zone_ratio from EP power law (r_k=1+0.00408*EP^1.52, no hardcoded value)",
+    "cooldown=3 after RESET (skip ADW shrink for 3 windows to prevent thrashing)",
+    "window_shift_confirm_windows 1->2 (less sensitive to noise)"
+  ],
+  "previous_unfixed_adaptive": {
+    "time_s": 1075,
+    "tps": 39.1,
+    "vs_baseline": "-6.0%",
+    "note": "broken: double-clearing + thrashing (944 DIAGs, 384 shrinks, 184 resets)"
+  }
+}
