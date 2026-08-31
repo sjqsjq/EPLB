@@ -268,13 +268,20 @@ After each decision window, the load tensor is updated as:
 $$A_n = R_n + \alpha \cdot A_{n-1}$$
 where $R_n$ is the fresh routing data of the current window and $\alpha$ is the decay factor.
 
-We find $\alpha = 0.5$ to be optimal, compared to $\alpha = 0.9$ (the default of the early version) and $\alpha = 0$ (no history):
+We compare $\alpha = 0$ (no history), $\alpha = 0.5$ (default), and $\alpha = 0.9$ (early default). Old signal remaining after 3 windows: 0%, 12.5%, 73%.
 
-| $\alpha$ | Old signal remaining after 3 windows | Multi-domain throughput | Short-prompt throughput |
-|---|---|---|---|
-| 0 (clear) | 0% | +2.5% | — |
-| **0.5** | **12.5%** | **+10.6%** | **+2.3%** |
-| 0.9 | 73% | +6.9% | +1.4% |
+**Historical data (unreproducible, $\dagger$)**: multi-domain 16K results were α=0/0.5/0.9 = +2.5%/+10.6%/+6.9%, concluding α=0.5 optimal$^\dagger$. But that dataset is deleted (§5.3).
+
+**Clean re-measurement (4 reproducible experiments, n=1)**:
+
+| Scenario | prompt | conc | α=0 | α=0.5 | α=0.9 | Best |
+|----------|--------|------|-----|-------|-------|------|
+| 3-domain | 4438tok | 32 | +5.4% | +6.1% | **+9.9%** | 0.9 |
+| 6-domain frequent | 4438tok | 32 | +5.6% | +5.3% | **+12.6%** | 0.9 |
+| universal multi-domain | 1000tok | 32 | -7.4% | -5.0% | **+0.1%** | 0.9 |
+| universal multi-domain | 1000tok | 256 | **+7.7%** | +5.7% | +6.7% | 0 |
+
+**α optimal depends on workload imbalance**: high imbalance (long prompt, r>3)→α=0.9 best (benefit already high, fewer swaps save overhead); moderate imbalance + high concurrency→α=0 best (need fastest domain-switch reaction); low imbalance→α=0.9 least bad. **α=0.5 never wins in 4 experiments but stays within 2pp of optimal** — a robust default. This is consistent with §3.5's M*=f(L_seg): higher imbalance→smaller M*→higher α. The adaptive_window mechanism (§3.5) implicitly optimizes α by adjusting M based on real-time cos_sim and ratio signals.
 
 At $\alpha=0.5$, cross-domain signal contamination drops to 12.5% within 3 windows (~18 seconds), enabling fast adaptation to workload changes. At $\alpha=0.9$, 73% of the old-domain signal persists, causing the controller to make placement decisions based on stale data.
 
