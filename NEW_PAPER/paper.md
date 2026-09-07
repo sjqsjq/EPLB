@@ -225,3 +225,49 @@ PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特
 | 长$L_{\text{seg}}$（稳定） | cos\_sim高 | grow $W$ | 降决策开销 |
 
 机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.1死区、§3.3 PD相关性、§3.4异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
+
+### 5.3 与EPLB对比
+
+PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三处，且在所有场景上不劣于EPLB（Fig C）。**显存**：EPLB需16个冗余专家副本（235B配置下12.5%额外显存），挤占KV cache使容量下降8.1%，高并发下排队时间放大2–4.8×；PB-OEPLB原地swap、零显存增长，KV cache不受损。**阻塞**：EPLB周期性全量重平衡，每次阻塞推理0.5–4.5秒（需重算全局布局+批量迁移权重）；PB-OEPLB增量swap，稳态每次仅阻塞0.37秒（4×降低），开销占比3.42%且集中于swap本身（Fig D/E）。**兼容性**：EPLB强制deepep\_mode=normal以支持权重迁移，该模式禁用CUDA graph，使decode-heavy负载吞吐退化62%；PB-OEPLB的swap在prefill边界执行、不侵入decode的CUDA graph路径，兼容图模式。此外官方EPLB实现深度耦合DeepSeek架构，在Qwen2-MoE/Qwen3-MoE上直接抛AttributeError；PB-OEPLB的6文件patch对SGLang侵入最小、跨架构可用。综合上，PB-OEPLB在可复测场景相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%，多场景因前述兼容性问题无法跑通）。
+
+![Fig C EPLB vs OEPLB全场景对比](figures/figC_eplb_vs_oeplb.png)
+
+![Fig D 开销分解（swap 3.42%主导）](figures/figD_overhead_breakdown.png)
+
+![Fig E 迁移阻塞（稳态0.37s vs EPLB 1.55s，4×）](figures/figE_migration_blocking.png)
+
+### 5.4 消融
+
+**衰减因子α扫描（Fig F2）**。在构造A（6域频繁切换、conc=32）上扫α∈{0, 0.5, 0.9}：α=0.5始终在最优点2pp内（鲁棒默认值而非最优值），说明固定α对负载不敏感、但非任意值最优；同session实测adaptive（α=0.5稳态+变点α→0清零+grow/shrink $W$）+9.7%超过固定α=0.9的+6.4%（swap 104 vs 56但吞吐反高，证明零调参adaptive已优于任何固定衰减，固定α不是天花板）。
+
+**$M$收敛与统计充分性（Fig N）**。同$M$=128不同$(W,\alpha)$组合（如$W$=16/α=0.875、$W$=32/α=0.75、$W$=64/α=0.5）吞吐吻合4.8%，印证§3.4"$M=W/(1-\alpha)$是近似充分统计量、$W$与$\alpha$只通过$M$影响稳态"。$M$≥32后吞吐饱和（无内点峰值），与$M^*$闭式在长benchmark上无峰的方向预测一致；$M$<16时bias增大、收益下降。
+
+![Fig F2 α扫描（α=0.5鲁棒默认2pp内）](figures/figF2_decay_sweep.png)
+
+![Fig N M收敛（M≥32饱和，同M吻合4.8%）](figures/figN_M_convergence.png)
+
+### 5.5 OEPLB在线运行
+
+真实在线运行（crossdomain\_freq6，启动`--enable-pb-oeplb`+routing tracer）记录每次swap决策前后ratio与每forward热点GPU（Fig 15）：97次决策中，域切换处ratio从1.35–1.72 spike，swap后稳态回落至1.01–1.05；决策密度随稳态自适应下降（grow $W$）。逐域收敛（Fig 16）首决策降幅最大（−24%至−33%），后续边际递减——与§3.1死区一致，第1次swap覆盖全部有用距离。逐域对比（Fig 17b）OEPLB将per-forward ratio降4–14%，prover最显著：identity $1.166\pm0.006$（热点永远固定GPU5、entropy=0）→ OEPLB $1.006\pm0.002$（近完美、entropy=2.82），−14%为所有域最大——消除pinned结构性straggler是OEPLB核心价值，而非仅降平均ratio。
+
+![Fig 15 OEPLB在线运行swap决策时间线](figures/fig15_oeplb_real_timeline.png)
+
+![Fig 16 逐域OEPLB收敛（首决策降幅最大）](figures/fig16_per_domain_convergence.png)
+
+![Fig 17b 逐域identity vs OEPLB per-forward ratio（prover −14%）](figures/fig17b_identity_vs_oeplb_per_domain.png)
+
+### 5.6 跨模型验证
+
+在3个模型上验证增益上界公式$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$的预测能力（Fig H/L）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→实得+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0。30B案例揭示"不均衡存在但swap无法获益"的机制：其死区极窄（$r_k$=1.031），per-window ratio几乎全部落在死区内，swap开销照付而收益为零——这正是§3.1死区理论与§3.2增益上界的联合预测：$\Delta_{\max}$判"有无潜力"，$\eta$判"能否拿到"，30B属"有潜力但被死区+开销吞没"。这把"OEPLB是否有效"从经验试错变为可预判：对一新配置，先算$\Delta_{\max}$与$r_k$即可判断是否值得启用。
+
+![Fig H 跨模型Δ_max vs实际收益（η决定实得）](figures/figH_cross_model_efficiency.png)
+
+![Fig L 30B案例（Δ_max正但η≈0）](figures/figL_cross_model_validation.png)
+
+### 5.7 典型案例
+
+**prover（pinned结构性straggler，最大收益）**：identity下每forward热点GPU恒为GPU5（entropy=0），$1.166\pm0.006$；OEPLB一次swap把prover路由极度集中的热专家从GPU5移走，$1.006\pm0.002$（entropy=2.82），−14%为所有域最大降幅。这是"prefill定位pinned热点→一次swap修复结构性straggler"的典型，收益由$r_{\text{before}}$×pinned驱动，与$\rho$无关（prover $\rho$=0.44虽低仍收益最大）。
+
+**book（volatile时序性straggler，边际收益）**：热点GPU每~2个forward跳一次（entropy=1.89），无GPU持续过载，ratio本身较低（1.120）。OEPLB优化"平均"放置而非逐forward追热点，获5–7%小正收益——是"volatile不追噪声、grow $W$优化平均"策略的体现。
+
+**30B（增益上界正但死区吞没）**：$\Delta_{\max}$=+6.36%为正，但$r_k$=1.031死区极窄、swap全落死区内、$\eta\approx0$。该案例验证了死区+增益上界联合预判的有效性，也界定了PB-OEPLB的适用边界：当$r_k$接近1.02（低EP或低overlap配置）时，headroom被死区吞没，需从硬件侧（增overlap、降$f_{\text{sens}}$）而非均衡侧解决。
