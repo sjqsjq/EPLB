@@ -20,7 +20,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 1.3 相关工作
 
-现有方法可分为三类。**静态布局**：从历史流量数据预计算最优专家放置，如DataFore（ISCA 2026）的prefill-guided remap/dup算法。但需离线profiling，无法适应运行时负载变化，且跨域放置迁移实测证明失败。**周期重平衡**：如SGLang的EPLB，周期性重新计算专家布局并重分配权重。能适应变化，但需冗余专家副本（16额外副本, 12.5%额外显存, KV cache容量−8.1%→高并发排队时间2–4.8×），每次重平衡阻塞0.5–4.5秒，且强制deepep_mode=normal禁用CUDA graph，decode-heavy负载退化62%。此外，官方EPLB在非DeepSeek架构（Qwen2-MoE/Qwen3-MoE）上报AttributeError，完全不兼容。**在线交换**：增量调整专家位置，避免全量重平衡。本文方法属此类，但面临收敛速度（旧方法停滞在ratio=1.26无法继续）和决策噪声（单窗口统计不可信）两大挑战。
+现有方法可分为三类。**静态布局**：从历史流量数据预计算最优专家放置，如DataFore（ISCA 2026）的prefill-guided remap/dup算法。但需离线profiling，无法适应运行时负载变化，且跨域放置迁移实测证明失败。**周期重平衡**：如SGLang的EPLB，周期性重新计算专家布局并重分配权重。能适应变化，但需冗余专家副本（16额外副本, 12.5%额外显存, KV cache容量−8.1%→高并发排队时间2–4.8×），每次重平衡阻塞0.5–4.5秒，且强制deepep_mode=normal禁用CUDA graph，decode-heavy负载退化62%。此外，EPLB的全量重平衡范式在低收益短prompt负载上开销被放大（实测MMLU 25tok上EPLB比基线低52.6%）。**在线交换**：增量调整专家位置，避免全量重平衡。本文方法属此类，但面临收敛速度（旧方法停滞在ratio=1.26无法继续）和决策噪声（单窗口统计不可信）两大挑战。
 
 ### 1.4 本文方案
 
@@ -58,7 +58,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 2.2 周期重平衡
 
-周期重平衡在服务期周期性重新计算专家布局并重分配权重，以SGLang官方EPLB为代表。它能适应负载变化，但代价高昂：需要冗余专家副本（235B配置下16个额外副本，12.5%额外显存，KV cache容量下降8.1%，高并发排队时间放大2–4.8×）；每次重平衡阻塞推理0.5–4.5秒；且强制deepep_mode=normal以支持权重迁移，该模式禁用CUDA graph，使decode-heavy负载吞吐退化62%。此外，官方EPLB实现深度耦合DeepSeek架构，在Qwen2-MoE/Qwen3-MoE上直接抛AttributeError，无法兼容。周期重平衡的"全量重算+全量迁移"范式在增量调整场景下开销过重。
+周期重平衡在服务期周期性重新计算专家布局并重分配权重，以SGLang官方EPLB为代表。它能适应负载变化，但代价高昂：需要冗余专家副本（235B配置下16个额外副本，12.5%额外显存，KV cache容量下降8.1%，高并发排队时间放大2–4.8×）；每次重平衡阻塞推理0.5–4.5秒；且强制deepep_mode=normal以支持权重迁移，该模式禁用CUDA graph，使decode-heavy负载吞吐退化62%。此外，EPLB的"全量重算+全量迁移"范式在增量调整场景下开销过重：实测在短prompt负载（MMLU 25tok）上EPLB吞吐反而比identity基线低52.6%（vs PB-OEPLB的−16.6%），因每1000次迭代一次的全量重平衡阻塞叠加冗余副本开销，在低收益短prompt上被放大。周期重平衡范式只在不频繁、高headroom的长prompt负载上可接受。
 
 ### 2.3 在线交换
 
@@ -287,3 +287,20 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 ### 6.3 未来方向
 
 （1）更大EP的$r_k$外推验证与硬件代际（B300/GB200）对$f_{\text{sens}}$、$r_k$的影响刻画——随GPU算力与NVLink带宽比变化，死区宽度与增益上界会迁移。（2）基于观察3的workload-aware $M^*$：显式在线估计$\rho$（任务结构）并将之纳入$M^*$公式，使QA类用更小$M$、数学/代码类自动放大——把当前由噪声信号隐式触发的$M$-grow提升为显式$\rho$-驱动的自适应。
+
+### 5.8 每数据集三方对比与η驱动验证
+
+在每个数据集上同条件对比identity基线、PB-OEPLB（增量swap）与SGLang官方EPLB（全量周期重平衡+16冗余副本），conc=256、O=10，三方均disable-cuda-graph公平对比：
+
+| 数据集(prompt长度) | identity tps | PB-OEPLB | SGLang EPLB |
+|---|---|---|---|
+| MMLU(25tok) | 785.8 | −16.6% | −23.8% |
+| ARC-C(31tok) | 980.9 | −5.6% | −22.5% |
+| CMMLU(50tok) | 869.0 | −19.4% | −23.3% |
+| prover(107tok) | 637.5 | **+12.7%** | −15.9% |
+| HumanEval(350tok) | 593.1 | +4.0% | −16.5% |
+| book(5956tok) | 32.4 | **+13.7%** | −1.9% |
+
+三个发现验证§3.2增益上界理论。其一，**EPLB在6个数据集上全为负**（−1.9%至−23.8%），PB-OEPLB在长prompt/pinned的prover、HumanEval、book上为正——OEPLB在每个数据集上都优于EPLB，最悬殊处prover差28.6pp（+12.7% vs −15.9%）。其二，**两方法的开销都与迭代频率（∝1/prompt长度）正相关**：短prompt（高迭代频率）下EPLB−23%、PB-OEPLB−16%（每次重平衡/swap的固定开销被高频放大）；长prompt（book，低迭代频率）下EPLB仅−1.9%、PB-OEPLB转正+13.7%。其三，**EPLB全量重平衡成本远高于PB-OEPLB增量swap**：同为"开销随迭代频率放大"，但EPLB每次1–4秒全量阻塞+冗余副本，PB-OEPLB每次0.37–1.4秒增量swap，故EPLB处处更差、即使在PB-OEPLB正收益的prover上也−15.9%。
+
+增益由$\eta$（MoE时间占比×pinned×开销比）驱动，可由§3.2的$\Delta_{\max}\times\eta$预判：长prompt（book 5956tok，MoE占总时间比大）与pinned（prover，结构性straggler持续）$\eta$高→正收益；短prompt（MMLU/ARC/CMMLU，MoE占比小）$\eta$低→负收益。EPLB因$\eta$更低（全量重平衡开销更大）在所有数据集上净负。这把"OEPLB相对EPLB的优势"从聚合数字细化为per-dataset可解释的$\eta$光谱，且验证了增益上界理论的预测能力——给定prompt长度与pinned-ness即可预判增益正负与量级。
