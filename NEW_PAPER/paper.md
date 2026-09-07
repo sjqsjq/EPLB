@@ -14,6 +14,10 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 负载不均衡在真实服务中有多严重？本文在Qwen3-235B-A22B（94 MoE层, 128专家, EP=8, 16专家/卡）上实测发现：默认连续放置（identity）下，逐层max/min负载比均值2.26–4.38×，最极端层达11.79×（Fig 1）。逐forward粒度下ratio更高（median 3.7–6.4×，是聚合值的1.5–1.7倍），说明MoE每个forward实际经历的straggler比聚合数字显示的更严重（Fig 1b/13）。更关键的是，不同数据集的热点GPU完全不同（MMLU=GPU4, prover=GPU5, book=GPU0），跨域路由Spearman相关系数近乎为零（ρ≈0, Fig 4）——为数据集A优化的静态放置对数据集B不仅不是最优，甚至比默认放置更差（MMLU最优放置→prover后ratio=3.67 > identity 3.51, Fig 9）。静态放置在域切换负载下必然失败，负载均衡必须是动态的。
 
+![Fig 1 逐层负载不均衡度（identity 2.26–4.38×，最极端层11.79×）](figures/fig1_imbalance_ratio_per_layer.png)
+
+![Fig 4 跨域路由相似度矩阵（ρ≈0，不同域激活不同专家簇）](figures/fig4_cross_domain_similarity.png)
+
 ### 1.3 相关工作
 
 现有方法可分为三类。**静态布局**：从历史流量数据预计算最优专家放置，如DataFore（ISCA 2026）的prefill-guided remap/dup算法。但需离线profiling，无法适应运行时负载变化，且跨域放置迁移实测证明失败。**周期重平衡**：如SGLang的EPLB，周期性重新计算专家布局并重分配权重。能适应变化，但需冗余专家副本（16额外副本, 12.5%额外显存, KV cache容量−8.1%→高并发排队时间2–4.8×），每次重平衡阻塞0.5–4.5秒，且强制deepep_mode=normal禁用CUDA graph，decode-heavy负载退化62%。此外，官方EPLB在非DeepSeek架构（Qwen2-MoE/Qwen3-MoE）上报AttributeError，完全不兼容。**在线交换**：增量调整专家位置，避免全量重平衡。本文方法属此类，但面临收敛速度（旧方法停滞在ratio=1.26无法继续）和决策噪声（单窗口统计不可信）两大挑战。
@@ -89,6 +93,12 @@ $$T(r)=T_{\text{flat}}+B\cdot\max(0,\,r-r_k)$$
 
 $r_k$由EP幂律决定：$r_k-1=0.00408\cdot\text{EP}^{1.52}$，从4个配置标定（EP4→$r_k$=1.034，EP8→$r_k$=1.096），跨模型盲测误差+0.4%（Fig K）。死区宽度随EP增长（EP4窄区间[1.02,1.034]，EP8宽区间[1.02,1.096]），因此同一默认阈值在不同EP上的合理性截然不同。这一发现改变了均衡器的核心设计问题：不是"如何把$r$降到最低"，而是"降到$r_k$后何时停止"。实测量化（Fig J）：第1次swap覆盖全部有用距离，后续\#2–\#21（占59% ops）落在死区内零收益。含义是均衡器的停止条件应是$r_k$（从EP幂律自动算）而非硬编码1.02，在$r_k$处停止可省掉59%的无用swap开销。
 
+![Fig I T(r)铰链曲线（R²=0.998，r≤r_k时T不变）](figures/figI_hinge_curve.png)
+
+![Fig K r_k幂律（r_k−1=0.00408·EP^1.52，跨模型盲测+0.4%）](figures/figK_rk_powerlaw.png)
+
+![Fig J 边际swap收益（第1次100%有用，#2-#21零收益）](figures/figJ_marginal_swap.png)
+
 ### 3.2 增益有上界：特定模型与数据集的收益受$\Delta_{\max}$限制
 
 一次重平衡的吞吐增益有理论上界$\Delta_{\max}$，由$r$敏感时间占比$f_{\text{sens}}$与有效可消除比例$x_{\text{eff}}$共同决定，系统效率$\eta$决定实得。由死区模型直接推导：
@@ -99,15 +109,25 @@ $$\frac{T(r_{\text{before}})}{T(r_{\text{after}})}-1=\frac{B\cdot(r_{\text{befor
 
 实际增益$\Delta=\Delta_{\max}\cdot\eta$，其中$\eta$由swap开销与bound决定。跨3模型验证（Fig H）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0，因30B死区极窄（$r_k$=1.031），swap几乎全部落在死区内，零收益但开销照付（Fig L）。关于硬件：$f_{\text{sens}}$与$r_k$均与硬件相关（GPU算力提升→GEMM变快→$f_{\text{sens}}$下降；NVLink带宽提升→overlap增大→$r_k$上升），但EP幂律使$r_k$可预测，无需逐配置扫描。这一观察把"OEPLB是否有效"从"试一下才知道"变为"算$\Delta_{\max}$与$\eta$即可预判"。
 
+![Fig H 跨模型Δ_max vs实际收益（η决定实得）](figures/figH_cross_model_efficiency.png)
+
+![Fig L 30B案例（Δ_max正但η≈0，死区极窄swap全在死区）](figures/figL_cross_model_validation.png)
+
 ### 3.3 prefill→decode的专家热度秩相关由任务结构决定
 
 prefill与decode阶段的专家选择频率直方图之间存在强的**秩相关**（Spearman $\rho$）——即prefill阶段的热点专家排序在decode阶段大体保留；该相关的强弱由任务结构而非prompt长度决定，系统据此采取三项措施适应不同数据集。
 
 **相关性的具体定义**：对同一批请求分别录制prefill与decode的（94层×128专家）选择频率矩阵，逐层计算两阶段128专家频率的Spearman $\rho$。$\rho$高表示专家热度排序prefill→decode保留，prefill录制足以定位decode的straggler专家；$\rho$低表示排序漂移、prefill预测变弱。
 
-**实测**（7个域特定短prompt数据集：MMLU 25tok多学科QA、ARC/ARC-E 31tok科学、CSQA 20tok常识、OBQA 15tok科学、GSM8K 60tok数学应用、prover 107tok数学证明；conc=256、O=10；Fig 5/14）：QA/推理类（MMLU/ARC/CSQA/OBQA）$\rho$=0.78–0.85、94/94层强（$\ge0.7$）；数学类（GSM8K/prover）$\rho$=0.44–0.69、0–37/94层强。任务结构显著强于prompt长度——OBQA 15tok的$\rho$=0.78反高于prover 107tok的$\rho$=0.44（Fig 8）：QA类问题→答案的路由映射强且稳定，数学类题目→推导步骤的路由会偏离题目本身。时间衰减使prefill对early decode预测最好：$\rho$从early decode的0.62降至late decode的0.47（−24%），因decode越深路由分布漂移越大。
+**实测**（9个域特定数据集覆盖4种任务类型；conc=256、O=10；Fig 5/14）：English QA/推理类（MMLU 25tok、ARC 31tok、CSQA 20tok、OBQA 15tok）$\rho$=0.78–0.85、88–94/94层强（$\ge0.7$）；中文多语言QA（CMMLU）$\rho$=0.616、27/94层强——任务结构仍主导但跨语言增加路由漂移；数学类（GSM8K 60tok、prover 107tok）$\rho$=0.44–0.69、0–37/94层强；代码类（HumanEval）$\rho$=0.485、0/94层强。**任务结构显著强于prompt长度**——OBQA 15tok的$\rho$=0.78反高于prover 107tok的$\rho$=0.44；**亦强于语言**——代码（0.485）与数学（0.443）同属弱相关簇，因推导/生成步骤的路由偏离提示本身，结构化QA则跨语言仍强（English 0.85、中文 0.616）。时间衰减使prefill对early decode预测最好：$\rho$从early decode的0.62降至late decode的0.47（−24%），因decode越深路由分布漂移越大。
 
 **针对不同相关性的适应措施**：（1）**仅prefill录制**——$\rho$高时prefill频率是decode分布的充分统计量（per-expert频率的max/mean结构一致，仅总token数不同），decode走CUDA graph零开销跳过记录，既省开销又避开decode录制对CUDA graph的破坏。该设计依据是$\rho$在prefill→decode边界最强、随decode深度衰减（0.62→0.47），故prefill是即将到来decode的最优预测，且指数衰减累积器天然给近期prefill更高权重、对齐此边界衰减特性。（2）**低$\rho$负载的$M$放大**——数学类$\rho$低→prefill信号弱+单窗抽样噪声大（$c/\sqrt{N}$），自适应窗口在噪声/不稳定信号触发时grow $W$（等效$M=W/(1-\alpha)$增大）以聚合更多prefill数据降偏差。需说明：$\rho$是离线测量的设计依据属性，系统不在线测$\rho$；在线适应由cos_sim/ratio噪声信号驱动，其有效性由$\rho$的离线测量保证。
+
+![Fig 5 MMLU逐层prefill→decode Spearman ρ（94/94层强）](figures/fig5_prefill_decode_rho_mmlu.png)
+
+![Fig 14 9数据集PD相关性（English QA/science强0.78-0.85、中文多语言0.616、数学0.44-0.69、代码0.485；任务结构主导）](figures/fig14_9dataset_pd_correlation.png)
+
+![Fig 8 ρ vs prompt长度（任务结构>>长度）](figures/fig8_length_dependence.png)
 
 ### 3.4 跨数据集负载参数的异质性：固定配置必然偏离，需adaptive
 
@@ -121,6 +141,10 @@ $$M^*=\sqrt{\frac{a\cdot c^2\cdot L_{\text{seg}}}{b\cdot\beta\cdot\bar{t}\cdot\g
 
 方向预测$M^*\propto\sqrt{L_{\text{seg}}}$、$M^*\propto(r-r_k)^{-3/2}$（已被d31+d34验证），$c=0.65\cdot$EP（标定），$\bar{t}/r/r_k/L_{\text{seg}}$均可在线测。因$(r,L_{\text{seg}},\bar{t})$跨workload异质变化，$M^*$必跨workload变化，固定$(W,\alpha)$必在部分workload上偏离$M^*$。实测同$M$=128不同$(W,\alpha)$吞吐吻合4.8%，印证$M$是近似充分统计量。这一观察把"需要adaptive"从工程经验提升为可计算命题：adaptive不是启发式补丁，而是追踪随workload异质变化的$M^*$目标，运行时以grow/shrink $W$与变点$\alpha\to0$清零作为$M^*$的离散近似（类比Adam追踪最优学习率）；同session实测adaptive（+9.7%）超过固定$\alpha$=0.9（+6.4%）（swap 104 vs 56但吞吐反高，说明陈旧性损害大于开销节省），零调参adaptive已优于任何固定配置。
 
+![Fig 9 跨域放置迁移矩阵（MMLU最优→prover ratio 3.67劣于identity 3.51）](figures/fig9_cross_domain_transfer.png)
+
+![Fig 12c 9数据集热点GPU时间线（pinned vs volatile两原型）](figures/fig12c_9dataset_hot_gpu.png)
+
 ## 4 PB-OEPLB框架
 
 ### 4.1 概述
@@ -128,6 +152,8 @@ $$M^*=\sqrt{\frac{a\cdot c^2\cdot L_{\text{seg}}}{b\cdot\beta\cdot\bar{t}\cdot\g
 PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构图）：路由录制器在每个forward将top-k专家选择按物理槽位scatter\_add进本地计数器（零通信）；控制器按sync\_window周期做决策状态机；重平衡器贪心构建成对swap计划；异步执行器在rank间batch\_isend\_irecv移动权重；physical\_to\_logical\_map是全局共享的路由表，swap后更新并回推模型。三个挑战与三个观察一一对应：何时停止swap由死区回答（§3.1）；决策频率与记忆长度如何自适应由$M$统一与$M^*$闭式回答（§3.4）；prefill-only录制何时充分由PD任务结构相关性回答（§3.3）。
 
 主循环（每sync\_window个forward执行一次，无跨rank共识——forward本身DP+EP隐式同步）：（1）force-finish上一轮pending的P2P（防NCCL跨流序号死锁）；（2）all\_reduce self.load的**克隆**（非原地，防每窗$\sim$num\_ranks×decay的累积膨胀）；（3）算不均衡度$r$、变点检测、threshold判断、构建swap计划；（4）同步P2P执行swap，更新路由表与衰减历史。本节按三个机制展开：§4.2死区感知停止、§4.3自适应窗口、§4.4仅prefill录制，§4.5给出算法流程与复杂度。
+
+![Fig 架构图 PB-OEPLB五组件与四观察标注](figures/system_architecture.png)
 
 ### 4.2 死区感知的swap停止策略
 
@@ -138,3 +164,25 @@ $$r_k = 1 + 0.00408\cdot\text{EP}^{1.52}$$
 （EP8→$r_k$=1.096），触发阈值取$\max(1.02, r_k)$，当$r\le r_k$时停止swap、仅保留录制与all\_reduce（0.62%开销），不再执行零收益的P2P。这直接消除§3.1 Fig J量化的浪费——第1次swap已覆盖全部有用距离，后续\#2–\#21（占59% ops）落在死区内零收益却照付3.42%的swap开销；启用死区感知后这些决策被阻止，有用决策从21次降至1次。
 
 死区感知需配合两个稳定性修复才能净增益。其一是RESET冷却（cooldown=3）：域切换触发load.zero\_()清零历史后，跳过随后3窗的adaptive-window收缩，防止清零→小窗→噪声swap→再次跳变→再清零的振荡。其二是切换确认窗数（window\_shift\_confirm=2）：要求连续2窗低cos\_sim才确认域切换、收缩窗口，滤除单窗抖动。三者合用把一个前期实现中adaptive的−6%净收益翻正为+9.0%（构造A，同session对identity基线）；缺一则回到−6%。
+
+### 4.3 自适应窗口与衰减
+
+自适应窗口的理论依据是§3.4的$M=W/(1-\alpha)$统一：$W$与$\alpha$不独立，运行时通过伸缩$W$作为$M^*$闭式的离散近似追踪目标，变点时$\alpha\to0$一步清零旧域历史把响应延迟从$M\ln2$降至0。控制器有两条反馈信号路径：其一是ratio-delta，比值跳变$>0.03$判定为变点→收缩$W$至floor 8、$\alpha\to0$清零；连续3窗$\Delta r<0.003$判定收敛→倍增$W$（cap 128）；3窗振荡→倍增$W$求稳。其二是cos\_sim，连续2窗$<0.85$确认域切换→收缩，连续2窗$>0.95$确认稳定→扩张。两路信号互补——ratio-delta对幅度敏感、cos\_sim对分布漂移敏感。
+
+设计节奏为：域切换→shrink $W$并清零历史→用新域数据快速定位热点→一次决定性swap→$r\le r_k$时停止（§4.2）→收敛后grow $W$降低决策频率与all\_reduce开销。实测（Fig 15）在线运行97次决策，域切换处ratio从1.35–1.72 spike、swap后稳态回落至1.01–1.05；逐域收敛（Fig 16）首决策降幅最大（−24%至−33%）；逐域对比（Fig 17b）prover从identity的$1.166\pm0.006$（热点永远固定GPU5、entropy=0）降至$1.006\pm0.002$（entropy=2.82），−14%为所有域最大。同session实测adaptive（+9.7%）超过固定$\alpha=0.9$（+6.4%），swap 104 vs 56但吞吐反高，说明零调参adaptive已优于任何固定衰减——$\alpha=0.9$的少swap省下的开销抵不过其陈旧性对放置质量的损害。
+
+![Fig 15 OEPLB在线运行swap决策时间线（97次决策，域切换spike→稳态）](figures/fig15_oeplb_real_timeline.png)
+
+![Fig 16 逐域OEPLB收敛（首决策降幅-24%~-33%）](figures/fig16_per_domain_convergence.png)
+
+![Fig 17b 逐域identity vs OEPLB per-forward ratio（prover -14%）](figures/fig17b_identity_vs_oeplb_per_domain.png)
+
+### 4.4 仅prefill阶段录制路由
+
+仅prefill阶段录制路由、decode阶段跳过，是PB-OEPLB相对EPLB（prefill+decode统一录制）的关键差异化。控制器在on\_forward\_end判定forward模式：仅is\_extend（prefill）时置`_should_record=True`（按sample\_interval采样），is\_decode与idle时置False；且在CUDA graph捕获态（`torch.cuda.is_current_stream_capturing()`）直接返回，使decode走CUDA graph零开销、且不破坏graph。充分性由§3.3保证：$\rho$高时prefill频率是decode分布的充分统计量（per-expert频率的max/mean结构一致，仅总token数不同），故省去decode录制不损失放置信息；$\rho$低（数学类）时prefill信号弱，由§4.3的$M$放大补偿抽样噪声。边界情形：域切换时prefill对decode的预测短暂失效，由变点清零+收缩窗口用新域prefill覆盖旧域残留处理。
+
+热路径实现上，`record_next_layer`直接对top-k物理槽id做一次`scatter_add_`进`self.load[layer]`，零通信、零per-call物理↔逻辑转换——旧实现的bincount+gather每次调用需5–6个独立kernel launch、800–1000μs，比它要摊薄的all\_reduce本身还贵5–6倍。物理↔逻辑转换只在每个sync\_window做一次向量化批处理。
+
+### 4.5 算法流程与复杂度
+
+主循环每sync\_window个forward执行一次（算法流程图见Fig）。步骤与复杂度：（1）force-finish上一轮pending P2P，$O(\text{ops})$阻塞；（2）all\_reduce self.load克隆，$O(L\cdot E)=94\times128$ int64约96KB通信量；（3）`try_build_swap_plan`贪心构建，外层至多max\_total\_ops次、每次按负载排序取最高ratio层与成对槽，$O(\text{ops}\cdot E)$；（4）`AsyncSwapExecutor.begin`同步batch\_isend\_irecv，实测9–92 ops约200ms；（5）下一forward的`_try_finish_pending_swap`更新路由表（swap两槽逻辑id）、`fast_init_by_mapping`向量化重建inverse map、并把self.load的衰减历史按swap对换以跟随专家到新槽。`record_next_layer`热路径$O(E)$单kernel scatter\_add。工程上五处关键修复保证正确与稳定：all\_reduce对克隆而非原地（防每窗$\sim$num\_ranks×decay累积膨胀）、force-finish pending再all\_reduce（防NCCL跨流序号死锁）、单批batch\_isend\_irecv不分块（防rank参与不均致序号分歧死锁）、P2P前`empty_cache`（防NCCL raw cudaMalloc在大prefill后失败）、swap后remap衰减历史（防ratio\_before卡在swap前水平）。
