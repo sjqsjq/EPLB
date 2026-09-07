@@ -271,3 +271,19 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 **book（volatile时序性straggler，边际收益）**：热点GPU每~2个forward跳一次（entropy=1.89），无GPU持续过载，ratio本身较低（1.120）。OEPLB优化"平均"放置而非逐forward追热点，获5–7%小正收益——是"volatile不追噪声、grow $W$优化平均"策略的体现。
 
 **30B（增益上界正但死区吞没）**：$\Delta_{\max}$=+6.36%为正，但$r_k$=1.031死区极窄、swap全落死区内、$\eta\approx0$。该案例验证了死区+增益上界联合预判的有效性，也界定了PB-OEPLB的适用边界：当$r_k$接近1.02（低EP或低overlap配置）时，headroom被死区吞没，需从硬件侧（增overlap、降$f_{\text{sens}}$）而非均衡侧解决。
+
+## 6 总结
+
+### 6.1 工作总结
+
+本文从MoE层时间的实验测量出发，发现四个关键观察并据此设计PB-OEPLB在线均衡器。其一，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其二，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其三，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其四，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
+
+基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+17.5%（达oracle 97.6%），相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
+
+### 6.2 不足
+
+（1）$M^*$的精确数值未定标：长benchmark上$M$无内点峰值、短benchmark太噪，闭式仅方向预测（$\propto\sqrt{L_{\text{seg}}}$）被验证但绝对值待标定。（2）小模型$\eta$噪声大：30B为$n$=1、CV 5–9%，"有潜力但$\eta\approx0$"的结论需更多样本。（3）未在$>$8 GPU（EP$\ge$16）测试，$r_k$幂律在大EP外推的不确定度增大。
+
+### 6.3 未来方向
+
+（1）更大EP的$r_k$外推验证与硬件代际（B300/GB200）对$f_{\text{sens}}$、$r_k$的影响刻画——随GPU算力与NVLink带宽比变化，死区宽度与增益上界会迁移。（2）基于观察3的workload-aware $M^*$：显式在线估计$\rho$（任务结构）并将之纳入$M^*$公式，使QA类用更小$M$、数学/代码类自动放大——把当前由噪声信号隐式触发的$M$-grow提升为显式$\rho$-驱动的自适应。
