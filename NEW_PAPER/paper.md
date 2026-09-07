@@ -186,3 +186,42 @@ $$r_k = 1 + 0.00408\cdot\text{EP}^{1.52}$$
 ### 4.5 算法流程与复杂度
 
 主循环每sync\_window个forward执行一次（算法流程图见Fig）。步骤与复杂度：（1）force-finish上一轮pending P2P，$O(\text{ops})$阻塞；（2）all\_reduce self.load克隆，$O(L\cdot E)=94\times128$ int64约96KB通信量；（3）`try_build_swap_plan`贪心构建，外层至多max\_total\_ops次、每次按负载排序取最高ratio层与成对槽，$O(\text{ops}\cdot E)$；（4）`AsyncSwapExecutor.begin`同步batch\_isend\_irecv，实测9–92 ops约200ms；（5）下一forward的`_try_finish_pending_swap`更新路由表（swap两槽逻辑id）、`fast_init_by_mapping`向量化重建inverse map、并把self.load的衰减历史按swap对换以跟随专家到新槽。`record_next_layer`热路径$O(E)$单kernel scatter\_add。工程上五处关键修复保证正确与稳定：all\_reduce对克隆而非原地（防每窗$\sim$num\_ranks×decay累积膨胀）、force-finish pending再all\_reduce（防NCCL跨流序号死锁）、单批batch\_isend\_irecv不分块（防rank参与不均致序号分歧死锁）、P2P前`empty_cache`（防NCCL raw cudaMalloc在大prefill后失败）、swap后remap衰减历史（防ratio\_before卡在swap前水平）。
+
+## 5 实验评估
+
+### 5.1 实验配置
+
+**硬件与模型**。8×NVIDIA H20（每卡96GB），NVLink互联。服务Qwen3-235B-A22B-FP8：94个MoE层、128个路由专家、top-8路由，TP=DP=EP=8（每卡16专家），DeepEP all-to-all + DeepGEMM FP8，bfloat16。软件栈：SGLang 0.5.6.post2 + PB-OEPLB patch（6文件1949行）、DeepEP v1.2.1、DeepGEMM、torch 2.9.1+cu128。
+
+**数据集**。两个层面：单域短prompt用于PD相关性与单域收敛分析（9个域特定数据集：MMLU多学科QA、ARC/ARC-E科学、CSQA常识、OBQA科学、GSM8K数学、prover数学证明、HumanEval代码、CMMLU中文QA——覆盖English QA/科学、多语言、数学、代码四类任务结构）；多域拼接用于在线均衡评估（crossdomain\_freq6：6段book↔prover频繁切换、4438tok、conc=32；crossdomain\_universal\_16k：4域、1000tok、conc=256）。
+
+**对比基准**。identity（默认连续放置）、SGLang EPLB（冗余+周期重平衡）、Frozen-EPLB（离线预计算布局冻结）、oracle（LPT贪心最优放置，离线上界）。**评估指标**。吞吐（output tokens/s）、per-forward不均衡度ratio、swap阻塞时间与开销占比、增益效率$\eta$=实得/$\Delta_{\max}$。
+
+### 5.2 主结果
+
+PB-OEPLB在prefill密集负载上把吞吐从identity的基线提升+17.5%（n=2，CV 0.7%），达到oracle布局的97.6%，相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%）。放置谱系（Fig A）从最差放置→identity→EPLB→PB-OEPLB→oracle逐级收敛：PB-OEPLB单次收敛即覆盖最优距离的97.6%，无需冗余专家。收敛行为（Fig B）上，朴素的max-delta贪心在不均衡度1.26处停滞（单方向移动导致冷GPU变新热GPU的过冲），而本文的gap-targeting双模式配对选择在3个决策窗口内将ratio降至1.02——小gap时选delta≈gap/2而非max-delta避免过冲。
+
+稳态每次调整阻塞0.37秒（EPLB 1.55秒，4×降低），因PB-OEPLB是增量swap而非EPLB的全量重平衡。在多域漂移负载（crossdomain\_freq6，6段频繁切换）上+9.76%，超过为单域优化的静态最优布局的+5.80%——验证§3.4的论断：跨域参数异质使静态配置必然偏离，动态adaptive是必要的。同session对比adaptive vs 固定$\alpha$=0.9（构造A，conc=32）：adaptive +9.7%超过固定$\alpha$=0.9 +6.4%（swap 104 vs 56但吞吐反高），印证§3.4的零调参adaptive优于任何固定衰减。
+
+![Fig A 放置谱系（Worst→Identity→EPLB→PB-OEPLB→Oracle）](figures/figA_placement_spectrum.png)
+
+![Fig B ratio收敛（max-delta停滞1.26 vs gap-targeting 3窗到1.02）](figures/figB_ratio_convergence.png)
+
+### 4.6 面向不同数据集的自适应机制汇总
+
+PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特征隐式响应，等效于按数据集参数自动调参。需先厘清收益来源与录制充分性是两条独立链路：**收益大小由$r_{\text{before}}$与是否pinned决定**（死区与增益上界，§3.1–3.2），**录制是否充分由$\rho$决定**（PD任务结构，§3.3）。低$\rho$数据集（如prover $\rho$=0.44）仍可获最大收益（−14%），因其pinned热点专家在prefill与decode中都热——$\rho$低只意味平均排序漂移，最热的pinned专家仍被prefill定位。
+
+四组措施按数据集特征自动触发：
+
+| 数据集特征 | 信号 | 系统措施 | 效果 |
+|---|---|---|---|
+| $\rho$高（QA/科学） | prefill→decode强相关 | 仅prefill录制（decode走CUDA graph零开销） | 录制充分、开销省 |
+| $\rho$低（数学/代码） | prefill信号弱+抽样噪声 | $M$放大（bias-gate触发grow $W$聚合更多prefill） | 降偏差，平均放置仍准 |
+| $r>r_k$ | imbalance大、$\Delta_{\max}$大 | 正常swap | 拿到大收益 |
+| $r\le r_k$ | 死区内 | auto-dead-zone停止swap | 不做零收益开销（省59% ops） |
+| pinned（低entropy） | 结构性straggler | swap一次修复 | 最大收益（prover −14%） |
+| volatile（高entropy） | 时序性straggler | grow $W$不追噪声、优化平均 | 小正收益、不亏损 |
+| 短$L_{\text{seg}}$（频繁切换） | cos\_sim降 | shrink $W$+$\alpha\to0$清零 | 快速重放置 |
+| 长$L_{\text{seg}}$（稳定） | cos\_sim高 | grow $W$ | 降决策开销 |
+
+机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.1死区、§3.3 PD相关性、§3.4异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
