@@ -89,3 +89,13 @@
 GUIDE_EOF
 echo "written: $(wc -l < /workspace/EPLB/NEW_PAPER/figures/FIGURES_GUIDE.md) lines"
 echo "=== also check patch-ON experiment progress ==="; cat /workspace/logs/run_patch_ab_on.runlog 2>/dev/null | tail -3; date +%T
+## trace/数据归集
+
+所有图的原始 trace 与数据已归集到 `/data/minghua/sjq/paperpicturetrace/`,按图组分 7 个子文件夹,每个含 README 标注图号/数据源/复现路径:
+- fig1_2_3_4_7_9_13_motivation_crossdomain/(counts json)
+- fig5_6_8_14_PD_correlation/(9 数据集 rt2 trace npz + ρ json)
+- fig12_12b_12c_12d_hotgpu_pinned_volatile/(prover rank0 + README,余与上共享)
+- fig15_15b_16_17_17b_oeplb_online/(OEPLB 在线 trace + server log DIAG/ADW/TIMING)
+- figA_B_C_D_E_placement_overhead_eplb/(结果 json + server log)
+- figG_H_I_J_K_L_bound_theory/(counts json + bound_curve.py)
+- figF_F2_M_N_ablation/(α sweep 结果 json)
