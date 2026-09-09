@@ -187,6 +187,26 @@ $$r_k = 1 + 0.00408\cdot\text{EP}^{1.52}$$
 
 主循环每sync\_window个forward执行一次（算法流程图见Fig）。步骤与复杂度：（1）force-finish上一轮pending P2P，$O(\text{ops})$阻塞；（2）all\_reduce self.load克隆，$O(L\cdot E)=94\times128$ int64约96KB通信量；（3）`try_build_swap_plan`贪心构建，外层至多max\_total\_ops次、每次按负载排序取最高ratio层与成对槽，$O(\text{ops}\cdot E)$；（4）`AsyncSwapExecutor.begin`同步batch\_isend\_irecv，实测9–92 ops约200ms；（5）下一forward的`_try_finish_pending_swap`更新路由表（swap两槽逻辑id）、`fast_init_by_mapping`向量化重建inverse map、并把self.load的衰减历史按swap对换以跟随专家到新槽。`record_next_layer`热路径$O(E)$单kernel scatter\_add。工程上五处关键修复保证正确与稳定：all\_reduce对克隆而非原地（防每窗$\sim$num\_ranks×decay累积膨胀）、force-finish pending再all\_reduce（防NCCL跨流序号死锁）、单批batch\_isend\_irecv不分块（防rank参与不均致序号分歧死锁）、P2P前`empty_cache`（防NCCL raw cudaMalloc在大prefill后失败）、swap后remap衰减历史（防ratio\_before卡在swap前水平）。
 
+### 4.6 面向不同数据集的自适应机制汇总
+
+PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特征隐式响应，等效于按数据集参数自动调参。需先厘清收益来源与录制充分性是两条独立链路：**收益大小由$r_{\text{before}}$与是否pinned决定**（死区与增益上界，§3.1–3.2），**录制是否充分由$\rho$决定**（PD任务结构，§3.3）。低$\rho$数据集（如prover $\rho$=0.44）仍可获最大收益（−14%），因其pinned热点专家在prefill与decode中都热——$\rho$低只意味平均排序漂移，最热的pinned专家仍被prefill定位。
+
+四组措施按数据集特征自动触发：
+
+| 数据集特征 | 信号 | 系统措施 | 效果 |
+|---|---|---|---|
+| $\rho$高（QA/科学） | prefill→decode强相关 | 仅prefill录制（decode走CUDA graph零开销） | 录制充分、开销省 |
+| $\rho$低（数学/代码） | prefill信号弱+抽样噪声 | $M$放大（bias-gate触发grow $W$聚合更多prefill） | 降偏差，平均放置仍准 |
+| $r>r_k$ | imbalance大、$\Delta_{\max}$大 | 正常swap | 拿到大收益 |
+| $r\le r_k$ | 死区内 | auto-dead-zone停止swap | 不做零收益开销（省59% ops） |
+| pinned（低entropy） | 结构性straggler | swap一次修复 | 最大收益（prover −14%） |
+| volatile（高entropy） | 时序性straggler | grow $W$不追噪声、优化平均 | 小正收益、不亏损 |
+| 短$L_{\text{seg}}$（频繁切换） | cos\_sim降 | shrink $W$+$\alpha\to0$清零 | 快速重放置 |
+| 长$L_{\text{seg}}$（稳定） | cos\_sim高 | grow $W$ | 降决策开销 |
+
+机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.1死区、§3.3 PD相关性、§3.4异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
+
+
 ## 5 实验评估
 
 ### 5.1 实验配置
@@ -206,25 +226,6 @@ PB-OEPLB在prefill密集负载上把吞吐从identity的基线提升+17.5%（n=2
 ![Fig A 放置谱系（Worst→Identity→EPLB→PB-OEPLB→Oracle）](figures/figA_placement_spectrum.png)
 
 ![Fig B ratio收敛（max-delta停滞1.26 vs gap-targeting 3窗到1.02）](figures/figB_ratio_convergence.png)
-
-### 4.6 面向不同数据集的自适应机制汇总
-
-PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特征隐式响应，等效于按数据集参数自动调参。需先厘清收益来源与录制充分性是两条独立链路：**收益大小由$r_{\text{before}}$与是否pinned决定**（死区与增益上界，§3.1–3.2），**录制是否充分由$\rho$决定**（PD任务结构，§3.3）。低$\rho$数据集（如prover $\rho$=0.44）仍可获最大收益（−14%），因其pinned热点专家在prefill与decode中都热——$\rho$低只意味平均排序漂移，最热的pinned专家仍被prefill定位。
-
-四组措施按数据集特征自动触发：
-
-| 数据集特征 | 信号 | 系统措施 | 效果 |
-|---|---|---|---|
-| $\rho$高（QA/科学） | prefill→decode强相关 | 仅prefill录制（decode走CUDA graph零开销） | 录制充分、开销省 |
-| $\rho$低（数学/代码） | prefill信号弱+抽样噪声 | $M$放大（bias-gate触发grow $W$聚合更多prefill） | 降偏差，平均放置仍准 |
-| $r>r_k$ | imbalance大、$\Delta_{\max}$大 | 正常swap | 拿到大收益 |
-| $r\le r_k$ | 死区内 | auto-dead-zone停止swap | 不做零收益开销（省59% ops） |
-| pinned（低entropy） | 结构性straggler | swap一次修复 | 最大收益（prover −14%） |
-| volatile（高entropy） | 时序性straggler | grow $W$不追噪声、优化平均 | 小正收益、不亏损 |
-| 短$L_{\text{seg}}$（频繁切换） | cos\_sim降 | shrink $W$+$\alpha\to0$清零 | 快速重放置 |
-| 长$L_{\text{seg}}$（稳定） | cos\_sim高 | grow $W$ | 降决策开销 |
-
-机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.1死区、§3.3 PD相关性、§3.4异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
 
 ### 5.3 与EPLB对比
 
@@ -272,22 +273,6 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 **30B（增益上界正但死区吞没）**：$\Delta_{\max}$=+6.36%为正，但$r_k$=1.031死区极窄、swap全落死区内、$\eta\approx0$。该案例验证了死区+增益上界联合预判的有效性，也界定了PB-OEPLB的适用边界：当$r_k$接近1.02（低EP或低overlap配置）时，headroom被死区吞没，需从硬件侧（增overlap、降$f_{\text{sens}}$）而非均衡侧解决。
 
-## 6 总结
-
-### 6.1 工作总结
-
-本文从MoE层时间的实验测量出发，发现四个关键观察并据此设计PB-OEPLB在线均衡器。其一，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其二，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其三，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其四，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
-
-基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+17.5%（达oracle 97.6%），相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
-
-### 6.2 不足
-
-（1）$M^*$的精确数值未定标：长benchmark上$M$无内点峰值、短benchmark太噪，闭式仅方向预测（$\propto\sqrt{L_{\text{seg}}}$）被验证但绝对值待标定。（2）小模型$\eta$噪声大：30B为$n$=1、CV 5–9%，"有潜力但$\eta\approx0$"的结论需更多样本。（3）未在$>$8 GPU（EP$\ge$16）测试，$r_k$幂律在大EP外推的不确定度增大。
-
-### 6.3 未来方向
-
-（1）更大EP的$r_k$外推验证与硬件代际（B300/GB200）对$f_{\text{sens}}$、$r_k$的影响刻画——随GPU算力与NVLink带宽比变化，死区宽度与增益上界会迁移。（2）基于观察3的workload-aware $M^*$：显式在线估计$\rho$（任务结构）并将之纳入$M^*$公式，使QA类用更小$M$、数学/代码类自动放大——把当前由噪声信号隐式触发的$M$-grow提升为显式$\rho$-驱动的自适应。
-
 ### 5.8 每数据集三方对比与η驱动验证
 
 在每个数据集上同条件对比identity基线、PB-OEPLB（增量swap）与SGLang官方EPLB（全量周期重平衡+16冗余副本），conc=256、O=10，三方均disable-cuda-graph公平对比：
@@ -304,3 +289,19 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 三个发现验证§3.2增益上界理论。其一，**EPLB在6个数据集上全为负**（−1.9%至−23.8%），PB-OEPLB在长prompt/pinned的prover、HumanEval、book上为正——OEPLB在每个数据集上都优于EPLB，最悬殊处prover差28.6pp（+12.7% vs −15.9%）。其二，**两方法的开销都与迭代频率（∝1/prompt长度）正相关**：短prompt（高迭代频率）下EPLB−23%、PB-OEPLB−16%（每次重平衡/swap的固定开销被高频放大）；长prompt（book，低迭代频率）下EPLB仅−1.9%、PB-OEPLB转正+13.7%。其三，**EPLB全量重平衡成本远高于PB-OEPLB增量swap**：同为"开销随迭代频率放大"，但EPLB每次1–4秒全量阻塞+冗余副本，PB-OEPLB每次0.37–1.4秒增量swap，故EPLB处处更差、即使在PB-OEPLB正收益的prover上也−15.9%。
 
 增益由$\eta$（MoE时间占比×pinned×开销比）驱动，可由§3.2的$\Delta_{\max}\times\eta$预判：长prompt（MoE占总时间比大）与pinned（结构性straggler持续）$\eta$高→正收益；短prompt（MoE占比小）$\eta$低→负收益。OEPLB在长prompt上的正收益跨多个数据集稳健成立：book（5956tok）+13.7%、medium\_short（3482tok）+14.2%、prover（107tok，pinned）+12.7%、HumanEval（350tok）+4.0%；短prompt（MMLU/ARC/CMMLU）为负。EPLB因$\eta$更低（全量重平衡开销更大）在所有数据集上净负。这把"OEPLB相对EPLB的优势"从聚合数字细化为per-dataset可解释的$\eta$光谱，且验证了增益上界理论的预测能力——给定prompt长度与pinned-ness即可预判增益正负与量级。
+
+## 6 总结
+
+### 6.1 工作总结
+
+本文从MoE层时间的实验测量出发，发现四个关键观察并据此设计PB-OEPLB在线均衡器。其一，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其二，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其三，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其四，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
+
+基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+17.5%（达oracle 97.6%），相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
+
+### 6.2 不足
+
+（1）$M^*$的精确数值未定标：长benchmark上$M$无内点峰值、短benchmark太噪，闭式仅方向预测（$\propto\sqrt{L_{\text{seg}}}$）被验证但绝对值待标定。（2）小模型$\eta$噪声大：30B为$n$=1、CV 5–9%，"有潜力但$\eta\approx0$"的结论需更多样本。（3）未在$>$8 GPU（EP$\ge$16）测试，$r_k$幂律在大EP外推的不确定度增大。
+
+### 6.3 未来方向
+
+（1）更大EP的$r_k$外推验证与硬件代际（B300/GB200）对$f_{\text{sens}}$、$r_k$的影响刻画——随GPU算力与NVLink带宽比变化，死区宽度与增益上界会迁移。（2）基于观察3的workload-aware $M^*$：显式在线估计$\rho$（任务结构）并将之纳入$M^*$公式，使QA类用更小$M$、数学/代码类自动放大——把当前由噪声信号隐式触发的$M$-grow提升为显式$\rho$-驱动的自适应。
