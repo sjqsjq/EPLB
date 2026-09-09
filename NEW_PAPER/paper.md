@@ -2,7 +2,7 @@
 
 ## 摘要
 
-MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜使少数热点专家集中在个别GPU，造成计算瓶颈与尾部延迟，MoE计算浪费50-75%。现有方案如SGLang的EPLB需要冗余专家副本（12.5%额外显存）、重平衡期间阻塞推理1.4–4.5秒、强制关闭CUDA graph导致decode-heavy负载退化62%。本文从MoE层时间的实验测量出发，发现"死区"现象（不均衡度r≤r_k时降低r不产生时间收益，因dispatch/combine与GEMM的重叠吸收了差距），并由此推导增益上界公式Δ_max=f_sens·x_eff/(1−f_sens·x_eff)，表明特定模型与数据集的收益存在上限。基于这两个发现，本文设计PB-OEPLB：死区感知的swap停止策略（从EP幂律自动计算r_k，r≤r_k时停止swap）、自适应窗口（指数衰减累积器A_t=R_t+α·A_{t-1}的有效记忆M=W/(1−α)是偏差-方差权衡的唯一自由度，W与α只通过M影响稳态；变点检测时α瞬时归零一步清空旧域历史使响应延迟从M·ln2降至0，稳态按收敛/振荡动态伸缩决策窗口W跟踪最优点）、仅prefill阶段记录路由（由prefill→decode相关性的任务结构依赖性论证充分性：QA/推理类ρ=0.78–0.85强相关，数学类ρ=0.44–0.69弱相关）三个核心机制。在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），在7个域特定数据集上对比identity基线、EPLB和oracle布局。PB-OEPLB在prefill密集负载上提升吞吐+17.5%，达oracle的97.6%，相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）。
+MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜使少数热点专家集中在个别GPU，造成计算瓶颈与尾部延迟，MoE计算浪费50-75%。现有方案如SGLang的EPLB需要冗余专家副本（12.5%额外显存）、重平衡期间阻塞推理1.4–4.5秒、强制关闭CUDA graph导致decode-heavy负载退化62%。本文从MoE层时间的实验测量出发，发现"死区"现象（不均衡度r≤r_k时降低r不产生时间收益，因dispatch/combine与GEMM的重叠吸收了差距），并由此推导增益上界公式Δ_max=f_sens·x_eff/(1−f_sens·x_eff)，表明特定模型与数据集的收益存在上限。基于这两个发现，本文设计PB-OEPLB：死区感知的swap停止策略（从EP幂律自动计算r_k，r≤r_k时停止swap）、自适应窗口（指数衰减累积器A_t=R_t+α·A_{t-1}的有效记忆M=W/(1−α)是偏差-方差权衡的唯一自由度，W与α只通过M影响稳态；变点检测时α瞬时归零一步清空旧域历史使响应延迟从M·ln2降至0，稳态按收敛/振荡动态伸缩决策窗口W跟踪最优点）、仅prefill阶段记录路由（由prefill→decode相关性的任务结构依赖性论证充分性：QA/推理类ρ=0.78–0.85强相关，数学类ρ=0.44–0.69弱相关）三个核心机制。在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），在9个域特定数据集（覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上三方对比identity、SGLang官方EPLB与oracle。PB-OEPLB在prefill密集负载上+17.5%（达oracle 97.6%）、相比EPLB高15.7pp；per-dataset上OEPLB在每个数据集都优于EPLB，长prompt/pinned负载（book +13.7%、prover +12.7%、medium\_short +14.2%）正收益，EPLB则6/6净负（−1.9%至−23.8%）。稳态每次调整阻塞0.37秒（EPLB的1/4）。
 
 ## 1 引言
 
@@ -46,7 +46,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 1.7 论文组织
 
-本文余下部分组织如下：§2回顾相关工作并给出对比表格；§3呈现4个关键观察（死区、增益上界、PD任务结构依赖、自适应衰减与M统一控制）；§4描述PB-OEPLB框架设计（5个机制）；§5给出实验评估；§6总结全文。
+本文余下部分组织如下：§2回顾相关工作并给出对比表格；§3呈现4个关键观察（死区、增益上界、PD任务结构依赖、自适应衰减与M统一控制）；§4描述PB-OEPLB框架设计（死区感知停止、自适应窗口、仅prefill录制三机制，及算法复杂度与数据集自适应汇总）；§5给出实验评估；§6总结全文。
 
 ## 2 相关工作
 
@@ -305,3 +305,29 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 ### 6.3 未来方向
 
 （1）更大EP的$r_k$外推验证与硬件代际（B300/GB200）对$f_{\text{sens}}$、$r_k$的影响刻画——随GPU算力与NVLink带宽比变化，死区宽度与增益上界会迁移。（2）基于观察3的workload-aware $M^*$：显式在线估计$\rho$（任务结构）并将之纳入$M^*$公式，使QA类用更小$M$、数学/代码类自动放大——把当前由噪声信号隐式触发的$M$-grow提升为显式$\rho$-驱动的自适应。
+
+## 7 参考文献
+
+[1] A. Q. Jiang et al. "Mixture-of-Experts with Expert Choice Routing." *NeurIPS* 2022.
+
+[2] DeepSeek-AI. "DeepSeek-V3 Technical Report." arXiv:2412.19437, 2024.
+
+[3] Qwen Team. "Qwen3 Technical Report." 2025. (Qwen3-235B-A22B, 128 experts, top-8)
+
+[4] Kimi K2 Team. "Kimi K2: A Scalable Mixture-of-Experts Model." 2025.
+
+[5] L. Zheng et al. "SGLang: Synchronous Generation for Large Language Model Serving." arXiv:2312.07104, 2023. (含EPLB专家负载均衡)
+
+[6] DeepEP. "DeepEP: DeepSeek Expert Parallelism Library." https://github.com/deepseek-ai/DeepEP, 2025.
+
+[7] DeepGEMM. "DeepGEMM: FP8 GEMM for MoE." https://github.com/deepseek-ai/DeepGEMM, 2025.
+
+[8] DataFore. "Prefill-Guided Expert Placement for MoE Inference." *ISCA* 2026.
+
+[9] G. M. Amdahl. "Validity of the Single Processor Approach to Achieving Large System Computing Capabilities." *AFIPS*, 1967. (增益上界Amdahl形式)
+
+[10] N. Shazeer et al. "Outrageously Large Neural Networks: The Spatio-Temporally Sparse MoE." *ICLR* 2017.
+
+[11] D. E. Rumelhart, G. E. Hinton, R. J. Williams. "Learning representations by back-propagating errors." *Nature* 1986. (指数衰减累积器 / 有效记忆 M=W/(1-α))
+
+[12] J. Duchi, E. Hazan, Y. Singer. "Adaptive Subgradient Methods." *JMLR* 2011. (Adam自适应学习率类比)
