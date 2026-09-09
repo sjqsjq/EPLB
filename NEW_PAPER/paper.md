@@ -239,13 +239,15 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ### 5.4 消融
 
-**衰减因子α扫描（Fig F2）**。在构造A（6域频繁切换、conc=32）上扫α∈{0, 0.5, 0.9}：α=0.5始终在最优点2pp内（鲁棒默认值而非最优值），说明固定α对负载不敏感、但非任意值最优；同session实测adaptive（α=0.5稳态+变点α→0清零+grow/shrink $W$）+9.7%超过固定α=0.9的+6.4%（swap 104 vs 56但吞吐反高，证明零调参adaptive已优于任何固定衰减，固定α不是天花板）。
+先厘清符号与推导。控制器的负载累积器为$A_t = R_t + \alpha\cdot A_{t-1}$，其中$R_t$是第$t$个决策窗口录到的路由计数、$\alpha$是**衰减系数**（即"decay"——每窗口旧历史按$\alpha$折减保留，$\alpha=0$即每窗清零不记历史、$\alpha=0.9$即长记忆）。展开得$A_t = \sum_{k\ge0}\alpha^k R_{t-k}$，旧数据的有效权重按几何级数$\alpha^k$衰减，半衰期为$\ln 2/\ln(1/\alpha)$个窗口。每$W$个forward决策一次，故**有效记忆长度**$M = W\cdot\sum_{k\ge0}\alpha^k = W/(1-\alpha)$（以forward计）——这就是$M$的物理含义：做一次决策时"回看了多少forward的有效数据"。$M$决定抽样噪声（$\propto 1/\sqrt{M}$，方差代价）与对变点的响应延迟（$\propto M\ln2$，延迟代价），是偏差-方差权衡的唯一自由度；$W$与$\alpha$只通过$M$影响稳态。
 
-**$M$收敛与统计充分性（Fig N）**。同$M$=128不同$(W,\alpha)$组合（如$W$=16/α=0.875、$W$=32/α=0.75、$W$=64/α=0.5）吞吐吻合4.8%，印证§3.4"$M=W/(1-\alpha)$是近似充分统计量、$W$与$\alpha$只通过$M$影响稳态"。$M$≥32后吞吐饱和（无内点峰值），与$M^*$闭式在长benchmark上无峰的方向预测一致；$M$<16时bias增大、收益下降。
+**衰减系数α扫描（Fig F2）**。固定$W$扫$\alpha\in\{0,0.5,0.9\}$（即扫decay强度）跨3个负载（构造A 6域频繁切换/conc32、B universal/conc256、C universal\_16k/conc256）。结果显示：$\alpha$的最优值随负载而异——构造A上$\alpha$=0.9（长记忆、少swap）最优（+14.6%），B上$\alpha$=0.9仍最优（−0.7%，最少亏损），C上$\alpha$=0（纯窗口、快反应）最优（+7.8%）。**固定$\alpha$无法在所有负载上最优**，印证§3.4需adaptive。同session对比adaptive（$\alpha$=0.5稳态+变点$\alpha$→0清零+grow/shrink $W$）+9.7%超过固定$\alpha$=0.9 +6.4%，零调参adaptive已优于任何固定衰减。
 
-![Fig F2 α扫描（α=0.5鲁棒默认2pp内）](figures/figF2_decay_sweep.png)
+**$M$统计充分性（Fig N）**。用不同$(W,\alpha)$组合实现同一$M$值（M32：$W$=16/$\alpha$=0.5、$W$=32/$\alpha$=0、$W$=8/$\alpha$=0.75；M64：$W$=16/$\alpha$=0.75、$W$=32/$\alpha$=0.5、$W$=64/$\alpha$=0），测其吞吐：M32三点115.1/115.7/115.7（差0.5%）、M64三点110.8/115.9/116.2（差~5%）。**同一$M$不同$(W,\alpha)$吞吐聚簇**，印证"$M=W/(1-\alpha)$是近似充分统计量、$W$与$\alpha$只通过$M$影响稳态"——故应调$M$（=调$W$）而非分开调$W$、$\alpha$（早期实现调$W$不同步$\alpha$会漂移$M$）。adaptive据此调$W$（动态）+变点$\alpha$→0清零（瞬态），稳态$\alpha$固定0.5。
 
-![Fig N M收敛（M≥32饱和，同M吻合4.8%）](figures/figN_M_convergence.png)
+![Fig F2 衰减系数α扫描跨3负载（α即decay强度，固定α无法全负载最优）](figures/figF2_decay_sweep.png)
+
+![Fig N 同M不同(W,α)聚簇→M是充分统计量（M32差0.5%，M64差5%）](figures/figN_M_convergence.png)
 
 ### 5.5 OEPLB在线运行
 
