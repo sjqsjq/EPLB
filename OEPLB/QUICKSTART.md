@@ -56,6 +56,9 @@ export NVSHMEM_HOME=/opt/conda/lib/python3.11/site-packages/nvidia/nvshmem  # to
 
 ```bash
 pip install -e . --no-build-isolation
+
+**预编译**: `python3 -m sglang.compile_deep_gemm --model /data/models/Qwen3-235B-A22B-FP8 --tp 8 --dp 8 --ep-size 8 --enable-dp-attention --trust-remote-code`
+（必须跑,否则 EPLB normal 模式会在 serving 时触发冷 JIT → 崩溃）
 ```
 
 ### 2.5 DeepGEMM
@@ -64,6 +67,9 @@ cd /workspace/build
 git clone https://github.com/deepseek-ai/DeepGEMM.git && cd DeepGEMM && git checkout 35c4bc8
 git submodule update --init --recursive
 pip install -e . --no-build-isolation
+
+**预编译**: `python3 -m sglang.compile_deep_gemm --model /data/models/Qwen3-235B-A22B-FP8 --tp 8 --dp 8 --ep-size 8 --enable-dp-attention --trust-remote-code`
+（必须跑,否则 EPLB normal 模式会在 serving 时触发冷 JIT → 崩溃）
 ```
 
 ### 2.6 模型下载（走ModelScope，huggingface.co不可达）
@@ -238,7 +244,7 @@ python3 run_adaptive_optimal.py
 | 参数 | 默认值 | 说明 |
 |------|--------|------|
 | `--pb-oeplb-threshold-ratio` | 1.02 | 不均衡度阈值，ratio低于此值不触发swap |
-| `--pb-oeplb-sync-window` | 16 | 每多少个forward pass检查一次不均衡度(推荐值,见COMPREHENSIVE_EXPERIMENT_LOG.md) |
+| `--pb-oeplb-sync-window` | 16 | 每多少个forward pass检查一次不均衡度(推荐值,见REPRODUCE.md) |
 | `--pb-oeplb-min-prefill-tokens` | 256 | 一个窗口内至少积累这么多prefill token才做决策 |
 | `--pb-oeplb-max-swaps-per-layer` | 64 | 单层单次决策最多swap多少对slot |
 | `--pb-oeplb-max-total-swap-layers` | 94 | 全局预算涉及的最大层数(Qwen3-235B有94层MoE) |
