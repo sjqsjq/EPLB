@@ -82,7 +82,7 @@ class PBOEPLBConfig:
     window_floor: int = 32
     window_shift_cos_threshold: float = 0.85
     window_stable_cos_threshold: float = 0.95
-    window_shift_confirm_windows: int = 1
+    window_shift_confirm_windows: int = 2
     window_stable_confirm_windows: int = 2
 
     # --- Adaptive window sensitivity calibration (opt-in, requires

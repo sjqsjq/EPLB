@@ -159,6 +159,12 @@ class PBOEPLBController:
         # stable (>=2 consecutive high-cos_sim windows). See _decide_and_begin_swap
         # for where this is updated and on_forward_pass_end for where it's read.
         self._effective_sync_window = cfg.sync_window
+        # Auto-compute dead zone ratio from EP power law (§2.4, Appendix G):
+        # r_k - 1 = 0.00408 * EP^1.52, calibrated from 4 configs incl. cross-model blind test (±3-5%)
+        if cfg.dead_zone_ratio <= 0.0:
+            auto_rk = 1.0 + 0.00408 * (self.ep_size ** 1.52)
+            cfg.dead_zone_ratio = auto_rk
+            logger.info(f"[PB-OEPLB] auto dead_zone_ratio = {auto_rk:.3f} from EP power law (EP={self.ep_size})")
         self._last_cos_sim = None
         self._window_shift_count = 0
         self._window_stable_count = 0
@@ -377,7 +383,11 @@ class PBOEPLBController:
             self._adw_last_ratio = None
         if hasattr(self, '_prev_window_ratio') and self._prev_window_ratio is not None:
             cur_r = self._prev_window_ratio
-            if self._adw_last_ratio is not None:
+            # Cooldown: skip ADW shrink after RESET to prevent thrashing
+            if getattr(self, '_reset_cooldown', 0) > 0:
+                self._reset_cooldown -= 1
+                self._adw_last_ratio = cur_r
+            elif self._adw_last_ratio is not None:
                 delta = abs(cur_r - self._adw_last_ratio)
                 if delta > 0.03:
                     self._effective_sync_window = max(8, self._effective_sync_window // 2)
@@ -539,7 +549,7 @@ class PBOEPLBController:
                 return
 
             update_layer_ids = changed_layers.nonzero(as_tuple=True)[0].tolist()
-            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts)
+            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts, existing_meta=self._meta)
 
             # Use SGLang's official ExpertLocationUpdater (layer-by-layer P2P,
             # NOT our AsyncSwapExecutor's single massive batch)
@@ -611,7 +621,7 @@ class PBOEPLBController:
                 return
 
             update_layer_ids = changed_layers.nonzero(as_tuple=True)[0].tolist()
-            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts)
+            new_meta = fast_init_by_mapping(physical_to_logical_map_new, self.num_logical_experts, existing_meta=self._meta)
             self.model_runner.update_expert_location(new_meta, update_layer_ids)
             self._meta = self._fetch_metadata()
             self._cached_p2l = self._meta.physical_to_logical_map
@@ -770,6 +780,7 @@ class PBOEPLBController:
                     self._skip_next_for_reset = True
                     self._eplb_refined = False  # allow re-refinement after domain shift
                     self._plateau_count = 0
+                    self._reset_cooldown = 3  # cooldown: skip ADW shrink for 3 windows to prevent thrashing
                     return
             self._prev_window_ratio = _current_avg_ratio
             self._prof_allreduce_ns += time.perf_counter_ns() - _t0
@@ -1113,7 +1124,7 @@ class PBOEPLBController:
                 new_p2l[op.layer_id, op.phys_slot_b] = cur_a
                 update_layers.add(op.layer_id)
             _tf = time.perf_counter_ns()
-            new_meta = fast_init_by_mapping(new_p2l, self.num_logical_experts)
+            new_meta = fast_init_by_mapping(new_p2l, self.num_logical_experts, existing_meta=self._meta)
             self._meta.update(new_meta, update_layer_ids=list(update_layers))
             self._cached_p2l = self._meta.physical_to_logical_map
 

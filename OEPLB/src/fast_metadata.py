@@ -2,25 +2,11 @@ import torch
 import torch.nn.functional as F
 
 
-def fast_init_by_mapping(physical_to_logical_map: torch.Tensor, num_logical_experts: int):
+def fast_init_by_mapping(physical_to_logical_map: torch.Tensor, num_logical_experts: int, existing_meta=None):
     """
     Fast-path replacement for ExpertLocationMetadata.init_by_mapping(), valid only
-    when there are NO redundant physical experts (num_physical_experts ==
-    num_logical_experts, a pure bijection -- true whenever ep_num_redundant_experts=0,
-    the default and PB-OEPLB's only supported configuration in v0.1-v0.3).
-
-    The official init_by_mapping() calls two Python-for-loop-based helpers
-    (_compute_logical_to_all_physical_map, compute_logical_to_rank_dispatch_physical_map)
-    written for the "rarely called" official EPLB rebalance cadence (default: every
-    1000 forward passes). Measured cost for 48 layers x 128 experts: ~85ms + ~290ms
-    = ~375ms, entirely GPU->CPU-sync-bound (thousands of .item() calls in nested
-    Python loops). PB-OEPLB calls this on every swap decision (much more frequently),
-    so this cost must be eliminated, not just amortized.
-
-    With no redundancy, "logical -> all physical candidates" always has exactly
-    ONE candidate (the bijection's inverse), and "logical -> rank-dispatch physical"
-    has no ambiguity to resolve via nearest-expert search -- both degenerate to the
-    same single vectorized inverse-permutation computation.
+    when there are NO redundant physical experts.
+    If existing_meta is provided, match its None-ness for optional fields.
     """
     from sglang.srt.eplb.expert_location import ExpertLocationMetadata
 
@@ -40,11 +26,16 @@ def fast_init_by_mapping(physical_to_logical_map: torch.Tensor, num_logical_expe
         L, num_logical_experts, dtype=torch.int64, device=device
     )
 
+    # Match None-ness of optional fields from existing metadata
+    rank_dispatch = logical_to_physical
+    if existing_meta is not None and existing_meta.logical_to_rank_dispatch_physical_map is None:
+        rank_dispatch = None
+
     return ExpertLocationMetadata(
         physical_to_logical_map=physical_to_logical_map,
         physical_to_logical_map_cpu=physical_to_logical_map.cpu(),
         logical_to_all_physical_map=logical_to_all_physical_map,
         logical_to_all_physical_map_cpu=logical_to_all_physical_map.cpu(),
         logical_to_all_physical_map_num_valid=logical_to_all_physical_map_num_valid,
-        logical_to_rank_dispatch_physical_map=logical_to_physical,
+        logical_to_rank_dispatch_physical_map=rank_dispatch,
     )
