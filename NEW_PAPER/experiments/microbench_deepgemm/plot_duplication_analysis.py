@@ -11,8 +11,9 @@ import numpy as np
 from scipy.signal import medfilt
 
 HERE=os.path.dirname(os.path.abspath(__file__))
-d=json.load(open(os.path.join(HERE,'deepgemm_flat_dense.json')))
-r=sorted(d['results'],key=lambda x:x['M'])
+c=json.load(open(os.path.join(HERE,'deepgemm_flat_0_256_clean.json')))['results']
+o=json.load(open(os.path.join(HERE,'deepgemm_flat_dense.json')))['results']
+r=sorted({x['M']:x for x in c+[y for y in o if y['M']>=256]}.values(),key=lambda z:z['M'])
 M=np.array([x['M'] for x in r],dtype=float); U=np.array([x['us'] for x in r])
 Us=medfilt(U,5)
 def T(m):
