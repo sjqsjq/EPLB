@@ -99,3 +99,5 @@ echo "=== also check patch-ON experiment progress ==="; cat /workspace/logs/run_
 - figA_B_C_D_E_placement_overhead_eplb/(结果 json + server log)
 - figG_H_I_J_K_L_bound_theory/(counts json + bound_curve.py)
 - figF_F2_M_N_ablation/(α sweep 结果 json)
+
+| fig_deepgemm_staircase (Fig DG) | `experiments/microbench_deepgemm/deepgemm_flat_0_256_clean.json` + `deepgemm_flat_dense.json` (0-256 high-rep + 256-1024) | `experiments/microbench_deepgemm/plot_key_figure.py` | §3.1.1 dead-zone operator root cause |

@@ -61,7 +61,7 @@
 
 ## 总结
 
-- **38/41 ✓**（数据在、可复现）。
+- **39/42 ✓**（含新增 Fig DG deepgemm staircase，数据+脚本在 microbench_deepgemm/，可复现）。
 - **2 张 △**：figF2（跨session α-sweep,噪声,建议同session重测）、figM（ad-hoc 无数据文件）。
 - **0 张 ✗**（没有完全不可复现的）。
 - counts235b 源 .pt 已丢,但 json(book)在 + MMLU/prover 从 rt2 可重建 → 动机图全可复现。
