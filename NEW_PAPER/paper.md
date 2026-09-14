@@ -30,7 +30,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 1.5 实验
 
-在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），使用SGLang 0.5.6.post2 + DeepEP v1.2.1 + DeepGEMM FP8。在7个域特定数据集（MMLU多学科QA, ARC科学推理, CommonsenseQA常识推理, OpenBookQA, GSM8K数学应用题, prover数学证明, BookCorpus叙事文本）上对比identity基线、EPLB和oracle布局。PB-OEPLB在prefill密集负载上提升吞吐+17.5%（n=2），达oracle的97.6%，相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%）。稳态每次调整阻塞0.37秒（EPLB 1.55秒, 4×降低）。在多域漂移负载上+9.76%，超过静态最优布局+5.80%。跨3个模型（235B/57B/30B）验证增益上界公式，30B案例（Δ_max正但η≈0）揭示了"不均衡存在但swap无法获益"的条件。
+在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），使用SGLang 0.5.6.post2 + DeepEP v1.2.1 + DeepGEMM FP8。在9个域特定数据集（MMLU多学科QA, ARC/ARC-E科学推理, CommonsenseQA常识推理, OpenBookQA, GSM8K数学应用题, prover数学证明, HumanEval代码, CMMLU中文QA, BookCorpus叙事文本，覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上对比identity基线、EPLB和oracle布局。PB-OEPLB在prefill密集负载上提升吞吐+17.5%（n=2），达oracle的97.6%，相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%）。稳态每次调整阻塞0.37秒（EPLB 1.55秒, 4×降低）。在多域漂移负载上+9.76%，超过静态最优布局+5.80%。跨3个模型（235B/57B/30B）验证增益上界公式，30B案例（Δ_max正但η≈0）揭示了"不均衡存在但swap无法获益"的条件。
 
 ### 1.6 本文创新
 
@@ -83,13 +83,13 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ## 3 观察
 
-本节给出四个关键观察，它们构成PB-OEPLB设计的理论基础：死区刻画"均衡到何处停"，增益上界刻画"最多能赚多少"，PD任务结构刻画"prefill录制何时充分"，跨数据集异质性刻画"为何必须自适应"。四个观察均由实测得出并配以理论推导。
+本节给出五个关键观察，它们构成PB-OEPLB设计的理论基础：复制冗余专家在decode的收益受限刻画"为何用swap而非duplicate"，死区刻画"均衡到何处停"，增益上界刻画"最多能赚多少"，PD任务结构刻画"prefill录制何时充分"，跨数据集异质性刻画"为何必须自适应"。五个观察均由实测得出并配以理论推导。
 
 ### 3.1 复制冗余专家的收益在decode场景下受限
 
 §3.2的死区刻画"重均衡到何处停"，本节回答一个对设计选择更直接的问题：**复制冗余专家（duplicate）何时能省时间**。其收益受限于一个算子级现象——单专家FP8 GEMM时间$T(M)$对每专家token数$M$呈"flat floor + staircase"，而decode的$M$受显存与并行度约束恒落在floor内。
 
-**显存→并行度→$M$的链路**。235B-FP8权重≈235GB，8×H20(97GB/卡)下显存约束将专家并行度定为EP=8（16专家/卡，mem-fraction 0.78，KV cache受限于剩余显存）。每专家每forward的token数$M$由输入规模决定：$M\approx(\text{batch}\cdot\text{top}_k)/\text{num\_experts}$。prefill输入长→$M$大（数百至上千），decode输入短→$M$极小。实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，top-8→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26$。
+**显存→并行度→$M$的链路**。235B-FP8权重≈235GB，8×H20(96GB/卡)下显存约束将专家并行度定为EP=8（16专家/卡，mem-fraction 0.78，KV cache受限于剩余显存）。每专家每forward的token数$M$由输入规模决定：$M\approx(\text{batch}\cdot\text{top}_k)/\text{num\_experts}$。prefill输入长→$M$大（数百至上千），decode输入短→$M$极小。实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，top-8→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26$。
 
 在H20上以Qwen3-235B的w13专家GEMM（$K$=4096,$N$=3072,per-token输入+per-block权重,recipe=(1,128,128)）做$M$=1..1024的CUDA-event纯kernel计时（cast在计时外，去launch与量化漂移噪声），得（Fig DG）：
 
@@ -169,7 +169,7 @@ $$M^*=\sqrt{\frac{a\cdot c^2\cdot L_{\text{seg}}}{b\cdot\beta\cdot\bar{t}\cdot\g
 
 ### 4.1 概述
 
-PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构图）：路由录制器在每个forward将top-k专家选择按物理槽位scatter\_add进本地计数器（零通信）；控制器按sync\_window周期做决策状态机；重平衡器贪心构建成对swap计划；异步执行器在rank间batch\_isend\_irecv移动权重；physical\_to\_logical\_map是全局共享的路由表，swap后更新并回推模型。三个挑战与三个观察一一对应：何时停止swap由死区回答（§3.2）；决策频率与记忆长度如何自适应由$M$统一与$M^*$闭式回答（§3.5）；prefill-only录制何时充分由PD任务结构相关性回答（§3.4）。
+PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构图）：路由录制器在每个forward将top-k专家选择按物理槽位scatter\_add进本地计数器（零通信）；控制器按sync\_window周期做决策状态机；重平衡器贪心构建成对swap计划；异步执行器在rank间batch\_isend\_irecv移动权重；physical\_to\_logical\_map是全局共享的路由表，swap后更新并回推模型。三个核心机制由三个观察一一对应支撑（何时停止swap由死区§3.2回答；决策频率与记忆长度由§3.5的$M^*$回答；prefill-only录制由§3.4的PD相关性回答），另两个观察（§3.1复制收益受限、§3.3增益上界）为设计提供理论边界。
 
 主循环（每sync\_window个forward执行一次，无跨rank共识——forward本身DP+EP隐式同步）：（1）force-finish上一轮pending的P2P（防NCCL跨流序号死锁）；（2）all\_reduce self.load的**克隆**（非原地，防每窗$\sim$num\_ranks×decay的累积膨胀）；（3）算不均衡度$r$、变点检测、threshold判断、构建swap计划；（4）同步P2P执行swap，更新路由表与衰减历史。本节按三个机制展开：§4.2死区感知停止、§4.3自适应窗口、§4.4仅prefill录制，§4.5给出算法流程与复杂度。
 
@@ -177,11 +177,11 @@ PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构�
 
 ### 4.2 死区感知的swap停止策略
 
-均衡器的停止条件应是死区阈值$r_k$而非硬编码常数。由§3.1的EP幂律，控制器在初始化时自动计算
+均衡器的停止条件应是死区阈值$r_k$而非硬编码常数。由§3.2的EP幂律，控制器在初始化时自动计算
 
 $$r_k = 1 + 0.00408\cdot\text{EP}^{1.52}$$
 
-（EP8→$r_k$=1.096），触发阈值取$\max(1.02, r_k)$，当$r\le r_k$时停止swap、仅保留录制与all\_reduce（0.62%开销），不再执行零收益的P2P。这直接消除§3.1 Fig J量化的浪费——第1次swap已覆盖全部有用距离，后续\#2–\#21（占59% ops）落在死区内零收益却照付3.42%的swap开销；启用死区感知后这些决策被阻止，有用决策从21次降至1次。
+（EP8→$r_k$=1.096），触发阈值取$\max(1.02, r_k)$，当$r\le r_k$时停止swap、仅保留录制与all\_reduce（0.62%开销），不再执行零收益的P2P。这直接消除§3.2 Fig J量化的浪费——第1次swap已覆盖全部有用距离，后续\#2–\#21（占59% ops）落在死区内零收益却照付3.42%的swap开销；启用死区感知后这些决策被阻止，有用决策从21次降至1次。
 
 死区感知需配合两个稳定性修复才能净增益。其一是RESET冷却（cooldown=3）：域切换触发load.zero\_()清零历史后，跳过随后3窗的adaptive-window收缩，防止清零→小窗→噪声swap→再次跳变→再清零的振荡。其二是切换确认窗数（window\_shift\_confirm=2）：要求连续2窗低cos\_sim才确认域切换、收缩窗口，滤除单窗抖动。三者合用把一个前期实现中adaptive的−6%净收益翻正为+9.0%（构造A，同session对identity基线）；缺一则回到−6%。
 
@@ -209,7 +209,7 @@ $$r_k = 1 + 0.00408\cdot\text{EP}^{1.52}$$
 
 ### 4.6 面向不同数据集的自适应机制汇总
 
-PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特征隐式响应，等效于按数据集参数自动调参。需先厘清收益来源与录制充分性是两条独立链路：**收益大小由$r_{\text{before}}$与是否pinned决定**（死区与增益上界，§3.1–3.3），**录制是否充分由$\rho$决定**（PD任务结构，§3.4）。低$\rho$数据集（如prover $\rho$=0.44）仍可获最大收益（−14%），因其pinned热点专家在prefill与decode中都热——$\rho$低只意味平均排序漂移，最热的pinned专家仍被prefill定位。
+PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特征隐式响应，等效于按数据集参数自动调参。需先厘清收益来源与录制充分性是两条独立链路：**收益大小由$r_{\text{before}}$与是否pinned决定**（死区与增益上界，§3.2–3.3），**录制是否充分由$\rho$决定**（PD任务结构，§3.4）。低$\rho$数据集（如prover $\rho$=0.44）仍可获最大收益（−14%），因其pinned热点专家在prefill与decode中都热——$\rho$低只意味平均排序漂移，最热的pinned专家仍被prefill定位。
 
 四组措施按数据集特征自动触发：
 
@@ -224,7 +224,7 @@ PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特
 | 短$L_{\text{seg}}$（频繁切换） | cos\_sim降 | shrink $W$+$\alpha\to0$清零 | 快速重放置 |
 | 长$L_{\text{seg}}$（稳定） | cos\_sim高 | grow $W$ | 降决策开销 |
 
-机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.1死区、§3.4 PD相关性、§3.5异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
+机制上，死区与增益上界保证"何时停、最多赚多少"，$\rho$与$M^*$保证"录多少、记忆多长"，pinned/volatile与$L_{\text{seg}}$经entropy和cos\_sim保证"换不换、追不追"。三组理论（§3.2死区、§3.4 PD相关性、§3.5异质性与$M^*$）经此表落地为可执行策略，使系统在每个数据集上不亏损：死区停避免低$r$浪费、$M$放大避免低$\rho$噪声追逐、pinned修而volatile不追。每域实测ratio降幅4–14%（prover −14%最大，Fig 17b），§5.2给出聚合吞吐与每数据集对基线的增益。
 
 
 ## 5 实验评估
@@ -271,7 +271,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ### 5.5 OEPLB在线运行
 
-真实在线运行（crossdomain\_freq6，启动`--enable-pb-oeplb`+routing tracer）记录每次swap决策前后ratio与每forward热点GPU（Fig 15）：97次决策中，域切换处ratio从1.35–1.72 spike，swap后稳态回落至1.01–1.05；决策密度随稳态自适应下降（grow $W$）。逐域收敛（Fig 16）首决策降幅最大（−24%至−33%），后续边际递减——与§3.1死区一致，第1次swap覆盖全部有用距离。逐域对比（Fig 17b）OEPLB将per-forward ratio降4–14%，prover最显著：identity $1.166\pm0.006$（热点永远固定GPU5、entropy=0）→ OEPLB $1.006\pm0.002$（近完美、entropy=2.82），−14%为所有域最大——消除pinned结构性straggler是OEPLB核心价值，而非仅降平均ratio。
+真实在线运行（crossdomain\_freq6，启动`--enable-pb-oeplb`+routing tracer）记录每次swap决策前后ratio与每forward热点GPU（Fig 15）：97次决策中，域切换处ratio从1.35–1.72 spike，swap后稳态回落至1.01–1.05；决策密度随稳态自适应下降（grow $W$）。逐域收敛（Fig 16）首决策降幅最大（−24%至−33%），后续边际递减——与§3.2死区一致，第1次swap覆盖全部有用距离。逐域对比（Fig 17b）OEPLB将per-forward ratio降4–14%，prover最显著：identity $1.166\pm0.006$（热点永远固定GPU5、entropy=0）→ OEPLB $1.006\pm0.002$（近完美、entropy=2.82），−14%为所有域最大——消除pinned结构性straggler是OEPLB核心价值，而非仅降平均ratio。
 
 ![Fig 15 OEPLB在线运行swap决策时间线](figures/fig15_oeplb_real_timeline.png)
 
@@ -281,7 +281,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ### 5.6 跨模型验证
 
-在3个模型上验证增益上界公式$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$的预测能力（Fig H/L）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→实得+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0。30B案例揭示"不均衡存在但swap无法获益"的机制：其死区极窄（$r_k$=1.031），per-window ratio几乎全部落在死区内，swap开销照付而收益为零——这正是§3.1死区理论与§3.3增益上界的联合预测：$\Delta_{\max}$判"有无潜力"，$\eta$判"能否拿到"，30B属"有潜力但被死区+开销吞没"。这把"OEPLB是否有效"从经验试错变为可预判：对一新配置，先算$\Delta_{\max}$与$r_k$即可判断是否值得启用。
+在3个模型上验证增益上界公式$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$的预测能力（Fig H/L）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→实得+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0。30B案例揭示"不均衡存在但swap无法获益"的机制：其死区极窄（$r_k$=1.031），per-window ratio几乎全部落在死区内，swap开销照付而收益为零——这正是§3.2死区理论与§3.3增益上界的联合预测：$\Delta_{\max}$判"有无潜力"，$\eta$判"能否拿到"，30B属"有潜力但被死区+开销吞没"。这把"OEPLB是否有效"从经验试错变为可预判：对一新配置，先算$\Delta_{\max}$与$r_k$即可判断是否值得启用。
 
 ![Fig H 跨模型Δ_max vs实际收益（η决定实得）](figures/figH_cross_model_efficiency.png)
 
@@ -316,7 +316,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ### 6.1 工作总结
 
-本文从MoE层时间的实验测量出发，发现四个关键观察并据此设计PB-OEPLB在线均衡器。其一，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其二，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其三，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其四，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
+本文从MoE层时间的实验测量出发，发现五个关键观察并据此设计PB-OEPLB在线均衡器。其一，**复制冗余专家在decode的收益受限**：decode每专家M极小（实测满载≈13–26）落在DeepGEMM FP8 flat floor（M≤256恒T≈31µs）内，复制K份M/K仍≤256→GEMM收益≈0，叠加comm主导关键路径，故decode复制收益受限、代价固定→常为负——这是"用swap而非duplicate"的根据。其二，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其三，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其四，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其五，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
 
 基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+17.5%（达oracle 97.6%），相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
 
