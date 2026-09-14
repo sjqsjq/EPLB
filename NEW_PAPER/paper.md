@@ -36,7 +36,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 本文的创新点如下：
 
-1. **死区理论**：首次发现MoE层时间T(r)呈铰链形式（R²=0.998），r≤r_k时T不随不均衡度变化。r_k由EP幂律决定（r_k−1=0.00408·EP^1.52），跨模型盲测误差+0.4%。实测量化：第1次swap覆盖全部有用距离，后续20次（59% ops）在死区内零收益。进一步给出算子级根因：单专家FP8 GEMM时间T(M)在M≤256为flat floor（≈31µs，DeepGEMM tile-padding使加token不增wave/tile）、M>256为256-tile staircase（每跨256边界+≈26µs）；实测满载decode热点专家M≈13–26远小于256落在floor内，故复制专家在decode为净负收益（GEMM收益0却付K×显存/阻塞/禁graph代价），crossover在M=256——为复制/重均衡何时有意义给出算子边界。
+1. **死区理论**：首次发现MoE层时间T(r)呈铰链形式（R²=0.998），r≤r_k时T不随不均衡度变化。r_k由EP幂律决定（r_k−1=0.00408·EP^1.52），跨模型盲测误差+0.4%。实测量化：第1次swap覆盖全部有用距离，后续20次（59% ops）在死区内零收益。死区根因是DeepEP dispatch/combine通信（r-无关项）与GEMM（r-相关项）overlap（prefill与decode共有）；decode另有算子级放大——单专家FP8 GEMM时间T(M)在M≤256为flat floor（≈31µs，DeepGEMM tile-padding使加token不增wave/tile）、M>256为256-tile staircase（每跨256边界+≈26µs），实测满载decode热点专家M≈13–26远小于256落在floor内使GEMM自身也r-无关、decode死区双重宽；推论：复制专家在decode为净负收益（GEMM收益0却付K×显存/阻塞/禁graph代价），crossover在M=256，为复制/重均衡何时有意义给出算子边界。
 
 2. **增益上界公式**：推导Δ_max = f_sens·x_eff/(1−f_sens·x_eff)（Amdahl形式），f_sens≠FLOP占比（组件分解：Combine β=1.33, Expert β=0.08, Dispatch β=−0.78）。增益=Δ_max×η，η由开销/bound决定。跨3模型验证，30B揭示"Δ_max正但η≈0"的机制。
 
@@ -99,19 +99,21 @@ $r_k$由EP幂律决定：$r_k-1=0.00408\cdot\text{EP}^{1.52}$，从4个配置标
 
 ![Fig J 边际swap收益（第1次100%有用，#2-#21零收益）](figures/figJ_marginal_swap.png)
 
-#### 3.1.1 死区的算子级根因：DeepGEMM FP8 tile-padding flat floor
+#### 3.1.1 死区在decode的算子级放大：DeepGEMM FP8 tile-padding flat floor
 
-§3.1的铰链$T(r)$在MoE层时间上成立，其更底层的根因可直接在FP8 GEMM算子上测量：单专家GEMM时间$T(M)$对每专家token数$M$呈"flat floor + staircase"。在H20上以Qwen3-235B的w13专家GEMM（$K$=4096, $N$=3072, per-token输入+per-block权重, recipe=(1,128,128)）做$M$=1..1024的CUDA-event纯kernel计时（cast在计时外，去launch与量化漂移噪声），得（Fig DG）：
+§3.1已指出死区根因是DeepEP dispatch/combine通信（$r$-无关项）与GEMM（$r$-相关项）在双流上的overlap——层时间$T\approx T_{\text{comm}}(\text{由batch决定，与}r\text{无关})+T_{\text{GEMM}}(r\text{相关})$，当$r$小时$T_{\text{GEMM}}$的变化量被$T_{\text{comm}}$掩盖，故降$r$不降$T$。该机制对prefill与decode均成立（$r_k$是EP的函数而非phase的函数）。本节进一步揭示：在decode，GEMM自身也变为$r$-无关，使死区**双重宽**——这是DeepGEMM FP8算子的tile-padding flat floor所致，是decode专属的放大器（非跨phase根因）。
+
+在H20上以Qwen3-235B的w13专家GEMM（$K$=4096,$N$=3072,per-token输入+per-block权重,recipe=(1,128,128)）做$M$=1..1024的CUDA-event纯kernel计时（cast在计时外，去launch与量化漂移噪声），得（Fig DG）：
 
 $$T(M)\approx\begin{cases}T_0\approx31\,\mu s & M\le 256\quad\text{(flat floor)}\\ T_0+26\cdot\lceil M/256\rceil_{\ge 1}\,\mu s & M>256\quad\text{(256-tile staircase)}\end{cases}$$
 
-**每一跳的源码逻辑**（DeepGEMM `get_best_config`）：kernel把输出按$(B_M,B_N)$切成tile，每tile交一个SM算，选择优先级为"wave数最少→最后一波利用率最高→block更小"，其中wave数$=\lceil\lceil M/B_M\rceil\cdot\lceil N/B_N\rceil/78\rceil$（H20有78个SM）。对$(K,N)$=(4096,3072)的组合，heuristic在$M>256$时稳定选$B_M$=256，于是$\lceil M/256\rceil$每跨一个256边界就+1个$B_M$=256的M-tile，每tile≈26µs且因padding被实打实算满（$M$=257与$M$=512都算2个满256-tile，故同band内死平、跨band跳一次）。而$M\le 256$时无论$B_M$∈{64,128,256}，tile数$\le 78$恒为1 wave，且padding把$M$=1..64 round up成同1个完整tile——加token不增wave、不增tile，故$T$与$M$无关，flat floor。0-256内$B_M$ 64→128(@129)、$B_N$ 48→80(@65)的小切换落在±2µs噪声内不可见。
+**每一跳的源码逻辑**（DeepGEMM `get_best_config`）：kernel按$(B_M,B_N)$切tile，每tile交一个SM，选择优先级为"wave数最少→最后一波利用率最高→block更小"，wave数$=\lceil\lceil M/B_M\rceil\cdot\lceil N/B_N\rceil/78\rceil$（H20有78个SM）。对$(K,N)$=(4096,3072)的组合，heuristic在$M>256$时稳定选$B_M$=256，于是$\lceil M/256\rceil$每跨一个256边界就+1个$B_M$=256的M-tile，每tile≈26µs且因padding被实打实算满（$M$=257与$M$=512都算2个满256-tile，故同band内死平、跨band跳一次）；$M\le 256$时无论$B_M$∈{64,128,256}，tile数$\le 78$恒为1 wave，且padding把$M$=1..64 round up成同1个完整tile——加token不增wave、不增tile，故$T$与$M$无关，flat floor。0-256内$B_M$ 64→128(@129)、$B_N$ 48→80(@65)的小切换落在±2µs噪声内不可见。
 
-**这是死区在decode存在的算子级根因**。显存约束下EP=8（235B-FP8≈29GB/卡，16专家/卡），top-8路由，实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，每token选8专家→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26\ll 256$。即**decode阶段每个专家的GEMM都落在flat floor上**，$T$与$M$无关——这正是§3.1铰链平段的算子级成因（与DeepEP dispatch/combine的重叠是同一死区的两层机制：算子flat floor使小$M$下专家间$M$差异不转化为时间差异，DeepEP重叠使层间负载差被吸收）。
+**为什么flat floor是decode死区的放大器而非根因**。实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，每token选8专家→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26\ll 256$。即decode阶段每个专家的GEMM都落在flat floor上，$T_{\text{GEMM}}$与$M$无关——而重均衡/复制正是在改$M$分布，故$T_{\text{GEMM}}$的$r$-相关变化量在decode为0。于是decode死区由两层叠加：(i) §3.1的comm overlap（$T_{\text{comm}}$掩盖GEMM delta，跨phase根因），(ii) flat floor使GEMM自身也$r$-无关（decode专属放大）。bench印证（8×H20，NCCL all-to-all作DeepEP dispatch/combine代理，单向）：decode规模($M$=13)comm≈40µs（dispatch+combine≈$2\times$=80µs）$\ge$ GEMM≈33µs，comm占关键路径约70%——故即便无flat floor，decode亦因comm主导而死区；flat floor只是令GEMM那约30%也$r$-无关，使死区更宽。prefill无此放大：GEMM在staircase上$r$-相关，死区仅靠comm掩盖，故$r_k$窄（EP8→1.096）。
 
-**推论（insight）：复制专家在decode阶段为净负收益**。对固定热点负载$M_{\text{hot}}$复制到$K$份、每份$\lceil M_{\text{hot}}/K\rceil$，GEMM收益$=T(M_{\text{hot}})-T(\lceil M_{\text{hot}}/K\rceil)$。由上式，$M_{\text{hot}}\le 256$时收益恒为0（任何$K$、任何分片都仍在flat floor；all-to-all同步使层时间=straggler=max份，均匀分片已是最优，选择性分片不可能更好）；crossover在$M_{\text{hot}}=256$，仅prefill（$M_{\text{hot}}>256$）才有正收益。而decode的$M_{\text{hot}}\approx 13\text{--}26$远在crossover左侧，故EPLB式冗余复制在decode**GEMM收益为0却照付代价**：$K\times$权重显存（挤KV cache −8.1%）、重平衡阻塞0.5–4.5s、强制normal模式禁CUDA graph致decode退化62%。对照之下PB-OEPLB做原地swap（显存零增长、兼容CUDA graph）且在$r\le r_k$（等价$M_{\text{hot}}\le 256$）的死区内停止swap，不为0收益付代价。复制只在prefill（$M_{\text{hot}}>256$跨过tile边界）才划算——这一crossover刻画了"复制/重均衡何时有意义"的算子边界，也解释了§3.1 Fig J为何59%的swap决策零收益：它们发生在$M\le 256$的死区。
+**推论（flat-floor推论，非死区根因）：复制专家在decode为净负收益**。对固定热点负载$M_{\text{hot}}$复制到$K$份、每份$\lceil M_{\text{hot}}/K\rceil$，GEMM收益$=T(M_{\text{hot}})-T(\lceil M_{\text{hot}}/K\rceil)$。由上式，$M_{\text{hot}}\le 256$时收益恒为0（任何$K$、任何分片都仍在flat floor；all-to-all同步使层时间=straggler=max份，均匀分片已是最优，选择性分片不可能更好）；crossover在$M_{\text{hot}}=256$，仅prefill（$M_{\text{hot}}>256$跨过tile边界）才有正收益。而decode的$M_{\text{hot}}\approx 13\text{--}26$远在crossover左侧，故EPLB式冗余复制在decode**GEMM收益为0却照付代价**：$K\times$权重显存（挤KV cache −8.1%）、重平衡阻塞0.5–4.5s、强制normal模式禁CUDA graph致decode退化62%。对照之下PB-OEPLB做原地swap（显存零增长、兼容CUDA graph）且在$r\le r_k$的死区内停止swap——**死区根因（comm overlap）决定"何时停"，flat floor决定"decode停得更早更稳"**。复制只在prefill（$M_{\text{hot}}>256$跨过tile边界）才划算，这一crossover为"复制/重均衡何时有意义"给出算子边界。
 
-![Fig DG FP8 GEMM T(M)：flat floor 0-256（死区）+ 256-tile staircase；实测decode热点专家M≈13-26落在floor内，K=2分片20→10仍在floor（0收益），prefill 600→300跨plateau（+29µs）；crossover在M=256](figures/fig_deepgemm_staircase.png)
+![Fig DG FP8 GEMM T(M)：flat floor 0-256（decode死区的算子级放大）+ 256-tile staircase；实测decode热点专家M≈13-26落在floor内，K=2分片20→10仍在floor（0收益），prefill 600→300跨plateau（+29µs）；crossover在M=256](figures/fig_deepgemm_staircase.png)
 
 ### 3.2 增益有上界：特定模型与数据集的收益受$\Delta_{\max}$限制
 
