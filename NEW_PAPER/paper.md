@@ -257,6 +257,34 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ![Fig E 迁移阻塞（稳态0.37s vs EPLB 1.55s，4×）](figures/figE_migration_blocking.png)
 
+#### 5.3.1 DataForest静态基线复现与同/跨域对比
+
+为与现有静态布局方法对比，本文复现DataFore（ISCA 2026）的prefill-guided Remap算法：以SGLang内置路由记录器（`SGLANG_OEPLB_ROUTING_TRACE=1`触发`SimpleRoutingRecorder`）录制prefill阶段94层×128专家的选择频次（`layer_hists`，即logical\_count），经`--init-expert-location`传入SGLang的`rebalance_experts`（EPLB放置算法=DataForest Remap）在init时算出放置并冻结（无周期重平衡、无`--enable-eplb`）。DataForest-Remap无冗余副本（`ep_num_redundant_experts=0`）；EPLB静态/动态带16冗余副本+`deepep_mode=normal`。基线配置同§5.1但`--disable-cuda-graph --mem-fraction-static 0.78`、O=1纯prefill、256并发、3次中位。trace归档于`/data/minghua/sjq/OEPLBdata/experiment_logs/baseline_comparison_20260914/`。
+
+**同分布（prover，pinned 10×不均衡，256tok）**——每个专家GEMM落在DeepGEMM staircase上（§3.1），有充分headroom：
+
+| 方法 | req/s | vs identity |
+|---|---|---|
+| identity | 62.4 | — |
+| EPLB动态（短burst未重平衡） | 61.8 | −1% |
+| EPLB静态（冻结+redundant16） | 68.4 | +9.6% |
+| DataForest-Remap（冻结,无冗余） | 73.7 | +18.0% |
+| **PB-OEPLB（动态swap,收敛稳态）** | **75.3** | **+20.7%** |
+
+同分布下PB-OEPLB(+21%)与DataForest冻结oracle(+18%)相当（DataForest用prover全量路由预计算，PB-OEPLB在线收敛后追平），均优于EPLB静态(+9.6%,redundant副本dynamic-dispatch开销拖累)；EPLB动态短burst未触发周期重平衡≈identity。印证"swap而非duplicate"：无冗余的DataForest/PB-OEPLB > 有冗余的EPLB静态。
+
+**跨域（multidomain_v2，prover/book/prover/book 4块各64=256，141-431tok，3次域切换）**——DataForest放置冻结自prover，对book块错配：
+
+| 方法 | req/s | vs identity |
+|---|---|---|
+| identity | 49.4 | — |
+| **DataForest-Remap（prover放置）** | 49.2 | **+0%（跨域失败）** |
+| **PB-OEPLB（sw8,88次swap逐块适应）** | **52.3** | **+5.9%（适应）** |
+
+跨域2域均衡切换下**DataForest归零（prover放置对book块错配，+18%同分布收益被book错配抵消）、PB-OEPLB仍+5.9%**（逐块swap适应，DIAG 88次）。这正是Fig 9跨域迁移失败（MMLU最优→prover ratio 3.67>identity 3.51）的真实kernel端到端复现，且由§3.1复制收益受限insight支撑：静态放置无在线适应能力，跨域必败。需注意PB-OEPLB需warmup收敛后才完全适应跨域——稳态口径，与§4.3自适应窗口收敛一致；过频的多域切换（如4域短burst）会引发OEPLB振荡（§3.5需adaptive window追踪$M^*$），故本表用2域3切换的稳健配置。
+
+> 注：4域均衡（prefill_heavy_universal, 4域507tok）因切换过频+长prompt导致所有方法高方差双峰（OEPLB振荡、调度相关），不适合做稳定基准，故跨域表采用上述2域稳健配置；PB-OEPLB在大规模长run跨域（crossdomain_freq6，§5.2）达+9.76%。
+
 ### 5.4 消融
 
 先厘清符号与推导。控制器的负载累积器为$A_t = R_t + \alpha\cdot A_{t-1}$，其中$R_t$是第$t$个决策窗口录到的路由计数、$\alpha$是**衰减系数**（即"decay"——每窗口旧历史按$\alpha$折减保留，$\alpha=0$即每窗清零不记历史、$\alpha=0.9$即长记忆）。展开得$A_t = \sum_{k\ge0}\alpha^k R_{t-k}$，旧数据的有效权重按几何级数$\alpha^k$衰减，半衰期为$\ln 2/\ln(1/\alpha)$个窗口。每$W$个forward决策一次，故**有效记忆长度**$M = W\cdot\sum_{k\ge0}\alpha^k = W/(1-\alpha)$（以forward计）——这就是$M$的物理含义：做一次决策时"回看了多少forward的有效数据"。$M$决定抽样噪声（$\propto 1/\sqrt{M}$，方差代价）与对变点的响应延迟（$\propto M\ln2$，延迟代价），是偏差-方差权衡的唯一自由度；$W$与$\alpha$只通过$M$影响稳态。
