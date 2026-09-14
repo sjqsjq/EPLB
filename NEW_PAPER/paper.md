@@ -36,7 +36,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 本文的创新点如下：
 
-1. **复制冗余专家的收益在decode场景下受限**：显存约束决定并行度EP=8（16专家/卡），decode阶段每专家token数由输入规模决定且极小（实测满载batch=13/EP-rank→热点专家M≈13–26），落在DeepGEMM FP8 tile-padding flat floor内（M≤256恒T≈31µs，§3.2），复制K份使每份M/K仍≤256→GEMM收益≈0；叠加dispatch/combine通信主导关键路径（comm≈80µs≥GEMM 33µs），重均衡收益被进一步掩盖。crossover在M=256，仅prefill（M>256跨tile边界）复制才有正收益。故decode下复制冗余专家GEMM收益受限（≈0），而其代价（K×显存挤KV cache −8.1%、重平衡阻塞0.5–4.5s、强制normal禁CUDA graph致decode退化62%）固定不变→净收益常为负。这一算子级边界正是"为何用swap而非duplicate"的根据。
+1. **复制冗余专家的收益在decode场景下受限**：显存约束决定并行度EP=8（16专家/卡），decode阶段每专家token数由输入规模决定且极小（实测满载batch=13/EP-rank→热点专家M≈13–26），落在DeepGEMM FP8 tile-padding flat floor内（M≤256恒T≈31µs，§3.1），复制K份使每份M/K仍≤256→GEMM收益≈0；叠加dispatch/combine通信主导关键路径（comm≈80µs≥GEMM 33µs），重均衡收益被进一步掩盖。crossover在M=256，仅prefill（M>256跨tile边界）复制才有正收益。故decode下复制冗余专家GEMM收益受限（≈0），而其代价（K×显存挤KV cache −8.1%、重平衡阻塞0.5–4.5s、强制normal禁CUDA graph致decode退化62%）固定不变→净收益常为负。这一算子级边界正是"为何用swap而非duplicate"的根据。
 
 2. **死区理论**：首次发现MoE层时间T(r)呈铰链形式（R²=0.998），r≤r_k时T不随不均衡度变化。r_k由EP幂律决定（r_k−1=0.00408·EP^1.52），跨模型盲测误差+0.4%。实测量化：第1次swap覆盖全部有用距离，后续20次（59% ops）在死区内零收益。死区根因是DeepEP dispatch/combine通信（r-无关项）与GEMM（r-相关项）overlap（prefill与decode共有）；decode另有算子级放大——单专家FP8 GEMM时间T(M)在M≤256为flat floor（≈31µs）、M>256为256-tile staircase（每跨256边界+≈26µs），实测满载decode热点专家M≈13–26远小于256落在floor内使GEMM自身也r-无关、decode死区双重宽（详见§3.2）。
 
@@ -79,13 +79,31 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 2.5 本文差异
 
-与上述方法相比，PB-OEPLB的差异体现在三处。其一，**无冗余原地交换（非复制）**：不复制专家副本，通过rank间batch_isend_irecv在物理槽位间移动权重，显存零增长，KV cache不受损；且由insight 1（§3.2），decode阶段复制冗余专家GEMM收益受限（M落在flat floor）却付K×显存与禁CUDA graph代价，故原地swap而非duplicate——既避免为0收益付复制代价，又兼容CUDA graph。其二，**死区感知停止**：从EP幂律r_k−1=0.00408·EP^1.52自动推导停止阈值，避免在r≤r_k时执行零收益swap（实测59%的ops落在此死区内），这是现有所有方法均未触及的维度。其三，**自适应衰减记忆**：以M=W/(1−α)统一控制偏差-方差工作点，变点时α瞬时归零清空旧域历史，稳态按收敛/振荡伸缩决策窗口，无需per-workload调参——同session实测该逻辑（+9.7%）超过固定α=0.9（+6.4%），证明零调参自适应已优于任何固定衰减。
+与上述方法相比，PB-OEPLB的差异体现在三处。其一，**无冗余原地交换（非复制）**：不复制专家副本，通过rank间batch_isend_irecv在物理槽位间移动权重，显存零增长，KV cache不受损；且由insight 1（§3.1），decode阶段复制冗余专家GEMM收益受限（M落在flat floor）却付K×显存与禁CUDA graph代价，故原地swap而非duplicate——既避免为0收益付复制代价，又兼容CUDA graph。其二，**死区感知停止**：从EP幂律r_k−1=0.00408·EP^1.52自动推导停止阈值，避免在r≤r_k时执行零收益swap（实测59%的ops落在此死区内），这是现有所有方法均未触及的维度。其三，**自适应衰减记忆**：以M=W/(1−α)统一控制偏差-方差工作点，变点时α瞬时归零清空旧域历史，稳态按收敛/振荡伸缩决策窗口，无需per-workload调参——同session实测该逻辑（+9.7%）超过固定α=0.9（+6.4%），证明零调参自适应已优于任何固定衰减。
 
 ## 3 观察
 
 本节给出四个关键观察，它们构成PB-OEPLB设计的理论基础：死区刻画"均衡到何处停"，增益上界刻画"最多能赚多少"，PD任务结构刻画"prefill录制何时充分"，跨数据集异质性刻画"为何必须自适应"。四个观察均由实测得出并配以理论推导。
 
-### 3.1 死区：不均衡度降至r_k以下不产生时间收益
+### 3.1 复制冗余专家的收益在decode场景下受限
+
+§3.2的死区刻画"重均衡到何处停"，本节回答一个对设计选择更直接的问题：**复制冗余专家（duplicate）何时能省时间**。其收益受限于一个算子级现象——单专家FP8 GEMM时间$T(M)$对每专家token数$M$呈"flat floor + staircase"，而decode的$M$受显存与并行度约束恒落在floor内。
+
+**显存→并行度→$M$的链路**。235B-FP8权重≈235GB，8×H20(97GB/卡)下显存约束将专家并行度定为EP=8（16专家/卡，mem-fraction 0.78，KV cache受限于剩余显存）。每专家每forward的token数$M$由输入规模决定：$M\approx(\text{batch}\cdot\text{top}_k)/\text{num\_experts}$。prefill输入长→$M$大（数百至上千），decode输入短→$M$极小。实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，top-8→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26$。
+
+在H20上以Qwen3-235B的w13专家GEMM（$K$=4096,$N$=3072,per-token输入+per-block权重,recipe=(1,128,128)）做$M$=1..1024的CUDA-event纯kernel计时（cast在计时外，去launch与量化漂移噪声），得（Fig DG）：
+
+$$T(M)\approx\begin{cases}T_0\approx31\,\mu s & M\le 256\quad\text{(flat floor)}\\ T_0+26\cdot\lceil M/256\rceil_{\ge 1}\,\mu s & M>256\quad\text{(256-tile staircase)}\end{cases}$$
+
+**每一跳的源码逻辑**（DeepGEMM `get_best_config`）：kernel按$(B_M,B_N)$切tile，每tile交一个SM，选择优先级为"wave数最少→最后一波利用率最高→block更小"，wave数$=\lceil\lceil M/B_M\rceil\cdot\lceil N/B_N\rceil/78\rceil$（H20有78个SM）。对$(K,N)$=(4096,3072)，heuristic在$M>256$时稳定选$B_M$=256，于是$\lceil M/256\rceil$每跨一个256边界就+1个$B_M$=256的M-tile，每tile≈26µs且因padding被实打实算满（$M$=257与512都算2个满256-tile，故同band内死平、跨band跳一次）；$M\le 256$时无论$B_M$∈{64,128,256}，tile数$\le 78$恒为1 wave，padding把$M$=1..64 round up成同1个完整tile——加token不增wave、不增tile，故$T$与$M$无关，flat floor。0-256内$B_M$ 64→128(@129)、$B_N$ 48→80(@65)的小切换落在±2µs噪声内不可见。
+
+**复制收益受限的机制**。复制$K$份、每份$\lceil M_{\text{hot}}/K\rceil$，GEMM收益$=T(M_{\text{hot}})-T(\lceil M_{\text{hot}}/K\rceil)$。由上式，$M_{\text{hot}}\le 256$时收益恒为0（任何$K$、任何分片都仍在flat floor；all-to-all同步使层时间=straggler=max份，均匀分片已是最优，选择性分片不可能更好）；crossover在$M_{\text{hot}}=256$，仅prefill（$M_{\text{hot}}>256$跨过tile边界）才有正收益。decode的$M_{\text{hot}}\approx 13\text{--}26$远在crossover左侧，故**复制冗余专家在decode的GEMM收益受限（≈0）**。需注意此与§3.2死区是两层叠加而非同一机制：死区根因是DeepEP dispatch/combine通信（$r$-无关项）overlap掩盖GEMM（$r$-相关项）的delta（prefill与decode共有）；decode另有flat floor使GEMM自身也$M$-不敏感（即也$r$-无关），是decode专属的放大器。bench印证（8×H20，NCCL all-to-all作DeepEP dispatch/combine代理，单向）：decode规模($M$=13)comm≈40µs（dispatch+combine≈$2\times$=80µs）$\ge$ GEMM≈33µs，comm占关键路径约70%——故即便无flat floor，decode亦因comm主导而死区；flat floor只是令GEMM那约30%也$r$-无关，使decode死区双重宽。prefill无此放大：GEMM在staircase上$r$-相关，死区仅靠comm掩盖，故$r_k$窄（EP8→1.096）。
+
+**为何用swap而非duplicate**。decode下复制GEMM收益受限（≈0）却付固定代价：$K\times$权重显存（挤KV cache −8.1%）、重平衡阻塞0.5–4.5s、强制normal模式禁CUDA graph致decode退化62%。PB-OEPLB原地swap显存零增长、兼容CUDA graph，且在$r\le r_k$死区内停止swap——**死区根因（comm overlap）决定"何时停"，flat floor决定"decode停得更早更稳"**。复制只在prefill（$M_{\text{hot}}>256$）才划算，这一crossover为"复制/重均衡何时有意义"给出算子边界。
+
+![Fig DG FP8 GEMM T(M)：flat floor 0-256（decode复制收益受限的算子级根因）+ 256-tile staircase；实测decode热点专家M≈13-26落在floor内，K=2分片20→10仍在floor（0收益），prefill 600→300跨plateau（+29µs）；crossover在M=256](figures/fig_deepgemm_staircase.png)
+
+### 3.2 死区：不均衡度降至r_k以下不产生时间收益
 
 MoE层时间$T$对不均衡度$r$呈铰链（hinge）响应：存在阈值$r_k$，$r\le r_k$时$T$与$r$无关，$r>r_k$时$T$线性增长。本文在57B 8卡与235B 8卡上做$T(r)$扫描——7个布局点（identity至oracle，$r$从约1.0至2.6）×2轮独立重启共14次运行、0错误——对每点的MoE层时间做铰链拟合，得到
 
@@ -100,24 +118,6 @@ $r_k$由EP幂律决定：$r_k-1=0.00408\cdot\text{EP}^{1.52}$，从4个配置标
 ![Fig K r_k幂律（r_k−1=0.00408·EP^1.52，跨模型盲测+0.4%）](figures/figK_rk_powerlaw.png)
 
 ![Fig J 边际swap收益（第1次100%有用，#2-#21零收益）](figures/figJ_marginal_swap.png)
-
-### 3.2 复制冗余专家的收益在decode场景下受限
-
-§3.1的死区刻画"重均衡到何处停"，本节回答一个对设计选择更直接的问题：**复制冗余专家（duplicate）何时能省时间**。其收益受限于一个算子级现象——单专家FP8 GEMM时间$T(M)$对每专家token数$M$呈"flat floor + staircase"，而decode的$M$受显存与并行度约束恒落在floor内。
-
-**显存→并行度→$M$的链路**。235B-FP8权重≈235GB，8×H20(97GB/卡)下显存约束将专家并行度定为EP=8（16专家/卡，mem-fraction 0.78，KV cache受限于剩余显存）。每专家每forward的token数$M$由输入规模决定：$M\approx(\text{batch}\cdot\text{top}_k)/\text{num\_experts}$。prefill输入长→$M$大（数百至上千），decode输入短→$M$极小。实测满载decode batch=13 tokens/EP-rank（KV-cache限流上限）→ EP组共$8\times 13$=104 decode tokens，top-8→832对/128专家=avg 6.5 tokens/专家，热点专家（路由偏斜2–4×）$M\approx 13\text{--}26$。
-
-在H20上以Qwen3-235B的w13专家GEMM（$K$=4096,$N$=3072,per-token输入+per-block权重,recipe=(1,128,128)）做$M$=1..1024的CUDA-event纯kernel计时（cast在计时外，去launch与量化漂移噪声），得（Fig DG）：
-
-$$T(M)\approx\begin{cases}T_0\approx31\,\mu s & M\le 256\quad\text{(flat floor)}\\ T_0+26\cdot\lceil M/256\rceil_{\ge 1}\,\mu s & M>256\quad\text{(256-tile staircase)}\end{cases}$$
-
-**每一跳的源码逻辑**（DeepGEMM `get_best_config`）：kernel按$(B_M,B_N)$切tile，每tile交一个SM，选择优先级为"wave数最少→最后一波利用率最高→block更小"，wave数$=\lceil\lceil M/B_M\rceil\cdot\lceil N/B_N\rceil/78\rceil$（H20有78个SM）。对$(K,N)$=(4096,3072)，heuristic在$M>256$时稳定选$B_M$=256，于是$\lceil M/256\rceil$每跨一个256边界就+1个$B_M$=256的M-tile，每tile≈26µs且因padding被实打实算满（$M$=257与512都算2个满256-tile，故同band内死平、跨band跳一次）；$M\le 256$时无论$B_M$∈{64,128,256}，tile数$\le 78$恒为1 wave，padding把$M$=1..64 round up成同1个完整tile——加token不增wave、不增tile，故$T$与$M$无关，flat floor。0-256内$B_M$ 64→128(@129)、$B_N$ 48→80(@65)的小切换落在±2µs噪声内不可见。
-
-**复制收益受限的机制**。复制$K$份、每份$\lceil M_{\text{hot}}/K\rceil$，GEMM收益$=T(M_{\text{hot}})-T(\lceil M_{\text{hot}}/K\rceil)$。由上式，$M_{\text{hot}}\le 256$时收益恒为0（任何$K$、任何分片都仍在flat floor；all-to-all同步使层时间=straggler=max份，均匀分片已是最优，选择性分片不可能更好）；crossover在$M_{\text{hot}}=256$，仅prefill（$M_{\text{hot}}>256$跨过tile边界）才有正收益。decode的$M_{\text{hot}}\approx 13\text{--}26$远在crossover左侧，故**复制冗余专家在decode的GEMM收益受限（≈0）**。需注意此与§3.1死区是两层叠加而非同一机制：死区根因是DeepEP dispatch/combine通信（$r$-无关项）overlap掩盖GEMM（$r$-相关项）的delta（prefill与decode共有）；decode另有flat floor使GEMM自身也$M$-不敏感（即也$r$-无关），是decode专属的放大器。bench印证（8×H20，NCCL all-to-all作DeepEP dispatch/combine代理，单向）：decode规模($M$=13)comm≈40µs（dispatch+combine≈$2\times$=80µs）$\ge$ GEMM≈33µs，comm占关键路径约70%——故即便无flat floor，decode亦因comm主导而死区；flat floor只是令GEMM那约30%也$r$-无关，使decode死区双重宽。prefill无此放大：GEMM在staircase上$r$-相关，死区仅靠comm掩盖，故$r_k$窄（EP8→1.096）。
-
-**为何用swap而非duplicate**。decode下复制GEMM收益受限（≈0）却付固定代价：$K\times$权重显存（挤KV cache −8.1%）、重平衡阻塞0.5–4.5s、强制normal模式禁CUDA graph致decode退化62%。PB-OEPLB原地swap显存零增长、兼容CUDA graph，且在$r\le r_k$死区内停止swap——**死区根因（comm overlap）决定"何时停"，flat floor决定"decode停得更早更稳"**。复制只在prefill（$M_{\text{hot}}>256$）才划算，这一crossover为"复制/重均衡何时有意义"给出算子边界。
-
-![Fig DG FP8 GEMM T(M)：flat floor 0-256（decode复制收益受限的算子级根因）+ 256-tile staircase；实测decode热点专家M≈13-26落在floor内，K=2分片20→10仍在floor（0收益），prefill 600→300跨plateau（+29µs）；crossover在M=256](figures/fig_deepgemm_staircase.png)
 
 ### 3.3 增益有上界：特定模型与数据集的收益受$\Delta_{\max}$限制
 
@@ -169,7 +169,7 @@ $$M^*=\sqrt{\frac{a\cdot c^2\cdot L_{\text{seg}}}{b\cdot\beta\cdot\bar{t}\cdot\g
 
 ### 4.1 概述
 
-PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构图）：路由录制器在每个forward将top-k专家选择按物理槽位scatter\_add进本地计数器（零通信）；控制器按sync\_window周期做决策状态机；重平衡器贪心构建成对swap计划；异步执行器在rank间batch\_isend\_irecv移动权重；physical\_to\_logical\_map是全局共享的路由表，swap后更新并回推模型。三个挑战与三个观察一一对应：何时停止swap由死区回答（§3.1）；决策频率与记忆长度如何自适应由$M$统一与$M^*$闭式回答（§3.5）；prefill-only录制何时充分由PD任务结构相关性回答（§3.4）。
+PB-OEPLB是一个在线增量swap均衡器，由五个组件构成（Fig 架构图）：路由录制器在每个forward将top-k专家选择按物理槽位scatter\_add进本地计数器（零通信）；控制器按sync\_window周期做决策状态机；重平衡器贪心构建成对swap计划；异步执行器在rank间batch\_isend\_irecv移动权重；physical\_to\_logical\_map是全局共享的路由表，swap后更新并回推模型。三个挑战与三个观察一一对应：何时停止swap由死区回答（§3.2）；决策频率与记忆长度如何自适应由$M$统一与$M^*$闭式回答（§3.5）；prefill-only录制何时充分由PD任务结构相关性回答（§3.4）。
 
 主循环（每sync\_window个forward执行一次，无跨rank共识——forward本身DP+EP隐式同步）：（1）force-finish上一轮pending的P2P（防NCCL跨流序号死锁）；（2）all\_reduce self.load的**克隆**（非原地，防每窗$\sim$num\_ranks×decay的累积膨胀）；（3）算不均衡度$r$、变点检测、threshold判断、构建swap计划；（4）同步P2P执行swap，更新路由表与衰减历史。本节按三个机制展开：§4.2死区感知停止、§4.3自适应窗口、§4.4仅prefill录制，§4.5给出算法流程与复杂度。
 
