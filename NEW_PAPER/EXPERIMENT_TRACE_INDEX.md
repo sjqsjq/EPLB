@@ -60,11 +60,6 @@
 | Fig M/N | KV压力/M收敛 | driver31 (W,α) sweep | ad-hoc | — |
 | Fig DG | DeepGEMM T(M) staircase | `experiments/microbench_deepgemm/deepgemm_flat_0_256_clean.json`+`deepgemm_flat_dense.json` | `plot_key_figure.py` | **纯GPU-event microbench，非服务级；trace `/data/minghua/sjq/OEPLBdata/experiment_logs/microbench_deepgemm_20260914/`** |
 
-### §5.3.1 DataForest基线对比（新增两表）
-| 表 | 数据集 | trace位置 | 偏差 |
-|---|---|---|---|
-| prover同分布5方 | `datasets/single_domain/prover_256tok_out1.jsonl` | `/data/minghua/sjq/OEPLBdata/experiment_logs/baseline_comparison_20260914/`（含`datafore_prover_placement.json`+`rt_prover/`+bench脚本+`results.json`） | **纯prefill microbench口径**：`--disable-cuda-graph --mem 0.78`，O=1，256并发 |
-| universal4跨域5方 | `datasets/multi_domain/prefill_heavy_universal.jsonl`（4域×64） | 同上 | 同上；PB-OEPLB需warmup(4轮128swap) |
 
 ## §3 数据集索引
 
