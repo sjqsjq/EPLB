@@ -257,6 +257,34 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ![Fig E 迁移阻塞（稳态0.37s vs EPLB 1.55s，4×）](figures/figE_migration_blocking.png)
 
+#### 5.3.1 DataForest静态基线复现与同/跨域5方对比
+
+为与现有静态/冗余方法对比，本文复现DataFore（ISCA 2026）的prefill-guided Remap：以SGLang内置路由记录器（`SGLANG_OEPLB_ROUTING_TRACE=1`触发`SimpleRoutingRecorder`）录制prefill 94层×128专家频次（`layer_hists`=logical\_count），经`--init-expert-location`传入SGLang的`rebalance_experts`（EPLB放置算法=DataForest Remap）在init算出放置并冻结（无周期重平衡）。DataForest-Remap无冗余（`ep_num_redundant_experts=0`）；EPLB静态/动态带16冗余+`deepep_mode=normal`。基线同§5.1但`--disable-cuda-graph --mem-fraction-static 0.78`。trace归档`/data/minghua/sjq/OEPLBdata/experiment_logs/baseline_comparison_20260914/`。
+
+**同分布（prover, pinned 10×不均衡, 256tok, O=1, 256并发, 3次中位）**——每专家GEMM在DeepGEMM staircase上（§3.1），有headroom：
+
+| 方法 | req/s | vs identity |
+|---|---|---|
+| identity | 62.4 | — |
+| EPLB动态（短burst未重平衡） | 61.8 | −1% |
+| EPLB静态（冻结+redundant16） | 68.4 | +9.6% |
+| DataForest-Remap（冻结,无冗余） | 73.7 | +18.0% |
+| **PB-OEPLB（动态swap,收敛稳态）** | **75.3** | **+20.7%** |
+
+同分布下PB-OEPLB(+21%)≈DataForest冻结oracle(+18%，用prover全量路由预计算)——PB-OEPLB在线收敛后追平冻结oracle；两者均优于EPLB静态(+9.6%,redundant副本dynamic-dispatch开销)。印证"swap而非duplicate"：无冗余的DataForest/PB-OEPLB > 有冗余的EPLB静态。
+
+**跨域（freq6: 6段book↔prover频繁切换, 4438tok, O=10, conc=32, 2次中位）**——DataForest放置冻结自prover，对book段错配：
+
+| 方法 | req/s | vs identity |
+|---|---|---|
+| identity | 4.7 | — |
+| DataForest-Remap（prover放置） | 4.7 | **+0%（跨域稳定失败）** |
+| EPLB静态（prover+redundant16） | 4.5 | −4% |
+| EPLB动态（64次全量重平衡） | 4.4 | −6% |
+| **PB-OEPLB（sw16,80次swap,收敛稳态）** | **5.1** | **+8.5%（≈§5.2 +9.76%）** |
+
+跨域freq6下**仅PB-OEPLB正收益**：DataForest的prover冻结放置对book段错配→+0%（prover半的同分布收益被book半错配抵消，两次4.7完全一致极稳）；EPLB静态/动态全负（redundant+全量重平衡开销，EPLB动态64次重平衡仍−6%）；PB-OEPLB逐段swap适应80次→+8.5%，与§5.2长跑+9.76%一致（N=600 vs 4200的收敛差异）。这正是Fig 9跨域迁移失败（MMLU最优→prover ratio 3.67>identity 3.51）的真实kernel端到端复现，由§3.1复制收益受限insight支撑：静态放置无在线适应，跨域必败。PB-OEPLB需warmup收敛后才完全适应跨域——稳态口径，与§4.3自适应窗口一致。
+
 ### 5.4 消融
 
 先厘清符号与推导。控制器的负载累积器为$A_t = R_t + \alpha\cdot A_{t-1}$，其中$R_t$是第$t$个决策窗口录到的路由计数、$\alpha$是**衰减系数**（即"decay"——每窗口旧历史按$\alpha$折减保留，$\alpha=0$即每窗清零不记历史、$\alpha=0.9$即长记忆）。展开得$A_t = \sum_{k\ge0}\alpha^k R_{t-k}$，旧数据的有效权重按几何级数$\alpha^k$衰减，半衰期为$\ln 2/\ln(1/\alpha)$个窗口。每$W$个forward决策一次，故**有效记忆长度**$M = W\cdot\sum_{k\ge0}\alpha^k = W/(1-\alpha)$（以forward计）——这就是$M$的物理含义：做一次决策时"回看了多少forward的有效数据"。$M$决定抽样噪声（$\propto 1/\sqrt{M}$，方差代价）与对变点的响应延迟（$\propto M\ln2$，延迟代价），是偏差-方差权衡的唯一自由度；$W$与$\alpha$只通过$M$影响稳态。

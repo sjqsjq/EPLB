@@ -61,6 +61,12 @@
 | Fig DG | DeepGEMM T(M) staircase | `experiments/microbench_deepgemm/deepgemm_flat_0_256_clean.json`+`deepgemm_flat_dense.json` | `plot_key_figure.py` | **纯GPU-event microbench，非服务级；trace `/data/minghua/sjq/OEPLBdata/experiment_logs/microbench_deepgemm_20260914/`** |
 
 
+### §5.3.1 DataForest基线5方对比（prover同分布 + freq6跨域）
+| 表 | 数据集 | trace位置 | 偏差 |
+|---|---|---|---|
+| prover同分布5方 | `datasets/single_domain/prover_256tok_out1.jsonl`(256tok) | `experiment_logs/baseline_comparison_20260914/`（`datafore_prover_placement.json`+`rt_prover/`+bench脚本+`results.json`） | **纯prefill microbench**：`--disable-cuda-graph --mem 0.78`, O=1, 256并发, 3次中位 |
+| freq6跨域5方 | 自拼6段book↔prover（`book_4438tok`+`prover_2048tok`, 6×100=600req, O=10, conc=32） | 同上（`freq6_bench.py`+`launch_oeplb_f6.sh`） | 同上；PB-OEPLB需warmup收敛(run2稳态5.1) |
+
 ## §3 数据集索引
 
 | 数据集 | 路径 | 用于 | 特征 |
