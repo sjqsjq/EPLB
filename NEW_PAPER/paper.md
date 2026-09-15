@@ -259,7 +259,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 #### 5.3.1 DataForest静态基线复现与同/跨域5方对比
 
-为与现有静态/冗余方法对比，本文复现DataFore（ISCA 2026）的prefill-guided Remap：以SGLang内置路由记录器（`SGLANG_OEPLB_ROUTING_TRACE=1`触发`SimpleRoutingRecorder`）录制prefill 94层×128专家频次（`layer_hists`=logical\_count），经`--init-expert-location`传入SGLang的`rebalance_experts`（EPLB放置算法=DataForest Remap）在init算出放置并冻结（无周期重平衡）。DataForest-Remap无冗余（`ep_num_redundant_experts=0`）；EPLB静态/动态带16冗余+`deepep_mode=normal`。基线同§5.1但`--disable-cuda-graph --mem-fraction-static 0.78`。trace归档`/data/minghua/sjq/OEPLBdata/experiment_logs/baseline_comparison_20260914/`。
+为与现有静态/冗余方法对比，本文复现DataFore（ISCA 2026）。DataFore含两半：前半为wafer-scale GPU架构改造（硬件级，需晶圆级GPU与架构模拟，H20集群不具备该硬件、非本研究范围，故未实现）；后半为real-cluster的prefill-guided静态专家放置（Algorithm 2 Remap/Dup），本文对此进行复现：以SGLang内置路由记录器（`SGLANG_OEPLB_ROUTING_TRACE=1`触发`SimpleRoutingRecorder`）录制prefill 94层×128专家频次（`layer_hists`=logical\_count），经`--init-expert-location`传入SGLang的`rebalance_experts`（EPLB放置算法=DataForest Remap）在init算出放置并冻结（无周期重平衡）。DataForest-Remap无冗余（`ep_num_redundant_experts=0`）；EPLB静态/动态带16冗余+`deepep_mode=normal`。基线同§5.1但`--disable-cuda-graph --mem-fraction-static 0.78`。trace归档`/data/minghua/sjq/OEPLBdata/experiment_logs/baseline_comparison_20260914/`。
 
 **同分布（prover, pinned 10×不均衡, 256tok, O=1, 256并发, 3次中位）**——每专家GEMM在DeepGEMM staircase上（§3.1），有headroom：
 
