@@ -32,3 +32,9 @@ OEPLB/benchmarks/results/*.bak
 OEPLB/benchmarks/results/_d38_A_r*.json
 OEPLB/benchmarks/results/_d38_B_r*.json
 OEPLB/benchmarks/results/_d38_oeadpt_r*.json
+
+# MoETuner baseline: derived artifacts (regeneratable from src + dataset)
+OEPLB/baselines/moetuner/artifacts/*.jsonl
+OEPLB/baselines/moetuner/artifacts/profile_*/
+OEPLB/baselines/moetuner/artifacts/placement_*.json
+OEPLB/baselines/moetuner/logs/
