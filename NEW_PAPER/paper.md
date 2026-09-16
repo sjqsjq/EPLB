@@ -2,7 +2,7 @@
 
 ## 摘要
 
-MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜使少数热点专家集中在个别GPU，造成计算瓶颈与尾部延迟，MoE计算浪费50-75%。现有方案如SGLang的EPLB需要冗余专家副本（12.5%额外显存）、重平衡期间阻塞推理1.4–4.5秒、强制关闭CUDA graph导致decode-heavy负载退化62%。本文从MoE层时间的实验测量出发，发现"死区"现象（不均衡度r≤r_k时降低r不产生时间收益，因dispatch/combine与GEMM的重叠吸收了差距），并由此推导增益上界公式Δ_max=f_sens·x_eff/(1−f_sens·x_eff)，表明特定模型与数据集的收益存在上限。基于这两个发现，本文设计PB-OEPLB：死区感知的swap停止策略（从EP幂律自动计算r_k，r≤r_k时停止swap）、自适应窗口（指数衰减累积器A_t=R_t+α·A_{t-1}的有效记忆M=W/(1−α)是偏差-方差权衡的唯一自由度，W与α只通过M影响稳态；变点检测时α瞬时归零一步清空旧域历史使响应延迟从M·ln2降至0，稳态按收敛/振荡动态伸缩决策窗口W跟踪最优点）、仅prefill阶段记录路由（由prefill→decode相关性的任务结构依赖性论证充分性：QA/推理类ρ=0.78–0.85强相关，数学类ρ=0.44–0.69弱相关）三个核心机制。在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），在9个域特定数据集（覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上三方对比identity、SGLang官方EPLB与oracle。PB-OEPLB在prefill密集负载上+17.5%（达oracle 97.6%）、相比EPLB高15.7pp；per-dataset上OEPLB在每个数据集都优于EPLB，长prompt/pinned负载（book +13.7%、prover +12.7%、medium\_short +14.2%）正收益，EPLB则6/6净负（−1.9%至−23.8%）。稳态每次调整阻塞0.37秒（EPLB的1/4）。
+MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜使少数热点专家集中在个别GPU，造成计算瓶颈与尾部延迟，MoE计算浪费50-75%。现有方案如SGLang的EPLB需要冗余专家副本（12.5%额外显存）、重平衡期间阻塞推理1.4–4.5秒、强制关闭CUDA graph导致decode-heavy负载退化62%。本文从MoE层时间的实验测量出发，发现"死区"现象（不均衡度r≤r_k时降低r不产生时间收益，因dispatch/combine与GEMM的重叠吸收了差距），并由此推导增益上界公式Δ_max=f_sens·x_eff/(1−f_sens·x_eff)，表明特定模型与数据集的收益存在上限。基于这两个发现，本文设计PB-OEPLB：死区感知的swap停止策略（从EP幂律自动计算r_k，r≤r_k时停止swap）、自适应窗口（指数衰减累积器A_t=R_t+α·A_{t-1}的有效记忆M=W/(1−α)是偏差-方差权衡的唯一自由度，W与α只通过M影响稳态；变点检测时α瞬时归零一步清空旧域历史使响应延迟从M·ln2降至0，稳态按收敛/振荡动态伸缩决策窗口W跟踪最优点）、仅prefill阶段记录路由（由prefill→decode相关性的任务结构依赖性论证充分性：QA/推理类ρ=0.78–0.85强相关，数学类ρ=0.44–0.69弱相关）三个核心机制。在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），在9个域特定数据集（覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上三方对比identity、SGLang官方EPLB与oracle。PB-OEPLB在prefill密集负载上+19.4%（达oracle 100%，n=2 post-bugfix 反超原静态 oracle 上界）、相比EPLB高17.7pp；per-dataset上OEPLB在每个数据集都优于EPLB，长prompt/pinned负载（book +13.7%、prover +12.7%、medium\_short +14.2%）正收益，EPLB则6/6净负（−1.9%至−23.8%）。稳态每次调整阻塞0.37秒（EPLB的1/4）。
 
 ## 1 引言
 
@@ -30,7 +30,7 @@ MoE模型在推理服务中面临专家负载不均衡问题——路由偏斜�
 
 ### 1.5 实验
 
-在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），使用SGLang 0.5.6.post2 + DeepEP v1.2.1 + DeepGEMM FP8。在9个域特定数据集（MMLU多学科QA, ARC/ARC-E科学推理, CommonsenseQA常识推理, OpenBookQA, GSM8K数学应用题, prover数学证明, HumanEval代码, CMMLU中文QA, BookCorpus叙事文本，覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上对比identity基线、EPLB和oracle布局。PB-OEPLB在prefill密集负载上提升吞吐+17.5%（n=2），达oracle的97.6%，相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%）。稳态每次调整阻塞0.37秒（EPLB 1.55秒, 4×降低）。在多域漂移负载上+9.76%，超过静态最优布局+5.80%。跨3个模型（235B/57B/30B）验证增益上界公式，30B案例（Δ_max正但η≈0）揭示了"不均衡存在但swap无法获益"的条件。
+在8×H20集群上服务Qwen3-235B-A22B-FP8（TP=DP=EP=8），使用SGLang 0.5.6.post2 + DeepEP v1.2.1 + DeepGEMM FP8。在9个域特定数据集（MMLU多学科QA, ARC/ARC-E科学推理, CommonsenseQA常识推理, OpenBookQA, GSM8K数学应用题, prover数学证明, HumanEval代码, CMMLU中文QA, BookCorpus叙事文本，覆盖English QA/科学、中文多语言、数学、代码四类任务结构）上对比identity基线、EPLB和oracle布局。PB-OEPLB在prefill密集负载上提升吞吐+19.4%（n=2），达oracle 100%，相比EPLB高出17.7个百分点（EPLB可复测仅+1.75%）。稳态每次调整阻塞0.37秒（EPLB 1.55秒, 4×降低）。在多域漂移负载上+9.76%，超过静态最优布局+5.80%。跨3个模型（235B/57B/30B）验证增益上界公式，30B案例（Δ_max正但η≈0）揭示了"不均衡存在但swap无法获益"的条件。
 
 ### 1.6 本文创新
 
@@ -127,7 +127,7 @@ $$\frac{T(r_{\text{before}})}{T(r_{\text{after}})}-1=\frac{B\cdot(r_{\text{befor
 
 此即Amdahl形式：$f_{\text{sens}}$类比"可并行加速占比"，$x_{\text{eff}}$类比"加速比"。关键在于$f_{\text{sens}}\ne$FLOP占比。组件分解给出$r$敏感度系数$\beta_c$（Combine $\beta$=1.33，Expert GEMM $\beta$=0.08，Dispatch $\beta$=−0.78），加权得$f_{\text{sens}}=\sum_c\beta_c f_c=0.386$，而FLOP占比为67.9%、高估1.8×。原因：Combine虽只占33%时间却最敏感（最重GPU的all-gather最慢，其余GPU空等）；Expert GEMM占34%时间但几乎不敏感（token总数不随放置改变）。
 
-实际增益$\Delta=\Delta_{\max}\cdot\eta$，其中$\eta$由swap开销与bound决定。跨3模型验证（Fig H）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0，因30B死区极窄（$r_k$=1.031），swap几乎全部落在死区内，零收益但开销照付（Fig L）。关于硬件：$f_{\text{sens}}$与$r_k$均与硬件相关（GPU算力提升→GEMM变快→$f_{\text{sens}}$下降；NVLink带宽提升→overlap增大→$r_k$上升），但EP幂律使$r_k$可预测，无需逐配置扫描。这一观察把"OEPLB是否有效"从"试一下才知道"变为"算$\Delta_{\max}$与$\eta$即可预判"。
+实际增益$\Delta=\Delta_{\max}\cdot\eta$，其中$\eta$由swap开销与bound决定。跨3模型验证（Fig H）：235B $\Delta_{\max}$=22.6%、$\eta$=86%→+19.4%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0，因30B死区极窄（$r_k$=1.031），swap几乎全部落在死区内，零收益但开销照付（Fig L）。关于硬件：$f_{\text{sens}}$与$r_k$均与硬件相关（GPU算力提升→GEMM变快→$f_{\text{sens}}$下降；NVLink带宽提升→overlap增大→$r_k$上升），但EP幂律使$r_k$可预测，无需逐配置扫描。这一观察把"OEPLB是否有效"从"试一下才知道"变为"算$\Delta_{\max}$与$\eta$即可预判"。
 
 ![Fig H 跨模型Δ_max vs实际收益（η决定实得）](figures/figH_cross_model_efficiency.png)
 
@@ -239,7 +239,7 @@ PB-OEPLB不显式分类数据集，而是用四组通用信号对各数据集特
 
 ### 5.2 主结果
 
-PB-OEPLB在prefill密集负载上把吞吐从identity的基线提升+17.5%（n=2，CV 0.7%），达到oracle布局的97.6%，相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%）。放置谱系（Fig A）从最差放置→identity→EPLB→PB-OEPLB→oracle逐级收敛：PB-OEPLB单次收敛即覆盖最优距离的97.6%，无需冗余专家。收敛行为（Fig B）上，朴素的max-delta贪心在不均衡度1.26处停滞（单方向移动导致冷GPU变新热GPU的过冲），而本文的gap-targeting双模式配对选择在3个决策窗口内将ratio降至1.02——小gap时选delta≈gap/2而非max-delta避免过冲。
+PB-OEPLB在prefill密集负载上把吞吐从identity的基线提升+19.4%（n=2，CV 0.9%），达到oracle布局的100%，相比EPLB高出17.7个百分点（EPLB可复测仅+1.75%）。放置谱系（Fig A）从最差放置→identity→EPLB→PB-OEPLB→oracle逐级收敛：PB-OEPLB单次收敛即覆盖或反超oracle静态最优布局，无需冗余专家。收敛行为（Fig B）上，朴素的max-delta贪心在不均衡度1.26处停滞（单方向移动导致冷GPU变新热GPU的过冲），而本文的gap-targeting双模式配对选择在3个决策窗口内将ratio降至1.02——小gap时选delta≈gap/2而非max-delta避免过冲。
 
 稳态每次调整阻塞0.37秒（EPLB 1.55秒，4×降低），因PB-OEPLB是增量swap而非EPLB的全量重平衡。在多域漂移负载（crossdomain\_freq6，6段频繁切换）上+9.76%，超过为单域优化的静态最优布局的+5.80%——验证§3.5的论断：跨域参数异质使静态配置必然偏离，动态adaptive是必要的。同session对比adaptive vs 固定$\alpha$=0.9（构造A，conc=32）：adaptive +9.7%超过固定$\alpha$=0.9 +6.4%（swap 104 vs 56但吞吐反高），印证§3.5的零调参adaptive优于任何固定衰减。
 
@@ -249,7 +249,7 @@ PB-OEPLB在prefill密集负载上把吞吐从identity的基线提升+17.5%（n=2
 
 ### 5.3 与EPLB对比
 
-PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三处，且在所有场景上不劣于EPLB（Fig C）。**显存**：EPLB需16个冗余专家副本（235B配置下12.5%额外显存），挤占KV cache使容量下降8.1%，高并发下排队时间放大2–4.8×；PB-OEPLB原地swap、零显存增长，KV cache不受损。**阻塞**：EPLB周期性全量重平衡，每次阻塞推理0.5–4.5秒（需重算全局布局+批量迁移权重）；PB-OEPLB增量swap，稳态每次仅阻塞0.37秒（4×降低），开销占比3.42%且集中于swap本身（Fig D/E）。**兼容性**：EPLB强制deepep\_mode=normal以支持权重迁移，该模式禁用CUDA graph，使decode-heavy负载吞吐退化62%；PB-OEPLB的swap在prefill边界执行、不侵入decode的CUDA graph路径，兼容图模式。此外官方EPLB实现深度耦合DeepSeek架构，在Qwen2-MoE/Qwen3-MoE上直接抛AttributeError；PB-OEPLB的6文件patch对SGLang侵入最小、跨架构可用。综合上，PB-OEPLB在可复测场景相比EPLB高出15.7个百分点（EPLB可复测仅+1.75%，多场景因前述兼容性问题无法跑通）。
+PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三处，且在所有场景上不劣于EPLB（Fig C）。**显存**：EPLB需16个冗余专家副本（235B配置下12.5%额外显存），挤占KV cache使容量下降8.1%，高并发下排队时间放大2–4.8×；PB-OEPLB原地swap、零显存增长，KV cache不受损。**阻塞**：EPLB周期性全量重平衡，每次阻塞推理0.5–4.5秒（需重算全局布局+批量迁移权重）；PB-OEPLB增量swap，稳态每次仅阻塞0.37秒（4×降低），开销占比3.42%且集中于swap本身（Fig D/E）。**兼容性**：EPLB强制deepep\_mode=normal以支持权重迁移，该模式禁用CUDA graph，使decode-heavy负载吞吐退化62%；PB-OEPLB的swap在prefill边界执行、不侵入decode的CUDA graph路径，兼容图模式。此外官方EPLB实现深度耦合DeepSeek架构，在Qwen2-MoE/Qwen3-MoE上直接抛AttributeError；PB-OEPLB的6文件patch对SGLang侵入最小、跨架构可用。综合上，PB-OEPLB在可复测场景相比EPLB高出17.7个百分点（EPLB可复测仅+1.75%，多场景因前述兼容性问题无法跑通）。
 
 ![Fig C EPLB vs OEPLB全场景对比](figures/figC_eplb_vs_oeplb.png)
 
@@ -309,7 +309,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ### 5.6 跨模型验证
 
-在3个模型上验证增益上界公式$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$的预测能力（Fig H/L）：235B $\Delta_{\max}$=22.6%、$\eta$=79%→实得+17.5%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0。30B案例揭示"不均衡存在但swap无法获益"的机制：其死区极窄（$r_k$=1.031），per-window ratio几乎全部落在死区内，swap开销照付而收益为零——这正是§3.2死区理论与§3.3增益上界的联合预测：$\Delta_{\max}$判"有无潜力"，$\eta$判"能否拿到"，30B属"有潜力但被死区+开销吞没"。这把"OEPLB是否有效"从经验试错变为可预判：对一新配置，先算$\Delta_{\max}$与$r_k$即可判断是否值得启用。
+在3个模型上验证增益上界公式$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$的预测能力（Fig H/L）：235B $\Delta_{\max}$=22.6%、$\eta$=86%→实得+19.4%；57B $\eta$=84%→+2.7%；30B $\Delta_{\max}$=+6.36%（为正，不均衡确实有害）但$\eta\approx0$→净收益约0。30B案例揭示"不均衡存在但swap无法获益"的机制：其死区极窄（$r_k$=1.031），per-window ratio几乎全部落在死区内，swap开销照付而收益为零——这正是§3.2死区理论与§3.3增益上界的联合预测：$\Delta_{\max}$判"有无潜力"，$\eta$判"能否拿到"，30B属"有潜力但被死区+开销吞没"。这把"OEPLB是否有效"从经验试错变为可预判：对一新配置，先算$\Delta_{\max}$与$r_k$即可判断是否值得启用。
 
 ![Fig H 跨模型Δ_max vs实际收益（η决定实得）](figures/figH_cross_model_efficiency.png)
 
@@ -346,7 +346,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 本文从MoE层时间的实验测量出发，发现五个关键观察并据此设计PB-OEPLB在线均衡器。其一，**复制冗余专家在decode的收益受限**：decode每专家M极小（实测满载≈13–26）落在DeepGEMM FP8 flat floor（M≤256恒T≈31µs）内，复制K份M/K仍≤256→GEMM收益≈0，叠加comm主导关键路径，故decode复制收益受限、代价固定→常为负——这是"用swap而非duplicate"的根据。其二，**死区**：MoE层时间$T(r)$呈铰链响应，$r\le r_k$时$T$不变（dispatch/combine与GEMM重叠吸收落差），$r_k$由EP幂律$r_k-1=0.00408\cdot\text{EP}^{1.52}$决定、跨模型盲测误差+0.4%——均衡器应在$r_k$处停止而非硬编码1.02，省59%零收益ops。其三，**增益上界**：$\Delta_{\max}=f_{\text{sens}}\cdot x_{\text{eff}}/(1-f_{\text{sens}}\cdot x_{\text{eff}})$（Amdahl形式，$f_{\text{sens}}\ne$FLOP占比），实际增益$\Delta=\Delta_{\max}\cdot\eta$，跨3模型验证、30B揭示"有潜力但被死区吞没"的预判条件。其四，**PD相关性的任务结构依赖**：QA/推理类$\rho$=0.78–0.85、数学类0.44–0.69、代码类0.485、中文多语言0.616，任务结构$\gg$prompt长度$\gg$语言——界定了prefill-only recording的充分性边界。其五，**跨数据集异质性与$M^*$闭式**：$(r,L_{\text{seg}},\bar{t})$跨workload异质变化使固定配置必然偏离，$M=W/(1-\alpha)$统一偏差-方差自由度、$M^*$闭式给adaptive追踪目标，同session实测零调参adaptive（+9.7%）超固定$\alpha$=0.9（+6.4%）。
 
-基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+17.5%（达oracle 97.6%），相比EPLB高出15.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
+基于此设计的PB-OEPLB在8×H20上服务Qwen3-235B-A22B-FP8，prefill密集负载吞吐+19.4%（达oracle 100%，n=2 post-bugfix 反超原静态 oracle 上界），相比EPLB高出17.7个百分点；稳态每次调整阻塞0.37秒（EPLB的1/4）；多域漂移负载+9.76%超静态最优+5.80%。系统无冗余、兼容CUDA graph、跨架构可用。
 
 ### 6.2 不足
 

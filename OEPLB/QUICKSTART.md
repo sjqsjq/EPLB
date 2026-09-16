@@ -96,6 +96,39 @@ cp OEPLB/src/*.py $SGLANG_PATH/srt/managers/pb_oeplb/
 
 **注意**: 每次修改 `OEPLB/src/` 后要重新 `cp` 到 sglang 路径（没有symlink）。
 
+### 3.1 关键 bug 修复：ep_dispatch_algorithm 强制为 static
+
+**如果这一步漏掉，OEPLB 会静默不生效！** SGLang 0.5.6.post2 的 `server_args.py` 在 `--enable-pb-oeplb` 单独启用（不带 `--enable-eplb`、`init_expert_location=trivial`）时 **不会** 把 `ep_dispatch_algorithm` 设为 `"static"`，导致：
+
+- `ExpertLocationDispatchInfo.init_new()` 返回 None
+- `topk_ids_logical_to_physical()` 原样返回 topk_ids
+- PB-OEPLB 真的做了物理权重 P2P，但 token 路由不跟着走 → imbalance 每 window 回弹到初始值 → OEPLB 无净收益
+
+修复：编辑 `${SGLANG_PATH}/srt/server_args.py`（约 L1673），把 static 分支的条件加上 `enable_pb_oeplb`：
+
+```python
+# 修复前
+if (self.enable_eplb or (self.init_expert_location != "trivial")) and (
+    self.ep_dispatch_algorithm is None
+):
+    self.ep_dispatch_algorithm = "static"
+
+# 修复后
+if (self.enable_eplb or self.enable_pb_oeplb or (self.init_expert_location != "trivial")) and (
+    self.ep_dispatch_algorithm is None
+):
+    self.ep_dispatch_algorithm = "static"
+```
+
+或者一行 sed：
+
+```bash
+SGLANG_PATH=$(python3 -c "import sglang,os; print(os.path.dirname(sglang.__file__))")
+sed -i 's|if (self.enable_eplb or (self.init_expert_location != "trivial"))|if (self.enable_eplb or self.enable_pb_oeplb or (self.init_expert_location != "trivial"))|' $SGLANG_PATH/srt/server_args.py
+```
+
+修复后 OEPLB 在 L512_O1_realprover (prefill-dense) 上从 **+15.5% 提升到 +19.4%**（详见 `NEW_PAPER/experiments/d38_L512_O1_comparison/repro_20260915/`）。
+
 ## 四、环境变量（H20专用，所有启动都需要）
 
 ```bash
@@ -139,9 +172,46 @@ python3 -m sglang.launch_server \
   --pb-oeplb-max-total-swap-layers 94 \
   --pb-oeplb-max-swaps-per-layer 64 \
   --pb-oeplb-min-swap-ops 8 \
-  --pb-oeplb-max-total-ops 300
+  --pb-oeplb-max-total-ops 300 \
+  --pb-oeplb-decay-factor 0.5 \
+  --pb-oeplb-adaptive-window \
+  --pb-oeplb-adaptive-decay \
+  --pb-oeplb-window-floor 8 \
+  --pb-oeplb-window-shift-confirm 2
 ```
-（`--pb-oeplb-cooldown-steps` 不存在，会报unrecognized arguments，已删除；sync_window改为推荐值16）
+
+**参数说明**：
+- `--pb-oeplb-adaptive-window` / `--pb-oeplb-adaptive-decay`：开启论文 §4.3 的自适应窗口 + 变点时 α→0 一步清零，两者建议同时开
+- `--pb-oeplb-window-floor 8`：变点收缩时窗口下界（论文 §4.3 明确 "shrink W 至 floor 8"）；默认 32 会过大
+- `--pb-oeplb-window-shift-confirm 2`：连续 2 窗低 cos_sim 才确认域切换（论文 §4.2），默认 1 会误触发
+- `--pb-oeplb-sync-window 16`：**初值**，adaptive-window 开启后会被动态调整到 [floor, 128]
+- `--pb-oeplb-cooldown-steps` **不存在**，别照抄旧文档；RESET cooldown=3 在代码里硬编码
+
+### 5.1 验证 OEPLB 是否真的生效（自检）
+
+启动后必看两处：
+
+**① server log 里 `ep_dispatch_algorithm` 必须是 `'static'`**（不能是 `None`）：
+
+```bash
+grep -oE "ep_dispatch_algorithm='?[a-zA-Z]+'?" /path/to/server.log | head -1
+# 期望输出：ep_dispatch_algorithm='static'
+# 如果是 ep_dispatch_algorithm=None → 3.1 的 bug 修复没做，OEPLB 无效
+```
+
+**② 应能看到 `[PB-OEPLB-DIAG]` 行，且 window N+1 的 `avg_before` ≈ window N 的 `avg_after`**（无回弹）：
+
+```bash
+grep "PB-OEPLB-DIAG" /path/to/server.log | awk '/DP0 /' | head -5
+```
+
+预期输出（L512_O1 prefill-dense）：
+```
+Window 1: layers_touched=93 total_ops=298 avg_before=1.74 avg_after=1.18 ...
+Window 2: layers_touched=90 total_ops=225 avg_before=1.19 avg_after=1.07 ...
+                                                    ^^^^ ≈ 1.18 上一窗 after，无回弹
+```
+如果 `avg_before` 每次都回弹到 1.55+，说明路由没同步跟着权重走 → 3.1 bug 修复失败。
 
 ## 六、数据集
 
@@ -250,6 +320,10 @@ python3 run_adaptive_optimal.py
 | `--pb-oeplb-max-total-swap-layers` | 94 | 全局预算涉及的最大层数(Qwen3-235B有94层MoE) |
 | `--pb-oeplb-max-total-ops` | 300 | 单次决策最大swap数(冷启动约用240-250) |
 | `--pb-oeplb-min-swap-ops` | 8 | 低于此数跳过(不值得P2P开销) |
-| decay_factor (config.py默认,无CLI) | 0.5 | 负载历史每窗口衰减系数,3窗口后旧信号仅剩12.5% |
+| `--pb-oeplb-decay-factor` | 0.5 | 负载历史每窗口衰减系数,3窗口后旧信号仅剩12.5% |
+| `--pb-oeplb-adaptive-window` | flag | 开启自适应窗口(收敛/振荡自动伸缩 W) |
+| `--pb-oeplb-adaptive-decay` | flag | 变点时 α→0 一步清空旧域历史 |
+| `--pb-oeplb-window-floor` | 8 (论文对齐) | 收缩下界；CLI 默认 32，需显式改到 8 |
+| `--pb-oeplb-window-shift-confirm` | 2 (论文对齐) | 连续 N 窗低 cos_sim 才判定变点；默认 1 |
 
 注：`--pb-oeplb-cooldown-steps` 从未注册进 argparse，不要照抄旧文档，会报 `unrecognized arguments`。

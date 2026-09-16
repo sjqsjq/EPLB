@@ -22,3 +22,13 @@ OEPLB/scripts/core-sglang*
 # large regenerable datasets (rebuild via OEPLB/repro/make_segmented.py)
 OEPLB/repro/segp_*.jsonl
 core-pt_nccl_watchdg-*
+
+# Pre-repro-align backups (2026-09-16)
+*.bak_before_repro_align
+OEPLB/benchmarks/results/_archive_before_d38_repro/
+OEPLB/benchmarks/results/_p256alt_prefix_bug/
+OEPLB/benchmarks/results/*.bak
+# Exploratory intermediates from prefix-bug debugging (superseded by _d38repro_*)
+OEPLB/benchmarks/results/_d38_A_r*.json
+OEPLB/benchmarks/results/_d38_B_r*.json
+OEPLB/benchmarks/results/_d38_oeadpt_r*.json

@@ -1,8 +1,10 @@
 # 实验: L512_O1_realprover 三方对比 (identity / OEPLB-adaptive / EPLB)
 
-**日期**: 2026-09-10
+**日期**: 2026-09-10（原记录）；2026-09-15 post-bugfix 复现，见 [`repro_20260915/EXPERIMENT_LOG_repro.md`](repro_20260915/EXPERIMENT_LOG_repro.md)
 **目的**: 在 prefill-dense 负载上对比 identity baseline / OEPLB-adaptive / SGLang EPLB
 **模型**: Qwen3-235B-A22B-FP8, TP=DP=EP=8, 8×H20
+
+> **重要更新 (2026-09-15)**: 后续发现 `sglang/srt/server_args.py` 缺少 `enable_pb_oeplb` → `ep_dispatch_algorithm='static'` 强制分支，导致本次实验 OEPLB 只发挥了部分能力。修复该 bug 后同数据集复测：identity=39.85, OEPLB=47.60, **gain=+19.4%**（详见 `repro_20260915/`）。以 post-bugfix 数值为准。
 
 ## 数据集
 - `/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/comprehensive_grid/L512_O1_realprover_n8192.jsonl`

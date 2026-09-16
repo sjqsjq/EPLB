@@ -3,7 +3,7 @@
 # Robust startup: longer cleanup wait + GPU-memory check before boot.
 LOGD=/workspace/logs
 SFX=server; PAT="sglang.launch_$SFX"
-export OEPLB_MODEL=/data/models/Qwen3-235B-A22B-FP8
+export OEPLB_MODEL=/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8
 DS=/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/comprehensive_grid/L512_O1_realprover_n8192.jsonl
 boot () {
   pkill -9 -f "$PAT" 2>/dev/null; sleep 5
