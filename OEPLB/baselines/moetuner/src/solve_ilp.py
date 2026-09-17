@@ -133,9 +133,10 @@ def main():
 
     log.info(f"Solved {len(layer_ids)} layers in total {total_t:.1f}s. mean_imbalance={np.mean([s['imbalance_ratio'] for s in per_layer_stats]):.3f}")
 
-    # Emit SGLang-format placement.json
-    out = {
-        "physical_to_logical_map": physical_to_logical.tolist(),
+    # SGLang init_by_mapping ONLY accepts physical_to_logical_map kwarg
+    # Sidecar meta goes to <out>.meta.json
+    out = {"physical_to_logical_map": physical_to_logical.tolist()}
+    meta = {
         "num_layers": L,
         "num_physical_experts": E,
         "num_logical_experts": E,
@@ -148,7 +149,10 @@ def main():
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w") as f:
         json.dump(out, f, indent=2)
-    log.info(f"wrote {args.out}")
+    meta_path = args.out.replace(".json", ".meta.json")
+    with open(meta_path, "w") as f:
+        json.dump(meta, f, indent=2)
+    log.info(f"wrote {args.out} + {meta_path}")
 
 if __name__ == "__main__":
     main()

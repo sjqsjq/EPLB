@@ -1,5 +1,5 @@
 #!/bin/bash
-# MoETuner benchmark launcher: identity code path + static placement JSON.
+# MoETuner benchmark launcher: identity code path + SGLang native init_expert_location.
 # Usage:
 #   PLACEMENT=/path/to/placement.json ./launch_moetuner.sh
 . /workspace/logs/env_235b.sh
@@ -17,6 +17,5 @@ exec python3 -m sglang.launch_server \
   --dtype bfloat16 --quantization fp8 --mem-fraction-static 0.8 \
   --cuda-graph-max-bs 128 \
   --init-expert-location "$PLACEMENT" \
-  --ep-dispatch-algorithm static \
   --port 30000 --host 0.0.0.0 --trust-remote-code \
   --disable-radix-cache --watchdog-timeout 600
