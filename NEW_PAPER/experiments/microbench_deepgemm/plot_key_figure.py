@@ -37,12 +37,12 @@ ax.axvspan(13,26,color=RED,alpha=0.18,zorder=1)
 ax.annotate('measured decode\nhot expert M≈13–26',xy=(20,T(20)),
     xytext=(55,T(20)+34),fontsize=8.6,color=RED,fontweight='bold',
     arrowprops=dict(arrowstyle='->',color=RED,lw=1.0))
-# K=2 decode sharding: 20 -> 10, both floor
-ax.plot([20],[T(20)],'o',color=RED,ms=9,zorder=5)
-ax.annotate('',xy=(10,T(10)),xytext=(20,T(20)),
-    arrowprops=dict(arrowstyle='->',color=GREEN,lw=1.5,connectionstyle='arc3,rad=-0.35'))
-ax.plot([10],[T(10)],'o',color=GREEN,ms=8,zorder=5)
-ax.text(80,52,'K=2 uniform: 20→10/10\nboth on flat floor\n=> GEMM gain = 0\n(duplicate or swap: '
+# K=2 decode sharding: 126 -> 63, both floor (uniform hypothesis)
+ax.plot([126],[T(126)],'o',color=RED,ms=9,zorder=5)
+ax.annotate('',xy=(63,T(63)),xytext=(126,T(126)),
+    arrowprops=dict(arrowstyle='->',color=GREEN,lw=1.8,connectionstyle='arc3,rad=-0.30'))
+ax.plot([63],[T(63)],'o',color=GREEN,ms=8,zorder=5)
+ax.text(150,55,'K=2 uniform: 126→63/63\nboth on flat floor\n=> GEMM gain = 0\n(duplicate or swap: '
         'no benefit in decode)',fontsize=8.2,color=RED,fontweight='bold',
     bbox=dict(boxstyle='round,pad=0.35',fc='white',ec=RED,alpha=0.92))
 
