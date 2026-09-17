@@ -270,8 +270,9 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 | EPLB静态（冻结+redundant16） | 68.4 | +9.6% |
 | DataForest-Remap（冻结,无冗余） | 73.7 | +18.0% |
 | **PB-OEPLB（动态swap,收敛稳态）** | **75.3** | **+20.7%** |
+| MoETuner（ILP1离线,fair-split placement）† | **70.5** | **+13.0%** |
 
-同分布下PB-OEPLB(+21%)≈DataForest冻结oracle(+18%，用prover全量路由预计算)——PB-OEPLB在线收敛后追平冻结oracle；两者均优于EPLB静态(+9.6%,redundant副本dynamic-dispatch开销)。印证"swap而非duplicate"：无冗余的DataForest/PB-OEPLB > 有冗余的EPLB静态。
+同分布下PB-OEPLB(+21%)≈DataForest冻结oracle(+18%，用prover全量路由预计算)——PB-OEPLB在线收敛后追平冻结oracle；两者均优于EPLB静态(+9.6%,redundant副本dynamic-dispatch开销)。印证"swap而非duplicate"：无冗余的DataForest/PB-OEPLB > 有冗余的EPLB静态。† MoETuner (Go & Mahajan, arXiv:2502.06643) 作为**离线per-layer ILP1**基线复现：用disjoint的head1024做profile，tail做bench（fair split，无泄漏），Gurobi ILP1求解94层×128专家的cluster assignment（G=8/K=16/GPU，无冗余），solver 1015s，mean_imbalance=1.00达完美profile均衡。同分布下+13.0%位于EPLB静态(+9.6%)与DataForest(+18.0%)之间——MoETuner只做**放置聚类**而不做**冗余复制**（PB-OEPLB/DataForest亦然），故其上限被"无冗余静态"这一类共同的架构约束限制。为公平对比与09/14表并列，MoETuner的tps直接对齐09/14 identity=62.4计算gain。trace归档`/data/minghua/sjq/OEPLBdata/experiment_logs/moetuner_baseline_20260916/`。
 
 **跨域（freq6: 6段book↔prover频繁切换, 4438tok, O=10, conc=32, 2次中位）**——DataForest放置冻结自prover，对book段错配：
 
@@ -282,8 +283,9 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 | EPLB静态（prover+redundant16） | 4.5 | −4% |
 | EPLB动态（64次全量重平衡） | 4.4 | −6% |
 | **PB-OEPLB（sw16,80次swap,收敛稳态）** | **5.1** | **+8.5%（≈§5.2 +9.76%）** |
+| MoETuner（ILP1离线,prover-fit placement迁移）† | 4.63 | **−1.5%** |
 
-跨域freq6下**仅PB-OEPLB正收益**：DataForest的prover冻结放置对book段错配→+0%（prover半的同分布收益被book半错配抵消，两次4.7完全一致极稳）；EPLB静态/动态全负（redundant+全量重平衡开销，EPLB动态64次重平衡仍−6%）；PB-OEPLB逐段swap适应80次→+8.5%，与§5.2长跑+9.76%一致（N=600 vs 4200的收敛差异）。这正是Fig 9跨域迁移失败（MMLU最优→prover ratio 3.67>identity 3.51）的真实kernel端到端复现，由§3.1复制收益受限insight支撑：静态放置无在线适应，跨域必败。PB-OEPLB需warmup收敛后才完全适应跨域——稳态口径，与§4.3自适应窗口一致。
+跨域freq6下**仅PB-OEPLB正收益**：DataForest的prover冻结放置对book段错配→+0%（prover半的同分布收益被book半错配抵消，两次4.7完全一致极稳）；EPLB静态/动态全负（redundant+全量重平衡开销，EPLB动态64次重平衡仍−6%）；PB-OEPLB逐段swap适应80次→+8.5%，与§5.2长跑+9.76%一致（N=600 vs 4200的收敛差异）。† MoETuner用同一fair-split placement（fit于prover 256tok）迁移到freq6上，跨域跌至**−1.5%**——**+13.0%（同分布）→−1.5%（跨域）掉档14.5pp**，符合MoETuner论文Assumption 2：per-layer ILP clustering拟合单分布，域漂后expert-to-cluster映射失去针对性。MoETuner的跨域表现与EPLB静态/动态一档（−4%/−6%），DataForest靠"跨域正好book/prover半半抵消"侥幸+0%，唯有PB-OEPLB在线adaptation +8.5%——**在线 vs 离线的分水岭**。这正是Fig 9跨域迁移失败（MMLU最优→prover ratio 3.67>identity 3.51）的真实kernel端到端复现，由§3.1复制收益受限insight支撑：静态放置无在线适应，跨域必败。PB-OEPLB需warmup收敛后才完全适应跨域——稳态口径，与§4.3自适应窗口一致。
 
 ### 5.4 消融
 
