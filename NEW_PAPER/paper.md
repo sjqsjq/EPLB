@@ -305,12 +305,6 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 ![Fig 15 OEPLB在线运行swap决策时间线](figures/fig15_oeplb_real_timeline.png)
 
-**热点GPU分布的before/after对照** —— Fig 15b/15c从两个视角刻画同一件事：identity放置下每域几乎都被1–2张GPU垄断（modal share 30–70%、prover 100%顶在GPU5），OEPLB把每域entropy抬到2.1–2.9的近均匀水平。Fig 15c把fig15b entropy柱背后的具体分布画出来——prover H=0的物理含义是"每一次forward热点GPU都是GPU5"，其他域也都存在明确的modal GPU；这正是OEPLB要消除的**结构性straggler**（而非单纯均值意义上的ratio抬升）。数据来源：9域identity rt2 trace（rank0 per-forward top-1 GPU负载argmax，n=200–440/域）。
-
-![Fig 15b OEPLB提升hot-GPU entropy（0–1.9 → 2.1–2.9）](figures/fig15b_oeplb_entropy_comparison.png)
-
-![Fig 15c Identity放置下hot-GPU分布形态（prover 100%→GPU5，其它域modal 30–70%）](figures/fig15c_identity_hotgpu_distribution.png)
-
 ![Fig 16 逐域OEPLB收敛（首决策降幅最大）](figures/fig16_per_domain_convergence.png)
 
 ![Fig 17b 逐域identity vs OEPLB per-forward ratio（prover −14%）](figures/fig17b_identity_vs_oeplb_per_domain.png)
