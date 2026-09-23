@@ -67,6 +67,12 @@
 | prover同分布5方 | `datasets/single_domain/prover_256tok_out1.jsonl`(256tok) | `experiment_logs/baseline_comparison_20260914/`（`datafore_prover_placement.json`+`rt_prover/`+bench脚本+`results.json`） | **纯prefill microbench**：`--disable-cuda-graph --mem 0.78`, O=1, 256并发, 3次中位 |
 | freq6跨域5方 | 自拼6段book↔prover（`book_4438tok`+`prover_2048tok`, 6×100=600req, O=10, conc=32） | 同上（`freq6_bench.py`+`launch_oeplb_f6.sh`） | 同上；PB-OEPLB需warmup收敛(run2稳态5.1) |
 
+### §5.9 A100跨硬件三方对比（BF16/Triton, forward_normal）
+| 场景 | 结果json / 脚本 | trace位置 | 偏差 |
+|---|---|---|---|
+| 单域L512三方 | `experiments/a100_bf16_comparison/{identity,eplb,oeplb}_L512.json`(+`oeplb_L512_prebugfix.json`) | `experiments/a100_bf16_comparison/`（launch_*.sh + patch_sglang.py + *_keylines.txt + EXPERIMENT_LOG.md） | **A100/BF16/Triton偏差**：8×A100-80GB, moe-runner=triton(非deep_gemm), 无DeepEP(NCCL a2a), **--disable-overlap-schedule**, 无dp-attention, conc=1024, O=1 |
+| 多域MD三方 | `experiments/a100_bf16_comparison/{identity,eplb,oeplb}_MD.json` | 同上（`oeplb_MD_keylines.txt`含3次RESET+窗口32→16→8） | 同上；MD_L512_O1.jsonl数学↔英文4段交替3次域切换 |
+
 ## §3 数据集索引
 
 | 数据集 | 路径 | 用于 | 特征 |
@@ -76,6 +82,7 @@
 | multidomain_v2_out1 | `OEPLBdata/datasets/multi_domain/` | (早期跨域探索) | 4段prover/book/中文/prover |
 | 9域单域集 | `OEPLBdata/datasets/prefill_decode_correlation/` + rt2 trace | Fig 5/8/14, §3.4 | MMLU/ARC/CSQA/OBQA/GSM8K/prover/HumanEval/CMMLU/book |
 | crossdomain_freq6 | `OEPLBdata/datasets/...`（bench脚本生成流） | §5.2主结果 | 6段book↔prover, 4438tok, conc=32 |
+| MD_L512_O1 (A100多域) | `OEPLB/benchmarks/multidomain/MD_L512_O1.jsonl` | §5.9 A100多域表 | 数学↔英文4段交替(M/E/M/E,各2048), 3次域切换, 512tok, O=1 |
 
 ## §4 trace 归档总览（`/data/minghua/sjq/`）
 
@@ -83,6 +90,7 @@
 |---|---|---|
 | `OEPLBdata/experiment_logs/microbench_deepgemm_20260913/` | DeepGEMM T(M) bench脚本+json+图+README | Fig DG, §3.1 |
 | `OEPLBdata/experiment_logs/baseline_comparison_20260914/` | DataForest/EPLB/PB-OEPLB基线对比：placement JSON+rt_prover/+bench脚本+launch脚本+results.json | §5.3.1两表 |
+| `NEW_PAPER/experiments/a100_bf16_comparison/` (仓库内) | A100跨硬件三方对比：6结果json+launch脚本+patch_sglang.py+server keylines+EXPERIMENT_LOG | §5.9两表 |
 | `OEPLBdata/datasets/` | 所有benchmark数据集 | 全文 |
 | `paperpicturetrace/` | 旧图(§2-§5既有图)的trace，7子文件夹+README | Fig 1-17b, A-N |
 | `OEPLBdata/nsys_traces/` | 3×baseline+3×OEPLB的nsys profiling | 死区T(r)分析 |

@@ -586,3 +586,53 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 | oeplb_sw64_medium_out1_20260724_run1.nsys-rep | 280MB | 2026-07-24 |
 | oeplb_sw64_medium_out1_20260724_run2.nsys-rep | 269MB | 2026-07-24 |
 | oeplb_sw64_medium_out1_20260725_run3.nsys-rep | 262MB | 2026-07-25 |
+
+## E16: A100跨硬件三方对比 (BF16/Triton, forward_normal, 2026-09-23)
+
+### 硬件/路径（与主实验H20的偏差）
+8×NVIDIA A100-80GB, NVLink。Qwen3-235B-A22B **BF16**（非FP8）, TP=EP=8, moe-runner-backend=**triton**（非deep_gemm）, **无DeepEP**（NCCL a2a）, 走`forward_normal`（非`forward_deepep`）, **--disable-overlap-schedule**（否则NCCL死锁）, **无dp-attention**, cuda-graph-max-bs=64。SGLang ~v0.11。产物见 `NEW_PAPER/experiments/a100_bf16_comparison/`。
+
+### 致命bug（与§5.2早期bug同类，不同根因）
+`forward_normal`调`self.topk(...)`漏传`expert_location_dispatch_info`（`forward_deepep`则正确传入）→ `topk_ids_logical_to_physical()`退化no-op → topk_ids停留logical → OEPLB/EPLB对`physical_to_logical_map`的修改被路由完全忽略。症状：**不均衡度窗口间回弹**、开OEPLB反而−3.5%。修复：镜像`forward_deepep`补传dispatch info（见`patch_sglang.py`，一行改动）。**"不均衡度回弹"是swap未生效的通用诊断信号。**
+
+### 数据集
+- 单域: `OEPLB/benchmarks/final_grid/L512_O1.jsonl`（512tok Lean-4数学证明, O=1, 8192req, conc=1024）
+- 多域: `OEPLB/benchmarks/multidomain/MD_L512_O1.jsonl`（数学↔英文小说4段交替M/E/M/E各2048, 3次域切换, O=1, 8192req, conc=1024; 数学p50=301词/英文p50=288词）
+
+### 结果 — 单域 (L512_O1)
+
+| 配置 | 总耗时(s) | tps | vs identity |
+|---|---|---|---|
+| identity | 392.3 | 20.9 | - |
+| OEPLB (bug前) | 405.9 | 20.2 | −3.5% |
+| EPLB (在线,0冗余,每50步全局重排) | 348.4 | 23.5 | **+12.4%** |
+| OEPLB-adaptive (修复后) | 327.0 | **25.1** | **+20.1%** |
+
+### 结果 — 多域 (MD_L512_O1, 3次域切换)
+
+| 配置 | 总耗时(s) | tps | vs identity |
+|---|---|---|---|
+| identity | 348.0 | 23.5 | - |
+| EPLB (在线) | 324.3 | 25.3 | **+7.7%** |
+| OEPLB-adaptive (修复后) | 307.4 | **26.6** | **+13.2%** |
+
+### OEPLB多域逐窗口记录 (TP0, 含域切换re-spike与收敛)
+
+| Window | avg_ratio_before | avg_ratio_after | total_ops | 说明 |
+|---|---|---|---|---|
+| 1 | 1.730 | 1.176 | 300 | 冷启动(数学段) |
+| 2 | 1.186 | 1.077 | 214 | 数学收敛 |
+| 3 | 1.713 | 1.169 | 300 | **域切换→英文段re-spike** |
+| 4 | 1.170 | 1.070 | 227 | 英文收敛 |
+| 5 | 1.183 | 1.059 | 77 | 回数学段 |
+| 6 | 1.239 | 1.073 | 146 | 域切换re-spike |
+| 7 | 1.273 | 1.061 | 61 | 收敛 |
+| 8 | 1.136 | 1.070 | 49 | 稳定(ops递减) |
+
+伴随日志: 3次`[PB-OEPLB-RESET] domain shift detected`（清零负载历史重画像）+ `[PB-OEPLB-WINDOW] shift confirmed -- halving sync_window 32→16→8`（自适应缩窗）。
+
+### 关键观察
+1. **两场景排名与H20一致: OEPLB > EPLB > identity**（OEPLB单域超EPLB +6.8%、多域+5.1%），跨FP8/DeepEP与BF16/Triton两路径结论稳健。
+2. **A100上EPLB转正(+12.4%/+7.7%)**，与H20上EPLB全负(E12/§5.8)对照：A100无DeepEP的`deepep_mode=normal`约束→EPLB保留CUDA graph→无decode退化。OEPLB仍稳定胜出。
+3. **Qwen3-235B支持官方在线EPLB**（暴露`routed_experts_weights_of_layer`, qwen3_moe.py:1141），全模型重排每次~2s无崩溃，不同于§9记录的Qwen2-57B崩溃。
+4. **多域自适应机制生效**（RESET+窗口减半+ops递减不回弹），单纯静态放置做不到。

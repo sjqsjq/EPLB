@@ -1,3 +1,5 @@
+> 注：本文档已归入 `quickstart_h20/`。文中命令里的相对路径（`repro/`、`benchmarks/`、`tools/`）均以 **OEPLB/ 根目录** 为基准，请在 OEPLB/ 下执行。先完成同目录 `ENVIRONMENT.md` 的环境搭建。
+
 # 复现指南（Reproduction Guide）
 
 本文档是论文《面向MoE推理服务的自适应在线专家负载均衡》的**核心复现实验**，

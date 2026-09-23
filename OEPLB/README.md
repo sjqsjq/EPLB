@@ -121,7 +121,11 @@ OEPLB/
 | `layers/moe/topk.py` | `select_experts()` 后调用 `controller.record_next_layer(topk_ids)` |
 | `managers/scheduler.py` | 无修改 |
 
-此外，本项目额外对 **DeepEP v1.2.1 源码**打了 2 处 patch（详见 `QUICKSTART.md` §2.4），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
+此外，本项目额外对 **DeepEP v1.2.1 源码**打了 2 处 patch（详见 `quickstart_h20/ENVIRONMENT.md` §2.4），使其 low_latency 模式能在单机 NVLink（无 IB/RDMA）拓扑下工作。
+
+> **快速复现入口**：按硬件分成两套自包含的 quickstart 文件夹，各含「环境搭建 + 复现实验 + 最快数据集路径」：
+> - `quickstart_h20/` —— 8×H20 / FP8 / DeepEP（论文主线 §5 的产出环境）
+> - `quickstart_a100/` —— 8×A100-80GB / BF16 / Triton（非-DeepEP，跨硬件泛化验证；含 `forward_normal` dispatch-info 关键 bug 修复）
 
 ## 推荐配置
 

@@ -342,6 +342,21 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 增益由$\eta$（MoE时间占比×pinned×开销比）驱动，可由§3.3的$\Delta_{\max}\times\eta$预判：长prompt（MoE占总时间比大）与pinned（结构性straggler持续）$\eta$高→正收益；短prompt（MoE占比小）$\eta$低→负收益。OEPLB在长prompt上的正收益跨多个数据集稳健成立：book（5956tok）+13.7%、medium\_short（3482tok）+14.2%、prover（107tok，pinned）+12.7%、HumanEval（350tok）+4.0%；短prompt（MMLU/ARC/CMMLU）为负。EPLB因$\eta$更低（全量重平衡开销更大）在所有数据集上净负。这把"OEPLB相对EPLB的优势"从聚合数字细化为per-dataset可解释的$\eta$光谱，且验证了增益上界理论的预测能力——给定prompt长度与pinned-ness即可预判增益正负与量级。
 
+### 5.9 跨硬件泛化：A100/BF16/Triton（非DeepEP路径）
+
+前述实验均在H20的FP8+DeepEP+DeepGEMM路径（`forward_deepep`）上进行。为验证PB-OEPLB不依赖特定硬件/通信后端，本节在**8×A100-80GB**上复现单域与多域三方对比：BF16（非FP8）、Triton MoE runner（非DeepGEMM）、NCCL all-to-all（非DeepEP），走`forward_normal`路径，TP=EP=8。该路径**必须`--disable-overlap-schedule`**（否则NCCL死锁）且**不启用dp-attention**——dp-attention的token gather/scatter依赖DeepEP的高效a2a kernel，在NCCL路径上桥接开销反超收益，且与禁overlap叠加不稳定，还会把8卡重划为DP组、打乱OEPLB控制器的dp=1负载统计假设，故A100配置下关闭（它平衡的是attention/KV，与OEPLB平衡专家负载正交，关闭亦可隔离OEPLB效果）。EPLB取0冗余专家以与OEPLB公平对比（两者均纯放置优化、无复制）。
+
+复现中发现`forward_normal`存在一处与§5.2早期bug同类的缺陷：调用`self.topk(...)`时**漏传`expert_location_dispatch_info`**（`forward_deepep`则正确传入），致`topk_ids_logical_to_physical()`退化为no-op、topk_ids停留logical编号，**OEPLB/EPLB对`physical_to_logical_map`的修改被路由完全忽略**——症状为不均衡度窗口间明显回弹、开OEPLB反而−3.5%。修复（镜像`forward_deepep`补传dispatch info，一行改动）后OEPLB/EPLB均正常生效。这与§5.2的`ep_dispatch_algorithm='static'`强制分支缺失是同一类问题（logical→physical重映射须真正对路由生效），再次印证该重映射是OEPLB跨架构泛化的必要前提。
+
+单域（L512_O1 Lean数学证明, 8192req, O=1, conc=1024）与多域（数学↔英文小说4段交替M/E/M/E、3次域切换）三方结果：
+
+| 场景 | identity tps | EPLB（在线,0冗余） | PB-OEPLB（修复后） |
+|---|---|---|---|
+| 单域 L512_O1 | 20.9 | 23.5（+12.4%） | **25.1（+20.1%）** |
+| 多域 MD（3次域切换） | 23.5 | 25.3（+7.7%） | **26.6（+13.2%）** |
+
+三点观察。其一，**两场景排名与H20一致：PB-OEPLB > EPLB > identity**，OEPLB单域超EPLB +6.8%、多域超EPLB +5.1%，且单域+20.1%/多域+13.2%与H20的+19.4%/+9.76%同量级——跨FP8/DeepEP与BF16/Triton两套截然不同的路径，结论稳健。其二,**A100上EPLB转为正收益（+12.4%/+7.7%）**，与H20上EPLB近乎无益（§5.8六数据集全负、§5.3可复测仅+1.75%）形成鲜明对照：根因在于A100路径无DeepEP的`deepep_mode=normal`约束、EPLB可保留CUDA graph，§5.3所述"强制禁图使decode退化62%"的退化在此不发生；即便如此，OEPLB的增量swap仍稳定胜出EPLB的全模型周期重排。其三,多域run的server日志证实自适应机制完整生效（3次`PB-OEPLB-RESET`检测域切换并清零负载历史、`--pb-oeplb-adaptive-window`将窗口32→16→8加速再平衡、各窗avg_ratio跳升后由swap压下且ops递减300→49不再回弹），这是单纯静态放置无法做到的。另注：与§5.3指出官方EPLB在Qwen2-MoE抛AttributeError不同，Qwen3-235B暴露`routed_experts_weights_of_layer`，官方在线EPLB在其上全模型重排（每次约2s）无崩溃跑通。完整脚本、结果与日志见`experiments/a100_bf16_comparison/`。
+
 ## 6 总结
 
 ### 6.1 工作总结

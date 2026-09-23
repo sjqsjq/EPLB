@@ -1,0 +1,21 @@
+{
+  "label": "MD_oeplb_fixed",
+  "dataset": "benchmarks/multidomain/MD_L512_O1.jsonl",
+  "num_requests": 8192,
+  "concurrency": 1024,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 307.42,
+  "total_comp_tokens": 8192,
+  "tps": 26.6,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 36573.1,
+  "lat_p50_ms": 40069.73,
+  "lat_p99_ms": 43660.01,
+  "ttft_mean_ms": 36573.06,
+  "ttft_p50_ms": 40069.7,
+  "ttft_p99_ms": 43659.99,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
