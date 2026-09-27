@@ -1,0 +1,24 @@
+### OEPLB freq6 RESET/WINDOW 证据(默认配置)
+[2026-09-26 08:30:48 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.126 prev=1.126 current=1.274 -> zeroing load history for clean re-profiling
+[2026-09-26 08:32:21 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.069 prev=1.076 current=1.182 -> zeroing load history for clean re-profiling
+[2026-09-26 08:32:28 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.182 prev=1.182 current=1.645 -> zeroing load history for clean re-profiling
+[2026-09-26 08:32:37 TP0 EP0] [PB-OEPLB-WINDOW] shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 16 -> 8
+[2026-09-26 08:32:43 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.073 prev=1.073 current=1.237 -> zeroing load history for clean re-profiling
+[2026-09-26 08:33:30 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.075 prev=1.078 current=1.258 -> zeroing load history for clean re-profiling
+[2026-09-26 08:33:46 TP0 EP0] [PB-OEPLB-RESET] domain shift detected: converged=1.258 prev=1.258 current=1.369 -> zeroing load history for clean re-profiling
+[2026-09-26 08:40:27 TP0 EP0] [PB-OEPLB-WINDOW] shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 128 -> 64
+
+### OEPLB 0914 DIAG(默认配置稳态,每窗仍有ops→死区churn)
+[2026-09-27 09:08:45 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=92 total_ops=298 avg_ratio_before=1.733 avg_ratio_after=1.178 max_ratio_before=2.495 max_ratio_after=1.319
+[2026-09-27 09:09:02 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=93 total_ops=228 avg_ratio_before=1.179 avg_ratio_after=1.070 max_ratio_before=1.319 max_ratio_after=1.141
+
+### OEPLB 死区配置(threshold=1.093)收敛后停止swap
+[2026-09-27 09:35:06 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=92 total_ops=299 avg_ratio_before=1.733 avg_ratio_after=1.180 max_ratio_before=2.495 max_ratio_after=1.613
+[2026-09-27 09:35:23 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=93 total_ops=226 avg_ratio_before=1.181 avg_ratio_after=1.071 max_ratio_before=1.614 max_ratio_after=1.182
+
+### EPLB动态 freq6 rebalance 行数(频繁阻塞重排)
+634
+
+### placement 加载分支确认
+     16 init_expert_location from init_by_eplb
+      8 init_expert_location from init_by_mapping

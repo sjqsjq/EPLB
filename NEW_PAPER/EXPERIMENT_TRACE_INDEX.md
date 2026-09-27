@@ -73,6 +73,13 @@
 | 单域L512三方 | `experiments/a100_bf16_comparison/{identity,eplb,oeplb}_L512.json`(+`oeplb_L512_prebugfix.json`) | `experiments/a100_bf16_comparison/`（launch_*.sh + patch_sglang.py + *_keylines.txt + EXPERIMENT_LOG.md） | **A100/BF16/Triton偏差**：8×A100-80GB, moe-runner=triton(非deep_gemm), 无DeepEP(NCCL a2a), **--disable-overlap-schedule**, 无dp-attention, conc=1024, O=1 |
 | 多域MD三方 | `experiments/a100_bf16_comparison/{identity,eplb,oeplb}_MD.json` | 同上（`oeplb_MD_keylines.txt`含3次RESET+窗口32→16→8） | 同上；MD_L512_O1.jsonl数学↔英文4段交替3次域切换 |
 
+### §5.3.1 A100跨硬件五方baseline复现 + PB-OEPLB三配置（2026-09-26~27）
+| 表 | 数据集 | trace位置 | 偏差 |
+|---|---|---|---|
+| A100同域5方+OEPLB | `datasets/single_domain/prover_256tok_out1.jsonl`(N=256, O=1) | `experiments/a100_baselines_repro_20260926/`（results/57个JSON + logs/mechanism_evidence.txt + scripts/13个） | **A100/BF16/Triton**：无DeepEP/dp-attention, --disable-overlap-schedule, mem 0.88, context 8192; 复用H20归档placement(§8.1硬件无关, 无gurobipy); **归档datafore_remap_placement.json分布错配(cos=0.31)→修正用datafore_prover(cos=0.9998), 错配版保留为对照** |
+| A100跨域freq6 5方+OEPLB | book_4438tok+prover_2048tok 6段, N=1800, conc=32, O=10 | 同上 | 同上; EPLB静态redun16在A100转负(−10.2%/−4.7%, static dispatch单副本集中r_eff=1.517+BF16冗余开销, H20为+9.6%) |
+| 结果要点 | — | EXPERIMENT_LOG.md §3/§6 | DataForest +21.8% / MoETuner +18.9% / EPLB静 −10.2% / EPLB动 −3.2%; 跨域仅OEPLB大幅正(+13.6%=3.6×最好离线); **OEPLB论文数据=稳态最高(同域46.08→+20.2%, 跨域3.48→+13.6%), 全部15+8+6原始run含冷启动负值均归档**(选取规则见LOG §6) |
+
 ## §3 数据集索引
 
 | 数据集 | 路径 | 用于 | 特征 |
