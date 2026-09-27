@@ -65,8 +65,9 @@
 - 铁证: **同 counts、仅去掉冗余(DataForest redun0)= +21.8%**;带冗余 = −10.2%。
 - H20 为正(+9.6%)因 FP8 冗余字节减半 + DeepEP dispatch 为冗余设计,开销≈0;A100 BF16/Triton 下开销放大 → 方向翻转。
 
-### 4.3 A100 死区检验(phase4)
-threshold=1.093(§8.3 A100 r_k)使稳态 swap 归零(收敛至 avg=1.071<1.093 后仅 2 窗有 swap),但吞吐与 threshold=1.02 完全相同(稳态中位 44.3)→ 稳态差距非 swap churn,而是 OEPLB 增量贪心放置的**逐层尾部**(max_after=1.182 越过死区仍付铰链罚时;MoETuner/DataForest 逐层最优无尾部)。数据与 r_k=1.093 自洽。
+### 4.3 A100 死区检验(phase4)与归因更正(phase6)
+phase4: threshold=1.093 与 1.02 结果完全相同(稳态中位均 44.3)。日志证明原因是**两者都只 swap 了 2 个窗口**——自适应窗口在稳定期把 W 从 16 倍增到 128,而 7 秒 burst 每 run 仅 4-8 个 forward,此后再未触发窗口边界;死区阈值实际从未被查询。
+~~初版归因"A/B 稳态(44.3)低于 C(45.7)源于增量贪心放置的逐层尾部(max_after 1.18)"~~ **phase6 大样本(N=2048)更正**:A/B/C/DataForest 四者收敛到同一水平(15.43~15.59,±0.7%),burst 协议下的 44.3 vs 45.7 差距属 7 秒小样本噪声(A/B 单 run 亦达 46.08/46.10,与 C 区间重叠)。B 的规划器反而把尾部打磨得更干净(max_after=1.096 < A 的 1.202)。
 
 ### 4.4 EPLB动态跨域 −13.8%
 freq6 期间 rebalance 相关日志 634 行,周期性全模型重排阻塞推理(A100 同步 P2P、BF16 权重字节 2×,单次重排比 H20 更贵),追逐漂移负载得不偿失。
@@ -112,3 +113,24 @@ freq6 期间 rebalance 相关日志 634 行,周期性全模型重排阻塞推理
 - `scripts/`: 13 个 —— 参数化 launch(5方法+3 OEPLB配置)、driver、聚合器、phase2-5 编排
 - server 全量日志: `/workspace/logs/server_a100_<table>_<method>.log`(机器本地,未入库)
 - H20 原始归档备份: `OEPLB/benchmarks/results/h20_archive/`(12 文件,防覆盖抢救自 git HEAD)
+
+
+## 8. 补充实验 phase6/7:持续负载收敛验证(2026-09-27)
+
+**目的**:验证"短 burst 的冷启动负收益是瞬态;请求量/时长足够时,在线配置(A/B)收敛到混合配置(C)/离线 oracle(DF)水平"。
+**协议**:同域数据放大 N=2048(整文件,每 run ~132s、30+ forward,窗口边界持续可达;burst 噪声 ±4%→~±1%),每臂独立 boot。
+
+| 臂(配置) | 各 run (req/s) | 均值 | vs identity |
+|---|---|---|---|
+| identity(校准, phase7) | 15.0 / 15.0 / 15.1 | 15.03 | — |
+| A 默认adaptive(thr1.02) ×6 | 15.34 15.49 15.71 15.63 15.45 15.48 | **15.52** | +3.3% |
+| B 死区(thr1.093) ×4 | 15.53 15.43 15.73 15.66 | **15.59** | +3.7% |
+| C 混合(离线init+守护) ×3 | 15.33 15.54 15.61 | **15.49** | +3.1% |
+| DataForest(离线oracle) ×3 | 15.6 / 15.2 / 15.5 | **15.43** | +2.7% |
+
+**结论**:
+1. **持续负载下 A 从 r1 起即达 oracle 水平**——2 个 swap 窗(300+217 ops,含首次 P2P 缓冲预热 4.2s 墙钟)全部落在 r1 的 133s 内,适应成本被摊薄到不可见;r2 起零 swap。冷启动负收益确认为短 burst 瞬态。
+2. **A≈B≈C≈DF(±0.7%)**:收敛后的在线放置与离线 oracle 无差别;"B 死区冻结导致落后"的预测被证伪(B 反而数值最高,其规划集中预算打磨最差层,max_after=1.096)。
+3. **协议敏感性警示**:饱和深队列下瓶颈移至调度/请求生命周期(绝对 tok/s 仅为 burst 协议 ~40%),identity 与放置组差距被压缩到 +3.1%(burst 协议为 +21.8%)。**phase6/7 只用于收敛性论证,不用于方法排名**;排名仍以 §3 两张表(burst 口径,与 H20 文档一致)为准。
+
+数据:`results/_0914_a100_sust_{aseq,bseq,hseq,dseq,iseq}_r*.json`(19 个);脚本 `scripts/phase6_sustained.sh`、`phase7_identity_calib.sh`;DIAG 轨迹见 `logs/mechanism_evidence.txt` 末尾追加段。

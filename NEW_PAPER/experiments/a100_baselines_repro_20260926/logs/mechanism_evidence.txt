@@ -22,3 +22,13 @@
 ### placement 加载分支确认
      16 init_expert_location from init_by_eplb
       8 init_expert_location from init_by_mapping
+
+### phase6 持续负载 DIAG 轨迹(TP0)
+-- ARM A (thr=1.02, 2窗后零swap):
+[2026-09-27 15:09:35 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=92 total_ops=300 avg_ratio_before=1.731 avg_ratio_after=1.177 max_ratio_before=2.491 max_ratio_after=1.228
+[2026-09-27 15:09:54 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=93 total_ops=217 avg_ratio_before=1.179 avg_ratio_after=1.073 max_ratio_before=1.262 max_ratio_after=1.202
+-- ARM B (thr=1.093, max_after=1.096 尾部更净):
+[2026-09-27 15:24:30 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=92 total_ops=300 avg_ratio_before=1.731 avg_ratio_after=1.177 max_ratio_before=2.490 max_ratio_after=1.228
+[2026-09-27 15:24:48 TP0 EP0] [PB-OEPLB-DIAG] layers_touched=93 total_ops=228 avg_ratio_before=1.179 avg_ratio_after=1.071 max_ratio_before=1.234 max_ratio_after=1.096
+-- ARM C: 0 次 swap(全程无 DIAG 行)
+0
