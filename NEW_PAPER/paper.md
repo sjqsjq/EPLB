@@ -357,6 +357,40 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 三点观察。其一，**两场景排名与H20一致：PB-OEPLB > EPLB > identity**，OEPLB单域超EPLB +6.8%、多域超EPLB +5.1%，且单域+20.1%/多域+13.2%与H20的+19.4%/+9.76%同量级——跨FP8/DeepEP与BF16/Triton两套截然不同的路径，结论稳健。其二,**A100上EPLB转为正收益（+12.4%/+7.7%）**，与H20上EPLB近乎无益（§5.8六数据集全负、§5.3可复测仅+1.75%）形成鲜明对照：根因在于A100路径无DeepEP的`deepep_mode=normal`约束、EPLB可保留CUDA graph，§5.3所述"强制禁图使decode退化62%"的退化在此不发生；即便如此，OEPLB的增量swap仍稳定胜出EPLB的全模型周期重排。其三,多域run的server日志证实自适应机制完整生效（3次`PB-OEPLB-RESET`检测域切换并清零负载历史、`--pb-oeplb-adaptive-window`将窗口32→16→8加速再平衡、各窗avg_ratio跳升后由swap压下且ops递减300→49不再回弹），这是单纯静态放置无法做到的。另注：与§5.3指出官方EPLB在Qwen2-MoE抛AttributeError不同，Qwen3-235B暴露`routed_experts_weights_of_layer`，官方在线EPLB在其上全模型重排（每次约2s）无崩溃跑通。完整脚本、结果与日志见`experiments/a100_bf16_comparison/`。
 
+#### 5.9.1 A100上§5.3.1五方baseline复现（跨硬件可移植性）
+
+进一步将§5.3.1的五方对比（identity / EPLB静态 / EPLB动态 / DataForest-Remap / MoETuner）完整移植到A100（BF16/Triton/NCCL、无dp-attention，另加`--disable-overlap-schedule`；baseline统一口径`--disable-cuda-graph --disable-radix-cache`；mem 0.88、context 8192按80GB显存与book实测最长~5668tok调整）。MoETuner/DataForest/EPLB静态的placement直接复用H20归档（94×128纯整数映射，硬件无关；本机无Gurobi，走复现文档附录"最短路径"，跳过profile+ILP）；bench harness与聚合口径与§5.3.1完全一致（同域丢r1取r2/r3中位、跨域3-run中位、同session identity归一）；EPLB两臂按文档维持redundant16。
+
+**同域（prover_256tok pinned 10×, N=256, O=1, 一次并发）**：
+
+| 方法 | req/s | vs identity | H20对照(§5.3.1) |
+|---|---|---|---|
+| identity | 38.33 | — | 62.4 |
+| EPLB动态（redundant16, iter100） | 37.12 | −3.2% | −1% |
+| EPLB静态（冻结+redundant16） | 34.42 | **−10.2%** | +9.6% |
+| MoETuner（ILP1离线placement迁移） | 45.58 | +18.9% | +13.0% |
+| **PB-OEPLB（在线swap, 收敛稳态）** | **46.08** | **+20.2%** | +20.7% |
+| DataForest-Remap（冻结, 无冗余） | 46.68 | +21.8% | +18.0% |
+
+**跨域（freq6: 6段book↔prover, N=1800, O=10, conc=32）**：
+
+| 方法 | req/s | vs identity | H20对照(§5.3.1) |
+|---|---|---|---|
+| identity | 3.06 | — | 4.7 |
+| EPLB动态（频繁全量重排） | 2.64 | −13.8% | −6% |
+| EPLB静态 | 2.92 | −4.7% | −4% |
+| MoETuner（prover-fit placement迁移） | 3.16 | +3.1% | −1.5% |
+| DataForest-Remap（prover放置冻结） | 3.18 | +3.8% | +0% |
+| **PB-OEPLB（RESET+缩窗在线适应, 收敛稳态）** | **3.48** | **+13.6%** | +8.5% |
+
+四点结论。**其一，"在线vs离线分水岭"跨硬件复现**：静态离线放置同域强（DataForest +21.8%、MoETuner +18.9%，与H20的+18%/+13%同向同级），跨域被中和（+3.8%/+3.1%——prover冻结放置在3/6的prover段仍有效、book段失效，H20上为0%/−1.5%），唯PB-OEPLB跨域大幅为正（+13.6%，为最好离线方法的3.6倍，H20为+8.5%）。绝对增益与§2.4上界模型一致：A100预测Δ_max≈18.3%（β=0.284、r_k=1.093），实测落在β±30%误差带内；A100绝对吞吐≈H20的0.62~0.68倍（BF16/Triton vs FP8/DeepGEMM），相对排序不变。
+
+**其二，EPLB静态符号翻转（+9.6%→−10.2%）是本次移植的新发现**。机制两层：(i) SGLang的static dispatch给每个逻辑专家固定**单一**物理副本（本地优先、否则最小ID副本，`_topk_ids_logical_to_physical_static`），而`rebalance_experts`按副本**均分**流量记账——用同款算法函数模拟：记账不均衡度r=1.011，static dispatch实际生效r_eff=**1.517**（identity=1.715、无冗余置换=1.013），冗余收益大半落空；(ii) BF16冗余权重字节为FP8两倍：18槽/卡（+7.1GB/卡）、KV池297K→149K tokens、Triton扫更宽槽表。决定性对照：**同一份logical_count、冗余归零（即DataForest臂）= +21.8%**——差距全部来自冗余机制在A100路径的净开销。H20上FP8字节减半+DeepEP normal dispatch本为冗余设计，开销≈0故净+9.6%。含义：EPLB的冗余专家收益**隐性耦合DeepEP dispatch路径**，脱离DeepEP移植会退化；PB-OEPLB/DataForest的纯置换（swap而非duplicate）对此免疫——在第二套硬件上再次支撑§5.3.1的"swap not duplicate"。
+
+**其三，PB-OEPLB冷启动是短burst瞬态，持续负载下收敛到oracle水平**。从trivial在线学习的前两个swap窗（298 ops含首次P2P缓冲预热4.2s墙钟、228 ops 0.9s）落在7s短burst内造成瞬态负值（−5.0%/−5.5%）；收敛后稳态46.08。持续负载验证（N=2048、每run 132s）：默认阈值1.02、死区阈值1.093（=A100的r_k）、离线init+在线守护三种配置与DataForest四者收敛于15.43~15.59 req/s（±0.7%），identity 15.03（−3.2%）——适应成本在第一个长跑内摊平（两窗均落在r1、其后零swap），在线配置与离线oracle在持续流量下不可区分，与H20"PB-OEPLB在线收敛后追平冻结oracle"一致。（该饱和协议下调度开销主导、对放置差异敏感度压缩至~3%，仅用于收敛性论证；方法排名以上表短burst口径为准。）
+
+**其四，复现工程发现（归档数据治理）**：H20归档的`datafore_remap_placement.json`与bench分布余弦仅0.31（其放置下不均衡度1.703≈identity 1.715，收益必然≈0），实测+1.2%——该"错配对照"反向验证了dispatch-info补丁链无误触发；改用prover对齐的`datafore_prover_placement.json`（余弦0.9998，贪心达1.013）方复现+21.8%，H20当年的+18%应归因于后者的运行时副本。完整脚本、76个结果JSON（含全部原始run与选取规则）、21份server日志与机制证据见`experiments/a100_baselines_repro_20260926/`，机器归档`/data/minghua/sjq/OEPLBdata/experiment_logs/a100_baselines_repro_20260926/`。
+
 ## 6 总结
 
 ### 6.1 工作总结

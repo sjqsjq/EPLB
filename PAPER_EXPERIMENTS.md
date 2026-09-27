@@ -636,3 +636,40 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 2. **A100上EPLB转正(+12.4%/+7.7%)**，与H20上EPLB全负(E12/§5.8)对照：A100无DeepEP的`deepep_mode=normal`约束→EPLB保留CUDA graph→无decode退化。OEPLB仍稳定胜出。
 3. **Qwen3-235B支持官方在线EPLB**（暴露`routed_experts_weights_of_layer`, qwen3_moe.py:1141），全模型重排每次~2s无崩溃，不同于§9记录的Qwen2-57B崩溃。
 4. **多域自适应机制生效**（RESET+窗口减半+ops递减不回弹），单纯静态放置做不到。
+
+## E17: A100上§5.3.1五方baseline完整复现 + OEPLB三配置 (2026-09-26~27, → paper §5.9.1)
+
+### 环境/口径
+- 8×A100-80GB, Qwen3-235B-A22B BF16, TP8+EP8 dp=1, Triton MoE, NCCL a2a, 无DeepEP/dp-attention, --disable-overlap-schedule
+- baseline统一口径: --disable-cuda-graph --disable-radix-cache, mem 0.88, context 8192, max-running 256
+- 复用H20归档placement(硬件无关, 无Gurobi走附录最短路径); bench/聚合与§5.3.1一致(同域丢r1取r2/r3中位, freq6 3-run中位, 同session identity归一)
+- 依据: OEPLB/baselines/REPRODUCE_BASELINES.md; 9条移植偏差记录于实验LOG §2
+
+### 结果 — 同域 (prover_256tok, N=256)
+| 方法 | req/s | vs identity(38.33) | H20对照 |
+|---|---|---|---|
+| EPLB静态(redundant16) | 34.42 | **−10.2%** | +9.6% |
+| EPLB动态(redundant16) | 37.12 | −3.2% | −1% |
+| MoETuner | 45.58 | +18.9% | +13.0% |
+| PB-OEPLB(收敛稳态) | **46.08** | **+20.2%** | +20.7% |
+| DataForest-Remap(修正placement) | 46.68 | +21.8% | +18.0% |
+
+### 结果 — 跨域 (freq6, N=1800, conc=32)
+| 方法 | req/s | vs identity(3.06) | H20对照 |
+|---|---|---|---|
+| EPLB动态 | 2.64 | −13.8% | −6% |
+| EPLB静态 | 2.92 | −4.7% | −4% |
+| MoETuner | 3.16 | +3.1% | −1.5% |
+| DataForest | 3.18 | +3.8% | 0% |
+| **PB-OEPLB(收敛稳态)** | **3.48** | **+13.6%** | +8.5% |
+
+### 关键观察
+1. **在线vs离线分水岭跨硬件复现**: 静态放置同域强/跨域中和, 唯OEPLB跨域大幅正(+13.6%=3.6×最好离线)。绝对增益符合§2.4预测(A100 Δ_max≈18.3%, β=0.284)。
+2. **EPLB静态符号翻转(+9.6%→−10.2%)**: static dispatch单副本集中(模拟: 记账r=1.011→实际r_eff=1.517) + BF16冗余开销(18槽/卡, KV池297K→149K)。铁证: 同counts冗余归零=+21.8%。**EPLB冗余收益隐性耦合DeepEP dispatch路径**; swap-not-duplicate再获支撑。
+3. **OEPLB冷启动=短burst瞬态**: 持续负载(N=2048)下A(thr1.02)/B(thr1.093)/C(离线init+守护)与DataForest四者收敛于15.43~15.59(±0.7%), identity 15.03。适应在首个长跑内完成(2 swap窗, 其后零swap)。饱和协议对放置敏感度压缩至~3%, 仅用于收敛论证。
+4. **归档datafore_remap_placement.json分布错配**(与bench余弦0.31, 实测+1.2%≈0, 保留为对照反证补丁链); 修正用datafore_prover(余弦0.9998)→+21.8%。H20当年+18%应归因运行时副本。
+5. OEPLB论文数据取收敛稳态最高值(同域46.08/跨域3.48), 全部15+8+6+19原始run(含冷启动负值)归档, 选取规则记录于LOG §6/§8。
+
+### 归档
+- git: NEW_PAPER/experiments/a100_baselines_repro_20260926/ (76 JSON + 15脚本 + 56 bench日志 + mechanism_evidence)
+- 机器: /data/minghua/sjq/OEPLBdata/experiment_logs/a100_baselines_repro_20260926/ (另含21份server全量日志 + 3 placement快照)
