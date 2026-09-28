@@ -368,8 +368,8 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 | identity | 38.33 | — | 62.4 |
 | EPLB动态（redundant16, 短burst未触发重排）† | 37.12 | −3.2% | −1% |
 | MoETuner（ILP1离线placement迁移） | 45.58 | +18.9% | +13.0% |
-| **PB-OEPLB（在线swap, 收敛稳态）** | **46.08** | **+20.2%** | +20.7% |
 | DataForest-Remap（冻结, 无冗余） | 46.68 | +21.8% | +18.0% |
+| **PB-OEPLB（在线swap, 收敛稳态）** | **46.08** | **+20.2%** | +20.7% |
 
 **跨域（freq6: 6段book↔prover, N=1800, O=10, conc=32）**：
 
