@@ -648,8 +648,7 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 ### 结果 — 同域 (prover_256tok, N=256)
 | 方法 | req/s | vs identity(38.33) | H20对照 |
 |---|---|---|---|
-| EPLB静态(redundant16) | 34.42 | **−10.2%** | +9.6% |
-| EPLB动态(redundant16) | 37.12 | −3.2% | −1% |
+| EPLB动态(redundant16, 短burst未触发重排)† | 37.12 | −3.2% | −1% |
 | MoETuner | 45.58 | +18.9% | +13.0% |
 | PB-OEPLB(收敛稳态) | **46.08** | **+20.2%** | +20.7% |
 | DataForest-Remap(修正placement) | 46.68 | +21.8% | +18.0% |
@@ -657,19 +656,19 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 ### 结果 — 跨域 (freq6, N=1800, conc=32)
 | 方法 | req/s | vs identity(3.06) | H20对照 |
 |---|---|---|---|
-| EPLB动态 | 2.64 | −13.8% | −6% |
-| EPLB静态 | 2.92 | −4.7% | −4% |
+| EPLB动态(39次重排×~2.1s阻塞) | 2.64 | −13.8% | −6% |
 | MoETuner | 3.16 | +3.1% | −1.5% |
 | DataForest | 3.18 | +3.8% | 0% |
 | **PB-OEPLB(收敛稳态)** | **3.48** | **+13.6%** | +8.5% |
 
 ### 关键观察
 1. **在线vs离线分水岭跨硬件复现**: 静态放置同域强/跨域中和, 唯OEPLB跨域大幅正(+13.6%=3.6×最好离线)。绝对增益符合§2.4预测(A100 Δ_max≈18.3%, β=0.284)。
-2. **EPLB静态符号翻转(+9.6%→−10.2%)**: static dispatch单副本集中(模拟: 记账r=1.011→实际r_eff=1.517) + BF16冗余开销(18槽/卡, KV池297K→149K)。铁证: 同counts冗余归零=+21.8%。**EPLB冗余收益隐性耦合DeepEP dispatch路径**; swap-not-duplicate再获支撑。
+2. **EPLB静态符号翻转(+9.6%→−10.2%)**[按作者决定不列入paper表格, 数据完整保留于归档; paper以†脚注保留机制说明]: static dispatch单副本集中(模拟: 记账r=1.011→实际r_eff=1.517) + BF16冗余开销(18槽/卡, KV池297K→149K)。铁证: 同counts冗余归零=+21.8%。**EPLB冗余收益隐性耦合DeepEP dispatch路径**; swap-not-duplicate再获支撑。
+2b. **EPLB动态持续负载校准(phase8, N=2048×5)**: 32次重排真实触发(每次2.07~3.46s同步阻塞, 总~67s≈9.7%墙钟), 中位14.76=**−1.6%仍为负**——阻塞成本+单副本集中使放置收益无法兑现。同协议: identity 15.00 / MoETuner 15.45(+3.0%) / DataForest 15.54(+3.6%) / OEPLB默认 15.49(+3.3%, 三配置15.49~15.59)。臂身份经日志指纹验证无混淆(static: 8×init_by_eplb+0重排; dyn: EPLBManager+burst0次/freq6 39次/持续32次)。
 3. **OEPLB冷启动=短burst瞬态**: 持续负载(N=2048)下A(thr1.02)/B(thr1.093)/C(离线init+守护)与DataForest四者收敛于15.43~15.59(±0.7%), identity 15.03。适应在首个长跑内完成(2 swap窗, 其后零swap)。饱和协议对放置敏感度压缩至~3%, 仅用于收敛论证。
 4. **归档datafore_remap_placement.json分布错配**(与bench余弦0.31, 实测+1.2%≈0, 保留为对照反证补丁链); 修正用datafore_prover(余弦0.9998)→+21.8%。H20当年+18%应归因运行时副本。
 5. OEPLB论文数据取收敛稳态最高值(同域46.08/跨域3.48), 全部15+8+6+19原始run(含冷启动负值)归档, 选取规则记录于LOG §6/§8。
 
 ### 归档
-- git: NEW_PAPER/experiments/a100_baselines_repro_20260926/ (76 JSON + 15脚本 + 56 bench日志 + mechanism_evidence)
+- git: NEW_PAPER/experiments/a100_baselines_repro_20260926/ (84 JSON[含phase8 dyseq×5/mseq×3] + 16脚本 + bench日志 + mechanism_evidence)
 - 机器: /data/minghua/sjq/OEPLBdata/experiment_logs/a100_baselines_repro_20260926/ (另含21份server全量日志 + 3 placement快照)

@@ -134,3 +134,24 @@ freq6 期间 rebalance 相关日志 634 行,周期性全模型重排阻塞推理
 3. **协议敏感性警示**:饱和深队列下瓶颈移至调度/请求生命周期(绝对 tok/s 仅为 burst 协议 ~40%),identity 与放置组差距被压缩到 +3.1%(burst 协议为 +21.8%)。**phase6/7 只用于收敛性论证,不用于方法排名**;排名仍以 §3 两张表(burst 口径,与 H20 文档一致)为准。
 
 数据:`results/_0914_a100_sust_{aseq,bseq,hseq,dseq,iseq}_r*.json`(19 个);脚本 `scripts/phase6_sustained.sh`、`phase7_identity_calib.sh`;DIAG 轨迹见 `logs/mechanism_evidence.txt` 末尾追加段。
+
+## 9. phase8: EPLB动态持续负载校准 + MoETuner补全(2026-09-28)
+
+**动机**:短burst(3 run≈20 iteration)未达EPLB动态的100-iteration重排阈值,该臂在§3表中≈"identity+冗余开销",非真动态行为。按作者要求给动态臂充分触发口径重测;同时补MoETuner的N=2048使校准表完整。
+
+**臂身份验证(排除"测反"疑虑)**:static臂日志=8×`init_by_eplb`+0次重排;dyn臂日志=`EPLBManager`启动声明+burst期0次重排+freq6期39次(带时间戳,每次2.07~2.10s)+持续负载期32次(2.07~3.46s)。两臂指纹与数字自洽,H20归档中dyn同名臂亦标注"EPLB_dynamic_norebalance"。
+
+**持续负载(N=2048)校准表(中位)**:
+| 臂 | runs | 中位 req/s | vs identity |
+|---|---|---|---|
+| identity | 15.0/14.96/15.11 | 15.00 | — |
+| EPLB动态(32次重排,总阻塞~67s≈9.7%墙钟) | 14.8/14.8/14.8/14.5/14.6 | **14.76** | **−1.6%** |
+| MoETuner | 15.45/15.43/15.65 | 15.45 | +3.0% |
+| DataForest | 15.57/15.23/15.54 | 15.54 | +3.6% |
+| OEPLB-A默认 | (phase6, 6 runs) | 15.49 | +3.3% |
+| OEPLB-B死区 | (phase6, 4 runs) | 15.59 | +4.0% |
+| OEPLB-C混合 | (phase6, 3 runs) | 15.54 | +3.6% |
+
+**结论**:EPLB动态即使充分触发仍净负(−1.6%)——每次全模型重排同步阻塞~2.1s(BF16迁移、无DeepEP异步通道),且冗余放置在非-DeepEP static dispatch下仍受单副本集中(§4.2机制),收益抵不过成本。OEPLB增量swap无此代价(+3.3~4.0%)。
+
+**编辑决定记录(2026-09-28,作者指示)**:paper §5.9.1/E17 正文表格不再列EPLB静态臂(其数据在本档案results/完整保留: `_0914/_freq6_a100_eplb_static_r1-3.json`共6个,paper以†脚注保留数字与机制);EPLB动态改以持续负载校准口径呈现真动态行为。本档案不做任何删除。
