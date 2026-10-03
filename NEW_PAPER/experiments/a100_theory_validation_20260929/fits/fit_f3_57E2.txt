@@ -1,0 +1,21 @@
+   tag   r_avg               runs (s)     mean     sd    cv%
+   bal   1.001    7.21 7.23 7.23 7.22     7.22   0.01   0.11
+  r101   1.009    7.20 7.21 7.23 7.22     7.22   0.01   0.20
+  r102   1.014    7.20 7.25 7.16 7.22     7.21   0.04   0.54
+    id   1.021    7.22 7.24 7.26 7.26     7.24   0.02   0.28
+  r103   1.023    7.25 7.24 7.25 7.25     7.25   0.00   0.03
+  r105   1.036    7.30 7.33 7.29 7.29     7.30   0.02   0.22
+  r107   1.049    7.32 7.31 7.34 7.34     7.33   0.02   0.22
+
+[affine]  T(r) = 4.76 + 2.44*r        R2=0.7493  RSS=0.001
+[hinge ]  T(r) = 7.22 + 4.36*max(0, r-1.016)  R2=0.9808  RSS=0.000
+          RSS ratio affine/hinge = 13.09x
+
+bound from r_b=1.021 to r_a=1.020:
+   affine: T(1.021)=7.25s  T(1.020)=7.25s  removable= 0.03%  ->  throughput bound  +0.03%  (slope-implied f=0.343)
+    hinge: T(1.021)=7.24s  T(1.020)=7.23s  removable= 0.06%  ->  throughput bound  +0.06%  (slope-implied f=0.616)
+
+held out 'id' (r=1.021): measured 7.24s | hinge predicts 7.24s (-0.10%) | affine predicts 7.25s (+0.08%)
+
+held out 'r107' (r=1.049): measured 7.33s | hinge predicts 7.36s (+0.41%) | affine predicts 7.32s (-0.15%)
+  hinge x_eff = (r_b - max(r_a, r_k))/r_b = 0.001   (naive x = 0.001)

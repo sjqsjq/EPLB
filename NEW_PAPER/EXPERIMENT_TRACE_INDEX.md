@@ -80,6 +80,15 @@
 | A100跨域freq6 5方+OEPLB | book_4438tok+prover_2048tok 6段, N=1800, conc=32, O=10 | 同上 | 同上; EPLB静态redun16在A100转负(−10.2%/−4.7%, static dispatch单副本集中r_eff=1.517+BF16冗余开销, H20为+9.6%) |
 | 结果要点(→paper §5.9.1两表) | — | EXPERIMENT_LOG.md §3/§6 | DataForest +21.8% / MoETuner +18.9% / EPLB静 −10.2% / EPLB动 −3.2%; 跨域仅OEPLB大幅正(+13.6%=3.6×最好离线); **OEPLB论文数据=稳态最高(同域46.08→+20.2%, 跨域3.48→+13.6%), 全部15+8+6原始run含冷启动负值均归档**(选取规则见LOG §6) |
 
+### §2.4理论 A100实测验证：死区/上限/EP幂律（2026-09-28~29）
+| 项 | 内容 | trace位置 | 要点 |
+|---|---|---|---|
+| T(r)扫描×3协议 | 235B/EP8: 256tok(11点)/494tok(6点)/chunk4096(7点) | `experiments/a100_theory_validation_20260929/`(fits/ + results/ 152 JSON) | 铰链R²=0.996~0.9998; **r_k随prompt长度×2移动(1.05→1.133)、随chunk+0.02、硬件间仅±0.5%(同workload)**; β=0.26~0.36≈H20 0.352 |
+| EP幂律 | 57B EP2/EP4(A100, tp=ep, L256) | 同上(fit_f3_57E2/E4) | r_k=1.016/1.026, **H20定律(0.00408·EP^1.52)外推误差≤0.008**; EP8不可测(28头%8≠0) |
+| η/死区阈值 | step3(burst)+step3b(持续W=4) | 同上 + `logs/crash_evidence_churn_arm.txt` | **thr=r_k以下+无预算→1590-op巨批→NCCL超时全服崩溃**(稳定性发现); churn自限流致η无分离; 门控需噪声余量(thr1.06关不住,1.20静默) |
+| 路由计数跨精度 | step0: A100 BF16原生录制 vs H20 FP8 | `counts235b_a100.json` | **余弦0.9999**, identity r 1.7163 vs 1.7154 → placement跨硬件复用合法性的直接证据 |
+| 文档修正 | REPRODUCE_BASELINES.md §8.3 | (git) | A100/H800行实测替换; r_k份额比模型; β硬件鲁棒; 铰链适用域r≤1.8 |
+
 ## §3 数据集索引
 
 | 数据集 | 路径 | 用于 | 特征 |

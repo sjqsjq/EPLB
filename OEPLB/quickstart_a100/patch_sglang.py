@@ -182,4 +182,25 @@ patch("models/qwen3_moe.py", [
      QWEN3_TOPK, "replace"),
 ])
 
+# ---- models/qwen2_moe.py: same root-cause fix for Qwen2-MoE (57B, EP power-law study) ----
+# _forward_router_experts (the non-DeepEP path) called self.topk(hidden_states,
+# router_logits) WITHOUT expert_location_dispatch_info -- identical bug class as
+# qwen3_moe.forward_normal. Required for frozen placements (--init-expert-location)
+# to affect routing on A100 with Qwen2-57B-A14B.
+QWEN2_TOPK = """        # PB-OEPLB FIX: pass expert-location dispatch info so the non-DeepEP
+        # (normal) path applies the logical->physical remap.
+        topk_output = self.topk(
+            hidden_states,
+            router_logits,
+            expert_location_dispatch_info=ExpertLocationDispatchInfo.init_new(
+                layer_id=self.layer_id,
+            ),
+        )
+        return self.experts(hidden_states, topk_output)"""
+patch("models/qwen2_moe.py", [
+    ("expert_location_dispatch_info=ExpertLocationDispatchInfo.init_new(\n                layer_id=self.layer_id,\n            ),\n        )\n        return self.experts(hidden_states, topk_output)",
+     "        topk_output = self.topk(hidden_states, router_logits)\n        return self.experts(hidden_states, topk_output)",
+     QWEN2_TOPK, "replace"),
+])
+
 print("PATCH_DONE")
