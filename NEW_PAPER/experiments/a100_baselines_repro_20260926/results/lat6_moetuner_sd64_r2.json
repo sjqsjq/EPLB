@@ -1,0 +1,21 @@
+{
+  "label": "lat6_moetuner_sd64_r2",
+  "dataset": "/workspace/EPLB/OEPLB/baselines/a100/latency/lat_prover256_o64.jsonl",
+  "num_requests": 256,
+  "concurrency": 256,
+  "ok": 256,
+  "errors": 0,
+  "total_time_s": 11.36,
+  "total_comp_tokens": 16384,
+  "tps": 1442.2,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 11341.6,
+  "lat_p50_ms": 11345.02,
+  "lat_p99_ms": 11355.76,
+  "ttft_mean_ms": 2912.35,
+  "ttft_p50_ms": 2662.49,
+  "ttft_p99_ms": 5059.63,
+  "tpot_mean_ms": 133.8,
+  "tpot_p50_ms": 137.67,
+  "tpot_p99_ms": 167.85
+}

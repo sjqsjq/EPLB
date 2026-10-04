@@ -1,0 +1,21 @@
+{
+  "label": "lat_identity_sd_r2",
+  "dataset": "/workspace/EPLB/OEPLB/baselines/a100/latency/lat_prover256.jsonl",
+  "num_requests": 256,
+  "concurrency": 256,
+  "ok": 256,
+  "errors": 0,
+  "total_time_s": 6.18,
+  "total_comp_tokens": 256,
+  "tps": 41.4,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 3523.9,
+  "lat_p50_ms": 3220.16,
+  "lat_p99_ms": 6142.51,
+  "ttft_mean_ms": 3523.83,
+  "ttft_p50_ms": 3220.13,
+  "ttft_p99_ms": 6142.48,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
