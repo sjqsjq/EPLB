@@ -1,0 +1,21 @@
+{
+  "label": "m_oeplb_noswap_sd_r1",
+  "dataset": "/workspace/data/sd_prover512_O32.jsonl",
+  "num_requests": 1536,
+  "concurrency": 256,
+  "ok": 1536,
+  "errors": 0,
+  "total_time_s": 65.6,
+  "total_comp_tokens": 49152,
+  "tps": 749.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10923.1,
+  "lat_p50_ms": 10978.05,
+  "lat_p99_ms": 12327.65,
+  "ttft_mean_ms": 2101.23,
+  "ttft_p50_ms": 2168.28,
+  "ttft_p99_ms": 3523.45,
+  "tpot_mean_ms": 284.58,
+  "tpot_p50_ms": 285.47,
+  "tpot_p99_ms": 359.05
+}

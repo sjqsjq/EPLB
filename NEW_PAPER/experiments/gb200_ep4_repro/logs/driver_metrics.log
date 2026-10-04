@@ -1,0 +1,21 @@
+[18:46:12] ===== identity =====
+[18:47:48] identity ready
+[18:49:55] identity 同域O32 done
+[18:58:38] identity 跨域O10 done
+[18:58:38] ===== oeplb =====
+/workspace/logs/driver_metrics.sh: line 14: 238617 Killed                  setsid bash $2 > $LOGD/srv_m_$1.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[19:00:21] oeplb ready
+[19:03:40] oeplb 同域O32 done
+[19:12:13] oeplb 跨域O10 done
+[19:12:13] ===== eplb_dyn =====
+/workspace/logs/driver_metrics.sh: line 14: 244498 Killed                  setsid bash $2 > $LOGD/srv_m_$1.log 2>&1 < /dev/null
+[19:14:04] eplb_dyn ready
+[19:17:48] eplb_dyn 同域O32 done
+[19:26:52] eplb_dyn 跨域O10 done
+[19:26:52] ===== oeplb_noswap =====
+/workspace/logs/driver_metrics.sh: line 14: 250970 Killed                  setsid bash $2 > $LOGD/srv_m_$1.log 2>&1 < /dev/null
+[19:28:36] oeplb_noswap ready
+[19:30:51] oeplb_noswap 同域O32 done
+[19:39:30] oeplb_noswap 跨域O10 done
+/workspace/logs/driver_metrics.sh: line 27: 257664 Killed                  setsid bash $2 > $LOGD/srv_m_$1.log 2>&1 < /dev/null
+[19:39:34] METRICS_DONE

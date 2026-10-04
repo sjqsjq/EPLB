@@ -1,0 +1,14 @@
+[15:54:45] === oeplb_bc boot ===
+[15:56:20] oeplb_bc ready
+[15:57:33] oeplb_bc done; DIAG ops序列:
+total_ops=298 avg_ratio_before=1.343 avg_ratio_after=1.027
+total_ops=74 avg_ratio_before=1.061 avg_ratio_after=1.018
+total_ops=60 avg_ratio_before=1.060 avg_ratio_after=1.018
+[15:57:33] === oeplb_wide boot ===
+/workspace/logs/driver_oefix.sh: line 7: 145035 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[15:59:08] oeplb_wide ready
+[16:00:21] oeplb_wide done; DIAG ops序列:
+total_ops=274 avg_ratio_before=1.343 avg_ratio_after=1.034
+total_ops=78 avg_ratio_before=1.101 avg_ratio_after=1.031
+/workspace/logs/driver_oefix.sh: line 18: 148270 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null
+[16:00:25] OEFIX_DONE
