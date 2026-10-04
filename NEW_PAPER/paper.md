@@ -422,6 +422,84 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 四点读数。**其一，PB-OEPLB 的跨域吞吐优势完整兑现为尾延迟优势**：TTFT p50 −23%、p99 −14%，TPOT mean −12%、p99 −11%（vs identity），且全部四项为全场最优——RESET+缩窗的逐段适应既提吞吐又压尾延迟，而离线方法在 book 段错配时延迟尾部同步恶化（p99 TTFT 12.3-12.4s）。**其二，EPLB动态与 decode 密集负载根本不相容**：O=64 变体下吞吐崩至 −30.3%、TPOT +59%——decode 步推高 iteration 计数使重排频繁触发（一次会话 112 次、单次涨至 4.2s、累计阻塞 ~470s），SM 利用率掉到 65%；叠加 redundant16 将 KV 池减半（占用 0.49/0.89 vs 他臂 0.24/0.44），接近饱和。**其三，cost 结构三分**：离线方法把成本压在部署前（ILP 1015s / 录制+贪心 ~41s，跨域时还须重付），EPLB动态把成本摊在运行时且不可控（每次全模型重排 2.1-4.2s 同步阻塞），PB-OEPLB 运行时成本一次性（首两窗 5.1s）且稳态归零（增量 swap+死区门控，税≈0.3%）。**其四，放置收益集中在 prefill**：同域 O=64 下各放置方法收益从 O=1 的 +19~22% 压缩至 +4.6~8.2%（decode 段对专家放置不敏感），与 §5.9.1 持续负载校准的压缩规律一致——这界定了专家放置类优化的适用边界。完整数据（30 个延迟 JSON、util 采样、事件计数）见 `experiments/a100_baselines_repro_20260926/METRICS_MATRIX_A100.md`。
 
+### 5.10 跨硬件泛化：GB200/Blackwell（EP=4，sm_100，DeepEP/FP8 主线路径）
+
+将§5.3.1五方对比移植到 **4×GB200（Blackwell，sm_100，aarch64，185GB/卡，NVLink）**，走与H20相同的 FP8+DeepGEMM+DeepEP 主线路径，**并行度 EP=4**（每卡32本地专家）。方法学：(1) 本机用原生recorder重录 prover 路由计数、fair-split（head1024 profile / tail1024 bench，同分布不相交无泄漏；新旧profile余弦0.971，证实H20归档profile未严重错配，但本机重录更严谨）；(2) DataForest/EPLB静态/MoETuner 三方**统一走显式 `physical_to_logical_map`→`init_by_mapping` 注入**（早期DataForest误用 `logical_count`→`init_by_eplb` 叠加短burst协议，收益被严重低估，修正后同域从+0.3%→+5.7%）；(3) 全部用 run_grid_bench 持续负载 + **充分预热 + 3轮中位**（替代 N=256 单burst，后者仅~3s、噪声5~10%且冷首run系统性偏低~8%）；(4) MoETuner ILP1 用 `pip install gurobipy` 受限license求解（每层516变量小规模MIP在≤2000上限内，94层44s、mean_imbalance=1.000）。EPLB两臂 redundant16；全部 `--deepep-mode normal --disable-cuda-graph`。
+
+**同域（prover_256tok tail1024, O=1, conc=256, 充分预热+3轮中位）**：
+
+| 方法 | req/s | vs identity | TTFT mean | 收敛ratio | H20对照(§5.3.1) |
+|---|---|---|---|---|---|
+| identity | 165.2 | — | 1437ms | 1.341 | 62.4 |
+| **PB-OEPLB（在线swap）** | 172.5 | **+4.4%** | −5.0% | 1.018 | +20.7% |
+| DataForest-Remap（贪心LPT,冻结） | 174.6 | +5.7% | −6.4% | 1.000 | +18.0% |
+| MoETuner（ILP1全局最优,冻结） | 181.6 | +9.9% | −7.4% | 1.000 | +13.0% |
+
+**跨域（freq6: 6段book↔prover, N=1800, conc=32）**——PB-OEPLB为充分自适应后3轮中位（CV<0.7%），其余单次：
+
+| 方法 | O=10 req/s | vs id | O=10 TPOT | O=1 req/s | vs id | H20对照(O=10) |
+|---|---|---|---|---|---|---|
+| EPLB动态（52次重排,每次阻塞2~3s） | 5.81 | **−12.6%** | **+17.8%** | 13.7 | −7.4% | −6% |
+| EPLB静态（prover+redundant16） | 6.54 | −1.7% | +2.5% | 14.7 | −0.7% | −4% |
+| identity | 6.65 | — | — | 14.8 | — | 4.7 |
+| DataForest-Remap（prover冻结） | 6.72 | +1.1% | −0.8% | 15.0 | +1.4% | +0% |
+| MoETuner（prover-fit迁移） | 6.76 | +1.7% | −1.9% | 14.8 | +0.0% | −1.5% |
+| **PB-OEPLB（RESET+缩窗在线适应）** | **6.90** | **+3.8%** | **−5.3%** | **15.40** | **+4.1%** | +8.5% |
+
+**延迟（identity→PB-OEPLB）**：同域 TTFT 1437→1365ms（−5.0%）；跨域O=10 TTFT −1.0%、**TPOT 337.6→319.7ms（−5.3%）**。同域O=1无decode故TPOT为null（这解释"同域只有TTFT"）；跨域O=10的TPOT−5.3%印证Observation 3。
+
+五点结论。
+
+**其一，"在线vs离线分水岭"在Blackwell/EP=4复现，是本次最稳的结论**：跨域下**唯PB-OEPLB显著为正（O=10 +3.8%、O=1 +4.1%，3轮CV<0.7%）**，离线/静态全归零或负（DataForest +1.1%、MoETuner +1.7%——prover冻结放置对3/6的book段错配），EPLB静态−1.7%，**EPLB动态最差（O=10 −12.6%、TPOT+17.8%）**：52次全量重排、每次阻塞2~3s，域切换下追逐混合流恶化。三硬件（H20/A100/GB200）排序一致。
+
+**其二，O=1 vs O=10 揭示EPLB的decode惩罚**：EPLB动态跨域从O=1的−7.4%恶化到O=10的−12.6%、TPOT+17.8%——输出越长decode占比越大，冗余挤占KV+周期rebalance阻塞的惩罚越重，是论文"EPLB强制normal禁CUDA graph→decode-heavy退化"的EP=4体现。O=1纯prefill下各方压缩到±1.4%（除EPLB动态），PB-OEPLB仍+4.1%。
+
+**其三，同域OEPLB(+4.4%)≈DataForest(+5.7%)、低于MoETuner(+9.9%)——根因是"在线贪心 vs 离线全局优化"的放置结构质量差，而非可调参缺陷**。系统排查排除了4个假设：充分预热后仍+4.4%（非收敛不足）；把死区从r_k=1.034降到1.005、逼OEPLB收敛到ratio 1.002（≈MoETuner的1.000），吞吐反而171.5<172.5（**恰好印证死区理论：r_k以下再均衡无收益**，非死区太保守）；宽死区1.06使其settle停swap，吞吐169.9更低（非churn抖动）；bias_correct 169.5更差（非采样偏置）。**决定性证据**：OEPLB激进(ratio 1.002)=171.5 vs MoETuner(ratio 1.000)=181.6，且MoETuner与DataForest的per-layer ratio分布完全相同(avg/p90/max均≈1.000)吞吐却差4%——**证明aggregate ratio(任何分位)不是吞吐的充分统计量**；差异在专家→GPU的具体指派：ILP1全局最优 > 贪心LPT > 贪心pairwise-swap(从identity局部搜索)，指派结构通过每GPU上专家token分布影响DeepGEMM staircase档位(§3.1)与all-to-all通信量。**这与论文"同域OEPLB≈DataForest oracle"一致**（本节二者差~1%在噪声内）；MoETuner在EP=4(每卡32专家)异常突出，而论文EP=8(每卡16专家)下MoETuner(+13%)<DataForest(+18%)——**MoETuner相对强弱随EP翻转，非OEPLB退化**。同域绝对增益整体被EP=4/GB200上界压缩(论文EP=8同域+18~20%)。
+
+**其四，$f_{sens}$硬件依赖由nsys实测定量证实（回应§3.3"算力↑→$f_{sens}$↓"）**。对identity与PB-OEPLB各采20s×4GPU稳态负载分阶段（$\beta_c$：Combine+1.33/Expert+0.08/Dispatch−0.78）：$f_{expert}$从H20的48.7%降到GB200的**20.4%**、通信占比升到**60.2%**、$f_{dispatch}$从9.5%暴涨到**30.0%**，得 $f_{sens}(GB200)=\mathbf{0.184}\approx0.386/2.06$，与"Blackwell FP8 GEMM约2×于Hopper→计算时间腰斩→MoE步转为通信主导"定量吻合。**机制**：$f_{sens}$几乎只由两个通信项决定（$\beta_{expert}\approx0$）；算力变快本身不直接降$f_{sens}$，而是把瓶颈推向通信、令Dispatch(负$\beta$)占比暴涨，这才是$f_{sens}$减半的直接原因。均衡前后绝对时间验证$\beta_c$：降ratio几乎**只缩短Combine(−18%,22.1→18.1s)**。**闭环**：$r_{before}=1.341、r_k=1.034、f_{sens}=0.184$→同域$\Delta_{max}=4.3\%$，PB-OEPLB头条(L512_O1_realprover)实测+3.8%→$\eta=88\%$≈H20的86%。**推论**：专家均衡收益上界由带宽侧决定而非FLOPs；算力越强上界越低——与"GPU越好收益越大"直觉相反。
+
+**其五，对hinge/死区模型的一个refinement**：其三证明EP=4/每卡32专家下，同r的不同指派吞吐差4~6%→**r在EP=4不是充分统计量**（论文§6.2已承认"r对30B是弱充分统计量"，本发现在EP=4/235B上重现该局限）；建议上界模型引入指派结构项（如每GPU专家token分布的staircase档位）以在低EP/大每卡专家数下保持预测力。
+
+**复现工程要点（Blackwell/EP=4）**：(1) **DeepGEMM冷JIT必致hang**——grouped-GEMM冷编译期间其余rank卡在DeepEP all-to-all barrier→永久挂死；必须先`sglang.compile_deep_gemm`（`warmups=compile-deep-gemm`孤立编译不走all-to-all）预编译，之后warmup从~1it/s跳到1600it/s；冗余专家使num_groups 32→36、且`--enable-eplb`的recorder在warmup期会desync，须用"带`--ep-num-redundant-experts`但不带`--enable-eplb`"预编译。(2) `nvidia-smi`误报compute_cap 8.9(实为sm_100)，须`TVM_FFI_CUDA_ARCH_LIST=10.0`否则tvm_ffi编成compute_89触发ptxas fatal(表象为假DeepEP timeout)。(3) SGLang为editable安装(PEP-660 MetaPathFinder优先于PYTHONPATH)，用`sitecustomize.py`摘除sglang finder实现shadow，pristine树零改动可回退。(4) dev版`--init-expert-location`仅接受纯`physical_to_logical_map`(走`init_by_mapping`)或`logical_count`(走`init_by_eplb`)，H20归档的带num_layers/ep_size的JSON会TypeError；**三方统一用`init_by_mapping`显式map是可复现的关键**。(5) 发现`window_floor>sync_window`时自适应窗口"收缩"反向变"扩张"(`controller.py:807` `max(window_floor,W//2)`,默认32>16)，建议加`assert window_floor<=sync_window`。完整脚本、6方法×3workload结果JSON、5个OEPLB调参臂、三方nsys profile CSV、fresh profile与placement、机制日志见`experiments/gb200_ep4_repro/`，机器归档`/data/minghua/sjq/OEPLBdata/experiment_logs/gb200_ep4_repro/`。
+
+#### 5.10.1 单域增益由输入长度决定（8数据集扫描，对上界模型的refinement）
+
+在GB200/EP=4上对8个单域数据集（prover256/humaneval/gsm8k/mmlu/cmmlu/arc_easy/csqa/obqa，各2048条、O=1纯prefill、conc256）逐一测 identity vs PB-OEPLB。**测量方法论要点**：GB200存在高达11%的session间系统漂移（GPU时钟/热状态，同一identity配置在不同session测得280 vs 312 req/s），短数据集每run仅~7s对此极敏感；故**每数据集identity与OEPLB背靠背同session交错测**（各3轮中位，CV多<3%），消除跨session比较的偏差。
+
+| 数据集 | ~输入tok | r_before | identity | PB-OEPLB | 增益 |
+|---|---|---|---|---|---|
+| humaneval | 650 | 1.232 | 244.4 | 254.6 | **+4.2%** |
+| prover256 | 500 | 1.344 | 170.0 | 178.4 | **+4.9%** |
+| gsm8k | 256 | 1.298 | 303.4 | 293.3 | −3.3% |
+| mmlu | ~300 | 1.171 | 284.1 | 277.3 | −2.4% |
+| cmmlu | 183 | 1.231 | 290.8 | 286.8 | −1.4% |
+| arc_easy | 133 | 1.210 | 312.3 | 304.9 | −2.4% |
+| csqa | 88 | 1.267 | 328.2 | 303.2 | −7.6% |
+| obqa | 73 | 1.227 | 317.8 | 320.1 | +0.7% |
+
+平均−0.9%、3/8为正。**关键规律：增益与输入长度强相关（+0.747），与不均衡headroom几乎无关（x_eff相关+0.23、r_before +0.24）**。长输入（≥400tok）平均+4.6%（全正），中（200-400）−2.8%，短（<200tok）−2.7%。
+
+**机理**：吞吐收益 = 相对不均衡降幅 × **每forward绝对计算时间**。短prompt（25-200tok）单次prefill计算量极小→不均衡的straggler等待绝对时间仅几ms，而PB-OEPLB的swap开销（P2P权重搬动+抖动）是近似**固定成本**→固定开销>微小收益→净负；长prompt（500-650tok）prefill计算量大→straggler显著→纠偏收益盖过开销→正。这**复现并印证Observation 2**（"输入越长OEPLB收益越大：short<medium<long"），且在EP=4/GB200下短输入进一步跌入负区（f_sens低+固定swap开销）。
+
+**对上界模型的refinement**：$\Delta_{max}=f_{sens}x_{eff}/(1-f_{sens}x_{eff})$ 只含相对量$x_{eff}$，缺绝对计算时间项。实测表明应修正为 $\Delta_{max}\propto x_{eff}\times$（每forward计算时间）$\propto x_{eff}\times$ prompt\_length：prover256（长，η=111%）、humaneval（η=137%）符合原模型，但csqa（短，η=−217%）原模型完全失效→**上界模型须引入prompt长度/绝对计算时间维度**，否则对短输入负载会把净负误判为正。这也解释了§5.3.1头条用L512 prover（500tok长prompt）——正落在OEPLB的有利区。
+
+#### 5.10.2 指标补全：静态法离线成本、利用率的正确读法、TPOT的配置依赖
+
+**（1）DataForest/MoETuner的离线（提前）开销**。二者运行时无调整开销，但有一次性离线成本，且workload漂移后须重做（正是其跨域失效根因）：DataForest-Remap = 1遍推理录制路由（~9s/1024请求，随集线性）+ 贪心LPT放置计算 **22.4ms**（94层），无额外依赖；MoETuner = 同录制 + **ILP1 Gurobi求解 44.5s(热)~171.5s(冷)/94层 + 需商业Gurobi license**。对照：PB-OEPLB零离线成本（在线学习、~3窗收敛），EPLB动态零离线但运行时每100iter全量重排（本节实测108次×1.77s=191.6s=**28.2%墙钟阻塞**，是PB-OEPLB增量swap 0.40%的77×）。生产环境workload变化时，静态法须周期性重profiling+重算（MoETuner还要重解ILP），PB-OEPLB自动适应。
+
+**（2）利用率：nvidia-smi util%是误导性指标**。最佳配置(prover512 O=1)下identity与PB-OEPLB的平均util均~87%、per-GPU不均1.046 vs 1.044（几乎无差）——因prefill密集时util被DeepEP all-to-all的**busy-wait自旋灌满**：identity的straggler让其他卡空转等待→util虚高，PB-OEPLB均衡后空转少→util略低(86.9<87.0)但**吞吐更高(+3.7%)**。即**util%高≠有效利用，反而可能是自旋浪费**。decode配置(mmlu O=64)util低(39.5%)且per-GPU严重不均(2.462，某卡仅19%另些46%)，PB-OEPLB把不均降到**2.059(−16%)**，与吞吐+4.9%、TPOT−4.6%同向——这才是可见的利用率改善。**结论：真正的利用率提升应看吞吐(有效功)与per-GPU均衡度(straggler消除)，而非被busy-wait污染的util%**；nsys层面(§5.10其四)已证PB-OEPLB把combine straggler砍18%。
+
+**（3）TPOT收益强依赖配置（PD相关性×输出长度）**。PB-OEPLB只记prefill路由，故TPOT是否受益取决于prefill→decode路由相关性（§3.4：QA/推理ρ=0.78-0.85强、数学ρ=0.44-0.69弱）：
+
+| 数据集(任务) | PD相关ρ | 输出 | TPOT identity→PB-OEPLB |
+|---|---|---|---|
+| prover512(数学) | 弱 | O=32 | 252.6→269.2ms（**+6.5%差**）|
+| freq6(混合) | 中 | O=10 | 312.1→310.4ms（−0.5%）|
+| **mmlu(QA/推理)** | **强** | **O=64** | 223.4→213.2ms（**−4.6%**），p99 240.4→227.7（**−5.3%**）|
+
+数学prover上prefill放置不匹配decode路由→TPOT无益甚至因swap扰动略差；QA/推理(mmlu)上prefill热点≈decode热点→放置同时优化decode→**TPOT改善−4.6%**。这定量复现并印证§3.4/Observation3。**mmlu O=64是本次全指标最佳配置**：吞吐+4.9%、TTFT−5.3%、TPOT−4.6%、TPOT-p99−5.3%、per-GPU不均−16%，全部同向改善——说明"TPOT收益不高"是数据集(PD弱相关)与输出长度选择问题，选对配置(QA类+O=64)即可测出显著TPOT收益。
+
+
 ## 6 总结
 
 ### 6.1 工作总结
