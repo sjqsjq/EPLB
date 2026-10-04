@@ -87,6 +87,7 @@
 | EP幂律 | 57B EP2/EP4(A100, tp=ep, L256) | 同上(fit_f3_57E2/E4) | r_k=1.016/1.026, **H20定律(0.00408·EP^1.52)外推误差≤0.008**; EP8不可测(28头%8≠0) |
 | η/死区阈值 | step3(burst)+step3b(持续W=4) | 同上 + `logs/crash_evidence_churn_arm.txt` | **thr=r_k以下+无预算→1590-op巨批→NCCL超时全服崩溃**(稳定性发现); churn自限流致η无分离; 门控需噪声余量(thr1.06关不住,1.20静默) |
 | 路由计数跨精度 | step0: A100 BF16原生录制 vs H20 FP8 | `counts235b_a100.json` | **余弦0.9999**, identity r 1.7163 vs 1.7154 → placement跨硬件复用合法性的直接证据 |
+| 四硬件统一模型v2 | paper §5.11(H20/A100/GB200/H800参数表+三修正律+决策流程); GB200源=experiments/gb200_ep4_repro/, H800原始表待归档 | bound_curve.py 已注记 |
 | 文档修正 | REPRODUCE_BASELINES.md §8.3 | (git) | A100/H800行实测替换; r_k份额比模型; β硬件鲁棒; 铰链适用域r≤1.8 |
 
 ## §3 数据集索引

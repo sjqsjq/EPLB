@@ -12,16 +12,28 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 # (label, T_flat, B, r_k) straight from the three T(r) sweeps
+# Model v2 (2026-09, four-hardware synthesis -> paper.md §5.11):
+#   * r_k-1 = c*EP^1.52 transfers between GEMM-dominated stacks (H20/A100/GB200,
+#     A100 57B EP2/EP4 scan: 1.016/1.026, <=0.008 off the H20 law) but FAILS on
+#     spin-absorbing comm-dominated stacks (H800 measured r_k=1.7~2.3).
+#   * r_k also belongs to the DATASET/protocol: r_k-1 scales ~linearly with prompt
+#     length (A100: L256 1.053~1.070 -> L494 1.133) and +0.02~0.03 with chunk/2.
+#   * beta ~= f_sens is the hardware-robust one (A100 0.33~0.36 ~= H20 0.352);
+#     GB200 f_sens=0.184 (nsys), H800 beta=0.03 (comm spin absorbs skew).
+#   * hinge linear regime validated for r <= ~1.8 (A100 conc r=4.57: ~5% convex).
 CFG = [
     ("Qwen2-57B  EP=8", 82.86, 23.60, 1.099, "tab:blue"),
     ("Qwen2-57B  EP=4", 135.48, 46.35, 1.032, "tab:green"),
     ("Qwen3-235B EP=8", 167.07, 58.78, 1.093, "tab:red"),
+    # A100 measured (T(r) scan, 256tok burst, robust fit ex-conc):
+    ("Qwen3-235B EP=8 A100-L256", 5.46, 1.80, 1.053, "tab:orange"),
 ]
 # dataset r_before, offline from r_avg.py (identity placement)
 DS = {
     "Qwen2-57B  EP=8": {"L256": 1.2177, "L512": 1.2288, "multi": 1.2085, "ShareGPT": 1.2040},
     "Qwen2-57B  EP=4": {"L256": 1.1071, "L512": 1.1125, "multi": 1.0980, "ShareGPT": 1.0965},
     "Qwen3-235B EP=8": {"L512": 1.7370},
+    "Qwen3-235B EP=8 A100-L256": {"L256": 1.7163},  # A100-native recorder counts
 }
 # measured PB-OEPLB gains, same dataset & config (%)
 MEAS = {
@@ -29,6 +41,7 @@ MEAS = {
     ("Qwen2-57B  EP=4", "L256"): 2.70,
     ("Qwen2-57B  EP=4", "L512"): 2.39,
     ("Qwen3-235B EP=8", "L512"): 17.5,
+    ("Qwen3-235B EP=8 A100-L256", "L256"): 21.8,  # DataForest measured, A100 scan session
 }
 
 print(f"{'config':18s} {'beta':>7} {'r_k':>6} | {'dataset':9s} {'r_before':>8} "
@@ -47,7 +60,8 @@ for lab, T, B, rk, _ in CFG:
 # Placement moves whole experts, so it can only reach the LPT floor; perfect
 # routing reaches r=1.  But T(r) is flat below r_k, so the two coincide as long
 # as the LPT floor lands inside the dead zone.
-LPT = {"Qwen2-57B  EP=8": 1.0100, "Qwen2-57B  EP=4": 1.0039, "Qwen3-235B EP=8": 1.0003}
+LPT = {"Qwen2-57B  EP=8": 1.0100, "Qwen2-57B  EP=4": 1.0039, "Qwen3-235B EP=8": 1.0003,
+       "Qwen3-235B EP=8 A100-L256": 1.0003}
 print(f"\n{'config':18s} {'r_LPT':>7} {'r_k':>6} {'placement':>10} {'routing':>8} "
       f"{'extra from routing':>19}")
 for lab, T, B, rk, _ in CFG:

@@ -804,8 +804,12 @@ class PBOEPLBController:
                     self._window_shift_count += 1
                     self._window_stable_count = 0
                     if self._window_shift_count >= self.cfg.window_shift_confirm_windows:
-                        new_window = max(self.cfg.window_floor,
-                                         self._effective_sync_window // 2)
+                        # FIX (found by GB200/EP4 repro): when window_floor >
+                        # sync_window, max(floor, W//2) made "shrink" EXPAND the
+                        # window. Clamp so shrinking is monotone non-expanding.
+                        new_window = min(self._effective_sync_window,
+                                         max(self.cfg.window_floor,
+                                             self._effective_sync_window // 2))
                         if new_window != self._effective_sync_window:
                             logger.info(f"[PB-OEPLB-WINDOW] shift confirmed "
                                         f"({self._window_shift_count} low-cos_sim "
