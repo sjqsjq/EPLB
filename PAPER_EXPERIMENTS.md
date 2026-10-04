@@ -672,3 +672,10 @@ Expert+Combine占总时间的79.6%，这两个阶段的等待时间都跟ratio�
 ### 归档
 - git: NEW_PAPER/experiments/a100_baselines_repro_20260926/ (84 JSON[含phase8 dyseq×5/mseq×3] + 16脚本 + bench日志 + mechanism_evidence)
 - 机器: /data/minghua/sjq/OEPLBdata/experiment_logs/a100_baselines_repro_20260926/ (另含21份server全量日志 + 3 placement快照)
+
+## E18: A100 六维指标矩阵 (吞吐/TTFT/TPOT/稳定性/利用率/cost, → paper §5.9.2)
+
+- 采集: 流式 /v1/completions(run_grid_bench, /health warmup), 与 §5.3.1 两表同构协议; 同域加 O=64 变体测 TPOT(O=1 无定义); nvidia-smi SM 采样 + server 日志 KV usage
+- 5 臂: identity/DataForest/MoETuner/EPLB动态/PB-OEPLB × 两表, 全部 0 错误
+- 要点: ①OEPLB 跨域延迟四项全胜(TTFT p50 −23%/p99 −14%, TPOT −12%/−11% vs identity); ②EPLB动态 O=64 崩溃 −30.3%(112次重排×2.1-4.2s≈470s, SM 65%, KV 0.49/0.89); ③cost 三分(离线部署前/EPLB动态运行时不可控/OEPLB 一次性5.1s+稳态0); ④放置收益集中 prefill(O=64 压缩至 +4.6~8.2%)
+- 归档: experiments/a100_baselines_repro_20260926/METRICS_MATRIX_A100.md + results/lat_*.json(30) + logs/util_*.log
