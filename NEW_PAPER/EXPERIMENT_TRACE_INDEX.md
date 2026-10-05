@@ -90,6 +90,13 @@
 | 四硬件统一模型v2 | paper §5.11(H20/A100/GB200/H800参数表+三修正律+决策流程); GB200源=experiments/gb200_ep4_repro/, H800原始表待归档 | bound_curve.py 已注记 |
 | 文档修正 | REPRODUCE_BASELINES.md §8.3 | (git) | A100/H800行实测替换; r_k份额比模型; β硬件鲁棒; 铰链适用域r≤1.8 |
 
+### §5.11 H800 自旋吸收栈（四硬件统一模型的负例端；EP幂律失效点）
+| 项 | 内容 | trace位置 | 要点 |
+|---|---|---|---|
+| H800 T(r)扫描 + 端到端 | 12点布局扫描（r 至 3.2）+ 11次端到端 | **原始扫描表待归档**（建议 `OEPLBdata/experiment_logs/h800_bound_validation/`） | f_sens≈0.03（DeepEP自旋吸收，comm/GEMM=72/13）；**r_k=1.7~2.3，EP幂律(0.00408·EP^1.52)在此栈失效**（须直接T(r)扫描定r_k，见paper §5.11律1）；控制器税6.5% > Δ_max(3.9%@r=3.2) → 全臂≤0（含静态臂3.8%）；**11/11端到端落于公式预测内（零意外，含"税>天花板→全负"），是§5.11决策流程④的事后检验** |
+
+> 注：H800为EP=8（与A100/H20同EP），故§5.11律1的"H800 vs A100/H20"对比是EP受控的、归因于通信栈类型（自旋吸收 vs GEMM主导）成立；与律3不同（律3的GB200反号点是唯一EP=4，EP与硬件共变不可解耦）。H800原始数据由A100侧测得，尚未随仓库归档，补齐后并入本索引与§4。
+
 ## §3 数据集索引
 
 | 数据集 | 路径 | 用于 | 特征 |
@@ -111,6 +118,7 @@
 | `OEPLBdata/datasets/` | 所有benchmark数据集 | 全文 |
 | `paperpicturetrace/` | 旧图(§2-§5既有图)的trace，7子文件夹+README | Fig 1-17b, A-N |
 | `OEPLBdata/nsys_traces/` | 3×baseline+3×OEPLB的nsys profiling | 死区T(r)分析 |
+| `OEPLBdata/experiment_logs/h800_bound_validation/`（**待归档**） | H800 T(r) 12点扫描 + 11次端到端 + f_sens/r_k(1.7~2.3) | §5.11 H800行、律1失效点 |
 
 ## §5 复现要点（摘要，详见 FIGURES_GUIDE.md）
 1. 路由录制：`SGLANG_OEPLB_ROUTING_TRACE=1 SGLANG_OEPLB_ROUTING_TRACE_DIR=<dir>`（identity下）→ `rank*_fwd_chunk*.npz`（layer_hists=logical_count）。

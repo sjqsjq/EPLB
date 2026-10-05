@@ -483,13 +483,11 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 
 **对上界模型的refinement**：$\Delta_{max}=f_{sens}x_{eff}/(1-f_{sens}x_{eff})$ 只含相对量$x_{eff}$，缺绝对计算时间项。实测表明应修正为 $\Delta_{max}\propto x_{eff}\times$（每forward计算时间）$\propto x_{eff}\times$ prompt\_length：prover256（长，η=111%）、humaneval（η=137%）符合原模型，但csqa（短，η=−217%）原模型完全失效→**上界模型须引入prompt长度/绝对计算时间维度**，否则对短输入负载会把净负误判为正。这也解释了§5.3.1头条用L512 prover（500tok长prompt）——正落在OEPLB的有利区。
 
-#### 5.10.2 指标补全：静态法离线成本、利用率的正确读法、TPOT的配置依赖
+#### 5.10.2 指标补全：静态法离线成本 与 TPOT的配置依赖
 
 **（1）DataForest/MoETuner的离线（提前）开销**。二者运行时无调整开销，但有一次性离线成本，且workload漂移后须重做（正是其跨域失效根因）：DataForest-Remap = 1遍推理录制路由（~9s/1024请求，随集线性）+ 贪心LPT放置计算 **22.4ms**（94层），无额外依赖；MoETuner = 同录制 + **ILP1 Gurobi求解 44.5s(热)~171.5s(冷)/94层 + 需商业Gurobi license**。对照：PB-OEPLB零离线成本（在线学习、~3窗收敛），EPLB动态零离线但运行时每100iter全量重排（本节实测108次×1.77s=191.6s=**28.2%墙钟阻塞**，是PB-OEPLB增量swap 0.40%的77×）。生产环境workload变化时，静态法须周期性重profiling+重算（MoETuner还要重解ILP），PB-OEPLB自动适应。
 
-**（2）利用率：nvidia-smi util%是误导性指标**。最佳配置(prover512 O=1)下identity与PB-OEPLB的平均util均~87%、per-GPU不均1.046 vs 1.044（几乎无差）——因prefill密集时util被DeepEP all-to-all的**busy-wait自旋灌满**：identity的straggler让其他卡空转等待→util虚高，PB-OEPLB均衡后空转少→util略低(86.9<87.0)但**吞吐更高(+3.7%)**。即**util%高≠有效利用，反而可能是自旋浪费**。decode配置(mmlu O=64)util低(39.5%)且per-GPU严重不均(2.462，某卡仅19%另些46%)，PB-OEPLB把不均降到**2.059(−16%)**，与吞吐+4.9%、TPOT−4.6%同向——这才是可见的利用率改善。**结论：真正的利用率提升应看吞吐(有效功)与per-GPU均衡度(straggler消除)，而非被busy-wait污染的util%**；nsys层面(§5.10其四)已证PB-OEPLB把combine straggler砍18%。
-
-**（3）TPOT收益强依赖配置（PD相关性×输出长度）**。PB-OEPLB只记prefill路由，故TPOT是否受益取决于prefill→decode路由相关性（§3.4：QA/推理ρ=0.78-0.85强、数学ρ=0.44-0.69弱）：
+**（2）TPOT收益强依赖配置（PD相关性×输出长度）**。PB-OEPLB只记prefill路由，故TPOT是否受益取决于prefill→decode路由相关性（§3.4：QA/推理ρ=0.78-0.85强、数学ρ=0.44-0.69弱）：
 
 | 数据集(任务) | PD相关ρ | 输出 | TPOT identity→PB-OEPLB |
 |---|---|---|---|
@@ -497,7 +495,7 @@ PB-OEPLB相对SGLang官方EPLB的优势体现在显存、阻塞、兼容性三�
 | freq6(混合) | 中 | O=10 | 312.1→310.4ms（−0.5%）|
 | **mmlu(QA/推理)** | **强** | **O=64** | 223.4→213.2ms（**−4.6%**），p99 240.4→227.7（**−5.3%**）|
 
-数学prover上prefill放置不匹配decode路由→TPOT无益甚至因swap扰动略差；QA/推理(mmlu)上prefill热点≈decode热点→放置同时优化decode→**TPOT改善−4.6%**。这定量复现并印证§3.4/Observation3。**mmlu O=64是本次全指标最佳配置**：吞吐+4.9%、TTFT−5.3%、TPOT−4.6%、TPOT-p99−5.3%、per-GPU不均−16%，全部同向改善——说明"TPOT收益不高"是数据集(PD弱相关)与输出长度选择问题，选对配置(QA类+O=64)即可测出显著TPOT收益。
+数学prover上prefill放置不匹配decode路由→TPOT无益甚至因swap扰动略差；QA/推理(mmlu)上prefill热点≈decode热点→放置同时优化decode→**TPOT改善−4.6%**。这定量复现并印证§3.4/Observation3。**mmlu O=64是本次全指标最佳配置**：吞吐+4.9%、TTFT−5.3%、TPOT−4.6%、TPOT-p99−5.3%，全部同向改善——说明"TPOT收益不高"是数据集(PD弱相关)与输出长度选择问题，选对配置(QA类+O=64)即可测出显著TPOT收益。
 
 
 ### 5.11 四硬件统一上界模型（H20/A100/GB200/H800 综合）
@@ -518,7 +516,7 @@ $$x_{eff}=\frac{r_{before}-\max(r_{after},r_k)}{r_{before}},\qquad \Delta_{max}=
 **v2 相对 §2.4 的三条修正律**（各有独立实测支撑）：
 1. **r_k 幂律的适用域**：r_k−1=c·EP^1.52（c=0.00408）在 **GEMM 主导栈间可迁移**——A100 57B 独立扫描 EP2/EP4=1.016/1.026，H20 定律外推误差≤0.008；GB200/EP4 自动值 1.034≈H20 EP4 的 1.032。在**自旋吸收型通信主导栈**（H800，comm/GEMM=72/13）定律失效（实测 1.7~2.3），须直接扫描判据。
 2. **r_k 的 workload 依赖强于硬件依赖**：r_k−1 随 prompt 长度近线性（A100：L256→L494 使 0.06→0.133，×2.2≈长度比 1.93；机制=attention 不敏感份额单边膨胀），chunk 减半 +0.02~0.03；GB200 8 数据集增益 vs 输入长度相关 +0.747（vs r_before 仅 +0.24）。同 workload 下硬件间 r_k 差仅 ±0.5~3.7%。
-3. **ratio 非充分统计量（指派结构项）**：同 r≈1.000 的 ILP 全局指派与贪心指派，吞吐差随硬件/kernel 反号（GB200/EP4/DeepGEMM：MoETuner>DataForest +4~6%；A100/H20/EP8：DataForest≥MoETuner 1~2%）——上界模型须保留 ~few% 的指派结构误差带（DeepGEMM staircase 档位与 all-to-all 量随具体指派变化）。
+3. **ratio 非充分统计量（指派结构项）**：同 r≈1.000 下，ILP 全局指派与贪心指派的吞吐可差 ~few%（指派结构经 DeepGEMM staircase 档位与 all-to-all 量影响时间），故上界模型须保留 ~few% 的指派结构误差带——此点四硬件一致成立。**但"ILP 与贪心孰优"的排序在现有数据点上不一致，且该不一致与 EP 完全混淆、不能归因于硬件/kernel**：GB200/EP4 上 MoETuner(ILP)>DataForest(贪心) 约 +4~6%，而 A100/EP8、H20/EP8 上 DataForest≥MoETuner 约 1~2%；**唯一出现反号的 GB200 恰是四硬件中唯一的 EP=4 点**，hardware（Blackwell/DeepGEMM-sm100）与 EP（4 vs 8）两因素在此完全共变，无法解耦。就现有证据，更 parsimonious 的解释是 EP 而非硬件：EP=4 每卡 32 专家，ILP 全局优化相对贪心 LPT 的自由度收益更大；EP=8 每卡 16 专家，贪心已近最优（与本文附§5.10.1 的 EP=4 观察一致）。**须补 GB200/EP8 或 A100/EP4 一个对照点方能分离 EP 与硬件两因素**；在此之前，律 3 只确立"ratio 非充分统计量、存在 ~few% 指派结构误差带"这一四硬件共性，**不对排序反号做硬件/kernel 归因**（避免把 EP 效应误标为硬件效应）。
 
 **决策流程**（把"跑几十次实验"化为"算一次公式"）：① 一次 T(r) 布局扫描（~2h GPU）或 nsys 稳态 20s → f_sens、r_k；② 离线 counts → r_before（零 GPU）；③ 公式给 Δ_max；④ 与控制器税比较（实测：PB-OEPLB 0.3~0.4% 墙钟；EPLB动态 4.7~28.2%）→ Δ_max>tax 才部署。该流程的事后检验：H800 上 11 次端到端结果全部落于公式预测内（零意外，含"税>天花板→全负"）；A100/GB200 闭环 η=86~100%。
 
