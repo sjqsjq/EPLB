@@ -1,0 +1,323 @@
+{
+  "all_indexed_files_are_at_most_100_mib": false,
+  "experiment_root": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012",
+  "fetchable_archive_complete": false,
+  "files": [
+    {
+      "archive_required": false,
+      "bytes": 36412,
+      "over_100_mib": false,
+      "path": "results/raw/correctness_identity_smoke.json",
+      "purpose": "identity correctness smoke",
+      "sha256": "94544610c49cce2a88fe000f36641eae9d3d99114bc433ae671aba7ea19a3138"
+    },
+    {
+      "archive_required": false,
+      "bytes": 331806,
+      "over_100_mib": false,
+      "path": "results/raw/correctness_all_layouts_pilot.json",
+      "purpose": "all-layout correctness-only pilot used to freeze tolerance",
+      "sha256": "d5c6a8dafeba7c409819834a8fccf222d081d65d26981eedf7c17036f8eb12f2"
+    },
+    {
+      "archive_required": false,
+      "bytes": 332227,
+      "over_100_mib": false,
+      "path": "results/raw/correctness_tolerance_validation.json",
+      "purpose": "all-layout validation under frozen tolerance",
+      "sha256": "7f9f866e94775273c420074e0bfc183aacdfdc4ae46ae7fa920d90c2c16c4283"
+    },
+    {
+      "archive_required": false,
+      "bytes": 109849,
+      "over_100_mib": false,
+      "path": "results/raw/e0_smoke.json",
+      "purpose": "E0 smoke",
+      "sha256": "4dede0f49654bf6fe476059a5dd1affb6ec2feb80961a5b477103c275fe393a5"
+    },
+    {
+      "archive_required": false,
+      "bytes": 1796453,
+      "over_100_mib": false,
+      "path": "results/raw/e0_pilot.json",
+      "purpose": "E0 10x50 observer-effect pilot",
+      "sha256": "968dfc661ae6ee9638dbe466d57ebc40a05fd1eec3eaafa5518621207335b96d"
+    },
+    {
+      "archive_required": false,
+      "bytes": 613491,
+      "over_100_mib": false,
+      "path": "results/raw/e1_pilot.json",
+      "purpose": "E1 13-layout 10x50 pilot",
+      "sha256": "03cb13c23dc0ecde85a355cdde84b2f7fa7357f983b798e174ff4d275d4ca5d1"
+    },
+    {
+      "archive_required": false,
+      "bytes": 21453,
+      "over_100_mib": false,
+      "path": "results/correctness_identity_smoke.log",
+      "purpose": "identity correctness log",
+      "sha256": "e0b107d195ad6562251b6c426a4e1a815c2c2ce1fe8cd51e2049bf2399be1da4"
+    },
+    {
+      "archive_required": false,
+      "bytes": 21389,
+      "over_100_mib": false,
+      "path": "results/correctness_all_layouts_pilot.log",
+      "purpose": "all-layout correctness log",
+      "sha256": "1649423e97a14e9acbb17f0e557d807d3476976b95978945deae0b2f0e7cae3c"
+    },
+    {
+      "archive_required": false,
+      "bytes": 21391,
+      "over_100_mib": false,
+      "path": "results/correctness_tolerance_validation.log",
+      "purpose": "frozen-tolerance validation log",
+      "sha256": "bbd90ca5b0a86dd507ee31c5b61355753b46d2abb003a56a4b2275cf261527a1"
+    },
+    {
+      "archive_required": false,
+      "bytes": 21608,
+      "over_100_mib": false,
+      "path": "results/e0_smoke.log",
+      "purpose": "E0 smoke log",
+      "sha256": "f3bfc1f58d1c72a85093ecfb15d0ab75d8b5a5c6d1f628e6169ff31ce989bc70"
+    },
+    {
+      "archive_required": false,
+      "bytes": 21608,
+      "over_100_mib": false,
+      "path": "results/e0_pilot.log",
+      "purpose": "E0 pilot log",
+      "sha256": "c928fed019ca8d93453ea1517f766f2a64cd9d1652d18df017740cd5e62b411f"
+    },
+    {
+      "archive_required": false,
+      "bytes": 22373,
+      "over_100_mib": false,
+      "path": "results/e1_pilot.log",
+      "purpose": "E1 pilot log",
+      "sha256": "c129f361f54f0eb1fc81f43042ca01861c03d2e6b131e8f609701c49d595ca8f"
+    },
+    {
+      "archive_required": false,
+      "bytes": 125178,
+      "over_100_mib": false,
+      "path": "placements/manifest.json",
+      "purpose": "frozen placement manifest",
+      "sha256": "52b8a045d24456fb03cb5bc294a3a76ba31b243fbb1fbd4a000faf8fb6a12e04"
+    },
+    {
+      "archive_required": false,
+      "bytes": 1287,
+      "over_100_mib": false,
+      "path": "inputs/correctness_tolerance.json",
+      "purpose": "frozen numerical tolerance",
+      "sha256": "479629bc0a481f9e7347e8c82df182e59da7df03b82f004d372ffa1093712fdb"
+    },
+    {
+      "archive_required": false,
+      "bytes": 45674,
+      "over_100_mib": false,
+      "path": "scripts/replay_placement.py",
+      "purpose": "replay and timing implementation",
+      "sha256": "d4fe6954d4c6bfe70606135922ed9f4b5fc97534f7328ed326e60fe15f0eac71"
+    },
+    {
+      "archive_required": false,
+      "bytes": 32972,
+      "over_100_mib": false,
+      "path": "scripts/analyze_e1.py",
+      "purpose": "validation and analysis implementation",
+      "sha256": "d28f9ae7bf27bcefc5705e05427e5336b87518cf341cbb5fe9d450eb0b6058da"
+    },
+    {
+      "archive_required": false,
+      "bytes": 63672,
+      "over_100_mib": false,
+      "path": "results/e1_summary.json",
+      "purpose": "machine-readable validated E0/E1 summary",
+      "sha256": "1a8701f75445edd7014f10d1d7a83b388661a5d02348564548a35db8a68c1bff"
+    },
+    {
+      "archive_required": false,
+      "bytes": 3760,
+      "over_100_mib": false,
+      "path": "results/e1_layout_effects.csv",
+      "purpose": "flat signed layout-effect table",
+      "sha256": "03dad6127ebcbfb938e584871be1e064d7f2d999fe507834c021b7a78b58cd84"
+    },
+    {
+      "archive_required": false,
+      "bytes": 13488,
+      "over_100_mib": false,
+      "path": "REPORT.md",
+      "purpose": "human-readable E0/E1 report",
+      "sha256": "af8c20c80c81245cee42addb079f1cf55aa5a35eda3b69486633a537dcaf5920"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank0.pt",
+      "purpose": "rank-0 route-profile capture",
+      "sha256": "a60fd13f574dcd50aa1220d8e492c6c58655bdee25c0e0862d3b8af1f1d38700"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310325273,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank0.pt",
+      "purpose": "rank-0 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "242131a4ebe4dde687fda1035af511efe653efe978087a666dead5f6269f0162"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank1.pt",
+      "purpose": "rank-1 route-profile capture",
+      "sha256": "345883422014219a234e1b190d8e9a46b119402d02aaf0998b13a47cba863d6d"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310473241,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank1.pt",
+      "purpose": "rank-1 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "b2972936ea356369d0b56766e2a343f18497b54ae5260b76f0aa08b38f3c79f4"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank2.pt",
+      "purpose": "rank-2 route-profile capture",
+      "sha256": "324f4e7b6af7e5effb1089751c3481c69e82c79dd1e69e6307f5a7b57b8e5fa0"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310440345,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank2.pt",
+      "purpose": "rank-2 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "6d252e8fca5579e862442f3722a154ff6d27844e5e7a38b02142f937f6c266b3"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank3.pt",
+      "purpose": "rank-3 route-profile capture",
+      "sha256": "d18f984b97b2ef634925c9ae28305da5bd9370c2d6d48b69a7de9d14e1ca1b96"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310341657,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank3.pt",
+      "purpose": "rank-3 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "b534b1143b89bb08600808525e2decd41424f4aee405d20f42b6d965e4423d12"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank4.pt",
+      "purpose": "rank-4 route-profile capture",
+      "sha256": "fa469a4aa62b1a916d7c6757e26383a556733c96ed57724d8817109bf245cdd1"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310391065,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank4.pt",
+      "purpose": "rank-4 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "8372793997195632573bef4253bdca0f98be7ea762a2d3276f1943251933d6e1"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank5.pt",
+      "purpose": "rank-5 route-profile capture",
+      "sha256": "c30a9a78c1b9de11b44c8870ea129b2a0671eeba268d392c4f476a4014d368f9"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310473241,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank5.pt",
+      "purpose": "rank-5 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "7ebfc20917e6338b2e01e9c2d5340009cd0e53bf1f724e200f2e470aa2270513"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank6.pt",
+      "purpose": "rank-6 route-profile capture",
+      "sha256": "3c1f17e82b4145a1ea55e107064b6a0d8e586a72038f35472b736697576d64e9"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310292377,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank6.pt",
+      "purpose": "rank-6 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "f73e5f7ef667289aa85bedaba0ebe369a7db01d3c7fd7a1130c46727331508da"
+    },
+    {
+      "archive_required": false,
+      "bytes": 126221,
+      "over_100_mib": false,
+      "path": "inputs/live_capture/profile_rank7.pt",
+      "purpose": "rank-7 route-profile capture",
+      "sha256": "96266be7147581ffed61ca55be57f199d25c710bf5e521811ddd893aa1be65db"
+    },
+    {
+      "archive_required": true,
+      "archive_status": "local_only_not_published",
+      "bytes": 310423961,
+      "extraction": "Load locally with torch.load(path, map_location='cpu', weights_only=True).",
+      "fetch_url": null,
+      "over_100_mib": true,
+      "path": "inputs/live_capture/snapshot_rank7.pt",
+      "purpose": "rank-7 real hidden/route/output/FP8-weight snapshot",
+      "schema": "PyTorch torch.save dictionary; tensor keys and shapes are recorded by the replay validation output",
+      "sha256": "c7a32c65b1c9338568f1b49fdf730cf127d06ce4bdca9d3a9d7b61502c05f4f9"
+    }
+  ],
+  "generated_at_utc": "2026-10-12T03:57:17.342306+00:00",
+  "large_file_count": 8,
+  "publication_status": "No external archive was published because publication/upload requires explicit user confirmation.",
+  "schema_version": 1
+}

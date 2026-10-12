@@ -1,0 +1,26 @@
+# Raw tensors and high-volume iteration data are indexed, hashed, and archived.
+inputs/*.pt
+inputs/*.pth
+inputs/*.safetensors
+inputs/**/*.pt
+inputs/**/*.pth
+inputs/**/*.safetensors
+results/raw/**
+!results/raw/.gitkeep
+
+# Traces and profiler databases can exceed GitHub's object limit.
+traces/*.nsys-rep
+traces/*.qdrep
+traces/*.sqlite
+traces/*.json
+traces/*.json.gz
+traces/*.tar*
+
+logs/*.log
+logs/*.out
+logs/*.err
+__pycache__/
+*.pyc
+core
+core.*
+core-*

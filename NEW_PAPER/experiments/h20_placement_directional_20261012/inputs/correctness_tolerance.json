@@ -1,0 +1,21 @@
+{
+  "atol": 0.00390625,
+  "capture_id": "h20-real-snapshot-layer24-20261012-v1",
+  "correctness_pilot_layouts": 13,
+  "correctness_pilot_max_abs_error": 0.001953125,
+  "correctness_pilot_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/raw/correctness_tolerance_validation.json",
+  "correctness_pilot_rank_layout_comparisons": 104,
+  "correctness_pilot_sha256": "7f9f866e94775273c420074e0bfc183aacdfdc4ae46ae7fa920d90c2c16c4283",
+  "correctness_pilot_total_isclose_failures": 0,
+  "correctness_pilot_total_nonfinite_pairs": 0,
+  "frozen_at_utc": "2026-10-12T03:36:03.003027+00:00",
+  "frozen_before_performance_timing": true,
+  "layer_id": 24,
+  "placement_manifest_sha256": "52b8a045d24456fb03cb5bc294a3a76ba31b243fbb1fbd4a000faf8fb6a12e04",
+  "policy": "Identity replay was bitwise equal to the captured output. Across all 12 frozen swaps and eight ranks, the correctness-only pilot maximum absolute error was 2^-9 with no NaN/Inf. Freeze an absolute tolerance of 2^-8 (two times the observed maximum); use rtol=0 because relative error is unstable near zero.",
+  "relative_denominator": "max(abs(reference), 1.0e-6)",
+  "relative_error_is_diagnostic_not_acceptance_criterion": true,
+  "rtol": 0.0,
+  "schema_version": 1,
+  "status": "frozen"
+}
