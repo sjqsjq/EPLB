@@ -1,0 +1,48 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "QUIET",
+ "S_final": 4,
+ "H_final": 16,
+ "W_final": 64,
+ "sp_fwd_total": 266,
+ "h_cycles": 16,
+ "window_count": 8,
+ "true_steps_total": 256,
+ "sample_opportunities": 147,
+ "recorded_steps": 134,
+ "swaps_started_total": 2,
+ "nocommit_planned_ops_total": 0,
+ "decode_record_batches": 0,
+ "residency_committed_h": {
+  "TRACK": 6,
+  "QUIET": 10
+ },
+ "transitions": [
+  {
+   "h_id": 6,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "[AERO-RG] policy=rg rev=1",
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 6,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  }
+ ],
+ "p2l_version": 2,
+ "p2l_fp8": "d790a3b7eb4835e1",
+ "prof_sp_gate_ms": 3.804251,
+ "prof_record_calls": 12596
+}

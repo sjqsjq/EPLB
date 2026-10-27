@@ -1,0 +1,90 @@
+ts	label	detail
+2026-10-26T00:00:00Z	campaign_created	recovery_admission_e2e_20261027 dirs: placements code_lock tests_rgv order streams scripts boots
+2026-10-26T00:00:00Z	placements_frozen	datafore_prover c1787ad1 / datafore_remap 07f91357 / placement_pinned_fair 299cea28 (+meta 125ac245) reused sha-locked
+2026-10-26T00:00:00Z	stream_copied	prover_256tok_out1_x4.jsonl b312ba50 8192 lines
+2026-10-26T00:00:00Z	sp_state_patched	orig ba572f93 backup code_lock/sp_state.py.orig_ba572f93 -> patched 525e88f0 deployed src==site-packages py_compile OK both
+2026-10-26T00:00:00Z	diff_stored	code_lock/AERO_RG.patch.diff 79 lines env switch OEPLB_SP_RG default 0 byte-identical
+2026-10-26T00:00:00Z	branch_tests_pass	tests_rgv/test_branches.py BRANCH_TESTS_PASS n_checks=30 all True (T1-T17 incl 3x500-step sweep orig==new0 byte-identical + rg1 dual agreement + hash divergence sp1r1rg)
+2026-10-26T00:00:00Z	replay_pass	apsd2_P_b1 18 rows 7 transitions: orig exact + new0 identical (REPLAY_ALL_PASS); rg1 counterfactual lone-grow QUIET->RECOVER vanish 4 annotations
+2026-10-26T00:00:00Z	order_table_locked	seed 20261027 base [ES I P1 DF ED P0 MT] R1-R3 cyclic shifts R4 reverse firsts [ES I P1 MT] order/ORDER_TABLE.json
+2026-10-26T00:00:00Z	launcher_registered	scripts/launch_arm_rge2e.sh c2c27259 SYNTAX_OK DRY 7 arms verified uniform --disable-cuda-graph mem 0.8
+2026-10-26T00:00:00Z	runner_registered	scripts/run_rge2e_boot.sh 5fd6d44a guards: stream+4 code shas+launcher+bench client+3 placements; policy field; bracket pkill; LEDGER rows
+2026-10-26T17:53:10Z	mech_check_registered	scripts/mech_check_rge2e.py 54177b648d6ffe7e06b159b052424779ac03ae0304a7e22720021100f8d402e7 cloned from mech_check_p2.py + 5 surgical patches: SP_STATE/LAUNCHER consts, purpose rge2e, addc code_sp_state_rg + launcher_rge2e, baseline_facts (arm policy eplb_rebalance_starts banner injection_evidence), rg facts (rg_annotation_rows sp_run_end_transitions rg_policy_tagged_transitions); argv ART LABEL NREQ [--no-bench] as phase-2
+2026-10-26T17:53:57Z	queues_registered	queue_prep1.sh 700331e17777cb3da813bcc3501fd310632c11372b8fb313509e40a18f199c7c / queue_prep23.sh 21bb64c7f350a099590ed269a2d50ec7fe2e175945a8c3b3ef392eaead1dcc63 / queue_formal.sh 5ba40efe58f478804eeca0e82db80508787727b31baff9937d9433fdc67c2082 generated programmatically from ORDER_TABLE.json (28 run lines asserted, first_positions asserted); rc=2 stop / rc=1 continue policy
+2026-10-26T17:56:22Z	protocol_locked	PROTOCOL.md 6500a2537a1257f7e3f0010990fbe1b322051b9d7ea4168f9099c930088f7ab3 sections 0-9 pre-registered before any formal GPU spend: budget 28+3+2, AERO-RG sole change + invariants, code locks, offline validation 30/30+replay, 7-arm table (uniform graph-off, mem 0.8 deviation logged, profile subset-of-eval honest statement, ED E*=e5 period256 frozen), prep order rgv_P1/ED/ES, locked order table, stats (paired t df=3 + Holm, primary total_time_s), contingency, archive+git plan
+2026-10-26T17:58:43Z	rgv_P1	LAUNCH prep1 detached via queue_prep1.sh (author order: RG GPU validation first)
+2026-10-26T17:58:43Z	rgv_P1	START arm=P policy=AERO-RG
+2026-10-26T18:02:22Z	rgv_P1	DONE arm=P policy=AERO-RG bench_rc=0 mech_rc=0
+2026-10-26T18:04:17Z	rgv_P1	PASS prep1: ok=8192 total_time_s=89.6 (excluded from formal stats) residency TRACK6/QUIET10/RECOVER0 (base apsd2_P_b1 was 12/2/4) transitions=1 (w6 TRACK->QUIET tagged [AERO-RG] policy=rg rev=1) rg_annotation_rows=4 (w6/w7/w7/w8 all confirmed_grow while staying QUIET) rg_policy_tagged_transitions=1 planhash_8rank_identical=True completeness_pass=True; live behavior matches replay counterfactual exactly
+2026-10-26T18:04:17Z	prep23	LAUNCH detached rgv_ED then rgv_ES
+2026-10-26T18:04:17Z	rgv_ED	START arm=ED policy=n-a
+2026-10-26T18:07:53Z	rgv_ED	DONE arm=ED policy=n-a bench_rc=0 mech_rc=1
+2026-10-26T18:07:53Z	rgv_ES	START arm=ES policy=n-a
+2026-10-26T18:09:31Z	mech_amendment_1	mech_check_rge2e.py 76eafd1a622ac2a2921d27bd0fbde30520b6e0415f0120ee5c632c6ed10320fb (was 54177b64): v2p1_present completeness check now applies only to arm==P; non-P arms record v2p1_not_applicable (tooling fix for baseline arms which have no PB instrumentation; P-arm behavior unchanged; smoke: rgv_ED copy rc 1->0, rgv_P1 copy rc 0 unchanged)
+2026-10-26T18:09:31Z	rgv_ED	PASS prep2: ok=8192 total_time_s=109.2 tps=75.0 eplb_banner=True eplb_rebalance_starts=8 (>0, E*=e5 auto/16/256 genuinely triggering, not a zero-trigger setting) deepep normal per pre-registered deviation; prep boot excluded from formal stats
+2026-10-26T18:11:13Z	rgv_ES	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:11:58Z	rgv_ES	PASS prep3: ok=8192 total_time_s=92.0 tps=89.0 completeness_pass=True injection_evidence=init_expert_location from init_by_eplb per rank; rebalance_starts=0/banner=false correct for static arm; patched mech (76eafd1a) exercised live rc=0; prep boot excluded from formal stats
+2026-10-26T18:11:58Z	preps_done	prep budget 3/3 used (rgv_P1 rgv_ED rgv_ES all PASS), INFRA restarts 0/2; profile prep boot 0 via reuse; formal phase authorized to start
+2026-10-26T18:11:58Z	formal_queue	LAUNCH 28 boots detached in locked order R1 ES I P1 DF ED P0 MT / R2 I P1 DF ED P0 MT ES / R3 P1 DF ED P0 MT ES I / R4 MT P0 ED DF P1 I ES
+2026-10-26T18:11:58Z	rge2e_ES_r1	START arm=ES policy=n-a
+2026-10-26T18:15:21Z	rge2e_ES_r1	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:15:21Z	rge2e_I_r1	START arm=I policy=n-a
+2026-10-26T18:17:11Z	analysis_script	analysis/analyze_rge2e.py registered: collects 28 boots raw (bench+mech+v2p1 timeline+sp_run_end for P arms), round-paired diffs, mean+95%%CI tcrit_df3=3.182445, two-sided paired t (scipy), Holm over 6 comparisons, per_boot_raw.tsv; dry-run on partial data OK
+2026-10-26T18:18:52Z	rge2e_I_r1	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:18:52Z	rge2e_P1_r1	START arm=P policy=AERO-RG
+2026-10-26T18:22:24Z	rge2e_P1_r1	DONE arm=P policy=AERO-RG bench_rc=0 mech_rc=0
+2026-10-26T18:22:24Z	rge2e_DF_r1	START arm=DF policy=n-a
+2026-10-26T18:26:12Z	rge2e_DF_r1	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:26:12Z	rge2e_ED_r1	START arm=ED policy=n-a
+2026-10-26T18:29:43Z	rge2e_ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:29:43Z	rge2e_P0_r1	START arm=P policy=AERO-base
+2026-10-26T18:33:04Z	rge2e_P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-26T18:33:04Z	rge2e_MT_r1	START arm=MT policy=n-a
+2026-10-26T18:36:35Z	rge2e_MT_r1	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:36:35Z	rge2e_I_r2	START arm=I policy=n-a
+2026-10-26T18:40:09Z	rge2e_I_r2	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:40:09Z	rge2e_P1_r2	START arm=P policy=AERO-RG
+2026-10-26T18:43:40Z	rge2e_P1_r2	DONE arm=P policy=AERO-RG bench_rc=0 mech_rc=0
+2026-10-26T18:43:40Z	rge2e_DF_r2	START arm=DF policy=n-a
+2026-10-26T18:47:19Z	rge2e_DF_r2	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:47:19Z	rge2e_ED_r2	START arm=ED policy=n-a
+2026-10-26T18:50:58Z	rge2e_ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:50:59Z	rge2e_P0_r2	START arm=P policy=AERO-base
+2026-10-26T18:53:27Z	report_gen	analysis/report_gen.py registered: renders analysis/report.md from summary.json (28 raw values, paired stats + Holm table, mechanism records P0/P1, round-1 timeline case, ED/ES baseline facts, completeness); dry-run on 11/28 partial data OK
+2026-10-26T18:54:06Z	rge2e_P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-26T18:54:06Z	rge2e_MT_r2	START arm=MT policy=n-a
+2026-10-26T18:57:07Z	rge2e_MT_r2	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T18:57:07Z	rge2e_ES_r2	START arm=ES policy=n-a
+2026-10-26T19:00:30Z	rge2e_ES_r2	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:00:30Z	rge2e_P1_r3	START arm=P policy=AERO-RG
+2026-10-26T19:03:48Z	rge2e_P1_r3	DONE arm=P policy=AERO-RG bench_rc=0 mech_rc=0
+2026-10-26T19:03:48Z	rge2e_DF_r3	START arm=DF policy=n-a
+2026-10-26T19:07:23Z	rge2e_DF_r3	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:07:23Z	rge2e_ED_r3	START arm=ED policy=n-a
+2026-10-26T19:11:07Z	rge2e_ED_r3	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:11:07Z	rge2e_P0_r3	START arm=P policy=AERO-base
+2026-10-26T19:14:33Z	rge2e_P0_r3	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-26T19:14:33Z	rge2e_MT_r3	START arm=MT policy=n-a
+2026-10-26T19:15:51Z	archive_scripts_prepared	archive_finalize.sh (bulk /data copy + manifest + curated GH dir incl boots_curated small artifacts, streams/server.log excluded to /data) + git_push.sh (plumbing 2 stacked commits on origin/main : archive then code-only sp_state.py; ls-remote guard; ff push; links) both SYNTAX_OK, execute after 28/28
+2026-10-26T19:17:12Z	renderers_prepared	analysis/update_map.py (EXPERIMENT_MAP row + summary, idempotent, asserts 28/28) + analysis/make_readme.py (GH archive README from summary.json) compile OK; run after final analysis
+2026-10-26T19:17:40Z	rge2e_MT_r3	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:17:40Z	rge2e_ES_r3	START arm=ES policy=n-a
+2026-10-26T19:21:05Z	rge2e_ES_r3	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:21:05Z	rge2e_I_r3	START arm=I policy=n-a
+2026-10-26T19:24:28Z	rge2e_I_r3	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:24:28Z	rge2e_MT_r4	START arm=MT policy=n-a
+2026-10-26T19:27:35Z	rge2e_MT_r4	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:27:35Z	rge2e_P0_r4	START arm=P policy=AERO-base
+2026-10-26T19:30:59Z	rge2e_P0_r4	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-26T19:30:59Z	rge2e_ED_r4	START arm=ED policy=n-a
+2026-10-26T19:34:42Z	rge2e_ED_r4	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:34:42Z	rge2e_DF_r4	START arm=DF policy=n-a
+2026-10-26T19:38:12Z	rge2e_DF_r4	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:38:12Z	rge2e_P1_r4	START arm=P policy=AERO-RG
+2026-10-26T19:41:45Z	rge2e_P1_r4	DONE arm=P policy=AERO-RG bench_rc=0 mech_rc=0
+2026-10-26T19:41:46Z	rge2e_I_r4	START arm=I policy=n-a
+2026-10-26T19:45:27Z	rge2e_I_r4	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-26T19:45:27Z	rge2e_ES_r4	START arm=ES policy=n-a
+2026-10-26T19:48:33Z	rge2e_ES_r4	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T03:58:16Z	formal_complete	28/28 DONE all bench_rc=0 mech_rc=0 zero aborts zero INFRA restarts (budget 0/2 used); queue window 18:11:58Z-19:48:33Z (~96.5 min, ~3.45 min/boot)
+2026-10-27T03:58:16Z	analysis_final	analyze --final 28/28: P1-P0=+2.18s p=0.5052 Holm=1.0 (wall-clock neutral; mechanism effect in residency RECOVER 4->0); P1-ED=-14.92s p=0.0070 Holm=0.0423 significant; P1-DF=-8.78s p=0.0141 Holm=0.0703; P1-MT=+10.56s p=0.0144 Holm=0.0703; P1-I=-9.07s p=0.0336 Holm=0.1009; P1-ES=+0.87s p=0.7752 Holm=1.0; report.md 118 lines rendered; EXPERIMENT_MAP row+summary appended (3 rows)

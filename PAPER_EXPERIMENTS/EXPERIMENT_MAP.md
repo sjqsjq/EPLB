@@ -1,0 +1,14 @@
+# PAPER_EXPERIMENTS 总索引
+
+登记原则:**只登记经作者确认归档的实验**;以后新实验经作者确认后类比归档,本索引不预设其他实验。
+归档位置:/data/minghua/sjq/PAPER_EXPERIMENTS/(作者 2026-10-26 指示:数据量大,可放 /data,不必上 GitHub;指明文本保留于 /workspace/EPLB/PAPER_EXPERIMENTS/)。
+
+| 实验名称 | 论文位置 | 结果文件路径(归档内) | 原始来源路径 |
+|---|---|---|---|
+| adaptive_prover_sd_20261026(prover 同域自适应调度消融) | 第 5.4 节「自适应观测与规划调度消融」 | /data/minghua/sjq/PAPER_EXPERIMENTS/adaptive_prover_sd_20261026/reports/RESULTS_PHASE2.md;同目录 SUPPLEMENT_P2.md、phase2_summary.json、supplement_p2.json、LEDGER_abl.tsv;全档清单 ARCHIVE_SHA256SUMS.txt | /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/(工具:同级 results/final_plan_20261019/scripts/;数据:/data/minghua/sjq/OEPLBdata/datasets/single_domain/) |
+| recovery_admission_e2e_20261027(恢复准入策略 AERO-RG + 七臂多baseline端到端比较) | 第 5.3.1 节「多baseline端到端比较」;第 5.4 节「恢复准入新旧对照」 | /data/minghua/sjq/PAPER_EXPERIMENTS/recovery_admission_e2e_20261027/(全档: PROTOCOL.md、LEDGER_rge2e.tsv、analysis/report.md、boots/ 逐boot现场、ARCHIVE_SHA256SUMS.txt);GitHub 精选档 PAPER_EXPERIMENTS/recovery_admission_e2e_20261027/(README.md、协议、顺序表、统计、代码锁与79行diff、boots_curated 小件) | /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/(工具:scripts/ 与 analysis/;流:同级 streams/ 及 /data/minghua/sjq/OEPLBdata/datasets/single_domain/) |
+
+结果概括(adaptive_prover_sd_20261026):相对固定稀疏档 F(4,16,64) 吞吐提高约 6.5%(+5.88 tps,Holm p=0.0112 显著);相对固定密集档 F(1,16,16) 未检出差异(+0.54 tps,Holm p=0.750)。
+
+
+结果概括(recovery_admission_e2e_20261027): 主指标为全服务墙钟 total_time_s(保留全部在线成本), 同报 tps; 4轮x7臂=28 boots 全部 ok=8192、按轮配对、双侧配对t(df=3)、P1对六臂Holm校正。七臂均值墙钟: I=101.2s, ES=91.2s, ED=107.0s, MT=81.5s, DF=100.9s, P0=89.9s, P1=92.1s。机制效应(P1-P0): P1-P0: 差=2.18s CI95[-7.00,11.36] p=0.5052 Holm=1.0000。全系统对比: P1-I: 差=-9.07s CI95[-16.81,-1.33] p=0.0336 Holm=0.1009; P1-ES: 差=0.87s CI95[-8.02,9.76] p=0.7752 Holm=1.0000; P1-ED: 差=-14.92s CI95[-22.11,-7.74] p=0.0070 Holm=0.0423; P1-MT: 差=10.56s CI95[3.99,17.12] p=0.0144 Holm=0.0703; P1-DF: 差=-8.78s CI95[-14.19,-3.37] p=0.0141 Holm=0.0703。机制记录: P0 各boot驻留 TRACK/QUIET/RECOVER=12/2/4 模式稳定重现(7转移窗口 6,6,8,11,11,13,16), P1 驻留 6/10/0(仅 w6 TRACK->QUIET, 孤立confirmed_grow注释行3-4条, 策略标签转移1), 8秩planhash全一致; ED 实际rebalance次数见 analysis/report.md 第6节。详见 analysis/report.md 与 PROTOCOL.md 第7节。

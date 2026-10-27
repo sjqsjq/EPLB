@@ -1,0 +1,156 @@
+{
+ "all_pass": true,
+ "n_checks": 30,
+ "checks": [
+  {
+   "name": "T1a_orig_recover_p1c",
+   "ok": true,
+   "detail": "[\"P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0\"]"
+  },
+  {
+   "name": "T1b_new0_identical_to_orig",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T1c_new1_stays_quiet",
+   "ok": true,
+   "detail": "QUIET"
+  },
+  {
+   "name": "T1d_new1_annotation",
+   "ok": true,
+   "detail": "['[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated']"
+  },
+  {
+   "name": "T2_grow_plus_pending_recover",
+   "ok": true,
+   "detail": "[\"P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=True swaps_started=0\"]"
+  },
+  {
+   "name": "T2b_no_annotation_when_not_lone",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T3_grow_plus_started_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T4_p1a_priority",
+   "ok": true,
+   "detail": "['[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated', 'P1a z=400.000>=z_hi=314.140 first alert (pre-exis"
+  },
+  {
+   "name": "T5_guardrail_p1b",
+   "ok": true,
+   "detail": "[\"P1b guardrail event 'uncertain_carry'\"]"
+  },
+  {
+   "name": "T6_confirmed_shrink_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T7a_hold_alert_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T7b_urgent_shrink_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T7c_shrink_rejected_low_headroom_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T8_p2_still_fires",
+   "ok": true,
+   "detail": "['[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated', 'P2 n_fresh=1000<n_min_eff=3080192 coverage failur"
+  },
+  {
+   "name": "T9a_first_above_theta_stays",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "name": "T9b_second_confirms_track",
+   "ok": true,
+   "detail": "['[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated', 'P3 h_rate=0.012000>=theta_out=0.011396 for 2 cons"
+  },
+  {
+   "name": "T9c_band_resets_exit_streak",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T10_track_identical",
+   "ok": true,
+   "detail": "('TRACK', 'TRACK')"
+  },
+  {
+   "name": "T11a_both_recover",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T11b_recover_identical_and_exit",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T12a_base_hash_identical",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T12b_rg_hash_diverges",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T14_sweep_orig_vs_new0_3x500",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T13_sweep_rg1_dual_agreement_500",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T15a_fixed_identical",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T15b_guard_fixed_raises",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T15c_guard_rev0_raises",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "T16a_rg_record_tagged",
+   "ok": true,
+   "detail": "['[AERO-RG] policy=rg rev=1', '[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated']"
+  },
+  {
+   "name": "T16b_base_record_untagged_p1c",
+   "ok": true,
+   "detail": "[\"P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0\"]"
+  },
+  {
+   "name": "T17_snapshot_restore",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

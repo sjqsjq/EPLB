@@ -1,0 +1,260 @@
+{
+ "source_boot": "apsd2_P_b1",
+ "orig_transitions": [
+  [
+   6,
+   "TRACK",
+   "QUIET"
+  ],
+  [
+   6,
+   "QUIET",
+   "RECOVER"
+  ],
+  [
+   8,
+   "RECOVER",
+   "TRACK"
+  ],
+  [
+   11,
+   "TRACK",
+   "QUIET"
+  ],
+  [
+   11,
+   "QUIET",
+   "RECOVER"
+  ],
+  [
+   13,
+   "RECOVER",
+   "TRACK"
+  ],
+  [
+   16,
+   "TRACK",
+   "QUIET"
+  ]
+ ],
+ "new0_identical_to_orig": true,
+ "rg1_transitions": [
+  [
+   6,
+   "TRACK",
+   "QUIET"
+  ]
+ ],
+ "rg1_lone_grow_annotations": 4,
+ "rg1_trajectory": [
+  {
+   "row": 0,
+   "window_id": 1,
+   "before": "TRACK",
+   "after": "TRACK",
+   "transition": false,
+   "hash": 225735651563282827,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 1,
+   "window_id": 2,
+   "before": "TRACK",
+   "after": "TRACK",
+   "transition": false,
+   "hash": 225735651563282827,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 2,
+   "window_id": 3,
+   "before": "TRACK",
+   "after": "TRACK",
+   "transition": false,
+   "hash": 225735651563282827,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 3,
+   "window_id": 4,
+   "before": "TRACK",
+   "after": "TRACK",
+   "transition": false,
+   "hash": 216346204712551228,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 4,
+   "window_id": 5,
+   "before": "TRACK",
+   "after": "TRACK",
+   "transition": false,
+   "hash": 281173832852972835,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 5,
+   "window_id": 6,
+   "before": "TRACK",
+   "after": "QUIET",
+   "transition": true,
+   "hash": 126232672388748814,
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "recorded_after": "QUIET",
+   "recorded_transition": true
+  },
+  {
+   "row": 6,
+   "window_id": 6,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [
+    "[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated"
+   ],
+   "recorded_after": "RECOVER",
+   "recorded_transition": true
+  },
+  {
+   "row": 7,
+   "window_id": 7,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "RECOVER",
+   "recorded_transition": false
+  },
+  {
+   "row": 8,
+   "window_id": 8,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": true
+  },
+  {
+   "row": 9,
+   "window_id": 9,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [
+    "[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated"
+   ],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 10,
+   "window_id": 10,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 11,
+   "window_id": 11,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "QUIET",
+   "recorded_transition": true
+  },
+  {
+   "row": 12,
+   "window_id": 11,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [
+    "[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated"
+   ],
+   "recorded_after": "RECOVER",
+   "recorded_transition": true
+  },
+  {
+   "row": 13,
+   "window_id": 12,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "RECOVER",
+   "recorded_transition": false
+  },
+  {
+   "row": 14,
+   "window_id": 13,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": true
+  },
+  {
+   "row": 15,
+   "window_id": 14,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [
+    "[AERO-RG] lone confirmed_grow ignored as change evidence (stable-window growth, not load change); all other QUIET exit conditions still evaluated"
+   ],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 16,
+   "window_id": 15,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "TRACK",
+   "recorded_transition": false
+  },
+  {
+   "row": 17,
+   "window_id": 16,
+   "before": "QUIET",
+   "after": "QUIET",
+   "transition": false,
+   "hash": 161507798556566247,
+   "reasons": [],
+   "recorded_after": "QUIET",
+   "recorded_transition": true
+  }
+ ],
+ "note": "rg1 replay is a policy-layer counterfactual on recorded base-run signals; full-system RG behavior is measured by the GPU validation boot"
+}
