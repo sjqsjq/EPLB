@@ -1,0 +1,35 @@
+[ED_r2] 4096 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/B_data/streams/pc_prover_code_switch.jsonl, conc=32, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "ED_r2",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/B_data/streams/pc_prover_code_switch.jsonl",
+  "num_requests": 4096,
+  "concurrency": 32,
+  "ok": 4096,
+  "errors": 0,
+  "total_time_s": 278.56,
+  "total_comp_tokens": 4096,
+  "tps": 14.7,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 2173.2,
+  "lat_p50_ms": 2566.22,
+  "lat_p95_ms": 4235.98,
+  "lat_p99_ms": 6271.98,
+  "ttft_mean_ms": 2173.11,
+  "ttft_p50_ms": 2566.17,
+  "ttft_p95_ms": 4235.91,
+  "ttft_p99_ms": 6271.95,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p95_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 7859079336015337,
+  "mono_end_ns": 7859357897826300,
+  "wall_start_s": 1793099979.787725,
+  "wall_end_s": 1793100258.349535,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 5242873,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/boots/ED_r2/ED_r2.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/boots/ED_r2/ED_r2_perreq.jsonl (4096 rows)

@@ -1,4 +1,4 @@
-# cross_domain_e2e_20261027 -- 跨域切换多 baseline 端到端主比较 (论文 §5.3.1) + 时间线案例 (§5.5)
+# cross_domain_e2e_20261027 -- 跨域切换多 baseline 端到端 prefill-heavy 补充探针 (2026-10-27 定位修正: 非论文 §5.3.1 主比较) + 时间线案例 (§5.5, 引用须带定位注记)
 
 生成: 2026-10-27T09:21:38Z (report_gen_xd.py, 数字程序化取自 analysis/summary.json + timeline_5_5.json)
 协议: PROTOCOL.md (pre-reg sha febf6616...) + AMENDMENT-1 (post sha a0f4ad5e...); 六臂同期同窗测量, 未与任何历史战役数值拼接。
@@ -69,3 +69,15 @@ P0 慢于 I/MT/DF/ES (raw p 0.05-0.13), 快于 ED 8.43s (p=0.2031)。与历史�
 - LEDGER_xd.tsv append-only 全程记账; 守卫链 (stream/代码/launcher/placement 四重 sha) 每 boot 复核, 0 次 BOOT_ABORT。
 - 分析: analyze_xd.py (sha 7f62f265...) --final 24/24; timeline_xd.py (sha 9e91ffe4...)。
 - 产物: analysis/{summary.json, per_boot_raw.tsv, timeline_5_5.json, timeline_5_5.md, REPORT_xd.md}; boots/ 24 目录。
+
+
+---
+
+## Correction Addendum (2026-10-27 appended; 依据: LEDGER_xd.tsv INVESTIGATION VERDICT 行 + prover_code_switch_20261027 PROTOCOL §8 约定)
+
+本战役定位修正为 **prefill-heavy 补充探针**, **不是**论文 §5.3.1 的 crossdomain_freq6 跨域主比较。三点与论文 spec 的偏差:
+1. 流: 实跑 e3_multidomain_switch(4 大块 sharegpt/prover/book/code × 2048, in512/out1, conc256), 非 crossdomain_freq6(6seg book↔prover, book_4438tok_O10 + prover_2048tok_out1, O=10, conc=32, N=600);
+2. workload: O=1 + conc256(tps=req/s 差距被结构性压缩, prefill 主导);
+3. 静态臂校准源: mixed-full-stream oracle, 非 prover-frozen —— 该点移除了跨域失配失败模式本身。
+
+原文全部数字保留, 作为该探针自身的测量依然有效(24/24 boots ok、机制记录、ED 事件事实更正、§5.5 时间线); 但不得作为 §5.3.1 主比较结果引用。§5.3.1 主比较的后续承接战役: prover_code_switch_20261027(partial, stage2=code)与 prover_book_switch_20261027(stage2=book, freq6 book↔prover 同族域对, 12/12, n=2 描述性)——见 EXPERIMENT_MAP.md 对应行。§5.5 域边界时间线案例引用时须带本定位注记。

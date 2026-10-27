@@ -1,0 +1,41 @@
+2026-10-27T10:37:59Z	CAMPAIGN_OPEN	prover_code_switch_20261027 created after AUTHOR dataset-error finding on cross_domain_e2e_20261027 (see LEDGER_xd.tsv INVESTIGATION rows)
+2026-10-27T10:37:59Z	AUTHOR_SPEC	dual-domain stream prover2048+code2048 two-block single switch; ALL output length 1 (mid-turn correction, NOT paper O=10); configs per paper 5.3.1 (conc32, prover-frozen static placements, ED period 100); ours arm = new-design frozen P0 AERO-base rev1 RG=0; 4 rounds + rotation; code source: frozen e3 code block sufficient (5-source spliced), no modelscope pull needed
+2026-10-27T10:37:59Z	STREAM_FROZEN	pc_prover_code_switch.jsonl n=4096 uniq=4096 sha256=01e33f82de54238da2ad342036998fe31a244c519339bfec91983ac45c773f69 block1=prover_2048tok_out1.jsonl(all 2048) block2=e3 rows[6144:8192]
+2026-10-27T10:37:59Z	PLACEMENT_LOCK	PL_ES=PL_DF=c1787ad19f16ef5d840d5a7c7e364ecf23fb3caafba682e56c0f21991a298f29 (datafore_prover_placement.json) PL_MT=299cea283e93efe69d3aec8ab71f210908d8b262d45f602079ed3daebe2a2a60 (placement_pinned_fair.json) read-only
+2026-10-27T10:37:59Z	ENV_NOTE	7670 Z-state defunct sglang procs since Oct18 (no cpu/gpu/mem, port 30000 free) - harmless, gpu-clear guard uses memory threshold not proc count
+2026-10-27T10:37:59Z	SCRIPT_SHA	launch_arm_pc.sh cfbdaee752283935047b9d42bbcc36e74da327400ca0fcd3e53533965ced0c2c
+2026-10-27T10:37:59Z	SCRIPT_SHA	run_pc_boot.sh 79561e62e5741a9c8e809b2f52b6ad76408ef24b863aeaed5f67449a4e95c75d
+2026-10-27T10:37:59Z	SCRIPT_SHA	mech_check_pc.py 3dc298de0516bc789c4ea7afd921067f1a17071d0c67d94e49d2b9914d5333d7
+2026-10-27T10:37:59Z	SCRIPT_SHA	queue_formal_pc.sh 7fa20b0d246b69fb0edaf9a218e792f05ed2bf080fcc01949524a16fab118976
+2026-10-27T10:39:47Z	QUEUE_LAUNCH	24 formal boots detached setsid, rotation r1 ES ED MT DF P0 I, NREQ=4096 CONC=32 BENCH_TIMEOUT=1800, PROTOCOL_pc.md frozen pre-launch
+2026-10-27T10:39:47Z	ES_r1	START arm=ES policy=n-a
+2026-10-27T10:42:34Z	CRON_SET	monitor c7a0aefc hourly at 13 and 43 min session-only; if lost across compaction REBUILD from PROTOCOL_pc.md sec 5 and 8; queue.log plus LEDGER DONE count are durable truth
+2026-10-27T10:46:12Z	ES_r1	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T10:46:12Z	ED_r1	START arm=ED policy=n-a
+2026-10-27T10:52:45Z	ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T10:52:45Z	MT_r1	START arm=MT policy=n-a
+2026-10-27T10:59:11Z	MT_r1	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T10:59:11Z	DF_r1	START arm=DF policy=n-a
+2026-10-27T11:05:28Z	DF_r1	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:05:29Z	P0_r1	START arm=P policy=AERO-base
+2026-10-27T11:11:30Z	P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T11:11:30Z	I_r1	START arm=I policy=n-a
+2026-10-27T11:17:56Z	I_r1	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:17:56Z	ED_r2	START arm=ED policy=n-a
+2026-10-27T11:24:53Z	ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:24:53Z	MT_r2	START arm=MT policy=n-a
+2026-10-27T11:31:15Z	MT_r2	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:31:15Z	DF_r2	START arm=DF policy=n-a
+2026-10-27T11:38:13Z	DF_r2	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:38:13Z	P0_r2	START arm=P policy=AERO-base
+2026-10-27T11:44:28Z	P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T11:44:28Z	I_r2	START arm=I policy=n-a
+2026-10-27T11:50:44Z	I_r2	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:50:44Z	ES_r2	START arm=ES policy=n-a
+2026-10-27T11:57:09Z	ES_r2	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T11:57:09Z	MT_r3	START arm=MT policy=n-a
+2026-10-27T12:03:13Z	MT_r3	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:03:13Z	DF_r3	START arm=DF policy=n-a
+2026-10-27T12:09:37Z	DF_r3	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:09:37Z	P0_r3	START arm=P policy=AERO-base
+2026-10-27T12:15:00Z	QUEUE_STOPPED	author decision: halt remaining boots at 11/24 DONE (ES_r2 in-flight discarded as zero-data); pc partial data retained append-only for joint analysis; next: author new spec stage2=1024 book reqs, 2 reps only

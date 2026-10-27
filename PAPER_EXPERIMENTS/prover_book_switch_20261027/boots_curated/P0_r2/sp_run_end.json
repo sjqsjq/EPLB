@@ -1,0 +1,243 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "TRACK",
+ "S_final": 1,
+ "H_final": 16,
+ "W_final": 16,
+ "sp_fwd_total": 1018,
+ "h_cycles": 69,
+ "window_count": 56,
+ "true_steps_total": 1008,
+ "sample_opportunities": 862,
+ "recorded_steps": 850,
+ "swaps_started_total": 6,
+ "nocommit_planned_ops_total": 0,
+ "decode_record_batches": 0,
+ "residency_committed_h": {
+  "TRACK": 44,
+  "QUIET": 13,
+  "RECOVER": 12
+ },
+ "transitions": [
+  {
+   "h_id": 8,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 11,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 14,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 17,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 20,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 22,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 25,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 27,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 34,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 37,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 40,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.093499>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 52,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 54,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.015356>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 8,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 11,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 48,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 17,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 20,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 48,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 25,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 27,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 37,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 40,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 48,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 52,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 54,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  }
+ ],
+ "p2l_version": 6,
+ "p2l_fp8": "bf7538fa05204df8",
+ "prof_sp_gate_ms": 8.613446,
+ "prof_record_calls": 79900
+}

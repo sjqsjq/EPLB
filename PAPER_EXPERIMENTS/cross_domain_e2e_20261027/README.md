@@ -1,5 +1,6 @@
-# cross_domain_e2e_20261027 -- 跨域切换多 baseline 端到端 (论文 §5.3.1 主比较 + §5.5 时间线案例)
+# cross_domain_e2e_20261027 -- 跨域切换多 baseline 端到端 prefill-heavy 补充探针 (2026-10-27 定位修正: 非论文 §5.3.1 主比较; §5.5 时间线案例引用须带定位注记)
 
+> **定位修正 (2026-10-27)**: 本战役实跑 e3 流(in512/out1, conc256, mixed-full-stream oracle 静态校准), 与论文 §5.3.1 crossdomain_freq6 spec 三点不符(流/workload/校准源), 定位为 prefill-heavy 补充探针; 全部数字作为探针自身测量有效, 不得作为 §5.3.1 主比较引用。主比较承接: prover_code_switch_20261027(partial) + prover_book_switch_20261027(12/12)。详见 analysis/REPORT_xd.md Correction Addendum 与 LEDGER_xd.tsv INVESTIGATION 行。
 六臂 (I / 静态EPLB ES / 动态EPLB ED / MoETuner-style MT / DataFore-style DF / AERO-base P0) x 4 轮 = 24 boots,
 冻结 E3 四域相位切换流 (e3_multidomain_switch.jsonl sha d55fe2f7..., 8192 req = sharegpt/prover/book/code x 2048, in512/out1, conc 256), 六臂同期同窗测量, 未拼接历史数值。
 

@@ -1,0 +1,44 @@
+2026-10-27T12:21:42Z	CAMPAIGN_OPEN	prover_book_switch_20261027 created per author new spec: stage2 code->book (published set 1000 rows not 1024, disclosed), 2 reps only (12 boots), joint analysis with author after run; parent pc campaign halted at 11/24 (data retained)
+2026-10-27T12:21:42Z	STREAM_FROZEN	pb_prover_book_switch.jsonl n=3048 uniq=3048 sha256=2da3467263d4f52889ea2931fa84d9fb244ed3dfabe136fddb5c1b6feb7bf904 block1=prover2048 block2=book1000 all max_tokens=1 conc=32
+2026-10-27T12:21:42Z	PLACEMENT_LOCK	copied byte-identical from pc campaign: PL_ES=PL_DF=c1787ad19f16ef5d840d5a7c7e364ecf23fb3caafba682e56c0f21991a298f29 PL_MT=299cea283e93efe69d3aec8ab71f210908d8b262d45f602079ed3daebe2a2a60; launcher launch_arm_pc.sh byte-identical copy sha cfbdaee752283935047b9d42bbcc36e74da327400ca0fcd3e53533965ced0c2c
+2026-10-27T12:22:47Z	SCRIPT_BUG_FOUND	dry-sanity caught literal $PC/ residuals in run_pb_boot.sh (unquoted heredoc expanded replacement pattern to full path leaving var refs untouched while def line became PB=) - would have written to /boots at runtime; fixed via quoted-delimiter re-transform, replaced all occurrences, bash -n pass
+2026-10-27T12:22:47Z	SCRIPT_SHA	run_pb_boot.sh dbe0f6c80b51a13c07b6d16fe8762b4645eefc8bc33bd0c4a06aa8395f1859e9
+2026-10-27T12:22:47Z	SCRIPT_SHA	mech_check_pb.py 838c72ce73381c1c74fad8e3c6aea81b32b9e4ae445c4330a83823c708f37c82
+2026-10-27T12:22:47Z	SCRIPT_SHA	queue_formal_pb.sh 6b85ec4e964e6cf21957551c1ebf2283daac8891cec50e57c6c50d2aaacf1210
+2026-10-27T12:22:47Z	SCRIPT_SHA	launch_arm_pc.sh cfbdaee752283935047b9d42bbcc36e74da327400ca0fcd3e53533965ced0c2c (byte-identical copy from pc campaign)
+2026-10-27T12:23:42Z	QUEUE_LAUNCH	12 formal boots (6 arms x 2 reps per author) detached setsid, rotation r1 ES ED MT DF P0 I r2 ED MT DF P0 I ES, NREQ=3048 CONC=32 BENCH_TIMEOUT=1800, PROTOCOL_pb.md frozen pre-launch
+2026-10-27T12:23:43Z	ES_r1	START arm=ES policy=n-a
+2026-10-27T12:27:16Z	CRON_SET	monitor b72d185a at 17 and 47 min hourly session-only (first CronCreate attempt hit classifier outage, retried after 50s per precedent); pc monitor c7a0aefc deleted; if lost across compaction REBUILD from PROTOCOL_pb.md sec 5 7 8
+2026-10-27T12:31:41Z	AUTHOR_DIRECTIVE	post-run task (author away, proceed autonomously after 12/12 DONE): find WHY stage2 lags static deployment - overhead vs insufficient static gain on code domain. (1) inspect P0 imbalance after online adaptation in BOTH campaigns (pc+pb): did it come down? (2) offline compare SAME code routing counts on layouts Identity vs prover-frozen vs P0 before/after switch, imbalance metric per layer; (3) include code-adapted layout if archived. prep read-only scouting allowed now; analysis after queue done; report awaiting author return
+2026-10-27T12:32:40Z	ES_r1	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:32:40Z	ED_r1	START arm=ED policy=n-a
+2026-10-27T12:41:38Z	ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:41:38Z	MT_r1	START arm=MT policy=n-a
+2026-10-27T12:50:43Z	MT_r1	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:50:43Z	DF_r1	START arm=DF policy=n-a
+2026-10-27T12:59:19Z	DF_r1	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T12:59:19Z	P0_r1	START arm=P policy=AERO-base
+2026-10-27T13:06:18Z	ANALYSIS_OFFLINE_IMBALANCE	author directive executed read-only while queue running. artifacts analysis/imbalance_offline.json+.md. code counts reconstructed from X record_boot2 e3 .pt steps392-512 (boundaries empirically 132/260/388; code block = same retok L512 5-source population as pc stage2; sensitivity slice 404-512 agrees). KEY: same code counts headroom_rate identity=0.0647 prover-frozen-DF-repro=0.0637 (1.6pct rel reduction only) MT=0.0666 e3fair=0.0530 code-adapted-greedy=0.0001 r_raw 1.518->1.0008. book pub traces: identity=0.0911 prover-frozen=0.0861 book-adapted=0.00002. P0 live pc h_rate: prover plateau 0.0103 boundary w30 0.074 plateau w33-39 0.0170 = closed ~75pct of headroom gap with 11 swaps. cdx0 archived r_raw == recomputed exactly (pipeline validated). DF repro faithful: hr=0.00004 on own calibration counts. prover slice vs datafore cosine mean 0.9892. pc P0_r3 = killed-at-halt zero-data boot excluded. pb P0_r1 live trajectory captured at 21 windows (partial, re-extract after DONE)
+2026-10-27T13:08:24Z	P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T13:08:24Z	I_r1	START arm=I policy=n-a
+2026-10-27T13:10:06Z	ANALYSIS_PB_P0R1_BOUNDARY	pb P0_r1 v2p1 85 windows true_steps=1000: prover plateau h_rate 0.0098-0.0108 (w2-26); boundary w27 midband_hold z=45.3 h_rate=0.0490, w28 z=73.0; recovery w29-31 h_rate 0.0183/0.0123/0.0113; plateau w32+ ~0.012 ~= prover baseline (near-full recovery, contrast pc plateau 0.017=1.7x baseline); 27 swaps total (pc:11), p2l_v=27, z plateau 0.5-1.0 (pc:3.5); book block gave 58 adaptation windows vs pc code block only 10 - pc 75pct closure partly run-end truncated; events init1 hold30 confirmed_grow12 grow_blocked_headroom40 midband_hold2; sp_run_end state=TRACK
+2026-10-27T13:17:24Z	I_r1	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T13:17:24Z	ED_r2	START arm=ED policy=n-a
+2026-10-27T13:27:07Z	ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T13:27:07Z	MT_r2	START arm=MT policy=n-a
+2026-10-27T13:29:27Z	ANALYSIS_R1_PEEK	descriptive n=1 (r2 pending). prover/book/b_late req-s: I 9.70/4.37/4.28; ES 10.56/4.38/4.18; ED 9.90/4.59/4.38; MT 11.12/4.39/4.26; DF 11.27/4.50/4.31; P0 10.97/4.29/3.97; ED_r2 9.58/4.52/4.30. statics ~= identity +-3pct in book block (matches offline: prover-frozen cuts book headroom only 5.5pct); P0 book BELOW identity and late -7.2pct vs I despite h_rate fully recovered to 0.012 by w32 -> stage2 deficit points to OVERHEAD side (27 drip swaps), not imbalance side; ED batched rebalance best book both rounds so far; P0 prover +13pct vs I retained
+2026-10-27T13:36:22Z	MT_r2	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T13:36:22Z	DF_r2	START arm=DF policy=n-a
+2026-10-27T13:45:19Z	DF_r2	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T13:45:19Z	P0_r2	START arm=P policy=AERO-base
+2026-10-27T13:53:55Z	P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T13:53:55Z	I_r2	START arm=I policy=n-a
+2026-10-27T13:59:08Z	ANALYSIS_R2_PEEK_P0SPLIT	descriptive n=1 per round. P0_r2: 56 windows boundary w30 (h_rate 0.0904 z 17.1) full recovery by w33 book plateau h_rate 0.0104 == prover baseline z plateau 0.80; swaps=6 p2l_v=6 events grow_blocked9 confirmed_grow15. P0_r1 had swaps=27 plateau 0.0120. throughput prover/book/b_late: P0_r2 10.61/4.72/4.55 (book BEST in r2 so far, no late drop) vs P0_r1 10.97/4.29/3.97 (book worst r1, late -10pct). same frozen knobs same seed: swap churn varies 6 vs 27 by window-phase alignment; book throughput inversely tracks churn. DF_r2 11.19/4.23/3.98 (early 3.98 swing vs r1 4.46) MT_r2 11.19/4.47/4.46 ED_r2 9.58/4.52/4.30 (ED stable both rounds book 4.59/4.52). awaiting I_r2 ES_r2 anchors. finding shape: stage2 overhead driver = swap churn; imbalance fully recovered both rounds
+2026-10-27T14:03:23Z	I_r2	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T14:03:24Z	ES_r2	START arm=ES policy=n-a
+2026-10-27T14:12:33Z	ES_r2	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T14:12:34Z	queue	QUEUE_PB_COMPLETE 12_formal_boots
+2026-10-27T14:31:32Z	QUEUE_COMPLETE	12/12 DONE 14:12:33Z zero aborts zero rc!=0 INFRA budget unused all mech facts recorded (P0 boots full mechanism chain true shw_constant=false; ED periodic rebalance pb 169 lines ~21 events x8 ranks both rounds; static arms 0 periodic rebalance - only server_args dump line each)
+2026-10-27T14:31:32Z	ANALYSIS_DESCRIPTIVE_DONE	analysis/descriptive_pb.json+.md (n=2 NON-INFERENTIAL). book means: I 4.41 ES 4.38 ED 4.56 MT 4.43 DF 4.36 P0 4.50 (P0 rounds 4.29/4.72 churn 27 vs 6 swaps; h_rate plateau 0.0118/0.0104 full recovery both). prover means: DF 11.23 MT 11.16 P0 10.79 ES 10.49 ED 9.74 I 9.42. pc code means (14 DONE boots): I 33.76 DF 33.04 MT 33.04 ES 32.15 ED 31.60 P0 29.66 (P0 -12pct vs I pc vs +2pct pb). imbalance_offline rerun with pb P0 live rows. ED/static evidence sections 5-6 in md
+2026-10-27T14:31:32Z	PC_COUNT_CORRECTION	pc campaign LEDGER_pc.tsv contains 14 DONE rows (r1x6 r2x6 MT_r3 DF_r3) with complete artifacts; earlier QUEUE_STOPPED row text said 11/24 and ES_r2 zero-data which contradicts LEDGER timestamps and existing ES_r2 I_r2 MT_r3 DF_r3 artifacts; 14 boots used for pc comparison table; P0_r3 remains zero-data killed-at-halt excluded; correction appended not edited (append-only)
+2026-10-27T14:35:00Z	CRON_PATROL_DELETED	patrol cron b72d185a removed after 12/12 DONE + analysis package delivered; no further patrols needed
