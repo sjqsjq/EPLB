@@ -1,0 +1,101 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "TRACK",
+ "S_final": 1,
+ "H_final": 16,
+ "W_final": 16,
+ "sp_fwd_total": 522,
+ "h_cycles": 32,
+ "window_count": 27,
+ "true_steps_total": 512,
+ "sample_opportunities": 450,
+ "recorded_steps": 438,
+ "swaps_started_total": 12,
+ "nocommit_planned_ops_total": 0,
+ "decode_record_batches": 0,
+ "residency_committed_h": {
+  "TRACK": 26,
+  "QUIET": 6
+ },
+ "transitions": [
+  {
+   "h_id": 14,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 18,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.058017>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 24,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 26,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.064000>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 14,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 18,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 64,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 24,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 26,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  }
+ ],
+ "p2l_version": 12,
+ "p2l_fp8": "5a2f2a9a683ac5d5",
+ "prof_sp_gate_ms": 4.066964,
+ "prof_record_calls": 41172
+}

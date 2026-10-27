@@ -1,0 +1,95 @@
+ts	label	detail
+2026-10-27T05:07:18Z	campaign_init	dir=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cross_domain_e2e_20261027 stream=e3_multidomain_switch.jsonl sha=d55fe2f73376e2fe8c16b3c5e91a2462b0889a4aff60e253b73f5029f7a5d879 arms=I,ES,ED,MT,DF,P0 formal=24 prep_le=3 infra_le=2 author_confirmed=2026-10-27
+2026-10-27T05:08:24Z	scripts_written	launch_rec_e3=b2fc8a2984b76f060351b501e3fa661f645039182687fdde208157baa89f6c42 run_rec_boot=2a675521fdc41e0ec083944b0710fce1d9f435d67591220688df1f5703bb1870 syntax_ok=1
+2026-10-27T05:09:18Z	protocol_part1	sections=0-4 lines=73
+2026-10-27T05:09:50Z	protocol_preregistered	sha=febf6616a391f76edfc324810cbd1bdaff23773a26fb840104cfab9a65aeafcc lines=125 sections=0-9 gpu_boots_so_far=0
+2026-10-27T05:09:59Z	rec_boot	START launcher_sha=b2fc8a2984b76f060351b501e3fa661f645039182687fdde208157baa89f6c42
+2026-10-27T05:11:35Z	rec_boot	READY_FAIL after 96s
+2026-10-27T05:17:24Z	rec_boot_v1	INCIDENT prep1_FAILED zero-data recipe per_token+auto crashes _DetailSinglePassGatherer num_tokens_per_rdma_rank=None expert_distribution.py:406 during warmup; fix=v2 proven launch_profile.sh recipe stat+normal+graph128+manual_arm (stat under auto = NotImplementedError by design; _SelectExpertsSinglePassGatherer hooks topk select only, counts layout/mode invariant); rerun as prep2
+2026-10-27T05:17:37Z	scripts_v2	launch_rec_e3_v2=31e1553b4b140c15937b426689c7c9be362b527b270d1150f77629e66f66357d run_rec_boot_v2=9071971286ae877fe25f2f9ca1a133dfa4302300c3c9b24e2ec0693026a129c4 syntax_ok=1
+2026-10-27T05:17:37Z	rec_boot_v2	START launcher_sha=31e1553b4b140c15937b426689c7c9be362b527b270d1150f77629e66f66357d
+2026-10-27T05:18:57Z	rec_boot_v2	READY after 80s
+2026-10-27T05:19:02Z	rec_boot_v2	ARMED resp=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cross_domain_e2e_20261027/scripts/run_r
+2026-10-27T05:19:24Z	launcher_xd_written	sha=4d007710e9a3a05dcbbec1d5d499a875c51a930793add469526a369cb5014d34 deltas=placement_paths_only base_verbatim=1
+2026-10-27T05:21:34Z	rec_boot_v2	INCIDENT arm_failed curl_not_found (env has no curl); recorder never armed => first bench pass zero profile contamination; driver+bench killed, server kept alive; partial artifacts renamed INVALID; continue via python urllib arm + fresh full bench (rec_e3_v2b), same boot stays prep2
+2026-10-27T05:24:21Z	rec_boot_v2	INCIDENT2 pkill_self_match killed own runner shell (heredoc contained bare bench pattern text + pkill in same cmdline); no real stray bench existed (earlier counts were self-matches); continue script rewrite in next call; server health verified before relaunch
+2026-10-27T05:24:59Z	rec_continue_written	sha=6657885857284a112158768848d41fdd1ec7fa3fb616fe7edd4ad2205b4e5b04
+2026-10-27T05:25:00Z	rec_cont	HEALTH ok
+2026-10-27T05:25:00Z	rec_cont	ARM rc=0 resp=200 b'Start recording the expert distribution.\n'
+2026-10-27T05:28:16Z	rec_cont	BENCH rc=0
+2026-10-27T05:28:27Z	rec_cont	STOP_DUMP stop_rc=0 dump_rc=0
+2026-10-27T05:28:55Z	rec_cont	DONE bench_rc=0 pt=yes count=1 pt0_sha=fa04965525ecb44ccd89e67be525e815a5ae5474ccbb44c6c7c9f9c13dc6df4a
+2026-10-27T05:33:29Z	profile_build	pt=rank0_shape_1000x94x128_sum_3154479072 per_layer=33558288(=4194260tok x 8topk exact) layer0_imb=2.379 P_e3.npz_written ES_DF_json=ddc3943d13cd8ffe67be3014d239260e170215b1a340f5fa84efca312b6cf306 byte_identical_shared
+2026-10-27T05:33:29Z	ilp_started	solve_ilp detached G=8 K=16 time_limit=30 mip_gap=0.005 out=placements/placement_e3_fair.json log=prep/profile_build/ilp_solve.log
+2026-10-27T05:36:03Z	formal_tooling	order_table=24_rows_rotation_locked queue_formal_xd+mech_check_xd written shas_in_ledger_next
+2026-10-27T05:36:03Z	tooling_shas	mech_check_xd=00f3e460caf1ac1e48bf8d86b829d51dd698e35d70f834ddb105f1aa5a05e929 queue_formal_xd=d0c5011a1c1d0488c8c92436d1eaaa789365f7ae2b11cecf367bbfec26d47df9 run_xd_boot=5f90675d122594a8a9921f03aec68fbd1e4d31a0f9b6b5a1a8627feca0dab14b order_table=0c8d37db739941e88b453e02236bd79d402e280200f0a3cdbd2360fc054df574
+2026-10-27T05:38:55Z	watcher_written	sha=56dde89ac7aace528e623a10433683dffa9a45e093eab95dc115205ae11deb47 chain=ilp_wait,sanity,freeze,amendment1,es_val,formal_queue
+2026-10-27T05:39:12Z	prep_chain	WATCHER_START waiting_ilp
+2026-10-27T06:38:52Z	prep_chain	INCIDENT3 interface_mismatch solve_ilp wrote placement_e3_fair.meta.json (stem naming, matches old artifacts) watcher expects placement_e3_fair.json.meta.json; fixed by identical-content copy (both names kept, shas equal); ilp_result=Solved94 total=2822.5s mean_imb=1.000; watcher continues unmodified
+2026-10-27T06:38:53Z	prep_chain	MT_SANITY_OK layers=94 perms_ok mean_imb=1.0000 max_imb=1.0000 total_solve_s=2822.5
+2026-10-27T06:38:53Z	prep_chain	PLACEMENTS_FROZEN es=ddc3943d13cd8ffe67be3014d239260e170215b1a340f5fa84efca312b6cf306 df=ddc3943d13cd8ffe67be3014d239260e170215b1a340f5fa84efca312b6cf306 mt=ddb38bfd03e191fe6d45acded55980c8ceb233ddd10ff94a167e4bf214ce3f66 mt_meta=351adaac208cdc65e7d67386ad793c4845441b25ad6b7f6157e1334e7f0a6d9c
+2026-10-27T06:38:53Z	prep_chain	AMENDMENT_1_APPENDED protocol_sha=a0f4ad5e643e4dcb85afb875738be5c8fa9a3c0f68ed12179316e219ccd5b4cd
+2026-10-27T06:38:53Z	prep_chain	ES_VAL_START prep3
+2026-10-27T06:38:53Z	ES_val	START arm=ES policy=n-a
+2026-10-27T06:44:06Z	ES_val	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T06:44:06Z	prep_chain	ES_VAL_DONE rc=0 injection_lines=8
+2026-10-27T06:44:06Z	prep_chain	FORMAL_QUEUE_LAUNCHED pid=1262453 boots=24 order=ORDER_TABLE_locked
+2026-10-27T06:44:06Z	ES_r1	START arm=ES policy=n-a
+2026-10-27T06:49:29Z	ES_r1	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T06:49:29Z	ED_r1	START arm=ED policy=n-a
+2026-10-27T06:54:42Z	ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T06:54:43Z	MT_r1	START arm=MT policy=n-a
+2026-10-27T06:59:36Z	MT_r1	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T06:59:36Z	DF_r1	START arm=DF policy=n-a
+2026-10-27T07:04:40Z	DF_r1	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:04:40Z	P0_r1	START arm=P policy=AERO-base
+2026-10-27T07:09:51Z	P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T07:09:51Z	I_r1	START arm=I policy=n-a
+2026-10-27T07:14:43Z	I_r1	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:14:43Z	ED_r2	START arm=ED policy=n-a
+2026-10-27T07:20:03Z	ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:20:04Z	MT_r2	START arm=MT policy=n-a
+2026-10-27T07:25:21Z	MT_r2	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:25:21Z	DF_r2	START arm=DF policy=n-a
+2026-10-27T07:30:33Z	DF_r2	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:30:33Z	P0_r2	START arm=P policy=AERO-base
+2026-10-27T07:35:43Z	P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T07:35:43Z	I_r2	START arm=I policy=n-a
+2026-10-27T07:40:40Z	I_r2	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:40:40Z	ES_r2	START arm=ES policy=n-a
+2026-10-27T07:45:48Z	ES_r2	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:45:48Z	MT_r3	START arm=MT policy=n-a
+2026-10-27T07:50:54Z	MT_r3	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:50:54Z	DF_r3	START arm=DF policy=n-a
+2026-10-27T07:56:15Z	DF_r3	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T07:56:15Z	P0_r3	START arm=P policy=AERO-base
+2026-10-27T08:01:40Z	P0_r3	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T08:01:41Z	I_r3	START arm=I policy=n-a
+2026-10-27T08:07:17Z	I_r3	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:07:17Z	ES_r3	START arm=ES policy=n-a
+2026-10-27T08:12:30Z	ES_r3	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:12:30Z	ED_r3	START arm=ED policy=n-a
+2026-10-27T08:18:00Z	ED_r3	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:18:00Z	DF_r4	START arm=DF policy=n-a
+2026-10-27T08:23:29Z	DF_r4	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:23:29Z	P0_r4	START arm=P policy=AERO-base
+2026-10-27T08:26:14Z	campaign_note	NOTE author_query=e3_dataset_and_spread crosscheck=final_plan_20261019_same_stream_bands_all_match old_report_verbatim=E1/E3四臂互不显著 memo=notes/E3_historical_crosscheck.md memo_sha=5a3662a93eb8fe9a07a26d4a985210d55a46fffe276fffa75a0fb5e0c042475e
+2026-10-27T08:26:14Z	campaign_decision	AUTHOR_DECISION option_a=run_to_completion_先跑完再说 queue_untouched; finalization_cron_dabe3eeb_missing_from_session_store rescheduled_new_oneshot_0907Z; report_limitations_per_memo四点必带
+2026-10-27T08:28:54Z	P0_r4	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T08:28:54Z	I_r4	START arm=I policy=n-a
+2026-10-27T08:33:38Z	I_r4	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:33:39Z	ES_r4	START arm=ES policy=n-a
+2026-10-27T08:34:57Z	campaign_infra	NOTE finalize_watcher_xd.sh armed (cron-independent safety net, waits ALL_DONE -> analyze_xd.py --final -> FINAL_ANALYZE_DONE marker); analyze_xd.py pre-drafted sha=7f62f26544127f8b55a9a663da3969bedb448d8de502956824e0cc5bc847c6fd smoke=20/24_ok; cron_classifier_temporarily_unavailable retrying
+2026-10-27T08:38:11Z	campaign_infra	NOTE finalization_cron_rescheduled id=79eedabb fire=09:07Z oneshot_session_only (replaces lost dabe3eeb); watcher 73c1b7e8 remains as redundant net
+2026-10-27T08:38:24Z	ES_r4	DONE arm=ES policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:38:24Z	ED_r4	START arm=ED policy=n-a
+2026-10-27T08:43:34Z	ED_r4	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:43:34Z	MT_r4	START arm=MT policy=n-a
+2026-10-27T08:49:02Z	MT_r4	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T08:49:02Z	queue	ALL_DONE 24_formal_boots
+2026-10-27T09:08:10Z	campaign_infra	INCIDENT4_BENIGN watcher_grep_self_match: infra NOTE row contained literal completion token -> watcher fired 08:35:13Z at 21/24; guard worked (analyze --final rc=1 FINAL_BUT_MISSING ES_r4,ED_r4,MT_r4, no stats published); stale partial summary.json/per_boot_raw.tsv in analysis/ to be overwritten by true final rerun; lesson=never put bare completion token in LEDGER rows while watcher greps it
+2026-10-27T09:08:10Z	queue	NOTE true_completion 24/24 DONE at 2026-10-27T08:49:02Z zero_rc_nonzero; finalization_chain started by cron 79eedabb 09:07Z
+2026-10-27T09:09:35Z	analysis	DONE analyze_xd.py --final 24/24 rc=0 sha=7f62f26544127f8b55a9a663da3969bedb448d8de502956824e0cc5bc847c6fd; P0_vs_DF +11.78s p=0.0499 holm=0.2494ns; P0_vs_I +9.38s p=0.0879 ns; P0_vs_MT +11.74s ns; P0_vs_ES +7.84s ns; P0_vs_ED -8.43s ns (P0 faster than ED); arm mean wall_s DF 188.20 MT 188.24 I 190.60 ES 192.14 P0 199.98 ED 208.40
+2026-10-27T09:21:38Z	analysis	DONE timeline_xd.py sha=9e91ffe4e62f4d5d0d38d67bf4106c7ebbaac25faa5f40f6052bab3045972582 timeline_5_5.json+md; ED correction: 16 log rows = 2 events x 8 DP ranks all 4 boots, ev1 at boundary idx4096 +/-0.8s, ev2 stream end; P0 boundary reaction windows 9/17/25 all boots, P0_r4 4 TRACK-QUIET transitions z_max=133.1; static arms 0 runtime rebalance rows
+2026-10-27T09:21:38Z	analysis	DONE report_gen_xd.py + REPORT_xd.md + costs_profile_solve.md generated; limitations 4+1 points included per notes memo
+2026-10-27T09:26:33Z	docs	DONE EXPERIMENT_MAP.md updated (row 5.3.1+5.5 + results summary, idempotent script sha=84e290962798a18706c605976b431378d55881a199d0a38bda90e63b8aca9f16) + synced to /data copy
