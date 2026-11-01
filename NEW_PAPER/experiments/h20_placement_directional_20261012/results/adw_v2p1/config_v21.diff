@@ -1,0 +1,51 @@
+--- locked_v2_frozen_20261016/config.py	2026-10-16 10:47:40.410865760 +0000
++++ config.py	2026-10-16 20:49:55.539026662 +0000
+@@ -123,6 +123,25 @@
+     v2_urgent_episode_cap: int = 3
+     v2_beta: float = 0.5
+     v2_log_path: str = ""
++    # --- ADW v2.1 limited revision (2026-10-16): logical-identity detection,
++    # rate-scale headroom (theta_* are RATES h_w/n_fresh), confirm-then-commit.
++    # Values frozen by the pre-registered v2.1 calibration (W0 only).
++    v21_kappa: float = 0.0
++    v21_z_lo: float = 0.0
++    v21_z_hi: float = 0.0
++    v21_z_urgent: float = 0.0
++    v21_m_shrink: int = 2
++    v21_m_grow: int = 3
++    v21_n_min: int = 0
++    v21_u_max: int = 4
++    v21_theta_r_low: float = 0.0
++    v21_theta_r_act: float = 0.0
++    v21_dwell_shrink: int = 2
++    v21_dwell_grow: int = 2
++    v21_w_uncertain_target: int = 16
++    v21_urgent_episode_cap: int = 3
++    v21_beta: float = 0.5
++    v21_log_path: str = ""
+ 
+     # --- Adaptive window sensitivity calibration (opt-in; gated on this flag
+     # alone since the 2026-10-15 E-A decoupling, change C7 -- previously also
+@@ -187,6 +206,22 @@
+             v2_urgent_episode_cap=int(os.environ.get('OEPLB_V2_URGENT_EPISODE_CAP', '3')),
+             v2_beta=float(os.environ.get('OEPLB_V2_BETA', '0.5')),
+             v2_log_path=os.environ.get('OEPLB_V2_LOG', ''),
++            v21_kappa=float(os.environ.get('OEPLB_V21_KAPPA', '0')),
++            v21_z_lo=float(os.environ.get('OEPLB_V21_Z_LO', '0')),
++            v21_z_hi=float(os.environ.get('OEPLB_V21_Z_HI', '0')),
++            v21_z_urgent=float(os.environ.get('OEPLB_V21_Z_URGENT', '0')),
++            v21_m_shrink=int(os.environ.get('OEPLB_V21_M_SHRINK', '2')),
++            v21_m_grow=int(os.environ.get('OEPLB_V21_M_GROW', '3')),
++            v21_n_min=int(os.environ.get('OEPLB_V21_N_MIN', '0')),
++            v21_u_max=int(os.environ.get('OEPLB_V21_U_MAX', '4')),
++            v21_theta_r_low=float(os.environ.get('OEPLB_V21_THETA_R_LOW', '0')),
++            v21_theta_r_act=float(os.environ.get('OEPLB_V21_THETA_R_ACT', '0')),
++            v21_dwell_shrink=int(os.environ.get('OEPLB_V21_DWELL_SHRINK', '2')),
++            v21_dwell_grow=int(os.environ.get('OEPLB_V21_DWELL_GROW', '2')),
++            v21_w_uncertain_target=int(os.environ.get('OEPLB_V21_W_UNCERTAIN_TARGET', '16')),
++            v21_urgent_episode_cap=int(os.environ.get('OEPLB_V21_URGENT_EPISODE_CAP', '3')),
++            v21_beta=float(os.environ.get('OEPLB_V21_BETA', '0.5')),
++            v21_log_path=os.environ.get('OEPLB_V21_LOG', ''),
+             window_floor=getattr(server_args, 'pb_oeplb_window_floor', 32),
+             window_shift_cos_threshold=getattr(server_args, 'pb_oeplb_window_shift_cos', 0.85),
+             window_stable_cos_threshold=getattr(server_args, 'pb_oeplb_window_stable_cos', 0.95),

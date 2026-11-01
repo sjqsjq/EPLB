@@ -1,0 +1,35 @@
+[s_E4_E_b5] 2048 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e4_fullduplex.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "s_E4_E_b5",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e4_fullduplex.jsonl",
+  "num_requests": 2048,
+  "concurrency": 256,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 323.1,
+  "total_comp_tokens": 262144,
+  "tps": 811.4,
+  "avg_output_tokens": 128,
+  "lat_mean_ms": 40379.1,
+  "lat_p50_ms": 39855.97,
+  "lat_p95_ms": 44353.81,
+  "lat_p99_ms": 44623.2,
+  "ttft_mean_ms": 4262.05,
+  "ttft_p50_ms": 4165.44,
+  "ttft_p95_ms": 8584.83,
+  "ttft_p99_ms": 10372.05,
+  "tpot_mean_ms": 284.39,
+  "tpot_p50_ms": 282.36,
+  "tpot_p95_ms": 325.33,
+  "tpot_p99_ms": 340.23,
+  "mono_start_ns": 7329422770778147,
+  "mono_end_ns": 7329745866494469,
+  "wall_start_s": 1792570323.222487,
+  "wall_end_s": 1792570646.318203,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 1048565,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase4_core/boots/s_E4_E_b5/s_E4_E_b5.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase4_core/boots/s_E4_E_b5/s_E4_E_b5_perreq.jsonl (2048 rows)

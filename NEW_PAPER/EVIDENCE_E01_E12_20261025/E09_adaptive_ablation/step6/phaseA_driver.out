@@ -1,0 +1,19 @@
+[2026-10-16T12:22:29+00:00] PHASE_A start (12 cells)
+[2026-10-16T12:22:35+00:00] phaseA/W0_f08__s1 boot mode=fixed W=8
+[2026-10-16T12:23:56+00:00] phaseA/W0_f08__s1 boot rc=0
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 bench rc=0
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 PASS
+./step6_common.sh: line 23: 1296840 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T12:30:16+00:00] phaseA/W0_f16__s1 boot mode=fixed W=16
+[2026-10-16T12:31:20+00:00] phaseA/W0_f16__s1 boot rc=0
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 bench rc=0
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 PASS
+./step6_common.sh: line 23: 1303539 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T12:37:42+00:00] phaseA/W0_f32__s1 boot mode=fixed W=32
+[2026-10-16T12:38:10+00:00] phaseA/W0_f32__s1 boot rc=2
+[2026-10-16T12:38:10+00:00] phaseA/W0_f32__s1 RETIRED boot_fail
+./step6_common.sh: line 23: 1310221 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T12:38:22+00:00] phaseA/W0_f64__s1 boot mode=fixed W=64
+[2026-10-16T12:39:30+00:00] phaseA/W0_f64__s1 boot rc=0

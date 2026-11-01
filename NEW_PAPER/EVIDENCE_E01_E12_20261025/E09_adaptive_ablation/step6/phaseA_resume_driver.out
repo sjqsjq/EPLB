@@ -1,0 +1,56 @@
+[2026-10-16T12:47:19+00:00] PHASE_A_RESUME start (9 cells: W1x4, W2x4, W0_f32 re-run)
+[2026-10-16T12:47:30+00:00] phaseA/W1_f08__s1 boot mode=fixed W=8
+[2026-10-16T12:48:38+00:00] phaseA/W1_f08__s1 boot rc=0
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 bench rc=0
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 PASS
+./step6_common.sh: line 23: 1319231 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T12:54:53+00:00] phaseA/W1_f16__s1 boot mode=fixed W=16
+[2026-10-16T12:56:01+00:00] phaseA/W1_f16__s1 boot rc=0
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 bench rc=0
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 PASS
+./step6_common.sh: line 23: 1325970 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:02:19+00:00] phaseA/W1_f32__s1 boot mode=fixed W=32
+[2026-10-16T13:03:32+00:00] phaseA/W1_f32__s1 boot rc=0
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 bench rc=0
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 PASS
+./step6_common.sh: line 23: 1332655 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:09:49+00:00] phaseA/W1_f64__s1 boot mode=fixed W=64
+[2026-10-16T13:10:57+00:00] phaseA/W1_f64__s1 boot rc=0
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 bench rc=0
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 PASS
+./step6_common.sh: line 23: 1339334 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:17:18+00:00] phaseA/W2_f08__s1 boot mode=fixed W=8
+[2026-10-16T13:18:30+00:00] phaseA/W2_f08__s1 boot rc=0
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 bench rc=0
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 PASS
+./step6_common.sh: line 23: 1346004 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:30:48+00:00] phaseA/W2_f16__s1 boot mode=fixed W=16
+[2026-10-16T13:31:56+00:00] phaseA/W2_f16__s1 boot rc=0
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 bench rc=0
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 PASS
+./step6_common.sh: line 23: 1352701 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:44:10+00:00] phaseA/W2_f32__s1 boot mode=fixed W=32
+[2026-10-16T13:45:14+00:00] phaseA/W2_f32__s1 boot rc=0
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 bench rc=0
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 PASS
+./step6_common.sh: line 23: 1359394 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T13:57:24+00:00] phaseA/W2_f64__s1 boot mode=fixed W=64
+[2026-10-16T13:58:36+00:00] phaseA/W2_f64__s1 boot rc=0
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 bench rc=0
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 PASS
+./step6_common.sh: line 23: 1366076 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T14:11:03+00:00] phaseA/W0_f32__s1r boot mode=fixed W=32
+[2026-10-16T14:12:11+00:00] phaseA/W0_f32__s1r boot rc=0
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r bench rc=0
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r PASS
+./step6_common.sh: line 23: 1372762 Killed                  setsid nohup bash "$LAUNCH" > "$cdir/server.log" 2>&1
+[2026-10-16T14:18:33+00:00] PHASE_A_DONE

@@ -1,0 +1,79 @@
+--- /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/code_lock/sp_state.py.orig_ba572f93	2026-10-26 17:24:02.025652216 +0000
++++ /workspace/EPLB/OEPLB/src/sp_state.py	2026-10-26 17:28:52.337475113 +0000
+@@ -41,6 +41,7 @@
+ 
+ import hashlib
+ import json
++import os
+ 
+ SP_STATES = ("TRACK", "QUIET", "RECOVER")
+ 
+@@ -131,6 +132,20 @@
+         self.rev = int(rev)
+         if self.rev not in (0, 1):
+             raise ValueError("sp rev must be 0|1, got %r" % (rev,))
++        # AERO-RG recovery-admission policy (2026-10-27, author-ordered
++        # mechanism change; recovery_admission_e2e_20261027 PROTOCOL.md):
++        #   OEPLB_SP_RG unset/0 -> AERO-base: decisions AND proposal hashes
++        #     are byte-identical to the pre-patch frozen version (ba572f93).
++        #   OEPLB_SP_RG=1 -> AERO-RG: in QUIET (rev1 only) a LONE
++        #     confirmed_grow no longer counts as change evidence (it means
++        #     stable-window growth, not a load change). Every other exit
++        #     condition, priority and guardrail is untouched; the elif
++        #     chain is NOT short-circuited (no early return).
++        self.rg = (os.environ.get("OEPLB_SP_RG", "0") == "1")
++        if self.rg and not (self.rev == 1 and mode == "adaptive"):
++            raise ValueError(
++                "OEPLB_SP_RG=1 (AERO-RG) requires rev=1 and mode=adaptive "
++                "(got rev=%r mode=%r)" % (self.rev, mode))
+         if self.rev == 1 and mode == "adaptive":
+             # rev1 hysteresis band: both edges are the frozen calibration
+             # pair (theta_r_low, theta_r_act); ordering is validated, the
+@@ -290,7 +305,22 @@
+                 # hysteresis band [theta_h_low, theta_h_act) with
+                 # SP_QUIET_EXIT_CONFIRM consecutive cycles). Full table and
+                 # parameter provenance: REV1_quiet_exit_revision_20261018.md.
+-                change_ev = (ev in SP_CHANGE_EVENTS
++                # AERO-RG: a LONE confirmed_grow in QUIET = stable-window
++                # growth, NOT a load change -> excluded from change_ev.
++                # P1a (z alert), P1b (guardrail), P2 (coverage) and P3
++                # (hysteresis) are still evaluated with original priority;
++                # alerts/shrink/migration evidence keeps original behavior.
++                _rg_lone_grow = (self.rg
++                                 and ev == "confirmed_grow"
++                                 and not bool(sig.get("swap_pending"))
++                                 and int(sig.get("swaps_started") or 0) <= 0)
++                if _rg_lone_grow:
++                    reasons.append(
++                        "[AERO-RG] lone confirmed_grow ignored as change "
++                        "evidence (stable-window growth, not load change); "
++                        "all other QUIET exit conditions still evaluated")
++                _ev_eff = "" if _rg_lone_grow else ev
++                change_ev = (_ev_eff in SP_CHANGE_EVENTS
+                              or bool(sig.get("swap_pending"))
+                              or int(sig.get("swaps_started") or 0) > 0)
+                 if z is not None and z >= self.z_hi:
+@@ -386,7 +416,8 @@
+         ranks always agree, and any divergence (however benign-looking)
+         demotes the boundary to a joint HOLD instead of drifting."""
+         if self.rev:
+-            payload = ["sp1r1", self.mode, self.state, self.streak,
++            payload = ["sp1r1rg" if self.rg else "sp1r1",
++                       self.mode, self.state, self.streak,
+                        self.recover_cycles, self.exit_streak,
+                        bool(prop.get("transition")),
+                        prop.get("state_after", self.state),
+@@ -414,9 +445,12 @@
+             self.streak = 0            # PD-5: any transition resets streaks
+             self.recover_cycles = 0
+             self.exit_streak = 0       # rev1: PD-5 extended
++            _rsn = list(prop.get("reasons", []))
++            if self.rg:
++                _rsn = ["[AERO-RG] policy=rg rev=1"] + _rsn
+             self.transitions.append({
+                 "h_id": h_id, "from": old, "to": self.state,
+-                "reasons": list(prop.get("reasons", [])),
++                "reasons": _rsn,
+                 "S": self.S, "H": self.H, "W": self.W})
+         else:
+             self.streak = int(prop.get("streak_after", self.streak))

@@ -1,0 +1,36 @@
+== 1. sp_state old-vs-new equivalence (defaults off) ==
+  PASS adaptive rev1: 120-step trace identical (states: ['QUIET', 'RECOVER', 'TRACK'])
+  PASS adaptive rev0: 120-step trace identical (states: ['QUIET', 'RECOVER', 'TRACK'])
+  PASS fixed 1,16,16: 120-step trace identical (states: ['FIXED'])
+== 2. fixed (S,H,W) via OEPLB_SP_H ==
+  PASS fixed 2,16,32 -> (2, 16, 32)
+  PASS sp_h=0 keeps H=W (F_dense compat)
+  PASS fixed 4,16,64 (F calib candidate)
+  PASS reject {'sp_w': 16, 'sp_h': 32}
+  PASS reject {'sp_w': 16, 'sp_h': 5}
+  PASS reject {'sp_w': 16, 'sp_h': -1}
+== 3. force_s adaptive (A3) ==
+  PASS state machine unchanged by force_s
+  PASS QUIET S: force=1 plain=4
+  PASS QUIET H/W untouched
+  PASS QUIET reached
+  PASS force_s inert in fixed mode
+== 4. rebalancer old-vs-new + PAIR_RULE ==
+  PASS default gap: plans identical (15 ops)
+  PASS explicit gap == default
+  PASS maxdelta plan differs (15 vs 15 ops)
+  PASS gap layer0 first op = slot1(100), gap/2 branch (got 1)
+  PASS maxdelta layer0 first op = slot0(300) (got 0)
+  PASS both pair with coldest-rank min slot 18
+  PASS diffuse layer1 identical under both rules (14 ops)
+  PASS layer1 ops from hot rank0
+== 5. config env parse/validation ==
+  PASS P_final defaults: all five flags OFF
+  PASS env parse all five flags
+  PASS reject OEPLB_PAIR_RULE
+  PASS reject OEPLB_SP_FORCE_S
+  PASS reject OEPLB_RECORD_ALL_PHASE
+  PASS reject OEPLB_SP_H
+  PASS pair_rule validated even in off mode
+
+ALL_TESTS_PASS

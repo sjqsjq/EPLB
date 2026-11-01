@@ -1,0 +1,21 @@
+--- /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/code_lock/oeplb_src/controller.py	2026-10-18 20:38:26.204565761 +0000
++++ /workspace/EPLB/OEPLB/src/controller.py	2026-10-20 06:47:00.651308438 +0000
+@@ -1289,6 +1289,18 @@
+                 max_total_ops=self.cfg.max_total_ops,
+             )
+             self._prof_planbuild_ns += time.perf_counter_ns() - _t1
++            # DIAG-1 (final_followup_20261020 r1): per-rank plan-content
++            # hash -> cross-rank plan identity becomes measured, not
++            # inferred. Pure diagnostic log; no behavior change.
++            if plan is not None:
++                import hashlib as _hl_plan
++                _plan_ph = _hl_plan.sha256(repr(
++                    [(op.layer_id, op.phys_slot_a, op.phys_slot_b)
++                     for op in plan]
++                ).encode()).hexdigest()[:16]
++                logger.info(f"[PB-OEPLB-PLANHASH] window#{self.window_count} "
++                            f"rank={self._rank} n_ops={len(plan)} "
++                            f"plan_hash={_plan_ph}")
+             # Track improvement for defer logic
+             if plan:
+                 _pre_ratios = []

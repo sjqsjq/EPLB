@@ -1,0 +1,7 @@
+[2026-10-26T17:58:43Z] BOOT rgv_P1 arm=P params=1
+[rgv_P1] ready=yes after 92s 2026-10-26T18:00:14Z
+[rgv_P1] bench rc=0 2026-10-26T18:01:52Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/scripts/run_rge2e_boot.sh: line 62: 1033970 Killed                  ART=$ART setsid nohup bash $A2/scripts/launch_arm_rge2e.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+COMPLETE rgv_P1 facts={"detection_cycles_present": true, "recording_present": true, "planning_present": true, "migration_present": true, "state_transition_present": true, "shw_constant": false}
+[2026-10-26T18:02:22Z] rgv_P1 rc=0
+[2026-10-26T18:02:22Z] QUEUE_DONE prep1

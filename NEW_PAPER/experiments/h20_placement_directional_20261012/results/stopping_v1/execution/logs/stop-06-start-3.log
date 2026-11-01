@@ -1,0 +1,107 @@
+W1014 09:01:07.044000 556717 site-packages/torch/distributed/run.py:803] 
+W1014 09:01:07.044000 556717 site-packages/torch/distributed/run.py:803] *****************************************
+W1014 09:01:07.044000 556717 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1014 09:01:07.044000 556717 site-packages/torch/distributed/run.py:803] *****************************************
+[2026-10-14 09:01:23] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:24] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:25] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 92.23760986328125GB
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:25] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:25] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 5,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 1,  which may cause useless memory allocation for torch CUDA context.
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1797.55it/s]
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 92.09112548828125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3040.69it/s]
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.1702880859375GB
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2501.81it/s]
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 1,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2788.68it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1850.44it/s]
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1877.21it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1799.24it/s]
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1991.13it/s]
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 5,  which may cause useless memory allocation for torch CUDA context.
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2127.14it/s]
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1905.84it/s]
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-14 09:01:26] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-14 09:01:26] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-14 09:01:26] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 89.9320068359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2900.70it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3283.13it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3239.80it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2980.12it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2856.71it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2864.64it/s]
+wrote /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/stopping_v1/execution/raw/stop-06-start-3.json

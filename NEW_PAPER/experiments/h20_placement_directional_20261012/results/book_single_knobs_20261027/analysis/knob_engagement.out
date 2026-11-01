@@ -1,0 +1,33 @@
+knob_engagement diagnostic (written 2026-10-30T04:57:13Z, from descriptive_bsk.json + P0S_r1 server.log timestamps)
+
+A) swap_budget_frac=0.08 (P0S/P0F):
+  P0_r1: exh_lines=0 swap_ev=192 windows=64 swap_windows=23 ids=[2, 3, 6, 11, 31, 32, 33, 34, 35, 36, 39, 44, 45, 46, 48, 54, 55, 57, 58, 59, 61, 62, 64]
+  P0_r2: exh_lines=0 swap_ev=176 windows=64 swap_windows=21 ids=[2, 3, 6, 20, 33, 34, 35, 36, 39, 44, 45, 46, 48, 54, 55, 58, 59, 61, 62, 63, 64]
+  P0S_r1: exh_lines=8 swap_ev=168 windows=59 swap_windows=20 ids=[2, 3, 6, 13, 16, 17, 20, 28, 33, 34, 35, 36, 37, 38, 41, 46, 47, 48, 50, 58]
+  P0S_r2: exh_lines=0 swap_ev=176 windows=64 swap_windows=21 ids=[2, 3, 6, 20, 33, 34, 35, 36, 39, 44, 45, 46, 48, 54, 55, 58, 59, 61, 62, 63, 64]
+  P0F_r1: exh_lines=0 swap_ev=192 windows=64 swap_windows=23 ids=[2, 3, 6, 11, 31, 32, 33, 34, 35, 36, 39, 44, 45, 46, 48, 54, 55, 57, 58, 59, 61, 62, 64]
+  P0F_r2: exh_lines=0 swap_ev=192 windows=64 swap_windows=23 ids=[2, 3, 6, 11, 31, 32, 33, 34, 35, 36, 39, 44, 45, 46, 48, 54, 55, 57, 58, 59, 61, 62, 64]
+  P0S_r1 timing: first_swap=2026-10-27 22:40:14 exhausted_stamp=2026-10-27 22:40:55 (x8, all ranks same stamp) last_swap=2026-10-27 22:47:26
+  P0S_r1 swap-done lines AFTER exhaustion stamp: 144 of 168
+  FINDING: exhaustion predicate is an instantaneous rate test (cum_swap_s/elapsed), NOT a latch.
+  elapsed grows after the early warning -> frac falls back under 0.08 -> swaps resume (through window 58).
+  The log text 'no further swaps will be issued' overstates the implemented semantics.
+  P0S_r2 / P0F_r1 / P0F_r2: zero exhaustion lines; trajectories identical-or-equivalent to baseline rounds
+  (P0S_r2 == P0_r2 exactly: 176 ev / 21 sw / z_tail 1.298; P0F_r1 == P0_r1 exactly: 192 ev / 23 sw / ids match).
+
+B) bias_gate=0.5 (P0B/P0F):
+  P0B_r1: bias_skip_log_lines=None (lower-bound metric; log gated window_count%8==1)
+  P0B_r2: bias_skip_log_lines=None (lower-bound metric; log gated window_count%8==1)
+  P0F_r1: bias_skip_log_lines=None (lower-bound metric; log gated window_count%8==1)
+  P0F_r2: bias_skip_log_lines=None (lower-bound metric; log gated window_count%8==1)
+  STRONGER EVIDENCE: P0B_r1 swap-window id sequence identical to P0_r1 (23 windows, z_tail 1.428);
+  P0B_r2 identical to P0_r2 (21 windows, z_tail 1.298); P0F_r1 identical to P0_r1.
+  => gate never altered any decision. At book token volumes bias=c/sqrt(n_per_layer) is tiny
+  (~4k-token prompts x conc32 x W=16-step windows), so bias <= 0.5*margin holds trivially.
+  VERDICT per pre-registered rule: ENGAGEMENT FAILURE for bias_gate at 0.5; R3 not adjudicable.
+
+C) round variance (attribution caveat):
+  P0_r1 (192ev/23sw/z1.428) != P0_r2 (176ev/21sw/z1.298): single-domain book trajectories are
+  round-nondeterministic (unlike pbd switch stream where P0 r1/r2 decisions were byte-identical).
+  P0F_r2 (192ev/23sw/z1.428) drew an r1-type trajectory with NO knob engaged -> intrinsic variance,
+  not a knob effect. n=2 per arm: descriptive only, no attribution strength.

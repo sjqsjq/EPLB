@@ -1,0 +1,35 @@
+[T1_SMOKE_GAP300_rep2] 512 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/prover_512_smoke.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "T1_SMOKE_GAP300_rep2",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/prover_512_smoke.jsonl",
+  "num_requests": 512,
+  "concurrency": 256,
+  "ok": 512,
+  "errors": 0,
+  "total_time_s": 21.46,
+  "total_comp_tokens": 16384,
+  "tps": 763.4,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10562.1,
+  "lat_p50_ms": 11001.78,
+  "lat_p95_ms": 11529.37,
+  "lat_p99_ms": 11550.48,
+  "ttft_mean_ms": 2621.8,
+  "ttft_p50_ms": 2517.82,
+  "ttft_p95_ms": 4535.77,
+  "ttft_p99_ms": 4773.4,
+  "tpot_mean_ms": 256.14,
+  "tpot_p50_ms": 253.66,
+  "tpot_p95_ms": 301.15,
+  "tpot_p99_ms": 309.07,
+  "mono_start_ns": 8301949744735827,
+  "mono_end_ns": 8301971207999912,
+  "wall_start_s": 1793542850.196445,
+  "wall_end_s": 1793542871.659709,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 134349,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/boots/T1_SMOKE_GAP300/T1_SMOKE_GAP300_rep2.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/boots/T1_SMOKE_GAP300/T1_SMOKE_GAP300_rep2_perreq.jsonl (512 rows)

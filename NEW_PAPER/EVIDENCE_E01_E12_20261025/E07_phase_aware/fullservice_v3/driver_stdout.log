@@ -1,0 +1,32 @@
+[2026-10-15T09:09:34+00:00] SPLIT_OK calib=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl eval=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl
+[2026-10-15T09:09:34+00:00] CAMPAIGN_START dd9a90691cb85cd6
+[2026-10-15T09:09:34+00:00] PHASE0 verifying setup artifacts against frozen protocol
+SETUP_VERIFIED
+[2026-10-15T09:09:34+00:00] RUN fs300v3_id_s1 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T09:17:28+00:00] BENCH_DONE fs300v3_id_s1 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 798985 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1  (wd: /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012)
+[2026-10-15T09:17:34+00:00] RUN fs300v3_fx_s1 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T09:25:15+00:00] BENCH_DONE fs300v3_fx_s1 rc=0 init_by_mapping=8 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 804334 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T09:25:21+00:00] RUN fs300v3_on_s1 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T09:32:54+00:00] BENCH_DONE fs300v3_on_s1 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 811046 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T09:32:59+00:00] RUN fs300v3_id_s2 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T09:40:47+00:00] BENCH_DONE fs300v3_id_s2 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 817793 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T09:40:53+00:00] RUN fs300v3_fx_s2 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T09:48:32+00:00] BENCH_DONE fs300v3_fx_s2 rc=0 init_by_mapping=8 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 823080 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T09:48:37+00:00] RUN fs300v3_on_s2 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T09:56:11+00:00] BENCH_DONE fs300v3_on_s2 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 829795 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T09:56:16+00:00] RUN fs300v3_id_s3 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T10:04:09+00:00] BENCH_DONE fs300v3_id_s3 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 836550 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T10:04:15+00:00] RUN fs300v3_fx_s3 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T10:12:11+00:00] BENCH_DONE fs300v3_fx_s3 rc=0 init_by_mapping=8 oeplb_init=0 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 841839 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T10:12:17+00:00] RUN fs300v3_on_s3 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T10:20:01+00:00] BENCH_DONE fs300v3_on_s3 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+scripts/run_fullservice_campaign_v3.sh: line 72: 848553 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T10:20:06+00:00] CAMPAIGN_DONE

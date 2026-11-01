@@ -1,0 +1,12 @@
+== queue_abl start 2026-10-26T11:46:57Z
+[apsd_P_b1] ready=yes after 120s 2026-10-26T11:48:56Z
+[apsd_P_b1] bench rc=0 2026-10-26T11:49:29Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/run_abl_boot.sh: line 40: 849612 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+COMPLETE apsd_P_b1 facts={"detection_cycles_present": true, "recording_present": true, "planning_present": true, "migration_present": true, "state_transition_present": false, "shw_constant": true}
+== apsd_P_b1 rc=0 2026-10-26T11:49:55Z
+[apsd_F_1_16_16_b1] ready=yes after 80s 2026-10-26T11:51:16Z
+[apsd_F_1_16_16_b1] bench rc=0 2026-10-26T11:51:47Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/run_abl_boot.sh: line 40: 856488 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+COMPLETE apsd_F_1_16_16_b1 facts={"detection_cycles_present": true, "recording_present": true, "planning_present": true, "migration_present": true, "state_transition_present": false, "shw_constant": true}
+== apsd_F_1_16_16_b1 rc=0 2026-10-26T11:52:11Z
+== queue_abl end 2026-10-26T11:52:11Z

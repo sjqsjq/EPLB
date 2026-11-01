@@ -1,0 +1,95 @@
+[2026-10-16T12:22:29+00:00] PHASE_A start (12 cells)
+[2026-10-16T12:22:35+00:00] phaseA/W0_f08__s1 boot mode=fixed W=8
+[2026-10-16T12:23:56+00:00] phaseA/W0_f08__s1 boot rc=0
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 bench rc=0
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T12:30:05+00:00] phaseA/W0_f08__s1 PASS
+[2026-10-16T12:30:16+00:00] phaseA/W0_f16__s1 boot mode=fixed W=16
+[2026-10-16T12:31:20+00:00] phaseA/W0_f16__s1 boot rc=0
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 bench rc=0
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T12:37:30+00:00] phaseA/W0_f16__s1 PASS
+[2026-10-16T12:37:42+00:00] phaseA/W0_f32__s1 boot mode=fixed W=32
+[2026-10-16T12:38:10+00:00] phaseA/W0_f32__s1 boot rc=2
+frame #24: _PyEval_EvalFrameDefault + 0x4acb (0x55bcbabe7dbb in sglang::scheduler_DP5_TP5_EP5)
+frame #25: _PyFunction_Vectorcall + 0x17f (0x55bcbac0863f in sglang::scheduler_DP5_TP5_EP5)
+frame #26: PyObject_Call + 0x134 (0x55bcbac12434 in sglang::scheduler_DP5_TP5_EP5)
+frame #27: _PyEval_EvalFrameDefault + 0x4acb (0x55bcbabe7dbb in sglang::scheduler_DP5_TP5_EP5)
+frame #28: _PyFunction_Vectorcall + 0x17f (0x55bcbac0863f in sglang::scheduler_DP5_TP5_EP5)
+frame #29: <unknown function> + 0x20fa1d (0x55bcbac0fa1d in sglang::scheduler_DP5_TP5_EP5)
+frame #30: _PyObject_MakeTpCall + 0x2cb (0x55bcbabd63bb in sglang::scheduler_DP5_TP5_EP5)
+frame #31: _PyEval_EvalFrameDefault + 0x709 (0x55bcbabe39f9 in sglang::scheduler_DP5_TP5_EP5)
+frame #32: _PyFunction_Vectorcall + 0x17f (0x55bcbac0863f in sglang::scheduler_DP5_TP5_EP5)
+frame #33: <unknown function> + 0x20fa1d (0x55bcbac0fa1d in sglang::scheduler_DP5_TP5_EP5)
+frame #34: _PyObject_MakeTpCall + 0x2cb (0x55bcbabd63bb in sglang::scheduler_DP5_TP5_EP5)
+frame #35: _PyEval_EvalFrameDefault + 0x709 (0x55bcbabe39f9 in sglang::scheduler_DP5_TP5_EP5)
+frame #36: _PyFunction_Vectorcall + 0x17f (0x55bcbac0863f in sglang::scheduler_DP5_TP5_EP5)
+frame #37: <unknown function> + 0x20f979 (0x55bcbac0f979 in sglang::scheduler_DP5_TP5_EP5)
+frame #38: _PyObject_MakeTpCall + 0x2cb (0x55bcbabd63bb in sglang::scheduler_DP5_TP5_EP5)
+frame #39: _PyEval_EvalFrameDefault + 0x709 (0x55bcbabe39f9 in sglang::scheduler_DP5_TP5_EP5)
+frame #40: _PyFunction_Vectorcall + 0x17f (0x55bcbac0863f in sglang::scheduler_DP5_TP5_EP5)
+frame #41: _PyEval_EvalFrameDefault + 0x4acb (0x55bcbabe7dbb in sglang::scheduler_DP5_TP5_EP5)
+frame #42: <unknown function> + 0x29ab0d (0x55bcbac9ab0d in sglang::scheduler_DP5_TP5_EP5)
+frame #43: PyEval_EvalCode + 0x9f (0x55bcbac9a24f in sglang::scheduler_DP5_TP5_EP5)
+frame #44: <unknown function> + 0x2b81aa (0x55bcbacb81aa in sglang::scheduler_DP5_TP5_EP5)
+frame #45: <unknown function> + 0x2b3e33 (0x55bcbacb3e33 in sglang::scheduler_DP5_TP5_EP5)
+frame #46: PyRun_StringFlags + 0x62 (0x55bcbaca8852 in sglang::scheduler_DP5_TP5_EP5)
+frame #47: PyRun_SimpleStringFlags + 0x3c (0x55bcbaca860c in sglang::scheduler_DP5_TP5_EP5)
+frame #48: Py_RunMain + 0x24c (0x55bcbacc2f8c in sglang::scheduler_DP5_TP5_EP5)
+frame #49: Py_BytesMain + 0x37 (0x55bcbac8a4c7 in sglang::scheduler_DP5_TP5_EP5)
+frame #50: <unknown function> + 0x29d90 (0x7f0505829d90 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #51: __libc_start_main + 0x80 (0x7f0505829e40 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #52: <unknown function> + 0x28a37a (0x55bcbac8a37a in sglang::scheduler_DP5_TP5_EP5)
+
+[2026-10-16T12:38:10+00:00] phaseA/W0_f32__s1 RETIRED boot_fail
+[2026-10-16T12:38:22+00:00] phaseA/W0_f64__s1 boot mode=fixed W=64
+[2026-10-16T12:39:30+00:00] phaseA/W0_f64__s1 boot rc=0
+[2026-10-16T12:41:18+00:00] DRIVER KILLED for infra fix (EADDRINUSE port-race). f64 bench orphaned, will complete + manual archive. W0_f32 infra-retired, re-run once at end of resume driver (deviation memo).
+[2026-10-16T12:46:34+00:00] phaseA/W0_f64__s1 PASS_manual_archive ok=8037 errors=0 (bench orphaned by infra driver-kill, ran to completion under identical frozen env; deviation memo)
+[2026-10-16T12:47:19+00:00] PHASE_A_RESUME start (9 cells: W1x4, W2x4, W0_f32 re-run)
+[2026-10-16T12:47:30+00:00] phaseA/W1_f08__s1 boot mode=fixed W=8
+[2026-10-16T12:48:38+00:00] phaseA/W1_f08__s1 boot rc=0
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 bench rc=0
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T12:54:32+00:00] phaseA/W1_f08__s1 PASS
+[2026-10-16T12:54:53+00:00] phaseA/W1_f16__s1 boot mode=fixed W=16
+[2026-10-16T12:56:01+00:00] phaseA/W1_f16__s1 boot rc=0
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 bench rc=0
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:01:58+00:00] phaseA/W1_f16__s1 PASS
+[2026-10-16T13:02:19+00:00] phaseA/W1_f32__s1 boot mode=fixed W=32
+[2026-10-16T13:03:32+00:00] phaseA/W1_f32__s1 boot rc=0
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 bench rc=0
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:09:28+00:00] phaseA/W1_f32__s1 PASS
+[2026-10-16T13:09:49+00:00] phaseA/W1_f64__s1 boot mode=fixed W=64
+[2026-10-16T13:10:57+00:00] phaseA/W1_f64__s1 boot rc=0
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 bench rc=0
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 ok/errors: 4000 0 (expected 4000 0)
+[2026-10-16T13:16:56+00:00] phaseA/W1_f64__s1 PASS
+[2026-10-16T13:17:18+00:00] phaseA/W2_f08__s1 boot mode=fixed W=8
+[2026-10-16T13:18:30+00:00] phaseA/W2_f08__s1 boot rc=0
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 bench rc=0
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:30:27+00:00] phaseA/W2_f08__s1 PASS
+[2026-10-16T13:30:48+00:00] phaseA/W2_f16__s1 boot mode=fixed W=16
+[2026-10-16T13:31:56+00:00] phaseA/W2_f16__s1 boot rc=0
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 bench rc=0
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:43:48+00:00] phaseA/W2_f16__s1 PASS
+[2026-10-16T13:44:10+00:00] phaseA/W2_f32__s1 boot mode=fixed W=32
+[2026-10-16T13:45:14+00:00] phaseA/W2_f32__s1 boot rc=0
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 bench rc=0
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T13:57:03+00:00] phaseA/W2_f32__s1 PASS
+[2026-10-16T13:57:24+00:00] phaseA/W2_f64__s1 boot mode=fixed W=64
+[2026-10-16T13:58:36+00:00] phaseA/W2_f64__s1 boot rc=0
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 bench rc=0
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 ok/errors: 8000 0 (expected 8000 0)
+[2026-10-16T14:10:41+00:00] phaseA/W2_f64__s1 PASS
+[2026-10-16T14:11:03+00:00] phaseA/W0_f32__s1r boot mode=fixed W=32
+[2026-10-16T14:12:11+00:00] phaseA/W0_f32__s1r boot rc=0
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r bench rc=0
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r ok/errors: 8037 0 (expected 8037 0)
+[2026-10-16T14:18:22+00:00] phaseA/W0_f32__s1r PASS
+[2026-10-16T14:18:33+00:00] PHASE_A_DONE

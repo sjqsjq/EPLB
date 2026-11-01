@@ -1,0 +1,6 @@
+[J1_E3_F] launch arm=F params=1 16 16 2026-10-20T08:35:17Z
+[J1_E3_F] ready=yes after 104s 2026-10-20T08:36:58Z
+[J1_E3_F] bench start 2026-10-20T08:37:03Z
+[J1_E3_F] bench rc=0 2026-10-20T08:40:17Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_jobs/run_server_job.sh: line 14: 1796651 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+FAIL J1_E3_F {"no_watchdog": true, "no_coalesced_err": true, "no_scheduler_exc": true, "no_rank_desync": true, "planhash_identity": true, "large_plan_exercised": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": false, "bench_complete": false, "perreq_lines": true}

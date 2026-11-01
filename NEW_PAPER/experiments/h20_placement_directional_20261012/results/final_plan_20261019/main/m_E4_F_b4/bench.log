@@ -1,0 +1,36 @@
+[m_E4_F_b4] 2048 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e4_fullduplex.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "m_E4_F_b4",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e4_fullduplex.jsonl",
+  "num_requests": 2048,
+  "concurrency": 256,
+  "ok": 1281,
+  "errors": 767,
+  "total_time_s": 1861.07,
+  "total_comp_tokens": 163968,
+  "tps": 88.1,
+  "avg_output_tokens": 128,
+  "lat_mean_ms": 11626.6,
+  "lat_p50_ms": 11142.72,
+  "lat_p95_ms": 13922.24,
+  "lat_p99_ms": 14041.48,
+  "ttft_mean_ms": 3641.52,
+  "ttft_p50_ms": 3484.7,
+  "ttft_p95_ms": 7501.78,
+  "ttft_p99_ms": 8530.99,
+  "tpot_mean_ms": 62.87,
+  "tpot_p50_ms": 62.21,
+  "tpot_p95_ms": 85.72,
+  "tpot_p99_ms": 94.76,
+  "mono_start_ns": 7128563035106407,
+  "mono_end_ns": 7130424110090770,
+  "wall_start_s": 1792369463.486815,
+  "wall_end_s": 1792371324.561799,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 655870,
+  "perreq_file": null
+}
+  Sample errors: [{'idx': 1281, 'id': 'e4_book_00257', 't_send_wall_s': 1792369521.4633093, 'ttft_s': 0.5765270991250873, 't_last_wall_s': 1792370122.5544899, 'elapsed_s': 601.0911807408556, 'comp_tokens': 124, 'prompt_tokens': None, 'error': ''}, {'idx': 1282, 'id': 'e4_book_00258', 't_send_wall_s': 1792369521.4646258, 'ttft_s': 0.575187224894762, 't_last_wall_s': 1792370122.5580344, 'elapsed_s': 601.0934086982161, 'comp_tokens': 124, 'prompt_tokens': None, 'error': ''}, {'idx': 1283, 'id': 'e4_book_00259', 't_send_wall_s': 1792369521.4647655, 'ttft_s': 0.5751177351921797, 't_last_wall_s': 1792370122.5602927, 'elapsed_s': 601.0955275939777, 'comp_tokens': 123, 'prompt_tokens': None, 'error': ''}]
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/main/m_E4_F_b4/m_E4_F_b4.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/main/m_E4_F_b4/m_E4_F_b4_perreq.jsonl (2048 rows)

@@ -1,0 +1,13 @@
+[2026-10-26T18:04:17Z] BOOT rgv_ED arm=ED params=
+[rgv_ED] ready=yes after 72s 2026-10-26T18:05:28Z
+[rgv_ED] bench rc=0 2026-10-26T18:07:25Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/scripts/run_rge2e_boot.sh: line 62: 1041011 Killed                  ART=$ART setsid nohup bash $A2/scripts/launch_arm_rge2e.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+INCOMPLETE rgv_ED facts="v2p1_rank0.jsonl missing"
+[2026-10-26T18:07:53Z] rgv_ED rc=1
+[2026-10-26T18:07:53Z] BOOT rgv_ES arm=ES params=
+[rgv_ES] ready=yes after 76s 2026-10-26T18:09:11Z
+[rgv_ES] bench rc=0 2026-10-26T18:10:50Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/scripts/run_rge2e_boot.sh: line 62: 1047599 Killed                  ART=$ART setsid nohup bash $A2/scripts/launch_arm_rge2e.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+COMPLETE rgv_ES facts="v2p1_rank0.jsonl missing"
+[2026-10-26T18:11:13Z] rgv_ES rc=0
+[2026-10-26T18:11:13Z] QUEUE_DONE prep23

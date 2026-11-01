@@ -1,0 +1,22 @@
+[2026-10-18T11:27:04+00:00] === SP DRIVER phase=SMOKE start (DRY_RUN=1, timed_starts_used=0/3, infra_reboots_used=0/3) ===
+[2026-10-18T11:27:14+00:00] === SP DRIVER phase=SMOKE start (DRY_RUN=1, timed_starts_used=0/3, infra_reboots_used=0/3) ===
+[2026-10-18T11:27:14+00:00] DRY seq=1 phase=SMOKE cond=SMOKE block=- arm=F_sparse SP_MODE=fixed SP_S=4 SP_W=64 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/smoke/sp_smoke_F_sparse/v2p1_rank0.jsonl ds=smoke_w1_300.jsonl nreq=300 label=sp_smoke_F_sparse art=results/sp_coupling_v1/smoke/sp_smoke_F_sparse
+[2026-10-18T11:27:14+00:00] DRY seq=2 phase=SMOKE cond=SMOKE block=- arm=A SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/smoke/sp_smoke_A/v2p1_rank0.jsonl ds=smoke_w1_300.jsonl nreq=300 label=sp_smoke_A art=results/sp_coupling_v1/smoke/sp_smoke_A
+[2026-10-18T11:27:14+00:00] DRY seq=3 phase=SMOKE cond=SMOKE block=- arm=F_dense SP_MODE=fixed SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/smoke/sp_smoke_F_dense/v2p1_rank0.jsonl ds=smoke_w1_300.jsonl nreq=300 label=sp_smoke_F_dense art=results/sp_coupling_v1/smoke/sp_smoke_F_dense
+[2026-10-18T11:27:40+00:00] === SP DRIVER phase=SMOKE start (DRY_RUN=0, timed_starts_used=0/3, infra_reboots_used=0/3) ===
+[2026-10-18T11:27:40+00:00] === seq 1 : phase=SMOKE cond=SMOKE block=- arm=F_sparse label=sp_smoke_F_sparse ===
+[2026-10-18T11:27:46+00:00] seq 1 boot start (attempt 1)
+[2026-10-18T11:29:14+00:00] seq 1 boot OK in 88s — bench start (timed start #1/3)
+[2026-10-18T11:29:50+00:00] seq 1 bench rc=0
+[2026-10-18T11:29:50+00:00] seq 1 VERDICT=VALID total_time_s=32.87 (checker rc=0)
+[2026-10-18T11:29:57+00:00] === seq 2 : phase=SMOKE cond=SMOKE block=- arm=A label=sp_smoke_A ===
+[2026-10-18T11:30:03+00:00] seq 2 boot start (attempt 1)
+[2026-10-18T11:31:11+00:00] seq 2 boot OK in 68s — bench start (timed start #2/3)
+[2026-10-18T11:31:43+00:00] seq 2 bench rc=0
+[2026-10-18T11:31:43+00:00] seq 2 VERDICT=VALID total_time_s=29.38 (checker rc=0)
+[2026-10-18T11:31:49+00:00] === seq 3 : phase=SMOKE cond=SMOKE block=- arm=F_dense label=sp_smoke_F_dense ===
+[2026-10-18T11:31:55+00:00] seq 3 boot start (attempt 1)
+[2026-10-18T11:33:03+00:00] seq 3 boot OK in 68s — bench start (timed start #3/3)
+[2026-10-18T11:33:35+00:00] seq 3 bench rc=0
+[2026-10-18T11:33:35+00:00] seq 3 VERDICT=VALID total_time_s=29.23 (checker rc=0)
+[2026-10-18T11:33:41+00:00] === PHASE SMOKE LOOP FINISHED (VALID total: 3; timed starts used: 3/3; INFRA re-boots: 0/3) ===

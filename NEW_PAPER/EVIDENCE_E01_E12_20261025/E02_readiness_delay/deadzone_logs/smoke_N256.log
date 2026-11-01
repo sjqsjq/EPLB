@@ -1,0 +1,361 @@
+/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/build/libdeadzone_gpu_delay.so
+W1011 15:42:33.724000 328800 site-packages/torch/distributed/run.py:803] 
+W1011 15:42:33.724000 328800 site-packages/torch/distributed/run.py:803] *****************************************
+W1011 15:42:33.724000 328800 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1011 15:42:33.724000 328800 site-packages/torch/distributed/run.py:803] *****************************************
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:49] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 5, WARNING: current device is not 0, but 1,   which may cause useless memory allocation for torch CUDA context.which may cause useless memory allocation for torch CUDA context.
+
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:50] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:50] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:50] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 93.12628173828125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1675.04it/s]
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 92.8909912109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2573.44it/s]
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 91.5550537109375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 91.5960693359375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 91.0745849609375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.8363037109375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.8363037109375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   9%|▊         | 11/128 [00:00<00:01, 96.25it/s]DeepGEMM warmup:   9%|▊         | 11/128 [00:00<00:01, 105.04it/s]DeepGEMM warmup:  10%|█         | 13/128 [00:00<00:00, 127.28it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:  46%|████▌     | 59/128 [00:00<00:00, 578.49it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1010.59it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1221.94it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1054.25it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 928.67it/s]
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 1,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2215.65it/s]
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 5,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3183.95it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3054.36it/s]
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2833.36it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3012.17it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2370.66it/s]
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2603.31it/s]
+[2026-10-11 15:42:51] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-11 15:42:51] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-11 15:42:51] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.8363037109375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3605.75it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3671.24it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3497.10it/s]
+RESULT_JSON=results/smoke_N256.json
+original-zero: layer median=1.089600 ms p95=1.113072 ms max_abs_diff=0
+barrier-zero: layer median=0.990192 ms p95=1.018114 ms max_abs_diff=0
+original-rank0-100us: layer median=1.091392 ms p95=1.099053 ms max_abs_diff=0
+barrier-rank0-100us: layer median=1.075312 ms p95=1.091483 ms max_abs_diff=0
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: `explicitly_destroy` flag must be set
+AssertionError: `explicitly_destroy` flag must be set
+AssertionError: `explicitly_destroy` flag must be set
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+AssertionError: `explicitly_destroy` flag must be set
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: `explicitly_destroy` flag must be set
+AssertionError: `explicitly_destroy` flag must be set
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+    main()
+AssertionError: `explicitly_destroy` flag must be set
+  File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+    buffer.destroy()
+  File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+    assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: `explicitly_destroy` flag must be set
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank1]:     main()
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank1]:     buffer.destroy()
+[rank1]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank1]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank1]: During handling of the above exception, another exception occurred:
+
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank1]:     dist.abort()
+[rank1]:     ^^^^^^^^^^
+[rank1]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank5]:     main()
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank5]:     buffer.destroy()
+[rank5]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank5]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank5]: During handling of the above exception, another exception occurred:
+
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank5]:     dist.abort()
+[rank5]:     ^^^^^^^^^^
+[rank5]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank2]:     main()
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank2]:     buffer.destroy()
+[rank2]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank2]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank2]: During handling of the above exception, another exception occurred:
+
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank2]:     dist.abort()
+[rank2]:     ^^^^^^^^^^
+[rank2]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank4]:     main()
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank4]:     buffer.destroy()
+[rank4]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank4]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank4]: During handling of the above exception, another exception occurred:
+
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank4]:     dist.abort()
+[rank4]:     ^^^^^^^^^^
+[rank4]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank0]:     main()
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank0]:     buffer.destroy()
+[rank0]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank0]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank0]:     dist.abort()
+[rank0]:     ^^^^^^^^^^
+[rank0]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank7]:     main()
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank7]:     buffer.destroy()
+[rank7]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank7]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank7]: During handling of the above exception, another exception occurred:
+
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank7]:     dist.abort()
+[rank7]:     ^^^^^^^^^^
+[rank7]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank6]:     main()
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank6]:     buffer.destroy()
+[rank6]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank6]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank6]: During handling of the above exception, another exception occurred:
+
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank6]:     dist.abort()
+[rank6]:     ^^^^^^^^^^
+[rank6]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 669, in <module>
+[rank3]:     main()
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 661, in main
+[rank3]:     buffer.destroy()
+[rank3]:   File "/workspace/build/DeepEP/deep_ep/buffer.py", line 134, in destroy
+[rank3]:     assert self.explicitly_destroy, '`explicitly_destroy` flag must be set'
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: AssertionError: `explicitly_destroy` flag must be set
+
+[rank3]: During handling of the above exception, another exception occurred:
+
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py", line 676, in <module>
+[rank3]:     dist.abort()
+[rank3]:     ^^^^^^^^^^
+[rank3]: AttributeError: module 'torch.distributed' has no attribute 'abort'
+[rank0]:[W1011 15:42:52.403643604 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W1011 15:42:55.369000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328932 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328934 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328935 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328936 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328937 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328938 closing signal SIGTERM
+W1011 15:42:55.370000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 328939 closing signal SIGTERM
+E1011 15:42:56.355000 328800 site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 1 (pid: 328933) of binary: /opt/conda/bin/python3.11
+Traceback (most recent call last):
+  File "/opt/conda/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/scripts/deadzone_layer.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-11_15:42:55
+  host      : mlflow-training-ur7y05-511762-n3-master-0
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 328933)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

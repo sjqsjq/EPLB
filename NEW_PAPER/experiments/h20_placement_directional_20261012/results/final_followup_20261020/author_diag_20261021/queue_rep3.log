@@ -1,0 +1,35 @@
+[f6_I_paper_r2] ready=yes after 92s 2026-10-21T18:58:03Z
+[f6_I_paper_r2] run1 rc=0 2026-10-21T19:00:30Z
+[f6_I_paper_r2] run2 rc=0 2026-10-21T19:02:48Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_f6_boot.sh: line 25: 472578 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "f6_I_paper_r2", "launcher": "paper_plain", "code": "v2", "bench_rc1": 0, "bench_rc2": 0, "ok_run1": 600, "tps_run1": 4.3, "ok_run2": 600, "tps_run2": 4.4, "issued_windows": 0, "total_swaps_issued": 0, "faults": 0, "min_swaps_required": 0, "pass_": true}
+[f6_v2_P_paper_r3] ready=yes after 80s 2026-10-21T19:04:29Z
+[f6_v2_P_paper_r3] run1 rc=0 2026-10-21T19:07:08Z
+[f6_v2_P_paper_r3] run2 rc=0 2026-10-21T19:09:20Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_f6_boot.sh: line 23: 478060 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "f6_v2_P_paper_r3", "launcher": "paper_pb", "code": "v2", "bench_rc1": 0, "bench_rc2": 0, "ok_run1": 600, "tps_run1": 3.9, "ok_run2": 600, "tps_run2": 4.6, "issued_windows": 13, "total_swaps_issued": 2117, "faults": 0, "min_swaps_required": 1, "pass_": true}
+[e3_I_paper_r2] ready=yes after 84s 2026-10-21T19:11:03Z
+[e3_I_paper_r2] bench rc=0 2026-10-21T19:14:25Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_ds_boot.sh: line 21: 485082 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e3_I_paper_r2", "launcher": "paper_plain", "ds": "E3", "code": "v2", "bench_rc": 0, "tps": 42.3, "ttft_p95": null, "errors": 0, "issued_windows": 0, "total_swaps": 0, "resets": 0, "faults": 0, "pass_": true}
+[e3_v2_paper_r3] ready=yes after 72s 2026-10-21T19:16:02Z
+[e3_v2_paper_r3] bench rc=0 2026-10-21T19:19:21Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_ds_boot.sh: line 21: 490379 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e3_v2_paper_r3", "launcher": "paper_pb", "ds": "E3", "code": "v2", "bench_rc": 0, "tps": 42.9, "ttft_p95": null, "errors": 0, "issued_windows": 11, "total_swaps": 1911, "resets": 7, "faults": 0, "pass_": true}
+[e4_v2_paper_r3] ready=yes after 76s 2026-10-21T19:21:03Z
+[e4_v2_paper_r3] bench rc=124 2026-10-21T20:01:08Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_ds_boot.sh: line 21: 497179 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e4_v2_paper_r3", "launcher": "paper_pb", "ds": "E4", "code": "v2", "bench_rc": 124, "tps": null, "ttft_p95": null, "errors": null, "issued_windows": 1, "total_swaps": 267, "resets": 2, "faults": 0, "pass_": false}
+[f6_gh_P_paper_r3] ready=yes after 108s 2026-10-21T20:03:17Z
+[f6_gh_P_paper_r3] run1 rc=0 2026-10-21T20:05:52Z
+[f6_gh_P_paper_r3] run2 rc=0 2026-10-21T20:08:01Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_f6_boot.sh: line 23: 503943 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "f6_gh_P_paper_r3", "launcher": "paper_pb", "code": "gh_pristine", "bench_rc1": 0, "bench_rc2": 0, "ok_run1": 600, "tps_run1": 4.0, "ok_run2": 600, "tps_run2": 4.7, "issued_windows": 14, "total_swaps_issued": 2009, "faults": 0, "min_swaps_required": 1, "pass_": true}
+[e3_gh_paper_r3] ready=yes after 76s 2026-10-21T20:09:37Z
+[e3_gh_paper_r3] bench rc=0 2026-10-21T20:12:57Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_ds_boot.sh: line 21: 510821 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e3_gh_paper_r3", "launcher": "paper_pb", "ds": "E3", "code": "gh_pristine", "bench_rc": 0, "tps": 42.6, "ttft_p95": null, "errors": 0, "issued_windows": 11, "total_swaps": 1911, "resets": 7, "faults": 0, "pass_": true}
+[e4_gh_paper_r3] ready=yes after 100s 2026-10-21T20:15:08Z
+[e4_gh_paper_r3] bench rc=0 2026-10-21T20:18:51Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_ds_boot.sh: line 21: 517785 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e4_gh_paper_r3", "launcher": "paper_pb", "ds": "E4", "code": "gh_pristine", "bench_rc": 0, "tps": 1218.4, "ttft_p95": null, "errors": 0, "issued_windows": 3, "total_swaps": 796, "resets": 8, "faults": 0, "pass_": true}

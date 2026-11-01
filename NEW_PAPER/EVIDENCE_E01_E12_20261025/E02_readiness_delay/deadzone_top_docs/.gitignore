@@ -1,0 +1,18 @@
+__pycache__/
+scripts/__pycache__/
+build/
+logs/
+traces/
+
+# Large raw per-iteration measurements (regenerate with scripts/run_*.sh)
+results/calibration_N*.json
+results/delay_scan_N*.json
+results/delay_dense_N*.json
+results/matching_route_delay_N*.json
+results/load_scan_N*.json
+results/readiness_strict_N*.json
+results/readiness_original_N*.json
+results/route_ready_N*.json
+results/timeline-*_N*.json
+results/smoke_N*.json
+results/load_route_smoke_N*.json

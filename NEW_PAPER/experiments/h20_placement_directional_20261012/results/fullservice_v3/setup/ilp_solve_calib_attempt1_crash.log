@@ -1,0 +1,20 @@
+Restricted license - for non-production use only - expires 2027-11-29
+[2026-10-15 07:26:23,787] Restricted license - for non-production use only - expires 2027-11-29
+[2026-10-15 07:26:54,338] layer 0: obj=86 imbalance=1.000 solve=30.09s
+[2026-10-15 07:31:59,385] layer 10: obj=438 imbalance=1.000 solve=30.05s
+[2026-10-15 07:37:04,871] layer 20: obj=170 imbalance=1.000 solve=30.05s
+[2026-10-15 07:42:10,581] layer 30: obj=1032 imbalance=1.000 solve=30.06s
+[2026-10-15 07:47:15,511] layer 40: obj=148 imbalance=1.000 solve=30.01s
+[2026-10-15 07:52:20,394] layer 50: obj=280 imbalance=1.000 solve=30.01s
+[2026-10-15 07:57:24,849] layer 60: obj=122 imbalance=1.000 solve=30.01s
+[2026-10-15 08:02:29,922] layer 70: obj=234 imbalance=1.000 solve=30.01s
+[2026-10-15 08:07:34,930] layer 80: obj=434 imbalance=1.000 solve=30.01s
+[2026-10-15 08:12:40,543] layer 90: obj=80 imbalance=1.000 solve=30.03s
+[2026-10-15 08:14:12,196] Solved 94 layers in total 2822.0s. mean_imbalance=1.000
+Traceback (most recent call last):
+  File "/workspace/EPLB/OEPLB/baselines/moetuner/src/solve_ilp.py", line 158, in <module>
+    main()
+  File "/workspace/EPLB/OEPLB/baselines/moetuner/src/solve_ilp.py", line 149, in main
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+  File "<frozen os>", line 225, in makedirs
+FileNotFoundError: [Errno 2] No such file or directory: ''

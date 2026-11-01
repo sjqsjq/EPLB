@@ -1,0 +1,47 @@
+--- /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/code_lock/oeplb_src/async_swapper.py	2026-09-15 10:42:54.730167991 +0000
++++ /workspace/EPLB/OEPLB/src/async_swapper.py	2026-10-20 06:47:00.650308426 +0000
+@@ -134,6 +134,16 @@
+         # channel buffers are created.
+         if p2p_ops:
+             torch.cuda.empty_cache()
++            # MIGRATION-RACE FIX-1 (final_followup_20261020 r1): drain all
++            # in-flight serving kernels before posting the coalesced P2P
++            # group so the rendezvous runs on quiesced GPUs. Root cause of
++            # the 7 retired final_plan boots: a large-plan (~300 op)
++            # batch_isend_irecv group overlapped with DeepEP spin kernels
++            # of the NEXT forward on ranks that returned from begin()
++            # early -> circular SM/rendezvous wait -> 600s NCCL watchdog.
++            # Sync cost is intentionally retained (per followup directive).
++            if torch.cuda.is_available():
++                torch.cuda.synchronize()
+ 
+         # Synchronous P2P on default PG -- all ranks participate.
+         # A per-rank failure here would leave the ranks desynced (some complete
+@@ -145,6 +155,13 @@
+                 reqs = torch.distributed.batch_isend_irecv(p2p_ops)
+                 for req in reqs:
+                     req.wait()
++                # MIGRATION-RACE FIX-2 (final_followup_20261020 r1):
++                # req.wait() on NCCL work is stream-ordered (host
++                # non-blocking); enforce true completion before begin()
++                # returns so no rank can run ahead into the next forward
++                # while peers' group kernels are still pending.
++                if torch.cuda.is_available():
++                    torch.cuda.synchronize()
+             except Exception as ex:
+                 logger.error(f"[PB-OEPLB] rank={self.my_rank} P2P swap failed "
+                              f"({type(ex).__name__}: {ex}); retrying once after "
+@@ -153,6 +170,13 @@
+                 reqs = torch.distributed.batch_isend_irecv(p2p_ops)
+                 for req in reqs:
+                     req.wait()
++                # MIGRATION-RACE FIX-2 (final_followup_20261020 r1):
++                # req.wait() on NCCL work is stream-ordered (host
++                # non-blocking); enforce true completion before begin()
++                # returns so no rank can run ahead into the next forward
++                # while peers' group kernels are still pending.
++                if torch.cuda.is_available():
++                    torch.cuda.synchronize()
+ 
+         _t_p2p = time.perf_counter()
+ 

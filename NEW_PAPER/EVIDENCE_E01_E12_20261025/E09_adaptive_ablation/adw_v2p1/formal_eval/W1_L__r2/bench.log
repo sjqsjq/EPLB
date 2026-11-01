@@ -1,0 +1,24 @@
+[fev_r2_W1_L] 4000 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "fev_r2_W1_L",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+  "num_requests": 4000,
+  "concurrency": 256,
+  "ok": 4000,
+  "errors": 0,
+  "total_time_s": 351.16,
+  "total_comp_tokens": 4000,
+  "tps": 11.4,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 21795.8,
+  "lat_p50_ms": 22126.77,
+  "lat_p99_ms": 24968.63,
+  "ttft_mean_ms": 21795.72,
+  "ttft_p50_ms": 22126.72,
+  "ttft_p99_ms": 24968.57,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/fev_r2_W1_L.json

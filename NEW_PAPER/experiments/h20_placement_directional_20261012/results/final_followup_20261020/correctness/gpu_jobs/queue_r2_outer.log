@@ -1,0 +1,132 @@
+[R2_P_E3] launch arm=P params= 2026-10-21T02:50:32Z
+[R2_P_E3] ready=yes after 100s 2026-10-21T02:52:08Z
+[R2_P_E3] bench start 2026-10-21T02:52:13Z
+[R2_P_E3] bench rc=0 2026-10-21T02:55:19Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_jobs/run_server_job.sh: line 14: 1856262 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS R2_P_E3 {"no_watchdog": true, "no_coalesced_err": true, "no_scheduler_exc": true, "no_rank_desync": true, "planhash_identity": true, "large_plan_exercised": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": true, "bench_complete": true, "perreq_lines": true}
+{
+ "job": "R2_P_E3",
+ "p2ppeers_lines": 112,
+ "ranks_with_lines": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+ ],
+ "windows_per_rank": {
+  "0": 14,
+  "1": 14,
+  "2": 14,
+  "3": 14,
+  "4": 14,
+  "5": 14,
+  "6": 14,
+  "7": 14
+ },
+ "pair_occurrences_checked": 380,
+ "mirror_symmetry": "PASS",
+ "errors": []
+}
+[R2_F_E3] launch arm=F params=1 16 16 2026-10-21T02:55:51Z
+[R2_F_E3] ready=yes after 92s 2026-10-21T02:57:19Z
+[R2_F_E3] bench start 2026-10-21T02:57:24Z
+[R2_F_E3] bench rc=0 2026-10-21T03:00:32Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_jobs/run_server_job.sh: line 14: 1863028 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS R2_F_E3 {"no_watchdog": true, "no_coalesced_err": true, "no_scheduler_exc": true, "no_rank_desync": true, "planhash_identity": true, "large_plan_exercised": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": true, "bench_complete": true, "perreq_lines": true}
+{
+ "job": "R2_F_E3",
+ "p2ppeers_lines": 112,
+ "ranks_with_lines": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+ ],
+ "windows_per_rank": {
+  "0": 14,
+  "1": 14,
+  "2": 14,
+  "3": 14,
+  "4": 14,
+  "5": 14,
+  "6": 14,
+  "7": 14
+ },
+ "pair_occurrences_checked": 375,
+ "mirror_symmetry": "PASS",
+ "errors": []
+}
+[R2_P_E4] launch arm=P params= 2026-10-21T03:01:02Z
+[R2_P_E4] ready=yes after 92s 2026-10-21T03:02:30Z
+[R2_P_E4] bench start 2026-10-21T03:02:35Z
+[R2_P_E4] bench rc=0 2026-10-21T03:04:20Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_jobs/run_server_job.sh: line 14: 1869885 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS R2_P_E4 {"no_watchdog": true, "no_coalesced_err": true, "no_scheduler_exc": true, "no_rank_desync": true, "planhash_identity": true, "large_plan_exercised": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": true, "bench_complete": true, "perreq_lines": true}
+{
+ "job": "R2_P_E4",
+ "p2ppeers_lines": 104,
+ "ranks_with_lines": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+ ],
+ "windows_per_rank": {
+  "0": 13,
+  "1": 13,
+  "2": 13,
+  "3": 13,
+  "4": 13,
+  "5": 13,
+  "6": 13,
+  "7": 13
+ },
+ "pair_occurrences_checked": 360,
+ "mirror_symmetry": "PASS",
+ "errors": []
+}
+[R2_F_E4] launch arm=F params=1 16 16 2026-10-21T03:04:51Z
+[R2_F_E4] ready=yes after 80s 2026-10-21T03:06:07Z
+[R2_F_E4] bench start 2026-10-21T03:06:12Z
+[R2_F_E4] bench rc=0 2026-10-21T03:07:49Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_jobs/run_server_job.sh: line 14: 1876690 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS R2_F_E4 {"no_watchdog": true, "no_coalesced_err": true, "no_scheduler_exc": true, "no_rank_desync": true, "planhash_identity": true, "large_plan_exercised": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": true, "bench_complete": true, "perreq_lines": true}
+{
+ "job": "R2_F_E4",
+ "p2ppeers_lines": 120,
+ "ranks_with_lines": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+ ],
+ "windows_per_rank": {
+  "0": 15,
+  "1": 15,
+  "2": 15,
+  "3": 15,
+  "4": 15,
+  "5": 15,
+  "6": 15,
+  "7": 15
+ },
+ "pair_occurrences_checked": 412,
+ "mirror_symmetry": "PASS",
+ "errors": []
+}

@@ -1,0 +1,340 @@
+--- locked_v2_frozen_20261016/controller.py	2026-10-16 11:24:37.541071676 +0000
++++ controller.py	2026-10-16 20:49:38.712799414 +0000
+@@ -202,6 +202,13 @@
+         self._last_window_steps = None
+         if self._wctrl_version == 2:
+             self._init_window_control_v2(cfg)
++        elif self._wctrl_version == 21:
++            self._init_window_control_v2p1(cfg)
++        elif self._wctrl_version != 1:
++            raise ValueError(
++                "OEPLB_WINDOW_CONTROLLER=%r: supported versions are 1 "
++                "(legacy), 2 (frozen ADW v2), 21 (ADW v2.1 bounded revision)"
++                % self._wctrl_version)
+ 
+         # Profiling counters (wall-clock, CPU-side critical-path time)
+         self._prof_record_calls = 0
+@@ -261,6 +268,14 @@
+         self.model_runner.update_expert_location(fast_init_by_mapping(p2l, self.num_logical_experts), update_layers)
+         self._meta = self._fetch_metadata()
+         self._cached_p2l = self._meta.physical_to_logical_map
++        if getattr(self, '_wctrl_version', 1) == 21:
++            # ADW v2.1 (F1): net-zero warmup relayout, but bump the mapping
++            # version and clear the (still empty pre-ready) detection
++            # accumulator so versions stay locked by construction.
++            self._p2l_version += 1
++            if getattr(self, '_det_load', None) is not None:
++                self._det_load.zero_()
++            self._det_map_version = self._p2l_version
+ 
+     def _fetch_metadata(self):
+         from sglang.srt.eplb.expert_location import get_global_expert_location_metadata
+@@ -341,6 +356,14 @@
+         self.load[layer_id].scatter_add_(
+             dim=0, index=flat.masked_fill(~mask, 0).long(), src=mask.long()
+         )
++        if self._wctrl_version == 21:
++            # ADW v2.1 (F1): separate detection accumulator. Mirrors the
++            # count-follows-expert remap at every mapping-commit site, so the
++            # window-end logical gather under the CURRENT p2l is exact. The
++            # planner accumulator (self.load) is untouched by v2.1.
++            self._det_load[layer_id].scatter_add_(
++                dim=0, index=flat.masked_fill(~mask, 0).long(), src=mask.long()
++            )
+         if layer_id == 0:
+             self.total_tokens += topk_ids.shape[0]
+         self._prof_record_calls += 1
+@@ -470,6 +493,15 @@
+         else:
+             self.load.copy_((self.load.float() * self._decay_factor).long())
+             self.total_tokens = 0
++        if self._wctrl_version == 21:
++            # ADW v2.1: detection-accumulator window boundary (separate from
++            # the planner history above). UNCERTAIN carry merges at most one
++            # extra window (bounded by the inherited logic); carry no longer
++            # touches planner state (detection/planning accumulators separate).
++            if getattr(self, '_v2p1_carry', False):
++                self._v2p1_carry = False
++            else:
++                self._det_load.zero_()
+         self._prefill_batch_counter = 0
+ 
+     def _update_sensitivity_calibration(self, is_idle: bool, is_prefill: bool):
+@@ -603,6 +635,14 @@
+             # Reset load to match new placement (old counts are meaningless now)
+             self.load.zero_()
+             self.total_tokens = 0
++            if self._wctrl_version == 21:
++                # ADW v2.1 (F1): bulk relayout invalidates accumulated counts
++                # (same rule as the planner accumulator above); mapping
++                # versions stay locked. A low-n_fresh window is handled by the
++                # inherited UNCERTAIN path.
++                self._det_load.zero_()
++                self._p2l_version += 1
++                self._det_map_version = self._p2l_version
+ 
+             elapsed = (_time.perf_counter() - _t0) * 1000
+             logger.info(f"[PB-OEPLB-WARMSTART] bulk re-placement done: "
+@@ -670,6 +710,12 @@
+             self._cached_p2l = self._meta.physical_to_logical_map
+             self.load.zero_()
+             self.total_tokens = 0
++            if self._wctrl_version == 21:
++                # ADW v2.1 (F1): see warmstart hook -- bulk relayout clears
++                # the detection accumulator and bumps mapping versions.
++                self._det_load.zero_()
++                self._p2l_version += 1
++                self._det_map_version = self._p2l_version
+ 
+             elapsed = (_time.perf_counter() - _t0) * 1000
+             logger.info(f"[PB-OEPLB-REFINE] EPLB refinement done: "
+@@ -897,6 +943,12 @@
+                 # BEFORE the token/threshold gates so window control is
+                 # independent of whether this window ends up swapping.
+                 self._window_control_v2(global_load, global_tokens)
++            if self._wctrl_version == 21:
++                # ADW v2.1 bounded revision: logical-identity detection (F1),
++                # rate-scale headroom (F2), confirm-then-commit (F3). Same
++                # call position as v2: BEFORE the token/threshold gates so
++                # window control is independent of whether this window swaps.
++                self._window_control_v2p1(global_load, global_tokens)
+             if global_tokens < self.cfg.min_prefill_tokens:
+                 return
+ 
+@@ -1209,6 +1261,214 @@
+             logger.error(f"[PB-OEPLB-ADW2] v2 error (W HELD, serving continues): {e}\n"
+                          f"{traceback.format_exc()}")
+ 
++    def _init_window_control_v2p1(self, cfg):
++        """ADW v2.1 (limited revision of frozen v2 -- see
++        NEW_PAPER/.../results/adw_v2p1/minimal_diff.md). Addresses exactly the
++        three audit-verified findings (2026-10-16):
++          F1 detection unified in logical-expert identity (separate detection
++             accumulator + commit-site count remap + mapping-version guard);
++          F2 headroom on the work-fraction scale h_w/n_fresh (thresholds are
++             rates, re-calibrated pre-registered on W0 only);
++          F3 window & control state committed only after a per-window
++             cross-rank unanimity check (confirm-then-commit; error paths
++             participate with a deterministic sentinel so the collective
++             schedule can never misalign).
++        Same phase-1 invariants as v2: decay_factor==0.0 and adaptive flags
++        OFF; planner path (self.load, ratio gates, swap acceptance, executor)
++        is NOT touched -- v2.1 replaces detection/window control only.
++        Framing: correctness revision, not a promised performance change.
++        """
++        from sglang.srt.managers.pb_oeplb.window_v2p1 import WindowControllerV2P1
++        rank = torch.distributed.get_rank() if torch.distributed.is_initialized() else 0
++        if float(cfg.decay_factor) != 0.0:
++            raise RuntimeError(
++                "ADW v2.1 phase 1 requires decay_factor==0.0 (window-only isolation)")
++        if cfg.adaptive_window or cfg.adaptive_decay or cfg.calibrate_adaptive_sensitivity:
++            raise RuntimeError(
++                "ADW v2.1 requires adaptive_window=False, adaptive_decay=False, "
++                "calibrate_adaptive_sensitivity=False (single-authority rule M3)")
++        if float(getattr(cfg, 'v21_kappa', 0.0)) <= 0.0:
++            raise RuntimeError(
++                "ADW v2.1: OEPLB_V21_KAPPA must be a calibration-frozen positive "
++                "noise coefficient (logical-space signal); refusing placeholder")
++        knobs = dict(
++            kappa=cfg.v21_kappa, z_lo=cfg.v21_z_lo, z_hi=cfg.v21_z_hi,
++            z_urgent=cfg.v21_z_urgent, m_shrink=cfg.v21_m_shrink,
++            m_grow=cfg.v21_m_grow, n_min=cfg.v21_n_min, u_max=cfg.v21_u_max,
++            theta_h_low=cfg.v21_theta_r_low, theta_h_act=cfg.v21_theta_r_act,
++            dwell_shrink=cfg.v21_dwell_shrink, dwell_grow=cfg.v21_dwell_grow,
++            w_uncertain_target=cfg.v21_w_uncertain_target,
++            urgent_episode_cap=cfg.v21_urgent_episode_cap)
++        self._v2p1_beta = float(cfg.v21_beta)
++        self._v2p1_kappa = float(cfg.v21_kappa)
++        self._v2p1_ctrl = WindowControllerV2P1(cfg.sync_window, knobs, beta=self._v2p1_beta)
++        # F1: logical-space detection state. The ref EWMA lives in LOGICAL
++        # identity -> stable across swap commits, never remapped (that was the
++        # v2 artifact). Separate from the planner accumulator by construction.
++        self._v2p1_ref = None
++        self._v2p1_carry = False
++        self._det_load = torch.zeros(self.num_layers, self.num_physical_experts,
++                                     dtype=torch.int64, device=self.load.device)
++        self._p2l_version = 0       # bumped at EVERY mapping-commit site
++        self._det_map_version = 0   # _det_load contents consistent with this version
++        self._v2p1_log_path = cfg.v21_log_path or ("/tmp/oeplb_v2p1_window_rank%d.jsonl" % rank)
++        self._v2p1_log_fh = None
++        logger.info("[PB-OEPLB-ADW21] limited-revision controller v2.1 ACTIVE: "
++                    f"w_init={cfg.sync_window} grid=(8,16,32,64) beta={self._v2p1_beta} "
++                    f"knobs={knobs} (theta_* in RATE units) log={self._v2p1_log_path}")
++
++    def _v2p1_confirm_allreduce(self, pair):
++        """F3 confirm collective: one 2-element int64 SUM all_reduce per
++        window, at the same point in the collective order on every rank."""
++        t = torch.tensor([pair[0], pair[1]], dtype=torch.int64, device=self.load.device)
++        torch.distributed.all_reduce(t, op=torch.distributed.ReduceOp.SUM)
++        pair[0] = int(t[0].item())
++        pair[1] = int(t[1].item())
++
++    def _window_control_v2p1(self, global_load, global_tokens):
++        """ADW v2.1 per-window decision -- the ONLY writer of
++        _effective_sync_window under version 21.
++
++        Flow (confirm-then-commit, F3):
++          1. det all_reduce (own accumulator; separate collective from the
++             planner load all_reduce, same position on all ranks);
++          2. F1 signals: logical-identity distribution p (gather under the
++             CURRENT p2l, exact because _det_load mirrors the count-follows-
++             expert remap at every commit site), z from logical ref EWMA;
++             F2: h_rate = h_w / n_fresh;
++          3. mapping-version tripwire: _det_map_version must equal
++             _p2l_version, else the window is an error window (hold);
++          4. propose rec = ctrl.step(z, h_rate, n_fresh) (pure, snapshotted);
++          5. ALL ranks -- including error paths, via a deterministic sentinel
++             -- present one decision hash to a 2-elem SUM all_reduce;
++          6. commit iff proposal exists AND hashes unanimous: apply W, update
++             ref EWMA (frozen on uncertain events, inherited); else roll back
++             the proposal identically on every rank (hold W); 2 consecutive
++             failures -> inherited safe mode (freeze at w_init).
++        Never raises; serving continues in every branch. Cost accounting: the
++        confirm all_reduce and det all_reduce are inside c_window_ms (logged).
++        """
++        import time as _time
++        import json as _json
++        from sglang.srt.managers.pb_oeplb import v2p1_signals as _sig
++        from sglang.srt.managers.pb_oeplb.window_v2p1 import (
++            decision_hash, error_sentinel, check_unanimous)
++        t0 = _time.perf_counter_ns()
++        ctrl = self._v2p1_ctrl
++        snap = ctrl.snapshot()
++        rec = None
++        z = None
++        s_change = None
++        h_w = None
++        h_rate = 0.0
++        n_fresh = 0
++        p = None
++        err_reason = None
++        try:
++            if self._det_map_version != self._p2l_version:
++                raise RuntimeError(
++                    "mapping version mismatch: det=%d p2l=%d (unhandled commit "
++                    "path -- holding W this window)" % (
++                        self._det_map_version, self._p2l_version))
++            det = self._det_load.clone()
++            torch.distributed.all_reduce(det, op=torch.distributed.ReduceOp.SUM)
++            n_fresh = int(det.sum().item())
++            logical = _sig.logical_load(det, self._cached_p2l)
++            h_w = _sig.headroom(det, self.ep_size)
++            h_rate = _sig.headroom_rate(h_w, n_fresh)
++            p, valid = _sig.row_distribution(logical)
++            if self._v2p1_ref is not None:
++                s_change, _n_valid = _sig.change_score(p, self._v2p1_ref, valid)
++                z = _sig.z_from_signals(s_change, n_fresh, logical.shape[0],
++                                      self._v2p1_kappa)
++            rec = ctrl.step(z, h_rate, n_fresh)
++            h = decision_hash(self.window_count, rec)
++        except Exception as e:
++            err_reason = f"{e}\n{traceback.format_exc()}"
++            ctrl.restore(snap)
++            rec = None
++            h = error_sentinel(self.window_count)
++        # F3: every rank reaches this collective every window (sentinel on
++        # error) -> schedules can never misalign.
++        unanimous = False
++        try:
++            world = torch.distributed.get_world_size()
++            unanimous = check_unanimous(h, world, self._v2p1_confirm_allreduce)
++        except Exception as e:
++            err_reason = (err_reason or "") + f" confirm_allreduce_failed: {e}"
++        committed = False
++        desync = False
++        if rec is not None and unanimous:
++            self._effective_sync_window = rec["W_after"]
++            self._v2p1_carry = bool(rec["carry_fresh"])
++            ev = rec["event"]
++            if ev == "init":
++                self._v2p1_ref = p.clone()
++            elif ev not in ("uncertain_carry", "uncertain_hold",
++                            "forced_shrink_uncertain", "w_desync_freeze"):
++                if self._v2p1_ref is None:
++                    self._v2p1_ref = p.clone()
++                else:
++                    self._v2p1_ref.mul_(self._v2p1_beta).add_(
++                        p, alpha=1.0 - self._v2p1_beta)
++            ctrl.confirm_fail_streak = 0
++            committed = True
++            proposed = rec["event"]
++            w_after = rec["W_after"]
++        else:
++            ctrl.restore(snap)   # idempotent; error path already restored
++            self._v2p1_carry = False
++            ctrl.confirm_fail_streak += 1
++            proposed = rec["event"] if rec is not None else "error"
++            w_after = snap["W"]
++            if ctrl.confirm_fail_streak >= 2:
++                ctrl.on_desync()
++                self._effective_sync_window = ctrl.W
++                desync = True
++                ev = "confirm_fail_freeze"
++            else:
++                ev = "confirm_hold"
++        elapsed_ms = (_time.perf_counter_ns() - t0) / 1e6
++        if self._rank == 0:
++            if self._v2p1_log_fh is None:
++                self._v2p1_log_fh = open(self._v2p1_log_path, "a")
++            line = {
++                "window_id": self.window_count,
++                "steps_actual": self._last_window_steps,
++                "n_fresh_assignments": n_fresh,
++                "s_change_logical": s_change,
++                "z": z,
++                "h_w_assignments": h_w,
++                "h_rate": h_rate,
++                "W_before": snap["W"],
++                "W_after": w_after,
++                "proposed_event": proposed,
++                "event": ev,
++                "committed": committed,
++                "unanimous": unanimous,
++                "confirm_fail_streak": ctrl.confirm_fail_streak,
++                "p2l_version": self._p2l_version,
++                "det_map_version": self._det_map_version,
++                "alert_k": ctrl.alert_k,
++                "stable_s": ctrl.stable_s,
++                "dwell": ctrl.dwell,
++                "dwell_dir": ctrl.dwell_dir,
++                "uncertain_run": ctrl.uncertain_run,
++                "episode_shrinks": ctrl.episode_shrinks,
++                "carry_fresh": bool(self._v2p1_carry),
++                "c_window_ms": elapsed_ms,
++                "desync": desync,
++            }
++            self._v2p1_log_fh.write(_json.dumps(line) + "\n")
++            self._v2p1_log_fh.flush()
++            logger.info(f"[PB-OEPLB-ADW21] w#{self.window_count} "
++                        f"z={'%.2f' % z if z is not None else 'NA'} "
++                        f"hr={h_rate:.5f} N={n_fresh} "
++                        f"W {snap['W']}->{w_after} ev={ev} committed={committed}")
++        if err_reason:
++            logger.error("[PB-OEPLB-ADW21] v2.1 error (window held unless "
++                         f"confirmed; serving continues): {err_reason}")
++
+     def _dump_detailed_load(self, global_tokens, global_load):
+         """Verification A+B: cross-check token count aggregation methods."""
+         if self._rank != 0 or self.window_count not in (5, 10):
+@@ -1383,6 +1643,21 @@
+                 self.load[layer, a], self.load[layer, b] = (
+                     self.load[layer, b].clone(), self.load[layer, a].clone()
+                 )
++            if self._wctrl_version == 21:
++                # ADW v2.1 (F1): mirror the count-follows-expert remap into
++                # the detection accumulator so the window-end logical gather
++                # under the CURRENT p2l attributes every count (including
++                # pre-commit counts) to the right logical expert. The ref
++                # EWMA lives in logical space and needs NO remap.
++                for op in plan:
++                    layer = op.layer_id
++                    a, b = op.phys_slot_a, op.phys_slot_b
++                    self._det_load[layer, a], self._det_load[layer, b] = (
++                        self._det_load[layer, b].clone(),
++                        self._det_load[layer, a].clone()
++                    )
++                self._p2l_version += 1
++                self._det_map_version = self._p2l_version
+ 
+             self._prof_finalize_ns += time.perf_counter_ns() - _tf
+             total_ms = (time.perf_counter() - self._pending_plan_start_t) * 1000

@@ -1,0 +1,374 @@
+W1020 16:56:15.938000 1855056 site-packages/torch/distributed/run.py:803] 
+W1020 16:56:15.938000 1855056 site-packages/torch/distributed/run.py:803] *****************************************
+W1020 16:56:15.938000 1855056 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1020 16:56:15.938000 1855056 site-packages/torch/distributed/run.py:803] *****************************************
+[Gloo] Rank [Gloo] Rank [Gloo] Rank 02[Gloo] Rank 71 is connected to  is connected to 7 is connected to 7[Gloo] Rank  peer ranks. Expected number of connected peer ranks is : 57 is connected to 
+7 peer ranks. [Gloo] Rank [Gloo] Rank 3[Gloo] Rank 4 is connected to  is connected to  is connected to 6777 peer ranks. 7 is connected to Expected number of connected peer ranks is :  peer ranks.  peer ranks.  peer ranks. Expected number of connected peer ranks is : 77Expected number of connected peer ranks is : Expected number of connected peer ranks is : Expected number of connected peer ranks is : 7 peer ranks. 
+777
+Expected number of connected peer ranks is : 
+
+ peer ranks. 
+7Expected number of connected peer ranks is : 
+7
+[repro] mode=perpeer iters=40 timeout=180s torch=2.9.1+cu128 nccl=(2, 27, 5)
+[repro] iter=0 rank=0 n_p2p_ops=424 xfer=5774ms canary_bad=0 elapsed=6s
+[progress] rank=0 iter=0 done bad=0
+[progress] rank=2 iter=0 done bad=0
+[progress] rank=1 iter=0 done bad=0
+[progress] rank=3 iter=0 done bad=0
+[progress] rank=6 iter=0 done bad=0
+[progress] rank=5 iter=0 done bad=0
+[progress] rank=7 iter=0 done bad=0
+[progress] rank=4 iter=0 done bad=0
+[progress] rank=2 iter=1 done bad=0
+[progress] rank=6 iter=1 done bad=0
+[progress] rank=5 iter=1 done bad=0
+[progress] rank=3 iter=1 done bad=0
+[progress] rank=7 iter=1 done bad=0
+[progress] rank=1 iter=1 done bad=0
+[progress] rank=4 iter=1 done bad=0
+[repro] iter=1 rank=0 n_p2p_ops=468 xfer=17ms canary_bad=0 elapsed=8s
+[progress] rank=0 iter=1 done bad=0
+[progress] rank=6 iter=2 done bad=0
+[progress] rank=5 iter=2 done bad=0
+[progress] rank=2 iter=2 done bad=0
+[progress] rank=1 iter=2 done bad=0
+[progress] rank=3 iter=2 done bad=0
+[progress] rank=4 iter=2 done bad=0
+[progress] rank=7 iter=2 done bad=0
+[repro] iter=2 rank=0 n_p2p_ops=460 xfer=16ms canary_bad=0 elapsed=9s
+[progress] rank=0 iter=2 done bad=0
+[progress] rank=2 iter=3 done bad=0
+[progress] rank=5 iter=3 done bad=0
+[progress] rank=6 iter=3 done bad=0
+[progress] rank=1 iter=3 done bad=0
+[progress] rank=4 iter=3 done bad=0
+[progress] rank=3 iter=3 done bad=0
+[progress] rank=7 iter=3 done bad=0
+[repro] iter=3 rank=0 n_p2p_ops=444 xfer=17ms canary_bad=0 elapsed=10s
+[progress] rank=0 iter=3 done bad=0
+[progress] rank=2 iter=4 done bad=0
+[progress] rank=6 iter=4 done bad=0
+[progress] rank=5 iter=4 done bad=0
+[progress] rank=3 iter=4 done bad=0
+[progress] rank=4 iter=4 done bad=0
+[progress] rank=1 iter=4 done bad=0
+[progress] rank=7 iter=4 done bad=0
+[repro] iter=4 rank=0 n_p2p_ops=452 xfer=16ms canary_bad=0 elapsed=10s
+[progress] rank=0 iter=4 done bad=0
+[progress] rank=2 iter=5 done bad=0
+[progress] rank=6 iter=5 done bad=0
+[progress] rank=5 iter=5 done bad=0
+[progress] rank=1 iter=5 done bad=0
+[progress] rank=3 iter=5 done bad=0
+[progress] rank=4 iter=5 done bad=0
+[progress] rank=7 iter=5 done bad=0
+[repro] iter=5 rank=0 n_p2p_ops=436 xfer=16ms canary_bad=0 elapsed=11s
+[progress] rank=0 iter=5 done bad=0
+[progress] rank=2 iter=6 done bad=0
+[progress] rank=6 iter=6 done bad=0
+[progress] rank=3 iter=6 done bad=0
+[progress] rank=1 iter=6 done bad=0
+[progress] rank=5 iter=6 done bad=0
+[progress] rank=4 iter=6 done bad=0
+[repro] iter=6 rank=0 n_p2p_ops=476 xfer=18ms canary_bad=0 elapsed=11s
+[progress] rank=0 iter=6 done bad=0
+[progress] rank=7 iter=6 done bad=0
+[progress] rank=2 iter=7 done bad=0
+[progress] rank=6 iter=7 done bad=0
+[progress] rank=5 iter=7 done bad=0
+[progress] rank=4 iter=7 done bad=0
+[progress] rank=3 iter=7 done bad=0
+[progress] rank=1 iter=7 done bad=0
+[progress] rank=7 iter=7 done bad=0
+[repro] iter=7 rank=0 n_p2p_ops=448 xfer=16ms canary_bad=0 elapsed=13s
+[progress] rank=0 iter=7 done bad=0
+[progress] rank=2 iter=8 done bad=0
+[progress] rank=6 iter=8 done bad=0
+[progress] rank=5 iter=8 done bad=0
+[progress] rank=3 iter=8 done bad=0
+[progress] rank=1 iter=8 done bad=0
+[progress] rank=7 iter=8 done bad=0
+[progress] rank=4 iter=8 done bad=0
+[repro] iter=8 rank=0 n_p2p_ops=460 xfer=16ms canary_bad=0 elapsed=14s
+[progress] rank=0 iter=8 done bad=0
+[progress] rank=2 iter=9 done bad=0
+[progress] rank=6 iter=9 done bad=0
+[progress] rank=5 iter=9 done bad=0
+[progress] rank=1 iter=9 done bad=0
+[progress] rank=3 iter=9 done bad=0
+[progress] rank=7 iter=9 done bad=0
+[progress] rank=4 iter=9 done bad=0
+[repro] iter=9 rank=0 n_p2p_ops=472 xfer=18ms canary_bad=0 elapsed=14s
+[progress] rank=0 iter=9 done bad=0
+[progress] rank=2 iter=10 done bad=0
+[progress] rank=6 iter=10 done bad=0
+[progress] rank=5 iter=10 done bad=0
+[progress] rank=3 iter=10 done bad=0
+[progress] rank=4 iter=10 done bad=0
+[progress] rank=7 iter=10 done bad=0
+[progress] rank=1 iter=10 done bad=0
+[repro] iter=10 rank=0 n_p2p_ops=460 xfer=18ms canary_bad=0 elapsed=15s
+[progress] rank=0 iter=10 done bad=0
+[progress] rank=2 iter=11 done bad=0
+[progress] rank=5 iter=11 done bad=0
+[progress] rank=3 iter=11 done bad=0
+[progress] rank=1 iter=11 done bad=0
+[progress] rank=6 iter=11 done bad=0
+[progress] rank=4 iter=11 done bad=0
+[progress] rank=7 iter=11 done bad=0
+[repro] iter=11 rank=0 n_p2p_ops=468 xfer=17ms canary_bad=0 elapsed=16s
+[progress] rank=0 iter=11 done bad=0
+[progress] rank=2 iter=12 done bad=0
+[progress] rank=6 iter=12 done bad=0
+[progress] rank=5 iter=12 done bad=0
+[progress] rank=4 iter=12 done bad=0
+[progress] rank=1 iter=12 done bad=0
+[repro] iter=12 rank=0 n_p2p_ops=412 xfer=15ms canary_bad=0 elapsed=17s
+[progress] rank=0 iter=12 done bad=0
+[progress] rank=3 iter=12 done bad=0
+[progress] rank=7 iter=12 done bad=0
+[progress] rank=2 iter=13 done bad=0
+[progress] rank=6 iter=13 done bad=0
+[progress] rank=5 iter=13 done bad=0
+[progress] rank=4 iter=13 done bad=0
+[progress] rank=1 iter=13 done bad=0[repro] iter=13 rank=0 n_p2p_ops=452 xfer=18ms canary_bad=0 elapsed=18s
+
+[progress] rank=0 iter=13 done bad=0
+[progress] rank=7 iter=13 done bad=0
+[progress] rank=3 iter=13 done bad=0
+[progress] rank=2 iter=14 done bad=0
+[progress] rank=6 iter=14 done bad=0
+[progress] rank=5 iter=14 done bad=0
+[progress] rank=3 iter=14 done bad=0
+[progress] rank=1 iter=14 done bad=0
+[progress] rank=7 iter=14 done bad=0
+[progress] rank=4 iter=14 done bad=0
+[repro] iter=14 rank=0 n_p2p_ops=444 xfer=16ms canary_bad=0 elapsed=19s
+[progress] rank=0 iter=14 done bad=0
+[progress] rank=2 iter=15 done bad=0
+[progress] rank=6 iter=15 done bad=0
+[progress] rank=5 iter=15 done bad=0
+[progress] rank=1 iter=15 done bad=0
+[progress] rank=4 iter=15 done bad=0
+[progress] rank=3 iter=15 done bad=0
+[repro] iter=15 rank=0 n_p2p_ops=440 xfer=16ms canary_bad=0 elapsed=19s
+[progress] rank=0 iter=15 done bad=0
+[progress] rank=7 iter=15 done bad=0
+[progress] rank=2 iter=16 done bad=0
+[progress] rank=6 iter=16 done bad=0
+[progress] rank=1 iter=16 done bad=0
+[progress] rank=5 iter=16 done bad=0
+[progress] rank=3 iter=16 done bad=0
+[progress] rank=4 iter=16 done bad=0
+[repro] iter=16 rank=0 n_p2p_ops=424 xfer=17ms canary_bad=0 elapsed=20s
+[progress] rank=0 iter=16 done bad=0
+[progress] rank=7 iter=16 done bad=0
+[progress] rank=2 iter=17 done bad=0
+[progress] rank=6 iter=17 done bad=0
+[progress] rank=1 iter=17 done bad=0
+[progress] rank=5 iter=17 done bad=0
+[progress] rank=3 iter=17 done bad=0
+[progress] rank=4 iter=17 done bad=0
+[progress] rank=7 iter=17 done bad=0
+[repro] iter=17 rank=0 n_p2p_ops=452 xfer=16ms canary_bad=0 elapsed=20s
+[progress] rank=0 iter=17 done bad=0
+[progress] rank=2 iter=18 done bad=0
+[progress] rank=6 iter=18 done bad=0
+[progress] rank=1 iter=18 done bad=0
+[progress] rank=3 iter=18 done bad=0
+[progress] rank=5 iter=18 done bad=0
+[progress] rank=7 iter=18 done bad=0
+[progress] rank=4 iter=18 done bad=0
+[repro] iter=18 rank=0 n_p2p_ops=420 xfer=16ms canary_bad=0 elapsed=21s
+[progress] rank=0 iter=18 done bad=0
+[progress] rank=2 iter=19 done bad=0
+[progress] rank=6 iter=19 done bad=0
+[progress] rank=5 iter=19 done bad=0
+[progress] rank=1 iter=19 done bad=0
+[progress] rank=4 iter=19 done bad=0
+[progress] rank=3 iter=19 done bad=0
+[repro] iter=19 rank=0 n_p2p_ops=464 xfer=16ms canary_bad=0 elapsed=21s
+[progress] rank=0 iter=19 done bad=0
+[progress] rank=7 iter=19 done bad=0
+[progress] rank=2 iter=20 done bad=0
+[progress] rank=6 iter=20 done bad=0
+[progress] rank=1 iter=20 done bad=0
+[progress] rank=5 iter=20 done bad=0
+[progress] rank=3 iter=20 done bad=0
+[progress] rank=4 iter=20 done bad=0
+[repro] iter=20 rank=0 n_p2p_ops=472 xfer=18ms canary_bad=0 elapsed=22s
+[progress] rank=0 iter=20 done bad=0
+[progress] rank=7 iter=20 done bad=0
+[progress] rank=2 iter=21 done bad=0
+[progress] rank=6 iter=21 done bad=0
+[progress] rank=5 iter=21 done bad=0
+[progress] rank=4 iter=21 done bad=0
+[progress] rank=1 iter=21 done bad=0
+[progress] rank=3 iter=21 done bad=0
+[progress] rank=7 iter=21 done bad=0
+[repro] iter=21 rank=0 n_p2p_ops=420 xfer=15ms canary_bad=0 elapsed=23s
+[progress] rank=0 iter=21 done bad=0
+[progress] rank=2 iter=22 done bad=0
+[progress] rank=6 iter=22 done bad=0
+[progress] rank=5 iter=22 done bad=0
+[progress] rank=3 iter=22 done bad=0
+[progress] rank=1 iter=22 done bad=0
+[progress] rank=4 iter=22 done bad=0
+[repro] iter=22 rank=0 n_p2p_ops=416 xfer=15ms canary_bad=0 elapsed=24s
+[progress] rank=0 iter=22 done bad=0
+[progress] rank=7 iter=22 done bad=0
+[progress] rank=2 iter=23 done bad=0
+[progress] rank=6 iter=23 done bad=0
+[progress] rank=1 iter=23 done bad=0
+[progress] rank=4 iter=23 done bad=0
+[progress] rank=5 iter=23 done bad=0
+[progress] rank=3 iter=23 done bad=0
+[repro] iter=23 rank=0 n_p2p_ops=424 xfer=28ms canary_bad=0 elapsed=24s
+[progress] rank=0 iter=23 done bad=0
+[progress] rank=7 iter=23 done bad=0
+[progress] rank=2 iter=24 done bad=0
+[progress] rank=6 iter=24 done bad=0
+[progress] rank=7 iter=24 done bad=0
+[progress] rank=1 iter=24 done bad=0
+[progress] rank=5 iter=24 done bad=0
+[progress] rank=3 iter=24 done bad=0
+[progress] rank=4 iter=24 done bad=0
+[repro] iter=24 rank=0 n_p2p_ops=460 xfer=17ms canary_bad=0 elapsed=27s
+[progress] rank=0 iter=24 done bad=0
+[progress] rank=2 iter=25 done bad=0
+[progress] rank=6 iter=25 done bad=0
+[progress] rank=5 iter=25 done bad=0
+[progress] rank=3 iter=25 done bad=0
+[progress] rank=1 iter=25 done bad=0
+[progress] rank=4 iter=25 done bad=0
+[progress] rank=7 iter=25 done bad=0
+[repro] iter=25 rank=0 n_p2p_ops=480 xfer=17ms canary_bad=0 elapsed=27s
+[progress] rank=0 iter=25 done bad=0
+[progress] rank=2 iter=26 done bad=0
+[progress] rank=6 iter=26 done bad=0
+[progress] rank=5 iter=26 done bad=0
+[progress] rank=1 iter=26 done bad=0
+[progress] rank=3 iter=26 done bad=0
+[progress] rank=4 iter=26 done bad=0
+[repro] iter=26 rank=0 n_p2p_ops=476 xfer=18ms canary_bad=0 elapsed=28s
+[progress] rank=0 iter=26 done bad=0
+[progress] rank=7 iter=26 done bad=0
+[progress] rank=2 iter=27 done bad=0
+[progress] rank=6 iter=27 done bad=0
+[progress] rank=5 iter=27 done bad=0
+[progress] rank=1 iter=27 done bad=0
+[progress] rank=3 iter=27 done bad=0
+[progress] rank=4 iter=27 done bad=0
+[repro] iter=27 rank=0 n_p2p_ops=432 xfer=16ms canary_bad=0 elapsed=29s
+[progress] rank=0 iter=27 done bad=0
+[progress] rank=7 iter=27 done bad=0
+[progress] rank=2 iter=28 done bad=0
+[progress] rank=6 iter=28 done bad=0
+[progress] rank=3 iter=28 done bad=0
+[progress] rank=5 iter=28 done bad=0
+[progress] rank=1 iter=28 done bad=0
+[progress] rank=4 iter=28 done bad=0
+[progress] rank=7 iter=28 done bad=0
+[repro] iter=28 rank=0 n_p2p_ops=444 xfer=16ms canary_bad=0 elapsed=30s
+[progress] rank=0 iter=28 done bad=0
+[progress] rank=2 iter=29 done bad=0
+[progress] rank=6 iter=29 done bad=0
+[progress] rank=3 iter=29 done bad=0
+[progress] rank=1 iter=29 done bad=0
+[progress] rank=5 iter=29 done bad=0
+[progress] rank=4 iter=29 done bad=0
+[repro] iter=29 rank=0 n_p2p_ops=468 xfer=17ms canary_bad=0 elapsed=31s
+[progress] rank=0 iter=29 done bad=0
+[progress] rank=7 iter=29 done bad=0
+[progress] rank=2 iter=30 done bad=0
+[progress] rank=6 iter=30 done bad=0
+[progress] rank=5 iter=30 done bad=0
+[progress] rank=1 iter=30 done bad=0
+[progress] rank=3 iter=30 done bad=0
+[progress] rank=4 iter=30 done bad=0
+[repro] iter=30 rank=0 n_p2p_ops=428 xfer=16ms canary_bad=0 elapsed=32s
+[progress] rank=0 iter=30 done bad=0
+[progress] rank=7 iter=30 done bad=0
+[progress] rank=2 iter=31 done bad=0
+[progress] rank=5 iter=31 done bad=0
+[progress] rank=6 iter=31 done bad=0
+[progress] rank=3 iter=31 done bad=0
+[progress] rank=1 iter=31 done bad=0
+[progress] rank=4 iter=31 done bad=0
+[repro] iter=31 rank=0 n_p2p_ops=472 xfer=17ms canary_bad=0 elapsed=34s
+[progress] rank=0 iter=31 done bad=0
+[progress] rank=7 iter=31 done bad=0
+[progress] rank=2 iter=32 done bad=0
+[progress] rank=6 iter=32 done bad=0
+[progress] rank=1 iter=32 done bad=0
+[progress] rank=5 iter=32 done bad=0
+[progress] rank=3 iter=32 done bad=0
+[progress] rank=7 iter=32 done bad=0
+[progress] rank=4 iter=32 done bad=0
+[repro] iter=32 rank=0 n_p2p_ops=440 xfer=16ms canary_bad=0 elapsed=34s
+[progress] rank=0 iter=32 done bad=0
+[progress] rank=2 iter=33 done bad=0
+[progress] rank=5 iter=33 done bad=0
+[progress] rank=1 iter=33 done bad=0
+[progress] rank=6 iter=33 done bad=0
+[progress] rank=4 iter=33 done bad=0
+[progress] rank=3 iter=33 done bad=0
+[progress] rank=7 iter=33 done bad=0
+[repro] iter=33 rank=0 n_p2p_ops=448 xfer=16ms canary_bad=0 elapsed=35s
+[progress] rank=0 iter=33 done bad=0
+[progress] rank=2 iter=34 done bad=0
+[progress] rank=1 iter=34 done bad=0
+[progress] rank=5 iter=34 done bad=0
+[progress] rank=6 iter=34 done bad=0
+[progress] rank=4 iter=34 done bad=0
+[progress] rank=3 iter=34 done bad=0
+[repro] iter=34 rank=0 n_p2p_ops=432 xfer=16ms canary_bad=0 elapsed=36s
+[progress] rank=0 iter=34 done bad=0
+[progress] rank=7 iter=34 done bad=0
+[progress] rank=2 iter=35 done bad=0
+[progress] rank=6 iter=35 done bad=0
+[progress] rank=5 iter=35 done bad=0
+[progress] rank=3 iter=35 done bad=0
+[progress] rank=1 iter=35 done bad=0
+[progress] rank=4 iter=35 done bad=0
+[repro] iter=35 rank=0 n_p2p_ops=448 xfer=17ms canary_bad=0 elapsed=37s
+[progress] rank=0 iter=35 done bad=0
+[progress] rank=7 iter=35 done bad=0
+[progress] rank=2 iter=36 done bad=0
+[progress] rank=6 iter=36 done bad=0
+[progress] rank=5 iter=36 done bad=0
+[progress] rank=1 iter=36 done bad=0
+[progress] rank=3 iter=36 done bad=0
+[progress] rank=4 iter=36 done bad=0
+[repro] iter=36 rank=0 n_p2p_ops=412 xfer=15ms canary_bad=0 elapsed=38s
+[progress] rank=0 iter=36 done bad=0
+[progress] rank=7 iter=36 done bad=0
+[progress] rank=2 iter=37 done bad=0
+[progress] rank=6 iter=37 done bad=0
+[progress] rank=5 iter=37 done bad=0
+[progress] rank=1 iter=37 done bad=0
+[progress] rank=4 iter=37 done bad=0
+[progress] rank=3 iter=37 done bad=0[repro] iter=37 rank=0 n_p2p_ops=452 xfer=17ms canary_bad=0 elapsed=38s
+
+[progress] rank=0 iter=37 done bad=0
+[progress] rank=7 iter=37 done bad=0
+[progress] rank=2 iter=38 done bad=0
+[progress] rank=6 iter=38 done bad=0
+[progress] rank=5 iter=38 done bad=0
+[progress] rank=1 iter=38 done bad=0
+[progress] rank=7 iter=38 done bad=0
+[progress] rank=4 iter=38 done bad=0
+[progress] rank=3 iter=38 done bad=0
+[repro] iter=38 rank=0 n_p2p_ops=432 xfer=15ms canary_bad=0 elapsed=39s
+[progress] rank=0 iter=38 done bad=0
+[progress] rank=2 iter=39 done bad=0
+[progress] rank=3 iter=39 done bad=0
+[progress] rank=6 iter=39 done bad=0
+[progress] rank=5 iter=39 done bad=0
+[progress] rank=1 iter=39 done bad=0
+[progress] rank=4 iter=39 done bad=0
+[repro] iter=39 rank=0 n_p2p_ops=456 xfer=17ms canary_bad=0 elapsed=40s
+[progress] rank=0 iter=39 done bad=0
+[progress] rank=7 iter=39 done bad=0
+[repro] MODE=perpeer ALL 40 ITERS COMPLETE total_canary_bad=0 wall=40s -> PASS

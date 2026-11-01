@@ -1,0 +1,12 @@
+=== MODE=single start 2026-10-20T16:55:45Z ===
+=== MODE=single rc=1 progress_lines=3 watchdog_hits=1 end 2026-10-20T16:56:14Z ===
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+=== MODE=perpeer start 2026-10-20T16:56:14Z ===
+=== MODE=perpeer rc=0 progress_lines=320 watchdog_hits=1 end 2026-10-20T16:57:07Z ===
+[progress] rank=0 iter=39 done bad=0
+[progress] rank=7 iter=39 done bad=0
+[repro] MODE=perpeer ALL 40 ITERS COMPLETE total_canary_bad=0 wall=40s -> PASS
+ALL_DONE 2026-10-20T16:57:07Z
+SINGLE2_RC=1 2026-10-20T17:03:05Z

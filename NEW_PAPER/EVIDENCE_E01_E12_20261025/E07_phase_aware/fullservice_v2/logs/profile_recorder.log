@@ -1,0 +1,7 @@
+/start_expert_distribution_record 200 Start recording the expert distribution.
+/stop_expert_distribution_record 200 Stop recording the expert distribution.
+/dump_expert_distribution_record 200 Dump expert distribution record.
+dump file: /workspace/logs/recdump/expert_distribution_recorder_1792041610.9686363.pt
+keys: ['rank', 'logical_count', 'average_utilization_rate_over_window']
+logical_count shape (1000, 94, 128) dtype torch.int32 sum 6077073680
+wrote /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/fullservice_v2/setup/counts_calibration.json 94 layers x 128 experts

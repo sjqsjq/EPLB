@@ -1,0 +1,24 @@
+[eacR5_A01] 7963 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "eacR5_A01",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+  "num_requests": 7963,
+  "concurrency": 256,
+  "ok": 7963,
+  "errors": 0,
+  "total_time_s": 368.0,
+  "total_comp_tokens": 7963,
+  "tps": 21.6,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 11319.1,
+  "lat_p50_ms": 8627.57,
+  "lat_p99_ms": 31977.58,
+  "ttft_mean_ms": 11319.09,
+  "ttft_p50_ms": 8627.52,
+  "ttft_p99_ms": 31977.54,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/eacR5_A01.json

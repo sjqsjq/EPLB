@@ -1,0 +1,59 @@
+[20:09:49] STEP1 doc universe
+[20:09:50]   needed: 13966 docs across 5 files
+[20:09:50]   read calibration: +5185 docs (total 5185)
+[20:09:54]   read domain_switch_160k: +3664 docs (total 8849)
+[20:09:55]   read fixeddata: +3021 docs (total 11870)
+[20:09:55]   read frozen_requests_longbench_4k: +208 docs (total 12078)
+[20:09:56]   read multidomain_v2: +1888 docs (total 13966)
+[20:09:56] STEP2 tokenize (13966 docs)
+[20:09:56]   tokenizing 13966 docs on 16 workers ...
+[20:10:00]     2000/13966 (4s)
+[20:10:00]     4000/13966 (4s)
+[20:10:00]     6000/13966 (5s)
+[20:10:01]     8000/13966 (5s)
+[20:10:01]     10000/13966 (5s)
+[20:10:01]     12000/13966 (5s)
+[20:10:02] STEP3 corpora + splits
+[20:10:02]   corpus book/confirm: 798 docs, 664545 tok
+[20:10:02]   corpus book/screen: 737 docs, 601081 tok
+[20:10:02]   corpus book/test: 4510 docs, 3631176 tok
+[20:10:02]   corpus code/confirm: 51 docs, 153600 tok
+[20:10:02]   corpus code/screen: 35 docs, 126976 tok
+[20:10:02]   corpus code/test: 247 docs, 827391 tok
+[20:10:02]   corpus prover/confirm: 570 docs, 199756 tok
+[20:10:02]   corpus prover/screen: 498 docs, 164482 tok
+[20:10:02]   corpus prover/test: 3132 docs, 1045450 tok
+[20:10:02]   corpus sharegpt/confirm: 438 docs, 298253 tok
+[20:10:02]   corpus sharegpt/screen: 394 docs, 269378 tok
+[20:10:02]   corpus sharegpt/test: 2556 docs, 1787690 tok
+[20:10:02] STEP4 pools
+[20:10:06] STEP5 streams
+[20:10:07]   pool code/test L2048 s256: 3221 windows
+[20:10:08]   pool prover/test L512 s256: 4082 windows
+[20:10:09]   pool sharegpt/test L512 s512: 3491 windows
+[20:10:10]   pool book/test L512 s512: 7092 windows
+[20:10:10]   pool code/test L512 s256: 3186 windows
+[20:10:11]   pool code/screen L2048 s256: 489 windows
+[20:10:11]   pool prover/screen L512 s256: 641 windows
+[20:10:11]   pool sharegpt/screen L512 s256: 1051 windows
+[20:10:11]   pool book/screen L512 s256: 2346 windows
+[20:10:11]   pool code/screen L512 s256: 495 windows
+[20:10:11]   pool code/confirm L2048 s256: 593 windows
+[20:10:11]   pool prover/confirm L512 s256: 779 windows
+[20:10:11]   pool sharegpt/confirm L512 s256: 1164 windows
+[20:10:12]   pool book/confirm L512 s256: 2594 windows
+[20:10:12]   pool code/confirm L512 s256: 599 windows
+[20:10:12] STEP6 write + registry
+[20:10:13]   e1_code_stable: n=3221 uniq=3221 sha=dee24c502f7f
+[20:10:13]   e2_prover_stable: n=4082 uniq=4082 sha=fa788238fa2d
+[20:10:13]   e3_multidomain_switch: n=8192 uniq=8192 sha=d55fe2f73376
+[20:10:13]   e4_fullduplex: n=2048 uniq=2048 sha=a024c5e61d0d
+[20:10:13]   calib_screen: n=1280 uniq=1280 sha=d4fa14d2ee28
+[20:10:13]   calib_confirm: n=1280 uniq=1280 sha=69ea817a3a20
+[20:10:14]   e1_code_stable: retokenized len p5/p50/p95 = 2048/2048/2048
+[20:10:14]   e2_prover_stable: retokenized len p5/p50/p95 = 512/512/512
+[20:10:14]   e3_multidomain_switch: retokenized len p5/p50/p95 = 512/512/512
+[20:10:14]   e4_fullduplex: retokenized len p5/p50/p95 = 512/512/512
+[20:10:14]   calib_screen: retokenized len p5/p50/p95 = 512/512/2048
+[20:10:14]   calib_confirm: retokenized len p5/p50/p95 = 512/512/2048
+[20:10:14] DONE in 25s — registry.json written

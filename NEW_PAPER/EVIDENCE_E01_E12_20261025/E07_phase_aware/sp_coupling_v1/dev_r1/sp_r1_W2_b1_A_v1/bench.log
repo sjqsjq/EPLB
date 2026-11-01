@@ -1,0 +1,28 @@
+[sp_r1_W2_b1_A_v1] 8000 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w2_switch_code_chinese_8000.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "sp_r1_W2_b1_A_v1",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w2_switch_code_chinese_8000.jsonl",
+  "num_requests": 8000,
+  "concurrency": 256,
+  "ok": 8000,
+  "errors": 0,
+  "total_time_s": 713.67,
+  "total_comp_tokens": 8000,
+  "tps": 11.2,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 22493.1,
+  "lat_p50_ms": 22593.22,
+  "lat_p99_ms": 24988.75,
+  "ttft_mean_ms": 22493.01,
+  "ttft_p50_ms": 22593.15,
+  "ttft_p99_ms": 24988.72,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 7101313259546402,
+  "mono_end_ns": 7102026925536116,
+  "wall_start_s": 1792342213.711255,
+  "wall_end_s": 1792342927.377245
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/sp_r1_W2_b1_A_v1.json

@@ -1,0 +1,43 @@
+[mt/fair] Phase P: profile /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/L512_O1_realprover_head2048.jsonl
+[mt/fair] profile_fair ready
+[mt/fair] curl /start_expert_distribution_record
+Start recording the expert distribution.
+
+[mt/fair] profile bench done
+[mt/fair] curl /stop_expert_distribution_record
+Stop recording the expert distribution.
+
+[mt/fair] curl /dump_expert_distribution_record
+Dump expert distribution record.
+
+driver_moetuner.sh: line 74: 215089 Killed                  setsid nohup bash $script > $LOGD/server235b_${tag}.log 2>&1 < /dev/null
+-rw-r--r-- 1 root root 48130049 Sep 16 12:17 /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/profile_fair/expert_distribution_recorder_1789561078.1837718.pt
+[mt/fair] Phase S: pt->npz->ILP1
+found 1 files; using 1
+  expert_distribution_recorder_1789561078.1837718.pt: rank=0 shape=(1000, 94, 128) steps=1000 sum=782633472
+[out] P shape=(94, 128) total_steps=1000 sum=782633472
+[out] mean(P.sum(axis=1)) per layer = 8325888.0
+[out] layer 0 imb (max/mean) = 5.931
+wrote /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/profile_fair/P.npz
+[2026-09-16 12:18:28,989] profile: fwds=1000, P.shape=(94, 128), total_tokens_per_layer_mean=8325888
+Restricted license - for non-production use only - expires 2027-11-29
+[2026-09-16 12:18:28,996] Restricted license - for non-production use only - expires 2027-11-29
+[2026-09-16 12:19:29,516] layer 0: obj=8 imbalance=1.000 solve=60.01s
+[2026-09-16 12:26:52,413] layer 10: obj=0 imbalance=1.000 solve=46.24s
+[2026-09-16 12:30:51,436] layer 20: obj=0 imbalance=1.000 solve=10.79s
+[2026-09-16 12:37:55,881] layer 30: obj=10 imbalance=1.000 solve=60.03s
+[2026-09-16 12:43:10,539] layer 40: obj=2 imbalance=1.000 solve=60.02s
+[2026-09-16 12:48:00,825] layer 50: obj=0 imbalance=1.000 solve=10.85s
+[2026-09-16 12:56:23,735] layer 60: obj=2 imbalance=1.000 solve=60.01s
+[2026-09-16 13:00:54,364] layer 70: obj=0 imbalance=1.000 solve=30.33s
+[2026-09-16 13:07:18,314] layer 80: obj=0 imbalance=1.000 solve=6.72s
+[2026-09-16 13:15:29,683] layer 90: obj=2 imbalance=1.000 solve=60.01s
+[2026-09-16 13:18:05,495] Solved 94 layers in total 3558.3s. mean_imbalance=1.000
+[2026-09-16 13:18:05,503] wrote /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/placement_fair.json + /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/placement_fair.meta.json
+[mt/fair] Phase B: benchmark on /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/L512_O1_realprover_tail6144.jsonl
+[mt/fair] mt_fair_r1 ready
+[mt/fair] r1 done
+driver_moetuner.sh: line 34: 223524 Killed                  setsid nohup bash $script > $LOGD/server235b_${tag}.log 2>&1 < /dev/null
+[mt/fair] mt_fair_r2 ready
+[mt/fair] r2 done
+[mt/fair] ALL_DONE

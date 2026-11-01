@@ -1,0 +1,36 @@
+[2026-10-15T05:11:48+00:00] SPLIT_OK calib=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl eval=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl
+[2026-10-15T05:11:48+00:00] CAMPAIGN_START 0e982cd11fe8fd47
+[2026-10-15T05:11:48+00:00] PHASE0 profiling boot (deepep-mode normal per recorder requirement)
+[2026-10-15T05:13:23+00:00] PHASE0 recording; running CALIBRATION workload pass (untimed setup)
+[2026-10-15T05:20:09+00:00] PHASE0 profile bench rc=0
+run_fullservice_campaign_v2.sh: line 73: 688106 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:20:17+00:00] PHASE0 generating frozen map from CALIBRATION counts
+[2026-10-15T05:20:28+00:00] PHASE0 done frozen_map sha=237fa8b3948f830ab147515405bfbbf01387ce1f8ed726578554e9ccd1aadab0 (calibration-derived)
+[2026-10-15T05:20:28+00:00] RUN fs300v2_id_s1 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T05:28:24+00:00] BENCH_DONE fs300v2_id_s1 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 693642 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:28:30+00:00] RUN fs300v2_fx_s1 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T05:29:44+00:00] BOOT_FAIL fs300v2_fx_s1 rc=2
+run_fullservice_campaign_v2.sh: line 73: 698856 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:29:49+00:00] RUN fs300v2_on_s1 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T05:37:20+00:00] BENCH_DONE fs300v2_on_s1 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 705022 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:37:26+00:00] RUN fs300v2_id_s2 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T05:45:31+00:00] BENCH_DONE fs300v2_id_s2 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 711696 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:45:36+00:00] RUN fs300v2_fx_s2 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T05:46:46+00:00] BOOT_FAIL fs300v2_fx_s2 rc=2
+run_fullservice_campaign_v2.sh: line 73: 716957 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:46:52+00:00] RUN fs300v2_on_s2 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T05:54:15+00:00] BENCH_DONE fs300v2_on_s2 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 722984 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T05:54:21+00:00] RUN fs300v2_id_s3 arm=identity launcher=launch235b_identity.sh
+[2026-10-15T06:02:07+00:00] BENCH_DONE fs300v2_id_s3 rc=0 init_by_mapping=0 oeplb_init=0 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 729672 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T06:02:13+00:00] RUN fs300v2_fx_s3 arm=frozen launcher=launch235b_fixedh20.sh
+[2026-10-15T06:03:22+00:00] BOOT_FAIL fs300v2_fx_s3 rc=2
+run_fullservice_campaign_v2.sh: line 73: 735015 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T06:03:28+00:00] RUN fs300v2_on_s3 arm=online launcher=launch235b_oeplb.sh
+[2026-10-15T06:10:54+00:00] BENCH_DONE fs300v2_on_s3 rc=0 init_by_mapping=0 oeplb_init=8 tracebacks=0
+run_fullservice_campaign_v2.sh: line 73: 741178 Killed                  setsid nohup bash "$launcher" "$@" > "$lg" 2>&1
+[2026-10-15T06:10:59+00:00] CAMPAIGN_DONE

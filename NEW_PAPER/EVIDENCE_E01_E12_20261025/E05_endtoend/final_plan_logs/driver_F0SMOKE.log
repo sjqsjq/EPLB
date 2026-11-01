@@ -1,0 +1,37 @@
+[2026-10-18T20:45:18Z] [F0SMOKE] FATAL: bench client sha mismatch
+[2026-10-18T20:45:31Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=1
+[2026-10-18T20:45:31Z] [F0SMOKE] DRY_RUN complete (8 rows)
+[2026-10-18T20:45:46Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=1
+[2026-10-18T20:46:21Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T20:46:33Z] [F0SMOKE] boot failure seq=1 f0_I (infra_used=0)
+[2026-10-18T20:46:39Z] [F0SMOKE] INFRA re-boot #1 for f0_I
+[2026-10-18T20:46:45Z] [F0SMOKE] HALT: second boot failure seq=1 f0_I (INFRA_CAP path)
+[2026-10-18T20:48:37Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=1
+[2026-10-18T20:48:45Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T20:50:23Z] [F0SMOKE] BOOT_OK f0_I (pid 238940)
+[2026-10-18T20:51:02Z] [F0SMOKE] verdict f0_I: VALID
+[2026-10-18T20:51:18Z] [F0SMOKE] boot failure seq=2 f0_E_e1 (infra_used=0)
+[2026-10-18T20:51:24Z] [F0SMOKE] INFRA re-boot #1 for f0_E_e1
+[2026-10-18T20:51:34Z] [F0SMOKE] HALT: second boot failure seq=2 f0_E_e1 (INFRA_CAP path)
+[2026-10-18T21:23:36Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T21:23:36Z] [F0SMOKE] resume-skip f0_I (already VALID)
+[2026-10-18T21:24:18Z] [F0SMOKE] boot failure seq=2 f0_E_e1 (infra_used=0)
+[2026-10-18T21:24:25Z] [F0SMOKE] INFRA re-boot #1 for f0_E_e1
+[2026-10-18T21:24:57Z] [F0SMOKE] HALT: second boot failure seq=2 f0_E_e1 (INFRA_CAP path)
+[2026-10-18T21:29:49Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T21:29:49Z] [F0SMOKE] resume-skip f0_I (already VALID)
+[2026-10-18T21:32:11Z] [F0SMOKE] BOOT_OK f0_E_e1 (pid 258331)
+[2026-10-18T21:34:23Z] [F0SMOKE] verdict f0_E_e1: VALID
+[2026-10-18T21:35:33Z] [F0SMOKE] BOOT_OK f0_P (pid 265552)
+[2026-10-18T21:36:14Z] [F0SMOKE] verdict f0_P: VALID
+[2026-10-18T21:37:20Z] [F0SMOKE] BOOT_OK f0_F_2_16_32 (pid 272212)
+[2026-10-18T21:38:08Z] [F0SMOKE] verdict f0_F_2_16_32: VALID
+[2026-10-18T21:39:23Z] [F0SMOKE] BOOT_OK f0_A1 (pid 278904)
+[2026-10-18T21:40:03Z] [F0SMOKE] verdict f0_A1: VALID
+[2026-10-18T21:41:18Z] [F0SMOKE] BOOT_OK f0_A2 (pid 285829)
+[2026-10-18T21:42:02Z] [F0SMOKE] verdict f0_A2: VALID
+[2026-10-18T21:43:21Z] [F0SMOKE] BOOT_OK f0_A3 (pid 292785)
+[2026-10-18T21:44:03Z] [F0SMOKE] verdict f0_A3: VALID
+[2026-10-18T21:45:22Z] [F0SMOKE] BOOT_OK f0_A4 (pid 299712)
+[2026-10-18T21:46:02Z] [F0SMOKE] verdict f0_A4: VALID
+[2026-10-18T21:46:09Z] [F0SMOKE] SMOKE_GATE_FAIL: 0/8 VALID

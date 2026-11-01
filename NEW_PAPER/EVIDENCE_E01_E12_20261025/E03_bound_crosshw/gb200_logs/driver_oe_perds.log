@@ -1,0 +1,33 @@
+[16:29:05] === OEPLB fresh boot for mmlu ===
+[16:30:45] mmlu ready; warmup×4
+[16:31:51] mmlu DONE  真实r_before(avg_ratio_before=1.171) r_after(avg_ratio_after=1.017)
+[16:31:51] === OEPLB fresh boot for gsm8k ===
+/workspace/logs/driver_oe_perds.sh: line 7: 158552 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[16:33:30] gsm8k ready; warmup×4
+[16:34:39] gsm8k DONE  真实r_before(avg_ratio_before=1.296) r_after(avg_ratio_after=1.018)
+[16:34:39] === OEPLB fresh boot for humaneval ===
+/workspace/logs/driver_oe_perds.sh: line 7: 162059 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:36:18] humaneval ready; warmup×4
+[16:37:35] humaneval DONE  真实r_before(avg_ratio_before=1.232) r_after(avg_ratio_after=1.016)
+[16:37:35] === OEPLB fresh boot for cmmlu ===
+/workspace/logs/driver_oe_perds.sh: line 7: 165518 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:39:22] cmmlu ready; warmup×4
+[16:40:31] cmmlu DONE  真实r_before(avg_ratio_before=1.230) r_after(avg_ratio_after=1.018)
+[16:40:31] === OEPLB fresh boot for csqa ===
+/workspace/logs/driver_oe_perds.sh: line 7: 168884 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:42:10] csqa ready; warmup×4
+[16:43:17] csqa DONE  真实r_before(avg_ratio_before=1.265) r_after(avg_ratio_after=1.018)
+[16:43:17] === OEPLB fresh boot for arc_easy ===
+/workspace/logs/driver_oe_perds.sh: line 7: 172381 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:45:04] arc_easy ready; warmup×4
+[16:46:10] arc_easy DONE  真实r_before(avg_ratio_before=1.210) r_after(avg_ratio_after=1.017)
+[16:46:10] === OEPLB fresh boot for obqa ===
+/workspace/logs/driver_oe_perds.sh: line 7: 175892 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:47:49] obqa ready; warmup×4
+[16:48:51] obqa DONE  真实r_before(avg_ratio_before=1.228) r_after(avg_ratio_after=1.016)
+[16:48:51] === OEPLB fresh boot for prover256 ===
+/workspace/logs/driver_oe_perds.sh: line 7: 179333 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:50:30] prover256 ready; warmup×4
+[16:52:09] prover256 DONE  真实r_before(avg_ratio_before=1.344) r_after(avg_ratio_after=1.017)
+/workspace/logs/driver_oe_perds.sh: line 21: 182790 Killed                  setsid bash $LOGD/launch_oeplb.sh > $LOGD/srv_oe_$ds.log 2>&1 < /dev/null
+[16:52:13] OE_PERDS_DONE

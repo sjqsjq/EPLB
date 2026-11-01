@@ -1,0 +1,15 @@
+[2026-10-18T15:24:57+00:00] === SP DRIVER phase=SMOKE_R1 start (DRY_RUN=1, timed_starts_used=0/2, infra_reboots_used=0/3) ===
+[2026-10-18T15:24:57+00:00] DRY seq=1 phase=SMOKE_R1 cond=SMOKE block=b1 arm=A_v1 SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/smoke_r1/sp_r1_smoke_A_v1/v2p1_rank0.jsonl ds=smoke_w1_300.jsonl nreq=300 label=sp_r1_smoke_A_v1 art=results/sp_coupling_v1/smoke_r1/sp_r1_smoke_A_v1
+[2026-10-18T15:24:57+00:00] DRY seq=2 phase=SMOKE_R1 cond=SMOKE block=b1 arm=A_rev1 SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/smoke_r1/sp_r1_smoke_A_rev1/v2p1_rank0.jsonl ds=smoke_w1_300.jsonl nreq=300 label=sp_r1_smoke_A_rev1 art=results/sp_coupling_v1/smoke_r1/sp_r1_smoke_A_rev1
+[2026-10-18T15:27:53+00:00] === SP DRIVER phase=SMOKE_R1 start (DRY_RUN=0, timed_starts_used=0/2, infra_reboots_used=0/3) ===
+[2026-10-18T15:27:53+00:00] === seq 1 : phase=SMOKE_R1 cond=SMOKE block=b1 arm=A_v1 label=sp_r1_smoke_A_v1 ===
+[2026-10-18T15:28:00+00:00] seq 1 boot start (attempt 1)
+[2026-10-18T15:29:24+00:00] seq 1 boot OK in 84s — bench start (timed start #1/2)
+[2026-10-18T15:29:59+00:00] seq 1 bench rc=0
+[2026-10-18T15:29:59+00:00] seq 1 VERDICT=VALID total_time_s=32.82 (checker rc=0)
+[2026-10-18T15:30:06+00:00] === seq 2 : phase=SMOKE_R1 cond=SMOKE block=b1 arm=A_rev1 label=sp_r1_smoke_A_rev1 ===
+[2026-10-18T15:30:12+00:00] seq 2 boot start (attempt 1)
+[2026-10-18T15:31:24+00:00] seq 2 boot OK in 72s — bench start (timed start #2/2)
+[2026-10-18T15:31:59+00:00] seq 2 bench rc=0
+[2026-10-18T15:31:59+00:00] seq 2 VERDICT=VALID total_time_s=31.86 (checker rc=0)
+[2026-10-18T15:32:05+00:00] === PHASE SMOKE_R1 LOOP FINISHED (VALID total: 2; timed starts used: 2/2; INFRA re-boots: 0/3) ===

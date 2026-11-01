@@ -1,0 +1,41 @@
+note: scan analysis label = 'near_equilibrium_real_layout_scan_deadzone'
+{
+ "status": "cost_benefit_comparison_complete",
+ "output": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/nearscan_v1/cost_benefit.json",
+ "sha256": "1e6eca7cb831a4705e847c940b5524da84a5954b9bfc764754ca6bf52f0c4612",
+ "summary": {
+  "cumulative_rows": 83,
+  "marginal_final_step_rows": 12,
+  "breakeven_batch_status_counts": {
+   "indeterminate_ci_crosses_zero": 9,
+   "finite_break_even": 74
+  },
+  "breakeven_seq_status_counts": {
+   "indeterminate_ci_crosses_zero": 9,
+   "finite_break_even": 74
+  },
+  "marginal_single_swap_status_counts": {
+   "no_finite_beneficial_breakeven": 1,
+   "indeterminate_ci_crosses_zero": 11
+  },
+  "finite_batch_breakeven_rows": 74,
+  "finite_batch_breakeven_forwards": {
+   "min": 0.45056937285846604,
+   "median": 2.787363145155536,
+   "max": 6.439107735475579
+  },
+  "single_swap_cost_per_capture_mean_us_range": [
+   1313.4754291666666,
+   1407.5632177083335
+  ],
+  "multi_batch_cost_per_capture_mean_us_range": [
+   2983.3731450000005,
+   3831.608032499999
+  ],
+  "stopping_study_break_even_counts": {
+   "indeterminate_ci_crosses_zero": 92,
+   "no_finite_beneficial_breakeven": 51,
+   "finite_break_even": 1
+  }
+ }
+}

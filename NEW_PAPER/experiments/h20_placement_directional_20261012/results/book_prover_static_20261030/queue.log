@@ -1,0 +1,25 @@
+[queue] OLD_b1 arm=B2P_OLD start 2026-10-31T02:40:54Z
+[OLD_b1] ready=yes after 104s 2026-10-31T02:42:38Z
+[OLD_b1] bench rc=0 2026-10-31T02:46:19Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/scripts/run_b2p_boot.sh: line 87: 1772181 Killed                  ART=$ART setsid nohup bash $PB/scripts/launch_arm_b2p.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+INCOMPLETE OLD_b1 facts="v2p1_rank0.jsonl missing"
+[queue] OLD_b1 rc=1 logged continue 2026-10-31T02:46:47Z
+[queue] REF_b1 arm=B2P_REF start 2026-10-31T02:46:47Z
+[REF_b1] ready=yes after 92s 2026-10-31T02:48:20Z
+[REF_b1] bench rc=0 2026-10-31T02:51:32Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/scripts/run_b2p_boot.sh: line 87: 1779094 Killed                  ART=$ART setsid nohup bash $PB/scripts/launch_arm_b2p.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+INCOMPLETE REF_b1 facts="v2p1_rank0.jsonl missing"
+[queue] REF_b1 rc=1 logged continue 2026-10-31T02:52:03Z
+[queue] REF_b2 arm=B2P_REF start 2026-10-31T02:52:03Z
+[REF_b2] ready=yes after 88s 2026-10-31T02:53:32Z
+[REF_b2] bench rc=0 2026-10-31T02:56:42Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/scripts/run_b2p_boot.sh: line 87: 1785941 Killed                  ART=$ART setsid nohup bash $PB/scripts/launch_arm_b2p.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+INCOMPLETE REF_b2 facts="v2p1_rank0.jsonl missing"
+[queue] REF_b2 rc=1 logged continue 2026-10-31T02:57:11Z
+[queue] OLD_b2 arm=B2P_OLD start 2026-10-31T02:57:11Z
+[OLD_b2] ready=yes after 88s 2026-10-31T02:58:39Z
+[OLD_b2] bench rc=0 2026-10-31T03:02:11Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/scripts/run_b2p_boot.sh: line 87: 1792760 Killed                  ART=$ART setsid nohup bash $PB/scripts/launch_arm_b2p.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+INCOMPLETE OLD_b2 facts="v2p1_rank0.jsonl missing"
+[queue] OLD_b2 rc=1 logged continue 2026-10-31T03:02:41Z
+[queue] QUEUE_B2P_DONE 4 boots 2026-10-31T03:02:41Z

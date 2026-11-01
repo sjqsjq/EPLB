@@ -1,0 +1,45 @@
+[mt/pinned_fair] Phase P: profile /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/pinned10x_head1024.jsonl
+[mt/pinned_fair] profile_pinned_fair ready
+[mt/pinned_fair] curl /start_expert_distribution_record
+Start recording the expert distribution.
+
+[mt/pinned_fair] profile bench done
+[mt/pinned_fair] curl /stop_expert_distribution_record
+Stop recording the expert distribution.
+
+[mt/pinned_fair] curl /dump_expert_distribution_record
+Dump expert distribution record.
+
+driver_moetuner.sh: line 77: 258799 Killed                  setsid nohup bash $script > $LOGD/server235b_${tag}.log 2>&1 < /dev/null
+-rw-r--r-- 1 root root 48130035 Sep 16 15:49 /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/profile_pinned_fair/expert_distribution_recorder_1789573748.76484.pt
+[mt/pinned_fair] Phase S: pt->npz->ILP1
+found 1 files; using 1
+  expert_distribution_recorder_1789573748.76484.pt: rank=0 shape=(1000, 94, 128) steps=1000 sum=194029536
+[out] P shape=(94, 128) total_steps=1000 sum=194029536
+[out] mean(P.sum(axis=1)) per layer = 2064144.0
+[out] layer 0 imb (max/mean) = 4.093
+wrote /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/profile_pinned_fair/P.npz
+[2026-09-16 15:49:39,374] profile: fwds=1000, P.shape=(94, 128), total_tokens_per_layer_mean=2064144
+Restricted license - for non-production use only - expires 2027-11-29
+[2026-09-16 15:49:39,377] Restricted license - for non-production use only - expires 2027-11-29
+[2026-09-16 15:50:05,324] layer 0: obj=0 imbalance=1.000 solve=25.87s
+[2026-09-16 15:52:03,997] layer 10: obj=0 imbalance=1.000 solve=7.22s
+[2026-09-16 15:53:09,825] layer 20: obj=0 imbalance=1.000 solve=9.40s
+[2026-09-16 15:55:08,559] layer 30: obj=0 imbalance=1.000 solve=7.23s
+[2026-09-16 15:56:28,897] layer 40: obj=0 imbalance=1.000 solve=18.91s
+[2026-09-16 15:57:49,034] layer 50: obj=0 imbalance=1.000 solve=4.33s
+[2026-09-16 15:59:49,629] layer 60: obj=0 imbalance=1.000 solve=22.56s
+[2026-09-16 16:00:57,854] layer 70: obj=0 imbalance=1.000 solve=3.39s
+[2026-09-16 16:03:36,482] layer 80: obj=0 imbalance=1.000 solve=17.97s
+[2026-09-16 16:05:58,964] layer 90: obj=0 imbalance=1.000 solve=18.69s
+[2026-09-16 16:06:38,557] Solved 94 layers in total 1015.5s. mean_imbalance=1.000
+[2026-09-16 16:06:38,562] wrote /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/placement_pinned_fair.json + /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/placement_pinned_fair.meta.json
+[mt/pinned_fair] Phase B: benchmark on /workspace/EPLB/OEPLB/baselines/moetuner/artifacts/pinned10x_tail1024.jsonl
+grep: /workspace/logs/server235b_mt_pinned_fair_r1.log: No such file or directory
+grep: /workspace/logs/server235b_mt_pinned_fair_r1.log: No such file or directory
+[mt/pinned_fair] mt_pinned_fair_r1 ready
+[mt/pinned_fair] r1 done
+driver_moetuner.sh: line 37: 267121 Killed                  setsid nohup bash $script > $LOGD/server235b_${tag}.log 2>&1 < /dev/null
+[mt/pinned_fair] mt_pinned_fair_r2 ready
+[mt/pinned_fair] r2 done
+[mt/pinned_fair] ALL_DONE

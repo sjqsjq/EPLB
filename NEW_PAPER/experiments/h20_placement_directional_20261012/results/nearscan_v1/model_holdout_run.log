@@ -1,0 +1,6 @@
+wrote /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/nearscan_v1/model_holdout.json
+M0_raw               MAE    78.9 us  bias   +63.1 us  rho +0.946  tau +0.807  regret   14.3 us
+M1_padding_128       MAE   100.6 us  bias   +92.3 us  rho +0.945  tau +0.798  regret    8.0 us
+M2_grouped_gemm      MAE   115.0 us  bias  +103.5 us  rho +0.929  tau +0.771  regret   20.6 us
+S_linear_no_plateau  MAE    38.7 us  bias    +4.5 us  rho +0.970  tau +0.862  regret   14.3 us
+H_padding_linear     MAE    30.8 us  bias   +16.5 us  rho +0.983  tau +0.897  regret    9.1 us

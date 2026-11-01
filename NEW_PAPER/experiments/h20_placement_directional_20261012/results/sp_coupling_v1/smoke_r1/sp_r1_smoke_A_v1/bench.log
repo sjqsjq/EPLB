@@ -1,0 +1,28 @@
+[sp_r1_smoke_A_v1] 300 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/smoke_w1_300.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "sp_r1_smoke_A_v1",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/smoke_w1_300.jsonl",
+  "num_requests": 300,
+  "concurrency": 256,
+  "ok": 300,
+  "errors": 0,
+  "total_time_s": 32.82,
+  "total_comp_tokens": 300,
+  "tps": 9.1,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 18505.6,
+  "lat_p50_ms": 19905.9,
+  "lat_p99_ms": 29045.7,
+  "ttft_mean_ms": 18505.51,
+  "ttft_p50_ms": 19905.87,
+  "ttft_p99_ms": 29045.67,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 7096466595806308,
+  "mono_end_ns": 7096499417744608,
+  "wall_start_s": 1792337367.047515,
+  "wall_end_s": 1792337399.869454
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/sp_r1_smoke_A_v1.json

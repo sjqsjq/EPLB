@@ -1,0 +1,32 @@
+[15:37:26] === identity boot ===
+[15:39:09] identity ready
+[15:39:22] identity warmup(1) done
+[15:39:48] identity timed done
+[15:39:48] === moetuner boot ===
+/workspace/logs/driver_samedomain.sh: line 9: 129571 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[15:41:15] moetuner ready
+[15:41:27] moetuner warmup(1) done
+[15:41:52] moetuner timed done
+[15:41:52] === datafore boot ===
+/workspace/logs/driver_samedomain.sh: line 9: 132182 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null
+[15:43:27] datafore ready
+[15:43:39] datafore warmup(1) done
+[15:44:04] datafore timed done
+[15:44:04] === oeplb_def boot ===
+/workspace/logs/driver_samedomain.sh: line 9: 135405 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null
+[15:45:47] oeplb_def ready
+[15:46:28] oeplb_def warmup(4) done
+[15:46:53] oeplb_def timed done
+  DIAG尾:
+avg_ratio_before=1.057 avg_ratio_after=1.018
+avg_ratio_before=1.056 avg_ratio_after=1.018
+[15:46:53] === oeplb_aggr boot ===
+/workspace/logs/driver_samedomain.sh: line 9: 138517 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null
+[15:48:28] oeplb_aggr ready
+[15:49:07] oeplb_aggr warmup(4) done
+[15:49:32] oeplb_aggr timed done
+  DIAG尾:
+avg_ratio_before=1.008 avg_ratio_after=1.002
+avg_ratio_before=1.007 avg_ratio_after=1.002
+/workspace/logs/driver_samedomain.sh: line 22: 141740 Killed                  setsid bash ${L[$tag]} > $LOGD/srv_$tag.log 2>&1 < /dev/null
+[15:49:36] SAMEDOMAIN_DONE

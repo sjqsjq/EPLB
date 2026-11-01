@@ -1,0 +1,45 @@
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/correctness/gpu_harness/test_swap_race_gpu.py", line 49, in <module>
+[rank5]:     l: [fill(l, rank * NUM_LOCAL + j, 0, NW).unsqueeze(0) for j in range(NUM_LOCAL)],
+[rank5]:     ^
+[rank5]: NameError: name 'l' is not defined. Did you mean: 'L'?
+W1020 07:25:37.726000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795139 closing signal SIGTERM
+W1020 07:25:37.726000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795140 closing signal SIGTERM
+W1020 07:25:37.727000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795141 closing signal SIGTERM
+W1020 07:25:37.727000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795142 closing signal SIGTERM
+W1020 07:25:37.727000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795143 closing signal SIGTERM
+W1020 07:25:37.727000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795145 closing signal SIGTERM
+W1020 07:25:37.727000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1795146 closing signal SIGTERM
+E1020 07:25:38.230000 1795134 site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 5 (pid: 1795144) of binary: /opt/conda/bin/python3.11
+Traceback (most recent call last):
+  File "/opt/conda/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+test_swap_race_gpu.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-20_07:25:37
+  host      : mlflow-training-ur7y05-511762-n3-master-0
+  rank      : 5 (local_rank: 5)
+  exitcode  : 1 (pid: 1795144)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

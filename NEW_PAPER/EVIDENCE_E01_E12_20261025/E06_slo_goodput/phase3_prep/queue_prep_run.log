@@ -1,0 +1,21 @@
+[prep3_C1_I_E3] ready=yes after 100s 2026-10-20T09:17:32Z
+[prep3_C1_I_E3] bench rc=0 2026-10-20T09:20:58Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/run_prep_boot.sh: line 11: 1823867 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS prep3_C1_I_E3 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "bench_complete": true, "perreq_lines": true}
+[prep3_C2_I_E4] ready=yes after 84s 2026-10-20T09:22:42Z
+[prep3_C2_I_E4] bench rc=0 2026-10-20T09:24:26Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/run_prep_boot.sh: line 11: 1829295 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS prep3_C2_I_E4 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "bench_complete": true, "perreq_lines": true}
+SLO reference frozen: {"E3": {"n_ok": 8192, "ref_p95_TTFT_s": 6.7419}, "E4": {"n_ok": 2048, "ref_p95_TTFT_s": 7.3127, "ref_p95_TPOT_s": 0.08313, "n_tpot": 2048}}
+[prep3_A1_Enative_E3] ready=yes after 72s 2026-10-20T09:26:03Z
+[prep3_A1_Enative_E3] bench rc=0 2026-10-20T09:29:42Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/run_prep_boot.sh: line 11: 1834594 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS prep3_A1_Enative_E3 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "bench_complete": true, "perreq_lines": true}
+[prep3_A2_Enative_E4] ready=yes after 72s 2026-10-20T09:31:18Z
+[prep3_A2_Enative_E4] bench rc=0 2026-10-20T09:36:46Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/run_prep_boot.sh: line 11: 1841031 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS prep3_A2_Enative_E4 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "bench_complete": true, "perreq_lines": true}
+[prep3_B1_P_E3] ready=yes after 96s 2026-10-20T09:38:42Z
+[prep3_B1_P_E3] bench rc=124 2026-10-20T10:38:47Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/run_prep_boot.sh: line 11: 1847589 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+FAIL prep3_B1_P_E3 {"no_watchdog": false, "no_scheduler_exc": false, "no_coalesced_err": false, "no_rank_desync": true, "planhash_identity": true, "swaps_min": true, "v2p1_no_desync": true, "v2p1_hash_identical": true, "p2l_version_match": true, "bench_complete": false, "perreq_lines": false}

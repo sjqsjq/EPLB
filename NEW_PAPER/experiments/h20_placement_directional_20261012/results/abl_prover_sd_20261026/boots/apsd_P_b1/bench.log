@@ -1,0 +1,35 @@
+[apsd_P_b1] 2048 reqs from /data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_256tok_out1.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "apsd_P_b1",
+  "dataset": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_256tok_out1.jsonl",
+  "num_requests": 2048,
+  "concurrency": 256,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 24.84,
+  "total_comp_tokens": 2048,
+  "tps": 82.5,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 2972.8,
+  "lat_p50_ms": 2591.35,
+  "lat_p95_ms": 4444.69,
+  "lat_p99_ms": 4664.07,
+  "ttft_mean_ms": 2972.74,
+  "ttft_p50_ms": 2591.3,
+  "ttft_p95_ms": 4444.67,
+  "ttft_p99_ms": 4664.04,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p95_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 7774444011728483,
+  "mono_end_ns": 7774468850497232,
+  "wall_start_s": 1793015344.463437,
+  "wall_end_s": 1793015369.302205,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 516195,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/boots/apsd_P_b1/apsd_P_b1.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/boots/apsd_P_b1/apsd_P_b1_perreq.jsonl (2048 rows)

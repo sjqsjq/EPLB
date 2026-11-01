@@ -1,0 +1,32 @@
+[2026-10-17T06:23:15+00:00] CAMPAIGN START: v2.1 r3 calibration logging (4 slots, order 8/16/32/64)
+[2026-10-17T06:23:15+00:00] === SLOT W=8 attempt 1 ===
+[2026-10-17T06:23:21+00:00] W=8 boot start (attempt 1)
+[2026-10-17T06:24:49+00:00] W=8 boot rc=0 after ~92s
+[2026-10-17T06:31:14+00:00] W=8 bench rc=0
+[2026-10-17T06:31:14+00:00] W=8 jsonl_lines=132 fatal_collective=0
+[2026-10-17T06:31:20+00:00] === SLOT W=8 attempt 1 OK ===
+[2026-10-17T06:31:20+00:00] === SLOT W=16 attempt 1 ===
+[2026-10-17T06:31:26+00:00] W=16 boot start (attempt 1)
+[2026-10-17T06:33:02+00:00] W=16 boot rc=0 after ~100s
+[2026-10-17T06:39:34+00:00] W=16 bench rc=0
+[2026-10-17T06:39:34+00:00] W=16 jsonl_lines=66 fatal_collective=0
+[2026-10-17T06:39:40+00:00] === SLOT W=16 attempt 1 OK ===
+[2026-10-17T06:39:40+00:00] === SLOT W=32 attempt 1 ===
+[2026-10-17T06:39:46+00:00] W=32 boot start (attempt 1)
+[2026-10-17T06:41:02+00:00] W=32 boot rc=0 after ~80s
+[2026-10-17T06:47:24+00:00] W=32 bench rc=0
+[2026-10-17T06:47:24+00:00] W=32 jsonl_lines=33 fatal_collective=0
+[2026-10-17T06:47:34+00:00] === SLOT W=32 attempt 1 OK ===
+[2026-10-17T06:47:34+00:00] === SLOT W=64 attempt 1 ===
+[2026-10-17T06:47:40+00:00] W=64 boot start (attempt 1)
+[2026-10-17T06:49:04+00:00] W=64 boot rc=0 after ~88s
+[2026-10-17T06:55:45+00:00] W=64 bench rc=0
+[2026-10-17T06:55:45+00:00] W=64 jsonl_lines=16 fatal_collective=0
+[2026-10-17T06:55:52+00:00] === SLOT W=64 attempt 1 OK ===
+[2026-10-17T06:55:52+00:00] CAMPAIGN DONE: all 4 logging runs completed
+[2026-10-17T07:26:59+00:00] === BEHAVIOR VALIDATION RUN (frozen knobs, W live, W_init=16) ===
+[2026-10-17T07:27:05+00:00] BEHAVIOR boot start
+[2026-10-17T07:28:09+00:00] BEHAVIOR boot rc=0 after ~68s
+[2026-10-17T07:34:13+00:00] BEHAVIOR bench rc=0
+[2026-10-17T07:34:13+00:00] BEHAVIOR jsonl_lines=32 fatal=0
+[2026-10-17T07:34:19+00:00] === BEHAVIOR RUN DONE (brc=0 nl=32 fatal=0) ===

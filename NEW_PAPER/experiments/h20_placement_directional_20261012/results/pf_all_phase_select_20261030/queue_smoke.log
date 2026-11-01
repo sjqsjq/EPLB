@@ -1,0 +1,18 @@
+[queue] SMOKE_G3_START 2026-10-31T03:45:39Z
+[queue] boot SM_PF 2026-10-31T03:45:39Z
+[SM_PF] ready=yes after 68s 2026-10-31T03:46:47Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/scripts/run_g3_boot.sh: line 103: /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/boots/SM_PF/v2p1_rank0.jsonl: No such file or directory
+[SM_PF] seg SM_PF_arc bench rc=0 2026-10-31T03:47:08Z
+[SM_PF] seg SM_PF_prov bench rc=0 2026-10-31T03:47:31Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/scripts/run_g3_boot.sh: line 75: 1800503 Killed                  ART=$ART setsid nohup bash $G3/scripts/launch_arm_g3.sh $ARM > "$ART/server.log" 2>&1
+CHECK_G3 label=SM_PF mode=smoke arm=G3_PF all_pass=True fails=
+[queue] boot SM_PF rc=0 2026-10-31T03:48:05Z
+[queue] boot SM_ALL 2026-10-31T03:48:05Z
+[SM_ALL] ready=yes after 108s 2026-10-31T03:49:53Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/scripts/run_g3_boot.sh: line 103: /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/boots/SM_ALL/v2p1_rank0.jsonl: No such file or directory
+[SM_ALL] seg SM_ALL_arc bench rc=0 2026-10-31T03:50:17Z
+[SM_ALL] seg SM_ALL_prov bench rc=0 2026-10-31T03:50:44Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/scripts/run_g3_boot.sh: line 75: 1807638 Killed                  ART=$ART setsid nohup bash $G3/scripts/launch_arm_g3.sh $ARM > "$ART/server.log" 2>&1
+CHECK_G3 label=SM_ALL mode=smoke arm=G3_ALL all_pass=True fails=
+[queue] boot SM_ALL rc=0 2026-10-31T03:51:11Z
+[queue] SMOKE_G3_PASS 2026-10-31T03:51:11Z

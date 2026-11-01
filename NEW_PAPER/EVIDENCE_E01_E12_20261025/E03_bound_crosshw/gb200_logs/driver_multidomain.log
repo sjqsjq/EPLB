@@ -1,0 +1,39 @@
+[16:13:59] === mid boot ===
+[16:15:34] mid ready
+[16:15:38] >>> mid mmlu START
+[16:16:07] >>> mid mmlu DONE
+[16:16:07] >>> mid gsm8k START
+[16:16:35] >>> mid gsm8k DONE
+[16:16:35] >>> mid humaneval START
+[16:17:08] >>> mid humaneval DONE
+[16:17:08] >>> mid cmmlu START
+[16:17:37] >>> mid cmmlu DONE
+[16:17:37] >>> mid csqa START
+[16:18:04] >>> mid csqa DONE
+[16:18:04] >>> mid arc_easy START
+[16:18:31] >>> mid arc_easy DONE
+[16:18:31] >>> mid obqa START
+[16:18:59] >>> mid obqa DONE
+[16:18:59] >>> mid prover256 START
+[16:19:42] >>> mid prover256 DONE
+[16:19:42] === moe boot ===
+/workspace/logs/driver_multidomain.sh: line 6: 151918 Killed                  setsid bash $2 > $LOGD/srv_$1.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[16:21:25] moe ready
+[16:21:29] >>> moe mmlu START
+[16:22:13] >>> moe mmlu DONE
+[16:22:13] >>> moe gsm8k START
+[16:22:52] >>> moe gsm8k DONE
+[16:22:52] >>> moe humaneval START
+[16:23:39] >>> moe humaneval DONE
+[16:23:39] >>> moe cmmlu START
+[16:24:18] >>> moe cmmlu DONE
+[16:24:18] >>> moe csqa START
+[16:24:57] >>> moe csqa DONE
+[16:24:57] >>> moe arc_easy START
+[16:25:34] >>> moe arc_easy DONE
+[16:25:34] >>> moe obqa START
+[16:26:10] >>> moe obqa DONE
+[16:26:10] >>> moe prover256 START
+[16:27:09] >>> moe prover256 DONE
+/workspace/logs/driver_multidomain.sh: line 22: 154919 Killed                  setsid bash $2 > $LOGD/srv_$1.log 2>&1 < /dev/null
+[16:27:13] MULTIDOMAIN_DONE

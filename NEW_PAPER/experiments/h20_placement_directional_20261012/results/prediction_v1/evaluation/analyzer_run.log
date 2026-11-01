@@ -1,0 +1,11 @@
+wrote /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prediction_v1/evaluation/attempt02/analysis.json
+analysis_sha256=ac9c8ee812d796bf06e467e09d655ef01291837075233ab3da69ef407ce2a5d0
+M0_raw: MAE=88.1 [66.5,112.6] bias=10.4 rho=0.841 tau=0.659 sign=0.990
+M1_padding_128: MAE=95.5 [83.9,106.4] bias=13.3 rho=0.842 tau=0.654 sign=0.990
+M2_grouped_gemm: MAE=116.7 [96.6,140.3] bias=36.7 rho=0.743 tau=0.548 sign=0.990
+M0_raw_minus_M1_padding_128: mean_delta=-7.4 CI=[-26.6,14.0] -> compatible_with_zero_not_proof_of_no_effect_and_not_equivalence
+M0_raw_minus_M2_grouped_gemm: mean_delta=-28.6 CI=[-41.0,-15.4] -> cluster_bootstrap_CI_excludes_zero
+M1_padding_128_minus_M2_grouped_gemm: mean_delta=-21.2 CI=[-39.5,-5.0] -> cluster_bootstrap_CI_excludes_zero
+regret[M0_raw]: 40.7 CI=[13.0,77.2]
+regret[M1_padding_128]: 57.1 CI=[20.9,101.1]
+regret[M2_grouped_gemm]: 115.8 CI=[61.8,171.6]

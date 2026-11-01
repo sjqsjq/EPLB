@@ -1,0 +1,28 @@
+[sp_dev_W1_b2_F_dense] 4000 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "sp_dev_W1_b2_F_dense",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+  "num_requests": 4000,
+  "concurrency": 256,
+  "ok": 4000,
+  "errors": 0,
+  "total_time_s": 353.34,
+  "total_comp_tokens": 4000,
+  "tps": 11.3,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 21938.0,
+  "lat_p50_ms": 22316.87,
+  "lat_p99_ms": 25499.94,
+  "ttft_mean_ms": 21937.95,
+  "ttft_p50_ms": 22316.83,
+  "ttft_p99_ms": 25499.9,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 7084406924737131,
+  "mono_end_ns": 7084760263183556,
+  "wall_start_s": 1792325307.376446,
+  "wall_end_s": 1792325660.714892
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/sp_dev_W1_b2_F_dense.json

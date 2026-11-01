@@ -1,4 +1,4 @@
-# Raw tensors and high-volume iteration data are indexed, hashed, and archived.
+# Large raw tensors stay local and are hash-indexed; compact E1 timing JSON is tracked.
 inputs/*.pt
 inputs/*.pth
 inputs/*.safetensors
@@ -7,6 +7,7 @@ inputs/**/*.pth
 inputs/**/*.safetensors
 results/raw/**
 !results/raw/.gitkeep
+!results/raw/e1_pilot.json
 
 # Traces and profiler databases can exceed GitHub's object limit.
 traces/*.nsys-rep

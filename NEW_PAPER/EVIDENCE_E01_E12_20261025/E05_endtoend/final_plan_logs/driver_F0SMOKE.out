@@ -1,0 +1,39 @@
+[2026-10-18T20:48:45Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T20:50:23Z] [F0SMOKE] BOOT_OK f0_I (pid 238940)
+[2026-10-18T20:51:02Z] [F0SMOKE] verdict f0_I: VALID
+scripts/run_final_campaign.sh: line 67: 238940 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T20:51:18Z] [F0SMOKE] boot failure seq=2 f0_E_e1 (infra_used=0)
+[2026-10-18T20:51:24Z] [F0SMOKE] INFRA re-boot #1 for f0_E_e1
+[2026-10-18T20:51:34Z] [F0SMOKE] HALT: second boot failure seq=2 f0_E_e1 (INFRA_CAP path)
+[2026-10-18T21:23:36Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T21:23:36Z] [F0SMOKE] resume-skip f0_I (already VALID)
+[2026-10-18T21:24:18Z] [F0SMOKE] boot failure seq=2 f0_E_e1 (infra_used=0)
+scripts/run_final_campaign.sh: line 67: 250318 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:24:25Z] [F0SMOKE] INFRA re-boot #1 for f0_E_e1
+[2026-10-18T21:24:57Z] [F0SMOKE] HALT: second boot failure seq=2 f0_E_e1 (INFRA_CAP path)
+scripts/run_final_campaign.sh: line 67: 254288 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:29:49Z] [F0SMOKE] phase start: rows=8 timed_cap=8 infra_cap=3 ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/smoke_slice.jsonl conc=64 dry=0
+[2026-10-18T21:29:49Z] [F0SMOKE] resume-skip f0_I (already VALID)
+[2026-10-18T21:32:11Z] [F0SMOKE] BOOT_OK f0_E_e1 (pid 258331)
+[2026-10-18T21:34:23Z] [F0SMOKE] verdict f0_E_e1: VALID
+scripts/run_final_campaign.sh: line 67: 258331 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:35:33Z] [F0SMOKE] BOOT_OK f0_P (pid 265552)
+[2026-10-18T21:36:14Z] [F0SMOKE] verdict f0_P: VALID
+scripts/run_final_campaign.sh: line 67: 265552 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:37:20Z] [F0SMOKE] BOOT_OK f0_F_2_16_32 (pid 272212)
+[2026-10-18T21:38:08Z] [F0SMOKE] verdict f0_F_2_16_32: VALID
+scripts/run_final_campaign.sh: line 67: 272212 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:39:23Z] [F0SMOKE] BOOT_OK f0_A1 (pid 278904)
+[2026-10-18T21:40:03Z] [F0SMOKE] verdict f0_A1: VALID
+scripts/run_final_campaign.sh: line 67: 278904 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:41:18Z] [F0SMOKE] BOOT_OK f0_A2 (pid 285829)
+[2026-10-18T21:42:02Z] [F0SMOKE] verdict f0_A2: VALID
+scripts/run_final_campaign.sh: line 67: 285829 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:43:21Z] [F0SMOKE] BOOT_OK f0_A3 (pid 292785)
+[2026-10-18T21:44:03Z] [F0SMOKE] verdict f0_A3: VALID
+scripts/run_final_campaign.sh: line 67: 292785 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+[2026-10-18T21:45:22Z] [F0SMOKE] BOOT_OK f0_A4 (pid 299712)
+[2026-10-18T21:46:02Z] [F0SMOKE] verdict f0_A4: VALID
+scripts/run_final_campaign.sh: line 67: 299712 Killed                  ART="$ART" setsid nohup bash "$LAUNCH" $arm $params > "$ART/server.log" 2>&1
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/smoke_f0/summary.json 0
+[2026-10-18T21:46:09Z] [F0SMOKE] SMOKE_GATE_FAIL: 0/8 VALID

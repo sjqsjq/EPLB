@@ -1,0 +1,4 @@
+[e4_v2_paper_r4] ready=yes after 104s 2026-10-22T06:34:02Z
+[e4_v2_paper_r4] bench rc=0 2026-10-22T06:37:54Z
+run_ds_boot.sh: line 23: 524676 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "e4_v2_paper_r4", "launcher": "paper_pb", "ds": "E4", "code": "v2", "bench_rc": 0, "tps": 1166.7, "ttft_p95": null, "errors": 0, "issued_windows": 7, "total_swaps": 1707, "resets": 7, "faults": 0, "pass_": true}

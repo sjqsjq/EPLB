@@ -1,0 +1,103 @@
+==========================================================================================
+P0_r1 steps_total=1824 span=753s split_idx=3344
+first window whose end maps into book phase: w=41
+swap windows (w, mapped_req_idx, swaps, cum, event, z): n=23 total=23
+   (2, 113, 1, 1, 'hold', 0.1)
+   (3, 177, 1, 2, 'hold', 0.1)
+   (49, 3615, 1, 3, 'midband_hold', 137.7)
+   (50, 3648, 1, 4, 'midband_hold', 27.1)
+   (53, 3743, 1, 5, 'confirmed_grow', 0.7)
+   (59, 3944, 1, 6, 'confirmed_grow', 0.5)
+   (75, 4447, 1, 7, 'grow_blocked_headroom', 2.4)
+   (76, 4473, 1, 8, 'confirmed_grow', 0.9)
+   (80, 4559, 1, 9, 'grow_blocked_headroom', 1.4)
+   (81, 4573, 1, 10, 'midband_hold', 22.6)
+   (82, 4585, 1, 11, 'grow_blocked_headroom', 9.8)
+   (83, 4593, 1, 12, 'grow_blocked_headroom', 1.4)
+   (85, 4650, 1, 13, 'grow_blocked_headroom', 1.7)
+   (86, 4682, 1, 14, 'grow_blocked_headroom', 0.8)
+   (88, 4743, 1, 15, 'grow_blocked_headroom', 1.2)
+   (89, 4767, 1, 16, 'grow_blocked_headroom', 0.4)
+   (93, 4894, 1, 17, 'grow_blocked_headroom', 5.8)
+   (94, 4927, 1, 18, 'grow_blocked_headroom', 0.8)
+   (95, 4955, 1, 19, 'grow_blocked_headroom', 0.8)
+   (97, 5021, 1, 20, 'confirmed_grow', 0.3)
+   (103, 5206, 1, 21, 'hold', 2.1)
+   (104, 5240, 1, 22, 'confirmed_grow', 1.0)
+   (108, 5344, 1, 23, 'confirmed_grow', 0.5)
+swaps by mapped phase: prover=2 book_early=4 book_late=17
+full tps buckets(250): [(0, 8.52), (250, 10.06), (500, 9.88), (750, 10.07), (1000, 9.94), (1250, 10.2), (1500, 10.13), (1750, 10.11), (2000, 9.9), (2250, 10.12), (2500, 9.51), (2750, 9.72), (3000, 9.75), (3250, 5.53), (3500, 4.31), (3750, 4.52), (4000, 4.37), (4250, 3.64), (4500, 3.25), (4750, 4.24), (5000, 4.17), (5250, 3.01)]
+==========================================================================================
+P0_r2 steps_total=1824 span=747s split_idx=3344
+first window whose end maps into book phase: w=41
+swap windows (w, mapped_req_idx, swaps, cum, event, z): n=23 total=23
+   (2, 113, 1, 1, 'hold', 0.1)
+   (3, 169, 1, 2, 'hold', 0.1)
+   (49, 3600, 1, 3, 'midband_hold', 137.7)
+   (50, 3632, 1, 4, 'midband_hold', 27.1)
+   (53, 3736, 1, 5, 'confirmed_grow', 0.7)
+   (59, 3928, 1, 6, 'confirmed_grow', 0.5)
+   (75, 4377, 1, 7, 'grow_blocked_headroom', 2.4)
+   (76, 4392, 1, 8, 'confirmed_grow', 0.9)
+   (80, 4487, 1, 9, 'grow_blocked_headroom', 1.4)
+   (81, 4510, 1, 10, 'midband_hold', 22.6)
+   (82, 4537, 1, 11, 'grow_blocked_headroom', 9.8)
+   (83, 4569, 1, 12, 'grow_blocked_headroom', 1.4)
+   (85, 4628, 1, 13, 'grow_blocked_headroom', 1.7)
+   (86, 4652, 1, 14, 'grow_blocked_headroom', 0.8)
+   (88, 4708, 1, 15, 'grow_blocked_headroom', 1.2)
+   (89, 4743, 1, 16, 'grow_blocked_headroom', 0.4)
+   (93, 4873, 1, 17, 'grow_blocked_headroom', 5.8)
+   (94, 4905, 1, 18, 'grow_blocked_headroom', 0.8)
+   (95, 4934, 1, 19, 'grow_blocked_headroom', 0.8)
+   (97, 4985, 1, 20, 'confirmed_grow', 0.3)
+   (103, 5182, 1, 21, 'hold', 2.1)
+   (104, 5215, 1, 22, 'confirmed_grow', 1.0)
+   (108, 5343, 1, 23, 'confirmed_grow', 0.5)
+swaps by mapped phase: prover=2 book_early=4 book_late=17
+full tps buckets(250): [(0, 8.43), (250, 10.09), (500, 10.06), (750, 10.2), (1000, 10.1), (1250, 10.24), (1500, 10.19), (1750, 10.07), (2000, 10.01), (2250, 9.95), (2500, 9.41), (2750, 10.18), (3000, 9.85), (3250, 5.22), (3500, 4.61), (3750, 4.42), (4000, 3.68), (4250, 3.37), (4500, 4.04), (4750, 4.16), (5000, 4.42), (5250, 3.65)]
+==========================================================================================
+P0_r1 steps_total=1000 span=417s split_idx=2048
+first window whose end maps into book phase: w=23
+swap windows (w, mapped_req_idx, swaps, cum, event, z): n=27 total=27
+   (2, 120, 1, 1, 'hold', 0.2)
+   (3, 192, 1, 2, 'hold', 0.1)
+   (28, 2211, 1, 3, 'midband_hold', 73.0)
+   (29, 2228, 1, 4, 'grow_blocked_headroom', 16.7)
+   (30, 2245, 1, 5, 'grow_blocked_headroom', 3.3)
+   (31, 2264, 1, 6, 'grow_blocked_headroom', 1.1)
+   (36, 2336, 1, 7, 'grow_blocked_headroom', 0.6)
+   (41, 2409, 1, 8, 'grow_blocked_headroom', 0.6)
+   (48, 2528, 1, 9, 'hold', 0.6)
+   (52, 2592, 1, 10, 'grow_blocked_headroom', 0.7)
+   (56, 2648, 1, 11, 'grow_blocked_headroom', 0.9)
+   (57, 2664, 1, 12, 'grow_blocked_headroom', 1.4)
+   (58, 2675, 1, 13, 'grow_blocked_headroom', 0.8)
+   (59, 2687, 1, 14, 'grow_blocked_headroom', 1.2)
+   (60, 2692, 1, 15, 'grow_blocked_headroom', 0.6)
+   (63, 2716, 1, 16, 'hold', 0.8)
+   (64, 2730, 1, 17, 'grow_blocked_headroom', 0.8)
+   (65, 2743, 1, 18, 'grow_blocked_headroom', 0.6)
+   (68, 2787, 1, 19, 'hold', 0.5)
+   (70, 2816, 1, 20, 'grow_blocked_headroom', 1.5)
+   (71, 2824, 1, 21, 'grow_blocked_headroom', 1.1)
+   (72, 2840, 1, 22, 'grow_blocked_headroom', 1.4)
+   (73, 2856, 1, 23, 'grow_blocked_headroom', 0.7)
+   (78, 2934, 1, 24, 'grow_blocked_headroom', 0.8)
+   (79, 2950, 1, 25, 'grow_blocked_headroom', 0.7)
+   (81, 2980, 1, 26, 'grow_blocked_headroom', 1.6)
+   (82, 2994, 1, 27, 'confirmed_grow', 0.4)
+swaps by mapped phase: prover=2 book_early=7 book_late=18
+full tps buckets(250): [(0, 8.89), (250, 10.14), (500, 9.63), (750, 10.2), (1000, 10.2), (1250, 10.3), (1500, 9.94), (1750, 10.33), (2000, 4.56), (2250, 4.21), (2500, 3.53), (2750, 4.04), (3000, 3.07)]
+==========================================================================================
+P0_r2 steps_total=1008 span=401s split_idx=2048
+first window whose end maps into book phase: w=28
+swap windows (w, mapped_req_idx, swaps, cum, event, z): n=6 total=6
+   (2, 96, 1, 1, 'hold', 0.1)
+   (3, 161, 1, 2, 'hold', 0.1)
+   (31, 2243, 1, 3, 'grow_blocked_headroom', 3.7)
+   (32, 2277, 1, 4, 'grow_blocked_headroom', 2.1)
+   (33, 2311, 1, 5, 'confirmed_grow', 0.6)
+   (38, 2472, 1, 6, 'confirmed_grow', 0.5)
+swaps by mapped phase: prover=2 book_early=4 book_late=0
+full tps buckets(250): [(0, 8.27), (250, 10.11), (500, 8.95), (750, 10.29), (1000, 10.16), (1250, 10.26), (1500, 9.58), (1750, 10.17), (2000, 4.78), (2250, 4.56), (2500, 4.28), (2750, 4.36), (3000, 2.63)]

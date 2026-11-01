@@ -1,0 +1,41 @@
+[17:03:43] ===== prover256 =====
+[17:06:16] prover256 identity done
+/workspace/logs/driver_interleave.sh: line 7: 189122 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null  (wd: /workspace/logs)
+[17:09:16] prover256 oeplb done  r_before(avg_ratio_before=1.344)
+[17:09:16] ===== humaneval =====
+/workspace/logs/driver_interleave.sh: line 7: 191738 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:11:34] humaneval identity done
+/workspace/logs/driver_interleave.sh: line 7: 194942 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:14:13] humaneval oeplb done  r_before(avg_ratio_before=1.232)
+[17:14:13] ===== gsm8k =====
+/workspace/logs/driver_interleave.sh: line 7: 197709 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:16:34] gsm8k identity done
+/workspace/logs/driver_interleave.sh: line 7: 201056 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:19:14] gsm8k oeplb done  r_before(avg_ratio_before=1.298)
+[17:19:14] ===== mmlu =====
+/workspace/logs/driver_interleave.sh: line 7: 203863 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:21:36] mmlu identity done
+/workspace/logs/driver_interleave.sh: line 7: 207312 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:24:20] mmlu oeplb done  r_before(avg_ratio_before=1.171)
+[17:24:20] ===== cmmlu =====
+/workspace/logs/driver_interleave.sh: line 7: 210185 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:26:42] cmmlu identity done
+/workspace/logs/driver_interleave.sh: line 7: 213638 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:29:24] cmmlu oeplb done  r_before(avg_ratio_before=1.231)
+[17:29:24] ===== obqa =====
+/workspace/logs/driver_interleave.sh: line 7: 216506 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:31:43] obqa identity done
+/workspace/logs/driver_interleave.sh: line 7: 219993 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:34:21] obqa oeplb done  r_before(avg_ratio_before=1.227)
+[17:34:21] ===== arc_easy =====
+/workspace/logs/driver_interleave.sh: line 7: 222749 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:36:40] arc_easy identity done
+/workspace/logs/driver_interleave.sh: line 7: 226107 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:39:19] arc_easy oeplb done  r_before(avg_ratio_before=1.210)
+[17:39:19] ===== csqa =====
+/workspace/logs/driver_interleave.sh: line 7: 228901 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:41:30] csqa identity done
+/workspace/logs/driver_interleave.sh: line 7: 232307 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:44:09] csqa oeplb done  r_before(avg_ratio_before=1.267)
+/workspace/logs/driver_interleave.sh: line 22: 235075 Killed                  setsid bash $1 > $LOGD/srv_$2.log 2>&1 < /dev/null
+[17:44:14] INTERLEAVE_DONE

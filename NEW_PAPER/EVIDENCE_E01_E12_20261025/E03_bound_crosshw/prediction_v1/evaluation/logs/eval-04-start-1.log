@@ -1,0 +1,211 @@
+W1012 10:20:58.021000 489219 site-packages/torch/distributed/run.py:803] 
+W1012 10:20:58.021000 489219 site-packages/torch/distributed/run.py:803] *****************************************
+W1012 10:20:58.021000 489219 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1012 10:20:58.021000 489219 site-packages/torch/distributed/run.py:803] *****************************************
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] INFO runner.py:60: SGLANG_CI_DISABLE_MOE_FUSED_FUNC is set to 1, disabling fused func
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:17] WARNING deepep.py:215: Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 5,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:18] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:18] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 1,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:18] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 90.82696533203125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1893.80it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 90.5589599609375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 89.9202880859375GB
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3081.32it/s]
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.34381103515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2445.40it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 6,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2242.66it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2187.29it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 7,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]WARNING: current device is not 0, but 1,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2673.07it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2153.74it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2095.38it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 4,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s][2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 5,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2091.73it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2985.59it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 3074.77it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 2,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1712.52it/s]
+[2026-10-12 10:21:19] WARNING compile_utils.py:94: Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-10-12 10:21:19] INFO compile_utils.py:104: Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+WARNING: current device is not 0, but 3,  which may cause useless memory allocation for torch CUDA context.
+[2026-10-12 10:21:19] INFO compile_utils.py:143: Required memory for warmup: 0.24224853515625GB, Available memory: 88.5257568359375GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2696.61it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2532.17it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2483.13it/s]
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 1440.43it/s]
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank1]:     main()
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank1]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank1]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank1]:     raise ValueError(payload[0][1])
+[rank1]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank7]:     main()
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank7]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank7]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank7]:     raise ValueError(payload[0][1])
+[rank7]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank6]:     main()
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank6]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank6]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank6]:     raise ValueError(payload[0][1])
+[rank6]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank0]:     main()
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank0]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank0]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank0]:     raise ValueError(payload[0][1])
+[rank0]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank4]:     main()
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank4]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank4]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank4]:     raise ValueError(payload[0][1])
+[rank4]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank5]:     main()
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank5]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank5]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank5]:     raise ValueError(payload[0][1])
+[rank5]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank2]:     main()
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank2]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank2]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank2]:     raise ValueError(payload[0][1])
+[rank2]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 665, in <module>
+[rank3]:     main()
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py", line 522, in main
+[rank3]:     core.validate_correctness_gate(correctness_records, rank=rank, group=group)
+[rank3]:   File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py", line 762, in validate_correctness_gate
+[rank3]:     raise ValueError(payload[0][1])
+[rank3]: ValueError: correctness gate failed: [{'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 5, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'raw-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 2, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-01', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 4, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_captured_output', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}, {'rank': 0, 'layout_id': 'padding-02', 'comparison': 'versus_identity_replay', 'nonfinite_pair_count': 0, 'isclose_failure_count': 6, 'max_abs_error': 0.0078125}]
+[rank0]:[W1012 10:21:20.492239813 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W1012 10:21:22.822000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489352 closing signal SIGTERM
+W1012 10:21:22.822000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489353 closing signal SIGTERM
+W1012 10:21:22.822000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489354 closing signal SIGTERM
+W1012 10:21:22.825000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489355 closing signal SIGTERM
+W1012 10:21:22.827000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489357 closing signal SIGTERM
+W1012 10:21:22.829000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489358 closing signal SIGTERM
+W1012 10:21:22.830000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 489359 closing signal SIGTERM
+E1012 10:21:24.366000 489219 site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 4 (pid: 489356) of binary: /opt/conda/bin/python3.11
+Traceback (most recent call last):
+  File "/opt/conda/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-12_10:21:22
+  host      : mlflow-training-ur7y05-511762-n3-master-0
+  rank      : 4 (local_rank: 4)
+  exitcode  : 1 (pid: 489356)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

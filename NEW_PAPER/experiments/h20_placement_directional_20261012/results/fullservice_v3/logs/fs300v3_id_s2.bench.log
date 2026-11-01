@@ -1,0 +1,24 @@
+[fs300v3_id_s2] 7963 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "fs300v3_id_s2",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+  "num_requests": 7963,
+  "concurrency": 256,
+  "ok": 7963,
+  "errors": 0,
+  "total_time_s": 399.55,
+  "total_comp_tokens": 7963,
+  "tps": 19.9,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 12296.3,
+  "lat_p50_ms": 8960.27,
+  "lat_p99_ms": 35896.63,
+  "ttft_mean_ms": 12296.28,
+  "ttft_p50_ms": 8960.24,
+  "ttft_p99_ms": 35896.59,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/fs300v3_id_s2.json

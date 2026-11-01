@@ -1,0 +1,35 @@
+[T1_GAP32_rep1] 8192 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e3_multidomain_switch.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "T1_GAP32_rep1",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e3_multidomain_switch.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 217.18,
+  "total_comp_tokens": 8192,
+  "tps": 37.7,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 6701.9,
+  "lat_p50_ms": 5895.25,
+  "lat_p95_ms": 10437.48,
+  "lat_p99_ms": 20377.23,
+  "ttft_mean_ms": 6701.86,
+  "ttft_p50_ms": 5895.22,
+  "ttft_p95_ms": 10437.43,
+  "ttft_p99_ms": 20377.18,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p95_ms": null,
+  "tpot_p99_ms": null,
+  "mono_start_ns": 8302586471022238,
+  "mono_end_ns": 8302803649140264,
+  "wall_start_s": 1793543486.922731,
+  "wall_end_s": 1793543704.100849,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 4194260,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/boots/T1_GAP32/T1_GAP32_rep1.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/boots/T1_GAP32/T1_GAP32_rep1_perreq.jsonl (8192 rows)

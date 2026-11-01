@@ -1,0 +1,340 @@
+[2026-10-17T10:22:25+00:00] === FORMAL EVAL DRIVER start (DRY_RUN=1, infra_reboots_used=0/4, nonvalid W1=0 W2=0) ===
+[2026-10-17T10:22:25+00:00] DRY seq=1 r1 W1 pos1/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r1/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_A art=results/adw_v2p1/formal_eval/W1_A__r1 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=2 r1 W1 pos1/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_F art=results/adw_v2p1/formal_eval/W1_F__r1 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=3 r1 W1 pos1/3 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_L art=results/adw_v2p1/formal_eval/W1_L__r1 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=4 r1 W1 pos1/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r1/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_M art=results/adw_v2p1/formal_eval/W1_M__r1 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=5 r1 W2 pos2/1 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_L art=results/adw_v2p1/formal_eval/W2_L__r1 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=6 r1 W2 pos2/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r1/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_M art=results/adw_v2p1/formal_eval/W2_M__r1 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=7 r1 W2 pos2/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r1/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_A art=results/adw_v2p1/formal_eval/W2_A__r1 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=8 r1 W2 pos2/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_F art=results/adw_v2p1/formal_eval/W2_F__r1 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=9 r2 W2 pos1/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_F art=results/adw_v2p1/formal_eval/W2_F__r2 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=10 r2 W2 pos1/2 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_L art=results/adw_v2p1/formal_eval/W2_L__r2 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=11 r2 W2 pos1/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r2/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_M art=results/adw_v2p1/formal_eval/W2_M__r2 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=12 r2 W2 pos1/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r2/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_A art=results/adw_v2p1/formal_eval/W2_A__r2 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=13 r2 W1 pos2/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r2/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_M art=results/adw_v2p1/formal_eval/W1_M__r2 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=14 r2 W1 pos2/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r2/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_A art=results/adw_v2p1/formal_eval/W1_A__r2 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=15 r2 W1 pos2/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_F art=results/adw_v2p1/formal_eval/W1_F__r2 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=16 r2 W1 pos2/4 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_L art=results/adw_v2p1/formal_eval/W1_L__r2 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=17 r3 W1 pos1/1 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_L art=results/adw_v2p1/formal_eval/W1_L__r3 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=18 r3 W1 pos1/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r3/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_M art=results/adw_v2p1/formal_eval/W1_M__r3 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=19 r3 W1 pos1/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r3/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_A art=results/adw_v2p1/formal_eval/W1_A__r3 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=20 r3 W1 pos1/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_F art=results/adw_v2p1/formal_eval/W1_F__r3 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=21 r3 W2 pos2/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r3/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_A art=results/adw_v2p1/formal_eval/W2_A__r3 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=22 r3 W2 pos2/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_F art=results/adw_v2p1/formal_eval/W2_F__r3 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=23 r3 W2 pos2/3 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_L art=results/adw_v2p1/formal_eval/W2_L__r3 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=24 r3 W2 pos2/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r3/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_M art=results/adw_v2p1/formal_eval/W2_M__r3 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=25 r4 W2 pos1/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r4/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_M art=results/adw_v2p1/formal_eval/W2_M__r4 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=26 r4 W2 pos1/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r4/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_A art=results/adw_v2p1/formal_eval/W2_A__r4 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=27 r4 W2 pos1/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_F art=results/adw_v2p1/formal_eval/W2_F__r4 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=28 r4 W2 pos1/4 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_L art=results/adw_v2p1/formal_eval/W2_L__r4 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=29 r4 W1 pos2/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_F art=results/adw_v2p1/formal_eval/W1_F__r4 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=30 r4 W1 pos2/2 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_L art=results/adw_v2p1/formal_eval/W1_L__r4 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=31 r4 W1 pos2/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r4/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_M art=results/adw_v2p1/formal_eval/W1_M__r4 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=32 r4 W1 pos2/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r4/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_A art=results/adw_v2p1/formal_eval/W1_A__r4 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=33 r5 W1 pos1/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r5/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_A art=results/adw_v2p1/formal_eval/W1_A__r5 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=34 r5 W1 pos1/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_F art=results/adw_v2p1/formal_eval/W1_F__r5 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=35 r5 W1 pos1/3 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_L art=results/adw_v2p1/formal_eval/W1_L__r5 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=36 r5 W1 pos1/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r5/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_M art=results/adw_v2p1/formal_eval/W1_M__r5 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=37 r5 W2 pos2/1 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_L art=results/adw_v2p1/formal_eval/W2_L__r5 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=38 r5 W2 pos2/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r5/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_M art=results/adw_v2p1/formal_eval/W2_M__r5 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=39 r5 W2 pos2/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r5/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_A art=results/adw_v2p1/formal_eval/W2_A__r5 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=40 r5 W2 pos2/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_F art=results/adw_v2p1/formal_eval/W2_F__r5 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=41 r6 W2 pos1/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_F art=results/adw_v2p1/formal_eval/W2_F__r6 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=42 r6 W2 pos1/2 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_L art=results/adw_v2p1/formal_eval/W2_L__r6 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=43 r6 W2 pos1/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r6/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_M art=results/adw_v2p1/formal_eval/W2_M__r6 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=44 r6 W2 pos1/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r6/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_A art=results/adw_v2p1/formal_eval/W2_A__r6 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=45 r6 W1 pos2/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r6/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_M art=results/adw_v2p1/formal_eval/W1_M__r6 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=46 r6 W1 pos2/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r6/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_A art=results/adw_v2p1/formal_eval/W1_A__r6 jsonl=yes
+[2026-10-17T10:22:25+00:00] DRY seq=47 r6 W1 pos2/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_F art=results/adw_v2p1/formal_eval/W1_F__r6 jsonl=no
+[2026-10-17T10:22:25+00:00] DRY seq=48 r6 W1 pos2/4 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_L art=results/adw_v2p1/formal_eval/W1_L__r6 jsonl=no
+[2026-10-17T10:22:26+00:00] === FORMAL EVAL DRIVER start (DRY_RUN=1, infra_reboots_used=0/4, nonvalid W1=0 W2=0) ===
+[2026-10-17T10:22:26+00:00] DRY seq=1 r1 W1 pos1/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r1/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_A art=results/adw_v2p1/formal_eval/W1_A__r1 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=2 r1 W1 pos1/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_F art=results/adw_v2p1/formal_eval/W1_F__r1 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=3 r1 W1 pos1/3 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_L art=results/adw_v2p1/formal_eval/W1_L__r1 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=4 r1 W1 pos1/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r1/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r1_W1_M art=results/adw_v2p1/formal_eval/W1_M__r1 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=5 r1 W2 pos2/1 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_L art=results/adw_v2p1/formal_eval/W2_L__r1 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=6 r1 W2 pos2/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r1/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_M art=results/adw_v2p1/formal_eval/W2_M__r1 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=7 r1 W2 pos2/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r1/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_A art=results/adw_v2p1/formal_eval/W2_A__r1 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=8 r1 W2 pos2/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r1_W2_F art=results/adw_v2p1/formal_eval/W2_F__r1 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=9 r2 W2 pos1/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_F art=results/adw_v2p1/formal_eval/W2_F__r2 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=10 r2 W2 pos1/2 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_L art=results/adw_v2p1/formal_eval/W2_L__r2 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=11 r2 W2 pos1/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r2/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_M art=results/adw_v2p1/formal_eval/W2_M__r2 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=12 r2 W2 pos1/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r2/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r2_W2_A art=results/adw_v2p1/formal_eval/W2_A__r2 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=13 r2 W1 pos2/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r2/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_M art=results/adw_v2p1/formal_eval/W1_M__r2 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=14 r2 W1 pos2/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r2/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_A art=results/adw_v2p1/formal_eval/W1_A__r2 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=15 r2 W1 pos2/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_F art=results/adw_v2p1/formal_eval/W1_F__r2 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=16 r2 W1 pos2/4 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r2_W1_L art=results/adw_v2p1/formal_eval/W1_L__r2 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=17 r3 W1 pos1/1 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_L art=results/adw_v2p1/formal_eval/W1_L__r3 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=18 r3 W1 pos1/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r3/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_M art=results/adw_v2p1/formal_eval/W1_M__r3 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=19 r3 W1 pos1/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r3/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_A art=results/adw_v2p1/formal_eval/W1_A__r3 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=20 r3 W1 pos1/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r3_W1_F art=results/adw_v2p1/formal_eval/W1_F__r3 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=21 r3 W2 pos2/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r3/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_A art=results/adw_v2p1/formal_eval/W2_A__r3 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=22 r3 W2 pos2/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_F art=results/adw_v2p1/formal_eval/W2_F__r3 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=23 r3 W2 pos2/3 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_L art=results/adw_v2p1/formal_eval/W2_L__r3 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=24 r3 W2 pos2/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r3/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r3_W2_M art=results/adw_v2p1/formal_eval/W2_M__r3 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=25 r4 W2 pos1/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r4/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_M art=results/adw_v2p1/formal_eval/W2_M__r4 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=26 r4 W2 pos1/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r4/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_A art=results/adw_v2p1/formal_eval/W2_A__r4 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=27 r4 W2 pos1/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_F art=results/adw_v2p1/formal_eval/W2_F__r4 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=28 r4 W2 pos1/4 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r4_W2_L art=results/adw_v2p1/formal_eval/W2_L__r4 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=29 r4 W1 pos2/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_F art=results/adw_v2p1/formal_eval/W1_F__r4 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=30 r4 W1 pos2/2 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_L art=results/adw_v2p1/formal_eval/W1_L__r4 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=31 r4 W1 pos2/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r4/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_M art=results/adw_v2p1/formal_eval/W1_M__r4 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=32 r4 W1 pos2/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r4/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r4_W1_A art=results/adw_v2p1/formal_eval/W1_A__r4 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=33 r5 W1 pos1/1 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r5/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_A art=results/adw_v2p1/formal_eval/W1_A__r5 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=34 r5 W1 pos1/2 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_F art=results/adw_v2p1/formal_eval/W1_F__r5 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=35 r5 W1 pos1/3 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_L art=results/adw_v2p1/formal_eval/W1_L__r5 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=36 r5 W1 pos1/4 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r5/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r5_W1_M art=results/adw_v2p1/formal_eval/W1_M__r5 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=37 r5 W2 pos2/1 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_L art=results/adw_v2p1/formal_eval/W2_L__r5 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=38 r5 W2 pos2/2 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r5/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_M art=results/adw_v2p1/formal_eval/W2_M__r5 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=39 r5 W2 pos2/3 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r5/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_A art=results/adw_v2p1/formal_eval/W2_A__r5 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=40 r5 W2 pos2/4 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r5_W2_F art=results/adw_v2p1/formal_eval/W2_F__r5 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=41 r6 W2 pos1/1 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_F art=results/adw_v2p1/formal_eval/W2_F__r6 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=42 r6 W2 pos1/2 arm=L csv_ctrl=1 csv_EA_W=32 ctrl=1 EA_W=32 knobs=- ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_L art=results/adw_v2p1/formal_eval/W2_L__r6 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=43 r6 W2 pos1/3 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_M__r6/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_M art=results/adw_v2p1/formal_eval/W2_M__r6 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=44 r6 W2 pos1/4 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W2_A__r6/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=fev_r6_W2_A art=results/adw_v2p1/formal_eval/W2_A__r6 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=45 r6 W1 pos2/1 arm=M csv_ctrl=21 csv_EA_W=16(fixed,inert) ctrl=21 EA_W=16 knobs=INERT log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_M__r6/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_M art=results/adw_v2p1/formal_eval/W1_M__r6 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=46 r6 W1 pos2/2 arm=A csv_ctrl=21 csv_EA_W=16(init,live) ctrl=21 EA_W=16 knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2p1/formal_eval/W1_A__r6/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_A art=results/adw_v2p1/formal_eval/W1_A__r6 jsonl=yes
+[2026-10-17T10:22:26+00:00] DRY seq=47 r6 W1 pos2/3 arm=F csv_ctrl=1 csv_EA_W=16 ctrl=1 EA_W=16 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_F art=results/adw_v2p1/formal_eval/W1_F__r6 jsonl=no
+[2026-10-17T10:22:26+00:00] DRY seq=48 r6 W1 pos2/4 arm=L csv_ctrl=1 csv_EA_W=8 ctrl=1 EA_W=8 knobs=- ds=w1_stable_code_4000.jsonl nreq=4000 label=fev_r6_W1_L art=results/adw_v2p1/formal_eval/W1_L__r6 jsonl=no
+[2026-10-17T10:24:44+00:00] === FORMAL EVAL DRIVER start (DRY_RUN=0, infra_reboots_used=0/4, nonvalid W1=0 W2=0) ===
+[2026-10-17T10:24:44+00:00] === seq 1 : r1 W1 arm A (block_pos 1, arm_pos 1) label fev_r1_W1_A ===
+[2026-10-17T10:24:50+00:00] seq 1 boot start (attempt 1)
+[2026-10-17T10:26:35+00:00] seq 1 boot OK in 105s — bench start
+[2026-10-17T10:32:30+00:00] seq 1 bench rc=0
+[2026-10-17T10:32:30+00:00] seq 1 VERDICT=VALID total_time_s=352.48 (checker rc=0)
+[2026-10-17T10:32:36+00:00] === seq 2 : r1 W1 arm F (block_pos 1, arm_pos 2) label fev_r1_W1_F ===
+[2026-10-17T10:32:42+00:00] seq 2 boot start (attempt 1)
+[2026-10-17T10:33:46+00:00] seq 2 boot OK in 64s — bench start
+[2026-10-17T10:39:38+00:00] seq 2 bench rc=0
+[2026-10-17T10:39:38+00:00] seq 2 VERDICT=VALID total_time_s=349.69 (checker rc=0)
+[2026-10-17T10:39:44+00:00] === seq 3 : r1 W1 arm L (block_pos 1, arm_pos 3) label fev_r1_W1_L ===
+[2026-10-17T10:39:50+00:00] seq 3 boot start (attempt 1)
+[2026-10-17T10:41:02+00:00] seq 3 boot OK in 72s — bench start
+[2026-10-17T10:47:00+00:00] seq 3 bench rc=0
+[2026-10-17T10:47:00+00:00] seq 3 VERDICT=VALID total_time_s=355.18 (checker rc=0)
+[2026-10-17T10:47:06+00:00] === seq 4 : r1 W1 arm M (block_pos 1, arm_pos 4) label fev_r1_W1_M ===
+[2026-10-17T10:47:12+00:00] seq 4 boot start (attempt 1)
+[2026-10-17T10:48:16+00:00] seq 4 boot OK in 64s — bench start
+[2026-10-17T10:54:08+00:00] seq 4 bench rc=0
+[2026-10-17T10:54:08+00:00] seq 4 VERDICT=VALID total_time_s=348.5 (checker rc=0)
+[2026-10-17T10:54:14+00:00] === seq 5 : r1 W2 arm L (block_pos 2, arm_pos 1) label fev_r1_W2_L ===
+[2026-10-17T10:54:19+00:00] seq 5 boot start (attempt 1)
+[2026-10-17T10:55:19+00:00] seq 5 boot OK in 60s — bench start
+[2026-10-17T11:07:06+00:00] seq 5 bench rc=0
+[2026-10-17T11:07:06+00:00] seq 5 VERDICT=VALID total_time_s=703.7 (checker rc=0)
+[2026-10-17T11:07:12+00:00] === seq 6 : r1 W2 arm M (block_pos 2, arm_pos 2) label fev_r1_W2_M ===
+[2026-10-17T11:07:18+00:00] seq 6 boot start (attempt 1)
+[2026-10-17T11:08:36+00:00] seq 6 boot OK in 78s — bench start
+[2026-10-17T11:20:20+00:00] seq 6 bench rc=0
+[2026-10-17T11:20:20+00:00] seq 6 VERDICT=VALID total_time_s=700.58 (checker rc=0)
+[2026-10-17T11:20:26+00:00] === seq 7 : r1 W2 arm A (block_pos 2, arm_pos 3) label fev_r1_W2_A ===
+[2026-10-17T11:20:32+00:00] seq 7 boot start (attempt 1)
+[2026-10-17T11:21:32+00:00] seq 7 boot OK in 60s — bench start
+[2026-10-17T11:33:20+00:00] seq 7 bench rc=0
+[2026-10-17T11:33:20+00:00] seq 7 VERDICT=VALID total_time_s=704.61 (checker rc=0)
+[2026-10-17T11:33:26+00:00] === seq 8 : r1 W2 arm F (block_pos 2, arm_pos 4) label fev_r1_W2_F ===
+[2026-10-17T11:33:32+00:00] seq 8 boot start (attempt 1)
+[2026-10-17T11:34:44+00:00] seq 8 boot OK in 72s — bench start
+[2026-10-17T11:46:45+00:00] seq 8 bench rc=0
+[2026-10-17T11:46:45+00:00] seq 8 VERDICT=VALID total_time_s=718.01 (checker rc=0)
+[2026-10-17T11:46:51+00:00] === seq 9 : r2 W2 arm F (block_pos 1, arm_pos 1) label fev_r2_W2_F ===
+[2026-10-17T11:46:57+00:00] seq 9 boot start (attempt 1)
+[2026-10-17T11:48:09+00:00] seq 9 boot OK in 72s — bench start
+[2026-10-17T11:59:51+00:00] seq 9 bench rc=0
+[2026-10-17T11:59:51+00:00] seq 9 VERDICT=VALID total_time_s=699.12 (checker rc=0)
+[2026-10-17T11:59:57+00:00] === seq 10 : r2 W2 arm L (block_pos 1, arm_pos 2) label fev_r2_W2_L ===
+[2026-10-17T12:00:03+00:00] seq 10 boot start (attempt 1)
+[2026-10-17T12:01:03+00:00] seq 10 boot OK in 60s — bench start
+[2026-10-17T12:12:45+00:00] seq 10 bench rc=0
+[2026-10-17T12:12:45+00:00] seq 10 VERDICT=VALID total_time_s=699.28 (checker rc=0)
+[2026-10-17T12:12:51+00:00] === seq 11 : r2 W2 arm M (block_pos 1, arm_pos 3) label fev_r2_W2_M ===
+[2026-10-17T12:12:57+00:00] seq 11 boot start (attempt 1)
+[2026-10-17T12:14:01+00:00] seq 11 boot OK in 64s — bench start
+[2026-10-17T12:25:48+00:00] seq 11 bench rc=0
+[2026-10-17T12:25:48+00:00] seq 11 VERDICT=VALID total_time_s=703.43 (checker rc=0)
+[2026-10-17T12:25:54+00:00] === seq 12 : r2 W2 arm A (block_pos 1, arm_pos 4) label fev_r2_W2_A ===
+[2026-10-17T12:26:00+00:00] seq 12 boot start (attempt 1)
+[2026-10-17T12:27:00+00:00] seq 12 boot OK in 60s — bench start
+[2026-10-17T12:38:45+00:00] seq 12 bench rc=0
+[2026-10-17T12:38:45+00:00] seq 12 VERDICT=VALID total_time_s=702.02 (checker rc=0)
+[2026-10-17T12:38:51+00:00] === seq 13 : r2 W1 arm M (block_pos 2, arm_pos 1) label fev_r2_W1_M ===
+[2026-10-17T12:38:57+00:00] seq 13 boot start (attempt 1)
+[2026-10-17T12:40:01+00:00] seq 13 boot OK in 64s — bench start
+[2026-10-17T12:45:53+00:00] seq 13 bench rc=0
+[2026-10-17T12:45:54+00:00] seq 13 VERDICT=VALID total_time_s=349.97 (checker rc=0)
+[2026-10-17T12:46:00+00:00] === seq 14 : r2 W1 arm A (block_pos 2, arm_pos 2) label fev_r2_W1_A ===
+[2026-10-17T12:46:05+00:00] seq 14 boot start (attempt 1)
+[2026-10-17T12:47:17+00:00] seq 14 boot OK in 72s — bench start
+[2026-10-17T12:53:21+00:00] seq 14 bench rc=0
+[2026-10-17T12:53:21+00:00] seq 14 VERDICT=VALID total_time_s=360.9 (checker rc=0)
+[2026-10-17T12:53:27+00:00] === seq 15 : r2 W1 arm F (block_pos 2, arm_pos 3) label fev_r2_W1_F ===
+[2026-10-17T12:53:33+00:00] seq 15 boot start (attempt 1)
+[2026-10-17T12:54:45+00:00] seq 15 boot OK in 72s — bench start
+[2026-10-17T13:00:38+00:00] seq 15 bench rc=0
+[2026-10-17T13:00:38+00:00] seq 15 VERDICT=VALID total_time_s=349.4 (checker rc=0)
+[2026-10-17T13:00:44+00:00] === seq 16 : r2 W1 arm L (block_pos 2, arm_pos 4) label fev_r2_W1_L ===
+[2026-10-17T13:00:50+00:00] seq 16 boot start (attempt 1)
+[2026-10-17T13:01:54+00:00] seq 16 boot OK in 64s — bench start
+[2026-10-17T13:07:48+00:00] seq 16 bench rc=0
+[2026-10-17T13:07:48+00:00] seq 16 VERDICT=VALID total_time_s=351.16 (checker rc=0)
+[2026-10-17T13:07:54+00:00] === seq 17 : r3 W1 arm L (block_pos 1, arm_pos 1) label fev_r3_W1_L ===
+[2026-10-17T13:08:00+00:00] seq 17 boot start (attempt 1)
+[2026-10-17T13:09:08+00:00] seq 17 boot OK in 68s — bench start
+[2026-10-17T13:14:59+00:00] seq 17 bench rc=0
+[2026-10-17T13:14:59+00:00] seq 17 VERDICT=VALID total_time_s=348.28 (checker rc=0)
+[2026-10-17T13:15:05+00:00] === seq 18 : r3 W1 arm M (block_pos 1, arm_pos 2) label fev_r3_W1_M ===
+[2026-10-17T13:15:11+00:00] seq 18 boot start (attempt 1)
+[2026-10-17T13:16:15+00:00] seq 18 boot OK in 64s — bench start
+[2026-10-17T13:22:08+00:00] seq 18 bench rc=0
+[2026-10-17T13:22:08+00:00] seq 18 VERDICT=VALID total_time_s=350.15 (checker rc=0)
+[2026-10-17T13:22:14+00:00] === seq 19 : r3 W1 arm A (block_pos 1, arm_pos 3) label fev_r3_W1_A ===
+[2026-10-17T13:22:20+00:00] seq 19 boot start (attempt 1)
+[2026-10-17T13:23:52+00:00] seq 19 boot OK in 92s — bench start
+[2026-10-17T13:29:51+00:00] seq 19 bench rc=0
+[2026-10-17T13:29:51+00:00] seq 19 VERDICT=VALID total_time_s=355.93 (checker rc=0)
+[2026-10-17T13:29:57+00:00] === seq 20 : r3 W1 arm F (block_pos 1, arm_pos 4) label fev_r3_W1_F ===
+[2026-10-17T13:30:03+00:00] seq 20 boot start (attempt 1)
+[2026-10-17T13:31:11+00:00] seq 20 boot OK in 68s — bench start
+[2026-10-17T13:37:07+00:00] seq 20 bench rc=0
+[2026-10-17T13:37:07+00:00] seq 20 VERDICT=VALID total_time_s=353.78 (checker rc=0)
+[2026-10-17T13:37:13+00:00] === seq 21 : r3 W2 arm A (block_pos 2, arm_pos 1) label fev_r3_W2_A ===
+[2026-10-17T13:37:19+00:00] seq 21 boot start (attempt 1)
+[2026-10-17T13:38:35+00:00] seq 21 boot OK in 76s — bench start
+[2026-10-17T13:50:31+00:00] seq 21 bench rc=0
+[2026-10-17T13:50:31+00:00] seq 21 VERDICT=VALID total_time_s=712.83 (checker rc=0)
+[2026-10-17T13:50:37+00:00] === seq 22 : r3 W2 arm F (block_pos 2, arm_pos 2) label fev_r3_W2_F ===
+[2026-10-17T13:50:43+00:00] seq 22 boot start (attempt 1)
+[2026-10-17T13:51:51+00:00] seq 22 boot OK in 68s — bench start
+[2026-10-17T14:03:40+00:00] seq 22 bench rc=0
+[2026-10-17T14:03:40+00:00] seq 22 VERDICT=VALID total_time_s=705.42 (checker rc=0)
+[2026-10-17T14:03:46+00:00] === seq 23 : r3 W2 arm L (block_pos 2, arm_pos 3) label fev_r3_W2_L ===
+[2026-10-17T14:03:52+00:00] seq 23 boot start (attempt 1)
+[2026-10-17T14:05:00+00:00] seq 23 boot OK in 68s — bench start
+[2026-10-17T14:16:52+00:00] seq 23 bench rc=0
+[2026-10-17T14:16:52+00:00] seq 23 VERDICT=VALID total_time_s=709.52 (checker rc=0)
+[2026-10-17T14:16:58+00:00] === seq 24 : r3 W2 arm M (block_pos 2, arm_pos 4) label fev_r3_W2_M ===
+[2026-10-17T14:17:04+00:00] seq 24 boot start (attempt 1)
+[2026-10-17T14:18:17+00:00] seq 24 boot OK in 73s — bench start
+[2026-10-17T14:30:13+00:00] seq 24 bench rc=0
+[2026-10-17T14:30:13+00:00] seq 24 VERDICT=VALID total_time_s=712.96 (checker rc=0)
+[2026-10-17T14:30:19+00:00] === seq 25 : r4 W2 arm M (block_pos 1, arm_pos 1) label fev_r4_W2_M ===
+[2026-10-17T14:30:25+00:00] seq 25 boot start (attempt 1)
+[2026-10-17T14:31:29+00:00] seq 25 boot OK in 64s — bench start
+[2026-10-17T14:43:26+00:00] seq 25 bench rc=0
+[2026-10-17T14:43:26+00:00] seq 25 VERDICT=VALID total_time_s=714.32 (checker rc=0)
+[2026-10-17T14:43:33+00:00] === seq 26 : r4 W2 arm A (block_pos 1, arm_pos 2) label fev_r4_W2_A ===
+[2026-10-17T14:43:40+00:00] seq 26 boot start (attempt 1)
+[2026-10-17T14:44:48+00:00] seq 26 boot OK in 68s — bench start
+[2026-10-17T14:56:36+00:00] seq 26 bench rc=0
+[2026-10-17T14:56:36+00:00] seq 26 VERDICT=VALID total_time_s=704.91 (checker rc=0)
+[2026-10-17T14:56:42+00:00] === seq 27 : r4 W2 arm F (block_pos 1, arm_pos 3) label fev_r4_W2_F ===
+[2026-10-17T14:56:48+00:00] seq 27 boot start (attempt 1)
+[2026-10-17T14:57:52+00:00] seq 27 boot OK in 64s — bench start
+[2026-10-17T15:09:37+00:00] seq 27 bench rc=0
+[2026-10-17T15:09:37+00:00] seq 27 VERDICT=VALID total_time_s=702.53 (checker rc=0)
+[2026-10-17T15:09:44+00:00] === seq 28 : r4 W2 arm L (block_pos 1, arm_pos 4) label fev_r4_W2_L ===
+[2026-10-17T15:09:50+00:00] seq 28 boot start (attempt 1)
+[2026-10-17T15:10:54+00:00] seq 28 boot OK in 64s — bench start
+[2026-10-17T15:22:44+00:00] seq 28 bench rc=0
+[2026-10-17T15:22:44+00:00] seq 28 VERDICT=VALID total_time_s=707.3 (checker rc=0)
+[2026-10-17T15:22:51+00:00] === seq 29 : r4 W1 arm F (block_pos 2, arm_pos 1) label fev_r4_W1_F ===
+[2026-10-17T15:22:57+00:00] seq 29 boot start (attempt 1)
+[2026-10-17T15:24:17+00:00] seq 29 boot OK in 80s — bench start
+[2026-10-17T15:30:14+00:00] seq 29 bench rc=0
+[2026-10-17T15:30:14+00:00] seq 29 VERDICT=VALID total_time_s=354.85 (checker rc=0)
+[2026-10-17T15:30:21+00:00] === seq 30 : r4 W1 arm L (block_pos 2, arm_pos 2) label fev_r4_W1_L ===
+[2026-10-17T15:30:27+00:00] seq 30 boot start (attempt 1)
+[2026-10-17T15:31:35+00:00] seq 30 boot OK in 68s — bench start
+[2026-10-17T15:37:32+00:00] seq 30 bench rc=0
+[2026-10-17T15:37:32+00:00] seq 30 VERDICT=VALID total_time_s=355.22 (checker rc=0)
+[2026-10-17T15:37:41+00:00] === seq 31 : r4 W1 arm M (block_pos 2, arm_pos 3) label fev_r4_W1_M ===
+[2026-10-17T15:37:47+00:00] seq 31 boot start (attempt 1)
+[2026-10-17T15:39:03+00:00] seq 31 boot OK in 76s — bench start
+[2026-10-17T15:45:04+00:00] seq 31 bench rc=0
+[2026-10-17T15:45:04+00:00] seq 31 VERDICT=VALID total_time_s=357.76 (checker rc=0)
+[2026-10-17T15:45:10+00:00] === seq 32 : r4 W1 arm A (block_pos 2, arm_pos 4) label fev_r4_W1_A ===
+[2026-10-17T15:45:16+00:00] seq 32 boot start (attempt 1)
+[2026-10-17T15:46:20+00:00] seq 32 boot OK in 64s — bench start
+[2026-10-17T15:52:23+00:00] seq 32 bench rc=0
+[2026-10-17T15:52:23+00:00] seq 32 VERDICT=VALID total_time_s=359.96 (checker rc=0)
+[2026-10-17T15:52:29+00:00] === seq 33 : r5 W1 arm A (block_pos 1, arm_pos 1) label fev_r5_W1_A ===
+[2026-10-17T15:52:35+00:00] seq 33 boot start (attempt 1)
+[2026-10-17T15:53:47+00:00] seq 33 boot OK in 72s — bench start
+[2026-10-17T15:59:46+00:00] seq 33 bench rc=0
+[2026-10-17T15:59:46+00:00] seq 33 VERDICT=VALID total_time_s=355.39 (checker rc=0)
+[2026-10-17T15:59:52+00:00] === seq 34 : r5 W1 arm F (block_pos 1, arm_pos 2) label fev_r5_W1_F ===
+[2026-10-17T15:59:58+00:00] seq 34 boot start (attempt 1)
+[2026-10-17T16:01:02+00:00] seq 34 boot OK in 64s — bench start
+[2026-10-17T16:06:58+00:00] seq 34 bench rc=0
+[2026-10-17T16:06:58+00:00] seq 34 VERDICT=VALID total_time_s=353.46 (checker rc=0)
+[2026-10-17T16:07:04+00:00] === seq 35 : r5 W1 arm L (block_pos 1, arm_pos 3) label fev_r5_W1_L ===
+[2026-10-17T16:07:10+00:00] seq 35 boot start (attempt 1)
+[2026-10-17T16:08:30+00:00] seq 35 boot OK in 80s — bench start
+[2026-10-17T16:14:29+00:00] seq 35 bench rc=0
+[2026-10-17T16:14:29+00:00] seq 35 VERDICT=VALID total_time_s=355.43 (checker rc=0)
+[2026-10-17T16:14:35+00:00] === seq 36 : r5 W1 arm M (block_pos 1, arm_pos 4) label fev_r5_W1_M ===
+[2026-10-17T16:14:41+00:00] seq 36 boot start (attempt 1)
+[2026-10-17T16:15:49+00:00] seq 36 boot OK in 68s — bench start
+[2026-10-17T16:21:46+00:00] seq 36 bench rc=0
+[2026-10-17T16:21:46+00:00] seq 36 VERDICT=VALID total_time_s=354.66 (checker rc=0)
+[2026-10-17T16:21:52+00:00] === seq 37 : r5 W2 arm L (block_pos 2, arm_pos 1) label fev_r5_W2_L ===
+[2026-10-17T16:21:58+00:00] seq 37 boot start (attempt 1)
+[2026-10-17T16:23:10+00:00] seq 37 boot OK in 72s — bench start
+[2026-10-17T16:35:09+00:00] seq 37 bench rc=0
+[2026-10-17T16:35:09+00:00] seq 37 VERDICT=VALID total_time_s=715.2 (checker rc=0)
+[2026-10-17T16:35:15+00:00] === seq 38 : r5 W2 arm M (block_pos 2, arm_pos 2) label fev_r5_W2_M ===
+[2026-10-17T16:35:21+00:00] seq 38 boot start (attempt 1)
+[2026-10-17T16:36:25+00:00] seq 38 boot OK in 64s — bench start
+[2026-10-17T16:48:20+00:00] seq 38 bench rc=0
+[2026-10-17T16:48:20+00:00] seq 38 VERDICT=VALID total_time_s=712.69 (checker rc=0)
+[2026-10-17T16:48:27+00:00] === seq 39 : r5 W2 arm A (block_pos 2, arm_pos 3) label fev_r5_W2_A ===
+[2026-10-17T16:48:33+00:00] seq 39 boot start (attempt 1)
+[2026-10-17T16:49:37+00:00] seq 39 boot OK in 64s — bench start
+[2026-10-17T17:01:32+00:00] seq 39 bench rc=0
+[2026-10-17T17:01:32+00:00] seq 39 VERDICT=VALID total_time_s=712.38 (checker rc=0)
+[2026-10-17T17:01:40+00:00] === seq 40 : r5 W2 arm F (block_pos 2, arm_pos 4) label fev_r5_W2_F ===
+[2026-10-17T17:01:46+00:00] seq 40 boot start (attempt 1)
+[2026-10-17T17:03:02+00:00] seq 40 boot OK in 76s — bench start
+[2026-10-17T17:14:56+00:00] seq 40 bench rc=0
+[2026-10-17T17:14:56+00:00] seq 40 VERDICT=VALID total_time_s=711.41 (checker rc=0)
+[2026-10-17T17:15:03+00:00] === seq 41 : r6 W2 arm F (block_pos 1, arm_pos 1) label fev_r6_W2_F ===
+[2026-10-17T17:15:09+00:00] seq 41 boot start (attempt 1)
+[2026-10-17T17:16:13+00:00] seq 41 boot OK in 64s — bench start
+[2026-10-17T17:28:06+00:00] seq 41 bench rc=0
+[2026-10-17T17:28:06+00:00] seq 41 VERDICT=VALID total_time_s=709.9 (checker rc=0)
+[2026-10-17T17:28:12+00:00] === seq 42 : r6 W2 arm L (block_pos 1, arm_pos 2) label fev_r6_W2_L ===
+[2026-10-17T17:28:18+00:00] seq 42 boot start (attempt 1)
+[2026-10-17T17:29:30+00:00] seq 42 boot OK in 72s — bench start
+[2026-10-17T17:41:20+00:00] seq 42 bench rc=0
+[2026-10-17T17:41:20+00:00] seq 42 VERDICT=VALID total_time_s=707.16 (checker rc=0)
+[2026-10-17T17:41:27+00:00] === seq 43 : r6 W2 arm M (block_pos 1, arm_pos 3) label fev_r6_W2_M ===
+[2026-10-17T17:41:33+00:00] seq 43 boot start (attempt 1)
+[2026-10-17T17:42:37+00:00] seq 43 boot OK in 64s — bench start
+[2026-10-17T17:54:30+00:00] seq 43 bench rc=0
+[2026-10-17T17:54:30+00:00] seq 43 VERDICT=VALID total_time_s=710.34 (checker rc=0)
+[2026-10-17T17:54:36+00:00] === seq 44 : r6 W2 arm A (block_pos 1, arm_pos 4) label fev_r6_W2_A ===
+[2026-10-17T17:54:42+00:00] seq 44 boot start (attempt 1)
+[2026-10-17T17:55:50+00:00] seq 44 boot OK in 68s — bench start
+[2026-10-17T18:07:45+00:00] seq 44 bench rc=0
+[2026-10-17T18:07:45+00:00] seq 44 VERDICT=VALID total_time_s=711.18 (checker rc=0)
+[2026-10-17T18:07:51+00:00] === seq 45 : r6 W1 arm M (block_pos 2, arm_pos 1) label fev_r6_W1_M ===
+[2026-10-17T18:07:57+00:00] seq 45 boot start (attempt 1)
+[2026-10-17T18:09:05+00:00] seq 45 boot OK in 68s — bench start
+[2026-10-17T18:15:05+00:00] seq 45 bench rc=0
+[2026-10-17T18:15:05+00:00] seq 45 VERDICT=VALID total_time_s=357.2 (checker rc=0)
+[2026-10-17T18:15:11+00:00] === seq 46 : r6 W1 arm A (block_pos 2, arm_pos 2) label fev_r6_W1_A ===
+[2026-10-17T18:15:17+00:00] seq 46 boot start (attempt 1)
+[2026-10-17T18:16:21+00:00] seq 46 boot OK in 64s — bench start
+[2026-10-17T18:22:21+00:00] seq 46 bench rc=0
+[2026-10-17T18:22:21+00:00] seq 46 VERDICT=VALID total_time_s=357.31 (checker rc=0)
+[2026-10-17T18:22:28+00:00] === seq 47 : r6 W1 arm F (block_pos 2, arm_pos 3) label fev_r6_W1_F ===
+[2026-10-17T18:22:34+00:00] seq 47 boot start (attempt 1)
+[2026-10-17T18:23:58+00:00] seq 47 boot OK in 84s — bench start
+[2026-10-17T18:29:54+00:00] seq 47 bench rc=0
+[2026-10-17T18:29:54+00:00] seq 47 VERDICT=VALID total_time_s=353.76 (checker rc=0)
+[2026-10-17T18:30:01+00:00] === seq 48 : r6 W1 arm L (block_pos 2, arm_pos 4) label fev_r6_W1_L ===
+[2026-10-17T18:30:06+00:00] seq 48 boot start (attempt 1)
+[2026-10-17T18:31:11+00:00] seq 48 boot OK in 65s — bench start
+[2026-10-17T18:37:07+00:00] seq 48 bench rc=0
+[2026-10-17T18:37:07+00:00] seq 48 VERDICT=VALID total_time_s=353.94 (checker rc=0)
+[2026-10-17T18:37:14+00:00] === CAMPAIGN LOOP FINISHED (valid verdicts: 48/48; INFRA re-boots used: 0/4; see state for retired/missing) ===

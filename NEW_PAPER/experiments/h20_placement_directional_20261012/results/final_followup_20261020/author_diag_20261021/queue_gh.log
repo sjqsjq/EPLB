@@ -1,0 +1,8 @@
+[adhoc_P_gh_E3] ready=yes after 84s 2026-10-21T15:25:36Z
+[adhoc_P_gh_E3] bench rc=0 2026-10-21T15:29:17Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_adhoc_boot.sh: line 16: 347399 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+FAIL adhoc_P_gh_E3 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "no_rank_desync": true, "planhash_identity": false, "swaps_min": true, "v2p1_no_desync": false, "bench_complete": true, "perreq_lines": true}
+[adhoc_I_gh_E3] ready=yes after 96s 2026-10-21T15:31:17Z
+[adhoc_I_gh_E3] bench rc=0 2026-10-21T15:34:38Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_adhoc_boot.sh: line 16: 354346 Killed                  ART=$ART setsid nohup bash $F/scripts/launch_arm.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+PASS adhoc_I_gh_E3 {"no_watchdog": true, "no_scheduler_exc": true, "no_coalesced_err": true, "bench_complete": true, "perreq_lines": true}

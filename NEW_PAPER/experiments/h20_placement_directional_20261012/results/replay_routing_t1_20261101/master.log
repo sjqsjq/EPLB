@@ -1,0 +1,166 @@
+[master] T1_QUEUE start 2026-11-01T14:18:25Z
+[queue_t1] SMOKE T1_SMOKE_GAP300 arm=GAP300 start 2026-11-01T14:18:25Z
+[T1_SMOKE_GAP300] ready=yes after 96s 2026-11-01T14:20:01Z
+[T1_SMOKE_GAP300] rep=1 bench rc=0 2026-11-01T14:20:37Z
+[T1_SMOKE_GAP300] rep=2 bench rc=0 2026-11-01T14:21:11Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1928569 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_SMOKE_GAP300 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_ORIG arm=ORIG start 2026-11-01T14:21:49Z
+[T1_ORIG] ready=yes after 76s 2026-11-01T14:23:04Z
+[T1_ORIG] rep=1 bench rc=0 2026-11-01T14:26:26Z
+[T1_ORIG] rep=2 bench rc=0 2026-11-01T14:29:45Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1935456 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_ORIG all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "no_plans_issued": true, "bench_both_reps_ok": true}
+[queue_t1] T1_GAP32 arm=GAP32 start 2026-11-01T14:30:19Z
+[T1_GAP32] ready=yes after 60s 2026-11-01T14:31:19Z
+[T1_GAP32] rep=1 bench rc=0 2026-11-01T14:35:04Z
+[T1_GAP32] rep=2 bench rc=0 2026-11-01T14:38:29Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1940917 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_GAP32 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_GAP128 arm=GAP128 start 2026-11-01T14:39:12Z
+[T1_GAP128] ready=yes after 64s 2026-11-01T14:40:16Z
+[T1_GAP128] rep=1 bench rc=0 2026-11-01T14:43:38Z
+[T1_GAP128] rep=2 bench rc=0 2026-11-01T14:46:53Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1947953 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_GAP128 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_GAP300 arm=GAP300 start 2026-11-01T14:47:29Z
+[T1_GAP300] ready=yes after 56s 2026-11-01T14:48:25Z
+[T1_GAP300] rep=1 bench rc=0 2026-11-01T14:51:50Z
+[T1_GAP300] rep=2 bench rc=0 2026-11-01T14:55:17Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 56: 1954957 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_GAP300 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_MD300 arm=MD300 start 2026-11-01T14:56:02Z
+[T1_MD300] ready=yes after 76s 2026-11-01T14:57:18Z
+[T1_MD300] rep=1 bench rc=0 2026-11-01T15:01:05Z
+[T1_MD300] rep=2 bench rc=0 2026-11-01T15:04:48Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1961967 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_MD300 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_BI300 arm=BI300 start 2026-11-01T15:05:32Z
+[T1_BI300] ready=yes after 60s 2026-11-01T15:06:32Z
+[T1_BI300] rep=1 bench rc=0 2026-11-01T15:09:45Z
+[T1_BI300] rep=2 bench rc=0 2026-11-01T15:13:11Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/replay_routing_t1_20261101/scripts/run_t1_boot.sh: line 54: 1968996 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t1.sh $ARM > "$ART/server.log" 2>&1
+MECH_T1 T1_BI300 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "trivial_init": true, "redundancy_zero": true, "dedup_ok": true, "budget_matches_arm": true, "bench_both_reps_ok": true}
+[queue_t1] T1_QUEUE_END 2026-11-01T15:13:47Z
+[master] T1_QUEUE rc=0 2026-11-01T15:13:47Z
+[master] T2_SMOKE start 2026-11-01T15:13:47Z
+[queue_t2_smoke] PROV_I_s0 arm=I start 2026-11-01T15:13:47Z
+[PROV_I_s0] ready=yes after 64s 2026-11-01T15:14:51Z
+[PROV_I_s0] bench rc=0 2026-11-01T15:15:18Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 1976034 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_I_s0 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2_smoke] PROV_P0_s0 arm=P start 2026-11-01T15:15:52Z
+[PROV_P0_s0] ready=yes after 80s 2026-11-01T15:17:12Z
+[PROV_P0_s0] bench rc=0 2026-11-01T15:17:41Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 1981159 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_P0_s0 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2_smoke] T2_SMOKE_END 2026-11-01T15:18:09Z
+[master] T2_SMOKE rc=0 2026-11-01T15:18:09Z
+[master] T2_FORMAL start 2026-11-01T15:18:09Z
+[queue_t2] PROV_ES_r1 arm=ES start 2026-11-01T15:18:09Z
+[PROV_ES_r1] ready=no after 8s 2026-11-01T15:18:17Z
+MECH_T2 PROV_ES_r1 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_ES_r1 rc=1 logged continue 2026-11-01T15:18:21Z
+[queue_t2] PROV_ED_r1 arm=ED start 2026-11-01T15:18:21Z
+[PROV_ED_r1] ready=yes after 76s 2026-11-01T15:19:36Z
+[PROV_ED_r1] bench rc=0 2026-11-01T15:20:28Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 1988044 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_ED_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "eplb_enabled": true, "eplb_iters_256": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_MT_r1 arm=MT start 2026-11-01T15:20:51Z
+[PROV_MT_r1] ready=no after 8s 2026-11-01T15:20:59Z
+MECH_T2 PROV_MT_r1 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_MT_r1 rc=1 logged continue 2026-11-01T15:21:02Z
+[queue_t2] PROV_DF_r1 arm=DF start 2026-11-01T15:21:02Z
+[PROV_DF_r1] ready=no after 8s 2026-11-01T15:21:10Z
+MECH_T2 PROV_DF_r1 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_DF_r1 rc=1 logged continue 2026-11-01T15:21:14Z
+[queue_t2] PROV_P0_r1 arm=P start 2026-11-01T15:21:14Z
+[PROV_P0_r1] ready=yes after 60s 2026-11-01T15:22:14Z
+[PROV_P0_r1] bench rc=0 2026-11-01T15:23:00Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 1995028 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_P0_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_I_r1 arm=I start 2026-11-01T15:23:27Z
+[PROV_I_r1] ready=yes after 60s 2026-11-01T15:24:27Z
+[PROV_I_r1] bench rc=0 2026-11-01T15:25:13Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72:  2281 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_I_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_ED_r2 arm=ED start 2026-11-01T15:25:38Z
+[PROV_ED_r2] ready=yes after 76s 2026-11-01T15:26:54Z
+[PROV_ED_r2] bench rc=0 2026-11-01T15:27:41Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72:  7539 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_ED_r2 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "eplb_enabled": true, "eplb_iters_256": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_MT_r2 arm=MT start 2026-11-01T15:28:14Z
+[PROV_MT_r2] ready=no after 8s 2026-11-01T15:28:22Z
+MECH_T2 PROV_MT_r2 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_MT_r2 rc=1 logged continue 2026-11-01T15:28:30Z
+[queue_t2] PROV_DF_r2 arm=DF start 2026-11-01T15:28:30Z
+[PROV_DF_r2] ready=no after 8s 2026-11-01T15:28:39Z
+MECH_T2 PROV_DF_r2 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_DF_r2 rc=1 logged continue 2026-11-01T15:28:43Z
+[queue_t2] PROV_P0_r2 arm=P start 2026-11-01T15:28:43Z
+[PROV_P0_r2] ready=yes after 80s 2026-11-01T15:30:03Z
+[PROV_P0_r2] bench rc=0 2026-11-01T15:30:49Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 14512 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_P0_r2 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_I_r2 arm=I start 2026-11-01T15:31:23Z
+[PROV_I_r2] ready=yes after 84s 2026-11-01T15:32:47Z
+[PROV_I_r2] bench rc=0 2026-11-01T15:33:33Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 21385 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_I_r2 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_ES_r2 arm=ES start 2026-11-01T15:33:58Z
+[PROV_ES_r2] ready=no after 8s 2026-11-01T15:34:07Z
+MECH_T2 PROV_ES_r2 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_ES_r2 rc=1 logged continue 2026-11-01T15:34:11Z
+[queue_t2] PROV_MT_r3 arm=MT start 2026-11-01T15:34:11Z
+[PROV_MT_r3] ready=no after 8s 2026-11-01T15:34:19Z
+MECH_T2 PROV_MT_r3 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_MT_r3 rc=1 logged continue 2026-11-01T15:34:23Z
+[queue_t2] PROV_DF_r3 arm=DF start 2026-11-01T15:34:23Z
+[PROV_DF_r3] ready=no after 8s 2026-11-01T15:34:31Z
+MECH_T2 PROV_DF_r3 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_DF_r3 rc=1 logged continue 2026-11-01T15:34:35Z
+[queue_t2] PROV_P0_r3 arm=P start 2026-11-01T15:34:35Z
+[PROV_P0_r3] ready=yes after 76s 2026-11-01T15:35:51Z
+[PROV_P0_r3] bench rc=0 2026-11-01T15:36:37Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 26827 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_P0_r3 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_I_r3 arm=I start 2026-11-01T15:37:04Z
+[PROV_I_r3] ready=yes after 64s 2026-11-01T15:38:08Z
+[PROV_I_r3] bench rc=0 2026-11-01T15:38:54Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 33716 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_I_r3 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PROV_ES_r3 arm=ES start 2026-11-01T15:39:18Z
+[PROV_ES_r3] ready=no after 8s 2026-11-01T15:39:26Z
+MECH_T2 PROV_ES_r3 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PROV_ES_r3 rc=1 logged continue 2026-11-01T15:39:31Z
+[queue_t2] PROV_ED_r3 arm=ED start 2026-11-01T15:39:31Z
+[PROV_ED_r3] ready=yes after 56s 2026-11-01T15:40:27Z
+[PROV_ED_r3] bench rc=0 2026-11-01T15:41:19Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 39129 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PROV_ED_r3 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "eplb_enabled": true, "eplb_iters_256": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PBD_ES_r1 arm=ES start 2026-11-01T15:41:44Z
+[PBD_ES_r1] ready=no after 8s 2026-11-01T15:41:51Z
+MECH_T2 PBD_ES_r1 all_ok=False {"ready": false, "deepep_normal": false, "graph_off": false, "redundancy_expected": false, "init_location_expected": false}
+[queue_t2] PBD_ES_r1 rc=1 logged continue 2026-11-01T15:41:55Z
+[queue_t2] PBD_ED_r1 arm=ED start 2026-11-01T15:41:55Z
+[PBD_ED_r1] ready=yes after 68s 2026-11-01T15:43:04Z
+[PBD_ED_r1] bench rc=0 2026-11-01T15:57:57Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 45971 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PBD_ED_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "eplb_enabled": true, "eplb_iters_256": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PBD_MT_r1 arm=MT start 2026-11-01T15:58:26Z
+[PBD_MT_r1] ready=yes after 72s 2026-11-01T15:59:38Z
+[PBD_MT_r1] bench rc=0 2026-11-01T16:14:38Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 53584 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PBD_MT_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_expected": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PBD_DF_r1 arm=DF start 2026-11-01T16:15:00Z
+[PBD_DF_r1] ready=yes after 80s 2026-11-01T16:16:20Z
+[PBD_DF_r1] bench rc=0 2026-11-01T16:31:21Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 61068 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PBD_DF_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_expected": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PBD_P0_r1 arm=P start 2026-11-01T16:31:48Z
+[PBD_P0_r1] ready=yes after 92s 2026-11-01T16:33:20Z
+[PBD_P0_r1] bench rc=0 2026-11-01T16:47:30Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 69380 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PBD_P0_r1 all_ok=True {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": true, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2] PBD_I_r1 arm=I start 2026-11-01T16:47:55Z
+[PBD_I_r1] ready=yes after 88s 2026-11-01T16:49:23Z

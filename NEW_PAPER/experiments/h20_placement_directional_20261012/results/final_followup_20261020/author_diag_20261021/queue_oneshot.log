@@ -1,0 +1,10 @@
+[f6_v2_P_paper_f1] ready=yes after 84s 2026-10-22T07:51:27Z
+[f6_v2_P_paper_f1] run1 rc=0 2026-10-22T07:54:05Z
+[f6_v2_P_paper_f1] run2 rc=0 2026-10-22T07:56:15Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_f6_boot.sh: line 23: 547647 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "f6_v2_P_paper_f1", "launcher": "paper_pb", "code": "v2", "bench_rc1": 0, "bench_rc2": 0, "ok_run1": 600, "tps_run1": 4.0, "ok_run2": 600, "tps_run2": 4.6, "issued_windows": 13, "total_swaps_issued": 1925, "faults": 0, "min_swaps_required": 1, "pass_": true}
+[f6_gh_P_paper_f1] ready=yes after 80s 2026-10-22T07:57:59Z
+[f6_gh_P_paper_f1] run1 rc=0 2026-10-22T08:01:12Z
+[f6_gh_P_paper_f1] run2 rc=0 2026-10-22T08:03:33Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/author_diag_20261021/run_f6_boot.sh: line 23: 554638 Killed                  setsid nohup bash "$ART/launch_paper.sh" > "$ART/server.log" 2>&1
+{"label": "f6_gh_P_paper_f1", "launcher": "paper_pb", "code": "gh_pristine", "bench_rc1": 0, "bench_rc2": 0, "ok_run1": 600, "tps_run1": 3.2, "ok_run2": 600, "tps_run2": 4.3, "issued_windows": 21, "total_swaps_issued": 2643, "faults": 0, "min_swaps_required": 1, "pass_": true}

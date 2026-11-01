@@ -1,0 +1,81 @@
+[2026-10-18T11:27:04+00:00] === SP DRIVER phase=DEV start (DRY_RUN=1, timed_starts_used=0/12, infra_reboots_used=0/3) ===
+[2026-10-18T11:27:14+00:00] === SP DRIVER phase=DEV start (DRY_RUN=1, timed_starts_used=0/12, infra_reboots_used=0/3) ===
+[2026-10-18T11:27:14+00:00] DRY seq=1 phase=DEV cond=W1 block=b1 arm=F_sparse SP_MODE=fixed SP_S=4 SP_W=64 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b1_F_sparse/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b1_F_sparse art=results/sp_coupling_v1/dev/sp_dev_W1_b1_F_sparse
+[2026-10-18T11:27:14+00:00] DRY seq=2 phase=DEV cond=W1 block=b1 arm=A SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b1_A/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b1_A art=results/sp_coupling_v1/dev/sp_dev_W1_b1_A
+[2026-10-18T11:27:14+00:00] DRY seq=3 phase=DEV cond=W1 block=b1 arm=F_dense SP_MODE=fixed SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b1_F_dense/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b1_F_dense art=results/sp_coupling_v1/dev/sp_dev_W1_b1_F_dense
+[2026-10-18T11:27:14+00:00] DRY seq=4 phase=DEV cond=W1 block=b2 arm=F_dense SP_MODE=fixed SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b2_F_dense/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b2_F_dense art=results/sp_coupling_v1/dev/sp_dev_W1_b2_F_dense
+[2026-10-18T11:27:14+00:00] DRY seq=5 phase=DEV cond=W1 block=b2 arm=A SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b2_A/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b2_A art=results/sp_coupling_v1/dev/sp_dev_W1_b2_A
+[2026-10-18T11:27:14+00:00] DRY seq=6 phase=DEV cond=W1 block=b2 arm=F_sparse SP_MODE=fixed SP_S=4 SP_W=64 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W1_b2_F_sparse/v2p1_rank0.jsonl ds=w1_stable_code_4000.jsonl nreq=4000 label=sp_dev_W1_b2_F_sparse art=results/sp_coupling_v1/dev/sp_dev_W1_b2_F_sparse
+[2026-10-18T11:27:14+00:00] DRY seq=7 phase=DEV cond=W2 block=b1 arm=F_sparse SP_MODE=fixed SP_S=4 SP_W=64 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b1_F_sparse/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b1_F_sparse art=results/sp_coupling_v1/dev/sp_dev_W2_b1_F_sparse
+[2026-10-18T11:27:14+00:00] DRY seq=8 phase=DEV cond=W2 block=b1 arm=A SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b1_A/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b1_A art=results/sp_coupling_v1/dev/sp_dev_W2_b1_A
+[2026-10-18T11:27:14+00:00] DRY seq=9 phase=DEV cond=W2 block=b1 arm=F_dense SP_MODE=fixed SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b1_F_dense/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b1_F_dense art=results/sp_coupling_v1/dev/sp_dev_W2_b1_F_dense
+[2026-10-18T11:27:14+00:00] DRY seq=10 phase=DEV cond=W2 block=b2 arm=F_dense SP_MODE=fixed SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b2_F_dense/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b2_F_dense art=results/sp_coupling_v1/dev/sp_dev_W2_b2_F_dense
+[2026-10-18T11:27:14+00:00] DRY seq=11 phase=DEV cond=W2 block=b2 arm=A SP_MODE=adaptive SP_S=1 SP_W=16 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b2_A/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b2_A art=results/sp_coupling_v1/dev/sp_dev_W2_b2_A
+[2026-10-18T11:27:14+00:00] DRY seq=12 phase=DEV cond=W2 block=b2 arm=F_sparse SP_MODE=fixed SP_S=4 SP_W=64 ctrl=21 EA_W=16 ALPHA=0.0 probe=off knobs=FROZEN log=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sp_coupling_v1/dev/sp_dev_W2_b2_F_sparse/v2p1_rank0.jsonl ds=w2_switch_code_chinese_8000.jsonl nreq=8000 label=sp_dev_W2_b2_F_sparse art=results/sp_coupling_v1/dev/sp_dev_W2_b2_F_sparse
+[2026-10-18T11:36:25+00:00] === SP DRIVER phase=DEV start (DRY_RUN=0, timed_starts_used=0/12, infra_reboots_used=0/3) ===
+[2026-10-18T11:36:26+00:00] === seq 1 : phase=DEV cond=W1 block=b1 arm=F_sparse label=sp_dev_W1_b1_F_sparse ===
+[2026-10-18T11:36:31+00:00] seq 1 boot start (attempt 1)
+[2026-10-18T11:37:36+00:00] seq 1 boot OK in 65s — bench start (timed start #1/12)
+[2026-10-18T11:43:32+00:00] seq 1 bench rc=0
+[2026-10-18T11:43:32+00:00] seq 1 VERDICT=VALID total_time_s=353.73 (checker rc=0)
+[2026-10-18T11:43:39+00:00] === seq 2 : phase=DEV cond=W1 block=b1 arm=A label=sp_dev_W1_b1_A ===
+[2026-10-18T11:43:45+00:00] seq 2 boot start (attempt 1)
+[2026-10-18T11:44:49+00:00] seq 2 boot OK in 64s — bench start (timed start #2/12)
+[2026-10-18T11:50:44+00:00] seq 2 bench rc=0
+[2026-10-18T11:50:44+00:00] seq 2 VERDICT=MECH_RETIRE total_time_s=352.17 (checker rc=2)
+[2026-10-18T11:50:50+00:00] MECHANISM-CLASS FAILURE at seq 2 (MECH_RETIRE) — HALT per plan §7/§8 (mechanism only; never endpoint values); report to author
+[2026-10-18T11:50:50+00:00] === PHASE DEV LOOP EXITED rc=8 (halt or fatal; state preserved) ===
+[2026-10-18T11:59:50+00:00] === SP DRIVER phase=DEV start (DRY_RUN=0, timed_starts_used=2/12, infra_reboots_used=0/3) ===
+[2026-10-18T11:59:50+00:00] seq 1 (sp_dev_W1_b1_F_sparse) already has VERDICT — skip
+[2026-10-18T11:59:50+00:00] seq 2 (sp_dev_W1_b1_A) already has VERDICT — skip
+[2026-10-18T11:59:50+00:00] === seq 3 : phase=DEV cond=W1 block=b1 arm=F_dense label=sp_dev_W1_b1_F_dense ===
+[2026-10-18T11:59:56+00:00] seq 3 boot start (attempt 1)
+[2026-10-18T12:01:00+00:00] seq 3 boot OK in 64s — bench start (timed start #3/12)
+[2026-10-18T12:06:56+00:00] seq 3 bench rc=0
+[2026-10-18T12:06:56+00:00] seq 3 VERDICT=VALID total_time_s=352.88 (checker rc=0)
+[2026-10-18T12:07:02+00:00] === seq 4 : phase=DEV cond=W1 block=b2 arm=F_dense label=sp_dev_W1_b2_F_dense ===
+[2026-10-18T12:07:08+00:00] seq 4 boot start (attempt 1)
+[2026-10-18T12:08:24+00:00] seq 4 boot OK in 76s — bench start (timed start #4/12)
+[2026-10-18T12:14:20+00:00] seq 4 bench rc=0
+[2026-10-18T12:14:20+00:00] seq 4 VERDICT=VALID total_time_s=353.34 (checker rc=0)
+[2026-10-18T12:14:27+00:00] === seq 5 : phase=DEV cond=W1 block=b2 arm=A label=sp_dev_W1_b2_A ===
+[2026-10-18T12:14:33+00:00] seq 5 boot start (attempt 1)
+[2026-10-18T12:15:33+00:00] seq 5 boot OK in 60s — bench start (timed start #5/12)
+[2026-10-18T12:21:30+00:00] seq 5 bench rc=0
+[2026-10-18T12:21:30+00:00] seq 5 VERDICT=VALID total_time_s=353.9 (checker rc=0)
+[2026-10-18T12:21:36+00:00] === seq 6 : phase=DEV cond=W1 block=b2 arm=F_sparse label=sp_dev_W1_b2_F_sparse ===
+[2026-10-18T12:21:42+00:00] seq 6 boot start (attempt 1)
+[2026-10-18T12:22:50+00:00] seq 6 boot OK in 68s — bench start (timed start #6/12)
+[2026-10-18T12:28:50+00:00] seq 6 bench rc=0
+[2026-10-18T12:28:50+00:00] seq 6 VERDICT=VALID total_time_s=357.21 (checker rc=0)
+[2026-10-18T12:28:56+00:00] === seq 7 : phase=DEV cond=W2 block=b1 arm=F_sparse label=sp_dev_W2_b1_F_sparse ===
+[2026-10-18T12:29:02+00:00] seq 7 boot start (attempt 1)
+[2026-10-18T12:30:06+00:00] seq 7 boot OK in 64s — bench start (timed start #7/12)
+[2026-10-18T12:41:54+00:00] seq 7 bench rc=0
+[2026-10-18T12:41:54+00:00] seq 7 VERDICT=VALID total_time_s=704.56 (checker rc=0)
+[2026-10-18T12:42:00+00:00] === seq 8 : phase=DEV cond=W2 block=b1 arm=A label=sp_dev_W2_b1_A ===
+[2026-10-18T12:42:06+00:00] seq 8 boot start (attempt 1)
+[2026-10-18T12:43:14+00:00] seq 8 boot OK in 68s — bench start (timed start #8/12)
+[2026-10-18T12:55:11+00:00] seq 8 bench rc=0
+[2026-10-18T12:55:11+00:00] seq 8 VERDICT=VALID total_time_s=713.2 (checker rc=0)
+[2026-10-18T12:55:17+00:00] === seq 9 : phase=DEV cond=W2 block=b1 arm=F_dense label=sp_dev_W2_b1_F_dense ===
+[2026-10-18T12:55:23+00:00] seq 9 boot start (attempt 1)
+[2026-10-18T12:56:31+00:00] seq 9 boot OK in 68s — bench start (timed start #9/12)
+[2026-10-18T13:08:22+00:00] seq 9 bench rc=0
+[2026-10-18T13:08:22+00:00] seq 9 VERDICT=VALID total_time_s=708.18 (checker rc=0)
+[2026-10-18T13:08:28+00:00] === seq 10 : phase=DEV cond=W2 block=b2 arm=F_dense label=sp_dev_W2_b2_F_dense ===
+[2026-10-18T13:08:34+00:00] seq 10 boot start (attempt 1)
+[2026-10-18T13:09:38+00:00] seq 10 boot OK in 64s — bench start (timed start #10/12)
+[2026-10-18T13:21:30+00:00] seq 10 bench rc=0
+[2026-10-18T13:21:30+00:00] seq 10 VERDICT=VALID total_time_s=708.53 (checker rc=0)
+[2026-10-18T13:21:37+00:00] === seq 11 : phase=DEV cond=W2 block=b2 arm=A label=sp_dev_W2_b2_A ===
+[2026-10-18T13:21:43+00:00] seq 11 boot start (attempt 1)
+[2026-10-18T13:22:51+00:00] seq 11 boot OK in 68s — bench start (timed start #11/12)
+[2026-10-18T13:34:50+00:00] seq 11 bench rc=0
+[2026-10-18T13:34:50+00:00] seq 11 VERDICT=VALID total_time_s=716.14 (checker rc=0)
+[2026-10-18T13:34:56+00:00] === seq 12 : phase=DEV cond=W2 block=b2 arm=F_sparse label=sp_dev_W2_b2_F_sparse ===
+[2026-10-18T13:35:03+00:00] seq 12 boot start (attempt 1)
+[2026-10-18T13:36:11+00:00] seq 12 boot OK in 68s — bench start (timed start #12/12)
+[2026-10-18T13:48:03+00:00] seq 12 bench rc=0
+[2026-10-18T13:48:03+00:00] seq 12 VERDICT=VALID total_time_s=709.37 (checker rc=0)
+[2026-10-18T13:48:10+00:00] === PHASE DEV LOOP FINISHED (VALID total: 11; timed starts used: 12/12; INFRA re-boots: 0/3) ===

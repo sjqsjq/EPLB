@@ -1,0 +1,9 @@
+W1020 08:26:08.407000 1795500 site-packages/torch/distributed/run.py:803] 
+W1020 08:26:08.407000 1795500 site-packages/torch/distributed/run.py:803] *****************************************
+W1020 08:26:08.407000 1795500 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1020 08:26:08.407000 1795500 site-packages/torch/distributed/run.py:803] *****************************************
+PLAN: [(0, 3, 65, 73, 4, 4), (1, 1, 35, 8, 2, 0), (2, 7, 5, 92, 0, 5), (3, 5, 59, 44, 3, 2), (4, 1, 31, 93, 1, 5), (5, 6, 62, 38, 3, 2), (6, 5, 3, 20, 0, 1), (7, 1, 91, 122, 5, 7)]
+/opt/conda/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:4876: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  warnings.warn(  # warn only once
+[rank0]:[W1020 08:26:19.555010038 ProcessGroupNCCL.cpp:5072] Guessing device ID based on global rank. This can cause a hang if rank to GPU mapping is heterogeneous. You can specify device_id in init_process_group()
+BAD_ROWS: []

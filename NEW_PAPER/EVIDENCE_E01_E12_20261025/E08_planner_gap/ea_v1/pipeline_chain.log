@@ -1,0 +1,31 @@
+[2026-10-15T14:36:59+00:00] CHAIN_START waiting for GRID_DONE
+[2026-10-15T17:17:27+00:00] GRID_DONE detected; waiting 60s for driver teardown
+[2026-10-15T17:18:27+00:00] STEP1 analyzer
+smoke_all_pass: True
+  easmoke_A10_s1 passed= True fails= []
+  easmoke_A01_s1 passed= True fails= []
+  easmoke_A11_s1 passed= True fails= []
+valid grid starts: 24 / 24
+combos scored: 12 ineligible: []
+  W= 8 alpha=0.0 n=2 mean=369.30s 
+  W= 8 alpha=0.5 n=2 mean=370.83s 
+  W= 8 alpha=0.9 n=2 mean=372.81s 
+  W=16 alpha=0.0 n=2 mean=362.37s <-- SELECTED
+  W=16 alpha=0.5 n=2 mean=365.69s 
+  W=16 alpha=0.9 n=2 mean=376.62s 
+  W=32 alpha=0.0 n=2 mean=362.42s 
+  W=32 alpha=0.5 n=2 mean=368.28s 
+  W=32 alpha=0.9 n=2 mean=383.77s 
+  W=64 alpha=0.0 n=2 mean=373.73s 
+  W=64 alpha=0.5 n=2 mean=376.24s 
+  W=64 alpha=0.9 n=2 mean=394.38s 
+W*= 16 alpha*= 0.0
+WROTE /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/grid_selection.json 9c7c7af3fb4a228cad13a74e7d4dded5bee03718cd06ba1621fe203b3e95071c
+WROTE /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_fixed_params.json 636b4bffb74f69f040cd0a1a1751eae9a1de72e17ba924c34b8bcaadb43019a0
+[2026-10-15T17:18:27+00:00] STEP2 deploy P11 + campaign code lock
+Traceback (most recent call last):
+  File "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/deploy_p11_and_lock.py", line 55, in <module>
+    os.path.join(SITE, "rebalancer.py"): old["deployed_package_files"]["rebalancer.py"]["sha256"],
+                                         ^^^
+NameError: name 'old' is not defined. Did you mean: 'ord'?
+[2026-10-15T17:18:27+00:00] CHAIN_FAIL deploy rc=1

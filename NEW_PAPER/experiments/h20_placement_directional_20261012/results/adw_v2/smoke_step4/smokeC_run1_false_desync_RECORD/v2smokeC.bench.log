@@ -1,0 +1,24 @@
+[v2smokeC] 4000 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2/smoke_step4/smoke4000.jsonl, conc=256, streaming TTFT/TPOT
+
+  Results: {
+  "label": "v2smokeC",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/adw_v2/smoke_step4/smoke4000.jsonl",
+  "num_requests": 4000,
+  "concurrency": 256,
+  "ok": 4000,
+  "errors": 0,
+  "total_time_s": 106.31,
+  "total_comp_tokens": 4000,
+  "tps": 37.6,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 6519.1,
+  "lat_p50_ms": 6326.27,
+  "lat_p99_ms": 13418.24,
+  "ttft_mean_ms": 6519.01,
+  "ttft_p50_ms": 6326.23,
+  "ttft_p99_ms": 13418.2,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}
+  -> /workspace/EPLB/OEPLB/benchmarks/results/v2smokeC.json
