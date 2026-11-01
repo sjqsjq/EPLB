@@ -2041,3 +2041,7 @@ Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
 [2026-11-01 20:47:06 DP6 TP6 EP6] Decode batch, #running-req: 32, #token: 9756, token usage: 0.05, cuda graph: False, gen throughput (token/s): 125.59, #queue-req: 0, 
 [2026-11-01 20:47:06 DP3 TP3 EP3] Decode batch, #running-req: 32, #token: 10448, token usage: 0.05, cuda graph: False, gen throughput (token/s): 123.57, #queue-req: 0, 
 [2026-11-01 20:47:06 DP7 TP7 EP7] Decode batch, #running-req: 32, #token: 9842, token usage: 0.05, cuda graph: False, gen throughput (token/s): 125.56, #queue-req: 0, 
+/opt/conda/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 8 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/opt/conda/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked shared_memory objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
