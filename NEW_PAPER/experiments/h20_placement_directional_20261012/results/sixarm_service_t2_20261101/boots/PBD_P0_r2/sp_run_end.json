@@ -1,0 +1,354 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "RECOVER",
+ "S_final": 1,
+ "H_final": 8,
+ "W_final": 8,
+ "sp_fwd_total": 2522,
+ "h_cycles": 167,
+ "window_count": 150,
+ "true_steps_total": 2512,
+ "sample_opportunities": 2320,
+ "recorded_steps": 1780,
+ "swaps_started_total": 40,
+ "nocommit_planned_ops_total": 0,
+ "decode_record_batches": 0,
+ "residency_committed_h": {
+  "TRACK": 130,
+  "QUIET": 17,
+  "RECOVER": 20
+ },
+ "transitions": [
+  {
+   "h_id": 22,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 24,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 28,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 30,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 34,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 36,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 41,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 42,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 46,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 48,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 52,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 54,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 70,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 72,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 76,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 78,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P2 n_fresh=0<n_min_eff=3080192 coverage failure under S=4 = insufficient evidence -> TRACK (rev1 R1; NOT RECOVER)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 145,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 147,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1b guardrail event 'uncertain_carry'"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 22,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 24,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 28,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 30,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 34,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 36,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 41,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 42,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 46,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 48,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 52,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 54,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 70,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 72,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 76,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 78,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 145,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 147,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  }
+ ],
+ "p2l_version": 40,
+ "p2l_fp8": "b851b3ddcbc68bff",
+ "prof_sp_gate_ms": 18.094558,
+ "prof_record_calls": 167320
+}

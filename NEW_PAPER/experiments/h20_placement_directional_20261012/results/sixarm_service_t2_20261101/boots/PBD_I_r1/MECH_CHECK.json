@@ -1,0 +1,42 @@
+{
+ "label": "PBD_I_r1",
+ "scenario": "PBD",
+ "arm": "I",
+ "facts": {
+  "label": "PBD_I_r1",
+  "scenario": "PBD",
+  "arm": "I",
+  "nreq_expected": 5344,
+  "no_bench": false,
+  "ready_to_roll": true,
+  "deepep_mode": "normal",
+  "disable_cuda_graph": "True",
+  "redundancy": 0,
+  "init_expert_location": "trivial",
+  "eplb": "False",
+  "eplb_algorithm": "auto",
+  "eplb_iters": 1000,
+  "bench": {
+   "ok": 5344,
+   "num_requests": 5344,
+   "total_time_s": 914.56,
+   "tps": 187.0,
+   "avg_output_tokens": 32,
+   "ttft_mean_ms": 19425.01,
+   "ttft_p99_ms": 54030.34,
+   "tpot_mean_ms": 775.67,
+   "lat_mean_ms": 43470.6,
+   "lat_p99_ms": 64824.63
+  }
+ },
+ "checks": {
+  "ready": true,
+  "deepep_normal": true,
+  "graph_off": true,
+  "redundancy_expected": true,
+  "init_location_trivial": true,
+  "bench_ok_eq_nreq": true,
+  "actual_o32": true
+ },
+ "all_ok": true
+}
