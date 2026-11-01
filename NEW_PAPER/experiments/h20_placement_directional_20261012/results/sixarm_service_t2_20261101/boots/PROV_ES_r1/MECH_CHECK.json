@@ -7,22 +7,36 @@
   "scenario": "PROV",
   "arm": "ES",
   "nreq_expected": 1024,
-  "no_bench": true,
-  "ready_to_roll": false,
-  "deepep_mode": null,
-  "disable_cuda_graph": null,
-  "redundancy": null,
-  "init_expert_location": null,
-  "eplb": null,
-  "eplb_algorithm": null,
-  "eplb_iters": null
+  "no_bench": false,
+  "ready_to_roll": true,
+  "deepep_mode": "normal",
+  "disable_cuda_graph": "True",
+  "redundancy": 16,
+  "init_expert_location": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/placements/datafore_e3_placement.json",
+  "eplb": "False",
+  "eplb_algorithm": "auto",
+  "eplb_iters": 1000,
+  "bench": {
+   "ok": 1024,
+   "num_requests": 1024,
+   "total_time_s": 36.19,
+   "tps": 905.5,
+   "avg_output_tokens": 32,
+   "ttft_mean_ms": 2224.9,
+   "ttft_p99_ms": 3927.41,
+   "tpot_mean_ms": 218.15,
+   "lat_mean_ms": 8987.5,
+   "lat_p99_ms": 9890.74
+  }
  },
  "checks": {
-  "ready": false,
-  "deepep_normal": false,
-  "graph_off": false,
-  "redundancy_expected": false,
-  "init_location_expected": false
+  "ready": true,
+  "deepep_normal": true,
+  "graph_off": true,
+  "redundancy_expected": true,
+  "init_location_expected": true,
+  "bench_ok_eq_nreq": true,
+  "actual_o32": true
  },
- "all_ok": false
+ "all_ok": true
 }
