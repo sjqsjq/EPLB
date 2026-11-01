@@ -1,0 +1,76 @@
+{
+  "analyzer_implementation": {
+    "bytes": 11157,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_scan_model_holdout.py",
+    "sha256": "67b7552867ebe039f713fe008f07142aa1eadd64ff803af6c64c951ac6380925"
+  },
+  "frozen_at_utc": "2026-10-15T02:21:46.327922+00:00",
+  "interpretation_rules": [
+    "no refit on scan or evaluation data; all model parameters were frozen before this comparison",
+    "report prediction error, never training R-squared",
+    "a CI crossing zero means compatible-with-zero, not equivalence and not proof of no effect",
+    "superiority of one model over another is claimed only if the paired-loss CI excludes zero",
+    "all signed errors preserved; no subset selection; negative observed effects kept as-is"
+  ],
+  "metrics": {
+    "also_reported": [
+      "signed bias",
+      "spearman rho",
+      "kendall tau",
+      "per-region breakdown by target bin"
+    ],
+    "paired_model_differences": {
+      "ci": "capture-clustered bootstrap, 12 clusters, B=10000, percentile 95%",
+      "seed": 262745064008032055,
+      "statistic": "mean(|err_i| - |err_j|) over 83 rows"
+    },
+    "primary": "MAE over the 83 holdout rows per model",
+    "selection_regret": "per capture: max_l Q_obs - Q_obs(argmax_l Q_pred) over the non-identity layouts; tie-break: smallest layout index in frozen manifest order",
+    "training_r2_never_reported": true
+  },
+  "model_lock": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_model_lock.json",
+    "sha256": "092f9736a9768d947e3f0fa15659889c5438fe4e10fa8509df4a029bf8088543",
+    "status": "models_locked_before_evaluation_layout_generation_and_timing"
+  },
+  "models_compared": {
+    "H_padding_linear": {
+      "H_us_per_unit_delta_pad": 716.7763250226791,
+      "calibration_mae_us": 61.93306951001924,
+      "fit": "least squares through the origin on the 216 frozen calibration out-of-fold rows only",
+      "form": "Q_pred_us = H * (padded_max_over_mean_identity - padded_max_over_mean_candidate)"
+    },
+    "M0_raw": "locked ridge on raw routing features (raw-r family); parameters frozen 2026-10-12",
+    "M1_padding_128": "locked ridge on 128-row padding-aware features; parameters frozen 2026-10-12",
+    "M2_grouped_gemm": "locked two-stage ridge (rank runner + completion); parameters frozen 2026-10-12",
+    "S_linear_no_plateau": {
+      "S_us_per_unit_delta_r": 571.9171190764683,
+      "calibration_mae_us": 61.49383656152515,
+      "fit": "least squares through the origin on the 216 frozen calibration out-of-fold rows only",
+      "form": "Q_pred_us = S * (raw_max_over_mean_identity - raw_max_over_mean_candidate)",
+      "no_plateau_by_construction": true
+    }
+  },
+  "purpose": "independent out-of-sample validation of the frozen candidate models on the 83 non-identity scan layouts (greedy-path prefixes spanning imbalanced to near-equilibrium), none of which was used in any calibration or evaluation fit",
+  "refreeze_note": {
+    "constants_reproduced_identically": true,
+    "previous_spec_sha256": "cbf3e4bee624884616e0e15c3ffe50c7ca528fcbdd94a7ed1832173197ea040b",
+    "reason": "the first freeze omitted the analyzer hash binding; no comparison had been computed and no holdout value observed, so the spec was deleted and re-frozen with identical deterministic constants plus the analyzer record"
+  },
+  "scan_analysis_input": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/nearscan_v1/analysis.json",
+    "sha256": "ec39c1773a56fa32c5ab4d8da610f2bc09e8d1eec80db224803c20f0c34fc9c2"
+  },
+  "scan_layout_index": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/index.json",
+    "sha256": "3cb34063ed7e5514c01390e3edfb63e1ce31b7c57150d20164f6690d80032fc8"
+  },
+  "schema_version": 1,
+  "spec_id": "h20-placement-nearscan-model-holdout-v1",
+  "status": "frozen_before_holdout_comparison",
+  "study_id": "h20-placement-nearscan-v1",
+  "target": {
+    "definition": "observed identity-cumulative start-level mean Q per (capture, layout) from the frozen scan analysis; identity rows excluded (trivially zero on both sides)",
+    "expected_rows": 83
+  }
+}

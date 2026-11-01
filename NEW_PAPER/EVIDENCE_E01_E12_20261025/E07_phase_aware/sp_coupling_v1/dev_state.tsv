@@ -1,0 +1,43 @@
+2026-10-18T11:36:25+00:00	PHASE_START	DEV	pid=50134	timed_used=0	infra_used=0
+2026-10-18T11:36:26+00:00	START	1	sp_dev_W1_b1_F_sparse	W1	F_sparse	infra_used=0	timed_used=0
+2026-10-18T11:37:36+00:00	BOOT_OK	1	sp_dev_W1_b1_F_sparse	W1	F_sparse	boot_s=65	attempt=1
+2026-10-18T11:43:39+00:00	VERDICT	1	sp_dev_W1_b1_F_sparse	W1	F_sparse	VALID	t=353.73	attempt=1
+2026-10-18T11:43:39+00:00	START	2	sp_dev_W1_b1_A	W1	A	infra_used=0	timed_used=1
+2026-10-18T11:44:49+00:00	BOOT_OK	2	sp_dev_W1_b1_A	W1	A	boot_s=64	attempt=1
+2026-10-18T11:50:50+00:00	VERDICT	2	sp_dev_W1_b1_A	W1	A	MECH_RETIRE	t=352.17	attempt=1
+2026-10-18T11:50:50+00:00	HALT	mechanism	2	MECH_RETIRE
+2026-10-18T11:59:49+00:00	CHECKER_FIX	2	sp_dev_W1_b1_A	integrity_check_sp.py	S1-identity-inapplicable-to-adaptive-S	rejudge=VALID_t=352.17
+2026-10-18T11:59:49+00:00	VERDICT_REJUDGED	2	sp_dev_W1_b1_A	W1	A	VALID
+2026-10-18T11:59:50+00:00	PHASE_START	DEV	pid=63752	timed_used=2	infra_used=0
+2026-10-18T11:59:50+00:00	START	3	sp_dev_W1_b1_F_dense	W1	F_dense	infra_used=0	timed_used=2
+2026-10-18T12:01:00+00:00	BOOT_OK	3	sp_dev_W1_b1_F_dense	W1	F_dense	boot_s=64	attempt=1
+2026-10-18T12:07:02+00:00	VERDICT	3	sp_dev_W1_b1_F_dense	W1	F_dense	VALID	t=352.88	attempt=1
+2026-10-18T12:07:02+00:00	START	4	sp_dev_W1_b2_F_dense	W1	F_dense	infra_used=0	timed_used=3
+2026-10-18T12:08:24+00:00	BOOT_OK	4	sp_dev_W1_b2_F_dense	W1	F_dense	boot_s=76	attempt=1
+2026-10-18T12:14:27+00:00	VERDICT	4	sp_dev_W1_b2_F_dense	W1	F_dense	VALID	t=353.34	attempt=1
+2026-10-18T12:14:27+00:00	START	5	sp_dev_W1_b2_A	W1	A	infra_used=0	timed_used=4
+2026-10-18T12:15:33+00:00	BOOT_OK	5	sp_dev_W1_b2_A	W1	A	boot_s=60	attempt=1
+2026-10-18T12:21:36+00:00	VERDICT	5	sp_dev_W1_b2_A	W1	A	VALID	t=353.9	attempt=1
+2026-10-18T12:21:36+00:00	START	6	sp_dev_W1_b2_F_sparse	W1	F_sparse	infra_used=0	timed_used=5
+2026-10-18T12:22:50+00:00	BOOT_OK	6	sp_dev_W1_b2_F_sparse	W1	F_sparse	boot_s=68	attempt=1
+2026-10-18T12:28:56+00:00	VERDICT	6	sp_dev_W1_b2_F_sparse	W1	F_sparse	VALID	t=357.21	attempt=1
+2026-10-18T12:28:56+00:00	START	7	sp_dev_W2_b1_F_sparse	W2	F_sparse	infra_used=0	timed_used=6
+2026-10-18T12:30:06+00:00	BOOT_OK	7	sp_dev_W2_b1_F_sparse	W2	F_sparse	boot_s=64	attempt=1
+2026-10-18T12:42:00+00:00	VERDICT	7	sp_dev_W2_b1_F_sparse	W2	F_sparse	VALID	t=704.56	attempt=1
+2026-10-18T12:42:00+00:00	START	8	sp_dev_W2_b1_A	W2	A	infra_used=0	timed_used=7
+2026-10-18T12:43:14+00:00	BOOT_OK	8	sp_dev_W2_b1_A	W2	A	boot_s=68	attempt=1
+2026-10-18T12:55:17+00:00	VERDICT	8	sp_dev_W2_b1_A	W2	A	VALID	t=713.2	attempt=1
+2026-10-18T12:55:17+00:00	START	9	sp_dev_W2_b1_F_dense	W2	F_dense	infra_used=0	timed_used=8
+2026-10-18T12:56:31+00:00	BOOT_OK	9	sp_dev_W2_b1_F_dense	W2	F_dense	boot_s=68	attempt=1
+2026-10-18T13:08:28+00:00	VERDICT	9	sp_dev_W2_b1_F_dense	W2	F_dense	VALID	t=708.18	attempt=1
+2026-10-18T13:08:28+00:00	START	10	sp_dev_W2_b2_F_dense	W2	F_dense	infra_used=0	timed_used=9
+2026-10-18T13:09:38+00:00	BOOT_OK	10	sp_dev_W2_b2_F_dense	W2	F_dense	boot_s=64	attempt=1
+2026-10-18T13:21:37+00:00	VERDICT	10	sp_dev_W2_b2_F_dense	W2	F_dense	VALID	t=708.53	attempt=1
+2026-10-18T13:21:37+00:00	START	11	sp_dev_W2_b2_A	W2	A	infra_used=0	timed_used=10
+2026-10-18T13:22:51+00:00	BOOT_OK	11	sp_dev_W2_b2_A	W2	A	boot_s=68	attempt=1
+2026-10-18T13:34:56+00:00	VERDICT	11	sp_dev_W2_b2_A	W2	A	VALID	t=716.14	attempt=1
+2026-10-18T13:34:56+00:00	START	12	sp_dev_W2_b2_F_sparse	W2	F_sparse	infra_used=0	timed_used=11
+2026-10-18T13:36:11+00:00	BOOT_OK	12	sp_dev_W2_b2_F_sparse	W2	F_sparse	boot_s=68	attempt=1
+2026-10-18T13:48:10+00:00	VERDICT	12	sp_dev_W2_b2_F_sparse	W2	F_sparse	VALID	t=709.37	attempt=1
+2026-10-18T13:48:10+00:00	PHASE_END	DEV	valid_total=11	timed_used=12	infra_used=0
+2026-10-18T14:25:46+00:00	EXPORT_CORRECTION	12	author-requested-readonly-export: record-CPU-ceiling corrected (PROF measured ~4%% dense), first-plan mislabel corrected (p2l v1 @h2), residency re-reported in true forwards; REPORT §10 appended; no code/GPU

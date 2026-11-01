@@ -1,0 +1,672 @@
+{
+ "source": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/fivearm_campaign/logs/eacR5_A10_server.log",
+ "source_sha256": "0113d4dae5332ab02dab043a68f6d60b77471fdc5300f7e5b325823c401e8782",
+ "mechanisms": {
+  "adw_ratio_jump": 80,
+  "adw_shrink": 80,
+  "adw_decay0_window_fixed": 0,
+  "adw_grow": 48,
+  "window_shift": 16,
+  "window_stable": 8,
+  "reset": 0,
+  "warmstart": 0,
+  "calib_tier": 0,
+  "refine": 0,
+  "arg_adw_true": 1,
+  "arg_add_true": 0,
+  "tracebacks": 0,
+  "hookdiag": 40,
+  "planner_bi_log": 0,
+  "planner_default_log": 8,
+  "issued_windows_dp0": 15,
+  "verify_move_before": 30,
+  "swap_done_lines": 120
+ },
+ "server_args_pb_oeplb": {
+  "sync_window": "16",
+  "decay_factor": "0.0",
+  "adaptive_window": "True",
+  "adaptive_decay": "False",
+  "calibrate_adaptive_sensitivity": "False",
+  "dead_zone_ratio": "0.0",
+  "threshold_ratio": "1.02",
+  "max_total_ops": "300",
+  "window_floor": "8",
+  "min_swap_ops": "8"
+ },
+ "window_events_dp0": [
+  [
+   "2026-10-15 20:14:27",
+   "ratio jump 0.126 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:14:44",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 20:15:01",
+   "volatile 3x -> grow sw to 32 for stability"
+  ],
+  [
+   "2026-10-15 20:15:25",
+   "ratio jump 0.493 -> shrink sw to 16"
+  ],
+  [
+   "2026-10-15 20:15:30",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 16 -> 8"
+  ],
+  [
+   "2026-10-15 20:15:30",
+   "ratio jump 0.393 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:15:33",
+   "ratio jump 0.094 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:15:55",
+   "ratio jump 0.073 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:16:01",
+   "ratio jump 0.031 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:16:03",
+   "ratio jump 0.100 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:16:12",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 20:16:48",
+   "stable confirmed (4 consecutive high-cos_sim windows) -- doubling sync_window 16 -> 32"
+  ],
+  [
+   "2026-10-15 20:16:48",
+   "converged 3x -> grow sw to 64"
+  ],
+  [
+   "2026-10-15 20:17:32",
+   "ratio jump 0.168 -> shrink sw to 32"
+  ],
+  [
+   "2026-10-15 20:17:43",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 32 -> 16"
+  ],
+  [
+   "2026-10-15 20:17:44",
+   "ratio jump 0.058 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:17:46",
+   "ratio jump 0.209 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 20:17:55",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 20:18:22",
+   "converged 3x -> grow sw to 32"
+  ]
+ ],
+ "reset_events_dp0": [],
+ "ready_after_forwards": [
+  [
+   7,
+   10
+  ],
+  [
+   6,
+   10
+  ],
+  [
+   5,
+   10
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   1,
+   10
+  ],
+  [
+   4,
+   10
+  ],
+  [
+   2,
+   10
+  ],
+  [
+   3,
+   10
+  ]
+ ],
+ "issued_windows_dp0": [
+  [
+   1,
+   237,
+   68534272,
+   8
+  ],
+  [
+   2,
+   76,
+   98566144,
+   8
+  ],
+  [
+   3,
+   63,
+   49283072,
+   8
+  ],
+  [
+   6,
+   72,
+   49283072,
+   8
+  ],
+  [
+   7,
+   57,
+   49283072,
+   8
+  ],
+  [
+   13,
+   300,
+   197027760,
+   8
+  ],
+  [
+   14,
+   230,
+   98562384,
+   8
+  ],
+  [
+   24,
+   141,
+   49283072,
+   8
+  ],
+  [
+   25,
+   191,
+   49283072,
+   8
+  ],
+  [
+   26,
+   217,
+   49283072,
+   8
+  ],
+  [
+   27,
+   68,
+   49283072,
+   8
+  ],
+  [
+   29,
+   83,
+   49283072,
+   8
+  ],
+  [
+   39,
+   239,
+   394264576,
+   8
+  ],
+  [
+   40,
+   269,
+   197132288,
+   8
+  ],
+  [
+   41,
+   57,
+   49283072,
+   8
+  ]
+ ],
+ "prof_dp0": [
+  {
+   "window": 4,
+   "calls": 4136,
+   "record_ms": 368.62,
+   "allreduce_ms": 511.95,
+   "planbuild_ms": 11.88,
+   "finalize_ms": 68.29,
+   "total_ms": 960.73
+  },
+  {
+   "window": 8,
+   "calls": 7144,
+   "record_ms": 612.95,
+   "allreduce_ms": 572.27,
+   "planbuild_ms": 17.21,
+   "finalize_ms": 104.77,
+   "total_ms": 1307.22
+  },
+  {
+   "window": 12,
+   "calls": 14664,
+   "record_ms": 1227.17,
+   "allreduce_ms": 632.29,
+   "planbuild_ms": 17.21,
+   "finalize_ms": 104.77,
+   "total_ms": 1981.45
+  },
+  {
+   "window": 16,
+   "calls": 20680,
+   "record_ms": 1714.64,
+   "allreduce_ms": 692.58,
+   "planbuild_ms": 30.14,
+   "finalize_ms": 153.02,
+   "total_ms": 2590.39
+  },
+  {
+   "window": 20,
+   "calls": 23688,
+   "record_ms": 1956.87,
+   "allreduce_ms": 752.08,
+   "planbuild_ms": 30.14,
+   "finalize_ms": 153.02,
+   "total_ms": 2892.12
+  },
+  {
+   "window": 24,
+   "calls": 26696,
+   "record_ms": 2202.84,
+   "allreduce_ms": 811.1,
+   "planbuild_ms": 30.14,
+   "finalize_ms": 153.02,
+   "total_ms": 3197.1
+  },
+  {
+   "window": 28,
+   "calls": 29704,
+   "record_ms": 2443.52,
+   "allreduce_ms": 870.79,
+   "planbuild_ms": 48.14,
+   "finalize_ms": 216.74,
+   "total_ms": 3579.2
+  },
+  {
+   "window": 32,
+   "calls": 34216,
+   "record_ms": 2810.34,
+   "allreduce_ms": 930.74,
+   "planbuild_ms": 55.23,
+   "finalize_ms": 230.5,
+   "total_ms": 4026.81
+  },
+  {
+   "window": 36,
+   "calls": 40232,
+   "record_ms": 3310.84,
+   "allreduce_ms": 990.47,
+   "planbuild_ms": 55.23,
+   "finalize_ms": 230.5,
+   "total_ms": 4587.04
+  },
+  {
+   "window": 40,
+   "calls": 56776,
+   "record_ms": 4665.03,
+   "allreduce_ms": 1057.71,
+   "planbuild_ms": 62.91,
+   "finalize_ms": 255.0,
+   "total_ms": 6040.64
+  },
+  {
+   "window": 44,
+   "calls": 59784,
+   "record_ms": 4907.8,
+   "allreduce_ms": 1117.42,
+   "planbuild_ms": 73.72,
+   "finalize_ms": 290.13,
+   "total_ms": 6389.09
+  },
+  {
+   "window": 48,
+   "calls": 65800,
+   "record_ms": 5400.37,
+   "allreduce_ms": 1177.7,
+   "planbuild_ms": 73.72,
+   "finalize_ms": 290.13,
+   "total_ms": 6941.93
+  },
+  {
+   "window": 52,
+   "calls": 76328,
+   "record_ms": 6254.42,
+   "allreduce_ms": 1237.41,
+   "planbuild_ms": 73.72,
+   "finalize_ms": 290.13,
+   "total_ms": 7855.69
+  },
+  {
+   "window": 56,
+   "calls": 88360,
+   "record_ms": 7239.35,
+   "allreduce_ms": 1296.63,
+   "planbuild_ms": 73.72,
+   "finalize_ms": 290.13,
+   "total_ms": 8899.85
+  },
+  {
+   "window": 60,
+   "calls": 100392,
+   "record_ms": 8235.72,
+   "allreduce_ms": 1358.58,
+   "planbuild_ms": 73.72,
+   "finalize_ms": 290.13,
+   "total_ms": 9958.16
+  }
+ ],
+ "diag_dp0": [
+  {
+   "layers_touched": 93,
+   "total_ops": 237,
+   "avg_ratio_before": 1.233,
+   "avg_ratio_after": 1.071,
+   "max_ratio_before": 1.464,
+   "max_ratio_after": 1.109
+  },
+  {
+   "layers_touched": 57,
+   "total_ops": 76,
+   "avg_ratio_before": 1.125,
+   "avg_ratio_after": 1.069,
+   "max_ratio_before": 1.178,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 48,
+   "total_ops": 63,
+   "avg_ratio_before": 1.133,
+   "avg_ratio_after": 1.067,
+   "max_ratio_before": 1.232,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 52,
+   "total_ops": 72,
+   "avg_ratio_before": 1.126,
+   "avg_ratio_after": 1.063,
+   "max_ratio_before": 1.169,
+   "max_ratio_after": 1.093
+  },
+  {
+   "layers_touched": 47,
+   "total_ops": 57,
+   "avg_ratio_before": 1.126,
+   "avg_ratio_after": 1.067,
+   "max_ratio_before": 1.239,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 300,
+   "avg_ratio_before": 1.566,
+   "avg_ratio_after": 1.122,
+   "max_ratio_before": 2.248,
+   "max_ratio_after": 1.158
+  },
+  {
+   "layers_touched": 91,
+   "total_ops": 230,
+   "avg_ratio_before": 1.176,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.279,
+   "max_ratio_after": 1.185
+  },
+  {
+   "layers_touched": 73,
+   "total_ops": 141,
+   "avg_ratio_before": 1.176,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.304,
+   "max_ratio_after": 1.118
+  },
+  {
+   "layers_touched": 85,
+   "total_ops": 191,
+   "avg_ratio_before": 1.178,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.413,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 90,
+   "total_ops": 217,
+   "avg_ratio_before": 1.206,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.475,
+   "max_ratio_after": 1.149
+  },
+  {
+   "layers_touched": 46,
+   "total_ops": 68,
+   "avg_ratio_before": 1.128,
+   "avg_ratio_after": 1.063,
+   "max_ratio_before": 1.199,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 55,
+   "total_ops": 83,
+   "avg_ratio_before": 1.129,
+   "avg_ratio_after": 1.067,
+   "max_ratio_before": 1.216,
+   "max_ratio_after": 1.162
+  },
+  {
+   "layers_touched": 92,
+   "total_ops": 239,
+   "avg_ratio_before": 1.254,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.621,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 93,
+   "total_ops": 269,
+   "avg_ratio_before": 1.31,
+   "avg_ratio_after": 1.073,
+   "max_ratio_before": 1.768,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 46,
+   "total_ops": 57,
+   "avg_ratio_before": 1.126,
+   "avg_ratio_after": 1.061,
+   "max_ratio_before": 1.192,
+   "max_ratio_after": 1.096
+  }
+ ],
+ "wall_events": [
+  [
+   "2026-10-15 20:14:22",
+   2101.5,
+   237,
+   8
+  ],
+  [
+   "2026-10-15 20:14:28",
+   495.5,
+   76,
+   8
+  ],
+  [
+   "2026-10-15 20:14:31",
+   373.2,
+   63,
+   8
+  ],
+  [
+   "2026-10-15 20:14:39",
+   439.7,
+   72,
+   8
+  ],
+  [
+   "2026-10-15 20:14:42",
+   440.7,
+   57,
+   8
+  ],
+  [
+   "2026-10-15 20:15:25",
+   501.2,
+   300,
+   8
+  ],
+  [
+   "2026-10-15 20:15:30",
+   389.8,
+   230,
+   8
+  ],
+  [
+   "2026-10-15 20:15:55",
+   392.9,
+   141,
+   8
+  ],
+  [
+   "2026-10-15 20:15:58",
+   397.1,
+   191,
+   8
+  ],
+  [
+   "2026-10-15 20:16:01",
+   432.8,
+   217,
+   8
+  ],
+  [
+   "2026-10-15 20:16:04",
+   417.0,
+   68,
+   8
+  ],
+  [
+   "2026-10-15 20:16:10",
+   1040.5,
+   83,
+   8
+  ],
+  [
+   "2026-10-15 20:17:32",
+   482.8,
+   239,
+   8
+  ],
+  [
+   "2026-10-15 20:17:44",
+   470.6,
+   269,
+   8
+  ],
+  [
+   "2026-10-15 20:17:47",
+   396.5,
+   57,
+   8
+  ]
+ ],
+ "wall_summary": {
+  "n_events": 15,
+  "max_wall_ms": 2101.5,
+  "sum_wall_ms": 8771.8
+ },
+ "timing_begin_max_ms_per_event": [
+  [
+   "2026-10-15 20:14:21",
+   1633.6
+  ],
+  [
+   "2026-10-15 20:14:27",
+   79.0
+  ],
+  [
+   "2026-10-15 20:14:30",
+   20.8
+  ],
+  [
+   "2026-10-15 20:14:39",
+   18.0
+  ],
+  [
+   "2026-10-15 20:14:42",
+   18.7
+  ],
+  [
+   "2026-10-15 20:15:25",
+   38.2
+  ],
+  [
+   "2026-10-15 20:15:30",
+   25.3
+  ],
+  [
+   "2026-10-15 20:15:55",
+   20.5
+  ],
+  [
+   "2026-10-15 20:15:58",
+   20.7
+  ],
+  [
+   "2026-10-15 20:16:01",
+   20.6
+  ],
+  [
+   "2026-10-15 20:16:03",
+   39.5
+  ],
+  [
+   "2026-10-15 20:16:08",
+   25.3
+  ],
+  [
+   "2026-10-15 20:16:09",
+   77.4
+  ],
+  [
+   "2026-10-15 20:17:32",
+   31.1
+  ],
+  [
+   "2026-10-15 20:17:44",
+   26.5
+  ],
+  [
+   "2026-10-15 20:17:46",
+   24.8
+  ]
+ ],
+ "move_sequence_len": 15,
+ "swap_stats": {
+  "n_ops": 15,
+  "n_reversals": 0,
+  "n_repeats": 0,
+  "reversals_sample": [],
+  "repeats_sample": []
+ }
+}

@@ -1,0 +1,71 @@
+{
+  "capture_context": {
+    "batch_id": "screening-01",
+    "dataset": {
+      "bytes": 10722852,
+      "path": "/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/comprehensive_grid/L512_O1_realprover_n8192.jsonl",
+      "sha256": "1562843c68bfaedfae3fc1c15aa3f9b14ebf4428d025e03de2e039b8cab0171b"
+    },
+    "layer_manifest": null,
+    "layer_record": null,
+    "layer_role": null,
+    "model": {
+      "files": {
+        "config.json": {
+          "bytes": 12909,
+          "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/config.json",
+          "sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e"
+        },
+        "model.safetensors.index.json": {
+          "bytes": 6990003,
+          "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/model.safetensors.index.json",
+          "sha256": "e03d4abec9611fca05844d2c8b5a08318ddc3c86acfb9481a0ef5692bf76e6d6"
+        },
+        "tokenizer.json": {
+          "bytes": 11422654,
+          "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/tokenizer.json",
+          "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+        }
+      },
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master"
+    },
+    "prediction_request_manifest": {
+      "bytes": 15723,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_requests.json",
+      "sha256": "9c5d836a75168e044aeb7c11415a1630257a36ab47ab09351c62532dab71c01e"
+    },
+    "request_file": {
+      "bytes": 10396,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/screening-01.jsonl",
+      "sha256": "0919df1d6e71af5a213dc29c33e5df4b7d4f2d30edf1aa88738a6c4ee503cf70"
+    },
+    "request_source_lines_zero_based": [
+      87,
+      115,
+      123,
+      125,
+      132,
+      161,
+      167,
+      171
+    ],
+    "split": "screening"
+  },
+  "capture_id": "pred-v1-screening-01-profile",
+  "expected_layers": 94,
+  "identity_map": {
+    "bytes": 123178,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/identity_service_map.json",
+    "sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d"
+  },
+  "identity_map_required": true,
+  "identity_map_sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d",
+  "min_hidden_rows": 400,
+  "mode": "profile",
+  "num_experts": 128,
+  "output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile",
+  "schema_version": 2,
+  "study_id": "h20-placement-prediction-v1",
+  "target_layer": null,
+  "weight_output_dir": null
+}

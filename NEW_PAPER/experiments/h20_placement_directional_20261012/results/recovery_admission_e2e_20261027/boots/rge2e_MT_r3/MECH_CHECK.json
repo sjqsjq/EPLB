@@ -1,0 +1,77 @@
+{
+ "label": "rge2e_MT_r3",
+ "nreq": 8192,
+ "purpose": "rge2e",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "b312ba50c39abe1a"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_rge2e": {
+   "ok": true,
+   "detail": "c2c272594f1851df"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=8192 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/recovery_admission_e2e_20261027/boots/rge2e_MT_r3/rge2e_MT_r3_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "error": "v2p1_rank0.jsonl missing",
+  "v2p1_not_applicable": true
+ },
+ "baseline_facts": {
+  "arm": "MT",
+  "policy": "n-a",
+  "eplb_rebalance_starts": 0,
+  "eplb_banner": false,
+  "injection_evidence": [
+   "[2026-10-26 19:14:44] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+   "[2026-10-26 19:15:08 DP7 TP7 EP7] init_expert_location from init_by_mapping using ServerArgs.init_expert_location",
+   "[2026-10-26 19:15:08 DP0 TP0 EP0] init_expert_location from init_by_mapping using ServerArgs.init_expert_location"
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 80.42,
+  "tps": 101.9,
+  "total_comp_tokens": 8192,
+  "total_prompt_tokens": 2064780,
+  "ttft_mean_ms": 2466.94,
+  "lat_mean_ms": 2467.0,
+  "wall_start_s": 1793042153.47454,
+  "wall_end_s": 1793042233.89256,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}

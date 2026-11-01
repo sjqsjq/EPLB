@@ -1,0 +1,21 @@
+{
+  "label": "v1_decay256_pf",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 1024,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 497.61,
+  "total_comp_tokens": 240000,
+  "tps": 482.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 66153.3,
+  "lat_p50_ms": 67919.6,
+  "lat_p99_ms": 78693.69,
+  "ttft_mean_ms": 29949.49,
+  "ttft_p50_ms": 28626.44,
+  "ttft_p99_ms": 61499.35,
+  "tpot_mean_ms": 1167.86,
+  "tpot_p50_ms": 1194.12,
+  "tpot_p99_ms": 2122.56
+}

@@ -1,0 +1,21 @@
+{
+  "label": "conc512_A_run1",
+  "dataset": "/tmp/real_production_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 512,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 396.45,
+  "total_comp_tokens": 240000,
+  "tps": 605.4,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 27005.4,
+  "lat_p50_ms": 26669.7,
+  "lat_p99_ms": 45265.98,
+  "ttft_mean_ms": 2897.14,
+  "ttft_p50_ms": 1598.85,
+  "ttft_p99_ms": 21543.78,
+  "tpot_mean_ms": 777.69,
+  "tpot_p50_ms": 790.62,
+  "tpot_p99_ms": 1321.52
+}

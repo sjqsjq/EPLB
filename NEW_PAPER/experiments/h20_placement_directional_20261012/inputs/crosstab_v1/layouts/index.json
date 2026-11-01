@@ -1,0 +1,239 @@
+{
+  "created_at_utc": "2026-10-15T04:39:13.725982+00:00",
+  "design": {
+    "batches": [
+      "evaluation-01",
+      "evaluation-02",
+      "evaluation-03"
+    ],
+    "cells_remeasured_in_one_campaign": true,
+    "column_rule": "identity plus the frozen greedy base map of each trigger, reused verbatim across the layer's three captures",
+    "columns": [
+      "identity",
+      "base-of-evaluation-01",
+      "base-of-evaluation-02",
+      "base-of-evaluation-03"
+    ],
+    "layers": [
+      24,
+      28,
+      44,
+      71
+    ],
+    "rationale": "all 4 columns are timed for every capture inside a single campaign so own-vs-other-map contrasts are internally consistent; existing nearscan identity/base cells serve only as drift cross-checks",
+    "rows": "three locked evaluation triggers per layer (real captured routes)"
+  },
+  "locked_implementation": {
+    "crosstab_replay": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/crosstab_replay.py",
+      "sha256": "4a356de86cc65ce14cf3664382ab6b4b65091e7552577b84b41c16d2b6457598"
+    },
+    "generate_scan_layouts": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_scan_layouts.py",
+      "sha256": "5f3212e66124fa6f1525e7adae87a8fff4d9ec305a2e5803f1929b9caf6d38b9"
+    },
+    "generate_stopping_layouts": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_stopping_layouts.py",
+      "sha256": "9b1ef72b22ac1fdfdcf565227043cc0a7afdb69e4c4381d20b3465221212a115"
+    },
+    "generator": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_crosstab_layouts.py",
+      "sha256": "2a3280211686013adba6de9df13589c5606c676eb59d2dc3488dfbc2f70cd663",
+      "version": "crosstab-layouts-v1"
+    },
+    "prediction_common": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    }
+  },
+  "manifests": [
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+        "evaluation-02": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+        "evaluation-03": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec"
+      },
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "layer_id": 24,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+      "r_identity": 2.6992110453648914,
+      "r_own_base": 1.0029585798816567,
+      "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+        "evaluation-02": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+        "evaluation-03": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec"
+      },
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "layer_id": 24,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+      "r_identity": 2.765736855097507,
+      "r_own_base": 1.0002468526289805,
+      "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+        "evaluation-02": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+        "evaluation-03": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec"
+      },
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "layer_id": 24,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+      "r_identity": 2.6510017313875833,
+      "r_own_base": 1.0019787286668316,
+      "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+        "evaluation-02": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+        "evaluation-03": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d"
+      },
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "layer_id": 28,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+      "r_identity": 2.267258382642998,
+      "r_own_base": 1.0002465483234715,
+      "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+        "evaluation-02": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+        "evaluation-03": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d"
+      },
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "layer_id": 28,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+      "r_identity": 2.3016539126141695,
+      "r_own_base": 1.0002468526289805,
+      "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+        "evaluation-02": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+        "evaluation-03": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d"
+      },
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "layer_id": 28,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+      "r_identity": 2.25204056393767,
+      "r_own_base": 1.000247341083354,
+      "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+        "evaluation-02": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+        "evaluation-03": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe"
+      },
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "layer_id": 44,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+      "r_identity": 2.549802761341223,
+      "r_own_base": 1.0007396449704142,
+      "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+        "evaluation-02": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+        "evaluation-03": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe"
+      },
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "layer_id": 44,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+      "r_identity": 2.6578622562330287,
+      "r_own_base": 1.0,
+      "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+        "evaluation-02": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+        "evaluation-03": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe"
+      },
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "layer_id": 44,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+      "r_identity": 2.545634429878803,
+      "r_own_base": 1.000247341083354,
+      "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+        "evaluation-02": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+        "evaluation-03": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787"
+      },
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "layer_id": 71,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+      "r_identity": 2.2206607495069033,
+      "r_own_base": 1.0002465483234715,
+      "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+        "evaluation-02": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+        "evaluation-03": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787"
+      },
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "layer_id": 71,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+      "r_identity": 2.3421377437669713,
+      "r_own_base": 1.0002468526289805,
+      "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+    },
+    {
+      "base_source_map_sha256": {
+        "evaluation-01": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+        "evaluation-02": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+        "evaluation-03": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787"
+      },
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "layer_id": 71,
+      "layout_count": 4,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+      "r_identity": 2.292357160524363,
+      "r_own_base": 1.000247341083354,
+      "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+    }
+  ],
+  "schema_version": 1,
+  "selection_uses_performance_timing": false,
+  "source_nearscan_layout_index": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/index.json",
+    "sha256": "3cb34063ed7e5514c01390e3edfb63e1ce31b7c57150d20164f6690d80032fc8"
+  },
+  "status": "generated_before_protocol_freeze",
+  "study_id": "h20-placement-crosstab-v1"
+}

@@ -1,0 +1,21 @@
+{
+  "label": "retest_sw256_ms5",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 128,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 607.32,
+  "total_comp_tokens": 240000,
+  "tps": 395.2,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10320.8,
+  "lat_p50_ms": 10336.2,
+  "lat_p99_ms": 11341.51,
+  "ttft_mean_ms": 4794.86,
+  "ttft_p50_ms": 4730.26,
+  "ttft_p99_ms": 8964.77,
+  "tpot_mean_ms": 178.26,
+  "tpot_p50_ms": 178.28,
+  "tpot_p99_ms": 317.94
+}

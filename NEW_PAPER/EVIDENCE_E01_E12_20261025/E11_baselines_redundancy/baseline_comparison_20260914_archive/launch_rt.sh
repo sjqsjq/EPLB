@@ -1,0 +1,9 @@
+. /workspace/logs/env_235b.sh
+export SGLANG_OEPLB_ROUTING_TRACE=1
+export SGLANG_OEPLB_ROUTING_TRACE_DIR=/workspace/logs/rt_prover
+exec python3 -m sglang.launch_server \
+  --model-path /data/models/Qwen3-235B-A22B-FP8 --tp 8 --dp 8 --ep-size 8 --enable-dp-attention \
+  --moe-a2a-backend deepep --deepep-mode auto --moe-runner-backend deep_gemm \
+  --dtype bfloat16 --quantization fp8 --mem-fraction-static 0.78 \
+  --disable-cuda-graph --port 30000 --host 0.0.0.0 --trust-remote-code \
+  --disable-radix-cache --watchdog-timeout 600

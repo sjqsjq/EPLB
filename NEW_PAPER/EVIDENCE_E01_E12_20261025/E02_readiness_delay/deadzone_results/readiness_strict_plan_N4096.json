@@ -1,0 +1,986 @@
+{
+  "experiment": "rank_readiness_scan",
+  "purpose": "strict mode independently estimates per-rank readiness slack; original mode measures the response with those estimates frozen",
+  "total_tokens": 4096,
+  "mode": "strict_barrier",
+  "ranks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "delays_us": [
+    0.0,
+    4.0,
+    8.0,
+    12.0,
+    16.0,
+    24.0,
+    32.0,
+    48.0,
+    64.0,
+    96.0
+  ],
+  "route": {
+    "route_kind": "fixed7_one_double",
+    "requested_r": 1.0,
+    "target_hot_assignments": 4096,
+    "hot_rank": 0,
+    "expert_policy": "packed_hot_balanced_cold"
+  },
+  "conditions": [
+    {
+      "name": "strict-zero",
+      "mode": "strict_barrier",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank0-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank1-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        1
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank2-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        2
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank3-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        3
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank4-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        4
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank5-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        5
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank6-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        6
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d4us",
+      "mode": "strict_barrier",
+      "delay_us": 4.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d8us",
+      "mode": "strict_barrier",
+      "delay_us": 8.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d12us",
+      "mode": "strict_barrier",
+      "delay_us": 12.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d16us",
+      "mode": "strict_barrier",
+      "delay_us": 16.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d24us",
+      "mode": "strict_barrier",
+      "delay_us": 24.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d32us",
+      "mode": "strict_barrier",
+      "delay_us": 32.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d48us",
+      "mode": "strict_barrier",
+      "delay_us": 48.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d64us",
+      "mode": "strict_barrier",
+      "delay_us": 64.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "strict-rank7-d96us",
+      "mode": "strict_barrier",
+      "delay_us": 96.0,
+      "delay_ranks": [
+        7
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 4096,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    }
+  ]
+}

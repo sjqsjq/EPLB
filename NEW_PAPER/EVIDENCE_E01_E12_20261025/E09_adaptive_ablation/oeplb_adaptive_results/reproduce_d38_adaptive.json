@@ -1,0 +1,9 @@
+{"experiment":"reproduce d38 +17.5% with adaptive","dataset":"L512_O1_realprover_n8192 (512tok,O=1,prefill-dense)","runs":[
+{"arm":"bl","rep":1,"status":"boot_fail"}
+,
+{"arm":"oe_adaptive","rep":1,"status":"boot_fail"}
+,
+{"arm":"bl","rep":2,"status":"boot_fail"}
+,
+{"arm":"oe_adaptive","rep":2,"status":"boot_fail"}
+]}

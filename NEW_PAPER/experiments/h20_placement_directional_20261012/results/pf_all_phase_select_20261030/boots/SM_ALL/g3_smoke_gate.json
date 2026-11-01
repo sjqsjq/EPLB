@@ -1,0 +1,196 @@
+{
+ "all_pass": true,
+ "checks": {
+  "P1_decode_record_batches_gt0": {
+   "detail": 138,
+   "pass": true
+  },
+  "P3_P4_P5_pf_facts_present": {
+   "detail": null,
+   "pass": true
+  },
+  "P3_recorded_steps_SM_ALL_arc": {
+   "detail": {
+    "all": 59,
+    "pf": 3
+   },
+   "pass": true
+  },
+  "P3_recorded_steps_SM_ALL_prov": {
+   "detail": {
+    "all": 93,
+    "pf": 19
+   },
+   "pass": true
+  },
+  "P3_valid_rows_SM_ALL_arc": {
+   "detail": {
+    "all": 2774128,
+    "pf": 1450608
+   },
+   "pass": true
+  },
+  "P3_valid_rows_SM_ALL_prov": {
+   "detail": {
+    "all": 14763264,
+    "pf": 12983280
+   },
+   "pass": true
+  },
+  "P4_full_interval_SM_ALL_arc": {
+   "detail": {
+    "first": true,
+    "second": true
+   },
+   "pass": true
+  },
+  "P4_full_interval_SM_ALL_prov": {
+   "detail": {
+    "first": true,
+    "second": true
+   },
+   "pass": true
+  },
+  "P5_armflags_runtime_single_delta": {
+   "detail": {
+    "diff_keys": [
+     "record_all_phase"
+    ]
+   },
+   "pass": true
+  },
+  "P5_calib_zero_both": {
+   "detail": null,
+   "pass": true
+  },
+  "P5_init_min_tok_equal": {
+   "detail": {
+    "all": 256,
+    "pf": 256
+   },
+   "pass": true
+  },
+  "P5_min_record_tokens_expected": {
+   "detail": {
+    "expected_default": 32
+   },
+   "pass": true
+  },
+  "P5_static_single_delta": {
+   "detail": {
+    "blocks_found": true,
+    "cores_identical": true,
+    "rap_all": [
+     "export OEPLB_RECORD_ALL_PHASE=1"
+    ],
+    "rap_one_each_0_vs_1": true,
+    "rap_pf": [
+     "export OEPLB_RECORD_ALL_PHASE=0"
+    ]
+   },
+   "pass": true
+  },
+  "armflags_count_8": {
+   "detail": null,
+   "pass": true
+  },
+  "armflags_rap_expected": {
+   "detail": {
+    "expect": "1",
+    "got": "1"
+   },
+   "pass": true
+  },
+  "armflags_sp_mode_fixed": {
+   "detail": "fixed",
+   "pass": true
+  },
+  "armflags_sp_s1_w16_rev0": {
+   "detail": {
+    "force_s": "0",
+    "no_commit": "0",
+    "pair_rule": "gap",
+    "record_all_phase": "1",
+    "sp_h": "0",
+    "sp_mode": "fixed",
+    "sp_rev": "0",
+    "sp_s": "1",
+    "sp_w": "16"
+   },
+   "pass": true
+  },
+  "armflags_unique": {
+   "detail": null,
+   "pass": true
+  },
+  "bench_json_SM_ALL_arc": {
+   "detail": null,
+   "pass": true
+  },
+  "bench_json_SM_ALL_prov": {
+   "detail": null,
+   "pass": true
+  },
+  "bench_rc0_SM_ALL_arc": {
+   "detail": 0,
+   "pass": true
+  },
+  "bench_rc0_SM_ALL_prov": {
+   "detail": 0,
+   "pass": true
+  },
+  "calib_0": {
+   "detail": null,
+   "pass": true
+  },
+  "deadzone_8_hits_1096": {
+   "detail": null,
+   "pass": true
+  },
+  "identity_layout_no_init_by_eplb": {
+   "detail": null,
+   "pass": true
+  },
+  "oom_0": {
+   "detail": null,
+   "pass": true
+  },
+  "ready_to_roll_1": {
+   "detail": null,
+   "pass": true
+  },
+  "segment_count": {
+   "detail": 2,
+   "pass": true
+  },
+  "sp_run_end_present": {
+   "detail": null,
+   "pass": true
+  },
+  "sre_S1_H16_W16": {
+   "detail": {
+    "H": 16,
+    "S": 1,
+    "W": 16
+   },
+   "pass": true
+  },
+  "sre_mode_fixed": {
+   "detail": "fixed",
+   "pass": true
+  },
+  "traceback_0": {
+   "detail": null,
+   "pass": true
+  },
+  "v2p1_windows_SM_ALL_arc": {
+   "detail": null,
+   "pass": true
+  },
+  "v2p1_windows_SM_ALL_prov": {
+   "detail": null,
+   "pass": true
+  }
+ },
+ "fails": []
+}

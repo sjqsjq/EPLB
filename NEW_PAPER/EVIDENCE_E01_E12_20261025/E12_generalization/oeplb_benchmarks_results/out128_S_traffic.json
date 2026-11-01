@@ -1,0 +1,21 @@
+{
+  "label": "out128_S_traffic",
+  "dataset": "/tmp/longbench_out128_x4.jsonl",
+  "num_requests": 2000,
+  "concurrency": 512,
+  "ok": 2000,
+  "errors": 0,
+  "total_time_s": 364.41,
+  "total_comp_tokens": 256000,
+  "tps": 702.5,
+  "avg_output_tokens": 128,
+  "lat_mean_ms": 92243.8,
+  "lat_p50_ms": 51391.0,
+  "lat_p99_ms": 225722.24,
+  "ttft_mean_ms": 22718.3,
+  "ttft_p50_ms": 19890.73,
+  "ttft_p99_ms": 205454.83,
+  "tpot_mean_ms": 547.44,
+  "tpot_p50_ms": 274.02,
+  "tpot_p99_ms": 1724.31
+}

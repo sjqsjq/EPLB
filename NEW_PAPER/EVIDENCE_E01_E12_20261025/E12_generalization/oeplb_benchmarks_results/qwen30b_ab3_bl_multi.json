@@ -1,0 +1,21 @@
+{
+  "label": "qwen30b_ab3_bl_multi",
+  "dataset": "/tmp/exp_data/multidomain_16k.jsonl",
+  "num_requests": 16000,
+  "concurrency": 256,
+  "ok": 16000,
+  "errors": 0,
+  "total_time_s": 297.26,
+  "total_comp_tokens": 16000,
+  "tps": 53.8,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 4653.6,
+  "lat_p50_ms": 3568.81,
+  "lat_p99_ms": 11842.59,
+  "ttft_mean_ms": 4653.6,
+  "ttft_p50_ms": 3568.76,
+  "ttft_p99_ms": 11842.56,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

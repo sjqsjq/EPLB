@@ -1,0 +1,65 @@
+{
+  "amendment": {
+    "interpretation_rules_identical_to_original": true,
+    "reason": "analyzer crashed before producing any value: strata grouping keys did not match the full manifest stratum label strings; fixed mechanically with no effect values observed and no statistical change",
+    "statistics_identical_to_original": true
+  },
+  "analyzer_implementation": {
+    "bytes": 20580,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_stopping.py",
+    "sha256": "4a10798871e90f45c3122b095755ce0e9dc44ece2e13037ee50443671c9f5f09"
+  },
+  "frozen_at_utc": "2026-10-14T15:42:54.628758+00:00",
+  "inputs": {
+    "execution_protocol": "configs/followup_v1/stopping_execution_protocol.json",
+    "execution_result_index": "results/stopping_v1/execution/index.json",
+    "layout_index": "inputs/stopping_v1/layouts/index.json",
+    "migration_protocol": "configs/followup_v1/stopping_migration_protocol.json",
+    "migration_result_index": "results/stopping_v1/migration/index.json"
+  },
+  "interpretation_rules": {
+    "ci_crossing_zero_means_break_even_indeterminate": true,
+    "equivalence_requires_interval_wholly_inside_margin": true,
+    "locked_m2_predictions_are_descriptive_no_refit": true,
+    "migration_cost_never_subtracted_per_execution_sample": true,
+    "negative_effects_preserved_exactly": true,
+    "no_best_measured_prefix_selection": true,
+    "no_favorable_repeat_selection": true,
+    "no_slack_or_fence_subtraction_from_measured_q": true,
+    "q_le_zero_means_no_finite_beneficial_breakeven": true,
+    "zero_crossing_is_not_a_deadzone": true,
+    "zero_crossing_wording": "compatible with zero, not proof of no effect and not equivalence"
+  },
+  "original_spec": {
+    "note": "the original spec was frozen before any stopping timing; this amendment changes no statistical design, it only documents that the analyzer groups strata by the mechanical layout-id prefix (gain/near/neg) and cross-checks each row against the frozen manifest stratum labels",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/stopping_analysis_spec.json",
+    "sha256": "2e45a3b9560c062bc968811997ac17aa8cf895d70f334e4bd4afeb08e01c2a50",
+    "status": "frozen_before_any_stopping_timing"
+  },
+  "schema_version": 1,
+  "spec_id": "h20-placement-stopping-analysis-v1-amendment1",
+  "statistics": {
+    "all_units_reported": {
+      "break_even_rows": 144,
+      "execution_effects": 144,
+      "migration_transactions_per_capture": 13
+    },
+    "blocks_per_start": 5,
+    "break_even_definition": "N* = C/Q with Q = observed mean candidate-vs-base effect and C = combined mean migration cost of the matching single-swap transaction for the same capture; Fieller-type ratio interval treating the two campaigns as independent (se from the frozen t intervals); computed only when CI(Q) excludes zero and mean Q > 0",
+    "classification": {
+      "compatible_with_zero": "interval crosses zero",
+      "excludes_zero_negative": "ci95_high < 0",
+      "excludes_zero_positive": "ci95_low > 0",
+      "practically_equivalent_within_margin": "interval wholly inside [-eps, +eps]"
+    },
+    "effect_definition": "block effect = completion_fenced_us_per_forward(base) - completion_fenced_us_per_forward(candidate) within the same randomized block; start-level effect = mean of the five block effects; inferential sample = four independent starts; two-sided 95% Student-t interval, df=3",
+    "migration_cost_definition": "per start, per transaction: mean of the 50 forward walls, mean of the 50 reverse walls, and combined = mean of the two; n=4 start-level values; t interval df=3; primary C = combined mean; forward and reverse reported separately",
+    "pairs_per_transaction": 50,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "sign_convention": "positive effect = candidate faster than base (Q = T_base - T_candidate)",
+    "starts_per_capture": 4,
+    "t_quantile_95_df3": 3.1824463052837078
+  },
+  "status": "amended_after_timing_for_mechanical_stratum_grouping_key_only",
+  "study_id": "h20-placement-stopping-v1"
+}

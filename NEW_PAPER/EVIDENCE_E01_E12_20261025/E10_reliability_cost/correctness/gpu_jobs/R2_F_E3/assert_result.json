@@ -1,0 +1,54 @@
+{
+ "job": "R2_F_E3",
+ "checks": {
+  "no_watchdog": {
+   "ok": true,
+   "detail": "watchdog=0"
+  },
+  "no_coalesced_err": {
+   "ok": true,
+   "detail": "COALESCED=0"
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": "scheduler_exc=0"
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": "rank_desync=0"
+  },
+  "planhash_identity": {
+   "ok": true,
+   "detail": "plan_windows=14 ok"
+  },
+  "large_plan_exercised": {
+   "ok": true,
+   "detail": "max_n_ops=300"
+  },
+  "swaps_min": {
+   "ok": true,
+   "detail": "issued_windows=14 min=4"
+  },
+  "v2p1_no_desync": {
+   "ok": true,
+   "detail": "rows=32 desync_true=0"
+  },
+  "v2p1_hash_identical": {
+   "ok": true,
+   "detail": "hmin_ne_hmax_rows=0"
+  },
+  "p2l_version_match": {
+   "ok": true,
+   "detail": "final p2l_version=13 issued_windows=14"
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=8192 err=0 nreq=8192 file=R2_F_E3.json"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "lines=8192"
+  }
+ },
+ "pass": true
+}

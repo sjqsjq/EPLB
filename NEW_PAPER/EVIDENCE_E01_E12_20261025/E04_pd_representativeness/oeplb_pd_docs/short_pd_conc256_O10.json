@@ -1,0 +1,26 @@
+{
+  "GSM8K_60tok_math": {
+    "rho": 0.686,
+    "layers_ge07": "37/94",
+    "top5": "31%",
+    "top10": "37%",
+    "domain": "math word problems",
+    "prompt_len": "~60tok"
+  },
+  "prover_107tok_math": {
+    "rho": 0.443,
+    "layers_ge07": "0/94",
+    "top5": "21%",
+    "top10": "24%",
+    "domain": "DeepSeek-Prover math",
+    "prompt_len": "~107tok"
+  },
+  "MMLU_25tok_QA": {
+    "rho": 0.788,
+    "layers_ge07": "88/94",
+    "top5": "29%",
+    "top10": "37%",
+    "domain": "multi-subject QA (57 subjects)",
+    "prompt_len": "~25tok"
+  }
+}

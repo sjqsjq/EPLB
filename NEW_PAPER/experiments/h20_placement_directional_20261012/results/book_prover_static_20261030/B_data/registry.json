@@ -1,0 +1,36 @@
+{
+ "built_utc": "2026-10-30",
+ "campaign": "book_prover_static_20261030",
+ "author_directive": "2026-10-30 checklist items 1-12+14 checked; revision: group1 flipped to book->prover priority (prover static layout has ~19pct stage-gain historical evidence); OLD=book profile, REF=prover profile; total GPU cap 6.5h unchanged",
+ "stream": {
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/B_data/streams/b2p_prover_first2048.jsonl",
+  "lines": 2048,
+  "bytes": 11852358,
+  "sha256": "f8e948f32e483579eb127fba33aa3b324b5cd14114f8cf46d65768e243286c77",
+  "extraction": "byte-exact lines 1-2048 of frozen pb_prover_book_switch.jsonl (source sha 2da3467263d4f52889ea2931fa84d9fb244ed3dfabe136fddb5c1b6feb7bf904, 3048 lines, block1 prover[0:2048])",
+  "ids": "pb_prover_00000..pb_prover_02047",
+  "domain": "prover",
+  "workload": "max_tokens=1 ALL rows, temperature=0, ignore_eos=False, conc=32 (C32/O1 paper freq6 config, embedded in rows)",
+  "prover_src_lineage": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_2048tok_out1.jsonl via PBS registry"
+ },
+ "OLD_profile_book": {
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/placements/book_profile_placement.json",
+  "sha256": "77a75cae451cbf7d9c993e882b929096109d24a25315f2e6f7c8241f316c4d03",
+  "bytes": 86561,
+  "construction": "prefill-only aggregation: sum over 32 npz (rank0-7 x chunk0-3) of layer_hists[is_prefill].sum(axis=0) as int64 -> [94,128] logical_count json (datafore-identical structure)",
+  "source_dir": "/data/minghua/sjq/OEPLBdata/datasets/prefill_decode_correlation/traces/book_4438tok_O10",
+  "prefill_forwards_total": 3876,
+  "decode_forwards_excluded": 2524,
+  "hist_sum": 2921972704,
+  "zero_cells": 6,
+  "coverage_note": "each rank capture = first 800 forwards (4 chunks x 200); partial coverage of the book run, relative distribution preserved; labeled cross-domain diagnostic, NOT claimed optimal",
+  "provenance_file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/B_data/npz_provenance.json"
+ },
+ "REF_profile_prover": {
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/placements/datafore_prover_placement.json",
+  "sha256": "c1787ad19f16ef5d840d5a7c7e364ecf23fb3caafba682e56c0f21991a298f29",
+  "bytes": 66059,
+  "construction": "byte-copy of locked datafore_prover_placement.json (PBS placements, sha verified identical pre/post copy)",
+  "label": "locked prover DF profile with ~19pct stage-gain historical evidence (author rationale 2026-10-30); static layout, zero redundancy, no online rebalance during timing"
+ }
+}

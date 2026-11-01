@@ -1,0 +1,472 @@
+{
+ "run": {
+  "ok": 8037,
+  "errors": 0,
+  "total_time_s": 365.34,
+  "baselines_s": {
+   "fit_run_W16_locked": 363.5,
+   "grid_fixed_W16": 362.37
+  },
+  "delta_vs_fit_pct": 0.5061898211829367,
+  "delta_vs_grid_pct": 0.8196042718768028
+ },
+ "windows": 65,
+ "trajectory": [
+  16,
+  16,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  16,
+  16,
+  16,
+  16,
+  16,
+  16,
+  8,
+  8,
+  8,
+  8,
+  8,
+  16,
+  16,
+  16,
+  32,
+  32,
+  32,
+  32,
+  32,
+  16,
+  8,
+  8,
+  8,
+  8,
+  8,
+  16,
+  16,
+  16,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32,
+  32
+ ],
+ "boundaries": {
+  "rows": [
+   2075,
+   4052,
+   6068
+  ],
+  "windows": [
+   28,
+   42,
+   56
+  ],
+  "mapping": "cumulative n_fresh fraction x 8037 rows (n_fresh prop. to steps at saturation)"
+ },
+ "detections": [
+  {
+   "boundary_row": 2075,
+   "boundary_window": 28,
+   "first_shrink_window": 30,
+   "latency_windows": 2,
+   "z_max_near": 233.95195767572767
+  },
+  {
+   "boundary_row": 4052,
+   "boundary_window": 42,
+   "first_shrink_window": 43,
+   "latency_windows": 1,
+   "z_max_near": 217.66328066550287
+  },
+  {
+   "boundary_row": 6068,
+   "boundary_window": 56,
+   "first_shrink_window": null,
+   "latency_windows": null,
+   "z_max_near": 1.9548473530073212
+  }
+ ],
+ "dwell": {
+  "windows": {
+   "16": 15,
+   "8": 32,
+   "32": 18
+  },
+  "steps": {
+   "16": 232,
+   "8": 280,
+   "32": 544
+  },
+  "time_est_s": {
+   "16": 80.3,
+   "8": 96.9,
+   "32": 188.2
+  },
+  "note": "time_est assumes uniform step duration under saturation; n_fresh prop. steps"
+ },
+ "events": {
+  "init": 1,
+  "hold_alert": 4,
+  "confirmed_shrink": 1,
+  "midband_hold": 18,
+  "shrink_rejected_low_headroom": 3,
+  "hold": 16,
+  "confirmed_grow": 5,
+  "grow_blocked_headroom": 14,
+  "urgent_shrink": 3
+ },
+ "costs": {
+  "c_window_ms_all": {
+   "n": 65,
+   "median": 0.606385,
+   "mean": 0.8928482923076924,
+   "max": 16.777794,
+   "p90": 0.873243
+  },
+  "c_window_ms_excl_first": {
+   "n": 64,
+   "median": 0.606385,
+   "mean": 0.644646015625,
+   "max": 1.248239,
+   "p90": 0.864469
+  },
+  "prof_allreduce_cum_final_ms": 1318.913519,
+  "note": "allreduce_cum is the legacy 94-layer ratio loop, kept in BOTH arms (cost symmetry)"
+ },
+ "pathology_checks": {
+  "desync_any": false,
+  "uncertain_events_any": false,
+  "shrink_episodes": [
+   {
+    "shrink_at": 2,
+    "to_W": 8,
+    "recovered_at": null,
+    "recovered_to": null
+   },
+   {
+    "shrink_at": 30,
+    "to_W": 8,
+    "recovered_at": 35,
+    "recovered_to": 16
+   },
+   {
+    "shrink_at": 43,
+    "to_W": 16,
+    "recovered_at": 52,
+    "recovered_to": 32
+   },
+   {
+    "shrink_at": 44,
+    "to_W": 8,
+    "recovered_at": 49,
+    "recovered_to": 16
+   }
+  ],
+  "pingpong_grow_right_after_shrink": [],
+  "grow_only_below_theta_H_low": true,
+  "shrink_only_above_theta_H_act": true,
+  "switch3_z_max": 1.9548473530073212,
+  "switch3_z_hi": 19.864,
+  "switch3_silent": true
+ },
+ "detection_detail_windows": {
+  "2075": [
+   [
+    25,
+    0.13853754068517538,
+    "hold",
+    16,
+    16,
+    1100542.0
+   ],
+   [
+    26,
+    0.09684980486841578,
+    "hold",
+    16,
+    16,
+    1108465.0
+   ],
+   [
+    27,
+    0.08257291880054508,
+    "grow_blocked_headroom",
+    16,
+    16,
+    1103399.0
+   ],
+   [
+    28,
+    0.04549460227770878,
+    "grow_blocked_headroom",
+    16,
+    16,
+    1102235.0
+   ],
+   [
+    29,
+    53.13086167123873,
+    "hold_alert",
+    16,
+    16,
+    2518563.0
+   ],
+   [
+    30,
+    233.95195767572767,
+    "urgent_shrink",
+    16,
+    8,
+    4041515.0
+   ],
+   [
+    31,
+    55.38933632298977,
+    "shrink_rejected_low_headroom",
+    8,
+    8,
+    595966.0
+   ],
+   [
+    32,
+    13.189845781823363,
+    "midband_hold",
+    8,
+    8,
+    536668.0
+   ],
+   [
+    33,
+    2.9483239127240015,
+    "hold",
+    8,
+    8,
+    543658.0
+   ],
+   [
+    34,
+    1.5892282188535394,
+    "hold",
+    8,
+    8,
+    622669.0
+   ],
+   [
+    35,
+    1.3008513374686042,
+    "confirmed_grow",
+    8,
+    16,
+    421659.0
+   ]
+  ],
+  "4052": [
+   [
+    39,
+    0.655293390422931,
+    "hold",
+    32,
+    32,
+    1746456.0
+   ],
+   [
+    40,
+    1.7281235248405713,
+    "hold",
+    32,
+    32,
+    1646758.0
+   ],
+   [
+    41,
+    0.4338145977184572,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1572800.0
+   ],
+   [
+    42,
+    0.336606853590705,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1581774.0
+   ],
+   [
+    43,
+    204.09464177562435,
+    "urgent_shrink",
+    32,
+    16,
+    6617825.0
+   ],
+   [
+    44,
+    217.66328066550287,
+    "urgent_shrink",
+    16,
+    8,
+    3349749.0
+   ],
+   [
+    45,
+    37.56529946293063,
+    "shrink_rejected_low_headroom",
+    8,
+    8,
+    582786.0
+   ],
+   [
+    46,
+    9.042371032099469,
+    "midband_hold",
+    8,
+    8,
+    604478.0
+   ],
+   [
+    47,
+    3.4461032411200967,
+    "hold",
+    8,
+    8,
+    515461.0
+   ],
+   [
+    48,
+    1.6170622854060528,
+    "hold",
+    8,
+    8,
+    569293.0
+   ],
+   [
+    49,
+    2.0613714334541666,
+    "confirmed_grow",
+    8,
+    16,
+    572816.0
+   ]
+  ],
+  "6068": [
+   [
+    53,
+    0.5173591995116944,
+    "hold",
+    32,
+    32,
+    1718028.0
+   ],
+   [
+    54,
+    1.1188295368389058,
+    "hold",
+    32,
+    32,
+    1747031.0
+   ],
+   [
+    55,
+    0.6408836225851918,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1727429.0
+   ],
+   [
+    56,
+    0.5803361126403906,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1709427.0
+   ],
+   [
+    57,
+    0.48608129673193734,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1688187.0
+   ],
+   [
+    58,
+    0.8554673931316576,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1833986.0
+   ],
+   [
+    59,
+    1.9548473530073212,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1807432.0
+   ],
+   [
+    60,
+    0.5655307654936272,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1692789.0
+   ],
+   [
+    61,
+    0.9452186673354056,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1793759.0
+   ],
+   [
+    62,
+    0.5091831109832021,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1658309.0
+   ],
+   [
+    63,
+    1.142944218516201,
+    "grow_blocked_headroom",
+    32,
+    32,
+    1883059.0
+   ]
+  ]
+ }
+}

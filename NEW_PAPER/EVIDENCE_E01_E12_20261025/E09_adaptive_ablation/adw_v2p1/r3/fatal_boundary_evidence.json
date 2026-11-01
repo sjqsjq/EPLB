@@ -1,0 +1,94 @@
+{
+ "test": "v2p1_fatal_boundary",
+ "protocol_rev": "r3",
+ "world": 2,
+ "backend": "gloo",
+ "pass": true,
+ "spawn_raised": true,
+ "spawn_err": "ProcessRaisedException: \n\n-- Process 1 terminated with the following error:\nTraceback (most recent call last):\n  File \"/opt/conda/lib/python3.11/site-packages/torch/multiprocessing/spawn.py\", line 95, in _wrap\n    fn(i, *args)\n  File \"/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_2",
+ "checks": [
+  {
+   "name": "evidence files written by BOTH ranks before termination",
+   "pass": true
+  },
+  {
+   "name": "w1 healthy: joint COMMIT on both ranks (protocol baseline)",
+   "pass": true
+  },
+  {
+   "name": "w2 injected rank: det-collective fatal recorded, re-raised, NO ordinary confirm attempted (seq has no cmin/cmax), NO commit",
+   "pass": true
+  },
+  {
+   "name": "w2 peer rank: its OWN real collective errored/timed out -> phase-1 fatal recorded, re-raised, NO confirm, NO commit",
+   "pass": true
+  },
+  {
+   "name": "NO rank produced ANY window-3 record (run terminated at the fatal window; no continuation of the normal schedule)",
+   "pass": true
+  },
+  {
+   "name": "NO rank reached the clean-exit marker after w2",
+   "pass": true
+  },
+  {
+   "name": "both processes died with the fatal exception propagated (terminated_with recorded; mp.spawn raised)",
+   "pass": true
+  }
+ ],
+ "rank0_records": [
+  {
+   "wid": 1,
+   "seq": [
+    "1:det_sum:32",
+    "1:cmin:2",
+    "1:cmax:2"
+   ],
+   "committed": true,
+   "verdict": {
+    "commit": true,
+    "h_min": 207319690781293020,
+    "h_max": 207319690781293020,
+    "v_min": 1
+   }
+  },
+  {
+   "wid": 2,
+   "seq": [],
+   "fatal": "phase1_det_collective",
+   "err": "RuntimeError: [/pytorch/third_party/gloo/gloo/transport/tcp/pair.cc:547] Connection closed by peer [33.121.191.220]:21668",
+   "committed": false
+  },
+  {
+   "terminated_with": "cent call last):\n  File \"/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/test_v2p1_fatal_boundary.py\", line 97, in worker\n    dist.all_reduce(det)\n  File \"/opt/conda/lib/python3.11/site-packages/torch/distributed/c10d_logger.py\", line 81, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py\", line 2942, in all_reduce\n    work.wait()\nRuntimeError: [/pytorch/third_party/gloo/gloo/transport/tcp/pair.cc:547] Connection closed by peer [33.121.191.220]:21668\n"
+  }
+ ],
+ "rank1_records": [
+  {
+   "wid": 1,
+   "seq": [
+    "1:det_sum:32",
+    "1:cmin:2",
+    "1:cmax:2"
+   ],
+   "committed": true,
+   "verdict": {
+    "commit": true,
+    "h_min": 207319690781293020,
+    "h_max": 207319690781293020,
+    "v_min": 1
+   }
+  },
+  {
+   "wid": 2,
+   "seq": [],
+   "fatal": "phase1_det_collective",
+   "err": "RuntimeError: simulated communicator fatal error on det SUM (NCCL async-error class)",
+   "committed": false
+  },
+  {
+   "terminated_with": "Traceback (most recent call last):\n  File \"/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/test_v2p1_fatal_boundary.py\", line 94, in worker\n    raise RuntimeError(\nRuntimeError: simulated communicator fatal error on det SUM (NCCL async-error class)\n"
+  }
+ ],
+ "policy": "healthy-communicator local error -> joint HOLD (11-window test); communicator-level collective failure -> FATAL log + re-raise -> run terminates via framework fault propagation; no ordinary confirm/commit on a suspect communicator"
+}

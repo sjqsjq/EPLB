@@ -1,0 +1,21 @@
+{
+ "arm": "F",
+ "condition": "W1",
+ "label": "fev_r3_W1_F",
+ "checks": {
+  "bench": {
+   "label": "fev_r3_W1_F",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+   "num_requests": 4000,
+   "concurrency": 256,
+   "ok": 4000,
+   "errors": 0,
+   "total_time_s": 353.78
+  },
+  "adw_banner_count_must_be_0": 0
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

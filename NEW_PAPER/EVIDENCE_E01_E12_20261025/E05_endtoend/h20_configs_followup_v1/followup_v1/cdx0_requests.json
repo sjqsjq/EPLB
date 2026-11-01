@@ -1,0 +1,644 @@
+{
+ "amendment": {
+  "bytes": 11794,
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_amendment_v1.json",
+  "sha256": "bc7e7bcfc8e1708b9a71dd97a8c2bf01c26b58091ccfbcf062d2b3e1cd442207"
+ },
+ "batches": [
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-calibration-sharegpt",
+   "domain": "sharegpt",
+   "request_file": {
+    "bytes": 35331,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-sharegpt.jsonl",
+    "sha256": "060acae5501ef88a16eddc112b3281a172d39c87decc9126d0cf23e225353863"
+   },
+   "requests": [
+    {
+     "id": "sharegpt_2015",
+     "source_line_index_zero_based": 1044,
+     "token_count": 1984,
+     "within_batch_index": 0
+    },
+    {
+     "id": "sharegpt_2018",
+     "source_line_index_zero_based": 1045,
+     "token_count": 625,
+     "within_batch_index": 1
+    },
+    {
+     "id": "sharegpt_2023",
+     "source_line_index_zero_based": 1047,
+     "token_count": 728,
+     "within_batch_index": 2
+    },
+    {
+     "id": "sharegpt_2025",
+     "source_line_index_zero_based": 1049,
+     "token_count": 1118,
+     "within_batch_index": 3
+    },
+    {
+     "id": "sharegpt_2027",
+     "source_line_index_zero_based": 1050,
+     "token_count": 788,
+     "within_batch_index": 4
+    },
+    {
+     "id": "sharegpt_2031",
+     "source_line_index_zero_based": 1053,
+     "token_count": 537,
+     "within_batch_index": 5
+    },
+    {
+     "id": "sharegpt_2035",
+     "source_line_index_zero_based": 1055,
+     "token_count": 1860,
+     "within_batch_index": 6
+    },
+    {
+     "id": "sharegpt_2037",
+     "source_line_index_zero_based": 1057,
+     "token_count": 534,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 1037,
+   "segment_zero_based_half_open": [
+    0,
+    2075
+   ],
+   "split": "calibration",
+   "total_input_tokens": 8174
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-calibration-prover",
+   "domain": "prover",
+   "request_file": {
+    "bytes": 10607,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-prover.jsonl",
+    "sha256": "961b9e38d37101380c0af5fc8c2f2387dc4d93e17a3bf460ff6db9d980c58feb"
+   },
+   "requests": [
+    {
+     "id": "prover_2034",
+     "source_line_index_zero_based": 3063,
+     "token_count": 528,
+     "within_batch_index": 0
+    },
+    {
+     "id": "prover_2036",
+     "source_line_index_zero_based": 3064,
+     "token_count": 539,
+     "within_batch_index": 1
+    },
+    {
+     "id": "prover_2037",
+     "source_line_index_zero_based": 3065,
+     "token_count": 534,
+     "within_batch_index": 2
+    },
+    {
+     "id": "prover_2038",
+     "source_line_index_zero_based": 3066,
+     "token_count": 459,
+     "within_batch_index": 3
+    },
+    {
+     "id": "prover_2040",
+     "source_line_index_zero_based": 3067,
+     "token_count": 547,
+     "within_batch_index": 4
+    },
+    {
+     "id": "prover_2042",
+     "source_line_index_zero_based": 3068,
+     "token_count": 464,
+     "within_batch_index": 5
+    },
+    {
+     "id": "prover_2044",
+     "source_line_index_zero_based": 3069,
+     "token_count": 469,
+     "within_batch_index": 6
+    },
+    {
+     "id": "prover_2045",
+     "source_line_index_zero_based": 3070,
+     "token_count": 483,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 3063,
+   "segment_zero_based_half_open": [
+    2075,
+    4052
+   ],
+   "split": "calibration",
+   "total_input_tokens": 4023
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-calibration-book",
+   "domain": "book",
+   "request_file": {
+    "bytes": 36651,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-book.jsonl",
+    "sha256": "bbe23e38eddbf259e90079db266c91af926b0fc2277be4e71a97857b24cf081f"
+   },
+   "requests": [
+    {
+     "id": "book_2003",
+     "source_line_index_zero_based": 5060,
+     "token_count": 1090,
+     "within_batch_index": 0
+    },
+    {
+     "id": "book_2004",
+     "source_line_index_zero_based": 5061,
+     "token_count": 1082,
+     "within_batch_index": 1
+    },
+    {
+     "id": "book_2005",
+     "source_line_index_zero_based": 5062,
+     "token_count": 952,
+     "within_batch_index": 2
+    },
+    {
+     "id": "book_2006",
+     "source_line_index_zero_based": 5063,
+     "token_count": 1069,
+     "within_batch_index": 3
+    },
+    {
+     "id": "book_2009",
+     "source_line_index_zero_based": 5064,
+     "token_count": 993,
+     "within_batch_index": 4
+    },
+    {
+     "id": "book_2010",
+     "source_line_index_zero_based": 5065,
+     "token_count": 1020,
+     "within_batch_index": 5
+    },
+    {
+     "id": "book_2011",
+     "source_line_index_zero_based": 5066,
+     "token_count": 979,
+     "within_batch_index": 6
+    },
+    {
+     "id": "book_2019",
+     "source_line_index_zero_based": 5067,
+     "token_count": 951,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 5060,
+   "segment_zero_based_half_open": [
+    4052,
+    6068
+   ],
+   "split": "calibration",
+   "total_input_tokens": 8136
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-calibration-code",
+   "domain": "code",
+   "request_file": {
+    "bytes": 71196,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-code.jsonl",
+    "sha256": "8afe1ec399d00d8085461bf8569b90595d74c26e86348de8235bd40c9fca56af"
+   },
+   "requests": [
+    {
+     "id": "code_1996",
+     "source_line_index_zero_based": 7052,
+     "token_count": 2048,
+     "within_batch_index": 0
+    },
+    {
+     "id": "code_1999",
+     "source_line_index_zero_based": 7053,
+     "token_count": 2048,
+     "within_batch_index": 1
+    },
+    {
+     "id": "code_2000",
+     "source_line_index_zero_based": 7054,
+     "token_count": 2048,
+     "within_batch_index": 2
+    },
+    {
+     "id": "code_2001",
+     "source_line_index_zero_based": 7055,
+     "token_count": 2048,
+     "within_batch_index": 3
+    },
+    {
+     "id": "code_2004",
+     "source_line_index_zero_based": 7056,
+     "token_count": 2048,
+     "within_batch_index": 4
+    },
+    {
+     "id": "code_2007",
+     "source_line_index_zero_based": 7057,
+     "token_count": 2048,
+     "within_batch_index": 5
+    },
+    {
+     "id": "code_2008",
+     "source_line_index_zero_based": 7058,
+     "token_count": 2048,
+     "within_batch_index": 6
+    },
+    {
+     "id": "code_2009",
+     "source_line_index_zero_based": 7059,
+     "token_count": 2048,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 7052,
+   "segment_zero_based_half_open": [
+    6068,
+    8037
+   ],
+   "split": "calibration",
+   "total_input_tokens": 16384
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-evaluation-sharegpt",
+   "domain": "sharegpt",
+   "request_file": {
+    "bytes": 25905,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-sharegpt.jsonl",
+    "sha256": "852b3000345c6590b21fea3e03c36d3e630efc6ed62ab2dce5c31162d87dc187"
+   },
+   "requests": [
+    {
+     "id": "sharegpt_1993",
+     "source_line_index_zero_based": 962,
+     "token_count": 544,
+     "within_batch_index": 0
+    },
+    {
+     "id": "sharegpt_1998",
+     "source_line_index_zero_based": 965,
+     "token_count": 903,
+     "within_batch_index": 1
+    },
+    {
+     "id": "sharegpt_2002",
+     "source_line_index_zero_based": 966,
+     "token_count": 936,
+     "within_batch_index": 2
+    },
+    {
+     "id": "sharegpt_2007",
+     "source_line_index_zero_based": 968,
+     "token_count": 417,
+     "within_batch_index": 3
+    },
+    {
+     "id": "sharegpt_2008",
+     "source_line_index_zero_based": 969,
+     "token_count": 655,
+     "within_batch_index": 4
+    },
+    {
+     "id": "sharegpt_2016",
+     "source_line_index_zero_based": 971,
+     "token_count": 1042,
+     "within_batch_index": 5
+    },
+    {
+     "id": "sharegpt_2020",
+     "source_line_index_zero_based": 973,
+     "token_count": 425,
+     "within_batch_index": 6
+    },
+    {
+     "id": "sharegpt_2026",
+     "source_line_index_zero_based": 976,
+     "token_count": 515,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 962,
+   "segment_zero_based_half_open": [
+    0,
+    1925
+   ],
+   "split": "evaluation",
+   "total_input_tokens": 5437
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-evaluation-prover",
+   "domain": "prover",
+   "request_file": {
+    "bytes": 10031,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-prover.jsonl",
+    "sha256": "66f4f9fdba70ad281c44fc7bc9a447bea0852d68589b19bfb1324ac110b004dd"
+   },
+   "requests": [
+    {
+     "id": "prover_1959",
+     "source_line_index_zero_based": 2936,
+     "token_count": 458,
+     "within_batch_index": 0
+    },
+    {
+     "id": "prover_1962",
+     "source_line_index_zero_based": 2937,
+     "token_count": 512,
+     "within_batch_index": 1
+    },
+    {
+     "id": "prover_1963",
+     "source_line_index_zero_based": 2938,
+     "token_count": 503,
+     "within_batch_index": 2
+    },
+    {
+     "id": "prover_1964",
+     "source_line_index_zero_based": 2939,
+     "token_count": 458,
+     "within_batch_index": 3
+    },
+    {
+     "id": "prover_1967",
+     "source_line_index_zero_based": 2940,
+     "token_count": 560,
+     "within_batch_index": 4
+    },
+    {
+     "id": "prover_1968",
+     "source_line_index_zero_based": 2941,
+     "token_count": 573,
+     "within_batch_index": 5
+    },
+    {
+     "id": "prover_1970",
+     "source_line_index_zero_based": 2942,
+     "token_count": 475,
+     "within_batch_index": 6
+    },
+    {
+     "id": "prover_1972",
+     "source_line_index_zero_based": 2943,
+     "token_count": 462,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 2936,
+   "segment_zero_based_half_open": [
+    1925,
+    3948
+   ],
+   "split": "evaluation",
+   "total_input_tokens": 4001
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-evaluation-book",
+   "domain": "book",
+   "request_file": {
+    "bytes": 36518,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-book.jsonl",
+    "sha256": "4b05caf4d7de7b473b5957fb6e9800764d24093a59d63f07ef3ff65caa31bf3b"
+   },
+   "requests": [
+    {
+     "id": "book_1990",
+     "source_line_index_zero_based": 4940,
+     "token_count": 1005,
+     "within_batch_index": 0
+    },
+    {
+     "id": "book_1993",
+     "source_line_index_zero_based": 4941,
+     "token_count": 1038,
+     "within_batch_index": 1
+    },
+    {
+     "id": "book_2001",
+     "source_line_index_zero_based": 4942,
+     "token_count": 1074,
+     "within_batch_index": 2
+    },
+    {
+     "id": "book_2007",
+     "source_line_index_zero_based": 4943,
+     "token_count": 1075,
+     "within_batch_index": 3
+    },
+    {
+     "id": "book_2008",
+     "source_line_index_zero_based": 4944,
+     "token_count": 987,
+     "within_batch_index": 4
+    },
+    {
+     "id": "book_2012",
+     "source_line_index_zero_based": 4945,
+     "token_count": 976,
+     "within_batch_index": 5
+    },
+    {
+     "id": "book_2013",
+     "source_line_index_zero_based": 4946,
+     "token_count": 992,
+     "within_batch_index": 6
+    },
+    {
+     "id": "book_2014",
+     "source_line_index_zero_based": 4947,
+     "token_count": 989,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 4940,
+   "segment_zero_based_half_open": [
+    3948,
+    5932
+   ],
+   "split": "evaluation",
+   "total_input_tokens": 8136
+  },
+  {
+   "band_inclusive": [
+    400,
+    2048
+   ],
+   "batch_id": "cdx0-evaluation-code",
+   "domain": "code",
+   "request_file": {
+    "bytes": 74394,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-code.jsonl",
+    "sha256": "3efde5d9b144e862bdd6fb9ca59eff094b79daf5954fc53b1022d1bd9a484beb"
+   },
+   "requests": [
+    {
+     "id": "code_2003",
+     "source_line_index_zero_based": 6947,
+     "token_count": 2048,
+     "within_batch_index": 0
+    },
+    {
+     "id": "code_2005",
+     "source_line_index_zero_based": 6948,
+     "token_count": 2048,
+     "within_batch_index": 1
+    },
+    {
+     "id": "code_2006",
+     "source_line_index_zero_based": 6949,
+     "token_count": 2048,
+     "within_batch_index": 2
+    },
+    {
+     "id": "code_2010",
+     "source_line_index_zero_based": 6950,
+     "token_count": 2048,
+     "within_batch_index": 3
+    },
+    {
+     "id": "code_2011",
+     "source_line_index_zero_based": 6951,
+     "token_count": 2048,
+     "within_batch_index": 4
+    },
+    {
+     "id": "code_2012",
+     "source_line_index_zero_based": 6952,
+     "token_count": 2048,
+     "within_batch_index": 5
+    },
+    {
+     "id": "code_2014",
+     "source_line_index_zero_based": 6953,
+     "token_count": 2048,
+     "within_batch_index": 6
+    },
+    {
+     "id": "code_2019",
+     "source_line_index_zero_based": 6954,
+     "token_count": 2048,
+     "within_batch_index": 7
+    }
+   ],
+   "segment_midpoint": 6947,
+   "segment_zero_based_half_open": [
+    5932,
+    7963
+   ],
+   "split": "evaluation",
+   "total_input_tokens": 16384
+  }
+ ],
+ "created_at_utc": "2026-10-16T06:03:07.696925+00:00",
+ "datasets": {
+  "calibration": {
+   "bytes": 36657294,
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl",
+   "sha256": "7d53aa0b07dbc9f11f47af44ee4f4106861f5ace6d4eeca1ba41cdf5b01b17f9"
+  },
+  "evaluation": {
+   "bytes": 36797025,
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+   "sha256": "53e5b0e1f74af708037d69f95856aced71374ec55826c96ea1f4134a78fedb1c"
+  }
+ },
+ "disjointness": {
+  "calibration_evaluation_files_disjoint": true,
+  "domain_segments_pairwise_disjoint_within_split": true,
+  "no_prior_frozen_capture_batch_reuse": "prior prediction_v1 batches came from a different dataset (L512_O1_realprover_n8192.jsonl)"
+ },
+ "model": {
+  "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master"
+ },
+ "schema_version": 1,
+ "segment_boundaries_zero_based_half_open": {
+  "calibration": {
+   "book": [
+    4052,
+    6068
+   ],
+   "code": [
+    6068,
+    8037
+   ],
+   "prover": [
+    2075,
+    4052
+   ],
+   "sharegpt": [
+    0,
+    2075
+   ]
+  },
+  "evaluation": {
+   "book": [
+    3948,
+    5932
+   ],
+   "code": [
+    5932,
+    7963
+   ],
+   "prover": [
+    1925,
+    3948
+   ],
+   "sharegpt": [
+    0,
+    1925
+   ]
+  }
+ },
+ "selection_rule": {
+  "band_inclusive": [
+   400,
+   2048
+  ],
+  "description": "forward scan from segment midpoint (inclusive) for tokenized length in [400,2048] (add_special_tokens=True), then backward from midpoint-1 if needed; first 8 in scan order; identical rule for all domains/splits; no routing or performance information used",
+  "requests_per_batch": 8,
+  "route_or_performance_information_used": false
+ },
+ "status": "frozen_before_cdx0_capture",
+ "study_id": "h20-placement-cdx0-v1",
+ "tokenizer": {
+  "add_special_tokens": true,
+  "class": "Qwen2TokenizerFast"
+ }
+}

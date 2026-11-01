@@ -1,0 +1,329 @@
+{
+  "analysis": "three_arm_fullservice_frozen_analysis",
+  "analyzer_implementation": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_fullservice_v2.py",
+    "sha256": "f3530923495898d663b467b7b648c4d04563a1056eb6df742ce78dc0387308c6"
+  },
+  "arms": {
+    "frozen": {
+      "starts": [
+        {
+          "invalid_reasons": [
+            "boot failed rc=2 (retained, never retried)"
+          ],
+          "label": "fs300v2_fx_s1",
+          "state": {
+            "arm": "frozen",
+            "boot_rc": 2,
+            "phase": "measure",
+            "run": "fs300v2_fx_s1",
+            "status": "boot_failed",
+            "ts": "2026-10-15T05:29:44.568783+00:00"
+          },
+          "valid": false
+        },
+        {
+          "invalid_reasons": [
+            "boot failed rc=2 (retained, never retried)"
+          ],
+          "label": "fs300v2_fx_s2",
+          "state": {
+            "arm": "frozen",
+            "boot_rc": 2,
+            "phase": "measure",
+            "run": "fs300v2_fx_s2",
+            "status": "boot_failed",
+            "ts": "2026-10-15T05:46:46.474250+00:00"
+          },
+          "valid": false
+        },
+        {
+          "invalid_reasons": [
+            "boot failed rc=2 (retained, never retried)"
+          ],
+          "label": "fs300v2_fx_s3",
+          "state": {
+            "arm": "frozen",
+            "boot_rc": 2,
+            "phase": "measure",
+            "run": "fs300v2_fx_s3",
+            "status": "boot_failed",
+            "ts": "2026-10-15T06:03:22.785188+00:00"
+          },
+          "valid": false
+        }
+      ],
+      "valid_starts": 0,
+      "valid_total_times_s": []
+    },
+    "identity": {
+      "starts": [
+        {
+          "bench_sha256": "86758d0f53e34c3facb7a769cff2b480703ceca5a4d91142b945aab42bea3fc1",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_id_s1",
+          "lat_p99_ms": 35715.85,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v2_id_s1",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T05:28:24.439386+00:00"
+          },
+          "total_time_s": 399.93,
+          "tpot_mean_ms": null,
+          "tps": 19.9,
+          "ttft_mean_ms": 12309.44,
+          "ttft_p99_ms": 35715.79,
+          "valid": true
+        },
+        {
+          "bench_sha256": "b0b3ee400a17e6185d642eefc209aa3372bd77bd7ef855ee2eec6c6af9f3fc53",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_id_s2",
+          "lat_p99_ms": 35713.66,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v2_id_s2",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T05:45:31.486772+00:00"
+          },
+          "total_time_s": 400.45,
+          "tpot_mean_ms": null,
+          "tps": 19.9,
+          "ttft_mean_ms": 12329.07,
+          "ttft_p99_ms": 35713.59,
+          "valid": true
+        },
+        {
+          "bench_sha256": "31fa36e21ad070464c149b73032b168e56d50334a65bd764e2a84afcededc377",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_id_s3",
+          "lat_p99_ms": 35742.64,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v2_id_s3",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T06:02:07.780187+00:00"
+          },
+          "total_time_s": 398.32,
+          "tpot_mean_ms": null,
+          "tps": 20.0,
+          "ttft_mean_ms": 12260.15,
+          "ttft_p99_ms": 35742.61,
+          "valid": true
+        }
+      ],
+      "valid_starts": 3,
+      "valid_total_times_s": [
+        399.93,
+        400.45,
+        398.32
+      ]
+    },
+    "online": {
+      "starts": [
+        {
+          "bench_sha256": "3e4f01ea070ff2a6d842b2078f467be1b59338d9e9a6d2cf2e53f485b966cf3f",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_on_s1",
+          "lat_p99_ms": 32160.32,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v2_on_s1",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T05:37:20.480301+00:00"
+          },
+          "total_time_s": 370.13,
+          "tpot_mean_ms": null,
+          "tps": 21.5,
+          "ttft_mean_ms": 11376.08,
+          "ttft_p99_ms": 32160.25,
+          "valid": true
+        },
+        {
+          "bench_sha256": "6b55f55e2045b601e80d5a76fc0003f9c4ac53ea87fb949e95647e2a407f2d56",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_on_s2",
+          "lat_p99_ms": 31824.05,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v2_on_s2",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T05:54:15.728593+00:00"
+          },
+          "total_time_s": 366.9,
+          "tpot_mean_ms": null,
+          "tps": 21.7,
+          "ttft_mean_ms": 11289.29,
+          "ttft_p99_ms": 31823.98,
+          "valid": true
+        },
+        {
+          "bench_sha256": "91f13c1caf93a6d21cba28e9bd6c795fbb2ac7abe1e34feb8c36572d4f6c0c7a",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v2_on_s3",
+          "lat_p99_ms": 33164.55,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v2_on_s3",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T06:10:54.158125+00:00"
+          },
+          "total_time_s": 373.66,
+          "tpot_mean_ms": null,
+          "tps": 21.3,
+          "ttft_mean_ms": 11504.92,
+          "ttft_p99_ms": 33164.53,
+          "valid": true
+        }
+      ],
+      "valid_starts": 3,
+      "valid_total_times_s": [
+        370.13,
+        366.9,
+        373.66
+      ]
+    }
+  },
+  "contrasts": [
+    {
+      "contrast": "frozen-identity",
+      "n_a": 0,
+      "n_b": 3,
+      "status": "blocked_insufficient_valid_starts"
+    },
+    {
+      "ci95_high_s": -21.83034471283039,
+      "ci95_low_s": -36.8429886205029,
+      "contrast": "online-identity",
+      "mean_a_s": 370.23,
+      "mean_b_s": 399.56666666666666,
+      "mean_diff_s": -29.336666666666645,
+      "n_a": 3,
+      "n_b": 3,
+      "status": "computed",
+      "verdict": "excludes_zero_negative",
+      "welch_df": 2.426542174771196
+    },
+    {
+      "contrast": "online-frozen",
+      "n_a": 3,
+      "n_b": 0,
+      "status": "blocked_insufficient_valid_starts"
+    }
+  ],
+  "created_at_utc": "2026-10-15T06:16:43.319278+00:00",
+  "evaluation_requests": 7963,
+  "interpretation_rules": [
+    "arm contrasts are whole-service effects under one fixed evaluation workload; they do not isolate MoE-layer placement effects",
+    "the frozen static arm is calibration-derived: it is a deployable-style static reference, not a hindsight optimum of the evaluation traffic",
+    "the online arm carries decision+swap overhead that the frozen arm does not; the overhead decomposition explains mechanism, it never rewrites the measured contrast",
+    "with n=3 starts per arm, CIs are wide by construction; a CI crossing zero means 'compatible with zero' at this sample size",
+    "negative effects are preserved exactly; no sign is flipped or discarded"
+  ],
+  "online_overhead_decomposition": {
+    "by_start": {
+      "fs300v2_on_s1": {
+        "async_swapper_timing_lines": 72,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 72
+        }
+      },
+      "fs300v2_on_s2": {
+        "async_swapper_timing_lines": 72,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 72
+        }
+      },
+      "fs300v2_on_s3": {
+        "async_swapper_timing_lines": 80,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 80
+        }
+      }
+    },
+    "summary": {
+      "caveat": "async swapper overlaps migration with serving; fraction is an upper-bound wall-share reported ALONGSIDE (never subtracted from) the measured arm contrasts",
+      "cumulative_swap_wall_s_all_online_starts": 0.0,
+      "mean_online_total_time_s": 370.23,
+      "overhead_fraction_upper_bound_wall_share": 0.0
+    }
+  },
+  "prohibitions_respected": [
+    "no best-start or repeat selection: every start entered its arm",
+    "failed starts retained with reasons, never retried",
+    "overhead decomposition never subtracted from measured contrasts",
+    "CI crossing zero reported as compatible with zero, never equivalence",
+    "negative point estimates preserved exactly"
+  ],
+  "protocol": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_protocol_v2.json",
+    "sha256": "0e982cd11fe8fd476ec94e4a66bbc89b8a68cadc4571bb8469de3c6d745163b7"
+  },
+  "schema_version": 1,
+  "status": "complete",
+  "study_id": "h20-placement-fullservice-v2"
+}

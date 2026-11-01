@@ -1,0 +1,21 @@
+{
+  "label": "warmup_decode4_bl_r1_short_short",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 8.18,
+  "total_comp_tokens": 1600,
+  "tps": 195.6,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 8173.9,
+  "lat_p50_ms": 8174.0,
+  "lat_p99_ms": 8179.87,
+  "ttft_mean_ms": 1128.81,
+  "ttft_p50_ms": 978.27,
+  "ttft_p99_ms": 1355.06,
+  "tpot_mean_ms": 227.26,
+  "tpot_p50_ms": 232.08,
+  "tpot_p99_ms": 241.63
+}

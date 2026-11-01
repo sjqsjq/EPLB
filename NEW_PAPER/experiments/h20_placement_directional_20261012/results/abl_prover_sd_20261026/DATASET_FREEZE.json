@@ -1,0 +1,41 @@
+{
+  "frozen_at": "2026-10-26",
+  "purpose": "abl_prover_sd_20261026 phase-1 mechanism check (PROTOCOL.md §1)",
+  "dataset": {
+    "name": "prover_256tok_out1.jsonl",
+    "path": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_256tok_out1.jsonl",
+    "sha256": "b4034e3b67ac2925134f123da706117721b7fbfbee47cbf8658f752b6d1d257a",
+    "bytes": 1742640,
+    "lines": 2048,
+    "order": "native file order frozen; ids tok256_0..tok256_2047; no shuffle, no truncation",
+    "requests_per_boot": 2048,
+    "concurrency": 256,
+    "output_len": {"max_tokens": 1, "verified": "all 2048 rows max_tokens=1, temperature=0, ignore_eos=false"},
+    "unique_prompts": 2048,
+    "repetition": "none - all 2048 prompt strings distinct (full-string dedup measured 2026-10-26); each sent exactly once",
+    "domain": "DeepSeek-Prover-V1 ~256-token Lean4 bucket = paper §5.3.1 same-domain load; paper bench used first 256 lines, this ablation uses full 2048 (8x)"
+  },
+  "pinned10x": {
+    "meaning": "pinned ~10x per-layer expert-load imbalance under identity layout",
+    "documented_in": [
+      "EXPERIMENT_TRACE_INDEX.md L104 (pinned, 10x per-layer不均衡, 256tok)",
+      "moetuner_baseline_20260916/EXPERIMENT_LOG.md L30 (pinned 10x per-layer imbalance)",
+      "baseline_comparison_20260914/rt_prover/ routing traces (32 rank x chunk npz)",
+      "moetuner artifacts P_pinned_fair.npz (P[94,128], layer0 imb 4.093, ILP mean_imbalance 1.000)"
+    ],
+    "derived_splits_verified_20261026": {
+      "pinned10x_head1024.jsonl": {"sha256_12": "10660f2ef383", "rule": "head -n 1024 (REPRODUCE_BASELINES.md §2.1 L98)"},
+      "pinned10x_tail1024.jsonl": {"sha256_12": "c760e36b2fdf", "rule": "tail -n 1024 (REPRODUCE_BASELINES.md §2.1 L99)"},
+      "concat_sha256_equals_full_file": true
+    },
+    "generator_script": "MISSING - dataset pre-existing (OEPLBdata legacy dir per sjq README.md); only consumer-side references found on this host; registered as-is, not reconstructed"
+  },
+  "surveyed_alternatives_not_selected": [
+    {"file": "e2_prover_stable.jsonl", "lines": 4082, "sha256_12": "fa788238fa2d", "reason": "L512 prover pool (build_streams.py L30/L228), not the 256tok §5.3.1 bucket"},
+    {"file": "pinned10x_head1024.jsonl", "lines": 1024, "sha256_12": "10660f2ef383", "reason": "proper subset of selected file"},
+    {"file": "pinned10x_tail1024.jsonl", "lines": 1024, "sha256_12": "c760e36b2fdf", "reason": "proper subset of selected file"},
+    {"file": "L512_O1_realprover_head2048.jsonl", "lines": 2048, "sha256_12": "6267b7e40d8c", "reason": "L512 bucket"},
+    {"file": "L512_O1_realprover_tail6144.jsonl", "lines": 6144, "sha256_12": "bf396a594fd4", "reason": "L512 bucket"},
+    {"file": "prover_2048tok_out1.jsonl", "lines": 2048, "sha256_12": "c628fc00522b", "reason": "2048tok long-prompt bucket"}
+  ]
+}

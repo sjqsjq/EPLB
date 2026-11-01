@@ -1,0 +1,1179 @@
+[2026-09-16 16:47:25] WARNING server_args.py:1433: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-09-16 16:47:25] WARNING server_args.py:1599: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-09-16 16:47:25] WARNING server_args.py:1650: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-09-16 16:47:25] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_mode='auto', tokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{}', rl_quant_profile=None, trust_remote_code=True, context_length=None, is_embedding=False, enable_multimodal=None, revision=None, model_impl='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=True, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, dtype='bfloat16', quantization='fp8', quantization_param_path=None, kv_cache_dtype='auto', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, mem_fraction_static=0.78, max_running_requests=None, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=1024, max_prefill_tokens=16384, schedule_policy='fcfs', enable_priority_scheduling=False, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=0.3, page_size=1, hybrid_kvcache_ratio=None, swa_full_tokens_ratio=0.8, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', device='cuda', tp_size=8, pp_size=1, pp_max_micro_batch_size=None, stream_interval=1, stream_output=False, random_seed=111674273, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=600.0, dist_timeout=None, download_dir=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, mm_process_config={}, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, crash_dump_folder=None, show_time_cost=False, enable_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, collect_tokens_histogram=False, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, served_model_name='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', weight_version='default', chat_template=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=8, load_balance_method='round_robin', load_watch_interval=0.1, prefill_round_robin_balance=False, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, attention_backend='fa3', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', nsa_prefill_backend='flashmla_sparse', nsa_decode_backend='fa3', enable_flashinfer_autotune=False, speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_moe_runner_backend=None, speculative_moe_a2a_backend=None, speculative_ngram_min_match_window_size=1, speculative_ngram_max_match_window_size=12, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_branch_length=18, speculative_ngram_capacity=10000000, ep_size=8, moe_a2a_backend='deepep', moe_runner_backend='deep_gemm', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, deepep_mode='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm=None, init_expert_location='trivial', enable_eplb=False, enable_pb_oeplb=False, pb_oeplb_threshold_ratio=1.02, pb_oeplb_min_prefill_tokens=256, pb_oeplb_sync_window=8, pb_oeplb_max_total_swap_layers=94, pb_oeplb_max_swaps_per_layer=64, pb_oeplb_max_total_ops=300, pb_oeplb_min_swap_ops=8, pb_oeplb_always_record=False, pb_oeplb_decay_factor=0.5, pb_oeplb_min_record_tokens=32, pb_oeplb_dead_zone_ratio=0.0, pb_oeplb_bias_correct=False, pb_oeplb_bias_coeff=0.0, pb_oeplb_bias_gate=0.0, pb_oeplb_swap_budget_frac=0.0, pb_oeplb_adaptive_window=False, pb_oeplb_adaptive_decay=False, pb_oeplb_window_floor=32, pb_oeplb_window_shift_cos=0.85, pb_oeplb_window_stable_cos=0.95, pb_oeplb_window_shift_confirm=1, pb_oeplb_window_stable_confirm=2, pb_oeplb_calibrate_adaptive_sensitivity=False, pb_oeplb_calibration_forwards=256, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, mooncake_ib_device=None, max_mamba_cache_size=None, mamba_ssm_dtype='float32', mamba_full_memory_ratio=0.9, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='best_effort', hicache_storage_backend_extra_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, enable_double_sparsity=False, ds_channel_config_path=None, ds_heavy_channel_num=32, ds_heavy_token_num=256, ds_heavy_channel_type='qk', ds_sparse_decode_threshold=4096, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', multi_item_scoring_delimiter=None, disable_radix_cache=True, cuda_graph_max_bs=512, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], disable_cuda_graph=True, disable_cuda_graph_padding=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, disable_overlap_schedule=False, enable_mixed_chunk=False, enable_dp_attention=True, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, enable_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=4096, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, 4096], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, enable_nsa_prefill_context_parallel=False, enable_fused_qk_norm_rope=False, enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_decode_tp=None, disaggregation_decode_dp=None, disaggregation_prefill_pp=1, disaggregation_ib_device=None, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, custom_weight_loader=[], weight_loader_disable_mmap=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, mm_max_concurrent_calls=32, mm_per_request_timeout=10.0, enable_broadcast_mm_inputs_process=False, decrypted_config_file=None, decrypted_draft_config_file=None, mm_enable_dp_encoder=False, forward_hooks=None)
+[2026-09-16 16:47:25] Using default HuggingFace chat template with detected content format: string
+[2026-09-16 16:47:45 DP1 TP1 EP1] Init torch distributed begin.
+[2026-09-16 16:47:45 DP2 TP2 EP2] Init torch distributed begin.
+[2026-09-16 16:47:45 DP6 TP6 EP6] Init torch distributed begin.
+[2026-09-16 16:47:45 DP0 TP0 EP0] Init torch distributed begin.
+[2026-09-16 16:47:45 DP4 TP4 EP4] Init torch distributed begin.
+[2026-09-16 16:47:45 DP7 TP7 EP7] Init torch distributed begin.
+[2026-09-16 16:47:46 DP5 TP5 EP5] Init torch distributed begin.
+[2026-09-16 16:47:46 DP3 TP3 EP3] Init torch distributed begin.
+[Gloo] Rank 0[Gloo] Rank 1 is connected to [Gloo] Rank 72 peer ranks.  is connected to Expected number of connected peer ranks is : 77 peer ranks. 
+[Gloo] Rank 6 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7[Gloo] Rank  peer ranks. 4Expected number of connected peer ranks is :  is connected to 77
+ peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+ is connected to Expected number of connected peer ranks is : 7 peer ranks. 7Expected number of connected peer ranks is : 
+7
+
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0[Gloo] Rank  is connected to 5[Gloo] Rank 7 is connected to [Gloo] Rank 4 peer ranks. 71 is connected to Expected number of connected peer ranks is :  peer ranks.  is connected to [Gloo] Rank 2 is connected to [Gloo] Rank 7[Gloo] Rank  is connected to 677 is connected to  peer ranks.  peer ranks. 7Expected number of connected peer ranks is : Expected number of connected peer ranks is :  peer ranks. 77
+Expected number of connected peer ranks is : 77
+ peer ranks. Expected number of connected peer ranks is : 7
+7 peer ranks. Expected number of connected peer ranks is : 77Expected number of connected peer ranks is : 
+
+
+7
+[2026-09-16 16:47:47 DP0 TP0 EP0] sglang is using nccl==2.27.5
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0[Gloo] Rank 0[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : [Gloo] Rank [Gloo] Rank 0[Gloo] Rank 0[Gloo] Rank  is connected to 0[Gloo] Rank  is connected to 0 is connected to 0 is connected to  is connected to 00 peer ranks. Expected number of connected peer ranks is : 0
+00 is connected to  is connected to 
+0 peer ranks. 00 peer ranks. Expected number of connected peer ranks is :  peer ranks.  peer ranks.  peer ranks. 0Expected number of connected peer ranks is : 0Expected number of connected peer ranks is : Expected number of connected peer ranks is : Expected number of connected peer ranks is :  peer ranks. 0
+000Expected number of connected peer ranks is : 
+
+
+
+0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank [Gloo] Rank [Gloo] Rank 0[Gloo] Rank 00 is connected to 0 is connected to  is connected to 0[Gloo] Rank  is connected to 00 peer ranks. 00 peer ranks.  peer ranks. Expected number of connected peer ranks is :  is connected to  peer ranks. Expected number of connected peer ranks is : [Gloo] Rank Expected number of connected peer ranks is : 00Expected number of connected peer ranks is : 000
+ peer ranks. 0
+ is connected to 
+Expected number of connected peer ranks is : 
+0[Gloo] Rank 0 peer ranks. 0
+Expected number of connected peer ranks is :  is connected to 00
+ peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-09-16 16:47:51 DP0 TP0 EP0] Init torch distributed ends. mem usage=1.13 GB
+[2026-09-16 16:47:51 DP6 TP6 EP6] Init torch distributed ends. mem usage=1.50 GB
+[2026-09-16 16:47:51 DP7 TP7 EP7] Init torch distributed ends. mem usage=0.95 GB
+[2026-09-16 16:47:51 DP4 TP4 EP4] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:47:51 DP5 TP5 EP5] Init torch distributed ends. mem usage=1.16 GB
+[2026-09-16 16:47:51 DP3 TP3 EP3] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:47:51 DP2 TP2 EP2] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:47:51 DP1 TP1 EP1] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:47:52 DP5 TP5 EP5] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP2 TP2 EP2] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP6 TP6 EP6] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP1 TP1 EP1] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP3 TP3 EP3] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP0 TP0 EP0] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP4 TP4 EP4] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP7 TP7 EP7] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:47:52 DP2 TP2 EP2] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:52 DP1 TP1 EP1] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:52 DP3 TP3 EP3] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:52 DP6 TP6 EP6] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:52 DP5 TP5 EP5] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:52 DP0 TP0 EP0] Load weight begin. avail mem=93.62 GB
+[2026-09-16 16:47:52 DP0 TP0 EP0] Detected fp8 checkpoint.
+[2026-09-16 16:47:53 DP4 TP4 EP4] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:47:53 DP7 TP7 EP7] Load weight begin. avail mem=93.80 GB
+Loading safetensors checkpoint shards:   0% Completed | 0/48 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   2% Completed | 1/48 [00:00<00:09,  4.73it/s]
+Loading safetensors checkpoint shards:   4% Completed | 2/48 [00:00<00:09,  4.68it/s]
+Loading safetensors checkpoint shards:   6% Completed | 3/48 [00:00<00:09,  4.72it/s]
+Loading safetensors checkpoint shards:   8% Completed | 4/48 [00:00<00:09,  4.66it/s]
+Loading safetensors checkpoint shards:  10% Completed | 5/48 [00:01<00:09,  4.61it/s]
+Loading safetensors checkpoint shards:  12% Completed | 6/48 [00:01<00:09,  4.41it/s]
+Loading safetensors checkpoint shards:  15% Completed | 7/48 [00:01<00:10,  3.95it/s]
+Loading safetensors checkpoint shards:  17% Completed | 8/48 [00:01<00:10,  3.74it/s]
+Loading safetensors checkpoint shards:  19% Completed | 9/48 [00:02<00:10,  3.65it/s]
+Loading safetensors checkpoint shards:  21% Completed | 10/48 [00:02<00:10,  3.52it/s]
+Loading safetensors checkpoint shards:  23% Completed | 11/48 [00:02<00:10,  3.52it/s]
+Loading safetensors checkpoint shards:  25% Completed | 12/48 [00:03<00:10,  3.39it/s]
+Loading safetensors checkpoint shards:  27% Completed | 13/48 [00:04<00:23,  1.46it/s]
+Loading safetensors checkpoint shards:  29% Completed | 14/48 [00:05<00:20,  1.68it/s]
+Loading safetensors checkpoint shards:  31% Completed | 15/48 [00:05<00:16,  1.96it/s]
+Loading safetensors checkpoint shards:  33% Completed | 16/48 [00:05<00:13,  2.32it/s]
+Loading safetensors checkpoint shards:  35% Completed | 17/48 [00:05<00:11,  2.70it/s]
+Loading safetensors checkpoint shards:  38% Completed | 18/48 [00:06<00:10,  2.90it/s]
+Loading safetensors checkpoint shards:  40% Completed | 19/48 [00:06<00:09,  3.06it/s]
+Loading safetensors checkpoint shards:  42% Completed | 20/48 [00:06<00:08,  3.20it/s]
+Loading safetensors checkpoint shards:  44% Completed | 21/48 [00:07<00:08,  3.22it/s]
+Loading safetensors checkpoint shards:  46% Completed | 22/48 [00:07<00:08,  3.21it/s]
+Loading safetensors checkpoint shards:  48% Completed | 23/48 [00:07<00:07,  3.25it/s]
+Loading safetensors checkpoint shards:  50% Completed | 24/48 [00:07<00:06,  3.46it/s]
+Loading safetensors checkpoint shards:  52% Completed | 25/48 [00:08<00:06,  3.57it/s]
+Loading safetensors checkpoint shards:  54% Completed | 26/48 [00:08<00:06,  3.53it/s]
+Loading safetensors checkpoint shards:  56% Completed | 27/48 [00:08<00:06,  3.37it/s]
+Loading safetensors checkpoint shards:  58% Completed | 28/48 [00:09<00:05,  3.44it/s]
+Loading safetensors checkpoint shards:  60% Completed | 29/48 [00:09<00:05,  3.46it/s]
+Loading safetensors checkpoint shards:  62% Completed | 30/48 [00:09<00:05,  3.51it/s]
+Loading safetensors checkpoint shards:  65% Completed | 31/48 [00:09<00:04,  3.51it/s]
+Loading safetensors checkpoint shards:  67% Completed | 32/48 [00:10<00:04,  3.39it/s]
+Loading safetensors checkpoint shards:  69% Completed | 33/48 [00:10<00:04,  3.43it/s]
+Loading safetensors checkpoint shards:  71% Completed | 34/48 [00:10<00:03,  3.53it/s]
+Loading safetensors checkpoint shards:  73% Completed | 35/48 [00:10<00:03,  3.77it/s]
+Loading safetensors checkpoint shards:  75% Completed | 36/48 [00:11<00:03,  3.99it/s]
+Loading safetensors checkpoint shards:  77% Completed | 37/48 [00:11<00:02,  4.19it/s]
+Loading safetensors checkpoint shards:  79% Completed | 38/48 [00:11<00:02,  4.06it/s]
+Loading safetensors checkpoint shards:  81% Completed | 39/48 [00:12<00:02,  3.43it/s]
+Loading safetensors checkpoint shards:  83% Completed | 40/48 [00:12<00:02,  3.61it/s]
+Loading safetensors checkpoint shards:  85% Completed | 41/48 [00:12<00:01,  3.83it/s]
+Loading safetensors checkpoint shards:  88% Completed | 42/48 [00:12<00:01,  3.77it/s]
+Loading safetensors checkpoint shards:  90% Completed | 43/48 [00:13<00:01,  3.70it/s]
+Loading safetensors checkpoint shards:  92% Completed | 44/48 [00:13<00:01,  3.68it/s]
+Loading safetensors checkpoint shards:  94% Completed | 45/48 [00:13<00:00,  3.61it/s]
+Loading safetensors checkpoint shards:  96% Completed | 46/48 [00:13<00:00,  3.52it/s]
+Loading safetensors checkpoint shards:  98% Completed | 47/48 [00:14<00:00,  3.62it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:14<00:00,  3.76it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:14<00:00,  3.32it/s]
+
+[2026-09-16 16:48:08 DP3 TP3 EP3] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:08 DP7 TP7 EP7] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.70 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:08 DP0 TP0 EP0] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.51 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:08 DP6 TP6 EP6] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:08 DP2 TP2 EP2] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:08 DP4 TP4 EP4] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:09 DP1 TP1 EP1] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:09 DP5 TP5 EP5] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:48:09 DP0 TP0 EP0] Using KV cache dtype: torch.bfloat16
+[2026-09-16 16:48:09 DP7 TP7 EP7] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP7 TP7 EP7] Memory pool end. avail mem=19.99 GB
+[2026-09-16 16:48:09 DP0 TP0 EP0] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP0 TP0 EP0] Memory pool end. avail mem=19.80 GB
+[2026-09-16 16:48:09 DP3 TP3 EP3] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP3 TP3 EP3] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:09 DP6 TP6 EP6] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP2 TP2 EP2] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP5 TP5 EP5] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP6 TP6 EP6] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:09 DP5 TP5 EP5] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:09 DP2 TP2 EP2] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:09 DP4 TP4 EP4] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP1 TP1 EP1] KV Cache is allocated. #tokens: 217223, K size: 19.47 GB, V size: 19.47 GB
+[2026-09-16 16:48:09 DP1 TP1 EP1] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:09 DP4 TP4 EP4] Memory pool end. avail mem=19.76 GB
+[2026-09-16 16:48:10 DP0 TP0 EP0] max_total_num_tokens=217223, chunked_prefill_size=1024, max_prefill_tokens=16384, max_running_requests=2715, context_len=40960, available_gpu_mem=19.71 GB
+[2026-09-16 16:48:10] INFO:     Started server process [291834]
+[2026-09-16 16:48:10] INFO:     Waiting for application startup.
+[2026-09-16 16:48:10] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-09-16 16:48:10] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-09-16 16:48:10] The server is fired up and ready to roll!
+[2026-09-16 16:48:10] INFO:     Application startup complete.
+[2026-09-16 16:48:10] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-09-16 16:48:17 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 240, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:48:18 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:18 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=9216, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:18 DP0 TP0 EP0] Required memory for warmup: 0.37890625GB, Available memory: 19.68603515625GB
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:  13%|█▎        | 2204/16384 [00:00<00:00, 22032.09it/s]DeepGEMM warmup:  29%|██▉       | 4739/16384 [00:00<00:00, 23978.38it/s]DeepGEMM warmup:  46%|████▌     | 7576/16384 [00:00<00:00, 25981.72it/s][2026-09-16 16:48:18 DP1 TP1 EP1] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:48:18 DP7 TP7 EP7] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:48:18 DP3 TP3 EP3] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+DeepGEMM warmup:  62%|██████▏   | 10194/16384 [00:00<00:00, 26055.09it/s][2026-09-16 16:48:18 DP2 TP2 EP2] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+DeepGEMM warmup:  78%|███████▊  | 12800/16384 [00:00<00:00, 24082.42it/s][2026-09-16 16:48:18 DP4 TP4 EP4] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:48:18 DP6 TP6 EP6] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+DeepGEMM warmup:  93%|█████████▎| 15273/16384 [00:00<00:00, 24290.28it/s]DeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 24367.93it/s]
+[2026-09-16 16:48:18 DP5 TP5 EP5] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:48:18 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:18 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=8192, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:18 DP0 TP0 EP0] Required memory for warmup: 0.28125GB, Available memory: 19.65283203125GB
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s]DeepGEMM warmup:   9%|▉         | 1537/16384 [00:00<00:00, 15084.49it/s]DeepGEMM warmup:  20%|██        | 3293/16384 [00:00<00:00, 16524.82it/s]DeepGEMM warmup:  35%|███▍      | 5688/16384 [00:00<00:00, 19898.12it/s]DeepGEMM warmup:  53%|█████▎    | 8710/16384 [00:00<00:00, 23961.58it/s]DeepGEMM warmup:  72%|███████▏  | 11719/16384 [00:00<00:00, 26164.61it/s]DeepGEMM warmup:  89%|████████▉ | 14585/16384 [00:00<00:00, 27010.30it/s]DeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 24707.48it/s]
+[2026-09-16 16:48:19 DP0 TP0 EP0] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:48:26 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:26 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:26 DP0 TP0 EP0] Required memory for warmup: 0.34381103515625GB, Available memory: 11.53936767578125GB
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2139.43it/s]
+[2026-09-16 16:48:26 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:26 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:26 DP0 TP0 EP0] Required memory for warmup: 0.24224853515625GB, Available memory: 11.53546142578125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2368.87it/s]
+[2026-09-16 16:48:27 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 7, 
+[2026-09-16 16:48:27 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:27 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 7, 
+[2026-09-16 16:48:27 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:27 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:27 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:27 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:27 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:28] INFO:     127.0.0.1:51334 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:28 DP4 TP4 EP4] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 4, 
+[2026-09-16 16:48:28 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 3, 
+[2026-09-16 16:48:28 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 5, #queue-req: 4, 
+[2026-09-16 16:48:28 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:28 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:28 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:28 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 4, 
+[2026-09-16 16:48:28 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 3, 
+[2026-09-16 16:48:29 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 961, #cached-token: 0, token usage: 0.01, #running-req: 7, #queue-req: 0, 
+[2026-09-16 16:48:29 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 1, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51384 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51480 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51518 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51582 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1001, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 978, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51354 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 957, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51398 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51486 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51538 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51356 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51414 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51422 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51544 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51374 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51468 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51514 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51368 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51456 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51504 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51362 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51442 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51498 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51554 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51358 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51430 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51424 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51340 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51392 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51482 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51524 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51550 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51620 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51870 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51928 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1007, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1015, #cached-token: 0, token usage: 0.00, #running-req: 11, #queue-req: 0, 
+[2026-09-16 16:48:29 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1002, #cached-token: 0, token usage: 0.01, #running-req: 13, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51700 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 897, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51614 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51858 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51920 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51686 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51598 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51852 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51916 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51670 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51566 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51636 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51882 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51946 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51580 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51640 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51886 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51962 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51720 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51632 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51872 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51932 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51710 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51652 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51890 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51658 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51588 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51838 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51902 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51664 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51786 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 977, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51996 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 928, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52054 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51748 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51970 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52038 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 967, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:29 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 919, #cached-token: 0, token usage: 0.00, #running-req: 17, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52088 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29 DP2 TP2 EP2] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:29 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:29 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51802 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52004 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52060 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52118 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51754 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51980 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52042 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52096 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51732 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51826 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52032 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52084 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52156 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51770 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51986 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52050 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52100 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51818 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52016 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52070 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52144 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51718 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:51806 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52014 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52068 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:29] INFO:     127.0.0.1:52134 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34210 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34306 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:52180 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1004, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:30 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 21, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34254 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:30 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34338 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 971, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:48:30 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:30 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:30 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34204 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34296 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34378 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:52102 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34180 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34274 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34362 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34422 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34192 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34282 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34368 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34432 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:52164 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34238 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34334 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34400 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:52184 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34266 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34348 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34406 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34222 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34320 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34394 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34468 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34528 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34590 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34654 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34722 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34476 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34552 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34614 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1009, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34684 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1018, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 857, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 964, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 998, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:30 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34524 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34584 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34638 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34720 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34454 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34530 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34600 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34672 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34404 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34496 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34554 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34622 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34698 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34510 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34568 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34636 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34706 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34438 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34492 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34594 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34664 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34536 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34604 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34678 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34762 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34784 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:30 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 829, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 984, #cached-token: 0, token usage: 0.01, #running-req: 27, #queue-req: 0, 
+[2026-09-16 16:48:30 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 802, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:30] INFO:     127.0.0.1:34856 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34932 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35026 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34732 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34804 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34876 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34954 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35036 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34746 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34820 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34886 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34970 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34776 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34846 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34916 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35014 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34772 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34834 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34902 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34998 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34770 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34828 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34896 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34984 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34796 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34862 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34948 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34826 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34888 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:34980 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35104 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35176 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35234 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35302 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35096 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35164 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35230 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35296 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35082 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35158 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 42, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35222 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 57, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:31 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 1, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:31 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 47, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35286 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35028 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35118 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35184 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35236 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35050 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35128 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35196 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35252 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35318 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35126 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35198 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35250 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35314 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35070 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35144 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35218 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35274 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35064 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35138 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35208 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35260 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35374 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35432 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35504 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35556 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35348 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35406 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35478 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35346 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35402 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35468 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35362 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35410 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35484 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35330 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35398 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35462 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35528 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35312 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35368 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35422 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35488 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35552 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35376 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35448 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35514 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35322 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35384 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35450 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31] INFO:     127.0.0.1:35518 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:31 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:31 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:31 DP0 TP0 EP0] Required memory for warmup: 2.6875000596046448GB, Available memory: 10.92999267578125GB
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s]DeepGEMM warmup:  16%|█▌        | 2582/16384 [00:00<00:00, 25815.29it/s]DeepGEMM warmup:  38%|███▊      | 6153/16384 [00:00<00:00, 31630.01it/s]DeepGEMM warmup:  57%|█████▋    | 9316/16384 [00:00<00:00, 30939.61it/s]DeepGEMM warmup:  76%|███████▌  | 12412/16384 [00:00<00:00, 30249.59it/s]DeepGEMM warmup:  94%|█████████▍| 15440/16384 [00:00<00:00, 29783.99it/s]DeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 29960.72it/s]
+[2026-09-16 16:48:32 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:48:32 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:48:32 DP0 TP0 EP0] Required memory for warmup: 2.4687500596046448GB, Available memory: 10.80499267578125GB
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s]DeepGEMM warmup:  13%|█▎        | 2135/16384 [00:00<00:00, 21346.20it/s]DeepGEMM warmup:  27%|██▋       | 4479/16384 [00:00<00:00, 22576.88it/s]DeepGEMM warmup:  49%|████▉     | 8024/16384 [00:00<00:00, 28453.56it/s]DeepGEMM warmup:  71%|███████   | 11658/16384 [00:00<00:00, 31563.65it/s]DeepGEMM warmup:  93%|█████████▎| 15317/16384 [00:00<00:00, 33373.32it/s]DeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 30962.00it/s]
+[2026-09-16 16:48:33] INFO:     127.0.0.1:35544 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:33] INFO:     127.0.0.1:35564 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:33] INFO:     127.0.0.1:35542 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:33] INFO:     127.0.0.1:35540 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:37 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 233, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:48:37 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:37 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 7, 
+[2026-09-16 16:48:37 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:37 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 7, 
+[2026-09-16 16:48:37 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:37 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:37 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:37 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:38 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:38 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 5, #queue-req: 3, 
+[2026-09-16 16:48:38 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35766 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 3, 
+[2026-09-16 16:48:38 DP5 TP5 EP5] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 3, 
+[2026-09-16 16:48:38 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:38 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 3, 
+[2026-09-16 16:48:38 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 4, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35812 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35902 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35968 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 981, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38 DP4 TP4 EP4] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 7, #queue-req: 0, 
+[2026-09-16 16:48:38 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 980, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35804 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 924, #cached-token: 0, token usage: 0.00, #running-req: 9, #queue-req: 0, 
+[2026-09-16 16:48:38 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 923, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35894 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35958 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35780 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35862 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35948 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36016 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35788 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35878 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35952 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36028 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35816 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35918 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35978 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36056 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35824 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35934 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35982 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35774 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35850 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35944 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36002 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35834 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35938 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:35996 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36076 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36066 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36148 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36232 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36298 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 13, #queue-req: 0, 
+[2026-09-16 16:48:38 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 969, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 932, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1020, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36132 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36216 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36292 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36366 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36078 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36162 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36240 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36322 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36080 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36178 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36250 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36338 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36096 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36180 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36266 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36344 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36042 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36110 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36196 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36272 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36048 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36122 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36202 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36286 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36350 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36152 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36234 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36308 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:38] INFO:     127.0.0.1:36382 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36438 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35592 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35662 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35754 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 965, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:39 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 953, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:39 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:39 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 988, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:39 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:39 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36464 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP3 TP3 EP3] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35612 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35678 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36346 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36404 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35576 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35632 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35712 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36392 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36480 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35618 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35692 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36424 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35590 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35660 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35742 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36408 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35588 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35646 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35728 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36398 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35566 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35628 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35702 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36450 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35596 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:35666 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36486 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1016, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49374 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 997, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:48:39 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49456 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49536 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49458 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49546 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36522 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49420 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49506 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49580 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36488 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49402 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49472 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49552 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49354 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49434 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49512 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49582 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49370 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49448 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49526 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36506 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49412 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49496 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:36492 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49410 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49486 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49564 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49602 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 925, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49692 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49784 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49836 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 951, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 963, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 951, #cached-token: 0, token usage: 0.00, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:39 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 824, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49618 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 921, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49708 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49790 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49838 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49648 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49754 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49822 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49870 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49662 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49766 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49824 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49872 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49626 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49712 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49806 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49842 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49588 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49676 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49780 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49826 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49876 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49632 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49728 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49808 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49858 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49570 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49640 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49744 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49810 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:39] INFO:     127.0.0.1:49864 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49968 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50048 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50094 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 981, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:40 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 997, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:40 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 27, #queue-req: 0, 
+[2026-09-16 16:48:40 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 783, #cached-token: 0, token usage: 0.01, #running-req: 29, #queue-req: 0, 
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49912 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1007, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:40 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:40 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 27, #queue-req: 0, 
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49994 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50076 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50128 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49958 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50036 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50140 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50178 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49930 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50018 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50154 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50162 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49898 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49984 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50062 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50114 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49924 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50002 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50084 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50160 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49892 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49974 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50054 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50106 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50196 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:49946 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50024 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50138 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50166 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50216 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 36, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50284 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50378 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 94, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:40 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 2, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:40 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 116, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50428 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50246 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50330 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50392 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50218 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50300 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50380 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50440 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50186 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50258 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50342 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50398 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50480 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50228 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50316 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50446 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50238 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50320 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50390 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50450 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50274 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50354 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50408 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50206 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50280 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50364 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50416 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:40] INFO:     127.0.0.1:50498 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50540 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50608 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50682 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50752 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50528 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50592 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50668 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50728 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50530 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50606 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50672 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50512 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50580 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50660 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50548 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50624 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50710 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50776 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50566 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50648 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50720 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50466 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50542 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50612 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50696 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50484 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50554 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50638 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50718 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50744 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50778 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50726 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:41] INFO:     127.0.0.1:50768 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:45 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 226, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:48:45 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:45 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 8, 
+[2026-09-16 16:48:45 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:45 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 7, 
+[2026-09-16 16:48:45 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 7, 
+[2026-09-16 16:48:45 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 7, 
+[2026-09-16 16:48:45 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:45 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 8, 
+[2026-09-16 16:48:46 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 5, 
+[2026-09-16 16:48:46 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:46 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 3, 
+[2026-09-16 16:48:46 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 3, 
+[2026-09-16 16:48:46 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 3, 
+[2026-09-16 16:48:46 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:46 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 3, 
+[2026-09-16 16:48:46 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 4, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51284 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1002, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 937, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50956 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 7, #queue-req: 1, 
+[2026-09-16 16:48:46 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51038 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51112 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50908 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50964 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51056 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51122 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50944 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51010 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51100 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51148 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50922 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50978 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51074 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51130 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50900 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50958 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51044 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51120 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50930 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50994 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51090 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51142 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50952 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51022 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51108 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50910 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:50972 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51068 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51128 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51158 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51234 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 11, #queue-req: 0, 
+[2026-09-16 16:48:46 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 888, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51324 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46 DP1 TP1 EP1] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 11, #queue-req: 0, 
+[2026-09-16 16:48:46 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 832, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 0, 
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51396 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51436 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51180 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51258 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51352 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51406 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51176 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51248 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51342 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51218 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51310 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51426 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51204 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51302 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51370 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51414 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51160 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51240 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51332 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51398 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51202 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51294 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51366 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51412 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51190 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51272 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51362 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:46] INFO:     127.0.0.1:51408 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 953, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51498 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1015, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:47 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 949, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:47 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:47 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 971, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:47 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:48:47 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50828 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51542 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51400 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51452 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51516 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50850 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51444 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51514 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50842 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51554 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51486 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50812 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51528 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51608 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51480 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50800 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51526 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51600 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51462 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50784 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50862 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51574 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51470 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50794 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50886 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51590 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51466 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50788 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:50870 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51586 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47 DP2 TP2 EP2] Prefill batch, #new-seq: 3, #new-token: 806, #cached-token: 0, token usage: 0.01, #running-req: 21, #queue-req: 0, 
+[2026-09-16 16:48:47 DP4 TP4 EP4] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:47 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 969, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:48:47 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 981, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:47 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:47 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:48:47 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 0, 
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51668 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51730 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51806 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51892 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51646 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51718 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51786 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51876 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51674 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51742 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51822 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51678 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51746 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51828 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51618 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51686 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51762 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51842 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51628 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51694 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51768 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51850 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51564 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51640 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51702 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51776 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51860 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51662 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51726 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51798 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51880 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51906 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 1004, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:47 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 972, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:47 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1011, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:47 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:47 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 901, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:47 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 973, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 0, 
+[2026-09-16 16:48:47 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 991, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 0, 
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51962 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52044 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52098 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51938 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52014 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52060 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52130 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52220 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51920 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51974 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52048 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52100 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51898 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51954 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52038 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52092 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52164 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51928 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52006 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52056 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52114 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51944 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52034 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52076 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52150 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51926 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:51990 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:47] INFO:     127.0.0.1:52052 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52102 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:51940 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52018 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52066 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52138 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52244 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52320 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52394 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 27, #queue-req: 0, 
+[2026-09-16 16:48:48 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 1009, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52184 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP0 TP0 EP0] Prefill batch, #new-seq: 3, #new-token: 807, #cached-token: 0, token usage: 0.01, #running-req: 29, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52272 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 941, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52354 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 27, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52432 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1015, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:48 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:48 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 1017, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52194 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52284 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52366 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52444 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52302 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52374 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52464 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52252 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52328 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52410 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52494 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52178 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52260 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52344 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52416 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52208 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52290 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52370 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52454 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52236 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52310 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52386 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52476 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 111, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52492 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 139, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:48 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 12, #cached-token: 0, token usage: 0.00, #running-req: 31, #queue-req: 0, 
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52540 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52574 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52648 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52508 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52548 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52600 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52672 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52754 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52522 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52550 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52616 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52686 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52766 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52506 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52546 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52590 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52670 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52532 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52552 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52626 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52694 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52536 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52564 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52638 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52702 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52542 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52582 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52664 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52734 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52538 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52566 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52640 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:48] INFO:     127.0.0.1:52718 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52780 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52842 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52918 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52980 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52720 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52808 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52870 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52946 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52824 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52900 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52968 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:53026 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52804 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52860 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52938 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52828 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52912 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52976 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52792 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52856 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52924 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52984 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52814 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52874 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52958 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:53002 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52744 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52822 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52884 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52960 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52994 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:52990 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:49] INFO:     127.0.0.1:53014 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:48:52] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-09-16 16:48:57] Gracefully exiting... Remaining number of requests 0. Remaining requests remaining_rids=[].

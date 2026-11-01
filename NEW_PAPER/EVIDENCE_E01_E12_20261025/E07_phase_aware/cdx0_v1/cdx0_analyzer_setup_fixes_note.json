@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1",
+  "note_id": "cdx0_analyzer_setup_fixes_note",
+  "created_at_utc": "2026-10-16T08:09:57.789965+00:00",
+  "context": "analyze_cdx0.py required three fixes before it produced ANY output; all were made pre-output so no measurement could influence them; the frozen protocol, captures, 32 replay starts and execution index are untouched; no verdict rule, frozen constant, statistical formula, or output schema changed",
+  "fixes": [
+    {
+      "id": "t_guard_tolerance",
+      "what": "import-time scipy guard: df=3 assertion tightened to exact equality; df=2 tolerance set to 1e-9",
+      "why": "frozen pre-registered t975(df=2) constant has a 3.8e-11 relative design-phase transcription error; frozen constant governs (see cdx0_t_quantile_audit_note.json)",
+      "sha256_before": "5b959305d6986787074529fb9e217fb338017ef1cd05a62889245cb1ee69b46c"
+    },
+    {
+      "id": "protocol_key_alignment",
+      "what": "protocol cross-checks now read k_tilde / k_tilde note from analysis_spec.oracle_gap_descriptive and the migration reference cost from analysis_spec.migration_context_descriptive, matching the frozen protocol's nesting; added k_tilde note equality check",
+      "why": "analyzer had assumed flat analysis_spec keys; the frozen protocol is authoritative"
+    },
+    {
+      "id": "df_index",
+      "what": "mean_interval quantile lookup changed from T_QUANTILE_95[n] to T_QUANTILE_95[n-1]",
+      "why": "T_QUANTILE_95 is keyed by df per the pre-registered df rule (df = valid_starts - 1); n=4 crashed the lookup; no CI value changed semantics - with 4 valid starts the CI uses t975(df=3)=3.1824463052837078 exactly as pre-registered"
+    }
+  ],
+  "analyze_cdx0_sha256_final": "0de2af14a09f70c73b56a6ce42bdca305f100e9a41ca3609001a4a099a9942a4",
+  "protocol_implementation_record_note": "frozen protocol analyze_cdx0_record sha refers to the original pre-fix file; expected and documented; campaign complete, verify-only no longer invoked"
+}

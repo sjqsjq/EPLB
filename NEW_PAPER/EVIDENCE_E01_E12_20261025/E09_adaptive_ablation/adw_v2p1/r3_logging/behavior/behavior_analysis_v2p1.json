@@ -1,0 +1,1049 @@
+{
+ "knobs_frozen": {
+  "kappa": 3875.1768798828125,
+  "z_lo": 22.643858727592757,
+  "z_hi": 314.14010272527486,
+  "z_urgent": 942.4203081758246,
+  "theta_r_low": 0.010095552687949321,
+  "theta_r_act": 0.011395643112507271,
+  "n_min": 12320768
+ },
+ "windows_recorded": 32,
+ "consistency": {
+  "all_committed_hmin_eq_hmax": true,
+  "all_committed_vmin1": true,
+  "desync_any": false,
+  "freeze_events": [],
+  "fatal_collective": [],
+  "confirm_fail_streak_max": 0,
+  "not_committed_windows": [],
+  "prof_reports": 64,
+  "prof_max_calls": 98700,
+  "prof_forwards_implied": 1050.0
+ },
+ "trajectory": {
+  "W_after": [
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   16,
+   32,
+   32,
+   32,
+   32,
+   32,
+   32,
+   64,
+   64,
+   64,
+   64,
+   32,
+   32,
+   32,
+   32,
+   64,
+   64,
+   64,
+   64,
+   64
+  ],
+  "on_grid": true,
+  "W_init": 16
+ },
+ "boundary_context": {
+  "boundaries_rows": [
+   2009,
+   4018,
+   6027
+  ],
+  "boundary_window_idx": {
+   "2009": 15,
+   "4018": 21,
+   "6027": 27
+  },
+  "mapping": "cumulative steps_actual fraction x 8037 (fit method)",
+  "context": {
+   "2009": [
+    {
+     "window_id": 12,
+     "z": 109.38786973843085,
+     "h_rate": 0.056233,
+     "event": "midband_hold",
+     "W": 16,
+     "alert_k": 0,
+     "stable_s": 10
+    },
+    {
+     "window_id": 13,
+     "z": 32.68494151712896,
+     "h_rate": 0.019352,
+     "event": "midband_hold",
+     "W": 16,
+     "alert_k": 0,
+     "stable_s": 10
+    },
+    {
+     "window_id": 14,
+     "z": 5.149386420711831,
+     "h_rate": 0.009494,
+     "event": "confirmed_grow",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 15,
+     "z": 2.0599255030224963,
+     "h_rate": 0.009195,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 16,
+     "z": 0.5180411844230018,
+     "h_rate": 0.009413,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 17,
+     "z": 237.8854962171113,
+     "h_rate": 0.045107,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 18,
+     "z": 259.98072958426263,
+     "h_rate": 0.022273,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 19,
+     "z": 56.22567543461111,
+     "h_rate": 0.009852,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 20,
+     "z": 11.574478722918677,
+     "h_rate": 0.009606,
+     "event": "confirmed_grow",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 21,
+     "z": 5.955999803310389,
+     "h_rate": 0.009546,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 22,
+     "z": 1.248243551382751,
+     "h_rate": 0.009537,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 2
+    }
+   ],
+   "2009_first_shrink_window": 24,
+   "2009_latency_windows": 9,
+   "4018": [
+    {
+     "window_id": 18,
+     "z": 259.98072958426263,
+     "h_rate": 0.022273,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 19,
+     "z": 56.22567543461111,
+     "h_rate": 0.009852,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 20,
+     "z": 11.574478722918677,
+     "h_rate": 0.009606,
+     "event": "confirmed_grow",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 21,
+     "z": 5.955999803310389,
+     "h_rate": 0.009546,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 22,
+     "z": 1.248243551382751,
+     "h_rate": 0.009537,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 23,
+     "z": 771.4570438112247,
+     "h_rate": 0.054823,
+     "event": "hold_alert",
+     "W": 64,
+     "alert_k": 1,
+     "stable_s": 0
+    },
+    {
+     "window_id": 24,
+     "z": 334.4657328362248,
+     "h_rate": 0.014419,
+     "event": "confirmed_shrink",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 25,
+     "z": 34.536879160222306,
+     "h_rate": 0.009422,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 26,
+     "z": 7.847868083390472,
+     "h_rate": 0.010064,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 27,
+     "z": 2.000505080271506,
+     "h_rate": 0.0095,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 28,
+     "z": 0.7782451588572585,
+     "h_rate": 0.009266,
+     "event": "confirmed_grow",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 0
+    }
+   ],
+   "4018_first_shrink_window": 24,
+   "4018_latency_windows": 3,
+   "6027": [
+    {
+     "window_id": 24,
+     "z": 334.4657328362248,
+     "h_rate": 0.014419,
+     "event": "confirmed_shrink",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 25,
+     "z": 34.536879160222306,
+     "h_rate": 0.009422,
+     "event": "midband_hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 26,
+     "z": 7.847868083390472,
+     "h_rate": 0.010064,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 27,
+     "z": 2.000505080271506,
+     "h_rate": 0.0095,
+     "event": "hold",
+     "W": 32,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 28,
+     "z": 0.7782451588572585,
+     "h_rate": 0.009266,
+     "event": "confirmed_grow",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 0
+    },
+    {
+     "window_id": 29,
+     "z": 0.7668222301722681,
+     "h_rate": 0.009386,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 1
+    },
+    {
+     "window_id": 30,
+     "z": 1.2049305083068758,
+     "h_rate": 0.009619,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 2
+    },
+    {
+     "window_id": 31,
+     "z": 0.6895251032675581,
+     "h_rate": 0.009664,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 3
+    },
+    {
+     "window_id": 32,
+     "z": 0.5657580287351579,
+     "h_rate": 0.009633,
+     "event": "hold",
+     "W": 64,
+     "alert_k": 0,
+     "stable_s": 4
+    }
+   ],
+   "6027_first_shrink_window": null,
+   "6027_latency_windows": null
+  }
+ },
+ "events": {
+  "init": 1,
+  "hold": 12,
+  "grow_blocked_headroom": 8,
+  "midband_hold": 6,
+  "confirmed_grow": 3,
+  "hold_alert": 1,
+  "confirmed_shrink": 1
+ },
+ "proposed_events": {
+  "init": 1,
+  "hold": 12,
+  "grow_blocked_headroom": 8,
+  "midband_hold": 6,
+  "confirmed_grow": 3,
+  "hold_alert": 1,
+  "confirmed_shrink": 1
+ },
+ "action_windows": [
+  {
+   "window_id": 12,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 109.38786973843085,
+   "h_rate": 0.056232837920493266,
+   "W_before": 16,
+   "W_after": 16,
+   "alert_k": 0,
+   "stable_s": 10,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 98566144
+  },
+  {
+   "window_id": 13,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 32.68494151712896,
+   "h_rate": 0.019351999810401428,
+   "W_before": 16,
+   "W_after": 16,
+   "alert_k": 0,
+   "stable_s": 10,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 98566144
+  },
+  {
+   "window_id": 14,
+   "event": "confirmed_grow",
+   "proposed": "confirmed_grow",
+   "z": 5.149386420711831,
+   "h_rate": 0.009493756801524061,
+   "W_before": 16,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 0,
+   "dwell": 1,
+   "dwell_dir": "grow",
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 98566144
+  },
+  {
+   "window_id": 17,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 237.8854962171113,
+   "h_rate": 0.0451074407455769,
+   "W_before": 32,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 2,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 197132288
+  },
+  {
+   "window_id": 18,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 259.98072958426263,
+   "h_rate": 0.022272703495431454,
+   "W_before": 32,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 2,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 197132288
+  },
+  {
+   "window_id": 19,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 56.22567543461111,
+   "h_rate": 0.009852074562235082,
+   "W_before": 32,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 2,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 197132288
+  },
+  {
+   "window_id": 20,
+   "event": "confirmed_grow",
+   "proposed": "confirmed_grow",
+   "z": 11.574478722918677,
+   "h_rate": 0.009606117897845328,
+   "W_before": 32,
+   "W_after": 64,
+   "alert_k": 0,
+   "stable_s": 0,
+   "dwell": 1,
+   "dwell_dir": "grow",
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 197132288
+  },
+  {
+   "window_id": 23,
+   "event": "hold_alert",
+   "proposed": "hold_alert",
+   "z": 771.4570438112247,
+   "h_rate": 0.05482322611707322,
+   "W_before": 64,
+   "W_after": 64,
+   "alert_k": 1,
+   "stable_s": 0,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 394264576
+  },
+  {
+   "window_id": 24,
+   "event": "confirmed_shrink",
+   "proposed": "confirmed_shrink",
+   "z": 334.4657328362248,
+   "h_rate": 0.014418964690350472,
+   "W_before": 64,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 0,
+   "dwell": 1,
+   "dwell_dir": "shrink",
+   "uncertain_run": 0,
+   "episode_shrinks": 1,
+   "n_fresh": 394264576
+  },
+  {
+   "window_id": 25,
+   "event": "midband_hold",
+   "proposed": "midband_hold",
+   "z": 34.536879160222306,
+   "h_rate": 0.009422459500901242,
+   "W_before": 32,
+   "W_after": 32,
+   "alert_k": 0,
+   "stable_s": 0,
+   "dwell": 0,
+   "dwell_dir": null,
+   "uncertain_run": 0,
+   "episode_shrinks": 1,
+   "n_fresh": 197132288
+  },
+  {
+   "window_id": 28,
+   "event": "confirmed_grow",
+   "proposed": "confirmed_grow",
+   "z": 0.7782451588572585,
+   "h_rate": 0.009266031549331989,
+   "W_before": 32,
+   "W_after": 64,
+   "alert_k": 0,
+   "stable_s": 0,
+   "dwell": 1,
+   "dwell_dir": "grow",
+   "uncertain_run": 0,
+   "episode_shrinks": 0,
+   "n_fresh": 197132288
+  }
+ ],
+ "costs": {
+  "c_window_ms_all": {
+   "n": 32,
+   "median": 1.551322,
+   "mean": 2.4836126249999997,
+   "p90": 2.1357718000000006,
+   "max": 31.030547,
+   "min": 1.1083
+  },
+  "c_window_ms_excl_init": {
+   "n": 31,
+   "median": 1.544126,
+   "mean": 1.5627437741935484,
+   "p90": 1.872763,
+   "max": 2.95193,
+   "min": 1.1083
+  },
+  "prof_last_per_report": [
+   {
+    "window": 32,
+    "calls": 98042,
+    "record_ms": 11168.86,
+    "allreduce_ms": 804.25,
+    "planbuild_ms": 73.06,
+    "finalize_ms": 304.12,
+    "total_ms": 12350.28,
+    "avg_record_us": 113.92
+   },
+   {
+    "window": 32,
+    "calls": 97854,
+    "record_ms": 11173.97,
+    "allreduce_ms": 800.5,
+    "planbuild_ms": 68.35,
+    "finalize_ms": 292.85,
+    "total_ms": 12335.66,
+    "avg_record_us": 114.19
+   },
+   {
+    "window": 32,
+    "calls": 97290,
+    "record_ms": 11108.69,
+    "allreduce_ms": 794.84,
+    "planbuild_ms": 70.37,
+    "finalize_ms": 279.86,
+    "total_ms": 12253.77,
+    "avg_record_us": 114.18
+   },
+   {
+    "window": 32,
+    "calls": 96820,
+    "record_ms": 11282.95,
+    "allreduce_ms": 814.02,
+    "planbuild_ms": 70.63,
+    "finalize_ms": 321.72,
+    "total_ms": 12489.32,
+    "avg_record_us": 116.54
+   },
+   {
+    "window": 32,
+    "calls": 97478,
+    "record_ms": 11235.34,
+    "allreduce_ms": 797.85,
+    "planbuild_ms": 71.3,
+    "finalize_ms": 294.46,
+    "total_ms": 12398.95,
+    "avg_record_us": 115.26
+   },
+   {
+    "window": 32,
+    "calls": 98700,
+    "record_ms": 11499.41,
+    "allreduce_ms": 821.43,
+    "planbuild_ms": 74.36,
+    "finalize_ms": 310.8,
+    "total_ms": 12706.0,
+    "avg_record_us": 116.51
+   },
+   {
+    "window": 32,
+    "calls": 97572,
+    "record_ms": 11320.49,
+    "allreduce_ms": 819.65,
+    "planbuild_ms": 71.41,
+    "finalize_ms": 304.54,
+    "total_ms": 12516.1,
+    "avg_record_us": 116.02
+   },
+   {
+    "window": 32,
+    "calls": 96914,
+    "record_ms": 11313.87,
+    "allreduce_ms": 821.97,
+    "planbuild_ms": 73.99,
+    "finalize_ms": 317.31,
+    "total_ms": 12527.14,
+    "avg_record_us": 116.74
+   }
+  ],
+  "note": "c_window_ms covers per-window det SUM + confirm MIN/MAX collectives and window-boundary local compute; record-path cost (incl. F1 second scatter_add) is covered by PROF record/avg_record_us. Ranks run in parallel: per-rank times are NOT summed. Nothing here is deducted from any performance number."
+ },
+ "correctness": {
+  "bench_ok": 8037,
+  "bench_errors": 0,
+  "bench_total_time_s": 361.26,
+  "theta_gate_violations": [],
+  "uncertain_windows": [],
+  "z_none_windows": []
+ },
+ "replay": {
+  "n": 32,
+  "mismatches": [],
+  "all_match": true,
+  "detail": [
+   {
+    "window_id": 1,
+    "live_event": "init",
+    "replay_event": "init",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "no_reference_yet"
+    ]
+   },
+   {
+    "window_id": 2,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=1/3"
+    ]
+   },
+   {
+    "window_id": 3,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=2/3"
+    ]
+   },
+   {
+    "window_id": 4,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=3 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 5,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=4 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 6,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=5 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 7,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=6 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 8,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=7 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 9,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=8 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 10,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=9 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 11,
+    "live_event": "grow_blocked_headroom",
+    "replay_event": "grow_blocked_headroom",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "stable_s=10 but h_w=0>=theta_h_low=0"
+    ]
+   },
+   {
+    "window_id": 12,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "z=109.39 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 13,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 16,
+    "W_after_live": 16,
+    "reasons": [
+     "z=32.68 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 14,
+    "live_event": "confirmed_grow",
+    "replay_event": "confirmed_grow",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "stable_s>=3 and h_w=0<theta_h_low"
+    ]
+   },
+   {
+    "window_id": 15,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "stable_s=1/3"
+    ]
+   },
+   {
+    "window_id": 16,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "stable_s=2/3"
+    ]
+   },
+   {
+    "window_id": 17,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "z=237.89 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 18,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "z=259.98 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 19,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "z=56.23 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 20,
+    "live_event": "confirmed_grow",
+    "replay_event": "confirmed_grow",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s>=3 and h_w=0<theta_h_low"
+    ]
+   },
+   {
+    "window_id": 21,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s=1/3"
+    ]
+   },
+   {
+    "window_id": 22,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s=2/3"
+    ]
+   },
+   {
+    "window_id": 23,
+    "live_event": "hold_alert",
+    "replay_event": "hold_alert",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "alert_k=1/2 z=771.46"
+    ]
+   },
+   {
+    "window_id": 24,
+    "live_event": "confirmed_shrink",
+    "replay_event": "confirmed_shrink",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "alert_k>=2 and h_w=0>=theta_h_act"
+    ]
+   },
+   {
+    "window_id": 25,
+    "live_event": "midband_hold",
+    "replay_event": "midband_hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "z=34.54 in [z_lo,z_hi)"
+    ]
+   },
+   {
+    "window_id": 26,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "stable_s=1/3"
+    ]
+   },
+   {
+    "window_id": 27,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 32,
+    "W_after_live": 32,
+    "reasons": [
+     "stable_s=2/3"
+    ]
+   },
+   {
+    "window_id": 28,
+    "live_event": "confirmed_grow",
+    "replay_event": "confirmed_grow",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s>=3 and h_w=0<theta_h_low"
+    ]
+   },
+   {
+    "window_id": 29,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s=1/3"
+    ]
+   },
+   {
+    "window_id": 30,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable_s=2/3"
+    ]
+   },
+   {
+    "window_id": 31,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable and W at ceiling 64 (bounded response: worst-case detection delay <= W_max steps)"
+    ]
+   },
+   {
+    "window_id": 32,
+    "live_event": "hold",
+    "replay_event": "hold",
+    "match": true,
+    "W_after_replay": 64,
+    "W_after_live": 64,
+    "reasons": [
+     "stable and W at ceiling 64 (bounded response: worst-case detection delay <= W_max steps)"
+    ]
+   }
+  ]
+ },
+ "verdict_inputs": {
+  "no_desync_no_freeze_no_fatal": true,
+  "rank_agreement_all_committed": true,
+  "bench_clean": true,
+  "theta_gates_clean": true,
+  "trajectory_on_grid": true,
+  "replay_all_match": true,
+  "event_spectrum": [
+   "confirmed_grow",
+   "confirmed_shrink",
+   "grow_blocked_headroom",
+   "hold",
+   "hold_alert",
+   "init",
+   "midband_hold"
+  ]
+ }
+}

@@ -1,0 +1,1979 @@
+{
+ "campaign": "cross_domain_e2e_20261027",
+ "final": true,
+ "boots_ok": "24/24",
+ "stats": {
+  "primary_metric": "total_time_s",
+  "co_report": "tps",
+  "tcrit_df3": 3.182445,
+  "reference_arm": "P0",
+  "test_method": "two-sided paired t-test (round-paired, df=3) + Holm across 5 comparisons",
+  "scipy": true,
+  "comparisons": {
+   "P0_vs_I": {
+    "n_pairs": 4,
+    "rounds": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "diffs": [
+     8.330000000000013,
+     -0.710000000000008,
+     16.42999999999998,
+     13.469999999999999
+    ],
+    "mean_diff": 9.379999999999995,
+    "sd": 7.513126291143163,
+    "se": 3.7565631455715813,
+    "ci95": [
+     -2.5750555998085556,
+     21.33505559980855
+    ],
+    "t_stat": 2.496963217843841,
+    "df": 3,
+    "p_two_sided": 0.08794184595162534
+   },
+   "P0_vs_ES": {
+    "n_pairs": 4,
+    "rounds": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "diffs": [
+     3.3600000000000136,
+     -0.37000000000000455,
+     15.449999999999989,
+     12.930000000000007
+    ],
+    "mean_diff": 7.842500000000001,
+    "sd": 7.5563367447460905,
+    "se": 3.7781683723730453,
+    "ci95": [
+     -4.181313045816735,
+     19.86631304581674
+    ],
+    "t_stat": 2.075741265885981,
+    "df": 3,
+    "p_two_sided": 0.12952875938482625
+   },
+   "P0_vs_ED": {
+    "n_pairs": 4,
+    "rounds": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "diffs": [
+     -5.310000000000002,
+     -21.159999999999997,
+     3.6399999999999864,
+     -10.870000000000005
+    ],
+    "mean_diff": -8.425000000000004,
+    "sd": 10.383090419844494,
+    "se": 5.191545209922247,
+    "ci95": [
+     -24.94680709559101,
+     8.096807095591
+    ],
+    "t_stat": -1.6228309028105687,
+    "df": 3,
+    "p_two_sided": 0.20308229601855554
+   },
+   "P0_vs_MT": {
+    "n_pairs": 4,
+    "rounds": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "diffs": [
+     15.629999999999995,
+     -4.310000000000002,
+     21.45999999999998,
+     14.180000000000007
+    ],
+    "mean_diff": 11.739999999999995,
+    "sd": 11.15297568663478,
+    "se": 5.57648784331739,
+    "ci95": [
+     -6.006865854526218,
+     29.486865854526208
+    ],
+    "t_stat": 2.105267747345433,
+    "df": 3,
+    "p_two_sided": 0.12593237602959484
+   },
+   "P0_vs_DF": {
+    "n_pairs": 4,
+    "rounds": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "diffs": [
+     15.680000000000007,
+     0.6899999999999977,
+     15.22999999999999,
+     15.519999999999982
+    ],
+    "mean_diff": 11.779999999999994,
+    "sd": 7.395678918575808,
+    "se": 3.697839459287904,
+    "ci95": [
+     0.01182930198650034,
+     23.548170698013486
+    ],
+    "t_stat": 3.185643976623171,
+    "df": 3,
+    "p_two_sided": 0.04987743738173657
+   }
+  },
+  "holm_adjusted_p": {
+   "P0_vs_DF": 0.24938718690868283,
+   "P0_vs_I": 0.35176738380650135,
+   "P0_vs_MT": 0.3777971280887845,
+   "P0_vs_ES": 0.3777971280887845,
+   "P0_vs_ED": 0.3777971280887845
+  },
+  "holm_note": "Holm step-down over available p-values (n=5); missing arms excluded only if boot absent"
+ },
+ "tables": {
+  "per_boot_raw": [
+   {
+    "label": "I_r1",
+    "arm": "I",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.6,
+    "tps": 42.5,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ES_r1",
+    "arm": "ES",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 197.57,
+    "tps": 41.5,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ED_r1",
+    "arm": "ED",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 206.24,
+    "tps": 39.7,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "MT_r1",
+    "arm": "MT",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.3,
+    "tps": 44.2,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "DF_r1",
+    "arm": "DF",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.25,
+    "tps": 44.2,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "P0_r1",
+    "arm": "P0",
+    "round": 1,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 200.93,
+    "tps": 40.8,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "I_r2",
+    "arm": "I",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.36,
+    "tps": 42.6,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ES_r2",
+    "arm": "ES",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.02,
+    "tps": 42.7,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ED_r2",
+    "arm": "ED",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 212.81,
+    "tps": 38.5,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "MT_r2",
+    "arm": "MT",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 195.96,
+    "tps": 41.8,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "DF_r2",
+    "arm": "DF",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 190.96,
+    "tps": 42.9,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "P0_r2",
+    "arm": "P0",
+    "round": 2,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 191.65,
+    "tps": 42.7,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "I_r3",
+    "arm": "I",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 190.8,
+    "tps": 42.9,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ES_r3",
+    "arm": "ES",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 191.78,
+    "tps": 42.7,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ED_r3",
+    "arm": "ED",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 203.59,
+    "tps": 40.2,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "MT_r3",
+    "arm": "MT",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.77,
+    "tps": 44.1,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "DF_r3",
+    "arm": "DF",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.0,
+    "tps": 42.7,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "P0_r3",
+    "arm": "P0",
+    "round": 3,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 207.23,
+    "tps": 39.5,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "I_r4",
+    "arm": "I",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 186.63,
+    "tps": 43.9,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ES_r4",
+    "arm": "ES",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 187.17,
+    "tps": 43.8,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "ED_r4",
+    "arm": "ED",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 210.97,
+    "tps": 38.8,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "MT_r4",
+    "arm": "MT",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.92,
+    "tps": 44.1,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "DF_r4",
+    "arm": "DF",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 184.58,
+    "tps": 44.4,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   },
+   {
+    "label": "P0_r4",
+    "arm": "P0",
+    "round": 4,
+    "status": "ok",
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 200.1,
+    "tps": 40.9,
+    "completeness_pass": true,
+    "bench_rc": 0,
+    "mech_rc": 0
+   }
+  ],
+  "per_arm_series": {
+   "I": {
+    "total_time_s": [
+     192.6,
+     192.36,
+     190.8,
+     186.63
+    ],
+    "tps": [
+     42.5,
+     42.6,
+     42.9,
+     43.9
+    ]
+   },
+   "ES": {
+    "total_time_s": [
+     197.57,
+     192.02,
+     191.78,
+     187.17
+    ],
+    "tps": [
+     41.5,
+     42.7,
+     42.7,
+     43.8
+    ]
+   },
+   "ED": {
+    "total_time_s": [
+     206.24,
+     212.81,
+     203.59,
+     210.97
+    ],
+    "tps": [
+     39.7,
+     38.5,
+     40.2,
+     38.8
+    ]
+   },
+   "MT": {
+    "total_time_s": [
+     185.3,
+     195.96,
+     185.77,
+     185.92
+    ],
+    "tps": [
+     44.2,
+     41.8,
+     44.1,
+     44.1
+    ]
+   },
+   "DF": {
+    "total_time_s": [
+     185.25,
+     190.96,
+     192.0,
+     184.58
+    ],
+    "tps": [
+     44.2,
+     42.9,
+     42.7,
+     44.4
+    ]
+   },
+   "P0": {
+    "total_time_s": [
+     200.93,
+     191.65,
+     207.23,
+     200.1
+    ],
+    "tps": [
+     40.8,
+     42.7,
+     39.5,
+     40.9
+    ]
+   }
+  }
+ },
+ "boots": {
+  "I_r1": {
+   "label": "I_r1",
+   "arm": "I",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "I_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:14:43Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.6,
+    "tps": 42.5,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5934.33,
+    "lat_mean_ms": 5934.4,
+    "wall_start_s": 1793085067.233542,
+    "wall_end_s": 1793085259.836388,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "I",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:10:03] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {}
+  },
+  "ES_r1": {
+   "label": "ES_r1",
+   "arm": "ES",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "ES_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T06:49:29Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 197.57,
+    "tps": 41.5,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6088.91,
+    "lat_mean_ms": 6088.9,
+    "wall_start_s": 1793083547.177446,
+    "wall_end_s": 1793083744.750734,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ES",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 06:44:28] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 06:45:07 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 06:45:07 DP6 TP6 EP6] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "ED_r1": {
+   "label": "ED_r1",
+   "arm": "ED",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "ED_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T06:54:42Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 206.24,
+    "tps": 39.7,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6360.01,
+    "lat_mean_ms": 6360.1,
+    "wall_start_s": 1793083852.733448,
+    "wall_end_s": 1793084058.969956,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ED",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 16,
+    "eplb_banner": true,
+    "injection_evidence": [
+     "[2026-10-27 06:49:41] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 06:50:11 DP1 TP1 EP1] [EPLBManager] system started, will rebalance per 256 iterations.",
+     "[2026-10-27 06:50:11 DP4 TP4 EP4] [EPLBManager] system started, will rebalance per 256 iterations."
+    ]
+   },
+   "mech": {}
+  },
+  "MT_r1": {
+   "label": "MT_r1",
+   "arm": "MT",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "MT_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T06:59:36Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.3,
+    "tps": 44.2,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5707.31,
+    "lat_mean_ms": 5707.4,
+    "wall_start_s": 1793084162.539454,
+    "wall_end_s": 1793084347.840255,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "MT",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 06:54:54] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 06:55:19 DP7 TP7 EP7] init_expert_location from init_by_mapping using ServerArgs.init_expert_location",
+     "[2026-10-27 06:55:19 DP5 TP5 EP5] init_expert_location from init_by_mapping using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "DF_r1": {
+   "label": "DF_r1",
+   "arm": "DF",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "DF_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:04:40Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.25,
+    "tps": 44.2,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5707.44,
+    "lat_mean_ms": 5707.5,
+    "wall_start_s": 1793084466.339503,
+    "wall_end_s": 1793084651.593273,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "DF",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 06:59:50] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:00:18 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 07:00:18 DP6 TP6 EP6] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "P0_r1": {
+   "label": "P0_r1",
+   "arm": "P0",
+   "round": 1,
+   "status": "ok",
+   "end": {
+    "label": "P0_r1",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:09:51Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 200.93,
+    "tps": 40.8,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6158.22,
+    "lat_mean_ms": 6158.3,
+    "wall_start_s": 1793084764.052499,
+    "wall_end_s": 1793084964.978881,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "P",
+    "policy": "AERO-base",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:04:51] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {
+    "n_rows": 32,
+    "detection_cycles_committed": 32,
+    "event_counts": {
+     "init": 1,
+     "hold": 10,
+     "grow_blocked_headroom": 9,
+     "confirmed_grow": 4,
+     "midband_hold": 8
+    },
+    "residency_final": {
+     "TRACK": 32
+    },
+    "rg_annotation_rows": 0,
+    "rg_policy_tagged_transitions": 0,
+    "state_transitions": [],
+    "recording": {
+     "recorded_steps_sum": 508,
+     "sample_opportunities_sum": 522,
+     "valid_rows_sum": 390799360,
+     "valid_rows_max_cycle": 12320768
+    },
+    "planning": {
+     "plan_opportunity_rows": 32,
+     "s_change_logical_rows": 31,
+     "det_map_version_final": 13,
+     "det_map_version_bumps": 13
+    },
+    "migration": {
+     "swaps_started_sum": 13,
+     "swap_pending_rows": 0,
+     "serverlog_issued_windows": [
+      1,
+      2,
+      9,
+      10,
+      17,
+      18,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+     ],
+     "planhash_windows": 14,
+     "planhash_8rank_identical": true
+    },
+    "integrity": {
+     "desync_rows": 0,
+     "h_hash_identical_all_rows": true,
+     "lockstep_ok_all_rows": true
+    },
+    "exercise_summary": {
+     "detection_cycles_present": true,
+     "recording_present": true,
+     "planning_present": true,
+     "migration_present": true,
+     "state_transition_present": false,
+     "shw_constant": true
+    },
+    "shw_trajectory_rle": [
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 1,
+      "rows": 32
+     }
+    ],
+    "z_range": [
+     0.1991022713208435,
+     133.13439063344165
+    ],
+    "h_rate_range": [
+     0.009126784953665226,
+     0.0672342320705982
+    ],
+    "alert_k_max": 0,
+    "stable_s_max": 7,
+    "v2p1_gate": null
+   },
+   "sp_run_end": {
+    "transitions": [],
+    "decode_record_batches": 0,
+    "nocommit_planned_ops_total": 0,
+    "swaps_started_total": 13,
+    "recorded_steps": 508,
+    "window_count": 32,
+    "residency_committed_h": {
+     "TRACK": 32
+    },
+    "sample_opportunities": 522,
+    "h_cycles": 32,
+    "true_steps_total": 512,
+    "state_final": "TRACK",
+    "S_final": 1,
+    "H_final": 16,
+    "W_final": 16
+   }
+  },
+  "I_r2": {
+   "label": "I_r2",
+   "arm": "I",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "I_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:40:40Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.36,
+    "tps": 42.6,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5927.7,
+    "lat_mean_ms": 5927.7,
+    "wall_start_s": 1793086623.034445,
+    "wall_end_s": 1793086815.390787,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "I",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:35:55] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {}
+  },
+  "ES_r2": {
+   "label": "ES_r2",
+   "arm": "ES",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "ES_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:45:48Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.02,
+    "tps": 42.7,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5911.13,
+    "lat_mean_ms": 5911.2,
+    "wall_start_s": 1793086932.814462,
+    "wall_end_s": 1793087124.830035,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ES",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:40:53] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:41:34 DP7 TP7 EP7] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 07:41:34 DP4 TP4 EP4] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "ED_r2": {
+   "label": "ED_r2",
+   "arm": "ED",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "ED_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:20:03Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 212.81,
+    "tps": 38.5,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6561.31,
+    "lat_mean_ms": 6561.3,
+    "wall_start_s": 1793085363.4875,
+    "wall_end_s": 1793085576.296669,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ED",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 16,
+    "eplb_banner": true,
+    "injection_evidence": [
+     "[2026-10-27 07:14:54] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:15:26 DP0 TP0 EP0] [EPLBManager] system started, will rebalance per 256 iterations.",
+     "[2026-10-27 07:15:27 DP2 TP2 EP2] [EPLBManager] system started, will rebalance per 256 iterations."
+    ]
+   },
+   "mech": {}
+  },
+  "MT_r2": {
+   "label": "MT_r2",
+   "arm": "MT",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "MT_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:25:21Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 195.96,
+    "tps": 41.8,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6042.57,
+    "lat_mean_ms": 6042.6,
+    "wall_start_s": 1793085699.242457,
+    "wall_end_s": 1793085895.204021,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "MT",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:20:14] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:20:51 DP3 TP3 EP3] init_expert_location from init_by_mapping using ServerArgs.init_expert_location",
+     "[2026-10-27 07:20:51 DP1 TP1 EP1] init_expert_location from init_by_mapping using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "DF_r2": {
+   "label": "DF_r2",
+   "arm": "DF",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "DF_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:30:33Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 190.96,
+    "tps": 42.9,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5884.21,
+    "lat_mean_ms": 5884.3,
+    "wall_start_s": 1793086014.401573,
+    "wall_end_s": 1793086205.356773,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "DF",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:25:34] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:26:10 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 07:26:10 DP7 TP7 EP7] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "P0_r2": {
+   "label": "P0_r2",
+   "arm": "P0",
+   "round": 2,
+   "status": "ok",
+   "end": {
+    "label": "P0_r2",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:35:43Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 191.65,
+    "tps": 42.7,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5904.96,
+    "lat_mean_ms": 5905.0,
+    "wall_start_s": 1793086325.261752,
+    "wall_end_s": 1793086516.908124,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "P",
+    "policy": "AERO-base",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:30:45] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {
+    "n_rows": 32,
+    "detection_cycles_committed": 32,
+    "event_counts": {
+     "init": 1,
+     "hold": 10,
+     "grow_blocked_headroom": 10,
+     "confirmed_grow": 4,
+     "midband_hold": 7
+    },
+    "residency_final": {
+     "TRACK": 32
+    },
+    "rg_annotation_rows": 0,
+    "rg_policy_tagged_transitions": 0,
+    "state_transitions": [],
+    "recording": {
+     "recorded_steps_sum": 509,
+     "sample_opportunities_sum": 522,
+     "valid_rows_sum": 391569408,
+     "valid_rows_max_cycle": 12320768
+    },
+    "planning": {
+     "plan_opportunity_rows": 32,
+     "s_change_logical_rows": 31,
+     "det_map_version_final": 13,
+     "det_map_version_bumps": 13
+    },
+    "migration": {
+     "swaps_started_sum": 13,
+     "swap_pending_rows": 0,
+     "serverlog_issued_windows": [
+      1,
+      3,
+      9,
+      10,
+      17,
+      18,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+     ],
+     "planhash_windows": 14,
+     "planhash_8rank_identical": true
+    },
+    "integrity": {
+     "desync_rows": 0,
+     "h_hash_identical_all_rows": true,
+     "lockstep_ok_all_rows": true
+    },
+    "exercise_summary": {
+     "detection_cycles_present": true,
+     "recording_present": true,
+     "planning_present": true,
+     "migration_present": true,
+     "state_transition_present": false,
+     "shw_constant": true
+    },
+    "shw_trajectory_rle": [
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 1,
+      "rows": 32
+     }
+    ],
+    "z_range": [
+     0.1631615605751867,
+     154.19421965019302
+    ],
+    "h_rate_range": [
+     0.009443364244826297,
+     0.07297609207477976
+    ],
+    "alert_k_max": 0,
+    "stable_s_max": 8,
+    "v2p1_gate": null
+   },
+   "sp_run_end": {
+    "transitions": [],
+    "decode_record_batches": 0,
+    "nocommit_planned_ops_total": 0,
+    "swaps_started_total": 13,
+    "recorded_steps": 509,
+    "window_count": 32,
+    "residency_committed_h": {
+     "TRACK": 32
+    },
+    "sample_opportunities": 522,
+    "h_cycles": 32,
+    "true_steps_total": 512,
+    "state_final": "TRACK",
+    "S_final": 1,
+    "H_final": 16,
+    "W_final": 16
+   }
+  },
+  "I_r3": {
+   "label": "I_r3",
+   "arm": "I",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "I_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:07:17Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 190.8,
+    "tps": 42.9,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5878.94,
+    "lat_mean_ms": 5879.0,
+    "wall_start_s": 1793088220.832525,
+    "wall_end_s": 1793088411.633772,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "I",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:01:53] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {}
+  },
+  "ES_r3": {
+   "label": "ES_r3",
+   "arm": "ES",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "ES_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:12:30Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 191.78,
+    "tps": 42.7,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5907.4,
+    "lat_mean_ms": 5907.4,
+    "wall_start_s": 1793088533.02949,
+    "wall_end_s": 1793088724.806346,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ES",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:07:29] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:07:59 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 08:07:59 DP5 TP5 EP5] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "ED_r3": {
+   "label": "ED_r3",
+   "arm": "ED",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "ED_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:18:00Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 203.59,
+    "tps": 40.2,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6268.37,
+    "lat_mean_ms": 6268.4,
+    "wall_start_s": 1793088851.076429,
+    "wall_end_s": 1793089054.661511,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ED",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 16,
+    "eplb_banner": true,
+    "injection_evidence": [
+     "[2026-10-27 08:12:42] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:13:19 DP7 TP7 EP7] [EPLBManager] system started, will rebalance per 256 iterations.",
+     "[2026-10-27 08:13:19 DP1 TP1 EP1] [EPLBManager] system started, will rebalance per 256 iterations."
+    ]
+   },
+   "mech": {}
+  },
+  "MT_r3": {
+   "label": "MT_r3",
+   "arm": "MT",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "MT_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:50:54Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.77,
+    "tps": 44.1,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5720.3,
+    "lat_mean_ms": 5720.3,
+    "wall_start_s": 1793087239.858514,
+    "wall_end_s": 1793087425.630862,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "MT",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:45:59] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:46:27 DP0 TP0 EP0] init_expert_location from init_by_mapping using ServerArgs.init_expert_location",
+     "[2026-10-27 07:46:27 DP7 TP7 EP7] init_expert_location from init_by_mapping using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "DF_r3": {
+   "label": "DF_r3",
+   "arm": "DF",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "DF_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T07:56:15Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 192.0,
+    "tps": 42.7,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5913.94,
+    "lat_mean_ms": 5914.0,
+    "wall_start_s": 1793087554.246437,
+    "wall_end_s": 1793087746.247897,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "DF",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:51:08] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 07:51:47 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 07:51:47 DP5 TP5 EP5] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "P0_r3": {
+   "label": "P0_r3",
+   "arm": "P0",
+   "round": 3,
+   "status": "ok",
+   "end": {
+    "label": "P0_r3",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:01:40Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 207.23,
+    "tps": 39.5,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6387.48,
+    "lat_mean_ms": 6387.5,
+    "wall_start_s": 1793087862.983864,
+    "wall_end_s": 1793088070.212775,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "P",
+    "policy": "AERO-base",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 07:56:26] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {
+    "n_rows": 32,
+    "detection_cycles_committed": 32,
+    "event_counts": {
+     "init": 1,
+     "hold": 10,
+     "grow_blocked_headroom": 10,
+     "confirmed_grow": 4,
+     "midband_hold": 7
+    },
+    "residency_final": {
+     "TRACK": 32
+    },
+    "rg_annotation_rows": 0,
+    "rg_policy_tagged_transitions": 0,
+    "state_transitions": [],
+    "recording": {
+     "recorded_steps_sum": 509,
+     "sample_opportunities_sum": 522,
+     "valid_rows_sum": 391569408,
+     "valid_rows_max_cycle": 12320768
+    },
+    "planning": {
+     "plan_opportunity_rows": 32,
+     "s_change_logical_rows": 31,
+     "det_map_version_final": 13,
+     "det_map_version_bumps": 13
+    },
+    "migration": {
+     "swaps_started_sum": 13,
+     "swap_pending_rows": 0,
+     "serverlog_issued_windows": [
+      1,
+      3,
+      9,
+      10,
+      17,
+      18,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+     ],
+     "planhash_windows": 14,
+     "planhash_8rank_identical": true
+    },
+    "integrity": {
+     "desync_rows": 0,
+     "h_hash_identical_all_rows": true,
+     "lockstep_ok_all_rows": true
+    },
+    "exercise_summary": {
+     "detection_cycles_present": true,
+     "recording_present": true,
+     "planning_present": true,
+     "migration_present": true,
+     "state_transition_present": false,
+     "shw_constant": true
+    },
+    "shw_trajectory_rle": [
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 1,
+      "rows": 32
+     }
+    ],
+    "z_range": [
+     0.1631615605751867,
+     154.19421965019302
+    ],
+    "h_rate_range": [
+     0.009443364244826297,
+     0.07297609207477976
+    ],
+    "alert_k_max": 0,
+    "stable_s_max": 8,
+    "v2p1_gate": null
+   },
+   "sp_run_end": {
+    "transitions": [],
+    "decode_record_batches": 0,
+    "nocommit_planned_ops_total": 0,
+    "swaps_started_total": 13,
+    "recorded_steps": 509,
+    "window_count": 32,
+    "residency_committed_h": {
+     "TRACK": 32
+    },
+    "sample_opportunities": 522,
+    "h_cycles": 32,
+    "true_steps_total": 512,
+    "state_final": "TRACK",
+    "S_final": 1,
+    "H_final": 16,
+    "W_final": 16
+   }
+  },
+  "I_r4": {
+   "label": "I_r4",
+   "arm": "I",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "I_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:33:38Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 186.63,
+    "tps": 43.9,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5749.46,
+    "lat_mean_ms": 5749.5,
+    "wall_start_s": 1793089809.919447,
+    "wall_end_s": 1793089996.552834,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "I",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:29:07] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {}
+  },
+  "ES_r4": {
+   "label": "ES_r4",
+   "arm": "ES",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "ES_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:38:24Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 187.17,
+    "tps": 43.8,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5766.45,
+    "lat_mean_ms": 5766.5,
+    "wall_start_s": 1793090094.197714,
+    "wall_end_s": 1793090281.366711,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ES",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:33:53] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:34:22 DP7 TP7 EP7] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 08:34:22 DP5 TP5 EP5] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "ED_r4": {
+   "label": "ED_r4",
+   "arm": "ED",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "ED_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:43:34Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 210.97,
+    "tps": 38.8,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6501.46,
+    "lat_mean_ms": 6501.5,
+    "wall_start_s": 1793090379.129514,
+    "wall_end_s": 1793090590.100035,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "ED",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 16,
+    "eplb_banner": true,
+    "injection_evidence": [
+     "[2026-10-27 08:38:41] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:39:07 DP5 TP5 EP5] [EPLBManager] system started, will rebalance per 256 iterations.",
+     "[2026-10-27 08:39:07 DP6 TP6 EP6] [EPLBManager] system started, will rebalance per 256 iterations."
+    ]
+   },
+   "mech": {}
+  },
+  "MT_r4": {
+   "label": "MT_r4",
+   "arm": "MT",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "MT_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:49:02Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 185.92,
+    "tps": 44.1,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5727.77,
+    "lat_mean_ms": 5727.8,
+    "wall_start_s": 1793090728.973461,
+    "wall_end_s": 1793090914.894736,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "MT",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:43:53] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:44:38 DP3 TP3 EP3] init_expert_location from init_by_mapping using ServerArgs.init_expert_location",
+     "[2026-10-27 08:44:38 DP4 TP4 EP4] init_expert_location from init_by_mapping using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "DF_r4": {
+   "label": "DF_r4",
+   "arm": "DF",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "DF_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:23:29Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 184.58,
+    "tps": 44.4,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 5689.65,
+    "lat_mean_ms": 5689.7,
+    "wall_start_s": 1793089189.080433,
+    "wall_end_s": 1793089373.660653,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "DF",
+    "policy": "n-a",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:18:14] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+     "[2026-10-27 08:18:44 DP4 TP4 EP4] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+     "[2026-10-27 08:18:44 DP5 TP5 EP5] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+    ]
+   },
+   "mech": {}
+  },
+  "P0_r4": {
+   "label": "P0_r4",
+   "arm": "P0",
+   "round": 4,
+   "status": "ok",
+   "end": {
+    "label": "P0_r4",
+    "bench_rc": 0,
+    "mech_check_rc": 0,
+    "end": "2026-10-27T08:28:54Z"
+   },
+   "bench": {
+    "ok": 8192,
+    "errors": 0,
+    "total_time_s": 200.1,
+    "tps": 40.9,
+    "total_comp_tokens": 8192,
+    "total_prompt_tokens": 4194260,
+    "ttft_mean_ms": 6173.25,
+    "lat_mean_ms": 6173.3,
+    "wall_start_s": 1793089508.628085,
+    "wall_end_s": 1793089708.723609,
+    "client_version": "bench_client_v2/final_plan_20261019"
+   },
+   "completeness_pass": true,
+   "baseline_facts": {
+    "arm": "P",
+    "policy": "AERO-base",
+    "eplb_rebalance_starts": 0,
+    "eplb_banner": false,
+    "injection_evidence": [
+     "[2026-10-27 08:23:41] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+    ]
+   },
+   "mech": {
+    "n_rows": 32,
+    "detection_cycles_committed": 32,
+    "event_counts": {
+     "init": 1,
+     "hold": 10,
+     "grow_blocked_headroom": 13,
+     "confirmed_grow": 4,
+     "midband_hold": 4
+    },
+    "residency_final": {
+     "TRACK": 26,
+     "QUIET": 6
+    },
+    "rg_annotation_rows": 0,
+    "rg_policy_tagged_transitions": 0,
+    "state_transitions": [
+     {
+      "window_id": 14,
+      "event": "confirmed_grow",
+      "before": "TRACK",
+      "after": "QUIET",
+      "reasons": [
+       "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+      ]
+     },
+     {
+      "window_id": 15,
+      "event": "grow_blocked_headroom",
+      "before": "QUIET",
+      "after": "TRACK",
+      "reasons": [
+       "P3 h_rate=0.058017>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+      ]
+     },
+     {
+      "window_id": 21,
+      "event": "hold",
+      "before": "TRACK",
+      "after": "QUIET",
+      "reasons": [
+       "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+      ]
+     },
+     {
+      "window_id": 21,
+      "event": "grow_blocked_headroom",
+      "before": "QUIET",
+      "after": "TRACK",
+      "reasons": [
+       "P3 h_rate=0.064000>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+      ]
+     }
+    ],
+    "recording": {
+     "recorded_steps_sum": 438,
+     "sample_opportunities_sum": 450,
+     "valid_rows_sum": 336896000,
+     "valid_rows_max_cycle": 12320768
+    },
+    "planning": {
+     "plan_opportunity_rows": 27,
+     "s_change_logical_rows": 31,
+     "det_map_version_final": 12,
+     "det_map_version_bumps": 12
+    },
+    "migration": {
+     "swaps_started_sum": 12,
+     "swap_pending_rows": 0,
+     "serverlog_issued_windows": [
+      1,
+      5,
+      9,
+      10,
+      15,
+      16,
+      17,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+     ],
+     "planhash_windows": 13,
+     "planhash_8rank_identical": true
+    },
+    "integrity": {
+     "desync_rows": 0,
+     "h_hash_identical_all_rows": true,
+     "lockstep_ok_all_rows": true
+    },
+    "exercise_summary": {
+     "detection_cycles_present": true,
+     "recording_present": true,
+     "planning_present": true,
+     "migration_present": true,
+     "state_transition_present": true,
+     "shw_constant": false
+    },
+    "shw_trajectory_rle": [
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 1,
+      "rows": 13
+     },
+     {
+      "shw": [
+       4,
+       16,
+       64
+      ],
+      "from_window": 14,
+      "rows": 4
+     },
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 15,
+      "rows": 6
+     },
+     {
+      "shw": [
+       4,
+       16,
+       64
+      ],
+      "from_window": 21,
+      "rows": 2
+     },
+     {
+      "shw": [
+       1,
+       16,
+       16
+      ],
+      "from_window": 21,
+      "rows": 7
+     }
+    ],
+    "z_range": [
+     0.10168562862349183,
+     133.1433015170143
+    ],
+    "h_rate_range": [
+     0.00893913431370512,
+     0.07680696122189785
+    ],
+    "alert_k_max": 0,
+    "stable_s_max": 9,
+    "v2p1_gate": null
+   },
+   "sp_run_end": {
+    "transitions": [
+     {
+      "h_id": 14,
+      "from": "TRACK",
+      "to": "QUIET",
+      "reasons": [
+       "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+      ],
+      "S": 4,
+      "H": 16,
+      "W": 64
+     },
+     {
+      "h_id": 18,
+      "from": "QUIET",
+      "to": "TRACK",
+      "reasons": [
+       "P3 h_rate=0.058017>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+      ],
+      "S": 1,
+      "H": 16,
+      "W": 16
+     },
+     {
+      "h_id": 24,
+      "from": "TRACK",
+      "to": "QUIET",
+      "reasons": [
+       "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+      ],
+      "S": 4,
+      "H": 16,
+      "W": 64
+     },
+     {
+      "h_id": 26,
+      "from": "QUIET",
+      "to": "TRACK",
+      "reasons": [
+       "P3 h_rate=0.064000>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+      ],
+      "S": 1,
+      "H": 16,
+      "W": 16
+     }
+    ],
+    "decode_record_batches": 0,
+    "nocommit_planned_ops_total": 0,
+    "swaps_started_total": 12,
+    "recorded_steps": 438,
+    "window_count": 27,
+    "residency_committed_h": {
+     "TRACK": 26,
+     "QUIET": 6
+    },
+    "sample_opportunities": 450,
+    "h_cycles": 32,
+    "true_steps_total": 512,
+    "state_final": "TRACK",
+    "S_final": 1,
+    "H_final": 16,
+    "W_final": 16
+   }
+  }
+ }
+}

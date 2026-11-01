@@ -1,0 +1,763 @@
+{
+  "num_layers": 94,
+  "num_physical_experts": 128,
+  "num_logical_experts": 128,
+  "num_gpus": 8,
+  "experts_per_gpu": 16,
+  "solver": "moetuner_ilp1_greedy",
+  "profile_source": "/workspace/EPLB/OEPLB/baselines/moetuner/artifacts/profile_pinned_fair/P.npz",
+  "per_layer_stats": [
+    {
+      "layer": 0,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 25.867040157318115
+    },
+    {
+      "layer": 1,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 16.84304165840149
+    },
+    {
+      "layer": 2,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 15.651628255844116
+    },
+    {
+      "layer": 3,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 8.67667031288147
+    },
+    {
+      "layer": 4,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 31.76584792137146
+    },
+    {
+      "layer": 5,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 12.125509977340698
+    },
+    {
+      "layer": 6,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.1340672969818115
+    },
+    {
+      "layer": 7,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 8.142958164215088
+    },
+    {
+      "layer": 8,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.250136375427246
+    },
+    {
+      "layer": 9,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.438107252120972
+    },
+    {
+      "layer": 10,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.223137378692627
+    },
+    {
+      "layer": 11,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.5208141803741455
+    },
+    {
+      "layer": 12,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.4559385776519775
+    },
+    {
+      "layer": 13,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.505737066268921
+    },
+    {
+      "layer": 14,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.9394025802612305
+    },
+    {
+      "layer": 15,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 8.648655652999878
+    },
+    {
+      "layer": 16,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 12.912450551986694
+    },
+    {
+      "layer": 17,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.6874072551727295
+    },
+    {
+      "layer": 18,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.605868816375732
+    },
+    {
+      "layer": 19,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.851281642913818
+    },
+    {
+      "layer": 20,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.395202398300171
+    },
+    {
+      "layer": 21,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.73777437210083
+    },
+    {
+      "layer": 22,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 10.386646747589111
+    },
+    {
+      "layer": 23,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.144171714782715
+    },
+    {
+      "layer": 24,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 10.988505125045776
+    },
+    {
+      "layer": 25,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 20.485384941101074
+    },
+    {
+      "layer": 26,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 20.501772165298462
+    },
+    {
+      "layer": 27,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 10.701567649841309
+    },
+    {
+      "layer": 28,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 21.04008722305298
+    },
+    {
+      "layer": 29,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.1114747524261475
+    },
+    {
+      "layer": 30,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.232481241226196
+    },
+    {
+      "layer": 31,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.339440822601318
+    },
+    {
+      "layer": 32,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.833882570266724
+    },
+    {
+      "layer": 33,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.698697090148926
+    },
+    {
+      "layer": 34,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.835017681121826
+    },
+    {
+      "layer": 35,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.316480398178101
+    },
+    {
+      "layer": 36,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 8.695784330368042
+    },
+    {
+      "layer": 37,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.1115193367004395
+    },
+    {
+      "layer": 38,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.965447425842285
+    },
+    {
+      "layer": 39,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.318577766418457
+    },
+    {
+      "layer": 40,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 18.908570528030396
+    },
+    {
+      "layer": 41,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.514097690582275
+    },
+    {
+      "layer": 42,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.720987319946289
+    },
+    {
+      "layer": 43,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.805408000946045
+    },
+    {
+      "layer": 44,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.973866939544678
+    },
+    {
+      "layer": 45,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 11.796127080917358
+    },
+    {
+      "layer": 46,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.12296199798584
+    },
+    {
+      "layer": 47,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.413160562515259
+    },
+    {
+      "layer": 48,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.399729251861572
+    },
+    {
+      "layer": 49,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 11.731819868087769
+    },
+    {
+      "layer": 50,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.3349928855896
+    },
+    {
+      "layer": 51,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 12.853304386138916
+    },
+    {
+      "layer": 52,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 22.178988695144653
+    },
+    {
+      "layer": 53,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.095697402954102
+    },
+    {
+      "layer": 54,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.6301188468933105
+    },
+    {
+      "layer": 55,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 22.119991302490234
+    },
+    {
+      "layer": 56,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 3.8083133697509766
+    },
+    {
+      "layer": 57,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.64277458190918
+    },
+    {
+      "layer": 58,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.543039083480835
+    },
+    {
+      "layer": 59,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.754664659500122
+    },
+    {
+      "layer": 60,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 22.56068515777588
+    },
+    {
+      "layer": 61,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.685550212860107
+    },
+    {
+      "layer": 62,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.701385498046875
+    },
+    {
+      "layer": 63,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 3.9737894535064697
+    },
+    {
+      "layer": 64,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 8.901857376098633
+    },
+    {
+      "layer": 65,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.592399835586548
+    },
+    {
+      "layer": 66,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 10.295295715332031
+    },
+    {
+      "layer": 67,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 3.675657272338867
+    },
+    {
+      "layer": 68,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.009130001068115
+    },
+    {
+      "layer": 69,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.689787149429321
+    },
+    {
+      "layer": 70,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 3.388941526412964
+    },
+    {
+      "layer": 71,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 18.004687786102295
+    },
+    {
+      "layer": 72,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 17.6419358253479
+    },
+    {
+      "layer": 73,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 33.05324602127075
+    },
+    {
+      "layer": 74,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.889458417892456
+    },
+    {
+      "layer": 75,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 13.605201721191406
+    },
+    {
+      "layer": 76,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 6.668327331542969
+    },
+    {
+      "layer": 77,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.587366580963135
+    },
+    {
+      "layer": 78,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 19.90118408203125
+    },
+    {
+      "layer": 79,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 13.815414905548096
+    },
+    {
+      "layer": 80,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 17.965087413787842
+    },
+    {
+      "layer": 81,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 11.479137897491455
+    },
+    {
+      "layer": 82,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 22.066828966140747
+    },
+    {
+      "layer": 83,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 5.30755090713501
+    },
+    {
+      "layer": 84,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 4.2977211475372314
+    },
+    {
+      "layer": 85,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 20.351945400238037
+    },
+    {
+      "layer": 86,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 13.882127523422241
+    },
+    {
+      "layer": 87,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.435615301132202
+    },
+    {
+      "layer": 88,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 28.672874450683594
+    },
+    {
+      "layer": 89,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 9.824620962142944
+    },
+    {
+      "layer": 90,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 18.68980598449707
+    },
+    {
+      "layer": 91,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 7.554528713226318
+    },
+    {
+      "layer": 92,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 14.610824346542358
+    },
+    {
+      "layer": 93,
+      "obj": 0.0,
+      "gpu_max_load": 258018.0,
+      "gpu_mean_load": 258018.0,
+      "imbalance_ratio": 1.0,
+      "solve_s": 17.276527881622314
+    }
+  ]
+}

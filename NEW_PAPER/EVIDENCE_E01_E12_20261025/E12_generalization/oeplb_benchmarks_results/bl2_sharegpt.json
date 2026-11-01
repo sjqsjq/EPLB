@@ -1,0 +1,21 @@
+{
+  "label": "bl2_sharegpt",
+  "dataset": "/tmp/exp_data/sharegpt_o1_20k.jsonl",
+  "num_requests": 20000,
+  "concurrency": 256,
+  "ok": 20000,
+  "errors": 0,
+  "total_time_s": 40.47,
+  "total_comp_tokens": 20000,
+  "tps": 494.2,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 512.4,
+  "lat_p50_ms": 416.91,
+  "lat_p99_ms": 1053.94,
+  "ttft_mean_ms": 512.37,
+  "ttft_p50_ms": 416.88,
+  "ttft_p99_ms": 1053.91,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

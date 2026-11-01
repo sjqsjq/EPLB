@@ -1,0 +1,335 @@
+{
+ "study_id": "h20-placement-fullservice-v3-nine-start-export",
+ "created_at_utc": "2026-10-15T11:03:16.279436+00:00",
+ "source_commit": "ba10a60",
+ "boot_order": [
+  {
+   "position": 1,
+   "label": "fs300v3_id_s1",
+   "arm": "identity",
+   "ts": "2026-10-15T09:17:29.012086+00:00"
+  },
+  {
+   "position": 2,
+   "label": "fs300v3_fx_s1",
+   "arm": "frozen",
+   "ts": "2026-10-15T09:25:15.951706+00:00"
+  },
+  {
+   "position": 3,
+   "label": "fs300v3_on_s1",
+   "arm": "online",
+   "ts": "2026-10-15T09:32:54.381284+00:00"
+  },
+  {
+   "position": 4,
+   "label": "fs300v3_id_s2",
+   "arm": "identity",
+   "ts": "2026-10-15T09:40:47.764438+00:00"
+  },
+  {
+   "position": 5,
+   "label": "fs300v3_fx_s2",
+   "arm": "frozen",
+   "ts": "2026-10-15T09:48:32.246007+00:00"
+  },
+  {
+   "position": 6,
+   "label": "fs300v3_on_s2",
+   "arm": "online",
+   "ts": "2026-10-15T09:56:11.288872+00:00"
+  },
+  {
+   "position": 7,
+   "label": "fs300v3_id_s3",
+   "arm": "identity",
+   "ts": "2026-10-15T10:04:10.014271+00:00"
+  },
+  {
+   "position": 8,
+   "label": "fs300v3_fx_s3",
+   "arm": "frozen",
+   "ts": "2026-10-15T10:12:11.905573+00:00"
+  },
+  {
+   "position": 9,
+   "label": "fs300v3_on_s3",
+   "arm": "online",
+   "ts": "2026-10-15T10:20:01.206820+00:00"
+  }
+ ],
+ "starts": {
+  "fs300v3_id_s1": {
+   "boot_position": 1,
+   "arm": "identity",
+   "label": "fs300v3_id_s1",
+   "state_ts": "2026-10-15T09:17:29.012086+00:00",
+   "boot_rc": 0,
+   "total_time_s": 402.36,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 19.8,
+   "server_args_sha256": "aa9e12f9f10dc78e12ee5205c91a85a7b5b9ef469737bdba142c49ed4bdb77ce",
+   "server_log_sha256": "71480d4619a6df70f79fa5cdd9018f9601ceb5dba9ad5d41cd82e6c0cc3722b8",
+   "bench_json_sha256": "30503972ae313d63ae5e77fb1d15af4b46d1e93b9127ea5e542e7ae2eb19c7be",
+   "layout": {
+    "kind": "trivial_default",
+    "canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286"
+   }
+  },
+  "fs300v3_fx_s1": {
+   "boot_position": 2,
+   "arm": "frozen",
+   "label": "fs300v3_fx_s1",
+   "state_ts": "2026-10-15T09:25:15.951706+00:00",
+   "boot_rc": 0,
+   "total_time_s": 388.85,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 20.5,
+   "server_args_sha256": "6d81f8d24862ddb18335ecb40ef724a3f63e5295452fa631ddafd7b62acd7d5f",
+   "server_log_sha256": "04888f942d3e8654a2b38ea4c03939196b146b7190965e4e37c2652c6a30bd44",
+   "bench_json_sha256": "6c3228a5c841715515a9a8a19dc6f7c7b08a186885edf76d10119ef5d51bb2e8",
+   "layout": {
+    "kind": "static_ilp",
+    "map_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/fullservice_v3/setup/frozen_map_ilp.json",
+    "map_sha256": "daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac"
+   }
+  },
+  "fs300v3_on_s1": {
+   "boot_position": 3,
+   "arm": "online",
+   "label": "fs300v3_on_s1",
+   "state_ts": "2026-10-15T09:32:54.381284+00:00",
+   "boot_rc": 0,
+   "total_time_s": 376.57,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 21.1,
+   "server_args_sha256": "0501f1e5933ce7d7a807a5cca342a15152c5c02b02dcdc9771e16d257125c5c7",
+   "server_log_sha256": "a683662f686dd47a83ec3b819805a39a4b0690059c9200c7dda85a3b7c26a41c",
+   "bench_json_sha256": "25adc3b6af959a2f030874238758a1a63b86a64f306a7d5d9d813e6c5679c6fd",
+   "layout": {
+    "kind": "dynamic_online",
+    "initial": "trivial_default",
+    "initial_canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286",
+    "dp0_window_swaps_issued": {
+     "1": 241,
+     "3": 63,
+     "8": 62,
+     "17": 300,
+     "18": 219,
+     "19": 127,
+     "22": 297,
+     "23": 82,
+     "34": 299,
+     "35": 113
+    },
+    "dp0_total_swaps_issued": 1803
+   }
+  },
+  "fs300v3_id_s2": {
+   "boot_position": 4,
+   "arm": "identity",
+   "label": "fs300v3_id_s2",
+   "state_ts": "2026-10-15T09:40:47.764438+00:00",
+   "boot_rc": 0,
+   "total_time_s": 399.55,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 19.9,
+   "server_args_sha256": "7f3804e44d258a6b263857f4268341dfd44f859af64f16f0770f621ce8c8e786",
+   "server_log_sha256": "0b8a0fc309687c8e16e5e02eaa9075d516603d25d5897fcb587b853dd243feaa",
+   "bench_json_sha256": "1e89fbf00c0aa40349380f8470e30f4e72bb0b383aa9325bc6da8023be8d2af9",
+   "layout": {
+    "kind": "trivial_default",
+    "canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286"
+   }
+  },
+  "fs300v3_fx_s2": {
+   "boot_position": 5,
+   "arm": "frozen",
+   "label": "fs300v3_fx_s2",
+   "state_ts": "2026-10-15T09:48:32.246007+00:00",
+   "boot_rc": 0,
+   "total_time_s": 386.59,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 20.6,
+   "server_args_sha256": "d093fa8ce0d9572ae33f6a338f6f6a9a8916939d50578456237805bda9641278",
+   "server_log_sha256": "8b457f5f2e72dbdf71311e6f000232408f9d0a05c97fb5a7fdb1813c1b1cdc44",
+   "bench_json_sha256": "3d41dc146d58835c00087b5cf655d470f48099ba650148f68b55ec9ee6e6cf8f",
+   "layout": {
+    "kind": "static_ilp",
+    "map_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/fullservice_v3/setup/frozen_map_ilp.json",
+    "map_sha256": "daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac"
+   }
+  },
+  "fs300v3_on_s2": {
+   "boot_position": 6,
+   "arm": "online",
+   "label": "fs300v3_on_s2",
+   "state_ts": "2026-10-15T09:56:11.288872+00:00",
+   "boot_rc": 0,
+   "total_time_s": 373.11,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 21.3,
+   "server_args_sha256": "4f792ada24e3fdc3a4ea395ea8a10b496025d8150440c1cb030e07abef089fec",
+   "server_log_sha256": "f1636c1ffdb5946c9f058e1c8a91dda8bf3116cc676c3ee010160d5f6d61efa9",
+   "bench_json_sha256": "67438a562c4516a91fa735d6a149af8dfeb6fceac858aa01c0cc52551cb13712",
+   "layout": {
+    "kind": "dynamic_online",
+    "initial": "trivial_default",
+    "initial_canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286",
+    "dp0_window_swaps_issued": {
+     "1": 241,
+     "3": 63,
+     "8": 62,
+     "17": 300,
+     "18": 219,
+     "19": 130,
+     "22": 299,
+     "23": 79,
+     "40": 300,
+     "41": 116
+    },
+    "dp0_total_swaps_issued": 1809
+   }
+  },
+  "fs300v3_id_s3": {
+   "boot_position": 7,
+   "arm": "identity",
+   "label": "fs300v3_id_s3",
+   "state_ts": "2026-10-15T10:04:10.014271+00:00",
+   "boot_rc": 0,
+   "total_time_s": 400.64,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 19.9,
+   "server_args_sha256": "1da5f1986f363dbb47da4660e4029b6532a0f1cb90ee013e7ee348255e501c25",
+   "server_log_sha256": "5577b95c3c9b058cdab48c41d80c9782cf9d60bbcbd4589a77b15d150396382f",
+   "bench_json_sha256": "14c174187be5280197681412ffdf87b768a0295b76d2e294462aca931a59f157",
+   "layout": {
+    "kind": "trivial_default",
+    "canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286"
+   }
+  },
+  "fs300v3_fx_s3": {
+   "boot_position": 8,
+   "arm": "frozen",
+   "label": "fs300v3_fx_s3",
+   "state_ts": "2026-10-15T10:12:11.905573+00:00",
+   "boot_rc": 0,
+   "total_time_s": 391.9,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 20.3,
+   "server_args_sha256": "e60e386b3b8c5cd1a14ef2a230b2e7f32d0af36644626246a9b39e0163973996",
+   "server_log_sha256": "49ad946c82c6b53eb95492dde75af2f9b9503917f174aaff0916d802481c8408",
+   "bench_json_sha256": "7622df6370f03250a318f30ec36e616c9be41b3057bda9c392ddbae67695cdcd",
+   "layout": {
+    "kind": "static_ilp",
+    "map_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/fullservice_v3/setup/frozen_map_ilp.json",
+    "map_sha256": "daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac"
+   }
+  },
+  "fs300v3_on_s3": {
+   "boot_position": 9,
+   "arm": "online",
+   "label": "fs300v3_on_s3",
+   "state_ts": "2026-10-15T10:20:01.206820+00:00",
+   "boot_rc": 0,
+   "total_time_s": 382.35,
+   "total_comp_tokens": 7963,
+   "ok": 7963,
+   "errors": 0,
+   "num_requests": 7963,
+   "concurrency": 256,
+   "avg_output_tokens": 1,
+   "tps": 20.8,
+   "server_args_sha256": "f725a604e407ead40f919de265023acd314423d5a14680785fd3078284b343ae",
+   "server_log_sha256": "7265d8af1d204d4128c9d9c3c165bcddf1e2c7f45bfd44259db2bbdb98d95d16",
+   "bench_json_sha256": "3f42db927c537d0e9e72a33c628cbf2db8d320ff48f9dab0e0202697ee492280",
+   "layout": {
+    "kind": "dynamic_online",
+    "initial": "trivial_default",
+    "initial_canonical_map_sha256": "42868fed7458aa4e066733e0c9e4c87d8c9ba8dca7c838bdcf6457d856455286",
+    "dp0_window_swaps_issued": {
+     "1": 241,
+     "3": 63,
+     "8": 62,
+     "17": 300,
+     "18": 219,
+     "19": 126,
+     "22": 299,
+     "23": 82,
+     "34": 300,
+     "35": 118
+    },
+    "dp0_total_swaps_issued": 1810
+   }
+  }
+ },
+ "distinct_server_args_hashes": {
+  "aa9e12f9f10dc78e12ee5205c91a85a7b5b9ef469737bdba142c49ed4bdb77ce": [
+   "fs300v3_id_s1"
+  ],
+  "6d81f8d24862ddb18335ecb40ef724a3f63e5295452fa631ddafd7b62acd7d5f": [
+   "fs300v3_fx_s1"
+  ],
+  "0501f1e5933ce7d7a807a5cca342a15152c5c02b02dcdc9771e16d257125c5c7": [
+   "fs300v3_on_s1"
+  ],
+  "7f3804e44d258a6b263857f4268341dfd44f859af64f16f0770f621ce8c8e786": [
+   "fs300v3_id_s2"
+  ],
+  "d093fa8ce0d9572ae33f6a338f6f6a9a8916939d50578456237805bda9641278": [
+   "fs300v3_fx_s2"
+  ],
+  "4f792ada24e3fdc3a4ea395ea8a10b496025d8150440c1cb030e07abef089fec": [
+   "fs300v3_on_s2"
+  ],
+  "1da5f1986f363dbb47da4660e4029b6532a0f1cb90ee013e7ee348255e501c25": [
+   "fs300v3_id_s3"
+  ],
+  "e60e386b3b8c5cd1a14ef2a230b2e7f32d0af36644626246a9b39e0163973996": [
+   "fs300v3_fx_s3"
+  ],
+  "f725a604e407ead40f919de265023acd314423d5a14680785fd3078284b343ae": [
+   "fs300v3_on_s3"
+  ]
+ }
+}

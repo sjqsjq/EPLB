@@ -1,0 +1,528 @@
+{
+ "source": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/fivearm_campaign/logs/eacR2_A11_server.log",
+ "source_sha256": "3102be8b2a1f9db7e5db0b5aba8638b1fbefb9fe4a92db9845e3ce621dcc8708",
+ "mechanisms": {
+  "adw_ratio_jump": 24,
+  "adw_shrink": 24,
+  "adw_decay0_window_fixed": 0,
+  "adw_grow": 48,
+  "window_shift": 24,
+  "window_stable": 0,
+  "reset": 48,
+  "warmstart": 0,
+  "calib_tier": 0,
+  "refine": 0,
+  "arg_adw_true": 1,
+  "arg_add_true": 1,
+  "tracebacks": 0,
+  "hookdiag": 40,
+  "planner_bi_log": 0,
+  "planner_default_log": 8,
+  "issued_windows_dp0": 10,
+  "verify_move_before": 20,
+  "swap_done_lines": 80
+ },
+ "server_args_pb_oeplb": {
+  "sync_window": "16",
+  "decay_factor": "0.5",
+  "adaptive_window": "True",
+  "adaptive_decay": "True",
+  "calibrate_adaptive_sensitivity": "False",
+  "dead_zone_ratio": "0.0",
+  "threshold_ratio": "1.02",
+  "max_total_ops": "300",
+  "window_floor": "8",
+  "min_swap_ops": "8"
+ },
+ "window_events_dp0": [
+  [
+   "2026-10-15 18:20:59",
+   "ratio jump 0.140 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 18:21:04",
+   "ratio jump 0.033 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 18:21:21",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:21:44",
+   "volatile 3x -> grow sw to 32 for stability"
+  ],
+  [
+   "2026-10-15 18:22:32",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 32 -> 16"
+  ],
+  [
+   "2026-10-15 18:23:02",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 16 -> 8"
+  ],
+  [
+   "2026-10-15 18:23:26",
+   "converged 3x -> grow sw to 16"
+  ],
+  [
+   "2026-10-15 18:24:22",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 16 -> 8"
+  ],
+  [
+   "2026-10-15 18:24:25",
+   "ratio jump 0.059 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 18:24:39",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:24:55",
+   "converged 3x -> grow sw to 32"
+  ],
+  [
+   "2026-10-15 18:25:28",
+   "converged 3x -> grow sw to 64"
+  ]
+ ],
+ "reset_events_dp0": [
+  [
+   "2026-10-15 18:21:56",
+   1.074,
+   1.074,
+   1.382
+  ],
+  [
+   "2026-10-15 18:22:09",
+   1.382,
+   1.382,
+   1.766
+  ],
+  [
+   "2026-10-15 18:22:45",
+   1.145,
+   1.145,
+   1.177
+  ],
+  [
+   "2026-10-15 18:22:51",
+   1.177,
+   1.177,
+   1.42
+  ],
+  [
+   "2026-10-15 18:24:04",
+   1.076,
+   1.081,
+   1.174
+  ],
+  [
+   "2026-10-15 18:24:10",
+   1.174,
+   1.174,
+   1.443
+  ]
+ ],
+ "ready_after_forwards": [
+  [
+   6,
+   10
+  ],
+  [
+   2,
+   10
+  ],
+  [
+   7,
+   10
+  ],
+  [
+   1,
+   10
+  ],
+  [
+   4,
+   10
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   3,
+   10
+  ],
+  [
+   5,
+   10
+  ]
+ ],
+ "issued_windows_dp0": [
+  [
+   1,
+   241,
+   62373888,
+   8
+  ],
+  [
+   3,
+   63,
+   49283072,
+   8
+  ],
+  [
+   8,
+   62,
+   92364029,
+   8
+  ],
+  [
+   17,
+   300,
+   196748016,
+   8
+  ],
+  [
+   18,
+   220,
+   295013109,
+   8
+  ],
+  [
+   19,
+   128,
+   246049552,
+   8
+  ],
+  [
+   22,
+   299,
+   98566144,
+   8
+  ],
+  [
+   23,
+   77,
+   147826650,
+   8
+  ],
+  [
+   41,
+   300,
+   98566144,
+   8
+  ],
+  [
+   42,
+   148,
+   147825692,
+   8
+  ]
+ ],
+ "prof_dp0": [
+  {
+   "window": 4,
+   "calls": 4042,
+   "record_ms": 392.39,
+   "allreduce_ms": 766.52,
+   "planbuild_ms": 10.5,
+   "finalize_ms": 63.66,
+   "total_ms": 1233.07
+  },
+  {
+   "window": 8,
+   "calls": 7050,
+   "record_ms": 653.89,
+   "allreduce_ms": 830.53,
+   "planbuild_ms": 10.5,
+   "finalize_ms": 63.66,
+   "total_ms": 1558.57
+  },
+  {
+   "window": 12,
+   "calls": 11562,
+   "record_ms": 1050.05,
+   "allreduce_ms": 892.76,
+   "planbuild_ms": 13.38,
+   "finalize_ms": 87.27,
+   "total_ms": 2043.45
+  },
+  {
+   "window": 24,
+   "calls": 34874,
+   "record_ms": 3098.68,
+   "allreduce_ms": 1019.99,
+   "planbuild_ms": 47.63,
+   "finalize_ms": 211.96,
+   "total_ms": 4378.27
+  },
+  {
+   "window": 28,
+   "calls": 37882,
+   "record_ms": 3367.62,
+   "allreduce_ms": 1082.29,
+   "planbuild_ms": 47.63,
+   "finalize_ms": 211.96,
+   "total_ms": 4709.5
+  },
+  {
+   "window": 32,
+   "calls": 40890,
+   "record_ms": 3630.36,
+   "allreduce_ms": 1144.61,
+   "planbuild_ms": 47.63,
+   "finalize_ms": 211.96,
+   "total_ms": 5034.56
+  },
+  {
+   "window": 36,
+   "calls": 46906,
+   "record_ms": 4165.75,
+   "allreduce_ms": 1207.52,
+   "planbuild_ms": 47.63,
+   "finalize_ms": 211.96,
+   "total_ms": 5632.86
+  },
+  {
+   "window": 44,
+   "calls": 57434,
+   "record_ms": 5068.58,
+   "allreduce_ms": 1301.47,
+   "planbuild_ms": 62.27,
+   "finalize_ms": 265.95,
+   "total_ms": 6698.27
+  },
+  {
+   "window": 48,
+   "calls": 60442,
+   "record_ms": 5332.35,
+   "allreduce_ms": 1363.59,
+   "planbuild_ms": 62.27,
+   "finalize_ms": 265.95,
+   "total_ms": 7024.16
+  },
+  {
+   "window": 52,
+   "calls": 67962,
+   "record_ms": 6007.3,
+   "allreduce_ms": 1433.12,
+   "planbuild_ms": 62.27,
+   "finalize_ms": 265.95,
+   "total_ms": 7768.64
+  },
+  {
+   "window": 56,
+   "calls": 86010,
+   "record_ms": 7544.58,
+   "allreduce_ms": 1494.61,
+   "planbuild_ms": 62.27,
+   "finalize_ms": 265.95,
+   "total_ms": 9367.4
+  }
+ ],
+ "diag_dp0": [
+  {
+   "layers_touched": 93,
+   "total_ops": 241,
+   "avg_ratio_before": 1.235,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.477,
+   "max_ratio_after": 1.097
+  },
+  {
+   "layers_touched": 48,
+   "total_ops": 63,
+   "avg_ratio_before": 1.141,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.266,
+   "max_ratio_after": 1.113
+  },
+  {
+   "layers_touched": 49,
+   "total_ops": 62,
+   "avg_ratio_before": 1.123,
+   "avg_ratio_after": 1.068,
+   "max_ratio_before": 1.172,
+   "max_ratio_after": 1.094
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 300,
+   "avg_ratio_before": 1.783,
+   "avg_ratio_after": 1.177,
+   "max_ratio_before": 2.662,
+   "max_ratio_after": 1.231
+  },
+  {
+   "layers_touched": 89,
+   "total_ops": 220,
+   "avg_ratio_before": 1.177,
+   "avg_ratio_after": 1.075,
+   "max_ratio_before": 1.241,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 78,
+   "total_ops": 128,
+   "avg_ratio_before": 1.159,
+   "avg_ratio_after": 1.065,
+   "max_ratio_before": 1.322,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 93,
+   "total_ops": 299,
+   "avg_ratio_before": 1.431,
+   "avg_ratio_after": 1.097,
+   "max_ratio_before": 2.383,
+   "max_ratio_after": 1.156
+  },
+  {
+   "layers_touched": 57,
+   "total_ops": 77,
+   "avg_ratio_before": 1.119,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.171,
+   "max_ratio_after": 1.125
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 300,
+   "avg_ratio_before": 1.469,
+   "avg_ratio_after": 1.11,
+   "max_ratio_before": 2.001,
+   "max_ratio_after": 1.143
+  },
+  {
+   "layers_touched": 81,
+   "total_ops": 148,
+   "avg_ratio_before": 1.141,
+   "avg_ratio_after": 1.07,
+   "max_ratio_before": 1.22,
+   "max_ratio_after": 1.096
+  }
+ ],
+ "wall_events": [
+  [
+   "2026-10-15 18:20:53",
+   2380.3,
+   241,
+   8
+  ],
+  [
+   "2026-10-15 18:21:02",
+   434.8,
+   63,
+   8
+  ],
+  [
+   "2026-10-15 18:21:16",
+   453.1,
+   62,
+   8
+  ],
+  [
+   "2026-10-15 18:22:22",
+   501.7,
+   300,
+   8
+  ],
+  [
+   "2026-10-15 18:22:33",
+   785.4,
+   220,
+   8
+  ],
+  [
+   "2026-10-15 18:22:39",
+   494.2,
+   128,
+   8
+  ],
+  [
+   "2026-10-15 18:22:58",
+   564.6,
+   299,
+   8
+  ],
+  [
+   "2026-10-15 18:23:03",
+   401.7,
+   77,
+   8
+  ],
+  [
+   "2026-10-15 18:24:17",
+   657.4,
+   300,
+   8
+  ],
+  [
+   "2026-10-15 18:24:22",
+   406.8,
+   148,
+   8
+  ]
+ ],
+ "wall_summary": {
+  "n_events": 10,
+  "max_wall_ms": 2380.3,
+  "sum_wall_ms": 7080.0
+ },
+ "timing_begin_max_ms_per_event": [
+  [
+   "2026-10-15 18:20:53",
+   1866.9
+  ],
+  [
+   "2026-10-15 18:21:02",
+   29.2
+  ],
+  [
+   "2026-10-15 18:21:16",
+   23.8
+  ],
+  [
+   "2026-10-15 18:22:22",
+   39.3
+  ],
+  [
+   "2026-10-15 18:22:32",
+   282.0
+  ],
+  [
+   "2026-10-15 18:22:39",
+   65.6
+  ],
+  [
+   "2026-10-15 18:22:57",
+   45.2
+  ],
+  [
+   "2026-10-15 18:23:02",
+   34.0
+  ],
+  [
+   "2026-10-15 18:24:16",
+   31.9
+  ],
+  [
+   "2026-10-15 18:24:22",
+   27.8
+  ]
+ ],
+ "move_sequence_len": 11,
+ "swap_stats": {
+  "n_ops": 11,
+  "n_reversals": 0,
+  "n_repeats": 1,
+  "reversals_sample": [],
+  "repeats_sample": [
+   [
+    "2026-10-15 18:22:22",
+    24,
+    89,
+    63
+   ]
+  ]
+ }
+}

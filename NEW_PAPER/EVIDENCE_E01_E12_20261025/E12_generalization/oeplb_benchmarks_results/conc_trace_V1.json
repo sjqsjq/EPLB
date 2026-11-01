@@ -1,0 +1,21 @@
+{
+  "label": "conc_trace_V1",
+  "dataset": "/tmp/prefill_heavy_128.jsonl",
+  "num_requests": 128,
+  "concurrency": 128,
+  "ok": 128,
+  "errors": 0,
+  "total_time_s": 59.06,
+  "total_comp_tokens": 4096,
+  "tps": 69.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 59030.6,
+  "lat_p50_ms": 59040.6,
+  "lat_p99_ms": 59060.26,
+  "ttft_mean_ms": 32451.52,
+  "ttft_p50_ms": 51027.58,
+  "ttft_p99_ms": 58111.1,
+  "tpot_mean_ms": 857.39,
+  "tpot_p50_ms": 258.65,
+  "tpot_p99_ms": 1861.45
+}

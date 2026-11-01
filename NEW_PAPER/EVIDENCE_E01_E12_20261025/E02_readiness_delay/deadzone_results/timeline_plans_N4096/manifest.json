@@ -1,0 +1,87 @@
+{
+  "source_calibration": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/calibration_N4096.json",
+  "total_tokens": 4096,
+  "c0_us": 211.59999817609787,
+  "inside_definition": "0.05*C0, below both coarse and merged rank-3 hinges",
+  "outside_definition": "0.40*C0, above both coarse and merged rank-3 hinges",
+  "conditions": [
+    {
+      "name": "timeline-original-zero",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-original-zero.json",
+      "condition": {
+        "name": "timeline-original-zero",
+        "mode": "original",
+        "delay_us": 0.0,
+        "delay_ratio": 0.0,
+        "delay_ranks": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "timeline-original-inside",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-original-inside.json",
+      "condition": {
+        "name": "timeline-original-inside",
+        "mode": "original",
+        "delay_us": 10.579999908804893,
+        "delay_ratio": 0.05,
+        "delay_ranks": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "timeline-original-outside",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-original-outside.json",
+      "condition": {
+        "name": "timeline-original-outside",
+        "mode": "original",
+        "delay_us": 84.63999927043915,
+        "delay_ratio": 0.4,
+        "delay_ranks": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "timeline-barrier-zero",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-barrier-zero.json",
+      "condition": {
+        "name": "timeline-barrier-zero",
+        "mode": "strict_barrier",
+        "delay_us": 0.0,
+        "delay_ratio": 0.0,
+        "delay_ranks": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "timeline-barrier-inside",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-barrier-inside.json",
+      "condition": {
+        "name": "timeline-barrier-inside",
+        "mode": "strict_barrier",
+        "delay_us": 10.579999908804893,
+        "delay_ratio": 0.05,
+        "delay_ranks": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "timeline-barrier-outside",
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/timeline_plans_N4096/timeline-barrier-outside.json",
+      "condition": {
+        "name": "timeline-barrier-outside",
+        "mode": "strict_barrier",
+        "delay_us": 84.63999927043915,
+        "delay_ratio": 0.4,
+        "delay_ranks": [
+          3
+        ]
+      }
+    }
+  ]
+}

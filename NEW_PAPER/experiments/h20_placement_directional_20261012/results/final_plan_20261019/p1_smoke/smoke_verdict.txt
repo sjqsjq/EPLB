@@ -1,0 +1,9 @@
+SMOKE_PASS
+label=p1_smoke_ER32 arm=E params='auto 32 256' conc=256 n_slice=512
+ok=512 errors=0 wall_s=52.0 bench_rc=0
+kv_line=[2026-10-19 19:00:00 DP7 TP7 EP7] KV Cache is allocated. #tokens: 190315, K size: 17.06 GB, V size: 17.06 GB
+crash_marker_lines=0 server_alive_at_bench_end=1
+slice_sha=2bbdb768c4b4692d2a9f639262bfce78480b6cbf9e3e443b4a7e32e31aa7e072 ds_sha=3c09e0270a60d185c801646c3cebc7157a99086d0c10c8b4e78c5dc615068457
+utc_end=2026-10-19T19:01:13Z
+nature=M2 diagnostic boot 1/4; NOT a measurement launch; no timing data enters analysis
+disposition=C_hi=256 admission feasible on worst arm E-R32 -> proceed to P1 timed matrix (32 cells, driver phase P1)

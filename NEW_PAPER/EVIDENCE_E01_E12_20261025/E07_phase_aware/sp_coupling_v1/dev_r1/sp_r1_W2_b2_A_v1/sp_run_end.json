@@ -1,0 +1,346 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "RECOVER",
+ "S_final": 1,
+ "H_final": 8,
+ "W_final": 8,
+ "sp_fwd_total": 2010,
+ "h_cycles": 198,
+ "window_count": 190,
+ "true_steps_total": 2000,
+ "sample_opportunities": 1912,
+ "recorded_steps": 1899,
+ "swaps_started_total": 19,
+ "residency_committed_h": {
+  "TRACK": 44,
+  "QUIET": 8,
+  "RECOVER": 146
+ },
+ "transitions": [
+  {
+   "h_id": 26,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 27,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.010609>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 29,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 32,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 33,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.010981>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 51,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 54,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 56,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.013493>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 61,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 64,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 65,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.010105>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 121,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 124,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 125,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.011868>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 133,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 136,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 137,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.011885>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 172,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 175,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 176,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "h_rate=0.012791>=theta_h_low=0.010096 opportunity proxy rose"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 26,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 27,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 32,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 33,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 54,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 56,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 64,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 65,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 124,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 125,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 136,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 137,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 175,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 176,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  }
+ ],
+ "p2l_version": 19,
+ "p2l_fp8": "c7b56435e22a5784",
+ "prof_sp_gate_ms": 12.829319,
+ "prof_record_calls": 178506
+}

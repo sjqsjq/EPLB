@@ -1,0 +1,381 @@
+{
+  "analysis": "three_arm_fullservice_frozen_analysis",
+  "analyzer_implementation": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_fullservice_v3.py",
+    "sha256": "56054d3641345dc63de8f7bea7ba77f8e0370deddc07065f69178253b2846310"
+  },
+  "arms": {
+    "frozen": {
+      "starts": [
+        {
+          "bench_sha256": "6c3228a5c841715515a9a8a19dc6f7c7b08a186885edf76d10119ef5d51bb2e8",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_fx_s1",
+          "lat_p99_ms": 33819.31,
+          "ok": 7963,
+          "state": {
+            "arm": "frozen",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 8,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_fx_s1",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:25:15.951706+00:00"
+          },
+          "total_time_s": 388.85,
+          "tpot_mean_ms": null,
+          "tps": 20.5,
+          "ttft_mean_ms": 11967.39,
+          "ttft_p99_ms": 33819.28,
+          "valid": true
+        },
+        {
+          "bench_sha256": "3d41dc146d58835c00087b5cf655d470f48099ba650148f68b55ec9ee6e6cf8f",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_fx_s2",
+          "lat_p99_ms": 33692.79,
+          "ok": 7963,
+          "state": {
+            "arm": "frozen",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 8,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_fx_s2",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:48:32.246007+00:00"
+          },
+          "total_time_s": 386.59,
+          "tpot_mean_ms": null,
+          "tps": 20.6,
+          "ttft_mean_ms": 11900.05,
+          "ttft_p99_ms": 33692.76,
+          "valid": true
+        },
+        {
+          "bench_sha256": "7622df6370f03250a318f30ec36e616c9be41b3057bda9c392ddbae67695cdcd",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_fx_s3",
+          "lat_p99_ms": 34043.6,
+          "ok": 7963,
+          "state": {
+            "arm": "frozen",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 8,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_fx_s3",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T10:12:11.905573+00:00"
+          },
+          "total_time_s": 391.9,
+          "tpot_mean_ms": null,
+          "tps": 20.3,
+          "ttft_mean_ms": 12062.76,
+          "ttft_p99_ms": 34043.54,
+          "valid": true
+        }
+      ],
+      "valid_starts": 3,
+      "valid_total_times_s": [
+        388.85,
+        386.59,
+        391.9
+      ]
+    },
+    "identity": {
+      "starts": [
+        {
+          "bench_sha256": "30503972ae313d63ae5e77fb1d15af4b46d1e93b9127ea5e542e7ae2eb19c7be",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_id_s1",
+          "lat_p99_ms": 36025.86,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_id_s1",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:17:29.012086+00:00"
+          },
+          "total_time_s": 402.36,
+          "tpot_mean_ms": null,
+          "tps": 19.8,
+          "ttft_mean_ms": 12382.99,
+          "ttft_p99_ms": 36025.83,
+          "valid": true
+        },
+        {
+          "bench_sha256": "1e89fbf00c0aa40349380f8470e30f4e72bb0b383aa9325bc6da8023be8d2af9",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_id_s2",
+          "lat_p99_ms": 35896.63,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_id_s2",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:40:47.764438+00:00"
+          },
+          "total_time_s": 399.55,
+          "tpot_mean_ms": null,
+          "tps": 19.9,
+          "ttft_mean_ms": 12296.28,
+          "ttft_p99_ms": 35896.59,
+          "valid": true
+        },
+        {
+          "bench_sha256": "14c174187be5280197681412ffdf87b768a0295b76d2e294462aca931a59f157",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_id_s3",
+          "lat_p99_ms": 35879.99,
+          "ok": 7963,
+          "state": {
+            "arm": "identity",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 0,
+            "phase": "measure",
+            "run": "fs300v3_id_s3",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T10:04:10.014271+00:00"
+          },
+          "total_time_s": 400.64,
+          "tpot_mean_ms": null,
+          "tps": 19.9,
+          "ttft_mean_ms": 12330.95,
+          "ttft_p99_ms": 35879.97,
+          "valid": true
+        }
+      ],
+      "valid_starts": 3,
+      "valid_total_times_s": [
+        402.36,
+        399.55,
+        400.64
+      ]
+    },
+    "online": {
+      "starts": [
+        {
+          "bench_sha256": "25adc3b6af959a2f030874238758a1a63b86a64f306a7d5d9d813e6c5679c6fd",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_on_s1",
+          "lat_p99_ms": 33259.66,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v3_on_s1",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:32:54.381284+00:00"
+          },
+          "total_time_s": 376.57,
+          "tpot_mean_ms": null,
+          "tps": 21.1,
+          "ttft_mean_ms": 11591.54,
+          "ttft_p99_ms": 33259.63,
+          "valid": true
+        },
+        {
+          "bench_sha256": "67438a562c4516a91fa735d6a149af8dfeb6fceac858aa01c0cc52551cb13712",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_on_s2",
+          "lat_p99_ms": 32140.02,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v3_on_s2",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T09:56:11.288872+00:00"
+          },
+          "total_time_s": 373.11,
+          "tpot_mean_ms": null,
+          "tps": 21.3,
+          "ttft_mean_ms": 11483.58,
+          "ttft_p99_ms": 32139.96,
+          "valid": true
+        },
+        {
+          "bench_sha256": "3f42db927c537d0e9e72a33c628cbf2db8d320ff48f9dab0e0202697ee492280",
+          "errors": 0,
+          "invalid_reasons": [],
+          "label": "fs300v3_on_s3",
+          "lat_p99_ms": 33694.95,
+          "ok": 7963,
+          "state": {
+            "arm": "online",
+            "bench_rc": 0,
+            "boot_rc": 0,
+            "init_by_mapping_lines": 0,
+            "oeplb_init_lines": 8,
+            "phase": "measure",
+            "run": "fs300v3_on_s3",
+            "server_tracebacks": 0,
+            "status": "completed",
+            "ts": "2026-10-15T10:20:01.206820+00:00"
+          },
+          "total_time_s": 382.35,
+          "tpot_mean_ms": null,
+          "tps": 20.8,
+          "ttft_mean_ms": 11767.69,
+          "ttft_p99_ms": 33694.88,
+          "valid": true
+        }
+      ],
+      "valid_starts": 3,
+      "valid_total_times_s": [
+        376.57,
+        373.11,
+        382.35
+      ]
+    }
+  },
+  "contrasts": [
+    {
+      "ci95_high_s": -6.239523324555403,
+      "ci95_low_s": -17.233810008777954,
+      "contrast": "frozen-identity",
+      "mean_a_s": 389.1133333333334,
+      "mean_b_s": 400.8500000000001,
+      "mean_diff_s": -11.736666666666679,
+      "n_a": 3,
+      "n_b": 3,
+      "status": "computed",
+      "verdict": "excludes_zero_negative",
+      "welch_df": 3.046954352226647
+    },
+    {
+      "ci95_high_s": -13.01588818432339,
+      "ci95_low_s": -33.997445149009934,
+      "contrast": "online-identity",
+      "mean_a_s": 377.3433333333334,
+      "mean_b_s": 400.8500000000001,
+      "mean_diff_s": -23.50666666666666,
+      "n_a": 3,
+      "n_b": 3,
+      "status": "computed",
+      "verdict": "excludes_zero_negative",
+      "welch_df": 2.3652961461565494
+    },
+    {
+      "ci95_high_s": -2.1995890036890593,
+      "ci95_low_s": -21.340410996310904,
+      "contrast": "online-frozen",
+      "mean_a_s": 377.3433333333334,
+      "mean_b_s": 389.1133333333334,
+      "mean_diff_s": -11.769999999999982,
+      "n_a": 3,
+      "n_b": 3,
+      "status": "computed",
+      "verdict": "excludes_zero_negative",
+      "welch_df": 3.1782651313448413
+    }
+  ],
+  "created_at_utc": "2026-10-15T10:25:42.239973+00:00",
+  "evaluation_requests": 7963,
+  "interpretation_rules": [
+    "arm contrasts are whole-service effects under one fixed evaluation workload; they do not isolate MoE-layer placement effects",
+    "the frozen static arm is calibration-derived: it is a deployable-style static reference, not a hindsight optimum of the evaluation traffic",
+    "the online arm carries decision+swap overhead that the frozen arm does not; the overhead decomposition explains mechanism, it never rewrites the measured contrast",
+    "with n=3 starts per arm, CIs are wide by construction; a CI crossing zero means 'compatible with zero' at this sample size",
+    "negative effects are preserved exactly; no sign is flipped or discarded",
+    "the v3 frozen arm validates a calibration-derived ILP static reference; the greedy-descent map that failed to boot under v2 is an infrastructure-incompatibility casualty, not evidence about its serving performance"
+  ],
+  "online_overhead_decomposition": {
+    "by_start": {
+      "fs300v3_on_s1": {
+        "async_swapper_timing_lines": 80,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 80
+        }
+      },
+      "fs300v3_on_s2": {
+        "async_swapper_timing_lines": 80,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 80
+        }
+      },
+      "fs300v3_on_s3": {
+        "async_swapper_timing_lines": 80,
+        "budget_exhausted": null,
+        "cumulative_swap_wall_ms": 0.0,
+        "final_cumulative_swap_count": 0,
+        "prof_last_window_cumulative": null,
+        "swap_events": 0,
+        "window_decisions": {
+          "issued": 80
+        }
+      }
+    },
+    "summary": {
+      "caveat": "async swapper overlaps migration with serving; fraction is an upper-bound wall-share reported ALONGSIDE (never subtracted from) the measured arm contrasts",
+      "cumulative_swap_wall_s_all_online_starts": 0.0,
+      "mean_online_total_time_s": 377.3433333333334,
+      "overhead_fraction_upper_bound_wall_share": 0.0
+    }
+  },
+  "prohibitions_respected": [
+    "no best-start or repeat selection: every start entered its arm",
+    "failed starts retained with reasons, never retried",
+    "overhead decomposition never subtracted from measured contrasts",
+    "CI crossing zero reported as compatible with zero, never equivalence",
+    "negative point estimates preserved exactly"
+  ],
+  "protocol": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_protocol_v3.json",
+    "sha256": "dd9a90691cb85cd616591b14aaf68d6d51733bcc3ed1336ca02eba62f09a4e8c"
+  },
+  "schema_version": 1,
+  "status": "complete",
+  "study_id": "h20-placement-fullservice-v3"
+}

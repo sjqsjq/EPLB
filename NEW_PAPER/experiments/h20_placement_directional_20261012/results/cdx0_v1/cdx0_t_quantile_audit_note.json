@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1",
+  "note_id": "cdx0_t_quantile_audit_note",
+  "created_at_utc": "2026-10-16T08:06:23.669486+00:00",
+  "discovery": "analyze_cdx0.py import-time guard failed: scipy.stats.t.ppf(0.975, 2) = 4.302652729749462 differs from the frozen pre-registered constant 4.302652729911275 by 1.6e-10 absolute, exceeding the guard's 1e-12 tolerance",
+  "exact_value_derivation": "Student-t df=2 has the closed form F(t) = 1/2 + t/(2*sqrt(2+t^2)); F(t)=0.975 => t = sqrt(2*q^2/(1-q^2)) with q=0.95 = 4.302652729749464; scipy agrees to 2e-15; F(4.302652729911275) = 0.9750000000017418, so the frozen constant is a design-phase transcription error of 3.8e-11 relative",
+  "df3_check": "frozen t975(df=3)=3.1824463052837078 equals scipy exactly; unaffected",
+  "ruling": "the frozen pre-registered constant governs all CIs: it is bound in the frozen execution protocol analysis_spec (sha a6d79545e3c4d9a89c821e7cf35e917002d11d7b80d4ed56ff694b94d515548d, frozen BEFORE any cdx0 timing) and post-freeze constant changes are prohibited; the numerical effect on any CI half-width is < 1e-7 microseconds at observed standard errors, i.e. scientifically irrelevant; the discrepancy is reported here rather than silently corrected",
+  "fix_scope": "analyze_cdx0.py import-time guard ONLY: df=3 assertion tightened to exact equality, df=2 tolerance set to 1e-9 with this note referenced; no statistical computation, frozen constant, verdict rule, or output schema changed; the guard fix was made BEFORE the analyzer produced any output, so no result could have influenced it",
+  "analyze_cdx0_sha256_before_fix": "5b959305d6986787074529fb9e217fb338017ef1cd05a62889245cb1ee69b46c",
+  "analyze_cdx0_sha256_after_fix": "eb9804d61e5a052ffc6f60af139e712248db75407d8de1340a49eb68b2d56f8b",
+  "protocol_implementation_record_note": "the frozen protocol's analyze_cdx0_record hash refers to the before-fix file; freeze_cdx0_protocol.py --verify-only will report this record as changed on disk - expected and documented here; the campaign is complete and indexed, and no pipeline step re-invokes verify-only; the protocol itself is UNCHANGED",
+  "measurement_index_results_impact": "none - captures, replay starts, index and all measurements predate and are untouched by this note"
+}

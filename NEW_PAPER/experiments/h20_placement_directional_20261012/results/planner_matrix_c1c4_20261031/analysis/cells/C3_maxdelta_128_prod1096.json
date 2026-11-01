@@ -1,0 +1,116 @@
+{
+ "cellid": "C3_maxdelta_128_prod1096",
+ "snapshot": "C3",
+ "pair_rule": "maxdelta",
+ "budget": 128,
+ "threshold": 1.0962402945,
+ "threshold_label": "prod1096",
+ "planner": "try_build_swap_plan",
+ "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+ "plans_identical_ctrl_vs_traced": true,
+ "cpu_ms_control": 3.84,
+ "cpu_ms_traced": 27.1,
+ "event_count": 1236,
+ "events_truncated": false,
+ "snapshot_sum": 2921972704,
+ "init_ratio_raw": {
+  "max": 2.310585077936443,
+  "avg": 1.7287671007620744,
+  "n_above_1_02": 94
+ },
+ "init_ratio_padded": {
+  "max": 2.3103111839315633,
+  "avg": 1.7285772525441023,
+  "n_above_1_02": 94
+ },
+ "final_ratio_raw": {
+  "max": 1.4344711578797829,
+  "avg": 1.3284620033192478,
+  "n_above_1_02": 94
+ },
+ "final_ratio_padded": {
+  "max": 1.434333537792744,
+  "avg": 1.328384575887505,
+  "n_above_1_02": 94
+ },
+ "plan_len": 127,
+ "rounds": 128,
+ "earlybreak_reason": "ratio_below_threshold",
+ "exhausted_events": 1,
+ "exhibit": {
+  "trials_total": 145,
+  "accepted": 127,
+  "rejected": 18,
+  "branch_maxdelta": 145,
+  "branch_gap": 0,
+  "maxdelta_flip_gt_half_gap": 0,
+  "maxdelta_strong_overshoot_gt_gap": 0,
+  "gapbranch_feasible_half_candidates": 0,
+  "gapbranch_near_half_le_025gap": 0,
+  "maxdiff_overshoot_with_feasible_half": 0,
+  "maxdiff_top5": []
+ },
+ "execution_permission_chain": {
+  "threshold_aperture": "prod1096",
+  "early_exit_pred_init_max_le_thr": false,
+  "plan_empty": false,
+  "meets_min_swap_ops_8": true,
+  "defer_gate_score_init_max_minus_1": 1.3105850779,
+  "dead_gate_score_reference": 0.0096240295,
+  "bias_correct_env_unset_default_false": true,
+  "moved_mb_estimate": 4793.0,
+  "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+ },
+ "plan_ops_first5": [
+  [
+   89,
+   22,
+   43,
+   1,
+   2,
+   22,
+   43,
+   2.310585077936443
+  ],
+  [
+   86,
+   85,
+   7,
+   5,
+   0,
+   85,
+   7,
+   2.2748768401910437
+  ],
+  [
+   82,
+   67,
+   41,
+   4,
+   2,
+   67,
+   41,
+   2.2521696766678625
+  ],
+  [
+   66,
+   46,
+   71,
+   2,
+   4,
+   46,
+   71,
+   2.1688325258222534
+  ],
+  [
+   65,
+   81,
+   28,
+   5,
+   1,
+   81,
+   28,
+   2.1519458246109613
+  ]
+ ]
+}

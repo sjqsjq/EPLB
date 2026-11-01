@@ -1,0 +1,54 @@
+{
+  "analyzer_implementation": {
+    "bytes": 19381,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_stopping.py",
+    "sha256": "718897268269132bf9a79b12dda7bf008c9baebe930764fffda2f82a14b4f803"
+  },
+  "frozen_at_utc": "2026-10-14T08:27:56.106904+00:00",
+  "inputs": {
+    "execution_protocol": "configs/followup_v1/stopping_execution_protocol.json",
+    "execution_result_index": "results/stopping_v1/execution/index.json",
+    "layout_index": "inputs/stopping_v1/layouts/index.json",
+    "migration_protocol": "configs/followup_v1/stopping_migration_protocol.json",
+    "migration_result_index": "results/stopping_v1/migration/index.json"
+  },
+  "interpretation_rules": {
+    "ci_crossing_zero_means_break_even_indeterminate": true,
+    "equivalence_requires_interval_wholly_inside_margin": true,
+    "locked_m2_predictions_are_descriptive_no_refit": true,
+    "migration_cost_never_subtracted_per_execution_sample": true,
+    "negative_effects_preserved_exactly": true,
+    "no_best_measured_prefix_selection": true,
+    "no_favorable_repeat_selection": true,
+    "no_slack_or_fence_subtraction_from_measured_q": true,
+    "q_le_zero_means_no_finite_beneficial_breakeven": true,
+    "zero_crossing_is_not_a_deadzone": true,
+    "zero_crossing_wording": "compatible with zero, not proof of no effect and not equivalence"
+  },
+  "schema_version": 1,
+  "spec_id": "h20-placement-stopping-analysis-v1",
+  "statistics": {
+    "all_units_reported": {
+      "break_even_rows": 144,
+      "execution_effects": 144,
+      "migration_transactions_per_capture": 13
+    },
+    "blocks_per_start": 5,
+    "break_even_definition": "N* = C/Q with Q = observed mean candidate-vs-base effect and C = combined mean migration cost of the matching single-swap transaction for the same capture; Fieller-type ratio interval treating the two campaigns as independent (se from the frozen t intervals); computed only when CI(Q) excludes zero and mean Q > 0",
+    "classification": {
+      "compatible_with_zero": "interval crosses zero",
+      "excludes_zero_negative": "ci95_high < 0",
+      "excludes_zero_positive": "ci95_low > 0",
+      "practically_equivalent_within_margin": "interval wholly inside [-eps, +eps]"
+    },
+    "effect_definition": "block effect = completion_fenced_us_per_forward(base) - completion_fenced_us_per_forward(candidate) within the same randomized block; start-level effect = mean of the five block effects; inferential sample = four independent starts; two-sided 95% Student-t interval, df=3",
+    "migration_cost_definition": "per start, per transaction: mean of the 50 forward walls, mean of the 50 reverse walls, and combined = mean of the two; n=4 start-level values; t interval df=3; primary C = combined mean; forward and reverse reported separately",
+    "pairs_per_transaction": 50,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "sign_convention": "positive effect = candidate faster than base (Q = T_base - T_candidate)",
+    "starts_per_capture": 4,
+    "t_quantile_95_df3": 3.1824463052837078
+  },
+  "status": "frozen_before_any_stopping_timing",
+  "study_id": "h20-placement-stopping-v1"
+}

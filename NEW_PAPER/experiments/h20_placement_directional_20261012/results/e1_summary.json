@@ -126,7 +126,7 @@
         ]
       }
     },
-    "interpretation": "Detailed instrumentation changes some absolute timings, but the 95% CI for Q_detailed-Q_minimal crosses zero. The directional A1 effect remains positive in both modes, so minimal mode is retained as the E1 primary mode.",
+    "interpretation": "Detailed instrumentation changes some absolute timings, but the 95% CI for Q_detailed-Q_minimal crosses zero. The directional A1 effect remains positive in both modes, so minimal mode is retained as the E1 primary mode. This supports only consistency of the large effect's direction, not absence of observer effect.",
     "placement_effect": {
       "detailed": {
         "ci_high_us": 546.2452739523702,
@@ -183,6 +183,27 @@
     }
   },
   "e1": {
+    "case_scope": {
+      "a_group_counterpart_assignment_counts": [
+        0,
+        0,
+        0
+      ],
+      "a_group_counterpart_experts": [
+        16,
+        34,
+        41
+      ],
+      "all_six_positive_ab_layouts_swap_the_same_hot_expert": true,
+      "hot_expert": 89,
+      "hot_expert_assignments": 3312,
+      "layer_selection": "Layer 24 was selected before timing using route-imbalance metadata, not layout performance. It remains an intentionally imbalanced case.",
+      "not_tested": [
+        "multiple hot experts",
+        "multiple routed layers",
+        "different real forwards/load regimes"
+      ]
+    },
     "category_descriptions": {
       "A": {
         "inferential_interval_intentionally_not_computed": true,
@@ -219,7 +240,7 @@
       "pearson_q_vs_raw_max_improvement": 0.9955739484936129,
       "spearman_q_vs_aligned_max_improvement": 0.9518712548258209,
       "spearman_q_vs_raw_max_improvement": 0.9537052383270762,
-      "warning": "These are descriptive correlations over deliberately stratified layouts, not fitted or independently evaluated predictive models."
+      "warning": "These nearly identical correlations are descriptive over deliberately stratified layouts and do not show that padding-aware load predicts better than raw load. A/B jointly change raw load, expert/slot composition, and communication."
     },
     "design": {
       "blocks": 10,
@@ -1539,6 +1560,12 @@
         }
       }
     ],
+    "fixed_work_interpretation": {
+      "logical_route_frozen": true,
+      "per_expert_aligned_row_counts_change_across_layouts": false,
+      "per_expert_token_counts_change_across_layouts": false,
+      "what_changes": "The fixed expert workloads are redistributed across GPUs/physical slots, with different communication destinations."
+    },
     "identity_completion_fenced_timing": {
       "maximum_us": 2361.5846252441406,
       "mean_us": 2294.8043518066406,
@@ -1553,11 +1580,76 @@
       "multiple_comparisons": "No family-wise multiplicity correction; this is a pilot, not a confirmatory 12-hypothesis study.",
       "paper_main_recommendation_not_yet_run": "4 independent starts x 5 blocks x 50 forwards per layout"
     },
+    "matched_aggregate_load_contrast": {
+      "aggregate_aligned_rank_vectors_equal": true,
+      "aggregate_raw_rank_vectors_equal": true,
+      "contrast_definition": "Q(A3)-Q(A2) = T(A2)-T(A3)",
+      "interpretation": "The interval crosses zero, so this pilot does not resolve a timing difference caused by expert/slot structure at fixed aggregate load.",
+      "layouts": [
+        "A2",
+        "A3"
+      ],
+      "paired_contrast": {
+        "ci_high_us": 63.32489610598627,
+        "ci_level": 0.95,
+        "ci_low_us": -29.24909044192377,
+        "ci_method": "two-sided Student-t interval over block-paired differences",
+        "degrees_of_freedom": 9,
+        "maximum_us": 165.12451171875,
+        "mean_us": 17.03790283203125,
+        "median_us": -8.989410400390625,
+        "minimum_us": -56.222076416015625,
+        "n_blocks": 10,
+        "standard_deviation_us": 64.70475491156273,
+        "standard_error_us": 20.461440096350504,
+        "values_us": [
+          -56.222076416015625,
+          25.707550048828125,
+          -14.610595703125,
+          52.39227294921875,
+          70.0653076171875,
+          165.12451171875,
+          -28.021087646484375,
+          -9.66522216796875,
+          -26.078033447265625,
+          -8.3135986328125
+        ]
+      },
+      "source_to_destination_matrices_equal": true
+    },
+    "next_experiments": [
+      {
+        "constraints": "Use identical post-activation warmup, the frozen tolerance, all signed repetitions, and no best-repeat selection.",
+        "goal": "Confirm the existing 13-layout case across four independent starts",
+        "priority": 1
+      },
+      {
+        "constraints": "Calibrate on nonoverlapping real forwards and predict unseen layouts; add different hotspots and layers.",
+        "goal": "Evaluate raw, padding, and grouped-GEMM models out of sample",
+        "priority": 2
+      },
+      {
+        "constraints": "Measure residual benefits of legal swaps before adding online exchange cost.",
+        "goal": "Study stopping from a frozen low-r placement",
+        "priority": 3
+      }
+    ],
+    "paper_claim": "Real expert exchanges have directional performance effects, and their benefit must be evaluated through actual execution cost.",
     "post_pilot_meaningful_effect_tolerance": {
       "epsilon_us": 22.948043518066406,
       "equivalence_rule": "Only a confidence interval wholly inside [-epsilon,+epsilon] establishes practical negligibility.",
       "formula": "max(0.01 * identity completion-fenced mean, 2 us)",
       "status": "derived after this pilot for a future confirmatory main run"
+    },
+    "stopping_scope": {
+      "ab_raw_r_range": [
+        1.674320987654321,
+        1.7525925925925927
+      ],
+      "ab_remains_far_from_balanced": true,
+      "c_and_d2_reduce_global_raw_or_aligned_maximum": false,
+      "interpretation": "This pilot asks whether a real exchange can help; it does not identify where balancing should stop or establish a deadzone.",
+      "practical_equivalence_established_for_c_or_d2": false
     },
     "timing_semantics": {
       "cross_device_cuda_timestamps_subtracted": false,
@@ -1807,7 +1899,7 @@
     }
   },
   "experiment": "8xH20 frozen expert-placement E0/E1 pilots",
-  "generated_at_utc": "2026-10-12T03:57:17.342306+00:00",
+  "generated_at_utc": "2026-10-12T04:17:40.079593+00:00",
   "schema_version": 1,
   "validation": {
     "e0_correctness": {

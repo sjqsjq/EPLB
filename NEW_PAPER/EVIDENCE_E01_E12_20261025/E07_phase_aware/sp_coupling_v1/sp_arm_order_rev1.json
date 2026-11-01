@@ -1,0 +1,31 @@
+{
+ "seed": 20261018,
+ "rule": "block1 = random.Random(f'{seed}:{cond}:b1').sample(['A_rev1','A_v1','F_dense'],3); block2 = list(reversed(block1)); frozen 2026-10-18 BEFORE any rev1 timing data (same convention as sp_arm_order.json)",
+ "caveat": "3 arms x 2 blocks cannot achieve full position balance (same caveat as plan Sec.7 phase1)",
+ "order": {
+  "W1": {
+   "block1": [
+    "A_v1",
+    "F_dense",
+    "A_rev1"
+   ],
+   "block2": [
+    "A_rev1",
+    "F_dense",
+    "A_v1"
+   ]
+  },
+  "W2": {
+   "block1": [
+    "A_v1",
+    "F_dense",
+    "A_rev1"
+   ],
+   "block2": [
+    "A_rev1",
+    "F_dense",
+    "A_v1"
+   ]
+  }
+ }
+}

@@ -341,7 +341,8 @@ def summarize_e0(e0: dict[str, Any]) -> dict[str, Any]:
     output["interpretation"] = (
         "Detailed instrumentation changes some absolute timings, but the 95% CI for "
         "Q_detailed-Q_minimal crosses zero. The directional A1 effect remains positive "
-        "in both modes, so minimal mode is retained as the E1 primary mode."
+        "in both modes, so minimal mode is retained as the E1 primary mode. This supports "
+        "only consistency of the large effect's direction, not absence of observer effect."
     )
     return output
 
@@ -350,6 +351,16 @@ def summarize_e1(e1: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]
     index = validate_timing_records(e1, EXPECTED_LAYOUTS)
     layout_by_id = {layout["layout_id"]: layout for layout in manifest["layouts"]}
     baseline_metrics = layout_by_id["identity"]["metrics"]
+    require(manifest["expert_counts"][89] == 3312, "e089 assignment count changed")
+    for layout_id in ["A1", "A2", "A3", "B1", "B2", "B3"]:
+        swap = layout_by_id[layout_id]["swap"]
+        require(
+            89 in [swap["logical_expert_a"], swap["logical_expert_b"]],
+            f"{layout_id} no longer swaps e089",
+        )
+    for expert in [16, 34, 41]:
+        require(manifest["expert_counts"][expert] == 0, f"e{expert:03d} is no longer zero-load")
+
     identity_values = [
         index[(block, "identity", "minimal")]["completion_fenced_us_per_forward"]
         for block in range(10)
@@ -439,6 +450,23 @@ def summarize_e1(e1: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]
             "inferential_interval_intentionally_not_computed": True,
         }
 
+    a2_values = [
+        index[(block, "A2", "minimal")]["completion_fenced_us_per_forward"]
+        for block in range(10)
+    ]
+    a3_values = [
+        index[(block, "A3", "minimal")]["completion_fenced_us_per_forward"]
+        for block in range(10)
+    ]
+    a3_minus_a2 = mean_ci(a2 - a3 for a2, a3 in zip(a2_values, a3_values))
+    require(
+        a3_minus_a2["ci_low_us"] <= 0.0 <= a3_minus_a2["ci_high_us"],
+        "A2/A3 matched-load contrast no longer crosses zero",
+    )
+
+    ab_effects = [effect for effect in effects if effect["category"] in ["A", "B"]]
+    ab_raw_r = [effect["route_shape_metadata"]["raw_r_max_over_mean"] for effect in ab_effects]
+
     fence = e1["empty_completion_fence"]
     return {
         "design": {
@@ -466,6 +494,24 @@ def summarize_e1(e1: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]
             "equivalence_rule": "Only a confidence interval wholly inside [-epsilon,+epsilon] establishes practical negligibility.",
         },
         "effects": effects,
+        "case_scope": {
+            "hot_expert": 89,
+            "hot_expert_assignments": manifest["expert_counts"][89],
+            "all_six_positive_ab_layouts_swap_the_same_hot_expert": True,
+            "a_group_counterpart_experts": [16, 34, 41],
+            "a_group_counterpart_assignment_counts": [
+                manifest["expert_counts"][expert] for expert in [16, 34, 41]
+            ],
+            "layer_selection": (
+                "Layer 24 was selected before timing using route-imbalance metadata, "
+                "not layout performance. It remains an intentionally imbalanced case."
+            ),
+            "not_tested": [
+                "multiple hot experts",
+                "multiple routed layers",
+                "different real forwards/load regimes",
+            ],
+        },
         "category_descriptions": category_effects,
         "descriptive_association_only": {
             "layout_count": len(effects),
@@ -473,8 +519,82 @@ def summarize_e1(e1: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]
             "pearson_q_vs_aligned_max_improvement": pearson(aligned_improvements, q_means),
             "spearman_q_vs_raw_max_improvement": pearson(average_ranks(raw_improvements), average_ranks(q_means)),
             "spearman_q_vs_aligned_max_improvement": pearson(average_ranks(aligned_improvements), average_ranks(q_means)),
-            "warning": "These are descriptive correlations over deliberately stratified layouts, not fitted or independently evaluated predictive models.",
+            "warning": (
+                "These nearly identical correlations are descriptive over deliberately "
+                "stratified layouts and do not show that padding-aware load predicts better "
+                "than raw load. A/B jointly change raw load, expert/slot composition, and "
+                "communication."
+            ),
         },
+        "fixed_work_interpretation": {
+            "logical_route_frozen": True,
+            "per_expert_token_counts_change_across_layouts": False,
+            "per_expert_aligned_row_counts_change_across_layouts": False,
+            "what_changes": (
+                "The fixed expert workloads are redistributed across GPUs/physical slots, "
+                "with different communication destinations."
+            ),
+        },
+        "matched_aggregate_load_contrast": {
+            "layouts": ["A2", "A3"],
+            "aggregate_raw_rank_vectors_equal": (
+                layout_by_id["A2"]["metrics"]["rank_raw_assignments"]
+                == layout_by_id["A3"]["metrics"]["rank_raw_assignments"]
+            ),
+            "aggregate_aligned_rank_vectors_equal": (
+                layout_by_id["A2"]["metrics"]["rank_aligned_rows"]
+                == layout_by_id["A3"]["metrics"]["rank_aligned_rows"]
+            ),
+            "source_to_destination_matrices_equal": (
+                layout_by_id["A2"]["metrics"]["source_to_destination_assignments"]
+                == layout_by_id["A3"]["metrics"]["source_to_destination_assignments"]
+            ),
+            "contrast_definition": "Q(A3)-Q(A2) = T(A2)-T(A3)",
+            "paired_contrast": a3_minus_a2,
+            "interpretation": (
+                "The interval crosses zero, so this pilot does not resolve a timing "
+                "difference caused by expert/slot structure at fixed aggregate load."
+            ),
+        },
+        "stopping_scope": {
+            "ab_raw_r_range": [min(ab_raw_r), max(ab_raw_r)],
+            "ab_remains_far_from_balanced": True,
+            "c_and_d2_reduce_global_raw_or_aligned_maximum": False,
+            "practical_equivalence_established_for_c_or_d2": False,
+            "interpretation": (
+                "This pilot asks whether a real exchange can help; it does not identify "
+                "where balancing should stop or establish a deadzone."
+            ),
+        },
+        "paper_claim": (
+            "Real expert exchanges have directional performance effects, and their "
+            "benefit must be evaluated through actual execution cost."
+        ),
+        "next_experiments": [
+            {
+                "priority": 1,
+                "goal": "Confirm the existing 13-layout case across four independent starts",
+                "constraints": (
+                    "Use identical post-activation warmup, the frozen tolerance, all signed "
+                    "repetitions, and no best-repeat selection."
+                ),
+            },
+            {
+                "priority": 2,
+                "goal": "Evaluate raw, padding, and grouped-GEMM models out of sample",
+                "constraints": (
+                    "Calibrate on nonoverlapping real forwards and predict unseen layouts; "
+                    "add different hotspots and layers."
+                ),
+            },
+            {
+                "priority": 3,
+                "goal": "Study stopping from a frozen low-r placement",
+                "constraints": (
+                    "Measure residual benefits of legal swaps before adding online exchange cost."
+                ),
+            },
+        ],
         "inference_scope": {
             "confidence_intervals": "unadjusted per-layout 95% Student-t intervals over ten paired blocks",
             "multiple_comparisons": "No family-wise multiplicity correction; this is a pilot, not a confirmatory 12-hypothesis study.",

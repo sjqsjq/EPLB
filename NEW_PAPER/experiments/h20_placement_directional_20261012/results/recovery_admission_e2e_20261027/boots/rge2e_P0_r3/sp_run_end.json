@@ -1,0 +1,142 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "QUIET",
+ "S_final": 4,
+ "H_final": 16,
+ "W_final": 64,
+ "sp_fwd_total": 266,
+ "h_cycles": 18,
+ "window_count": 16,
+ "true_steps_total": 256,
+ "sample_opportunities": 242,
+ "recorded_steps": 228,
+ "swaps_started_total": 2,
+ "nocommit_planned_ops_total": 0,
+ "decode_record_batches": 0,
+ "residency_committed_h": {
+  "TRACK": 12,
+  "QUIET": 2,
+  "RECOVER": 4
+ },
+ "transitions": [
+  {
+   "h_id": 6,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 7,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 9,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 12,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 13,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 15,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 18,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 6,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 7,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 12,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 13,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 18,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  }
+ ],
+ "p2l_version": 2,
+ "p2l_fp8": "4d52144ec516b661",
+ "prof_sp_gate_ms": 2.228883,
+ "prof_record_calls": 21432
+}

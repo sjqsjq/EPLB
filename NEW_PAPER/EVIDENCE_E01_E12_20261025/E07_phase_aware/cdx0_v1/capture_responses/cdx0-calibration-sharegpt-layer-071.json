@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 4.709279446862638,
+  "batch_id": "cdx0-calibration-sharegpt",
+  "capture_id": "cdx0-calibration-sharegpt-layer-071",
+  "capture_trigger": {
+    "bytes": 3208,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-sharegpt-layer-071.json",
+    "sha256": "1fdb359c20b337e77ec9952e85efab1b4db99242c284f0e25cd6b5f28a5eb948",
+    "target_layer": 71
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-16T07:15:37.513080+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 35331,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-sharegpt.jsonl",
+    "sha256": "060acae5501ef88a16eddc112b3281a172d39c87decc9126d0cf23e225353863"
+  },
+  "request_manifest": {
+    "bytes": 15374,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+    "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+  },
+  "responses": [
+    {
+      "elapsed_s": 4.527788923121989,
+      "id": "sharegpt_2015",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "48d8c457f1ad4439a825382e349a1707",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1984,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1985
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.528176985681057,
+      "id": "sharegpt_2018",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "67eae6b8f73644928332a4b99cbfcff0",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 625,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 626
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.526364273391664,
+      "id": "sharegpt_2023",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "19ffaddb12c9493487eef9a741b0f251",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 728,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 729
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.708465547300875,
+      "id": "sharegpt_2025",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "67185e86779d450c9382ab8b7f510c6b",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1118,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1119
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.525446855463088,
+      "id": "sharegpt_2027",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "82cf361874984081badfc5b43845bd4a",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 788,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 789
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.526308295316994,
+      "id": "sharegpt_2031",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "1e9b0188b02e4a33aeb366ad0a014aa4",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 537,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 538
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.707643435336649,
+      "id": "sharegpt_2035",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "df34b45c847747bebbf72e0ffaab21e8",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1860,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1861
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 4.526673974469304,
+      "id": "sharegpt_2037",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1792134937,
+        "id": "8910622c39f24508ad09f4d7ae6a04b8",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 534,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 535
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1"
+}

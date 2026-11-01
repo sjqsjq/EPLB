@@ -1,0 +1,27 @@
+[
+ {
+  "wid": 1,
+  "seq": [
+   "1:det_sum:32",
+   "1:cmin:2",
+   "1:cmax:2"
+  ],
+  "committed": true,
+  "verdict": {
+   "commit": true,
+   "h_min": 207319690781293020,
+   "h_max": 207319690781293020,
+   "v_min": 1
+  }
+ },
+ {
+  "wid": 2,
+  "seq": [],
+  "fatal": "phase1_det_collective",
+  "err": "RuntimeError: [/pytorch/third_party/gloo/gloo/transport/tcp/pair.cc:547] Connection closed by peer [33.121.191.220]:21668",
+  "committed": false
+ },
+ {
+  "terminated_with": "cent call last):\n  File \"/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/test_v2p1_fatal_boundary.py\", line 97, in worker\n    dist.all_reduce(det)\n  File \"/opt/conda/lib/python3.11/site-packages/torch/distributed/c10d_logger.py\", line 81, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py\", line 2942, in all_reduce\n    work.wait()\nRuntimeError: [/pytorch/third_party/gloo/gloo/transport/tcp/pair.cc:547] Connection closed by peer [33.121.191.220]:21668\n"
+ }
+]

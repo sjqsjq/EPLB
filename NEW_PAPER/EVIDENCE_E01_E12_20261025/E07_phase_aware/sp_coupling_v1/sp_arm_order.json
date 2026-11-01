@@ -1,0 +1,31 @@
+{
+ "seed": 20261018,
+ "rule": "block1 = random.Random(f'{seed}:{cond}:b1').sample(['F_dense','F_sparse','A'],3); block2 = list(reversed(block1)); frozen 2026-10-18 before any sp_coupling timing data",
+ "caveat": "3 arms x 2 blocks cannot achieve full position balance (stated in plan §7 phase1)",
+ "order": {
+  "W1": {
+   "block1": [
+    "F_sparse",
+    "A",
+    "F_dense"
+   ],
+   "block2": [
+    "F_dense",
+    "A",
+    "F_sparse"
+   ]
+  },
+  "W2": {
+   "block1": [
+    "F_sparse",
+    "A",
+    "F_dense"
+   ],
+   "block2": [
+    "F_dense",
+    "A",
+    "F_sparse"
+   ]
+  }
+ }
+}

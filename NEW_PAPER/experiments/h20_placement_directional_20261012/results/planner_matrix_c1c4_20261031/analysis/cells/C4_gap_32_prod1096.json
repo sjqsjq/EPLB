@@ -1,0 +1,116 @@
+{
+ "cellid": "C4_gap_32_prod1096",
+ "snapshot": "C4",
+ "pair_rule": "gap",
+ "budget": 32,
+ "threshold": 1.0962402945,
+ "threshold_label": "prod1096",
+ "planner": "try_build_swap_plan",
+ "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+ "plans_identical_ctrl_vs_traced": true,
+ "cpu_ms_control": 1.62,
+ "cpu_ms_traced": 6.15,
+ "event_count": 288,
+ "events_truncated": false,
+ "snapshot_sum": 48563408,
+ "init_ratio_raw": {
+  "max": 2.4983973118196316,
+  "avg": 1.720054902242445,
+  "n_above_1_02": 94
+ },
+ "init_ratio_padded": {
+  "max": 2.476701634545011,
+  "avg": 1.708270420662925,
+  "n_above_1_02": 94
+ },
+ "final_ratio_raw": {
+  "max": 1.8637018225739017,
+  "avg": 1.5610634245438462,
+  "n_above_1_02": 94
+ },
+ "final_ratio_padded": {
+  "max": 1.845403560107291,
+  "avg": 1.5517830685627332,
+  "n_above_1_02": 94
+ },
+ "plan_len": 32,
+ "rounds": 32,
+ "earlybreak_reason": "ratio_below_threshold",
+ "exhausted_events": 0,
+ "exhibit": {
+  "trials_total": 32,
+  "accepted": 32,
+  "rejected": 0,
+  "branch_maxdelta": 32,
+  "branch_gap": 0,
+  "maxdelta_flip_gt_half_gap": 0,
+  "maxdelta_strong_overshoot_gt_gap": 0,
+  "gapbranch_feasible_half_candidates": 0,
+  "gapbranch_near_half_le_025gap": 0,
+  "maxdiff_overshoot_with_feasible_half": 0,
+  "maxdiff_top5": []
+ },
+ "execution_permission_chain": {
+  "threshold_aperture": "prod1096",
+  "early_exit_pred_init_max_le_thr": false,
+  "plan_empty": false,
+  "meets_min_swap_ops_8": true,
+  "defer_gate_score_init_max_minus_1": 1.4983973118,
+  "dead_gate_score_reference": 0.0096240295,
+  "bias_correct_env_unset_default_false": true,
+  "moved_mb_estimate": 1207.7,
+  "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+ },
+ "plan_ops_first5": [
+  [
+   44,
+   89,
+   25,
+   5,
+   1,
+   89,
+   25,
+   2.4983973118196316
+  ],
+  [
+   24,
+   89,
+   16,
+   5,
+   1,
+   89,
+   16,
+   2.491537496709457
+  ],
+  [
+   71,
+   51,
+   9,
+   3,
+   0,
+   51,
+   9,
+   2.3063534585546384
+  ],
+  [
+   34,
+   56,
+   0,
+   3,
+   0,
+   56,
+   0,
+   2.26909676520231
+  ],
+  [
+   48,
+   56,
+   86,
+   3,
+   5,
+   56,
+   86,
+   2.22920763715759
+  ]
+ ]
+}

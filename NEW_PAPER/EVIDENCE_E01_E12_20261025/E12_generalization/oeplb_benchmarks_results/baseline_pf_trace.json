@@ -1,0 +1,21 @@
+{
+  "label": "baseline_pf_trace",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 1024,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 616.43,
+  "total_comp_tokens": 240000,
+  "tps": 389.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 83514.7,
+  "lat_p50_ms": 66115.2,
+  "lat_p99_ms": 222691.29,
+  "ttft_mean_ms": 25988.98,
+  "ttft_p50_ms": 24077.57,
+  "ttft_p99_ms": 64269.33,
+  "tpot_mean_ms": 1855.67,
+  "tpot_p50_ms": 1457.76,
+  "tpot_p99_ms": 6639.93
+}

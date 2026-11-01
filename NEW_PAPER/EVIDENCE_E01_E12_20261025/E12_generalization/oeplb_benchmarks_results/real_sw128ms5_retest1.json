@@ -1,0 +1,21 @@
+{
+  "label": "real_sw128ms5_retest1",
+  "dataset": "/tmp/real_production_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 128,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 478.77,
+  "total_comp_tokens": 240000,
+  "tps": 501.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 8164.9,
+  "lat_p50_ms": 8266.1,
+  "lat_p99_ms": 10772.31,
+  "ttft_mean_ms": 827.53,
+  "ttft_p50_ms": 677.99,
+  "ttft_p99_ms": 3413.86,
+  "tpot_mean_ms": 236.69,
+  "tpot_p50_ms": 242.09,
+  "tpot_p99_ms": 313.83
+}

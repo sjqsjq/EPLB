@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 0.8763408390805125,
+  "batch_id": "calibration-02",
+  "capture_id": "pred-v1-calibration-02-layer-044",
+  "capture_trigger": {
+    "bytes": 3508,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/triggers/pred-v1-calibration-02-layer-044.json",
+    "sha256": "4ca1f8d04d2cba7eb39c91ac8ae8f11bc8bed6614b8d71292f04acd1e3460d5c",
+    "target_layer": 44
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-12T05:31:19.485221+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 9901,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/calibration-02.jsonl",
+    "sha256": "5d76317569244056e395ae66975bd1aac7c20011f94f1f03fac602efc8864711"
+  },
+  "request_manifest": {
+    "bytes": 15723,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_requests.json",
+    "sha256": "9c5d836a75168e044aeb7c11415a1630257a36ab47ab09351c62532dab71c01e"
+  },
+  "responses": [
+    {
+      "elapsed_s": 0.6488647116348147,
+      "id": "realprover512_325",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "18886615777740a8b632e2bb0addca8c",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 502,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 503
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8750329315662384,
+      "id": "realprover512_327",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "61c91aa8cb154003912e091fb98664fd",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 504,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 505
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8733452390879393,
+      "id": "realprover512_353",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "13450cb3335f49e79040394f986fa052",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 512,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 513
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8740776795893908,
+      "id": "realprover512_356",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "be4a1654d6354069a378f88dea81deed",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 502,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 503
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8752662278711796,
+      "id": "realprover512_363",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "62a597c44aa347bcb24e83dacd28413f",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 506,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 507
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8725042557343841,
+      "id": "realprover512_366",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "578c6e7fc4a643c3bfdee97b2082b06e",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 506,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 507
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.873121983371675,
+      "id": "realprover512_368",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "5ac909b2c6214ad18bfb8e7003e84921",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 508,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 509
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.8742297841235995,
+      "id": "realprover512_383",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783079,
+        "id": "75c6245ce2f44f4c9b4371e8580f26b7",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 510,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 511
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-prediction-v1"
+}

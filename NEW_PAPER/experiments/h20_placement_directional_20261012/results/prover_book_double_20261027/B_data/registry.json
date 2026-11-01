@@ -1,0 +1,55 @@
+{
+ "built_utc": "2026-10-27T17:53:34Z",
+ "stream": "pbd_prover_book_double",
+ "structure": "block1 prover[0:3344] = 2048 existing pb rows (raw-line byte-preserved) + 1296 NEW pure DeepSeek-Prover-V1 rows -> block2 book[0:2000] = 1000 existing pb rows (raw-line byte-preserved) + 1000 NEW books1 rows; single switch at idx 3344; n=5344; author doubling directive 2026-10-27; author capacity decision 纯V1接受1.68x: prover uses ONLY remaining V1 corpus (V1 exhausted), no Kimina mixing; book doubled 1000->2000",
+ "prover_src_existing": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_2048tok_out1.jsonl (via pb stream block1, byte-preserved)",
+ "prover_src_new": "modelscope AI-ModelScope/DeepSeek-Prover-V1 dataset.jsonl (local /workspace/msdata/prover_v1/dataset.jsonl, 27503 entries, all split=train). Recipe v3 greedy-pack: per-entry chat-wrap encode(add_special_tokens=False), append tokens until >=2048, emit 2048, DISCARD overflow of straddling entry; skip-set {2064:thm_2079, 3061:thm_3080, 15894:thm_15937} = entries absent from the original builder corpus snapshot (diagnosed via global-absence test; NOTE decode non-injectivity: thm_15940 has zero stream-text presence yet IS in source - it is the row1939 straddler cut inside the identical ~65-token wrap boilerplate before its name; a double-skip variant produced a 108-row cascade and was refuted). Recipe history: v1 global-concat uniform slicing gate-refuted (2047 mismatches, rows align to entry starts); v2 greedy no-skip mismatches=4 (rows 248/369/1939/1940). GATE v3: all 2048 existing rows byte-exact, mismatches=0. Existing rows consumed entries[0:16782] last=thm_16824. NEW rows = continuation entries[16782:27503), ALL entries included (historical skip cause unknown; no filter applied to extension range - disclosed).",
+ "book_src_existing": "/data/minghua/sjq/OEPLBdata/datasets/prefill_decode_correlation/book_4438tok_O10.jsonl (via pb stream block2, byte-preserved)",
+ "book_src_new": "modelscope BookCorpus books1/epubtxt (local /workspace/msdata/bookcorpus/books1/epubtxt, 17869 txt) sorted-glob candidates, size>=24000B, lstrip then token-truncate to L_j = re-encoded token length of existing pb_book_%05d (index-paired length distribution); disjointness = 200-char substring probes at raw offsets 0/8000/15000/25000 + lstrip head, raw and whitespace-normalized, vs concatenation of ALL 1000 existing book prompts; selected-head dedup vs other candidates",
+ "workload": "max_tokens=1 ALL rows (author standing spec), temperature=0, conc=32 (paper freq6 config)",
+ "n": 5344,
+ "uniq_text_hash": 5344,
+ "sha256": "f864f2369858edcd6ba3d1b07fb57d67e26e72a54957754b7e1708fcf6964a9d",
+ "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_book_double_20261027/B_data/streams/pbd_prover_book_double.jsonl",
+ "bytes": 56262362,
+ "domains": {
+  "prover": 3344,
+  "book": 2000
+ },
+ "switch_idx": 3344,
+ "prover_verify": {
+  "recipe_version": 3,
+  "skip_idx": [
+   2064,
+   3061,
+   15894
+  ],
+  "skips_in_extension": 0,
+  "gate_mismatches": 0,
+  "entries_consumed_existing": 16782,
+  "entries_total": 27503,
+  "new_rows": 1296,
+  "expansion_ratio": 1.6328
+ },
+ "book_build_stats": {
+  "size_filtered": 2,
+  "overlap_excluded": 71,
+  "short_skipped": 0,
+  "dup_head_skipped": 7,
+  "files_consumed": 1080,
+  "len_drift": 1
+ },
+ "book_len_stats": {
+  "min": 3900,
+  "max": 4200,
+  "mean": 4047.3,
+  "drift_rows": 1
+ },
+ "lineage": "existing 3048 rows copied raw-line byte-identical from pb_prover_book_switch.jsonl (sha256 2da3467263d4f52889ea2931fa84d9fb244ed3dfabe136fddb5c1b6feb7bf904); new prover rows continue the SAME verified greedy packing from entry idx 16782 (structurally disjoint: consumed/skipped entries never re-enter); new book rows from books1 files excluded-by-probe against existing prompts",
+ "disclosures": [
+  "prover expansion ratio = 1.633x not the 1.68x quoted at decision time: estimate assumed no per-row overflow discard; the exact byte-reproducing recipe (v3) consumes ~8.2 entries/row with discards, leaving 1296 new rows; per 纯V1 decision the ENTIRE remaining V1 corpus is consumed (extension entries all used, 100 pct), so 1296 is the corpus maximum under the verified recipe; no Kimina/V1.5 substitution",
+  "skip-set entries (thm_2079/thm_3080/thm_15937) are absent from the historical builder source for unknown reasons (content filters tested and refuted: dedup/length/structure); extension range applies NO skip filter",
+  "only 164 of 1000 existing book rows head-match books1 (rest from other BookCorpus source not on disk); disjointness of new rows enforced by substring probes, not by source-file accounting",
+  "no Prover-V1.5/V2/lean or minif2f datasets found on ModelScope at search time 2026-10-27"
+ ]
+}

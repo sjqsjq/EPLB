@@ -1,0 +1,2120 @@
+{
+  "amendment": {
+    "bytes": 13442,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_amendment_v1.json",
+    "sha256": "b15f53093c6d691d51bcffa974f76be933c6ce2b40a228da28d481be9e1853a8"
+  },
+  "analysis_spec": {
+    "clear_crossover_advantage_layer": ">=2 of 4 rows track own base",
+    "df_rule": "valid_starts - 1 (df=3 with 4 valid starts; df=2 with 3)",
+    "epsilon_in_verdicts": false,
+    "epsilon_uses": [
+      "practically_equivalent_within_margin labels (CI wholly inside +-epsilon)",
+      "descriptive oracle-gap context"
+    ],
+    "estimand": "T(row, column) = mean over valid starts (4 planned, >=3 required) of the 5-block mean completion_fenced_us_per_forward for that frozen column on that evaluation capture",
+    "holm_secondary": "Holm-Bonferroni adjusted p-values within each layer (family = 12 primary contrasts), descriptive sensitivity only; never alters the pre-registered verdict; confirmatory use requires a NEW protocol",
+    "layer_indeterminate": ">=2 rows with fewer than 3 valid starts",
+    "mandatory_reporting": [
+      "the complete per-layer 4x5 cell matrix: cell estimates, per-start values, within-block paired CIs for all 20 pairs, not only the 12 own-vs-other contrasts",
+      "per-row best column and its delta versus identity and versus own base",
+      "descriptive oracle gaps (row-equal K and K-tilde weighted, with the assumption note)",
+      "pairwise column displacement counts and frozen C_batch migration-cost context"
+    ],
+    "migration_context_descriptive": {
+      "estimator": "C_batch(k) = reference_cost_per_displaced_expert_us * moves_k; CROSS-CAPTURE EXTRAPOLATION - descriptive context only, never in verdicts",
+      "per_capture_ratio_us": {
+        "pred-v1-evaluation-01-layer-024": 39.09804114795917,
+        "pred-v1-evaluation-01-layer-028": 41.471931772151905,
+        "pred-v1-evaluation-01-layer-044": 45.94596929012346,
+        "pred-v1-evaluation-01-layer-071": 42.769568784722225,
+        "pred-v1-evaluation-02-layer-024": 40.617672672413796,
+        "pred-v1-evaluation-02-layer-028": 37.624990364583326,
+        "pred-v1-evaluation-02-layer-044": 48.44671235915492,
+        "pred-v1-evaluation-02-layer-071": 53.27452044642858,
+        "pred-v1-evaluation-03-layer-024": 44.880830937499994,
+        "pred-v1-evaluation-03-layer-028": 41.48391869444445,
+        "pred-v1-evaluation-03-layer-044": 47.57157878472222,
+        "pred-v1-evaluation-03-layer-071": 47.09311949275362
+      },
+      "reference_cost_per_displaced_expert_us": 44.189904562246475,
+      "source_file": {
+        "bytes": 203326,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/nearscan_v1/cost_benefit.json",
+        "sha256": "1e6eca7cb831a4705e847c940b5524da84a5954b9bfc764754ca6bf52f0c4612"
+      }
+    },
+    "min_valid_starts_per_row": 3,
+    "oracle_gap_descriptive": {
+      "k_tilde": {
+        "book": 0.2372,
+        "code": 0.4857,
+        "prover": 0.12,
+        "sharegpt": 0.157
+      },
+      "k_tilde_assumption_note_mandatory": "K_tilde = evaluation token shares, an EXOGENOUS approximation of each domain's service relevance; CD-X0 rows are NOT equal-token (book ~2x, code ~4x the sharegpt/prover row sizes), so K_tilde weighting is an assumption-flagged approximation, not a replay-measured quantity; no service-share multiplication may be applied to these numbers and no full-service benefit or harm may be inferred in either direction",
+      "t_static": "min over the 5 columns of sum_d K_d T(x_d, column)",
+      "t_switch": "sum_d K_d min over columns of T(x_d, column)",
+      "weightings": [
+        "row_equal_K",
+        "k_tilde_weighted"
+      ]
+    },
+    "paired_contrasts": "within-capture start-level means of within-block paired differences; all 10 within-row column pairs reported per row (superset of the amendment-4 20-pair floor); primaries oriented as T(other-base) - T(own-base), positive = own base faster",
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "primary_family": "24 primary paired contrasts = 2 layers x 4 rows x 3 own-vs-other-base; EXPLORATORY screening only; no family-wise error rate control claimed",
+    "row_tracks_own_base": "all three other-base-minus-own-base paired 95% CIs exclude zero positively",
+    "row_with_fewer_valid_starts": "indeterminate row; retired starts never retried",
+    "t_quantile_95_df2": 4.302652729911275,
+    "t_quantile_95_df3": 3.1824463052837078,
+    "verdict_rule": {
+      "detected": ">=1 of the 2 layers shows clear crossover advantage",
+      "exploratory_label_required": true,
+      "indeterminate": "any layer indeterminate and none clear",
+      "not_detected": "0 layers show it and no layer is indeterminate",
+      "verdict_wording_constraint": "verdicts speak ONLY about the chosen layers and candidates at replay caliber; never about whole-service benefit or harm in either direction; not_detected is NOT evidence of absence of exploitable cross-domain structure"
+    }
+  },
+  "attempt": 1,
+  "capture_index": {
+    "bytes": 77750,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/capture_index.json",
+    "sha256": "8a5212e69ff6cbf4d7ca1beee8f641012d0b8ab6668e6cc2907f39ac551af9d4"
+  },
+  "cdx0_study_spec": {
+    "activation_warmup": 10,
+    "blocks_per_start": 5,
+    "columns_per_layer": [
+      "identity",
+      "base-of-sharegpt",
+      "base-of-prover",
+      "base-of-book",
+      "base-of-code"
+    ],
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "initial_warmup": 10,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "replay_start_count_total": 32,
+    "rows_per_layer": 4,
+    "starts_per_capture": 4,
+    "timed_cells_total": 40,
+    "timed_forwards": 50,
+    "timing_endpoint": "completion_fenced_us_per_forward",
+    "within_block_column_order": "deterministic rotation of the frozen five-column order by (start_index + block_index) mod 5; start_index is the 0-based index of the start in this protocol's starts list"
+  },
+  "correctness_gate": {
+    "candidate": {
+      "applies_to": "versus_captured_output and versus_identity_replay comparisons for every layout; identity comparisons are trivially exact against themselves",
+      "atol": 0.00390625,
+      "max_isclose_failure_fraction": 1.52587890625e-05,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0078125
+    },
+    "identity_versus_captured": {
+      "atol": 0.00390625,
+      "max_isclose_failure_count": 0,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0,
+      "strict_equivalence_note": "enforced via max_abs_error <= atol on the identity-versus-captured comparison, which at rtol=0 is exactly equivalent to zero isclose failures under the strict bound"
+    }
+  },
+  "design": {
+    "capture_units": 8,
+    "failed_start_handling": "failure record written, start retired, campaign CONTINUES (amendment v1 execution discipline; implements the frozen <3-valid-starts row rule)",
+    "fresh_start_semantics": "one torchrun process group per start; every start reloads all immutable artifacts and rebuilds weights before warmup",
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "layout_purpose": "cross_domain_execution_response_pilot",
+    "matrix": "rows = four evaluation-domain captures per layer; columns = identity + calibration-greedy base of each domain reused verbatim across the layer's rows; 2 layers x 4 rows x 5 columns = 40 timed cells in this one campaign",
+    "no_best_measured_prefix_selection": true,
+    "no_slack_subtracted_from_measured_q": true,
+    "no_subset_selection": true,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "report_all_signed_effects_including_negative": true,
+    "response_definition": "start-level contrast T(a) - T(b) for two columns of the same capture = mean of the five paired block effects; each block effect is completion_fenced_us_per_forward(a) - completion_fenced_us_per_forward(b) within the same rotated block",
+    "starts_per_capture": 4,
+    "timed_layout_ids_by_capture": {
+      "cdx0-evaluation-book-layer-024": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-book-layer-071": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-code-layer-024": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-code-layer-071": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-prover-layer-024": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-prover-layer-071": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-sharegpt-layer-024": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ],
+      "cdx0-evaluation-sharegpt-layer-071": [
+        "identity",
+        "base-of-sharegpt",
+        "base-of-prover",
+        "base-of-book",
+        "base-of-code"
+      ]
+    },
+    "zero_crossing_is_not_a_deadzone": true
+  },
+  "frozen_at_utc": "2026-10-16T07:42:37.499295+00:00",
+  "generator": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_cdx0_protocol.py",
+    "schedule_rule": "deterministic rotation of the frozen five-column order by (start_index + block_index) mod 5; start_index is the 0-based index of the start in this protocol's starts list",
+    "seed_derivation": "uint64 big-endian SHA256(cdx0_study|version|parts) mod 2^62",
+    "sha256": "1bba1982b80ec63ccd44ab2cc662393c564ea246feb5b32fd83baf31defed289",
+    "version": "cdx0-execution-protocol-v1"
+  },
+  "implementation": {
+    "analyze_cdx0_record": {
+      "bytes": 29323,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_cdx0.py",
+      "sha256": "5b959305d6986787074529fb9e217fb338017ef1cd05a62889245cb1ee69b46c"
+    },
+    "cdx0_common_record": {
+      "bytes": 25619,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/cdx0_common.py",
+      "sha256": "fc233e41bc65e97491ad1583ae82f92137100c2ec47fc61e03588f454154d571"
+    },
+    "cdx0_replay_record": {
+      "bytes": 36069,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/cdx0_replay.py",
+      "sha256": "2563e7ce55ecaa0dbe9aff2092f8bcc433aff0ead680da6c70af427b4e5a4a5f"
+    },
+    "extract_cdx0_route_metadata_record": {
+      "bytes": 4323,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/extract_cdx0_route_metadata.py",
+      "sha256": "d0ab335780cc93bca748a829d5eebdd12b4bb32d8a24a0803c3fe9cd6d39ad37"
+    },
+    "generate_cdx0_layouts_record": {
+      "bytes": 16487,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_cdx0_layouts.py",
+      "sha256": "d9e1ad77507441f342ba3a76c5a0ee55173465822386f97e390d99262f802c1a"
+    },
+    "generate_stopping_layouts_record": {
+      "bytes": 20478,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_stopping_layouts.py",
+      "sha256": "9b1ef72b22ac1fdfdcf565227043cc0a7afdb69e4c4381d20b3465221212a115"
+    },
+    "index_cdx0_results_record": {
+      "bytes": 15946,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_cdx0_results.py",
+      "sha256": "8a80b78b1abb42d4580c27ff01413f7bf3c85c9819b6a09470eccc01ac9eb786"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    },
+    "run_cdx0_execution_record": {
+      "bytes": 8262,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_cdx0_execution.sh",
+      "sha256": "0780ace8b47a4ab0c8d628dc6410f9b6234c667a28858e020db50419d06d986b"
+    }
+  },
+  "layout_index": {
+    "bytes": 5697,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/index.json",
+    "sha256": "80e9e93c214f67d98e6660f3aceb2a4413cd5d83314e648431a8727f1a078362"
+  },
+  "layout_manifests": [
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "bytes": 110732,
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "domain": "book",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-024.json",
+      "sha256": "0f94ae0d7b9fba4d31f22d38ff07d07cc808f1d627e930bac176ec175f63f2fd"
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "bytes": 110696,
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "domain": "book",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-071.json",
+      "sha256": "21a6d8bd934d8ecc271a8f11eeea256ba8f30eaf675f07830b4feb4edf3b3fcc"
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "bytes": 110861,
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "domain": "code",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-024.json",
+      "sha256": "693457f6218ace382cc5a0c9a9869e24c5e66332494edc1d3b08fb7a31eaae59"
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "bytes": 110622,
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "domain": "code",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+      "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "bytes": 109940,
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "domain": "prover",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+      "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "bytes": 110077,
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "domain": "prover",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-071.json",
+      "sha256": "50e2ac0333d3eff95fb06c590c2bcc3985eee80d02fb8e309e183e825b3e2d20"
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "bytes": 110538,
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "domain": "sharegpt",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-024.json",
+      "sha256": "86b78324a8d6e1d516bca55ff7c98ca7001d116cb254c38fc24314f2161e54b7"
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "bytes": 110514,
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "domain": "sharegpt",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-071.json",
+      "sha256": "5eb1c9a6038dcdd41a6f347728984f8dbc80c1dda9ddd668239554390e7198de"
+    }
+  ],
+  "pilot_protocol": {
+    "bytes": 9274,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_pilot_protocol.json",
+    "sha256": "fd98d9f085c3d7718556c97acce3dbf0f6a38cf70c00709db58ac2368d3ffd77"
+  },
+  "prohibitions": [
+    "evaluation_requests_in_layout_construction",
+    "best_start_or_repeat_or_capture_or_column_selection",
+    "retry_failed_start_same_pilot",
+    "overwrite_existing_raw_result",
+    "service_caliber_extrapolation_in_verdicts",
+    "significance_driven_extra_runs",
+    "auto_escalation_to_160_starts_or_30_start_service_experiment",
+    "push_without_separate_instruction",
+    "synthetic_routes_or_weights",
+    "controller_in_replay_harness",
+    "artificial_delay_floor_or_differential_delay_or_sleep_or_mid_layer_gate",
+    "rewriting_or_rerunning_five_arm_results",
+    "modify_prediction_common_or_any_frozen_prior_artifact",
+    "relabel_exploratory_as_confirmatory",
+    "capture_retry_beyond_one_r2_suffix",
+    "band_or_rule_change_after_batch_freeze"
+  ],
+  "protocol_id": "h20-placement-cdx0-execution-v1",
+  "result_index_relative_path": "results/cdx0_v1/execution/index.json",
+  "schema_version": 1,
+  "scope": {
+    "amendment_scope_reaffirmation": {
+      "cells_and_starts_frozen": "40 timed cells and 32 replay starts; NO extension path is exercised by this amendment",
+      "next_step_after_pilot": "use the full matrix plus the existing five-arm control trajectories (W deviation, reset classification, cumulative-cost decomposition) to decide CONCRETE correction rules for the controller; developing/validating any corrected controller happens on the calibration split only; the old controller's failure results remain on disk and in git history unchanged; the pilot does NOT automatically chain into another large ablation",
+      "no_service_experiment": "the 30-start paired-order service experiment remains NOT proposed; nothing in CD-X0 authorizes it",
+      "no_significance_driven_starts": "if the outcome is indeterminate, it is reported as indeterminate; no additional starts are launched under this pilot",
+      "verdict_scope": "results judge only the cross-domain execution-time response among the chosen captures, the two layers (024, 071) and the candidate layouts at replay caliber; NO full-service benefit or harm conversion in either direction; NO multiplication by service token/time shares in any verdict or headline number"
+    },
+    "hardware_software_lock": "one node, 8x NVIDIA H20, EP=8, DeepEP normal dispatch/combine, DeepGEMM FP8, Qwen3-235B-A22B-FP8 (128 logical experts, top-8, 16 local/rank, 128-row alignment); identical model/service/replay tooling as crosstab_v1 (frozen code lock to be hash-verified at launch)",
+    "pilot_scope_statement": {
+      "explicitly_not_answered": "whether any whole-service (full-model, live scheduling) benefit or harm exists - no service-caliber extrapolation, no break-even claim, no multiplication by service-time shares in any verdict",
+      "opportunity_vs_exploitability_separation": "replay harness contains NO controller; this pilot measures OPPORTUNITY only. Exploitability by the old controller is answered separately from existing five-arm logs (see results/ea_v1/workload_variation/log_check_w_reset_cost.json). Any future controller revision is developed and validated on calibration split only; the five-arm A11/A00 failure record is retained verbatim, never rewritten or re-run.",
+      "question": "On 2 pre-specified layers, do 4 per-domain calibration-greedy layouts show a clear cross-domain crossover advantage (rows track own base) over 4 per-domain evaluation captures?"
+    }
+  },
+  "split": "cdx0",
+  "starts": [
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110732,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-024.json",
+        "sha256": "0f94ae0d7b9fba4d31f22d38ff07d07cc808f1d627e930bac176ec175f63f2fd"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-01-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 3606579969825482150,
+      "start_id": "cdx0-01-start-1",
+      "start_index": 0
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110732,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-024.json",
+        "sha256": "0f94ae0d7b9fba4d31f22d38ff07d07cc808f1d627e930bac176ec175f63f2fd"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-01-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 1355590349468038115,
+      "start_id": "cdx0-01-start-2",
+      "start_index": 1
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110732,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-024.json",
+        "sha256": "0f94ae0d7b9fba4d31f22d38ff07d07cc808f1d627e930bac176ec175f63f2fd"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-01-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 3830621553348534782,
+      "start_id": "cdx0-01-start-3",
+      "start_index": 2
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110732,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-024.json",
+        "sha256": "0f94ae0d7b9fba4d31f22d38ff07d07cc808f1d627e930bac176ec175f63f2fd"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-01-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-01-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 678830028168493712,
+      "start_id": "cdx0-01-start-4",
+      "start_index": 3
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110696,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-071.json",
+        "sha256": "21a6d8bd934d8ecc271a8f11eeea256ba8f30eaf675f07830b4feb4edf3b3fcc"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-02-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 2121868045698588681,
+      "start_id": "cdx0-02-start-1",
+      "start_index": 4
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110696,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-071.json",
+        "sha256": "21a6d8bd934d8ecc271a8f11eeea256ba8f30eaf675f07830b4feb4edf3b3fcc"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-02-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 926069485943752566,
+      "start_id": "cdx0-02-start-2",
+      "start_index": 5
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110696,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-071.json",
+        "sha256": "21a6d8bd934d8ecc271a8f11eeea256ba8f30eaf675f07830b4feb4edf3b3fcc"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-02-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 4581548729603936328,
+      "start_id": "cdx0-02-start-3",
+      "start_index": 6
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "domain": "book",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110696,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-book-layer-071.json",
+        "sha256": "21a6d8bd934d8ecc271a8f11eeea256ba8f30eaf675f07830b4feb4edf3b3fcc"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-02-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-02-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 2437846742667191037,
+      "start_id": "cdx0-02-start-4",
+      "start_index": 7
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-024.json",
+        "sha256": "693457f6218ace382cc5a0c9a9869e24c5e66332494edc1d3b08fb7a31eaae59"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-03-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 3013096522431171752,
+      "start_id": "cdx0-03-start-1",
+      "start_index": 8
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-024.json",
+        "sha256": "693457f6218ace382cc5a0c9a9869e24c5e66332494edc1d3b08fb7a31eaae59"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-03-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 1451377501185733821,
+      "start_id": "cdx0-03-start-2",
+      "start_index": 9
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-024.json",
+        "sha256": "693457f6218ace382cc5a0c9a9869e24c5e66332494edc1d3b08fb7a31eaae59"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-03-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 547074090798949016,
+      "start_id": "cdx0-03-start-3",
+      "start_index": 10
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-024.json",
+        "sha256": "693457f6218ace382cc5a0c9a9869e24c5e66332494edc1d3b08fb7a31eaae59"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-03-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-03-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 2104996082883221233,
+      "start_id": "cdx0-03-start-4",
+      "start_index": 11
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110622,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+        "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-04-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 4499254694350051602,
+      "start_id": "cdx0-04-start-1",
+      "start_index": 12
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110622,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+        "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-04-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 1261618822434331915,
+      "start_id": "cdx0-04-start-2",
+      "start_index": 13
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110622,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+        "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-04-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 3037595211749040167,
+      "start_id": "cdx0-04-start-3",
+      "start_index": 14
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "domain": "code",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110622,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+        "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-04-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-04-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 4298323429318818626,
+      "start_id": "cdx0-04-start-4",
+      "start_index": 15
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 109940,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+        "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-05-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 4450764022667220309,
+      "start_id": "cdx0-05-start-1",
+      "start_index": 16
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 109940,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+        "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-05-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 3323034001899212184,
+      "start_id": "cdx0-05-start-2",
+      "start_index": 17
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 109940,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+        "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-05-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 3211331234327185340,
+      "start_id": "cdx0-05-start-3",
+      "start_index": 18
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 109940,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+        "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-05-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-05-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 3181213694988385127,
+      "start_id": "cdx0-05-start-4",
+      "start_index": 19
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110077,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-071.json",
+        "sha256": "50e2ac0333d3eff95fb06c590c2bcc3985eee80d02fb8e309e183e825b3e2d20"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-06-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 3724976837911076450,
+      "start_id": "cdx0-06-start-1",
+      "start_index": 20
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110077,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-071.json",
+        "sha256": "50e2ac0333d3eff95fb06c590c2bcc3985eee80d02fb8e309e183e825b3e2d20"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-06-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 1308714326054070443,
+      "start_id": "cdx0-06-start-2",
+      "start_index": 21
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110077,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-071.json",
+        "sha256": "50e2ac0333d3eff95fb06c590c2bcc3985eee80d02fb8e309e183e825b3e2d20"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-06-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 1860112910266184709,
+      "start_id": "cdx0-06-start-3",
+      "start_index": 22
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "domain": "prover",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110077,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-071.json",
+        "sha256": "50e2ac0333d3eff95fb06c590c2bcc3985eee80d02fb8e309e183e825b3e2d20"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-06-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-06-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 3003528140317365629,
+      "start_id": "cdx0-06-start-4",
+      "start_index": 23
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110538,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "86b78324a8d6e1d516bca55ff7c98ca7001d116cb254c38fc24314f2161e54b7"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-07-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 4486500985315275877,
+      "start_id": "cdx0-07-start-1",
+      "start_index": 24
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110538,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "86b78324a8d6e1d516bca55ff7c98ca7001d116cb254c38fc24314f2161e54b7"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-07-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 4571522263502186494,
+      "start_id": "cdx0-07-start-2",
+      "start_index": 25
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110538,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "86b78324a8d6e1d516bca55ff7c98ca7001d116cb254c38fc24314f2161e54b7"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-07-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 2239819860383019884,
+      "start_id": "cdx0-07-start-3",
+      "start_index": 26
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 110538,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "86b78324a8d6e1d516bca55ff7c98ca7001d116cb254c38fc24314f2161e54b7"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-07-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-07-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 567577779071382506,
+      "start_id": "cdx0-07-start-4",
+      "start_index": 27
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110514,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "5eb1c9a6038dcdd41a6f347728984f8dbc80c1dda9ddd668239554390e7198de"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-08-start-1.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 2861842178469358412,
+      "start_id": "cdx0-08-start-1",
+      "start_index": 28
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110514,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "5eb1c9a6038dcdd41a6f347728984f8dbc80c1dda9ddd668239554390e7198de"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-08-start-2.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ]
+      ],
+      "random_seed": 4141592864383681420,
+      "start_id": "cdx0-08-start-2",
+      "start_index": 29
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110514,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "5eb1c9a6038dcdd41a6f347728984f8dbc80c1dda9ddd668239554390e7198de"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-08-start-3.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ]
+      ],
+      "random_seed": 3592522129735743972,
+      "start_id": "cdx0-08-start-3",
+      "start_index": 30
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "domain": "sharegpt",
+      "failure_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110514,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "5eb1c9a6038dcdd41a6f347728984f8dbc80c1dda9ddd668239554390e7198de"
+      },
+      "log_relative_path": "results/cdx0_v1/execution/logs/cdx0-08-start-4.log",
+      "output_relative_path": "results/cdx0_v1/execution/raw/cdx0-08-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ],
+        [
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover"
+        ],
+        [
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book"
+        ],
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ]
+      ],
+      "random_seed": 3682282220013797782,
+      "start_id": "cdx0-08-start-4",
+      "start_index": 31
+    }
+  ],
+  "status": "frozen_before_cdx0_timing",
+  "study_id": "h20-placement-cdx0-v1",
+  "timing": {
+    "activation_warmup_forwards": 10,
+    "blocks_per_start": 5,
+    "diagnostic_blocks_per_start": 0,
+    "diagnostic_pass": false,
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "initial_warmup_forwards_per_layout": 10,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "deterministic rotation of the frozen five-column order by (start_index + block_index) mod 5; every column is timed in every block and every position appears exactly once per start",
+    "timed_forwards_per_activation": 50
+  },
+  "tolerance_file": {
+    "bytes": 2499,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_tolerance_v2.json",
+    "sha256": "88c9b0e2bf3c8914dfebe6b1d96f91fb63124c44f91d11a485265f26051b02f1"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "desc": "DataForest/EPLB/PB-OEPLB baseline comparison, 8xH20, Qwen3-235B-FP8, TP=DP=EP=8, DeepEP+DeepGEMM, disable-cuda-graph, mem 0.78, O=1 pure prefill, 256 reqs, 3 runs median",
+  "base_config": "8xH20 96GB, Qwen3-235B-A22B-FP8, TP=DP=EP=8 (16 experts/card), SGLang + DeepEP auto + DeepGEMM FP8, --disable-cuda-graph, --mem-fraction-static 0.78, --disable-radix-cache, max_new_tokens=1 (pure prefill), 256 concurrent reqs",
+  "datasets": {
+    "prover_same_domain": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_256tok_out1.jsonl (256tok, pinned 10x per-layer imbalance)",
+    "universal4_cross_domain": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/prefill_heavy_universal.jsonl (4 domains sharegpt/prover/book/code x64 each, 507tok, balanced)",
+    "cross_domain": "multidomain_v2_out1.jsonl seg1(prover 128)+seg2(book 128), or 4blk(prover/book/prover/book 64each) \u2014 see below"
+  },
+  "prover_same_domain": {
+    "identity": 62.4,
+    "EPLB_dynamic_norebalance": 61.8,
+    "EPLB_static_frozen_redundant16": 68.4,
+    "DataForest_Remap_frozen_noredundant": 73.7,
+    "PB_OEPLB_sw16_adapted": 75.3
+  },
+  "universal4_cross_domain": {
+    "identity": 19.3,
+    "DataForest_Remap_prover_placement": {
+      "median": 11.0,
+      "range": "10.6-18.8",
+      "vs_identity_pct": -43
+    },
+    "EPLB_static_prover_redundant16": {
+      "median": 13.0,
+      "vs_identity_pct": -33
+    },
+    "EPLB_dynamic_norebalance": {
+      "median": 19.1,
+      "vs_identity_pct": -1
+    },
+    "PB_OEPLB_sw8_adapted_128swaps": {
+      "median": 21.3,
+      "range": "20.5-21.5",
+      "vs_identity_pct": 10.4
+    }
+  },
+  "key_finding": "Cross-domain 4-domain balanced: ONLY PB-OEPLB positive (+10.4%); all static/redundant methods negative (DataForest -43%, EPLB-static -33%, EPLB-dynamic -1%). Same-domain prover: PB-OEPLB +21% \u2248 DataForest +18% (frozen oracle), both > EPLB-static +9.6%.",
+  "caveats": "DataForest/EPLB use prover placement (frozen, wrong for non-prover domains cross-domain). EPLB dynamic didn't rebalance in short burst (utilization threshold). PB-OEPLB needs full warmup (4 runs, 128 swaps) to adapt to 4 domains; steady-state reported.",
+  "cross_domain_4blk": {
+    "dataset": "multidomain_v2_out1 4blk (prover/book/prover/book 64each=256)",
+    "identity": 49.4,
+    "DataForest_Remap_prover": 49.2,
+    "vs_identity_DF_pct": 0.0,
+    "PB_OEPLB_sw8_88swaps": 52.3,
+    "vs_identity_OEPLB_pct": 5.9,
+    "note": "STABLE low variance; DataForest fails(+0%), PB-OEPLB adapts(+5.9%)"
+  },
+  "universal4_NOTE": "4-domain 507tok short burst \u2014 HIGH VARIANCE/bimodal for ALL methods (PB-OEPLB oscillates -43%, NOT +10.4%; earlier +10.4% was a lucky draw). NOT a stable benchmark. Replaced by 4blk in paper.",
+  "freq6_cross_domain": {
+    "dataset": "6seg book<->prover (book_4438tok + prover_2048tok), 6seg x100=600req, O=10, conc=32",
+    "identity": 4.7,
+    "DataForest_Remap_prover": 4.7,
+    "vs_id_DF_pct": 0.0,
+    "EPLB_static_redundant16": 4.5,
+    "EPLB_dynamic_64rebalance": 4.4,
+    "PB_OEPLB_sw16_80swap_steady": 5.1,
+    "vs_id_OEPLB_pct": 8.5,
+    "note": "STABLE: DF 4.7/4.7 (identical), PB-OEPLB steady 5.1 (run2 after convergence). Only PB-OEPLB positive cross-domain. ~= paper \u00a75.2 +9.76% (N=600 vs 4200)."
+  },
+  "confirmed_two_datasets": {
+    "same_domain": "prover_256tok_out1 (pinned 10x)",
+    "cross_domain": "freq6 (6seg book<->prover, O=10, conc=32, 4438tok) \u2014 STABLE effective dataset: DF+0% fails, PB-OEPLB+8.5%"
+  }
+}

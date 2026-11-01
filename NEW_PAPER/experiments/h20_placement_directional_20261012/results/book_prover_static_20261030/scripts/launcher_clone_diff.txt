@@ -1,0 +1,41 @@
+--- launch_arm_pc.sh
++++ launch_arm_b2p.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-# launch_arm_pc.sh - prover_code_switch_20261027 six-arm launcher.
++# launch_arm_b2p.sh - book_prover_static_20261030 static-layout launcher.
+ # Cloned from launch_arm_xd.sh (4d007710, frozen). PRE-REGISTERED deltas
+ # (PROTOCOL_pc.md sec.2) - placement material reverts to PAPER 5.3.1
+ # prover-frozen lineage + ED period per paper + author-specified workload:
+@@ -19,13 +19,13 @@
+ # env_common, ready protocol, uniform --disable-cuda-graph + mem 0.8) is
+ # verbatim from launch_arm_xd.sh.
+ # Usage: ART=<artifact_dir> launch_arm_pc.sh ARM [params]
+-#   I | ES | ED | MT | DF | P RG
++#   I | ES | ED | MT | DF | P RG | B2P_OLD | B2P_REF
+ set -u
+ ARM=${1:?usage: launch_arm_pc.sh ARM [params]}
+ ART=${ART:?ART must be set}
+ . /workspace/logs/env_235b.sh
+ MODEL=/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8
+-PL=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/placements
++PL=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/placements
+ BASE="--model-path $MODEL --tp 8 --dp 8 --ep-size 8 --enable-dp-attention --moe-a2a-backend deepep --deepep-mode auto --moe-runner-backend deep_gemm --dtype bfloat16 --quantization fp8 --mem-fraction-static 0.8 --disable-cuda-graph --port 30000 --host 0.0.0.0 --trust-remote-code --disable-radix-cache --watchdog-timeout 600"
+ PB="--enable-pb-oeplb --pb-oeplb-threshold-ratio 1.02 --pb-oeplb-min-prefill-tokens 256 --pb-oeplb-sync-window 16 --pb-oeplb-max-total-swap-layers 94 --pb-oeplb-max-swaps-per-layer 64 --pb-oeplb-min-swap-ops 8 --pb-oeplb-max-total-ops 300 --pb-oeplb-decay-factor 0.0 --pb-oeplb-window-floor 8 --pb-oeplb-window-shift-confirm 2"
+ 
+@@ -89,6 +89,15 @@
+     pb_env_P
+     export OEPLB_SP_RG=$RG
+     launch_server $BASE $PB;;
++  B2P_OLD)
++    # book->prover OLD arm: book prefill-only profile (book_pub npz trace
++    # aggregate 77a75cae lineage); DF-identical injection path (BASE auto,
++    # zero redundancy, no online rebalancer). Cross-domain diagnostic.
++    launch_server $BASE --init-expert-location $PL/book_profile_placement.json;;
++  B2P_REF)
++    # book->prover REF arm: locked prover DF profile (c1787ad1 lineage);
++    # DF-identical injection path. Historical ~19pct stage-gain static layout.
++    launch_server $BASE --init-expert-location $PL/datafore_prover_placement.json;;
+   *)
+     echo "FATAL unknown arm $ARM" >&2; exit 9;;
+ esac

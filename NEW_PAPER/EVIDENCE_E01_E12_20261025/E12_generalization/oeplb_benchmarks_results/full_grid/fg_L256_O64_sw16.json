@@ -1,0 +1,21 @@
+{
+  "label": "full_grid/fg_L256_O64_sw16",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/full_grid/tok256_out64.jsonl",
+  "num_requests": 256,
+  "concurrency": 16,
+  "ok": 256,
+  "errors": 0,
+  "total_time_s": 34.0,
+  "total_comp_tokens": 16384,
+  "tps": 481.9,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 2124.6,
+  "lat_p50_ms": 1990.41,
+  "lat_p99_ms": 4305.06,
+  "ttft_mean_ms": 392.52,
+  "ttft_p50_ms": 416.71,
+  "ttft_p99_ms": 673.01,
+  "tpot_mean_ms": 27.49,
+  "tpot_p50_ms": 25.57,
+  "tpot_p99_ms": 57.78
+}

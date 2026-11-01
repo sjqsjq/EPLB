@@ -1,0 +1,107 @@
+{
+ "spec_id": "h20-placement-cdx0-crossdomain-replay-pilot",
+ "status": "PROPOSED_NOT_RUN_AWAITING_USER_APPROVAL",
+ "created_at_utc": "2026-10-16T05:20:00+00:00",
+ "scope_statement": {
+  "question": "On 2 pre-specified layers, do 4 per-domain calibration-greedy layouts show a clear cross-domain crossover advantage (rows track own base) over 4 per-domain evaluation captures?",
+  "explicitly_not_answered": "whether any whole-service (full-model, live scheduling) benefit or harm exists - no service-caliber extrapolation, no break-even claim, no multiplication by service-time shares in any verdict",
+  "opportunity_vs_exploitability_separation": "replay harness contains NO controller; this pilot measures OPPORTUNITY only. Exploitability by the old controller is answered separately from existing five-arm logs (see results/ea_v1/workload_variation/log_check_w_reset_cost.json). Any future controller revision is developed and validated on calibration split only; the five-arm A11/A00 failure record is retained verbatim, never rewritten or re-run."
+ },
+ "hardware_software_lock": "one node, 8x NVIDIA H20, EP=8, DeepEP normal dispatch/combine, DeepGEMM FP8, Qwen3-235B-A22B-FP8 (128 logical experts, top-8, 16 local/rank, 128-row alignment); identical model/service/replay tooling as crosstab_v1 (frozen code lock to be hash-verified at launch)",
+ "layer_selection": {
+  "rule_pre_registered": "one layer with minimal and one with maximal within-domain oracle gap in crosstab_v1 (single-domain prior study; no cross-domain data consulted): layer-024 (gap 0.00%) and layer-071 (gap 0.50%)",
+  "layers": [24, 71],
+  "instrumentation": "both present in inputs/prediction_v1/layers/selected_layers.json (frozen)"
+ },
+ "domains": ["sharegpt", "prover", "book", "code"],
+ "captures": {
+  "units": 16,
+  "structure": "4 domains x 2 layers x {1 calibration-split capture (layout construction ONLY), 1 evaluation-split capture (timing row ONLY)}",
+  "mechanism": "existing prediction_v1 snapshot_split trigger (mode=snapshot_split, min_hidden_rows=400, expected_layers=94, identity service map required); capture responses + forward_rank*.pt + assignment metadata per unit",
+  "service_runs": "2 real service runs on the real workloads: run C over calibration.jsonl (8037 req), run E over evaluation.jsonl (7963 req); concurrency 256, original order, identical server flags to five-arm launcher",
+  "trigger_points_client_request_index": {
+   "run_E": {"sharegpt": 962, "prover": 2936, "book": 4940, "code": 6947},
+   "run_C": {"sharegpt": 1037, "prover": 3063, "book": 5060, "code": 7052},
+   "rule": "segment midpoints; >=700 requests from any domain boundary >> 256 in-flight; index-driven (deterministic), no timing guesses"
+  },
+  "domain_purity_caveat_pre_registered": "per-batch domain composition is not recorded anywhere and cannot be verified for captured batches (report_v2 fix 2); midpoint triggering bounds contamination risk but does not prove purity; this assumption is stated in every output artifact"
+ },
+ "candidate_layouts": {
+  "columns_per_layer": ["identity", "greedy-of-sharegpt-calib", "greedy-of-prover-calib", "greedy-of-book-calib", "greedy-of-code-calib"],
+  "builder": "frozen greedy builder, identical code and parameters to crosstab_v1 base-of-* construction, inputs = assignment metadata of the CALIBRATION capture of that domain and layer only",
+  "evaluation_split_usage": "evaluation captures are timing rows ONLY: never an input to layout construction, never used to select captures, columns, blocks or starts"
+ },
+ "replay_matrix": {
+  "rows_per_layer": 4,
+  "columns_per_layer": 5,
+  "timed_cells_total": 40,
+  "same_process_semantics": "for each capture (row), ALL 5 columns are re-timed inside the same start processes so own-vs-other contrasts are internally consistent (crosstab_v1 semantics)",
+  "independent_starts_per_capture": 4,
+  "start_semantics": "one fresh torchrun process group per start; immutable artifacts reloaded and weights rebuilt before warmup",
+  "blocks_per_start": 5,
+  "within_block_column_order": "rotated by (start_index + block_index) mod 5 (pre-registered rotation, balanced; pairing is within block)",
+  "forwards_per_column_per_block": {"initial_warmup": 10, "activation_warmup": 10, "timed": 50},
+  "timing_endpoint": "completion_fenced_us_per_forward (identical caliber to crosstab_v1)",
+  "cell_estimate": "mean over valid starts of the 5-block mean",
+  "replay_start_count_total": 32
+ },
+ "statistics_plan_pre_registered": {
+  "primary_contrasts": "per layer, per row d: three paired contrasts T(x_d, L_d') - T(x_d, L_d) for each other-domain layout L_d'; start-level means of within-block paired differences; t975(df=3)=3.1824463052837078",
+  "practical_equivalence_margin_us": 22.948043518066406,
+  "margin_provenance": "inherited from crosstab_v1 (same replay caliber, same harness); not re-tuned",
+  "row_tracks_own_base": "ALL THREE other-base-minus-own-base CIs exclude zero positively",
+  "clear_crossover_advantage_layer": ">=2 of 4 rows track own base",
+  "verdict_rule": {
+   "detected": ">=1 of the 2 layers shows clear crossover advantage",
+   "not_detected": "0 layers show it and no layer is indeterminate",
+   "indeterminate": "any layer with >=2 rows having <3 valid starts, or mixed outcome not meeting either rule",
+   "verdict_wording_constraint": "verdicts speak ONLY about the chosen layers and candidates at replay caliber; never about whole-service benefit or harm in either direction"
+  },
+  "validity_and_failures": "start valid iff boots clean, correctness gates pass, all 5 columns x 5 blocks timed; failed starts are retired, NEVER retried under this frozen pilot; row with <3 valid starts = indeterminate row",
+  "no_selection": "no best-start, best-block, best-capture, best-column, prefix or subset selection; no significance-driven extra runs; extension beyond 40 cells requires a NEW pre-registered protocol (explicitly NOT an automatic path to the old 160-start design)",
+  "secondary_descriptive_never_in_verdict": {
+   "oracle_gap": "per layer: T_static_cand = min_p sum_d K_d T(x_d,p); T_switch_cand = sum_d K_d min_p T(x_d,p); reported twice: row-equal K and K-tilde weighted",
+   "K_tilde": {"sharegpt": 0.157, "prover": 0.12, "book": 0.2372, "code": 0.4857},
+   "K_tilde_assumption_note_mandatory": "K_tilde = evaluation token shares, an EXOGENOUS approximation of each domain's service relevance; replay rows are row-count-matched by design (~4050 hidden rows), so K_tilde weighting is an assumption-flagged approximation, not a replay-measured quantity; no service-share multiplication (report_v2 fix 4) may be applied to these numbers",
+   "migration_cost_note": "pairwise displacement between L_d maps -> frozen C_batch(k) cost-model estimates of per-switch migration cost and break-even segment length, reported as descriptive context only"
+  },
+  "ci_wording": "an interval crossing zero is reported as compatible with zero, never as proof of no effect; negative effects preserved exactly"
+ },
+ "correctness_gates": {
+  "identity_versus_captured": {"atol": 0.00390625, "rtol": 0.0, "max_isclose_failure_count": 0, "max_nonfinite_pair_count": 0},
+  "candidate_versus_references": {"atol": 0.00390625, "rtol": 0.0078125, "max_isclose_failure_fraction": 1.52587890625e-05, "max_nonfinite_pair_count": 0},
+  "provenance": "identical gate values to crosstab_v1 frozen protocol"
+ },
+ "budget_exact": {
+  "replay_gpu_hours": "32 starts x ~12 min (crosstab_v1 measured mean per start) = ~6.4 GPU-h",
+  "capture_gpu_hours": "2 service runs x (boot ~20 min + bench to last trigger ~5-6 min) = ~1.0 GPU-h",
+  "cpu_hours": "layout builds + analysis < 1 h",
+  "total": "~7.5-8 GPU-h, one operating day",
+  "explicit_non_escalation": "this pilot replaces the previously proposed 160-start Phase A; the 30-start Phase B service experiment remains NOT proposed and requires separate user instruction plus a new frozen protocol"
+ },
+ "launch_preconditions": [
+  "explicit user approval of this protocol",
+  "hash-lock manifest of all inputs (capture tooling, greedy builder, replay harness, server launcher flags, workloads, identity map, selected_layers.json) written and verified before first boot",
+  "config verification per start (server args dump + map shas) with mismatch = abort, not retire",
+  "GPUs idle and exclusive for the session"
+ ],
+ "prohibitions_frozen": [
+  "evaluation_requests_in_layout_construction",
+  "best_start_or_repeat_or_capture_or_column_selection",
+  "retry_failed_start_same_pilot",
+  "overwrite_existing_raw_result",
+  "service_caliber_extrapolation_in_verdicts",
+  "significance_driven_extra_runs",
+  "auto_escalation_to_160_starts_or_30_start_service_experiment",
+  "push_without_separate_instruction",
+  "synthetic_routes_or_weights",
+  "controller_in_replay_harness",
+  "artificial_delay_floor_or_differential_delay_or_sleep_or_mid_layer_gate",
+  "rewriting_or_rerunning_five_arm_results"
+ ],
+ "artifacts_planned": {
+  "outputs_dir": "results/cdx0_v1/ (new; nothing existing is overwritten)",
+  "records_per_start": "boot log, config verify, correctness gate results, per-block per-column fenced timings, diag sha256",
+  "analysis_output": "cdx0_analysis.json + cdx0_summary.md written once by a frozen analyzer; refuses overwrite"
+ }
+}

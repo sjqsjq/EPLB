@@ -1,0 +1,121 @@
+{
+ "created_utc": "2026-10-15T07:34:33.674574+00:00",
+ "purpose": "diagnostic record for the v2 frozen-arm boot failure and the v3 re-freeze decision; diagnostics are NOT campaign measurements and never enter frozen statistics",
+ "failure_summary": "v2 frozen arm (greedy_base map from calibration counts): 3/3 campaign boots + 4/4 diagnostic boots crashed identically - async torch.AcceleratorError 'CUDA error: invalid configuration argument' surfacing inside the DeepGEMM JIT warmup executor allocation on DP0 during the FIRST real-routing forward (warmup request or first bench batch); map loads correctly on all 8 ranks (init_by_mapping), cuda graph capture completes, server reaches ready state when warmup skipped",
+ "config_matrix": [
+  {
+   "run": "campaign fx_s1/s2/s3",
+   "map": "ours(greedy)",
+   "warmup": true,
+   "cuda_graph": true,
+   "launch_blocking": false,
+   "result": "crash 3/3, retained in campaign_state.json, never retried"
+  },
+  {
+   "run": "diag1",
+   "map": "ours(greedy)",
+   "warmup": false,
+   "cuda_graph": true,
+   "launch_blocking": false,
+   "result": "boot ok, crash on first small smoke request"
+  },
+  {
+   "run": "diag2",
+   "map": "ours(greedy)",
+   "warmup": false,
+   "cuda_graph": true,
+   "launch_blocking": true,
+   "result": "crash at same site (fault source not covered by launch blocking: DeepEP/nvshmem or cluster-launch path)"
+  },
+  {
+   "run": "diag3",
+   "map": "ours(greedy)",
+   "warmup": false,
+   "cuda_graph": false,
+   "launch_blocking": false,
+   "result": "crash on first small request (exact historical config minus mem-fraction)"
+  },
+  {
+   "run": "diag6",
+   "map": "ours(greedy)",
+   "warmup": false,
+   "cuda_graph": true,
+   "launch_blocking": false,
+   "first_load": "500-request CALIBRATION subset at concurrency 256 (large first batch)",
+   "result": "crash on first prefill batch - excludes small-batch/zero-token theories"
+  },
+  {
+   "run": "diag4",
+   "map": "historical MoETuner ILP placement_pinned_fair.json",
+   "warmup": false,
+   "cuda_graph": false,
+   "launch_blocking": false,
+   "result": "boot ok, smoke request ok (9.4s, correct output)"
+  },
+  {
+   "run": "diag5",
+   "map": "rotate-by-one-rank map",
+   "warmup": false,
+   "cuda_graph": false,
+   "launch_blocking": false,
+   "result": "boot ok, smoke request ok (10.2s, correct output)"
+  }
+ ],
+ "controls": {
+  "software_stack": "identical to the 2026-09-16 successful fixed-map boots: sglang 0.5.6.post2, torch 2.9.1, deep_ep 1.2.1+9af0e0d, deep_gemm 2.3.0, all installed 2026-09-15; DeepEP/DeepGEMM sources unmodified since",
+  "map_structural_checks": "ours: 94 layers x 128, bijective every layer, mean displacement 80.6/layer, r~1.000 on calibration counts; historical: bijective, mean displacement 127.1/layer, r 1.088-1.544 on same counts; rotate: contiguous block shift",
+  "jit_compile_triggers": "identical (n,k,num_groups) sets across maps: (3072,4096,16),(4096,1536,16),(4096,8192,1),(9216,4096,1) - compile shapes are placement-independent"
+ },
+ "conclusion": "deterministic infrastructure incompatibility specific to the CONTENT of the greedy-descent map (not the format, not the config, not the software stack, not small-batch routing); the true faulting kernel is in an async path not covered by CUDA_LAUNCH_BLOCKING (DeepEP/nvshmem or DeepGEMM cluster launch) and was not isolated further because the campaign requires a bootable calibration-derived static map, not a root-cause fix of the serving stack",
+ "v3_decision": "re-freeze v3 BEFORE any frozen-arm measured data exists (v1->v2 precedent): static reference map regenerated from the SAME calibration counts (counts_calibration.json, sha-locked) with the MoETuner ILP pipeline (solve_ilp.py, proven-bootable lineage: its September output boots and serves on this stack), boot-validated pre-freeze; all other v2 design elements (split, launchers, bench, statistics, prohibitions) unchanged; all v2 starts and diagnostics retained; v2 identity/online data kept as reference only, never mixed into v3",
+ "log_sha256": {
+  "diag1": "7ffd40d9d3593e5ef9c5937c67798cfa669dba4dbd6570b1fc5fe15627ac5c4f",
+  "diag2": "358dd00f61f44a030e8e5899bbc07ae8a5a3fd4fa36016ac5c521daad43e7d43",
+  "diag3": "5cc002fbc2c29de23c69a56ea5c6b785a867fc3df11ee8b02fee5fa522a32c56",
+  "diag4_histmap": "790d2f921cba84dfca8108e8ea4d02983f979cb528a854f1bf594be2f210088a",
+  "diag5_rotate": "d3eb5e61b5d1e89dba757b37a79bbe197dee1c70422fcba20aa050974c08751e",
+  "diag6_ourmap_batch": "91035d9e988552977866afb541d8a9b334bc36886295700b24b24a5b6cf651d1",
+  "rotate_map": "104d3cdb7a473d250cc13322602197702670cb449e07ba8eb0e52a28ffa45f73"
+ },
+ "ilp_attempt1_crash": {
+  "ts_utc": "2026-10-15T08:14:12Z",
+  "what": "solve_ilp.py attempt 1 solved all 94 layers ('Solved 94 layers in total 2822.0s. mean_imbalance=1.000') then crashed while writing output: os.makedirs(os.path.dirname(args.out)) with a RELATIVE --out filename -> dirname=='' -> FileNotFoundError. The per-layer solutions existed only in memory and were lost; no partial map on disk.",
+  "classification": "setup tooling failure (path-handling bug in the generator's output writer), NOT a measured campaign start; no measurement existed yet, so re-running setup is legal and does not touch the no-retry prohibition (which covers measured starts under a frozen campaign).",
+  "retained_log": {
+   "path": "results/fullservice_v2/setup/ilp_solve_calib_attempt1_crash.log",
+   "sha256": "ac77ba77a3e75827f08140310d77ad21e87cb048177c2f03c54c461ca6a63767"
+  },
+  "fix": "re-run identical solver settings with an ABSOLUTE --out path (pid 788318, started 08:16:07 UTC); log -> ilp_solve_calib.log; attempt1 log renamed and retained; both logs sha-locked in the v3 protocol setup_artifacts.",
+  "recorded_utc": "2026-10-15T08:17:57.152494+00:00"
+ },
+ "boot_validation_ilp_map": {
+  "ts_utc": "2026-10-15T09:05:34Z",
+  "launcher": "configs/followup_v1/fullservice_launchers_v3/launch235b_fixedh20.sh (exact measured config: warmup ON, cuda graph ON, mem 0.8)",
+  "map": {
+   "path": "results/fullservice_v2/setup/frozen_map_ilp.json",
+   "sha256": "daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac"
+  },
+  "boot_seconds_approx": 68,
+  "init_by_mapping_ranks": 8,
+  "bench": {
+   "dataset": "calib_subset500.jsonl (CALIBRATION requests only)",
+   "concurrency": 256,
+   "ok": 500,
+   "errors": 0,
+   "total_time_s": 16.43
+  },
+  "server_log_tracebacks": 0,
+  "verdict": "PASS - ILP map boots and serves in the exact measured configuration; contrast with greedy_base map which crashed 7/7 boots under every configuration",
+  "artifacts": {
+   "server_log": {
+    "path": "results/fullservice_v2/diagnostics/bootval_ilpmap_server.log",
+    "sha256": "28d0f5d3570ef9705658dbc2fa114f5332a1ae90190675b2396951462a360a07"
+   },
+   "bench_json": {
+    "path": "results/fullservice_v2/diagnostics/bootval_calibsub500_bench.json",
+    "sha256": "84b4ced9144dc5c3f101645b993466882c8796026cfa78bc36c214595ec76308"
+   }
+  },
+  "recorded_utc": "2026-10-15T09:09:05.505853+00:00"
+ }
+}

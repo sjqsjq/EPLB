@@ -1,0 +1,21 @@
+{
+  "label": "baseline_fair_traffic",
+  "dataset": "/tmp/focused_prefill_heavy.jsonl",
+  "num_requests": 1500,
+  "concurrency": 1024,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 243.75,
+  "total_comp_tokens": 48000,
+  "tps": 196.9,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 161422.5,
+  "lat_p50_ms": 228806.6,
+  "lat_p99_ms": 231078.54,
+  "ttft_mean_ms": 31163.92,
+  "ttft_p50_ms": 17130.81,
+  "ttft_p99_ms": 209051.12,
+  "tpot_mean_ms": 4201.89,
+  "tpot_p50_ms": 5639.99,
+  "tpot_p99_ms": 7136.98
+}

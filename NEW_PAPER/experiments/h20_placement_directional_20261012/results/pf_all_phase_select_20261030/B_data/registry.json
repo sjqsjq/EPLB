@@ -1,0 +1,90 @@
+{
+ "arc": {
+  "delta_examples": {
+   "ignore_eos": [],
+   "max_tokens": [
+    [
+     "ARC_0",
+     10,
+     32
+    ],
+    [
+     "ARC_1",
+     10,
+     32
+    ],
+    [
+     "ARC_2",
+     10,
+     32
+    ]
+   ],
+   "temperature": []
+  },
+  "delta_fields": {
+   "ignore_eos": 0,
+   "max_tokens": 1024,
+   "temperature": 0
+  },
+  "ids": "ARC_0..ARC_1023 contiguous",
+  "lines": 1024,
+  "out": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/arcc_1024_out32.jsonl",
+  "out_bytes": 235489,
+  "out_sha256": "9962c3eee612c5c6f4706cc962f133bb3bedd856cf6984671d337e67f552697b",
+  "src": "/data/minghua/sjq/shortdomain/crossdomain_3x4000_O10.jsonl",
+  "src_sha256": "284a7644e77bcb9818bd724950137bdaff5f6f641b03cc27331a45569e30cf91"
+ },
+ "generated_from_builder_sha": null,
+ "prover": {
+  "delta_examples": {
+   "ignore_eos": [
+    [
+     "prover_0",
+     false,
+     true
+    ],
+    [
+     "prover_1",
+     false,
+     true
+    ],
+    [
+     "prover_2",
+     false,
+     true
+    ]
+   ],
+   "max_tokens": [],
+   "temperature": []
+  },
+  "delta_fields": {
+   "ignore_eos": 1024,
+   "max_tokens": 0,
+   "temperature": 0
+  },
+  "lines": 1024,
+  "out": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/prover_1024_out32_ie.jsonl",
+  "out_bytes": 835470,
+  "out_sha256": "0f8b5a50f0a59b24ed0fa251a065e4ebf19cb51c45c86ce48ed7e0a00c5a4ca3",
+  "src": "/workspace/EPLB/NEW_PAPER/EVIDENCE_E01_E12_20261025/E11_baselines_redundancy/sjq_single_domain/prover_1024_out32.jsonl",
+  "src_sha256": "1fc21132394130262ac775bf0d083e8f83fa1d9820d18830e5a6ae8b8deeb32a"
+ },
+ "builder_sha256": "99fa298e2db44fc28f72f0e53e55bdf52ac9d02f618f83603a426cf03791e35b",
+ "smoke_streams": {
+  "arc_smoke": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/arcc_512_smoke.jsonl",
+   "sha256": "56f652903da4d28169d49bbf1dcdfb9ff8d24f3c5b087cacc5334aea7212cf76",
+   "bytes": 119730,
+   "lines": 512,
+   "derivation": "byte-exact first 512 lines of arcc_1024_out32.jsonl (prefix proof PASS)"
+  },
+  "prover_smoke": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030/B_data/streams/prover_512_smoke.jsonl",
+   "sha256": "7d575c9c68075a52bbc2f068ccfa5dbef323ae23e84c81d56f729737af057fba",
+   "bytes": 421474,
+   "lines": 512,
+   "derivation": "byte-exact first 512 lines of prover_1024_out32_ie.jsonl (prefix proof PASS)"
+  }
+ },
+ "smoke_added_utc": "2026-10-31T03:24:11Z"
+}

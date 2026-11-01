@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 1.1487081833183765,
+  "batch_id": "cdx0-calibration-book",
+  "capture_id": "cdx0-calibration-book-layer-071",
+  "capture_trigger": {
+    "bytes": 3192,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-book-layer-071.json",
+    "sha256": "a99137cac44b3940f84fe90911a42896a090b7872ba13c2e8ea99a8b74946b56",
+    "target_layer": 71
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-16T07:15:46.292056+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 36651,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-book.jsonl",
+    "sha256": "bbe23e38eddbf259e90079db266c91af926b0fc2277be4e71a97857b24cf081f"
+  },
+  "request_manifest": {
+    "bytes": 15374,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+    "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+  },
+  "responses": [
+    {
+      "elapsed_s": 0.9796801805496216,
+      "id": "book_2003",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " the"
+          }
+        ],
+        "created": 1792134946,
+        "id": "86da0829987e4252903612ead6323509",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1090,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1091
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.148351350799203,
+      "id": "book_2004",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " been"
+          }
+        ],
+        "created": 1792134946,
+        "id": "b9d03cdde0134a2b804b8d954afdad2d",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1082,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1083
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9795301947742701,
+      "id": "book_2005",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " alive"
+          }
+        ],
+        "created": 1792134946,
+        "id": "7b41b28a4107425eac91c4cafd150ba5",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 952,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 953
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.1476473677903414,
+      "id": "book_2006",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "ah"
+          }
+        ],
+        "created": 1792134946,
+        "id": "1671e6877ab54f42a081310e1df9708a",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1069,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1070
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9782639360055327,
+      "id": "book_2009",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " prevalence"
+          }
+        ],
+        "created": 1792134946,
+        "id": "2935147367124fbcb28ffd323b68d015",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 993,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 994
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9793153963983059,
+      "id": "book_2010",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "Chapter"
+          }
+        ],
+        "created": 1792134946,
+        "id": "b71bf1afd612428683a1f44a2ca8642f",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1020,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1021
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9775663502514362,
+      "id": "book_2011",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "umping"
+          }
+        ],
+        "created": 1792134946,
+        "id": "2112f6c30e1c4a838193390cecf9dc42",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 979,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 980
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9769537020474672,
+      "id": "book_2019",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " tract"
+          }
+        ],
+        "created": 1792134946,
+        "id": "2cca48c6923042638bd26cd4a676cc92",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 951,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 952
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1"
+}

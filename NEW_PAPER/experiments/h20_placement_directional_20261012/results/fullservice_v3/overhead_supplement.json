@@ -1,0 +1,445 @@
+{
+ "study_id": "h20-placement-fullservice-v3-overhead-supplement",
+ "created_at_utc": "2026-10-15T10:28:20.823766+00:00",
+ "reason": "frozen analyzer regex/format mismatch (see script docstring); contrasts in analysis.json (sha 86785b86cd6da65bf46c18fe62dd2b0480c76ae39f0780c38c09bcd0e6825663) are direct bench measurements and remain the sole basis for all reported effects",
+ "frozen_analysis_untouched": true,
+ "caveat": "async swapper overlaps migration with serving; wall share is an UPPER-BOUND reported ALONGSIDE and NEVER subtracted from measured contrasts",
+ "by_start": {
+  "fs300v3_on_s1": {
+   "commit_steps": 10,
+   "swap_wall_ms_sum_over_steps_maxrank": 6437.4,
+   "swap_wall_ms_per_rank_sum": {
+    "0": 6397.0,
+    "1": 6397.9,
+    "2": 6392.3,
+    "3": 6403.2,
+    "4": 6409.8,
+    "5": 6422.1,
+    "6": 6430.1,
+    "7": 6393.2
+   },
+   "final_cumulative_swap_total_per_rank": {
+    "0": 1803,
+    "1": 1803,
+    "2": 1803,
+    "3": 1803,
+    "4": 1803,
+    "5": 1803,
+    "6": 1803,
+    "7": 1803
+   },
+   "windows_issued": {
+    "1": 241,
+    "3": 63,
+    "8": 62,
+    "17": 300,
+    "18": 219,
+    "19": 127,
+    "22": 297,
+    "23": 82,
+    "34": 299,
+    "35": 113
+   },
+   "total_swaps_issued_rank0_view": 1803,
+   "prof_windows_seen": {
+    "0": 8,
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8,
+    "5": 8,
+    "6": 8,
+    "7": 8
+   },
+   "prof_record_ms_sum_per_rank": {
+    "0": 28796.0,
+    "1": 29183.6,
+    "2": 28776.5,
+    "3": 28989.4,
+    "4": 28649.5,
+    "5": 28655.0,
+    "6": 28867.3,
+    "7": 28454.5
+   },
+   "prof_last_window_per_rank": {
+    "0": {
+     "window": 44,
+     "calls": 91274,
+     "record_ms": 7534.27,
+     "allreduce_ms": 881.94,
+     "planbuild_ms": 57.71,
+     "finalize_ms": 189.49,
+     "total_ms": 8663.42,
+     "avg_record_us": 82.55
+    },
+    "1": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7647.54,
+     "allreduce_ms": 885.32,
+     "planbuild_ms": 59.0,
+     "finalize_ms": 196.26,
+     "total_ms": 8788.12,
+     "avg_record_us": 83.87
+    },
+    "2": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7528.82,
+     "allreduce_ms": 885.37,
+     "planbuild_ms": 61.81,
+     "finalize_ms": 198.14,
+     "total_ms": 8674.15,
+     "avg_record_us": 82.57
+    },
+    "3": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7591.61,
+     "allreduce_ms": 883.89,
+     "planbuild_ms": 51.87,
+     "finalize_ms": 185.31,
+     "total_ms": 8712.68,
+     "avg_record_us": 83.26
+    },
+    "4": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7515.02,
+     "allreduce_ms": 854.32,
+     "planbuild_ms": 56.51,
+     "finalize_ms": 194.11,
+     "total_ms": 8619.96,
+     "avg_record_us": 82.42
+    },
+    "5": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7511.17,
+     "allreduce_ms": 860.94,
+     "planbuild_ms": 53.49,
+     "finalize_ms": 204.55,
+     "total_ms": 8630.15,
+     "avg_record_us": 82.38
+    },
+    "6": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7559.74,
+     "allreduce_ms": 862.45,
+     "planbuild_ms": 55.68,
+     "finalize_ms": 214.2,
+     "total_ms": 8692.07,
+     "avg_record_us": 82.91
+    },
+    "7": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7454.88,
+     "allreduce_ms": 865.8,
+     "planbuild_ms": 57.53,
+     "finalize_ms": 187.87,
+     "total_ms": 8566.08,
+     "avg_record_us": 81.76
+    }
+   },
+   "server_log_sha256": "a683662f686dd47a83ec3b819805a39a4b0690059c9200c7dda85a3b7c26a41c",
+   "bench_total_time_s": 376.57,
+   "swap_wall_share_of_bench_upper_bound": 0.01709
+  },
+  "fs300v3_on_s2": {
+   "commit_steps": 10,
+   "swap_wall_ms_sum_over_steps_maxrank": 5598.8,
+   "swap_wall_ms_per_rank_sum": {
+    "0": 5562.4,
+    "1": 5558.8,
+    "2": 5565.5,
+    "3": 5566.5,
+    "4": 5563.0,
+    "5": 5564.4,
+    "6": 5576.4,
+    "7": 5551.7
+   },
+   "final_cumulative_swap_total_per_rank": {
+    "0": 1809,
+    "1": 1809,
+    "2": 1809,
+    "3": 1809,
+    "4": 1809,
+    "5": 1809,
+    "6": 1809,
+    "7": 1809
+   },
+   "windows_issued": {
+    "1": 241,
+    "3": 63,
+    "8": 62,
+    "17": 300,
+    "18": 219,
+    "19": 130,
+    "22": 299,
+    "23": 79,
+    "40": 300,
+    "41": 116
+   },
+   "total_swaps_issued_rank0_view": 1809,
+   "prof_windows_seen": {
+    "0": 12,
+    "1": 12,
+    "2": 12,
+    "3": 12,
+    "4": 12,
+    "5": 12,
+    "6": 12,
+    "7": 12
+   },
+   "prof_record_ms_sum_per_rank": {
+    "0": 47119.6,
+    "1": 47084.7,
+    "2": 47376.0,
+    "3": 47273.1,
+    "4": 46368.0,
+    "5": 46885.4,
+    "6": 46911.9,
+    "7": 47168.5
+   },
+   "prof_last_window_per_rank": {
+    "0": {
+     "window": 56,
+     "calls": 95786,
+     "record_ms": 7997.42,
+     "allreduce_ms": 1087.81,
+     "planbuild_ms": 55.59,
+     "finalize_ms": 190.08,
+     "total_ms": 9330.91,
+     "avg_record_us": 83.49
+    },
+    "1": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 8000.48,
+     "allreduce_ms": 1096.04,
+     "planbuild_ms": 55.77,
+     "finalize_ms": 198.8,
+     "total_ms": 9351.08,
+     "avg_record_us": 83.61
+    },
+    "2": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 8042.82,
+     "allreduce_ms": 1103.24,
+     "planbuild_ms": 61.04,
+     "finalize_ms": 211.65,
+     "total_ms": 9418.75,
+     "avg_record_us": 84.05
+    },
+    "3": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 8042.59,
+     "allreduce_ms": 1090.92,
+     "planbuild_ms": 53.41,
+     "finalize_ms": 192.46,
+     "total_ms": 9379.38,
+     "avg_record_us": 84.05
+    },
+    "4": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 7873.44,
+     "allreduce_ms": 1058.42,
+     "planbuild_ms": 53.56,
+     "finalize_ms": 186.57,
+     "total_ms": 9171.99,
+     "avg_record_us": 82.28
+    },
+    "5": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 7966.92,
+     "allreduce_ms": 1076.75,
+     "planbuild_ms": 55.99,
+     "finalize_ms": 203.27,
+     "total_ms": 9302.93,
+     "avg_record_us": 83.26
+    },
+    "6": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 7974.92,
+     "allreduce_ms": 1063.72,
+     "planbuild_ms": 53.31,
+     "finalize_ms": 200.13,
+     "total_ms": 9292.07,
+     "avg_record_us": 83.34
+    },
+    "7": {
+     "window": 56,
+     "calls": 95692,
+     "record_ms": 8003.08,
+     "allreduce_ms": 1078.73,
+     "planbuild_ms": 57.23,
+     "finalize_ms": 188.76,
+     "total_ms": 9327.81,
+     "avg_record_us": 83.63
+    }
+   },
+   "server_log_sha256": "f1636c1ffdb5946c9f058e1c8a91dda8bf3116cc676c3ee010160d5f6d61efa9",
+   "bench_total_time_s": 373.11,
+   "swap_wall_share_of_bench_upper_bound": 0.01501
+  },
+  "fs300v3_on_s3": {
+   "commit_steps": 10,
+   "swap_wall_ms_sum_over_steps_maxrank": 7845.8,
+   "swap_wall_ms_per_rank_sum": {
+    "0": 7727.3,
+    "1": 7704.0,
+    "2": 7733.5,
+    "3": 7711.5,
+    "4": 7730.6,
+    "5": 7714.4,
+    "6": 7728.8,
+    "7": 7713.5
+   },
+   "final_cumulative_swap_total_per_rank": {
+    "0": 1810,
+    "1": 1810,
+    "2": 1810,
+    "3": 1810,
+    "4": 1810,
+    "5": 1810,
+    "6": 1810,
+    "7": 1810
+   },
+   "windows_issued": {
+    "1": 241,
+    "3": 63,
+    "8": 62,
+    "17": 300,
+    "18": 219,
+    "19": 126,
+    "22": 299,
+    "23": 82,
+    "34": 300,
+    "35": 118
+   },
+   "total_swaps_issued_rank0_view": 1810,
+   "prof_windows_seen": {
+    "0": 8,
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8,
+    "5": 8,
+    "6": 8,
+    "7": 8
+   },
+   "prof_record_ms_sum_per_rank": {
+    "0": 30094.4,
+    "1": 29844.0,
+    "2": 29656.5,
+    "3": 29966.0,
+    "4": 29399.9,
+    "5": 29355.7,
+    "6": 29662.6,
+    "7": 30417.5
+   },
+   "prof_last_window_per_rank": {
+    "0": {
+     "window": 44,
+     "calls": 91274,
+     "record_ms": 7799.92,
+     "allreduce_ms": 1464.97,
+     "planbuild_ms": 75.37,
+     "finalize_ms": 295.74,
+     "total_ms": 9636.0,
+     "avg_record_us": 85.46
+    },
+    "1": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7775.57,
+     "allreduce_ms": 1469.48,
+     "planbuild_ms": 80.55,
+     "finalize_ms": 269.26,
+     "total_ms": 9594.86,
+     "avg_record_us": 85.28
+    },
+    "2": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7721.9,
+     "allreduce_ms": 1466.0,
+     "planbuild_ms": 69.28,
+     "finalize_ms": 285.44,
+     "total_ms": 9542.62,
+     "avg_record_us": 84.69
+    },
+    "3": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7798.62,
+     "allreduce_ms": 1461.19,
+     "planbuild_ms": 78.27,
+     "finalize_ms": 272.18,
+     "total_ms": 9610.27,
+     "avg_record_us": 85.53
+    },
+    "4": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7661.87,
+     "allreduce_ms": 1448.43,
+     "planbuild_ms": 62.3,
+     "finalize_ms": 268.81,
+     "total_ms": 9441.41,
+     "avg_record_us": 84.03
+    },
+    "5": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7656.29,
+     "allreduce_ms": 1440.29,
+     "planbuild_ms": 62.67,
+     "finalize_ms": 252.82,
+     "total_ms": 9412.07,
+     "avg_record_us": 83.97
+    },
+    "6": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7723.58,
+     "allreduce_ms": 1454.88,
+     "planbuild_ms": 61.02,
+     "finalize_ms": 285.53,
+     "total_ms": 9525.01,
+     "avg_record_us": 84.71
+    },
+    "7": {
+     "window": 44,
+     "calls": 91180,
+     "record_ms": 7994.22,
+     "allreduce_ms": 1479.6,
+     "planbuild_ms": 64.72,
+     "finalize_ms": 291.3,
+     "total_ms": 9829.84,
+     "avg_record_us": 87.68
+    }
+   },
+   "server_log_sha256": "7265d8af1d204d4128c9d9c3c165bcddf1e2c7f45bfd44259db2bbdb98d95d16",
+   "bench_total_time_s": 382.35,
+   "swap_wall_share_of_bench_upper_bound": 0.02052
+  }
+ },
+ "summary": {
+  "mean_swap_wall_s_per_start": 6.627,
+  "mean_bench_total_s": 377.34,
+  "mean_upper_bound_wall_share": 0.01754,
+  "total_swaps_issued_per_start_rank0_view": [
+   1803,
+   1809,
+   1810
+  ]
+ }
+}

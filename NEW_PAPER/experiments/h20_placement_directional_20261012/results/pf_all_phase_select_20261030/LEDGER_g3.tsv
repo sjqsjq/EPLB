@@ -1,0 +1,71 @@
+2026-10-31T03:18:21Z	CAMPAIGN_OPEN	pf_all_phase_select_20261030 opened per author 2026-10-30 formal open (items 1-12,14; revisions: ARC-C main scenario PD-corr ~0.849 / prover boundary ~0.443; both arms identical generation rules; fixed actual O32; smoke per author fix1: 2 boots x both tasks x 512 rows per-task accounting; sole delta OEPLB_RECORD_ALL_PHASE=0/1; fixed SP mode S1 W16 H=W REV0 seed 20261018; budget <=5h GPU hard cap)
+2026-10-31T03:18:21Z	STREAMS_BUILT	builder sha=99fa298e2db44fc28f72f0e53e55bdf52ac9d02f618f83603a426cf03791e35b. ARC-C: src crossdomain_3x4000_O10.jsonl sha=284a7644e77bcb9818bd724950137bdaff5f6f641b03cc27331a45569e30cf91 -> arcc_1024_out32.jsonl sha=9962c3eee612c5c6f4706cc962f133bb3bedd856cf6984671d337e67f552697b (235489B, 1024 rows ARC_0..ARC_1023); field deltas: {"ignore_eos": 0, "max_tokens": 1024, "temperature": 0}. prover: src prover_1024_out32.jsonl sha=1fc21132394130262ac775bf0d083e8f83fa1d9820d18830e5a6ae8b8deeb32a -> prover_1024_out32_ie.jsonl sha=0f8b5a50f0a59b24ed0fa251a065e4ebf19cb51c45c86ce48ed7e0a00c5a4ca3 (835470B, 1024 rows); field deltas: {"ignore_eos": 1024, "max_tokens": 0, "temperature": 0}. Both streams max_tokens=32 temperature=0 ignore_eos=true; generation rules identical across arms.
+2026-10-31T03:24:11Z	SMOKE_STREAMS_AND_LOCK	arcc_512_smoke.jsonl sha=56f652903da4d28169d49bbf1dcdfb9ff8d24f3c5b087cacc5334aea7212cf76 (512 rows, byte-prefix of full arcc stream, proof PASS); prover_512_smoke.jsonl sha=7d575c9c68075a52bbc2f068ccfa5dbef323ae23e84c81d56f729737af057fba (512 rows, byte-prefix proof PASS); code_lock/stream_shas.env written once with 4 frozen stream shas (ARC full/smoke, prover full/smoke); registry.json updated with smoke section.
+2026-10-31T034522Z	MATERIALIZE_SCRIPTS	launch_arm_g3.sh sha256=c12c374b78e18b42e0153cca526bcc98995c3f0555ea8cf66d7dd48cdc860009 and run_g3_boot.sh sha256=7920e2ad1358166cecc3b53d23e5d8d846e9755681087f6ca896ec8d57d193ab built by BYTE-SPLICE from frozen PBS mothers (BASE/PB/pb_env_common/launch_server verbatim bytes; code-guard block with 4 pb shas verbatim; bench sha 06668243... regex-extracted, not typed). Deltas: G3_PF/G3_ALL fixed-SP arms (SP_MODE=fixed S1 W16 REV0 SEED=20261018 H unset=W), sole env delta RECORD_ALL_PHASE 0/1, identity layout (no --init-expert-location), placement guards replaced by stream-lock membership guard, 2-segment bench with segment_meta.jsonl offsets, checker replaces mech. Evidence: bash -n rc0 both, LAUNCH_DRY=1 both arms DRY arg strings byte-identical, --enable-pb-oeplb present, --init-expert-location absent, zero single quotes, clone diffs archived scripts/launcher_clone_diff.txt (97 lines) + runner_clone_diff.txt (159 lines).
+2026-10-31T034522Z	CHECKER_AND_QUEUES	check_g3_boot.py sha256=5f365855093d8baa854108a47764da5e45280dc6b9e13e4183d6be50e66dff0c (modes smoke/formal/readyfail; smoke rc3 stops queue, formal rc1 logs+continues; P1/P2 from sp_run_end.decode_record_batches, P3 per-segment v2p1 strict sums, P4 both-halves record coverage with empty plans allowed, P5 static case diff + runtime ARMFLAGS single-delta + min_record_tokens=32 (config.py dataclass field AND server_args getter, extracted programmatically) + CALIB zero both arms + Init min_tok equal). queue_g3_smoke.sh sha256=fd7d4ad83e2fba6f755d26c4fd989b6e63cf9ac8b8cf8f6337b4d5486f70533b (SM_PF then SM_ALL, any rc nonzero stops, no single-arm patches). queue_g3_formal.sh sha256=f154f277e1e1f094be84ded409b74b3b0e4872036708c4d73635b931021059ad (16 boots, gate-file precondition, rc2 stops). PARSER PRE-VALIDATED on real P0_r1 production artifacts copied to /tmp (archive untouched): armflags 8 parsed with record_all_phase=0, deadzone 8 hits 1.096, calib/traceback 0, ready 1, init min_tok=256 thresh=1.02, v2p1 94 rows aggregated (sums>0, both-halves flags, c_window_ms, p2l_version_max), sp_run_end decode_record_batches=0 sp_fwd_total=1010 sample_opportunities=879 recorded_steps=866, static case diff PASS - all asserts green.
+2026-10-31T034522Z	PROTOCOL_AND_CODE_LOCK	PROTOCOL_g3.md sha256=9178d1a9c6c44d46a643b1a11b46f151f6f1648c58dd2921d601393bb7631276 frozen before any GPU boot (question/framing per author revisions: ARC-C main ~0.849, prover boundary ~0.443, descriptive n=4 per cell, no superiority/non-inferiority/online-algorithm/verified-gain language; arms+sole delta; threshold aperture 1.0962402945 production with 1.02 rows labeled diagnostic; streams; smoke design per author fix1 with per-task accounting; P1-P5 exact observables; formal 16-boot order b1 PF-ALL b2 ALL-PF b3 PF-ALL b4 ALL-PF per task; endpoints; <=5h cap; evidence naming per author fix2). code_lock/code_shas_g3.txt written once: 10 tool/file shas computed + 4 pb_oeplb shas regex-extracted from runner guard + min_record_tokens=32 + aperture + 4 stream shas.
+2026-10-31T03:45:39Z	QUEUE	SMOKE_G3_START
+2026-10-31T03:45:39Z	SM_PF	START arm=G3_PF
+2026-10-31T03:48:05Z	SM_PF	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T03:48:05Z	SM_PF	QUEUE rc=0
+2026-10-31T03:48:05Z	SM_ALL	START arm=G3_ALL
+2026-10-31T03:51:11Z	SM_ALL	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T03:51:11Z	SM_ALL	QUEUE rc=0
+2026-10-31T03:51:11Z	QUEUE	SMOKE_G3_PASS
+2026-10-31T04:00:56Z	QUEUE	FORMAL_G3_START_16_boots
+2026-10-31T04:00:56Z	G3_ARC_PF_b1	START arm=G3_PF
+2026-10-31T04:03:14Z	G3_ARC_PF_b1	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:03:14Z	G3_ARC_PF_b1	QUEUE rc=0
+2026-10-31T04:03:14Z	G3_ARC_ALL_b1	START arm=G3_ALL
+2026-10-31T04:04:33Z	SMOKE_PASS	SM_PF 03:45:39Z-03:48:05Z rc=0 all_pass=True (2 segments 512-row rc=0/0, per-task accounting v2p1 0->4->9 windows, slog 278->1212->2263, P2 decode_record_batches=0). SM_ALL 03:48:05Z-03:51:11Z rc=0 all_pass=True: P1 decode_record_batches=138>0; P3 strict ALL>PF per segment per metric (arc recorded_steps 59 vs 3, valid_rows 2774128 vs 1450608; prover recorded_steps 93 vs 19, valid_rows 14763264 vs 12983280); P4 both segments recorded windows in BOTH halves (empty plans allowed, none required); P5 static case-block single delta PASS + runtime ARMFLAGS diff exactly {record_all_phase} + CALIB=0 both arms + Init min_tok 256==256 + min_record_tokens config default 32. Queue SMOKE_G3_PASS 03:51:11Z. KNOWN COSMETIC (no data impact, frozen tool sha not patchable mid-campaign): runner line 103 leaks a bash redirect stderr note when v2p1_rank0.jsonl does not exist yet before segment 1; the || echo 0 fallback captured v2p1_before=0 correctly in segment_meta.jsonl.
+2026-10-31T04:04:33Z	FORMAL_LAUNCH	queue_g3_formal.sh started detached 04:00:56Z (GPU idle check 4MiB max before launch; smoke-gate-file precondition enforced inside queue). 16 boots = 2 tasks x 4 paired blocks x 2 arms, exact PROTOCOL sec.4 order (b1 PF->ALL, b2 ALL->PF, b3 PF->ALL, b4 ALL->PF per task), C256 full 1024-row frozen streams, O32 real generation, BENCH_TIMEOUT 1800. rc policy: rc=2 STOP; rc=1/3 log+continue; INFRA zero-data restarts <=2 supervisor-judged at end. First boot G3_ARC_PF_b1 in progress. Budget accounting: G1 ~22min + G3 smoke ~5.5min + formal ETA ~60-70min => projected total ~1.5-1.7h of 6.5h global cap; G3 <=5h cap respected.
+2026-10-31T04:05:59Z	G3_ARC_ALL_b1	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:05:59Z	G3_ARC_ALL_b1	QUEUE rc=0
+2026-10-31T04:05:59Z	G3_PROV_PF_b1	START arm=G3_PF
+2026-10-31T04:08:18Z	G3_PROV_PF_b1	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:08:18Z	G3_PROV_PF_b1	QUEUE rc=0
+2026-10-31T04:08:18Z	G3_PROV_ALL_b1	START arm=G3_ALL
+2026-10-31T04:10:55Z	G3_PROV_ALL_b1	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:10:55Z	G3_PROV_ALL_b1	QUEUE rc=0
+2026-10-31T04:10:55Z	G3_ARC_ALL_b2	START arm=G3_ALL
+2026-10-31T04:13:30Z	G3_ARC_ALL_b2	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:13:30Z	G3_ARC_ALL_b2	QUEUE rc=0
+2026-10-31T04:13:30Z	G3_ARC_PF_b2	START arm=G3_PF
+2026-10-31T04:15:31Z	G3_ARC_PF_b2	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:15:31Z	G3_ARC_PF_b2	QUEUE rc=0
+2026-10-31T04:15:32Z	G3_PROV_ALL_b2	START arm=G3_ALL
+2026-10-31T04:17:54Z	G3_PROV_ALL_b2	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:17:54Z	G3_PROV_ALL_b2	QUEUE rc=0
+2026-10-31T04:17:54Z	G3_PROV_PF_b2	START arm=G3_PF
+2026-10-31T04:20:39Z	G3_PROV_PF_b2	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:20:39Z	G3_PROV_PF_b2	QUEUE rc=0
+2026-10-31T04:20:39Z	G3_ARC_PF_b3	START arm=G3_PF
+2026-10-31T04:22:57Z	G3_ARC_PF_b3	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:22:57Z	G3_ARC_PF_b3	QUEUE rc=0
+2026-10-31T04:22:57Z	G3_ARC_ALL_b3	START arm=G3_ALL
+2026-10-31T04:25:30Z	G3_ARC_ALL_b3	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:25:30Z	G3_ARC_ALL_b3	QUEUE rc=0
+2026-10-31T04:25:30Z	G3_PROV_PF_b3	START arm=G3_PF
+2026-10-31T04:28:10Z	G3_PROV_PF_b3	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:28:10Z	G3_PROV_PF_b3	QUEUE rc=0
+2026-10-31T04:28:10Z	G3_PROV_ALL_b3	START arm=G3_ALL
+2026-10-31T04:31:36Z	G3_PROV_ALL_b3	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:31:36Z	G3_PROV_ALL_b3	QUEUE rc=0
+2026-10-31T04:31:36Z	G3_ARC_ALL_b4	START arm=G3_ALL
+2026-10-31T04:34:27Z	G3_ARC_ALL_b4	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:34:27Z	G3_ARC_ALL_b4	QUEUE rc=0
+2026-10-31T04:34:27Z	G3_ARC_PF_b4	START arm=G3_PF
+2026-10-31T04:36:51Z	G3_ARC_PF_b4	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:36:51Z	G3_ARC_PF_b4	QUEUE rc=0
+2026-10-31T04:36:51Z	G3_PROV_ALL_b4	START arm=G3_ALL
+2026-10-31T04:39:46Z	G3_PROV_ALL_b4	DONE arm=G3_ALL any_bench_rc=0 check_rc=0
+2026-10-31T04:39:46Z	G3_PROV_ALL_b4	QUEUE rc=0
+2026-10-31T04:39:46Z	G3_PROV_PF_b4	START arm=G3_PF
+2026-10-31T04:42:09Z	G3_PROV_PF_b4	DONE arm=G3_PF any_bench_rc=0 check_rc=0
+2026-10-31T04:42:09Z	G3_PROV_PF_b4	QUEUE rc=0
+2026-10-31T04:42:09Z	QUEUE	FORMAL_G3_COMPLETE_16_boots
+2026-10-31T04:54:00Z	FORMAL_COMPLETE	16/16 boots rc=0, queue window 04:00:56Z-04:42:09Z (41.2min, cap 5h; global consumed G1 22min + G3 smoke 5.5min + formal 41min = ~1.2h of 6.5h). Every boot checker all_pass=True (formal mode). No INFRA restarts used.
+2026-10-31T04:54:00Z	RECON_PRIMARY	analysis/recon_g3_facts.json (script sha256=08a594c01121084cb51a625e830a874d059ceac2def1e5d583da2a637e97ca71). PRIMARY total_time_s means: ARC_PF n=4 mean=23.430s, ARC_ALL n=4 mean=34.707s, PROV_PF n=4 mean=35.633s, PROV_ALL n=4 mean=41.312s. Paired block deltas (ALL-PF pct): ARC [37.49, 59.97, 16.62, 86.92]; PROV [13.03, 15.05, 12.94, 22.87]. Full 16-row table + record volumes + migration ledger in recon json. DESCRIPTIVE only, n=4 per cell, no non-inferiority/superiority/online-algorithm/verified-gain claims; moved_mb labeled ESTIMATE.
+2026-10-31T04:56:06Z	MIRROR_VERIFIED	/data/minghua/sjq/PAPER_EXPERIMENTS/pf_all_phase_select_20261030: file count 229/229, 6/6 spot sha256 match (PROTOCOL, LEDGER, recon json, boot facts, bench json, code lock).
+2026-10-31T04:56:06Z	CAMPAIGN_CLOSE	pf_all_phase_select_20261030 closed. PRIMARY total_time_s (n=4 per cell, DESCRIPTIVE): ARC (main scenario, PD corr ~0.849) PF mean 23.430s vs ALL mean 34.707s => ALL slower by 11.277s (+48.13%%); paired blocks +37.50/+59.97/+16.62/+86.92 pct, direction consistent 4/4. PROV (boundary, ~0.443) PF mean 35.633s vs ALL mean 41.312s => ALL slower by 5.679s (+15.94%%); blocks +13.03/+15.05/+12.94/+22.87 pct, direction consistent 4/4; overall 8/8 blocks same direction. MECHANISM (measured, same frozen stack, sole delta RECORD_ALL_PHASE): ALL decode_record_batches 123-128 vs PF 0; recorded_steps ARC 120-122 vs 6-7, PROV 155-157 vs 38-39; issued ops ARC 9448-9848 vs ~4096, PROV 15376-19936 vs 4712-8328; swaps_started ARC 7 vs 3, PROV 8-9 vs 3-6 - admitting decode batches multiplies record volume and swap-plan traffic, and wall time rises with it on both tasks, more on the main scenario. GUARDRAILS: descriptive timing comparison only; no non-inferiority/superiority claim; no online-algorithm paper claim; no verified-GPU-gain language beyond these measured wall times; moved_mb ESTIMATE-labeled. BUDGET: G3 GPU total ~47min (smoke 5.5 + formal 41.2) of <=5h cap; global ~1.2h of 6.5h. Mirror verified. Item 13 (GH push) remains not executed per author.
+2026-10-31T05:40:15Z	EXPORT_BOOT_TABLE	Author-requested export (existing artifacts only; no rerun; no modification of frozen analysis). New file analysis/EXPORT_g3_boot_table_20261031.tsv sha256=05abf0d1dce9db6c55fb4509f48dde6ead226fa5a3d8d5cc9b7ab93bf4dd773d, 16 rows from analysis/recon_g3_facts.json primary_rows + bench scalars, PLUS derived issued-ops dedup columns computed by re-reading existing boots/*/server.log lines only. Issued-ops unit verified: deployed controller.py :1372 (sha 4964cfc8, read-only) logs window#N: issued len(plan) swap(s) per planning window = plan-level SwapOp count; each of 8 EP rank controllers logs the identical line for the identical global plan. Dedup caliber verified 16/16 boots: issued line count = windows x 8, per-window values identical across the 8 distinct DP/TP/EP prefixes, and recon issued_ops_total == 8 x per-window dedup sum (dedup = sum over windows of plan op count, each window counted once). issued_windows column also shows PF arms issue plans in only a subset of windows (ARC 3/8; PROV 3-6/10) vs ALL 8/8 and 9-10/10, consistent with the active min_swap_ops(8) skip gate.

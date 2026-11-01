@@ -1,0 +1,190 @@
+{
+  "alignment_rows_per_expert": 128,
+  "profile_files": [
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank0.pt",
+      "sha256": "8351730f99052356ac16edd67ff875d68e12919624ac117582fb040081531f4b"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank1.pt",
+      "sha256": "d94221fd54e79c7817dff17128554a1497421f887461e9a1ddc4031112cef6a8"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank2.pt",
+      "sha256": "56ae0c67f3ffb71884d49834a3f93c115d8892ffdfcfec2c3fc30ce2fb9e23df"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank3.pt",
+      "sha256": "ad1ba15b454fbd198f35855cf507fe67d18b3c20bc42d0abedb0985d5feb2741"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank4.pt",
+      "sha256": "a0fd9f9dbc3b0179686c5e5a68f73fa878871a03796ac046d4df554e1b820fcb"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank5.pt",
+      "sha256": "8ef9f26aae6e17a02658564c59a535b97b75ee36e6eecc91798b577d66923601"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank6.pt",
+      "sha256": "3d2c16cdd75fb184915428d2ab915f364bfbc12753f615e231878fbbbe27d842"
+    },
+    {
+      "bytes": 128141,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile/profile_rank7.pt",
+      "sha256": "86dc0771a37f1755d0edd7059e0ce7b3abc8af290d0a31d42257f2d04240c692"
+    }
+  ],
+  "profile_summary": {
+    "bytes": 406634,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/layers/screening_profile_summary.json",
+    "sha256": "dd5ed43ee2e9ba511f07420eb92e4edc0cca02ff4dd3eec98c2b9b63bee2ce4e"
+  },
+  "request_manifest": {
+    "bytes": 15723,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_requests.json",
+    "sha256": "9c5d836a75168e044aeb7c11415a1630257a36ab47ab09351c62532dab71c01e"
+  },
+  "schema_version": 1,
+  "screening_batch": {
+    "batch_id": "screening-01",
+    "batch_index": 0,
+    "request_count": 8,
+    "request_file": {
+      "bytes": 10396,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/screening-01.jsonl",
+      "sha256": "0919df1d6e71af5a213dc29c33e5df4b7d4f2d30edf1aa88738a6c4ee503cf70"
+    },
+    "requests": [
+      {
+        "id": "realprover512_87",
+        "source_line_index_zero_based": 87,
+        "token_count": 510,
+        "within_batch_index": 0
+      },
+      {
+        "id": "realprover512_115",
+        "source_line_index_zero_based": 115,
+        "token_count": 500,
+        "within_batch_index": 1
+      },
+      {
+        "id": "realprover512_123",
+        "source_line_index_zero_based": 123,
+        "token_count": 505,
+        "within_batch_index": 2
+      },
+      {
+        "id": "realprover512_125",
+        "source_line_index_zero_based": 125,
+        "token_count": 506,
+        "within_batch_index": 3
+      },
+      {
+        "id": "realprover512_132",
+        "source_line_index_zero_based": 132,
+        "token_count": 503,
+        "within_batch_index": 4
+      },
+      {
+        "id": "realprover512_161",
+        "source_line_index_zero_based": 161,
+        "token_count": 507,
+        "within_batch_index": 5
+      },
+      {
+        "id": "realprover512_167",
+        "source_line_index_zero_based": 167,
+        "token_count": 512,
+        "within_batch_index": 6
+      },
+      {
+        "id": "realprover512_171",
+        "source_line_index_zero_based": 171,
+        "token_count": 510,
+        "within_batch_index": 7
+      }
+    ],
+    "split": "screening",
+    "total_input_tokens": 4053
+  },
+  "screening_capture_id": "pred-v1-screening-01-profile",
+  "selected_layers": [
+    {
+      "aligned_r_max_over_mean": 2.4150943396226414,
+      "bridge": true,
+      "calibration": true,
+      "depth_third_winner": null,
+      "held_out": false,
+      "layer_id": 24,
+      "raw_r_max_over_mean": 2.7236614853195165,
+      "total_assignments": 32424,
+      "total_hidden_rows": 4053
+    },
+    {
+      "aligned_r_max_over_mean": 2.0564263322884013,
+      "bridge": false,
+      "calibration": false,
+      "depth_third_winner": "early",
+      "held_out": true,
+      "layer_id": 28,
+      "raw_r_max_over_mean": 2.3508512213175425,
+      "total_assignments": 32424,
+      "total_hidden_rows": 4053
+    },
+    {
+      "aligned_r_max_over_mean": 2.275,
+      "bridge": false,
+      "calibration": true,
+      "depth_third_winner": "middle",
+      "held_out": false,
+      "layer_id": 44,
+      "raw_r_max_over_mean": 2.5882062669627435,
+      "total_assignments": 32424,
+      "total_hidden_rows": 4053
+    },
+    {
+      "aligned_r_max_over_mean": 2.0815047021943576,
+      "bridge": false,
+      "calibration": false,
+      "depth_third_winner": "late",
+      "held_out": true,
+      "layer_id": 71,
+      "raw_r_max_over_mean": 2.3735504564520107,
+      "total_assignments": 32424,
+      "total_hidden_rows": 4053
+    }
+  ],
+  "selection_rule": {
+    "bridge_layer": 24,
+    "calibration_assignment": "use layer 24 plus the depth-third winner with largest screening raw max/mean imbalance, breaking ties by lower layer ID; reserve the other two depth-third winners as completely held-out layers",
+    "depth_thirds": [
+      {
+        "begin_inclusive": 0,
+        "end_exclusive": 31,
+        "name": "early"
+      },
+      {
+        "begin_inclusive": 31,
+        "end_exclusive": 62,
+        "name": "middle"
+      },
+      {
+        "begin_inclusive": 62,
+        "end_exclusive": 94,
+        "name": "late"
+      }
+    ],
+    "depth_winner": "within each depth third rank layers by descending screening identity-placement raw max/mean imbalance and then ascending layer ID; if layer 24 would duplicate the bridge, take the next-ranked layer in that same third"
+  },
+  "selection_uses_performance_timing": false,
+  "status": "layers_frozen_from_screening_routes_before_model_timing",
+  "study_id": "h20-placement-prediction-v1"
+}

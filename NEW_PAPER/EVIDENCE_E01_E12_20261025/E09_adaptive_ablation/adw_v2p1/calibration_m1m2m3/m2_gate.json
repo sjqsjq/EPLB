@@ -1,0 +1,574 @@
+{
+ "gate": "M2",
+ "runs": {
+  "cal_m2_w1_norm": {
+   "condition": "W1",
+   "kind": "norm",
+   "checks": {
+    "H1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "H0_jsonl": {
+     "pass": true,
+     "detail": "59 windows"
+    },
+    "H10_run_end_present": {
+     "pass": true,
+     "detail": ""
+    },
+    "H2_license_once": {
+     "pass": true,
+     "detail": "[12]"
+    },
+    "H2_license_flag": {
+     "pass": true,
+     "detail": "flag=True triggers=[12]"
+    },
+    "H3_trigger_w12_or_delayed": {
+     "pass": true,
+     "detail": "trigger at w12"
+    },
+    "H7_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_mode_gate": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_probe_error": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H8_state_monotone": {
+     "pass": true,
+     "detail": "['ARMED', 'REF', 'CAND', 'FB', 'DONE']"
+    },
+    "H8_terminal_matches": {
+     "pass": true,
+     "detail": "run_end=DONE jsonl_last=DONE"
+    },
+    "H4_budgets": {
+     "pass": true,
+     "detail": "REF=4 CAND=3 FB=4"
+    },
+    "H6_no_abort_norm": {
+     "pass": true,
+     "detail": "reason=None ws=[]"
+    },
+    "H5_w16_after_eval": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_no_committed_grow": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_never_w64": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_w32_only_probe_start": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_transition_events": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_gating_fired": {
+     "pass": true,
+     "detail": "[4, 6, 7, 9, 11, 13, 15, 17]"
+    },
+    "H11_bench_mono": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "trigger_window": 12,
+   "state_series": [
+    "ARMED",
+    "REF",
+    "CAND",
+    "FB",
+    "DONE"
+   ],
+   "segment_windows": {
+    "REF": [
+     13,
+     14,
+     15,
+     16
+    ],
+    "CAND": [
+     17,
+     18,
+     19
+    ],
+    "FB": [
+     20,
+     21,
+     22,
+     23
+    ]
+   },
+   "eval_window": 23,
+   "eval_classification": "favorable",
+   "delta_net_us_per_step": -4678.848958333314,
+   "grow_gated_windows": [
+    4,
+    6,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    18,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36,
+    38,
+    40,
+    42,
+    44,
+    46,
+    47,
+    49,
+    51,
+    53,
+    55,
+    57,
+    59
+   ],
+   "ledger": {
+    "median_c_window_ms": 2.3968,
+    "median_prev_bcost_us": 19103,
+    "final_prof_probe_cum_ms": 19.221171,
+    "avg_probe_us_per_window": 325.78,
+    "total_time_s": 352.19
+   }
+  },
+  "cal_m2_w1_abort": {
+   "condition": "W1",
+   "kind": "abort",
+   "checks": {
+    "H1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "H0_jsonl": {
+     "pass": true,
+     "detail": "60 windows"
+    },
+    "H10_run_end_present": {
+     "pass": true,
+     "detail": ""
+    },
+    "H2_license_once": {
+     "pass": true,
+     "detail": "[12]"
+    },
+    "H2_license_flag": {
+     "pass": true,
+     "detail": "flag=True triggers=[12]"
+    },
+    "H3_trigger_w12_or_delayed": {
+     "pass": true,
+     "detail": "trigger at w12"
+    },
+    "H7_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_mode_gate": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_probe_error": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H8_state_monotone": {
+     "pass": true,
+     "detail": "['ARMED', 'REF', 'CAND', 'FB', 'DONE']"
+    },
+    "H8_terminal_matches": {
+     "pass": true,
+     "detail": "run_end=DONE jsonl_last=DONE"
+    },
+    "H4_budgets": {
+     "pass": true,
+     "detail": "REF=4 CAND=2 FB=4"
+    },
+    "H6_abort_fired": {
+     "pass": true,
+     "detail": "[18]"
+    },
+    "H6_abort_reason": {
+     "pass": true,
+     "detail": "force_abort_at"
+    },
+    "H6_overshoot_recorded": {
+     "pass": true,
+     "detail": "excess=0 overshoot=0"
+    },
+    "H6_lag_flagged": {
+     "pass": true,
+     "detail": "[{'window_id': 18, 'steps': 32, 'span_us': 11210185, 'bcost_us': 2019, 'true_steps_end': 320, 'cum_steps_before': 288, 'committed': True, 'lag_window': True}]"
+    },
+    "H6_eval_unknown_abort_flag": {
+     "pass": true,
+     "detail": "cls=UNKNOWN flags=['abort:force_abort_at']"
+    },
+    "H6_w16_after_abort": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H5_w16_after_eval": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_no_committed_grow": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_never_w64": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_w32_only_probe_start": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_transition_events": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_gating_fired": {
+     "pass": true,
+     "detail": "[4, 6, 8, 10, 11, 13, 15, 17]"
+    },
+    "H11_bench_mono": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "trigger_window": 12,
+   "state_series": [
+    "ARMED",
+    "REF",
+    "CAND",
+    "FB",
+    "DONE"
+   ],
+   "segment_windows": {
+    "REF": [
+     13,
+     14,
+     15,
+     16
+    ],
+    "CAND": [
+     17,
+     18
+    ],
+    "FB": [
+     19,
+     20,
+     21,
+     22
+    ]
+   },
+   "eval_window": 22,
+   "eval_classification": "UNKNOWN",
+   "delta_net_us_per_step": 826.90625,
+   "grow_gated_windows": [
+    4,
+    6,
+    8,
+    10,
+    11,
+    13,
+    15,
+    17,
+    21,
+    23,
+    25,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60
+   ],
+   "ledger": {
+    "median_c_window_ms": 1.3997,
+    "median_prev_bcost_us": 20077.0,
+    "final_prof_probe_cum_ms": 19.67363,
+    "avg_probe_us_per_window": 327.89,
+    "total_time_s": 352.45
+   }
+  },
+  "cal_m2_w2_obs": {
+   "condition": "W2",
+   "kind": "norm",
+   "checks": {
+    "H1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "H0_jsonl": {
+     "pass": true,
+     "detail": "122 windows"
+    },
+    "H10_run_end_present": {
+     "pass": true,
+     "detail": ""
+    },
+    "H2_license_once": {
+     "pass": true,
+     "detail": "[12]"
+    },
+    "H2_license_flag": {
+     "pass": true,
+     "detail": "flag=True triggers=[12]"
+    },
+    "H3_trigger_w12_or_delayed": {
+     "pass": true,
+     "detail": "trigger at w12"
+    },
+    "H7_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_mode_gate": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H7_no_probe_error": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H8_state_monotone": {
+     "pass": true,
+     "detail": "['ARMED', 'REF', 'CAND', 'FB', 'DONE']"
+    },
+    "H8_terminal_matches": {
+     "pass": true,
+     "detail": "run_end=DONE jsonl_last=DONE"
+    },
+    "H4_budgets": {
+     "pass": true,
+     "detail": "REF=4 CAND=3 FB=4"
+    },
+    "H6_no_abort_norm": {
+     "pass": true,
+     "detail": "reason=None ws=[]"
+    },
+    "H5_w16_after_eval": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_no_committed_grow": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_never_w64": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_w32_only_probe_start": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_transition_events": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "H9_gating_fired": {
+     "pass": true,
+     "detail": "[4, 6, 7, 9, 11, 13, 15, 17]"
+    },
+    "H11_bench_mono": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "trigger_window": 12,
+   "state_series": [
+    "ARMED",
+    "REF",
+    "CAND",
+    "FB",
+    "DONE"
+   ],
+   "segment_windows": {
+    "REF": [
+     13,
+     14,
+     15,
+     16
+    ],
+    "CAND": [
+     17,
+     18,
+     19
+    ],
+    "FB": [
+     20,
+     21,
+     22,
+     23
+    ]
+   },
+   "eval_window": 23,
+   "eval_classification": "UNKNOWN",
+   "delta_net_us_per_step": -349.80989583331393,
+   "grow_gated_windows": [
+    4,
+    6,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    18,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36,
+    38,
+    40,
+    42,
+    44,
+    46,
+    47,
+    49,
+    51,
+    53,
+    55,
+    57,
+    59,
+    64,
+    66,
+    68,
+    70,
+    72,
+    74,
+    76,
+    78,
+    80,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    97,
+    99,
+    101,
+    103,
+    105,
+    107,
+    109,
+    111,
+    113,
+    115,
+    117,
+    119,
+    121
+   ],
+   "ledger": {
+    "median_c_window_ms": 1.7784,
+    "median_prev_bcost_us": 19276.5,
+    "final_prof_probe_cum_ms": 39.97759,
+    "avg_probe_us_per_window": 327.69,
+    "total_time_s": 706.15
+   }
+  }
+ },
+ "pass": true
+}

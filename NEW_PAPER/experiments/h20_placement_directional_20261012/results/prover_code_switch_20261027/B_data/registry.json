@@ -1,0 +1,18 @@
+{
+ "built_utc": "2026-10-27",
+ "stream": "pc_prover_code_switch",
+ "structure": "block1 prover[0:2048] -> block2 code[0:2048], single switch, author-specified 2026-10-27",
+ "prover_src": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_2048tok_out1.jsonl",
+ "code_src": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e3_multidomain_switch.jsonl rows[6144:8192] (e3_code_00000..02047, DOMGROUP 5-source spliced code, retok L512 s256, frozen sha d55fe2f7 lineage)",
+ "workload": "max_tokens=1 (ALL rows, author-specified), temperature=0, conc=32 (paper freq6 config)",
+ "n": 4096,
+ "uniq_text_hash": 4096,
+ "sha256": "01e33f82de54238da2ad342036998fe31a244c519339bfec91983ac45c773f69",
+ "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/B_data/streams/pc_prover_code_switch.jsonl",
+ "bytes": 16907424,
+ "domains": {
+  "prover": 2048,
+  "code": 2048
+ },
+ "note": "author mid-turn corrections: output length ALL 1 (not paper O=10); code source sufficient from frozen e3 block (5-source spliced), no modelscope pull needed"
+}

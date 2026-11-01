@@ -1,0 +1,83 @@
+{
+  "armed_at_utc": "2026-10-16T07:15:56.208415+00:00",
+  "capture_context": {
+    "amendment": {
+      "bytes": 11794,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_amendment_v1.json",
+      "sha256": "bc7e7bcfc8e1708b9a71dd97a8c2bf01c26b58091ccfbcf062d2b3e1cd442207"
+    },
+    "batch_id": "cdx0-evaluation-prover",
+    "cdx0_request_manifest": {
+      "bytes": 15374,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+      "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+    },
+    "dataset": {
+      "bytes": 36797025,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+      "sha256": "53e5b0e1f74af708037d69f95856aced71374ec55826c96ea1f4134a78fedb1c"
+    },
+    "domain": "prover",
+    "domain_purity": "verifiable_by_construction: every request line lies inside the named domain segment",
+    "model": {
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master"
+    },
+    "request_file": {
+      "bytes": 10031,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-prover.jsonl",
+      "sha256": "66f4f9fdba70ad281c44fc7bc9a447bea0852d68589b19bfb1324ac110b004dd"
+    },
+    "request_source_lines_zero_based": [
+      2936,
+      2937,
+      2938,
+      2939,
+      2940,
+      2941,
+      2942,
+      2943
+    ],
+    "request_token_counts": [
+      458,
+      512,
+      503,
+      458,
+      560,
+      573,
+      475,
+      462
+    ],
+    "segment_zero_based_half_open": [
+      1925,
+      3948
+    ],
+    "selection_rule": {
+      "band_inclusive": [
+        400,
+        2048
+      ],
+      "description": "forward scan from segment midpoint (inclusive) for tokenized length in [400,2048] (add_special_tokens=True), then backward from midpoint-1 if needed; first 8 in scan order; identical rule for all domains/splits; no routing or performance information used",
+      "requests_per_batch": 8,
+      "route_or_performance_information_used": false
+    },
+    "split": "evaluation",
+    "total_input_tokens": 4001
+  },
+  "capture_id": "cdx0-evaluation-prover-layer-024",
+  "expected_layers": 94,
+  "identity_map": {
+    "bytes": 123178,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/identity_service_map.json",
+    "sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d"
+  },
+  "identity_map_required": true,
+  "identity_map_sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d",
+  "min_hidden_rows": 400,
+  "mode": "snapshot_split",
+  "num_experts": 128,
+  "output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024",
+  "schema_version": 2,
+  "study_id": "h20-placement-cdx0-v1",
+  "target_layer": 24,
+  "weight_output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights"
+}

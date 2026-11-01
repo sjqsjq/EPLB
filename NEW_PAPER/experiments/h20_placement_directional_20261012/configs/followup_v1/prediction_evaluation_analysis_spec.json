@@ -1,0 +1,27 @@
+{
+  "analyzer": {
+    "bytes": 26504,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_prediction_evaluation.py",
+    "sha256": "e968067d1669be7b6f5fb54a56305a1d503edc9ccc12da3c20c2f93c1409af98"
+  },
+  "evaluation_raw_files_present_at_freeze": [
+    "eval-01-start-1.json",
+    "eval-01-start-2.json",
+    "eval-01-start-3.json",
+    "eval-01-start-4.json",
+    "eval-02-start-1.json",
+    "eval-02-start-2.json",
+    "eval-02-start-3.json",
+    "eval-02-start-4.json",
+    "eval-03-start-1.json",
+    "eval-03-start-2.json"
+  ],
+  "evaluation_results_index_exists_at_freeze": false,
+  "frozen_at_utc": "2026-10-12T10:19:43.441194+00:00",
+  "no_refit": "locked models only; no evaluation-informed refitting, tuning, or layout regeneration",
+  "schema_version": 1,
+  "specification_source": "module docstring of analyze_prediction_evaluation.py, fixed before any evaluation timing value was read",
+  "statement": "The analysis specification, metrics, clustering, tie-break, bootstrap seed derivation, and interpretation rules were fixed in this analyzer before any evaluation timing value was read or analyzed. Completed raw start files listed above were produced by the frozen campaign in flight; none of their timing values informed any analysis decision. The analyzer refuses to run if its own hash differs from this record.",
+  "status": "analysis_specification_frozen_before_evaluation_results",
+  "study_id": "h20-placement-prediction-v1"
+}

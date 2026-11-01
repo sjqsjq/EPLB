@@ -1,0 +1,495 @@
+{
+ "label": "P0_r1",
+ "nreq": 4096,
+ "purpose": "pc_switch",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "01e33f82de54238d"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_pc": {
+   "ok": true,
+   "detail": "cfbdaee752283935"
+  },
+  "placement_es_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_df_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_mt_lock": {
+   "ok": true,
+   "detail": "299cea283e93efe6"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=4096 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_code_switch_20261027/boots/P0_r1/P0_r1_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "n_rows": 50,
+  "sp_mode": "adaptive",
+  "protocol_rev": "r3",
+  "spec_rev": "v1.1-calib",
+  "true_forwards_total": 704,
+  "true_steps_monotonic": true,
+  "detection_cycles_committed": 50,
+  "event_counts": {
+   "init": 1,
+   "hold": 24,
+   "confirmed_grow": 11,
+   "grow_blocked_headroom": 13,
+   "midband_hold": 1
+  },
+  "rg_annotation_rows": 0,
+  "sp_run_end_transitions": [
+   {
+    "h_id": 8,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 11,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 14,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 17,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 20,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 22,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 25,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 27,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 34,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 37,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 40,
+    "from": "QUIET",
+    "to": "TRACK",
+    "reasons": [
+     "P3 h_rate=0.073211>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   }
+  ],
+  "rg_policy_tagged_transitions": 0,
+  "z_range": [
+   0.03403928071705648,
+   23.464536916771912
+  ],
+  "h_rate_range": [
+   0.009519090043737534,
+   0.08441248684064716
+  ],
+  "alert_k_max": 0,
+  "stable_s_max": 12,
+  "shw_trajectory_rle": [
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 1,
+    "rows": 7
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 8,
+    "rows": 3
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 8,
+    "rows": 3
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 11,
+    "rows": 3
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 14,
+    "rows": 3
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 14,
+    "rows": 2
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 16,
+    "rows": 3
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 19,
+    "rows": 2
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 19,
+    "rows": 7
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 26,
+    "rows": 3
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 29,
+    "rows": 3
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 29,
+    "rows": 11
+   }
+  ],
+  "state_transitions": [
+   {
+    "window_id": 8,
+    "event": "hold",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 8,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   },
+   {
+    "window_id": 11,
+    "event": "confirmed_grow",
+    "before": "RECOVER",
+    "after": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ]
+   },
+   {
+    "window_id": 14,
+    "event": "confirmed_grow",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 14,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   },
+   {
+    "window_id": 16,
+    "event": "hold",
+    "before": "RECOVER",
+    "after": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ]
+   },
+   {
+    "window_id": 19,
+    "event": "hold",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 19,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   },
+   {
+    "window_id": 26,
+    "event": "confirmed_grow",
+    "before": "RECOVER",
+    "after": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ]
+   },
+   {
+    "window_id": 29,
+    "event": "confirmed_grow",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 29,
+    "event": "hold",
+    "before": "QUIET",
+    "after": "TRACK",
+    "reasons": [
+     "P3 h_rate=0.073211>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+    ]
+   }
+  ],
+  "residency_final": {
+   "TRACK": 27,
+   "QUIET": 11,
+   "RECOVER": 12
+  },
+  "recording": {
+   "recorded_steps_sum": 562,
+   "sample_opportunities_sum": 581,
+   "valid_rows_sum": 394263072,
+   "valid_rows_max_cycle": 12320768
+  },
+  "planning": {
+   "plan_opportunity_rows": 39,
+   "s_change_logical_rows": 49,
+   "det_map_version_final": 11,
+   "det_map_version_bumps": 11
+  },
+  "migration": {
+   "swaps_started_sum": 11,
+   "swap_pending_rows": 0,
+   "serverlog_issued_windows": [
+    1,
+    2,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+   ],
+   "planhash_windows": 12,
+   "planhash_8rank_identical": true
+  },
+  "integrity": {
+   "desync_rows": 0,
+   "h_hash_identical_all_rows": true,
+   "lockstep_ok_all_rows": true
+  },
+  "exercise_summary": {
+   "detection_cycles_present": true,
+   "recording_present": true,
+   "planning_present": true,
+   "migration_present": true,
+   "state_transition_present": true,
+   "shw_constant": false
+  }
+ },
+ "baseline_facts": {
+  "arm": "P",
+  "policy": "AERO-base",
+  "eplb_rebalance_starts": 0,
+  "eplb_banner": false,
+  "injection_evidence": [
+   "[2026-10-27 11:05:39] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 4096,
+  "errors": 0,
+  "total_time_s": 256.14,
+  "tps": 16.0,
+  "total_comp_tokens": 4096,
+  "total_prompt_tokens": 5242873,
+  "ttft_mean_ms": 1997.63,
+  "lat_mean_ms": 1997.7,
+  "wall_start_s": 1793099207.771427,
+  "wall_end_s": 1793099463.910757,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}

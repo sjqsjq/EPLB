@@ -1,0 +1,21 @@
+{
+  "label": "qwen57b_ab_oe_L512",
+  "dataset": "/tmp/exp_data/L512_O1_full8k.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 136.58,
+  "total_comp_tokens": 8192,
+  "tps": 60.0,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 4184.9,
+  "lat_p50_ms": 4246.85,
+  "lat_p99_ms": 5612.31,
+  "ttft_mean_ms": 4184.91,
+  "ttft_p50_ms": 4246.81,
+  "ttft_p99_ms": 5612.28,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

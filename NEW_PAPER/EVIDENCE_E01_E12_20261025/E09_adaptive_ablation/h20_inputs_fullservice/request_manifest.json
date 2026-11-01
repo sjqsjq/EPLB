@@ -1,0 +1,97 @@
+{
+  "created_at_utc": "2026-10-11T19:32:19.914662+00:00",
+  "dataset": {
+    "bytes": 10722852,
+    "path": "/data/minghua/sjq/OEPLBdata/datasets/grid_benchmarks/comprehensive_grid/L512_O1_realprover_n8192.jsonl",
+    "sha256": "1562843c68bfaedfae3fc1c15aa3f9b14ebf4428d025e03de2e039b8cab0171b"
+  },
+  "model": {
+    "files": {
+      "config.json": {
+        "bytes": 12909,
+        "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/config.json",
+        "sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 6990003,
+        "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/model.safetensors.index.json",
+        "sha256": "e03d4abec9611fca05844d2c8b5a08318ddc3c86acfb9481a0ef5692bf76e6d6"
+      },
+      "tokenizer.json": {
+        "bytes": 11422654,
+        "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/tokenizer.json",
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+      }
+    },
+    "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master"
+  },
+  "request_file": {
+    "bytes": 10200,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/capture_requests.jsonl",
+    "sha256": "3347cc9308c3f311c81ff665b954f33820b0c1720295d2422c989c388302241b"
+  },
+  "requests": [
+    {
+      "batch_index": 0,
+      "id": "realprover512_15",
+      "source_line_index_zero_based": 15,
+      "token_count": 509
+    },
+    {
+      "batch_index": 1,
+      "id": "realprover512_16",
+      "source_line_index_zero_based": 16,
+      "token_count": 503
+    },
+    {
+      "batch_index": 2,
+      "id": "realprover512_30",
+      "source_line_index_zero_based": 30,
+      "token_count": 506
+    },
+    {
+      "batch_index": 3,
+      "id": "realprover512_47",
+      "source_line_index_zero_based": 47,
+      "token_count": 511
+    },
+    {
+      "batch_index": 4,
+      "id": "realprover512_49",
+      "source_line_index_zero_based": 49,
+      "token_count": 500
+    },
+    {
+      "batch_index": 5,
+      "id": "realprover512_53",
+      "source_line_index_zero_based": 53,
+      "token_count": 508
+    },
+    {
+      "batch_index": 6,
+      "id": "realprover512_68",
+      "source_line_index_zero_based": 68,
+      "token_count": 502
+    },
+    {
+      "batch_index": 7,
+      "id": "realprover512_72",
+      "source_line_index_zero_based": 72,
+      "token_count": 511
+    }
+  ],
+  "schema_version": 1,
+  "selection_rule": {
+    "count": 8,
+    "description": "scan source JSONL in file order and take the first eight requests whose local tokenizer length with special tokens is between 500 and 512 inclusive",
+    "max_tokens_inclusive": 512,
+    "min_tokens_inclusive": 500,
+    "route_or_timing_information_used": false
+  },
+  "status": "requests_frozen_route_not_yet_captured",
+  "tokenizer": {
+    "add_special_tokens": true,
+    "class": "Qwen2TokenizerFast"
+  },
+  "total_input_tokens": 4050
+}

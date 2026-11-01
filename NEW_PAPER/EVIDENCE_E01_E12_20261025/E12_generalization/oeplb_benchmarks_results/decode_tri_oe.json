@@ -1,0 +1,21 @@
+{
+  "label": "decode_tri_oe",
+  "dataset": "/tmp/exp_data/L512_O256_decode.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 313.06,
+  "total_comp_tokens": 2097152,
+  "tps": 6698.9,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 9775.4,
+  "lat_p50_ms": 9767.33,
+  "lat_p99_ms": 10526.08,
+  "ttft_mean_ms": 2291.92,
+  "ttft_p50_ms": 2327.45,
+  "ttft_p99_ms": 4107.57,
+  "tpot_mean_ms": 29.35,
+  "tpot_p50_ms": 29.29,
+  "tpot_p99_ms": 37.86
+}

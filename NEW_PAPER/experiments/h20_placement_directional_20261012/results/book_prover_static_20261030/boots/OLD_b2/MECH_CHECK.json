@@ -1,0 +1,89 @@
+{
+ "label": "OLD_b2",
+ "nreq": 2048,
+ "purpose": "pb_switch",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": false,
+   "detail": "f8e948f32e483579"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_pc": {
+   "ok": false,
+   "detail": "e6d848498497e72b"
+  },
+  "placement_es_lock": {
+   "ok": false,
+   "detail": "77a75cae451cbf7d"
+  },
+  "placement_df_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_mt_lock": {
+   "ok": false,
+   "detail": ""
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=2048 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_prover_static_20261030/boots/OLD_b2/OLD_b2_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "error": "v2p1_rank0.jsonl missing",
+  "v2p1_not_applicable": true
+ },
+ "baseline_facts": {
+  "arm": "B2P_OLD",
+  "policy": "n-a",
+  "eplb_rebalance_starts": 0,
+  "eplb_banner": false,
+  "injection_evidence": [
+   "[2026-10-31 02:57:21] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+   "[2026-10-31 02:57:52 DP0 TP0 EP0] init_expert_location from init_by_eplb using ServerArgs.init_expert_location",
+   "[2026-10-31 02:57:52 DP2 TP2 EP2] init_expert_location from init_by_eplb using ServerArgs.init_expert_location"
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 204.76,
+  "tps": 10.0,
+  "total_comp_tokens": 2048,
+  "total_prompt_tokens": 4194310,
+  "ttft_mean_ms": 3182.61,
+  "lat_mean_ms": 3182.7,
+  "wall_start_s": 1793415526.568437,
+  "wall_end_s": 1793415731.330424,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": false
+}

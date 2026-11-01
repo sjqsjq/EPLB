@@ -1,0 +1,406 @@
+{
+ "gate": "M1",
+ "runs": {
+  "cal_m1_w1_a": {
+   "condition": "W1",
+   "checks": {
+    "G1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "G0_jsonl_present": {
+     "pass": true,
+     "detail": "20 windows"
+    },
+    "G2_sequence_equal": {
+     "pass": true,
+     "detail": ""
+    },
+    "G2_sum_steps": {
+     "pass": true,
+     "detail": "992 vs 992"
+    },
+    "G2_swap_count": {
+     "pass": true,
+     "detail": "2 vs 2"
+    },
+    "G3_z_class_no_crossing": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G4_cwin_delta": {
+     "pass": true,
+     "detail": "+0.4621 ms vs sealed r1"
+    },
+    "G4_record_us": {
+     "pass": true,
+     "detail": "cal median 121.07 (range 119.35-122.57, n=8) <= sealed r1 median 115.54 x 1.1 = 127.09"
+    },
+    "G4_probe_ledger_zero": {
+     "pass": true,
+     "detail": "0.0"
+    },
+    "G5_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_probe_off": {
+     "pass": true,
+     "detail": "mode=[] state=[]"
+    },
+    "G6_bench_mono_fields": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "z_max_abs_delta": 0.28149250621719035,
+   "z_min_threshold_margin": 21.559452833695968,
+   "median_c_window_ms": 1.8075,
+   "c_window_delta_ms": 0.4621,
+   "record_us_final_block": {
+    "median": 121.07,
+    "min": 119.35,
+    "max": 122.57,
+    "n": 8,
+    "window": 20,
+    "vals": [
+     119.35,
+     120.11,
+     120.1,
+     121.32,
+     122.24,
+     121.7,
+     122.57,
+     120.82
+    ]
+   },
+   "record_us_cap": 127.09,
+   "total_time_s": 354.99
+  },
+  "cal_m1_w1_b": {
+   "condition": "W1",
+   "checks": {
+    "G1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "G0_jsonl_present": {
+     "pass": true,
+     "detail": "20 windows"
+    },
+    "G2_sequence_equal": {
+     "pass": true,
+     "detail": ""
+    },
+    "G2_sum_steps": {
+     "pass": true,
+     "detail": "992 vs 992"
+    },
+    "G2_swap_count": {
+     "pass": true,
+     "detail": "2 vs 2"
+    },
+    "G3_z_class_no_crossing": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G4_cwin_delta": {
+     "pass": true,
+     "detail": "+0.9123 ms vs sealed r1"
+    },
+    "G4_record_us": {
+     "pass": true,
+     "detail": "cal median 120.28 (range 118.20-121.86, n=8) <= sealed r1 median 115.54 x 1.1 = 127.09"
+    },
+    "G4_probe_ledger_zero": {
+     "pass": true,
+     "detail": "0.0"
+    },
+    "G5_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_probe_off": {
+     "pass": true,
+     "detail": "mode=[] state=[]"
+    },
+    "G6_bench_mono_fields": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "z_max_abs_delta": 0.1680621370326184,
+   "z_min_threshold_margin": 21.672883202880538,
+   "median_c_window_ms": 2.2577,
+   "c_window_delta_ms": 0.9123,
+   "record_us_final_block": {
+    "median": 120.275,
+    "min": 118.2,
+    "max": 121.86,
+    "n": 8,
+    "window": 20,
+    "vals": [
+     120.06,
+     119.83,
+     118.59,
+     120.49,
+     120.64,
+     118.2,
+     121.86,
+     120.62
+    ]
+   },
+   "record_us_cap": 127.09,
+   "total_time_s": 359.19
+  },
+  "cal_m1_w2_a": {
+   "condition": "W2",
+   "checks": {
+    "G1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "G0_jsonl_present": {
+     "pass": true,
+     "detail": "37 windows"
+    },
+    "G2_sequence_equal": {
+     "pass": true,
+     "detail": ""
+    },
+    "G2_sum_steps": {
+     "pass": true,
+     "detail": "1952 vs 1952"
+    },
+    "G2_swap_count": {
+     "pass": true,
+     "detail": "4 vs 4"
+    },
+    "G3_z_class_no_crossing": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G4_cwin_delta": {
+     "pass": true,
+     "detail": "+0.5412 ms vs sealed r1"
+    },
+    "G4_record_us": {
+     "pass": true,
+     "detail": "cal median 117.15 (range 112.20-121.85, n=8) <= sealed r1 median 114.67 x 1.1 = 126.14"
+    },
+    "G4_probe_ledger_zero": {
+     "pass": true,
+     "detail": "0.0"
+    },
+    "G5_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_probe_off": {
+     "pass": true,
+     "detail": "mode=[] state=[]"
+    },
+    "G6_bench_mono_fields": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "z_max_abs_delta": 37.722149086629656,
+   "z_min_threshold_margin": 14.712700595288503,
+   "median_c_window_ms": 2.3706,
+   "c_window_delta_ms": 0.5412,
+   "record_us_final_block": {
+    "median": 117.14500000000001,
+    "min": 112.2,
+    "max": 121.85,
+    "n": 8,
+    "window": 36,
+    "vals": [
+     112.2,
+     114.18,
+     115.75,
+     115.9,
+     118.39,
+     119.53,
+     120.26,
+     121.85
+    ]
+   },
+   "record_us_cap": 126.14,
+   "total_time_s": 711.85
+  },
+  "cal_m1_w2_b": {
+   "condition": "W2",
+   "checks": {
+    "G1_valid": {
+     "pass": true,
+     "detail": "VALID"
+    },
+    "G0_jsonl_present": {
+     "pass": true,
+     "detail": "37 windows"
+    },
+    "G2_sequence_equal": {
+     "pass": true,
+     "detail": ""
+    },
+    "G2_sum_steps": {
+     "pass": true,
+     "detail": "1952 vs 1952"
+    },
+    "G2_swap_count": {
+     "pass": true,
+     "detail": "4 vs 4"
+    },
+    "G3_z_class_no_crossing": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G4_cwin_delta": {
+     "pass": true,
+     "detail": "+0.5519 ms vs sealed r1"
+    },
+    "G4_record_us": {
+     "pass": true,
+     "detail": "cal median 113.36 (range 112.08-114.64, n=8) <= sealed r1 median 114.67 x 1.1 = 126.14"
+    },
+    "G4_probe_ledger_zero": {
+     "pass": true,
+     "detail": "0.0"
+    },
+    "G5_lockstep": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_hash_unanimous": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_desync": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_no_fatal_freeze": {
+     "pass": true,
+     "detail": "[]"
+    },
+    "G5_probe_off": {
+     "pass": true,
+     "detail": "mode=[] state=[]"
+    },
+    "G6_bench_mono_fields": {
+     "pass": true,
+     "detail": ""
+    }
+   },
+   "z_max_abs_delta": 17.296178233295677,
+   "z_min_threshold_margin": 13.906630131455984,
+   "median_c_window_ms": 2.3813,
+   "c_window_delta_ms": 0.5519,
+   "record_us_final_block": {
+    "median": 113.365,
+    "min": 112.08,
+    "max": 114.64,
+    "n": 8,
+    "window": 36,
+    "vals": [
+     112.18,
+     112.52,
+     112.51,
+     114.59,
+     114.6,
+     114.64,
+     114.21,
+     112.08
+    ]
+   },
+   "record_us_cap": 126.14,
+   "total_time_s": 706.97
+  }
+ },
+ "sealed_ref": {
+  "W1": {
+   "windows": 20,
+   "sum_steps": 992,
+   "swaps": 2,
+   "median_c_window_ms": 1.3454,
+   "record_us": {
+    "median": 115.53999999999999,
+    "min": 114.13,
+    "max": 119.89,
+    "n": 8,
+    "window": 20,
+    "vals": [
+     114.13,
+     114.2,
+     115.06,
+     114.85,
+     116.67,
+     116.02,
+     116.7,
+     119.89
+    ]
+   }
+  },
+  "W2": {
+   "windows": 37,
+   "sum_steps": 1952,
+   "swaps": 4,
+   "median_c_window_ms": 1.8294,
+   "record_us": {
+    "median": 114.67,
+    "min": 113.09,
+    "max": 116.34,
+    "n": 8,
+    "window": 36,
+    "vals": [
+     113.09,
+     113.81,
+     114.55,
+     115.44,
+     116.34,
+     114.79,
+     115.7,
+     114.38
+    ]
+   }
+  }
+ },
+ "pass": true
+}

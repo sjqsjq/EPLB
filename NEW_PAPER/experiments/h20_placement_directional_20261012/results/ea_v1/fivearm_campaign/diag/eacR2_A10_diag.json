@@ -1,0 +1,692 @@
+{
+ "source": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/fivearm_campaign/logs/eacR2_A10_server.log",
+ "source_sha256": "a8d4c4aa3ffd6f5bbb0e04059078abbfdd60a923b59f7ef6862b0ff21d03d47d",
+ "mechanisms": {
+  "adw_ratio_jump": 88,
+  "adw_shrink": 88,
+  "adw_decay0_window_fixed": 0,
+  "adw_grow": 56,
+  "window_shift": 8,
+  "window_stable": 0,
+  "reset": 0,
+  "warmstart": 0,
+  "calib_tier": 0,
+  "refine": 0,
+  "arg_adw_true": 1,
+  "arg_add_true": 0,
+  "tracebacks": 0,
+  "hookdiag": 40,
+  "planner_bi_log": 0,
+  "planner_default_log": 8,
+  "issued_windows_dp0": 16,
+  "verify_move_before": 32,
+  "swap_done_lines": 128
+ },
+ "server_args_pb_oeplb": {
+  "sync_window": "16",
+  "decay_factor": "0.0",
+  "adaptive_window": "True",
+  "adaptive_decay": "False",
+  "calibrate_adaptive_sensitivity": "False",
+  "dead_zone_ratio": "0.0",
+  "threshold_ratio": "1.02",
+  "max_total_ops": "300",
+  "window_floor": "8",
+  "min_swap_ops": "8"
+ },
+ "window_events_dp0": [
+  [
+   "2026-10-15 18:05:29",
+   "ratio jump 0.127 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:05:41",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:06:10",
+   "volatile 3x -> grow sw to 32 for stability"
+  ],
+  [
+   "2026-10-15 18:06:22",
+   "ratio jump 0.146 -> shrink sw to 16"
+  ],
+  [
+   "2026-10-15 18:06:27",
+   "ratio jump 0.081 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:06:30",
+   "ratio jump 0.209 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:06:38",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:07:04",
+   "ratio jump 0.234 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:07:07",
+   "ratio jump 0.175 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:07:10",
+   "ratio jump 0.059 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:07:26",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:07:47",
+   "converged 3x -> grow sw to 32"
+  ],
+  [
+   "2026-10-15 18:08:30",
+   "ratio jump 0.187 -> shrink sw to 16"
+  ],
+  [
+   "2026-10-15 18:08:37",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 16 -> 8"
+  ],
+  [
+   "2026-10-15 18:08:37",
+   "ratio jump 0.095 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:08:40",
+   "ratio jump 0.064 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:08:46",
+   "ratio jump 0.037 -> shrink sw to 8"
+  ],
+  [
+   "2026-10-15 18:08:55",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 18:09:23",
+   "volatile 3x -> grow sw to 32 for stability"
+  ]
+ ],
+ "reset_events_dp0": [],
+ "ready_after_forwards": [
+  [
+   7,
+   10
+  ],
+  [
+   5,
+   10
+  ],
+  [
+   6,
+   10
+  ],
+  [
+   3,
+   10
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   2,
+   10
+  ],
+  [
+   4,
+   10
+  ],
+  [
+   1,
+   10
+  ]
+ ],
+ "issued_windows_dp0": [
+  [
+   1,
+   241,
+   62373888,
+   8
+  ],
+  [
+   2,
+   67,
+   98566144,
+   8
+  ],
+  [
+   3,
+   66,
+   49283072,
+   8
+  ],
+  [
+   6,
+   51,
+   49283072,
+   8
+  ],
+  [
+   9,
+   51,
+   98566144,
+   8
+  ],
+  [
+   12,
+   202,
+   197132288,
+   8
+  ],
+  [
+   13,
+   300,
+   98566144,
+   8
+  ],
+  [
+   14,
+   73,
+   49174784,
+   8
+  ],
+  [
+   22,
+   298,
+   98566144,
+   8
+  ],
+  [
+   23,
+   160,
+   49283072,
+   8
+  ],
+  [
+   25,
+   67,
+   49283072,
+   8
+  ],
+  [
+   38,
+   265,
+   197132288,
+   8
+  ],
+  [
+   39,
+   175,
+   98566144,
+   8
+  ],
+  [
+   40,
+   96,
+   49283072,
+   8
+  ],
+  [
+   41,
+   79,
+   49283072,
+   8
+  ],
+  [
+   43,
+   57,
+   49283072,
+   8
+  ]
+ ],
+ "prof_dp0": [
+  {
+   "window": 4,
+   "calls": 4042,
+   "record_ms": 400.33,
+   "allreduce_ms": 507.35,
+   "planbuild_ms": 12.04,
+   "finalize_ms": 90.64,
+   "total_ms": 1010.37
+  },
+  {
+   "window": 8,
+   "calls": 8554,
+   "record_ms": 818.4,
+   "allreduce_ms": 578.87,
+   "planbuild_ms": 14.23,
+   "finalize_ms": 111.52,
+   "total_ms": 1523.01
+  },
+  {
+   "window": 12,
+   "calls": 16074,
+   "record_ms": 1481.62,
+   "allreduce_ms": 641.23,
+   "planbuild_ms": 17.73,
+   "finalize_ms": 133.23,
+   "total_ms": 2273.82
+  },
+  {
+   "window": 16,
+   "calls": 19834,
+   "record_ms": 1815.22,
+   "allreduce_ms": 704.98,
+   "planbuild_ms": 38.28,
+   "finalize_ms": 208.41,
+   "total_ms": 2766.9
+  },
+  {
+   "window": 20,
+   "calls": 25098,
+   "record_ms": 2286.37,
+   "allreduce_ms": 769.24,
+   "planbuild_ms": 38.28,
+   "finalize_ms": 208.41,
+   "total_ms": 3302.3
+  },
+  {
+   "window": 24,
+   "calls": 29610,
+   "record_ms": 2704.08,
+   "allreduce_ms": 841.28,
+   "planbuild_ms": 52.01,
+   "finalize_ms": 253.79,
+   "total_ms": 3851.16
+  },
+  {
+   "window": 28,
+   "calls": 32618,
+   "record_ms": 2976.41,
+   "allreduce_ms": 905.5,
+   "planbuild_ms": 55.09,
+   "finalize_ms": 268.73,
+   "total_ms": 4205.72
+  },
+  {
+   "window": 32,
+   "calls": 37130,
+   "record_ms": 3387.04,
+   "allreduce_ms": 968.18,
+   "planbuild_ms": 55.09,
+   "finalize_ms": 268.73,
+   "total_ms": 4679.04
+  },
+  {
+   "window": 36,
+   "calls": 46154,
+   "record_ms": 4219.81,
+   "allreduce_ms": 1032.06,
+   "planbuild_ms": 55.09,
+   "finalize_ms": 268.73,
+   "total_ms": 5575.7
+  },
+  {
+   "window": 40,
+   "calls": 54426,
+   "record_ms": 5009.23,
+   "allreduce_ms": 1101.15,
+   "planbuild_ms": 71.59,
+   "finalize_ms": 315.91,
+   "total_ms": 6497.89
+  },
+  {
+   "window": 44,
+   "calls": 57434,
+   "record_ms": 5291.1,
+   "allreduce_ms": 1171.95,
+   "planbuild_ms": 81.52,
+   "finalize_ms": 366.2,
+   "total_ms": 6910.77
+  },
+  {
+   "window": 48,
+   "calls": 62698,
+   "record_ms": 5780.55,
+   "allreduce_ms": 1236.67,
+   "planbuild_ms": 81.52,
+   "finalize_ms": 366.2,
+   "total_ms": 7464.94
+  },
+  {
+   "window": 52,
+   "calls": 71722,
+   "record_ms": 6598.3,
+   "allreduce_ms": 1308.11,
+   "planbuild_ms": 81.52,
+   "finalize_ms": 366.2,
+   "total_ms": 8354.13
+  },
+  {
+   "window": 56,
+   "calls": 83754,
+   "record_ms": 7715.78,
+   "allreduce_ms": 1371.27,
+   "planbuild_ms": 81.52,
+   "finalize_ms": 366.2,
+   "total_ms": 9534.76
+  },
+  {
+   "window": 60,
+   "calls": 95786,
+   "record_ms": 8811.67,
+   "allreduce_ms": 1438.2,
+   "planbuild_ms": 81.52,
+   "finalize_ms": 366.2,
+   "total_ms": 10697.6
+  }
+ ],
+ "diag_dp0": [
+  {
+   "layers_touched": 93,
+   "total_ops": 241,
+   "avg_ratio_before": 1.235,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.477,
+   "max_ratio_after": 1.097
+  },
+  {
+   "layers_touched": 52,
+   "total_ops": 67,
+   "avg_ratio_before": 1.129,
+   "avg_ratio_after": 1.068,
+   "max_ratio_before": 1.202,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 45,
+   "total_ops": 66,
+   "avg_ratio_before": 1.135,
+   "avg_ratio_after": 1.065,
+   "max_ratio_before": 1.233,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 41,
+   "total_ops": 51,
+   "avg_ratio_before": 1.128,
+   "avg_ratio_after": 1.071,
+   "max_ratio_before": 1.239,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 44,
+   "total_ops": 51,
+   "avg_ratio_before": 1.123,
+   "avg_ratio_after": 1.067,
+   "max_ratio_before": 1.229,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 90,
+   "total_ops": 202,
+   "avg_ratio_before": 1.238,
+   "avg_ratio_after": 1.074,
+   "max_ratio_before": 1.509,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 300,
+   "avg_ratio_before": 1.312,
+   "avg_ratio_after": 1.093,
+   "max_ratio_before": 1.699,
+   "max_ratio_after": 1.119
+  },
+  {
+   "layers_touched": 59,
+   "total_ops": 73,
+   "avg_ratio_before": 1.122,
+   "avg_ratio_after": 1.074,
+   "max_ratio_before": 1.167,
+   "max_ratio_after": 1.121
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 298,
+   "avg_ratio_before": 1.328,
+   "avg_ratio_after": 1.076,
+   "max_ratio_before": 1.963,
+   "max_ratio_after": 1.155
+  },
+  {
+   "layers_touched": 81,
+   "total_ops": 160,
+   "avg_ratio_before": 1.163,
+   "avg_ratio_after": 1.069,
+   "max_ratio_before": 1.401,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 51,
+   "total_ops": 67,
+   "avg_ratio_before": 1.127,
+   "avg_ratio_after": 1.069,
+   "max_ratio_before": 1.244,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 265,
+   "avg_ratio_before": 1.275,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.51,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 90,
+   "total_ops": 175,
+   "avg_ratio_before": 1.184,
+   "avg_ratio_after": 1.071,
+   "max_ratio_before": 1.43,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 60,
+   "total_ops": 96,
+   "avg_ratio_before": 1.139,
+   "avg_ratio_after": 1.066,
+   "max_ratio_before": 1.252,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 58,
+   "total_ops": 79,
+   "avg_ratio_before": 1.144,
+   "avg_ratio_after": 1.068,
+   "max_ratio_before": 1.27,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 45,
+   "total_ops": 57,
+   "avg_ratio_before": 1.129,
+   "avg_ratio_after": 1.065,
+   "max_ratio_before": 1.18,
+   "max_ratio_after": 1.096
+  }
+ ],
+ "wall_events": [
+  [
+   "2026-10-15 18:05:23",
+   2003.8,
+   241,
+   8
+  ],
+  [
+   "2026-10-15 18:05:30",
+   1064.3,
+   67,
+   8
+  ],
+  [
+   "2026-10-15 18:05:33",
+   432.7,
+   66,
+   8
+  ],
+  [
+   "2026-10-15 18:05:41",
+   405.2,
+   51,
+   8
+  ],
+  [
+   "2026-10-15 18:05:59",
+   504.1,
+   51,
+   8
+  ],
+  [
+   "2026-10-15 18:06:22",
+   485.4,
+   202,
+   8
+  ],
+  [
+   "2026-10-15 18:06:28",
+   456.5,
+   300,
+   8
+  ],
+  [
+   "2026-10-15 18:06:30",
+   380.1,
+   73,
+   8
+  ],
+  [
+   "2026-10-15 18:07:04",
+   446.4,
+   298,
+   8
+  ],
+  [
+   "2026-10-15 18:07:07",
+   419.1,
+   160,
+   8
+  ],
+  [
+   "2026-10-15 18:07:13",
+   379.8,
+   67,
+   8
+  ],
+  [
+   "2026-10-15 18:08:32",
+   1258.4,
+   265,
+   8
+  ],
+  [
+   "2026-10-15 18:08:38",
+   858.6,
+   175,
+   8
+  ],
+  [
+   "2026-10-15 18:08:41",
+   530.6,
+   96,
+   8
+  ],
+  [
+   "2026-10-15 18:08:44",
+   532.5,
+   79,
+   8
+  ],
+  [
+   "2026-10-15 18:08:50",
+   834.4,
+   57,
+   8
+  ]
+ ],
+ "wall_summary": {
+  "n_events": 16,
+  "max_wall_ms": 2003.8,
+  "sum_wall_ms": 10991.9
+ },
+ "timing_begin_max_ms_per_event": [
+  [
+   "2026-10-15 18:05:23",
+   1504.0
+  ],
+  [
+   "2026-10-15 18:05:29",
+   235.3
+  ],
+  [
+   "2026-10-15 18:05:33",
+   66.0
+  ],
+  [
+   "2026-10-15 18:05:41",
+   25.2
+  ],
+  [
+   "2026-10-15 18:05:58",
+   24.1
+  ],
+  [
+   "2026-10-15 18:06:22",
+   31.1
+  ],
+  [
+   "2026-10-15 18:06:27",
+   41.9
+  ],
+  [
+   "2026-10-15 18:06:30",
+   27.6
+  ],
+  [
+   "2026-10-15 18:07:04",
+   32.9
+  ],
+  [
+   "2026-10-15 18:07:07",
+   24.6
+  ],
+  [
+   "2026-10-15 18:07:12",
+   20.6
+  ],
+  [
+   "2026-10-15 18:08:30",
+   204.4
+  ],
+  [
+   "2026-10-15 18:08:37",
+   294.0
+  ],
+  [
+   "2026-10-15 18:08:40",
+   19.0
+  ],
+  [
+   "2026-10-15 18:08:43",
+   34.6
+  ],
+  [
+   "2026-10-15 18:08:49",
+   123.9
+  ]
+ ],
+ "move_sequence_len": 16,
+ "swap_stats": {
+  "n_ops": 16,
+  "n_reversals": 0,
+  "n_repeats": 0,
+  "reversals_sample": [],
+  "repeats_sample": []
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "arm": "F_sparse",
+ "condition": "SMOKE",
+ "label": "sp_smoke_F_sparse",
+ "protocol": "sp_coupling_v1",
+ "checks": {
+  "bench": {
+   "label": "sp_smoke_F_sparse",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/smoke_w1_300.jsonl",
+   "num_requests": 300,
+   "concurrency": 256,
+   "ok": 300,
+   "errors": 0,
+   "total_time_s": 32.87
+  },
+  "adw21_banner_count": 8,
+  "knob_strings_unique": 1,
+  "knob_authority": "A-frozen",
+  "sp_banner_count": 8,
+  "sp_banner_variants": [
+   [
+    "fixed",
+    "4",
+    "64",
+    "64",
+    "20261018",
+    "3",
+    "2"
+   ]
+  ],
+  "meta_sp_env": {
+   "OEPLB_SP_MODE": "fixed",
+   "OEPLB_SP_S": "4",
+   "OEPLB_SP_W": "64"
+  },
+  "jsonl_lines": 1,
+  "jsonl_min_lines": 0,
+  "sp_run_end": {
+   "mode": "fixed",
+   "state_final": "FIXED",
+   "S_final": 4,
+   "H_final": 64,
+   "W_final": 64,
+   "sp_fwd_total": 74,
+   "h_cycles": 1,
+   "window_count": 1,
+   "true_steps_total": 64,
+   "sample_opportunities": 19,
+   "recorded_steps": 15,
+   "swaps_started_total": 0,
+   "residency_committed_h": {
+    "FIXED": 1
+   },
+   "p2l_version": 0
+  },
+  "sp_transitions": [],
+  "sp_seals": []
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

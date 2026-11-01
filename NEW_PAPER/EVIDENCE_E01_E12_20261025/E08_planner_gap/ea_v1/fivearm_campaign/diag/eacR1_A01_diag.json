@@ -1,0 +1,561 @@
+{
+ "source": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/fivearm_campaign/logs/eacR1_A01_server.log",
+ "source_sha256": "a55daaebba10128a781a92a4f7e3a3cd80ab18b892d4fc027b62ddc848645035",
+ "mechanisms": {
+  "adw_ratio_jump": 64,
+  "adw_shrink": 0,
+  "adw_decay0_window_fixed": 64,
+  "adw_grow": 0,
+  "window_shift": 0,
+  "window_stable": 0,
+  "reset": 32,
+  "warmstart": 0,
+  "calib_tier": 0,
+  "refine": 0,
+  "arg_adw_true": 0,
+  "arg_add_true": 1,
+  "tracebacks": 0,
+  "hookdiag": 40,
+  "planner_bi_log": 0,
+  "planner_default_log": 8,
+  "issued_windows_dp0": 11,
+  "verify_move_before": 22,
+  "swap_done_lines": 88
+ },
+ "server_args_pb_oeplb": {
+  "sync_window": "16",
+  "decay_factor": "0.5",
+  "adaptive_window": "False",
+  "adaptive_decay": "True",
+  "calibrate_adaptive_sensitivity": "False",
+  "dead_zone_ratio": "0.0",
+  "threshold_ratio": "1.02",
+  "max_total_ops": "300",
+  "window_floor": "8",
+  "min_swap_ops": "8"
+ },
+ "window_events_dp0": [
+  [
+   "2026-10-15 17:41:40",
+   "ratio jump 0.140 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:43:10",
+   "ratio jump 0.105 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:43:21",
+   "ratio jump 0.168 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:43:27",
+   "ratio jump 0.060 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:43:33",
+   "ratio jump 0.219 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:44:51",
+   "ratio jump 0.088 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:44:57",
+   "ratio jump 0.091 -> decay->0 (clear stale history; window fixed)"
+  ],
+  [
+   "2026-10-15 17:45:03",
+   "ratio jump 0.168 -> decay->0 (clear stale history; window fixed)"
+  ]
+ ],
+ "reset_events_dp0": [
+  [
+   "2026-10-15 17:42:33",
+   1.074,
+   1.074,
+   1.224
+  ],
+  [
+   "2026-10-15 17:42:39",
+   1.224,
+   1.224,
+   1.689
+  ],
+  [
+   "2026-10-15 17:42:46",
+   1.689,
+   1.689,
+   1.746
+  ],
+  [
+   "2026-10-15 17:42:52",
+   1.746,
+   1.746,
+   1.797
+  ]
+ ],
+ "ready_after_forwards": [
+  [
+   5,
+   10
+  ],
+  [
+   3,
+   10
+  ],
+  [
+   6,
+   10
+  ],
+  [
+   7,
+   10
+  ],
+  [
+   4,
+   10
+  ],
+  [
+   2,
+   10
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   1,
+   10
+  ]
+ ],
+ "issued_windows_dp0": [
+  [
+   1,
+   241,
+   62373888,
+   8
+  ],
+  [
+   4,
+   55,
+   147825329,
+   8
+  ],
+  [
+   15,
+   299,
+   98515008,
+   8
+  ],
+  [
+   16,
+   234,
+   147410609,
+   8
+  ],
+  [
+   19,
+   256,
+   147824666,
+   8
+  ],
+  [
+   20,
+   270,
+   98566144,
+   8
+  ],
+  [
+   21,
+   66,
+   98566144,
+   8
+  ],
+  [
+   34,
+   52,
+   197061851,
+   8
+  ],
+  [
+   35,
+   186,
+   197073466,
+   8
+  ],
+  [
+   36,
+   270,
+   98566144,
+   8
+  ],
+  [
+   37,
+   86,
+   98566144,
+   8
+  ]
+ ],
+ "prof_dp0": [
+  {
+   "window": 4,
+   "calls": 5546,
+   "record_ms": 621.31,
+   "allreduce_ms": 562.1,
+   "planbuild_ms": 6.06,
+   "finalize_ms": 37.06,
+   "total_ms": 1226.52
+  },
+  {
+   "window": 8,
+   "calls": 11562,
+   "record_ms": 1210.96,
+   "allreduce_ms": 629.87,
+   "planbuild_ms": 11.04,
+   "finalize_ms": 65.18,
+   "total_ms": 1917.04
+  },
+  {
+   "window": 16,
+   "calls": 23594,
+   "record_ms": 2472.86,
+   "allreduce_ms": 709.91,
+   "planbuild_ms": 30.62,
+   "finalize_ms": 97.63,
+   "total_ms": 3311.01
+  },
+  {
+   "window": 20,
+   "calls": 29610,
+   "record_ms": 3109.01,
+   "allreduce_ms": 783.82,
+   "planbuild_ms": 43.44,
+   "finalize_ms": 140.99,
+   "total_ms": 4077.27
+  },
+  {
+   "window": 24,
+   "calls": 35626,
+   "record_ms": 3748.45,
+   "allreduce_ms": 863.24,
+   "planbuild_ms": 62.92,
+   "finalize_ms": 187.01,
+   "total_ms": 4861.63
+  },
+  {
+   "window": 28,
+   "calls": 41642,
+   "record_ms": 4392.26,
+   "allreduce_ms": 929.4,
+   "planbuild_ms": 62.92,
+   "finalize_ms": 187.01,
+   "total_ms": 5571.59
+  },
+  {
+   "window": 32,
+   "calls": 47658,
+   "record_ms": 5061.0,
+   "allreduce_ms": 1004.52,
+   "planbuild_ms": 62.92,
+   "finalize_ms": 187.01,
+   "total_ms": 6315.46
+  },
+  {
+   "window": 36,
+   "calls": 53674,
+   "record_ms": 5686.64,
+   "allreduce_ms": 1071.17,
+   "planbuild_ms": 72.87,
+   "finalize_ms": 243.94,
+   "total_ms": 7074.62
+  },
+  {
+   "window": 40,
+   "calls": 59690,
+   "record_ms": 6328.98,
+   "allreduce_ms": 1145.13,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 7837.92
+  },
+  {
+   "window": 44,
+   "calls": 65706,
+   "record_ms": 6939.77,
+   "allreduce_ms": 1221.01,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 8524.59
+  },
+  {
+   "window": 48,
+   "calls": 71722,
+   "record_ms": 7542.19,
+   "allreduce_ms": 1302.63,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 9208.63
+  },
+  {
+   "window": 52,
+   "calls": 77738,
+   "record_ms": 8198.39,
+   "allreduce_ms": 1369.34,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 9931.54
+  },
+  {
+   "window": 56,
+   "calls": 83754,
+   "record_ms": 8827.8,
+   "allreduce_ms": 1439.06,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 10630.67
+  },
+  {
+   "window": 60,
+   "calls": 89770,
+   "record_ms": 9479.42,
+   "allreduce_ms": 1513.33,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 11356.56
+  },
+  {
+   "window": 64,
+   "calls": 95786,
+   "record_ms": 10151.54,
+   "allreduce_ms": 1588.31,
+   "planbuild_ms": 85.37,
+   "finalize_ms": 278.44,
+   "total_ms": 12103.66
+  }
+ ],
+ "diag_dp0": [
+  {
+   "layers_touched": 93,
+   "total_ops": 241,
+   "avg_ratio_before": 1.235,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.477,
+   "max_ratio_after": 1.097
+  },
+  {
+   "layers_touched": 46,
+   "total_ops": 55,
+   "avg_ratio_before": 1.133,
+   "avg_ratio_after": 1.069,
+   "max_ratio_before": 1.213,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 299,
+   "avg_ratio_before": 1.79,
+   "avg_ratio_after": 1.179,
+   "max_ratio_before": 2.746,
+   "max_ratio_after": 1.343
+  },
+  {
+   "layers_touched": 91,
+   "total_ops": 234,
+   "avg_ratio_before": 1.183,
+   "avg_ratio_after": 1.073,
+   "max_ratio_before": 1.349,
+   "max_ratio_after": 1.115
+  },
+  {
+   "layers_touched": 92,
+   "total_ops": 256,
+   "avg_ratio_before": 1.266,
+   "avg_ratio_after": 1.073,
+   "max_ratio_before": 1.634,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 92,
+   "total_ops": 270,
+   "avg_ratio_before": 1.326,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.707,
+   "max_ratio_after": 1.264
+  },
+  {
+   "layers_touched": 42,
+   "total_ops": 66,
+   "avg_ratio_before": 1.139,
+   "avg_ratio_after": 1.066,
+   "max_ratio_before": 1.381,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 43,
+   "total_ops": 52,
+   "avg_ratio_before": 1.123,
+   "avg_ratio_after": 1.064,
+   "max_ratio_before": 1.21,
+   "max_ratio_after": 1.095
+  },
+  {
+   "layers_touched": 85,
+   "total_ops": 186,
+   "avg_ratio_before": 1.196,
+   "avg_ratio_after": 1.072,
+   "max_ratio_before": 1.397,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 270,
+   "avg_ratio_before": 1.276,
+   "avg_ratio_after": 1.073,
+   "max_ratio_before": 1.581,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 58,
+   "total_ops": 86,
+   "avg_ratio_before": 1.129,
+   "avg_ratio_after": 1.062,
+   "max_ratio_before": 1.207,
+   "max_ratio_after": 1.094
+  }
+ ],
+ "wall_events": [
+  [
+   "2026-10-15 17:41:34",
+   2197.2,
+   241,
+   8
+  ],
+  [
+   "2026-10-15 17:41:52",
+   545.3,
+   55,
+   8
+  ],
+  [
+   "2026-10-15 17:42:59",
+   658.6,
+   299,
+   8
+  ],
+  [
+   "2026-10-15 17:43:05",
+   414.1,
+   234,
+   8
+  ],
+  [
+   "2026-10-15 17:43:21",
+   492.8,
+   256,
+   8
+  ],
+  [
+   "2026-10-15 17:43:28",
+   485.5,
+   270,
+   8
+  ],
+  [
+   "2026-10-15 17:43:33",
+   404.8,
+   66,
+   8
+  ],
+  [
+   "2026-10-15 17:44:45",
+   435.4,
+   52,
+   8
+  ],
+  [
+   "2026-10-15 17:44:51",
+   486.4,
+   186,
+   8
+  ],
+  [
+   "2026-10-15 17:44:57",
+   451.2,
+   270,
+   8
+  ],
+  [
+   "2026-10-15 17:45:03",
+   422.6,
+   86,
+   8
+  ]
+ ],
+ "wall_summary": {
+  "n_events": 11,
+  "max_wall_ms": 2197.2,
+  "sum_wall_ms": 6993.9
+ },
+ "timing_begin_max_ms_per_event": [
+  [
+   "2026-10-15 17:41:34",
+   1707.5
+  ],
+  [
+   "2026-10-15 17:41:51",
+   32.2
+  ],
+  [
+   "2026-10-15 17:41:52",
+   24.9
+  ],
+  [
+   "2026-10-15 17:42:59",
+   63.0
+  ],
+  [
+   "2026-10-15 17:43:04",
+   27.7
+  ],
+  [
+   "2026-10-15 17:43:21",
+   33.4
+  ],
+  [
+   "2026-10-15 17:43:27",
+   42.9
+  ],
+  [
+   "2026-10-15 17:43:33",
+   30.4
+  ],
+  [
+   "2026-10-15 17:44:44",
+   13.2
+  ],
+  [
+   "2026-10-15 17:44:45",
+   28.0
+  ],
+  [
+   "2026-10-15 17:44:51",
+   34.1
+  ],
+  [
+   "2026-10-15 17:44:57",
+   35.6
+  ],
+  [
+   "2026-10-15 17:45:03",
+   31.9
+  ]
+ ],
+ "move_sequence_len": 11,
+ "swap_stats": {
+  "n_ops": 11,
+  "n_reversals": 0,
+  "n_repeats": 0,
+  "reversals_sample": [],
+  "repeats_sample": []
+ }
+}

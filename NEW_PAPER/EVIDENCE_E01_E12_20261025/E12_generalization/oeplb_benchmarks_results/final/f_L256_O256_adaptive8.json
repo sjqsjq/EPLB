@@ -1,0 +1,21 @@
+{
+  "label": "final/f_L256_O256_adaptive8",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L256_O256.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 399.07,
+  "total_comp_tokens": 2097152,
+  "tps": 5255.1,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 12467.1,
+  "lat_p50_ms": 12405.66,
+  "lat_p99_ms": 14499.05,
+  "ttft_mean_ms": 1777.42,
+  "ttft_p50_ms": 1732.73,
+  "ttft_p99_ms": 4299.55,
+  "tpot_mean_ms": 41.92,
+  "tpot_p50_ms": 41.75,
+  "tpot_p99_ms": 47.83
+}

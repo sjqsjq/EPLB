@@ -1,0 +1,160 @@
+{
+ "device": "NVIDIA H20",
+ "shapes": {
+  "L": 94,
+  "P": 128,
+  "EP": 8,
+  "tokens_per_forward": 8192,
+  "topk": 8,
+  "flat_index_per_layer": 65536
+ },
+ "A_record_addition_per_layer": {
+  "gpu_event_percall": {
+   "median_us": 48.496,
+   "p90_us": 50.976,
+   "mean_us": 49.308,
+   "iters": 200
+  },
+  "gpu_event_batched_K50": {
+   "median_us": 30.57,
+   "p90_us": 30.655,
+   "mean_us": 30.599,
+   "iters": 20
+  },
+  "cpu_enqueue": {
+   "median_us": 26.143,
+   "p90_us": 26.676,
+   "mean_us": 26.367,
+   "iters": 200
+  }
+ },
+ "A_context_v2_planner_scatter_per_layer": {
+  "gpu_event_percall": {
+   "median_us": 32.672,
+   "p90_us": 33.6,
+   "mean_us": 32.967,
+   "iters": 200
+  },
+  "cpu_enqueue": {
+   "median_us": 10.561,
+   "p90_us": 14.3,
+   "mean_us": 11.214,
+   "iters": 200
+  }
+ },
+ "A_per_forward_94_layers": {
+  "gpu_time_us": 2873.6,
+  "cpu_enqueue_us": 2457.4,
+  "note": "GPU time = added kernel time on the compute stream (serialized inside the forward). CPU enqueue = scheduler-side call time, overlaps with GPU execution; the live v2 _prof_record self-measurement is this caliper class."
+ },
+ "A_live_crosscheck": {
+  "source": "formal phaseB V2 server.log [PB-OEPLB-PROF] avg_record_us",
+  "starts": 6,
+  "per_start_medians_us": [
+   91.95,
+   84.65,
+   88.94,
+   84.38,
+   91.84,
+   86.15
+  ],
+  "median_of_medians_us": 88.94,
+  "caliper": "CPU wall around ONE planner scatter_add call (v2 frozen)"
+ },
+ "B_signals_per_window": {
+  "bundle": {
+   "median_us": 318.64,
+   "p90_us": 328.704,
+   "mean_us": 320.351,
+   "iters": 200
+  },
+  "breakdown": {
+   "logical_load": {
+    "median_us": 20.416,
+    "p90_us": 21.312,
+    "mean_us": 20.737,
+    "iters": 200
+   },
+   "row_distribution": {
+    "median_us": 41.536,
+    "p90_us": 43.872,
+    "mean_us": 42.098,
+    "iters": 200
+   },
+   "change_score": {
+    "median_us": 255.456,
+    "p90_us": 268.416,
+    "mean_us": 257.669,
+    "iters": 200
+   },
+   "z_from_signals": {
+    "median_us": 8.096,
+    "p90_us": 8.544,
+    "mean_us": 8.191,
+    "iters": 200
+   },
+   "ref_ewma": {
+    "median_us": 17.632,
+    "p90_us": 18.784,
+    "mean_us": 18.204,
+    "iters": 200
+   }
+  },
+  "note": "headroom + clone + det.sum already inside the protocol timing; excluded here to avoid double counting. Exposed once per W forwards on the scheduler thread (blocking)."
+ },
+ "C_protocol_timing_from_fault_tests": {
+  "r2_run_median_us": 569.5,
+  "r3_rerun_median_us": 411.3,
+  "note": "window protocol (3 collectives + step/hash + sync), per rank, 8xH20 nccl fault-test --timing; two independent runs reported, none cherry-picked"
+ },
+ "D_amortization_per_forward": [
+  {
+   "W": 8,
+   "record_path_per_forward_gpu_us": 2873.6,
+   "window_protocol_per_forward_r2_us": 71.19,
+   "window_protocol_per_forward_r3_us": 51.41,
+   "signals_per_forward_us": 39.83,
+   "total_added_per_forward_r2_us": 2984.6,
+   "total_added_per_forward_r3_us": 2964.8
+  },
+  {
+   "W": 16,
+   "record_path_per_forward_gpu_us": 2873.6,
+   "window_protocol_per_forward_r2_us": 35.59,
+   "window_protocol_per_forward_r3_us": 25.71,
+   "signals_per_forward_us": 19.91,
+   "total_added_per_forward_r2_us": 2929.1,
+   "total_added_per_forward_r3_us": 2919.2
+  },
+  {
+   "W": 32,
+   "record_path_per_forward_gpu_us": 2873.6,
+   "window_protocol_per_forward_r2_us": 17.8,
+   "window_protocol_per_forward_r3_us": 12.85,
+   "signals_per_forward_us": 9.96,
+   "total_added_per_forward_r2_us": 2901.3,
+   "total_added_per_forward_r3_us": 2896.4
+  },
+  {
+   "W": 64,
+   "record_path_per_forward_gpu_us": 2873.6,
+   "window_protocol_per_forward_r2_us": 8.9,
+   "window_protocol_per_forward_r3_us": 6.43,
+   "signals_per_forward_us": 4.98,
+   "total_added_per_forward_r2_us": 2887.5,
+   "total_added_per_forward_r3_us": 2885.0
+  }
+ ],
+ "E_relative_context": {
+  "live_forward_wall_ms_approx": 350,
+  "derivation": "W0 formal start: ~1044 forwards over ~365s serving wall -> ~350ms/forward all-in",
+  "record_path_share_percent_approx": 0.82,
+  "caveat": "order-of-magnitude only; ~350ms includes inter-request gaps and decode; GPU-added kernel time is what serializes into the forward"
+ },
+ "F_critical_path_exposure": {
+  "record_path": "per forward, inside the forward hook; added kernels on the compute stream -> exposed EVERY forward",
+  "window_protocol": "once per W forwards, scheduler thread, blocking collectives -> exposed at window boundaries",
+  "harness_all_gather_object": "fault-test evidence collection ONLY; not protocol; in no timing anywhere",
+  "rank_summing": "ranks run the protocol in PARALLEL; per-rank medians must NOT be summed across the 8 cards"
+ }
+}

@@ -1,0 +1,1811 @@
+[2026-09-16 16:17:22] WARNING server_args.py:1433: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-09-16 16:17:22] WARNING server_args.py:1599: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-09-16 16:17:22] WARNING server_args.py:1650: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-09-16 16:17:23] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_mode='auto', tokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{}', rl_quant_profile=None, trust_remote_code=True, context_length=None, is_embedding=False, enable_multimodal=None, revision=None, model_impl='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=False, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, dtype='bfloat16', quantization='fp8', quantization_param_path=None, kv_cache_dtype='auto', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, mem_fraction_static=0.8, max_running_requests=None, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=1024, max_prefill_tokens=16384, schedule_policy='fcfs', enable_priority_scheduling=False, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=0.3, page_size=1, hybrid_kvcache_ratio=None, swa_full_tokens_ratio=0.8, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', device='cuda', tp_size=8, pp_size=1, pp_max_micro_batch_size=None, stream_interval=1, stream_output=False, random_seed=567085768, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=600.0, dist_timeout=None, download_dir=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, mm_process_config={}, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, crash_dump_folder=None, show_time_cost=False, enable_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, collect_tokens_histogram=False, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, served_model_name='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', weight_version='default', chat_template=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=8, load_balance_method='round_robin', load_watch_interval=0.1, prefill_round_robin_balance=False, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, attention_backend='fa3', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', nsa_prefill_backend='flashmla_sparse', nsa_decode_backend='fa3', enable_flashinfer_autotune=False, speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_moe_runner_backend=None, speculative_moe_a2a_backend=None, speculative_ngram_min_match_window_size=1, speculative_ngram_max_match_window_size=12, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_branch_length=18, speculative_ngram_capacity=10000000, ep_size=8, moe_a2a_backend='deepep', moe_runner_backend='deep_gemm', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, deepep_mode='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm=None, init_expert_location='trivial', enable_eplb=False, enable_pb_oeplb=False, pb_oeplb_threshold_ratio=1.02, pb_oeplb_min_prefill_tokens=256, pb_oeplb_sync_window=8, pb_oeplb_max_total_swap_layers=94, pb_oeplb_max_swaps_per_layer=64, pb_oeplb_max_total_ops=300, pb_oeplb_min_swap_ops=8, pb_oeplb_always_record=False, pb_oeplb_decay_factor=0.5, pb_oeplb_min_record_tokens=32, pb_oeplb_dead_zone_ratio=0.0, pb_oeplb_bias_correct=False, pb_oeplb_bias_coeff=0.0, pb_oeplb_bias_gate=0.0, pb_oeplb_swap_budget_frac=0.0, pb_oeplb_adaptive_window=False, pb_oeplb_adaptive_decay=False, pb_oeplb_window_floor=32, pb_oeplb_window_shift_cos=0.85, pb_oeplb_window_stable_cos=0.95, pb_oeplb_window_shift_confirm=1, pb_oeplb_window_stable_confirm=2, pb_oeplb_calibrate_adaptive_sensitivity=False, pb_oeplb_calibration_forwards=256, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, mooncake_ib_device=None, max_mamba_cache_size=None, mamba_ssm_dtype='float32', mamba_full_memory_ratio=0.9, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='best_effort', hicache_storage_backend_extra_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, enable_double_sparsity=False, ds_channel_config_path=None, ds_heavy_channel_num=32, ds_heavy_token_num=256, ds_heavy_channel_type='qk', ds_sparse_decode_threshold=4096, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', multi_item_scoring_delimiter=None, disable_radix_cache=True, cuda_graph_max_bs=128, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], disable_cuda_graph=False, disable_cuda_graph_padding=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, disable_overlap_schedule=False, enable_mixed_chunk=False, enable_dp_attention=True, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, enable_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=4096, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 640, 768, 896, 1024, 1152, 1280, 1408, 1536, 1664, 1792, 1920, 2048, 2176, 2304, 2432, 2560, 2688, 2816, 2944, 3072, 3200, 3328, 3456, 3584, 3712, 3840, 3968, 4096], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, enable_nsa_prefill_context_parallel=False, enable_fused_qk_norm_rope=False, enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_decode_tp=None, disaggregation_decode_dp=None, disaggregation_prefill_pp=1, disaggregation_ib_device=None, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, custom_weight_loader=[], weight_loader_disable_mmap=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, mm_max_concurrent_calls=32, mm_per_request_timeout=10.0, enable_broadcast_mm_inputs_process=False, decrypted_config_file=None, decrypted_draft_config_file=None, mm_enable_dp_encoder=False, forward_hooks=None)
+[2026-09-16 16:17:23] Using default HuggingFace chat template with detected content format: string
+[2026-09-16 16:17:44 DP0 TP0 EP0] Init torch distributed begin.
+[2026-09-16 16:17:45 DP1 TP1 EP1] Init torch distributed begin.
+[2026-09-16 16:17:45 DP6 TP6 EP6] Init torch distributed begin.
+[2026-09-16 16:17:45 DP4 TP4 EP4] Init torch distributed begin.
+[2026-09-16 16:17:45 DP5 TP5 EP5] Init torch distributed begin.
+[2026-09-16 16:17:46 DP7 TP7 EP7] Init torch distributed begin.
+[2026-09-16 16:17:46 DP2 TP2 EP2] Init torch distributed begin.
+[2026-09-16 16:17:46 DP3 TP3 EP3] Init torch distributed begin.
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1[Gloo] Rank 3[Gloo] Rank  is connected to 47 is connected to  peer ranks. 7Expected number of connected peer ranks is :  peer ranks. 7Expected number of connected peer ranks is : [Gloo] Rank 
+7
+7[Gloo] Rank  is connected to 67 is connected to  is connected to  peer ranks.  is connected to 77Expected number of connected peer ranks is : 7 peer ranks.  peer ranks. 7 peer ranks. Expected number of connected peer ranks is : Expected number of connected peer ranks is : 
+Expected number of connected peer ranks is : 777
+
+
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2[Gloo] Rank 1 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 6 is connected to 7[Gloo] Rank  peer ranks. Expected number of connected peer ranks is : 77 is connected to 
+7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[2026-09-16 16:17:48 DP0 TP0 EP0] sglang is using nccl==2.27.5
+ is connected to 7 peer ranks. Expected number of connected peer ranks is :  peer ranks. Expected number of connected peer ranks is : 7
+7
+[Gloo] Rank 0[Gloo] Rank 0[Gloo] Rank 0 is connected to 0 peer ranks. [Gloo] Rank [Gloo] Rank 00 is connected to  is connected to [Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0 is connected to 
+0 peer ranks. Expected number of connected peer ranks is : 0
+0 peer ranks. 0Expected number of connected peer ranks is : 0 peer ranks. 
+[Gloo] Rank 0 is connected to  is connected to 00 is connected to  peer ranks.  peer ranks. Expected number of connected peer ranks is : 0Expected number of connected peer ranks is : 0Expected number of connected peer ranks is :  peer ranks. 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0Expected number of connected peer ranks is : 
+0
+0
+Expected number of connected peer ranks is : 0
+[Gloo] Rank 0[Gloo] Rank 0[Gloo] Rank  is connected to 00 peer ranks.  is connected to [Gloo] Rank Expected number of connected peer ranks is : 0[Gloo] Rank 00[Gloo] Rank  peer ranks.  is connected to 0
+Expected number of connected peer ranks is : 00 is connected to 0 is connected to  peer ranks. 0
+[Gloo] Rank 0 is connected to  is connected to 00
+0 peer ranks. Expected number of connected peer ranks is : 0
+Expected number of connected peer ranks is : 0 peer ranks. 
+Expected number of connected peer ranks is : 0
+ peer ranks. Expected number of connected peer ranks is :  peer ranks. 0[Gloo] Rank [Gloo] Rank Expected number of connected peer ranks is : 
+000 is connected to  is connected to 
+00 peer ranks.  peer ranks. Expected number of connected peer ranks is : Expected number of connected peer ranks is : 00
+
+[Gloo] Rank 0 is connected to 0[Gloo] Rank  peer ranks. 0[Gloo] Rank Expected number of connected peer ranks is :  is connected to [Gloo] Rank 00[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+0 peer ranks. 0 is connected to 0 is connected to  peer ranks. Expected number of connected peer ranks is : 
+Expected number of connected peer ranks is : 0
+0 peer ranks. 0
+Expected number of connected peer ranks is : 0
+[2026-09-16 16:17:52 DP0 TP0 EP0] Init torch distributed ends. mem usage=1.13 GB
+[2026-09-16 16:17:52 DP4 TP4 EP4] Init torch distributed ends. mem usage=1.16 GB
+[2026-09-16 16:17:52 DP6 TP6 EP6] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:17:52 DP3 TP3 EP3] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:17:52 DP2 TP2 EP2] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:17:52 DP7 TP7 EP7] Init torch distributed ends. mem usage=0.95 GB
+[2026-09-16 16:17:52 DP5 TP5 EP5] Init torch distributed ends. mem usage=1.20 GB
+[2026-09-16 16:17:52 DP1 TP1 EP1] Init torch distributed ends. mem usage=1.18 GB
+[2026-09-16 16:17:53 DP0 TP0 EP0] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP4 TP4 EP4] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP1 TP1 EP1] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP2 TP2 EP2] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP6 TP6 EP6] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP7 TP7 EP7] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP5 TP5 EP5] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP3 TP3 EP3] Ignore import error when loading sglang.srt.models.mindspore: name 'ms' is not defined
+[2026-09-16 16:17:53 DP4 TP4 EP4] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:17:53 DP0 TP0 EP0] Load weight begin. avail mem=93.62 GB
+[2026-09-16 16:17:53 DP6 TP6 EP6] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:17:53 DP1 TP1 EP1] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:17:53 DP0 TP0 EP0] Detected fp8 checkpoint.
+[2026-09-16 16:17:53 DP7 TP7 EP7] Load weight begin. avail mem=93.80 GB
+[2026-09-16 16:17:53 DP2 TP2 EP2] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:17:53 DP5 TP5 EP5] Load weight begin. avail mem=93.57 GB
+[2026-09-16 16:17:53 DP3 TP3 EP3] Load weight begin. avail mem=93.57 GB
+Loading safetensors checkpoint shards:   0% Completed | 0/48 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   2% Completed | 1/48 [00:00<00:10,  4.48it/s]
+Loading safetensors checkpoint shards:   4% Completed | 2/48 [00:00<00:10,  4.25it/s]
+Loading safetensors checkpoint shards:   6% Completed | 3/48 [00:00<00:11,  4.02it/s]
+Loading safetensors checkpoint shards:   8% Completed | 4/48 [00:01<00:11,  3.90it/s]
+Loading safetensors checkpoint shards:  10% Completed | 5/48 [00:01<00:11,  3.72it/s]
+Loading safetensors checkpoint shards:  12% Completed | 6/48 [00:01<00:11,  3.71it/s]
+Loading safetensors checkpoint shards:  15% Completed | 7/48 [00:01<00:11,  3.65it/s]
+Loading safetensors checkpoint shards:  17% Completed | 8/48 [00:02<00:11,  3.50it/s]
+Loading safetensors checkpoint shards:  19% Completed | 9/48 [00:02<00:11,  3.43it/s]
+Loading safetensors checkpoint shards:  21% Completed | 10/48 [00:02<00:11,  3.44it/s]
+Loading safetensors checkpoint shards:  23% Completed | 11/48 [00:03<00:11,  3.34it/s]
+Loading safetensors checkpoint shards:  25% Completed | 12/48 [00:03<00:10,  3.36it/s]
+Loading safetensors checkpoint shards:  27% Completed | 13/48 [00:05<00:25,  1.40it/s]
+Loading safetensors checkpoint shards:  29% Completed | 14/48 [00:05<00:21,  1.56it/s]
+Loading safetensors checkpoint shards:  31% Completed | 15/48 [00:05<00:18,  1.77it/s]
+Loading safetensors checkpoint shards:  33% Completed | 16/48 [00:06<00:16,  1.99it/s]
+Loading safetensors checkpoint shards:  35% Completed | 17/48 [00:06<00:14,  2.18it/s]
+Loading safetensors checkpoint shards:  38% Completed | 18/48 [00:06<00:12,  2.33it/s]
+Loading safetensors checkpoint shards:  40% Completed | 19/48 [00:07<00:11,  2.45it/s]
+Loading safetensors checkpoint shards:  42% Completed | 20/48 [00:07<00:11,  2.53it/s]
+Loading safetensors checkpoint shards:  44% Completed | 21/48 [00:08<00:09,  2.71it/s]
+Loading safetensors checkpoint shards:  46% Completed | 22/48 [00:08<00:09,  2.70it/s]
+Loading safetensors checkpoint shards:  48% Completed | 23/48 [00:08<00:08,  2.86it/s]
+Loading safetensors checkpoint shards:  50% Completed | 24/48 [00:08<00:07,  3.02it/s]
+Loading safetensors checkpoint shards:  52% Completed | 25/48 [00:09<00:07,  3.26it/s]
+Loading safetensors checkpoint shards:  54% Completed | 26/48 [00:09<00:06,  3.46it/s]
+Loading safetensors checkpoint shards:  56% Completed | 27/48 [00:09<00:05,  3.61it/s]
+Loading safetensors checkpoint shards:  58% Completed | 28/48 [00:10<00:05,  3.53it/s]
+Loading safetensors checkpoint shards:  60% Completed | 29/48 [00:10<00:05,  3.28it/s]
+Loading safetensors checkpoint shards:  62% Completed | 30/48 [00:10<00:05,  3.23it/s]
+Loading safetensors checkpoint shards:  65% Completed | 31/48 [00:11<00:05,  3.20it/s]
+Loading safetensors checkpoint shards:  67% Completed | 32/48 [00:11<00:05,  3.19it/s]
+Loading safetensors checkpoint shards:  69% Completed | 33/48 [00:11<00:04,  3.33it/s]
+Loading safetensors checkpoint shards:  71% Completed | 34/48 [00:11<00:04,  3.46it/s]
+Loading safetensors checkpoint shards:  73% Completed | 35/48 [00:12<00:03,  3.55it/s]
+Loading safetensors checkpoint shards:  75% Completed | 36/48 [00:12<00:03,  3.68it/s]
+Loading safetensors checkpoint shards:  77% Completed | 37/48 [00:12<00:02,  3.78it/s]
+Loading safetensors checkpoint shards:  79% Completed | 38/48 [00:12<00:02,  3.93it/s]
+Loading safetensors checkpoint shards:  81% Completed | 39/48 [00:13<00:02,  3.80it/s]
+Loading safetensors checkpoint shards:  83% Completed | 40/48 [00:13<00:02,  3.93it/s]
+Loading safetensors checkpoint shards:  85% Completed | 41/48 [00:13<00:01,  3.99it/s]
+Loading safetensors checkpoint shards:  88% Completed | 42/48 [00:13<00:01,  4.00it/s]
+Loading safetensors checkpoint shards:  90% Completed | 43/48 [00:14<00:01,  4.02it/s]
+Loading safetensors checkpoint shards:  92% Completed | 44/48 [00:14<00:00,  4.04it/s]
+[2026-09-16 16:18:09 DP4 TP4 EP4] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:18:09 DP2 TP2 EP2] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards:  94% Completed | 45/48 [00:14<00:00,  3.95it/s]
+[2026-09-16 16:18:09 DP5 TP5 EP5] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards:  96% Completed | 46/48 [00:14<00:00,  3.82it/s]
+[2026-09-16 16:18:09 DP3 TP3 EP3] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards:  98% Completed | 47/48 [00:15<00:00,  3.69it/s]
+[2026-09-16 16:18:10 DP7 TP7 EP7] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.70 GB, mem usage=34.11 GB.
+[2026-09-16 16:18:10 DP1 TP1 EP1] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+[2026-09-16 16:18:10 DP6 TP6 EP6] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.46 GB, mem usage=34.11 GB.
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:15<00:00,  3.71it/s]
+Loading safetensors checkpoint shards: 100% Completed | 48/48 [00:15<00:00,  3.11it/s]
+
+[2026-09-16 16:18:10 DP0 TP0 EP0] Load weight end. type=Qwen3MoeForCausalLM, dtype=torch.bfloat16, avail mem=59.51 GB, mem usage=34.11 GB.
+[2026-09-16 16:18:10 DP0 TP0 EP0] Using KV cache dtype: torch.bfloat16
+[2026-09-16 16:18:10 DP5 TP5 EP5] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP5 TP5 EP5] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP4 TP4 EP4] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP4 TP4 EP4] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP1 TP1 EP1] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP7 TP7 EP7] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP1 TP1 EP1] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP7 TP7 EP7] Memory pool end. avail mem=18.50 GB
+[2026-09-16 16:18:10 DP2 TP2 EP2] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP3 TP3 EP3] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP2 TP2 EP2] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP3 TP3 EP3] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP6 TP6 EP6] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP6 TP6 EP6] Memory pool end. avail mem=18.27 GB
+[2026-09-16 16:18:10 DP0 TP0 EP0] KV Cache is allocated. #tokens: 227286, K size: 20.38 GB, V size: 20.38 GB
+[2026-09-16 16:18:10 DP0 TP0 EP0] Memory pool end. avail mem=18.32 GB
+[2026-09-16 16:18:10 DP5 TP5 EP5] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+[2026-09-16 16:18:10 DP4 TP4 EP4] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+[2026-09-16 16:18:10 DP1 TP1 EP1] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+[2026-09-16 16:18:10 DP7 TP7 EP7] Capture cuda graph begin. This can take up to several minutes. avail mem=18.41 GB
+[2026-09-16 16:18:10 DP3 TP3 EP3] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+[2026-09-16 16:18:10 DP0 TP0 EP0] Capture cuda graph begin. This can take up to several minutes. avail mem=18.22 GB
+[2026-09-16 16:18:10 DP0 TP0 EP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+[2026-09-16 16:18:10 DP2 TP2 EP2] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+[2026-09-16 16:18:10 DP6 TP6 EP6] Capture cuda graph begin. This can take up to several minutes. avail mem=18.18 GB
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=18.11 GB):   0%|          | 0/20 [00:00<?, ?it/s]Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-09-16 16:18:11 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performanceWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-09-16 16:18:11 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=9216, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+[2026-09-16 16:18:11 DP0 TP0 EP0] Required memory for warmup: 0.37890625GB, Available memory: 18.08447265625GB
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+Warning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][AWarning: please use at least NVCC 12.9 for the best DeepGEMM performance
+
+DeepGEMM warmup:  14%|█▎        | 2218/16384 [00:00<00:00, 22174.10it/s][A[2026-09-16 16:18:11 DP5 TP5 EP5] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP4 TP4 EP4] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP1 TP1 EP1] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP3 TP3 EP3] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP2 TP2 EP2] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP6 TP6 EP6] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:11 DP7 TP7 EP7] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+
+DeepGEMM warmup:  29%|██▉       | 4807/16384 [00:00<00:00, 24356.11it/s][A
+DeepGEMM warmup:  48%|████▊     | 7797/16384 [00:00<00:00, 26883.98it/s][A
+DeepGEMM warmup:  66%|██████▌   | 10815/16384 [00:00<00:00, 28182.29it/s][A
+DeepGEMM warmup:  83%|████████▎ | 13634/16384 [00:00<00:00, 27190.97it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 26857.48it/s]
+[2026-09-16 16:18:11 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:18:11 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=8192, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:18:11 DP0 TP0 EP0] Required memory for warmup: 0.28125GB, Available memory: 18.04736328125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  11%|█         | 1808/16384 [00:00<00:00, 18077.69it/s][A
+DeepGEMM warmup:  27%|██▋       | 4365/16384 [00:00<00:00, 22481.43it/s][A
+DeepGEMM warmup:  45%|████▌     | 7417/16384 [00:00<00:00, 26148.47it/s][A
+DeepGEMM warmup:  64%|██████▍   | 10468/16384 [00:00<00:00, 27868.95it/s][A
+DeepGEMM warmup:  83%|████████▎ | 13527/16384 [00:00<00:00, 28847.84it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 26988.14it/s]
+[2026-09-16 16:18:12 DP0 TP0 EP0] Only use 20 SMs for DeepEP communication. This may result in highly suboptimal performance. Consider using --deepep-config to change the behavior.
+[2026-09-16 16:18:15 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:18:15 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:18:15 DP0 TP0 EP0] Required memory for warmup: 2.6875000596046448GB, Available memory: 9.32470703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  16%|█▌        | 2578/16384 [00:00<00:00, 25761.23it/s][A
+DeepGEMM warmup:  36%|███▌      | 5924/16384 [00:00<00:00, 30284.50it/s][A
+DeepGEMM warmup:  57%|█████▋    | 9268/16384 [00:00<00:00, 31719.03it/s][A
+DeepGEMM warmup:  76%|███████▌  | 12440/16384 [00:00<00:00, 30749.31it/s][A
+DeepGEMM warmup:  95%|█████████▍| 15520/16384 [00:00<00:00, 30253.19it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 30134.48it/s]
+[2026-09-16 16:18:16 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:18:16 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_MASKED> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:18:16 DP0 TP0 EP0] Required memory for warmup: 2.4687500596046448GB, Available memory: 9.19970703125GB
+
+DeepGEMM warmup:   0%|          | 0/16384 [00:00<?, ?it/s][A
+DeepGEMM warmup:  18%|█▊        | 2940/16384 [00:00<00:00, 29393.93it/s][A
+DeepGEMM warmup:  39%|███▉      | 6450/16384 [00:00<00:00, 32746.50it/s][A
+DeepGEMM warmup:  62%|██████▏   | 10077/16384 [00:00<00:00, 34351.43it/s][A
+DeepGEMM warmup:  83%|████████▎ | 13676/16384 [00:00<00:00, 34995.61it/s][ADeepGEMM warmup: 100%|██████████| 16384/16384 [00:00<00:00, 34021.21it/s]
+Capturing batches (bs=128 avail_mem=18.11 GB):   5%|▌         | 1/20 [00:06<02:03,  6.49s/it]Capturing batches (bs=120 avail_mem=8.74 GB):   5%|▌         | 1/20 [00:06<02:03,  6.49s/it] Capturing batches (bs=120 avail_mem=8.74 GB):  10%|█         | 2/20 [00:07<00:53,  2.99s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  10%|█         | 2/20 [00:07<00:53,  2.99s/it]Capturing batches (bs=112 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:07<00:32,  1.90s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  15%|█▌        | 3/20 [00:07<00:32,  1.90s/it]Capturing batches (bs=104 avail_mem=8.73 GB):  20%|██        | 4/20 [00:08<00:22,  1.38s/it]Capturing batches (bs=96 avail_mem=8.72 GB):  20%|██        | 4/20 [00:08<00:22,  1.38s/it] Capturing batches (bs=96 avail_mem=8.72 GB):  25%|██▌       | 5/20 [00:08<00:16,  1.12s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  25%|██▌       | 5/20 [00:08<00:16,  1.12s/it]Capturing batches (bs=88 avail_mem=8.71 GB):  30%|███       | 6/20 [00:09<00:13,  1.01it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  30%|███       | 6/20 [00:09<00:13,  1.01it/s]Capturing batches (bs=80 avail_mem=8.70 GB):  35%|███▌      | 7/20 [00:10<00:11,  1.17it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  35%|███▌      | 7/20 [00:10<00:11,  1.17it/s]Capturing batches (bs=72 avail_mem=8.69 GB):  40%|████      | 8/20 [00:10<00:08,  1.34it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  40%|████      | 8/20 [00:10<00:08,  1.34it/s]Capturing batches (bs=64 avail_mem=8.69 GB):  45%|████▌     | 9/20 [00:11<00:07,  1.45it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  45%|████▌     | 9/20 [00:11<00:07,  1.45it/s]Capturing batches (bs=56 avail_mem=8.68 GB):  50%|█████     | 10/20 [00:11<00:06,  1.56it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  50%|█████     | 10/20 [00:11<00:06,  1.56it/s]Capturing batches (bs=48 avail_mem=8.67 GB):  55%|█████▌    | 11/20 [00:12<00:05,  1.53it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  55%|█████▌    | 11/20 [00:12<00:05,  1.53it/s]Capturing batches (bs=40 avail_mem=8.66 GB):  60%|██████    | 12/20 [00:13<00:05,  1.59it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  60%|██████    | 12/20 [00:13<00:05,  1.59it/s]Capturing batches (bs=32 avail_mem=8.65 GB):  65%|██████▌   | 13/20 [00:13<00:04,  1.52it/s]Capturing batches (bs=24 avail_mem=8.65 GB):  65%|██████▌   | 13/20 [00:13<00:04,  1.52it/s]Capturing batches (bs=24 avail_mem=8.65 GB):  70%|███████   | 14/20 [00:14<00:03,  1.55it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  70%|███████   | 14/20 [00:14<00:03,  1.55it/s]Capturing batches (bs=16 avail_mem=8.64 GB):  75%|███████▌  | 15/20 [00:14<00:02,  1.70it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  75%|███████▌  | 15/20 [00:14<00:02,  1.70it/s]Capturing batches (bs=12 avail_mem=8.63 GB):  80%|████████  | 16/20 [00:15<00:02,  1.75it/s]Capturing batches (bs=8 avail_mem=8.62 GB):  80%|████████  | 16/20 [00:15<00:02,  1.75it/s] Capturing batches (bs=8 avail_mem=8.62 GB):  85%|████████▌ | 17/20 [00:16<00:01,  1.69it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  85%|████████▌ | 17/20 [00:16<00:01,  1.69it/s]Capturing batches (bs=4 avail_mem=8.61 GB):  90%|█████████ | 18/20 [00:16<00:01,  1.64it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  90%|█████████ | 18/20 [00:16<00:01,  1.64it/s]Capturing batches (bs=2 avail_mem=8.60 GB):  95%|█████████▌| 19/20 [00:17<00:00,  1.68it/s]Capturing batches (bs=1 avail_mem=8.60 GB):  95%|█████████▌| 19/20 [00:17<00:00,  1.68it/s]Capturing batches (bs=1 avail_mem=8.60 GB): 100%|██████████| 20/20 [00:17<00:00,  1.85it/s]Capturing batches (bs=1 avail_mem=8.60 GB): 100%|██████████| 20/20 [00:17<00:00,  1.13it/s]
+[2026-09-16 16:18:28 DP0 TP0 EP0] Registering 19 cuda graph addresses
+[2026-09-16 16:18:29 DP7 TP7 EP7] Capture cuda graph end. Time elapsed: 18.49 s. mem usage=8.73 GB. avail mem=9.68 GB.
+[2026-09-16 16:18:29 DP5 TP5 EP5] Capture cuda graph end. Time elapsed: 18.52 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP3 TP3 EP3] Capture cuda graph end. Time elapsed: 18.51 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP2 TP2 EP2] Capture cuda graph end. Time elapsed: 18.49 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP1 TP1 EP1] Capture cuda graph end. Time elapsed: 18.53 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP0 TP0 EP0] Capture cuda graph end. Time elapsed: 18.51 s. mem usage=9.64 GB. avail mem=8.59 GB.
+[2026-09-16 16:18:29 DP4 TP4 EP4] Capture cuda graph end. Time elapsed: 18.55 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP6 TP6 EP6] Capture cuda graph end. Time elapsed: 18.49 s. mem usage=9.90 GB. avail mem=8.27 GB.
+[2026-09-16 16:18:29 DP0 TP0 EP0] max_total_num_tokens=227286, chunked_prefill_size=1024, max_prefill_tokens=16384, max_running_requests=2841, context_len=40960, available_gpu_mem=8.59 GB
+[2026-09-16 16:18:30] INFO:     Started server process [285647]
+[2026-09-16 16:18:30] INFO:     Waiting for application startup.
+[2026-09-16 16:18:30] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-09-16 16:18:30] Using default chat sampling params from model generation config: {'repetition_penalty': 1.0, 'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-09-16 16:18:30] INFO:     Application startup complete.
+[2026-09-16 16:18:30] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-09-16 16:18:31] Endpoint '/get_model_info' is deprecated and will be removed in a future version. Please use '/model_info' instead.
+[2026-09-16 16:18:31] INFO:     127.0.0.1:47638 - "GET /get_model_info HTTP/1.1" 200 OK
+[2026-09-16 16:18:31 DP4 TP4 EP4] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP2 TP2 EP2] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP6 TP6 EP6] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP3 TP3 EP3] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP5 TP5 EP5] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP1 TP1 EP1] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:31 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:18:31 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=3072, K=4096, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:18:31 DP0 TP0 EP0] Required memory for warmup: 0.34381103515625GB, Available memory: 8.52978515625GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2330.69it/s]
+[2026-09-16 16:18:32 DP0 TP0 EP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-09-16 16:18:32 DP0 TP0 EP0] Try DeepGEMM JIT Compiling for <GROUPED_GEMM_NT_F8F8BF16_CONTIG> N=4096, K=1536, num_groups=16 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-09-16 16:18:32 DP0 TP0 EP0] Required memory for warmup: 0.24224853515625GB, Available memory: 8.52783203125GB
+DeepGEMM warmup:   0%|          | 0/128 [00:00<?, ?it/s]DeepGEMM warmup: 100%|██████████| 128/128 [00:00<00:00, 2681.16it/s]
+[2026-09-16 16:18:32 DP7 TP7 EP7] Prefill batch, #new-seq: 1, #new-token: 6, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:33] INFO:     127.0.0.1:47654 - "POST /generate HTTP/1.1" 200 OK
+[2026-09-16 16:18:33] The server is fired up and ready to roll!
+[2026-09-16 16:18:36 DP4 TP4 EP4] Prefill batch, #new-seq: 13, #new-token: 13, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP5 TP5 EP5] Prefill batch, #new-seq: 13, #new-token: 13, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP0 TP0 EP0] Prefill batch, #new-seq: 19, #new-token: 19, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP3 TP3 EP3] Prefill batch, #new-seq: 16, #new-token: 16, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP1 TP1 EP1] Prefill batch, #new-seq: 14, #new-token: 14, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP7 TP7 EP7] Prefill batch, #new-seq: 15, #new-token: 15, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP2 TP2 EP2] Prefill batch, #new-seq: 14, #new-token: 14, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP6 TP6 EP6] Prefill batch, #new-seq: 19, #new-token: 19, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:36 DP2 TP2 EP2] Prefill batch, #new-seq: 17, #new-token: 17, #cached-token: 0, token usage: 0.00, #running-req: 14, #queue-req: 0, 
+[2026-09-16 16:18:36 DP6 TP6 EP6] Prefill batch, #new-seq: 11, #new-token: 11, #cached-token: 0, token usage: 0.00, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:18:36 DP4 TP4 EP4] Prefill batch, #new-seq: 17, #new-token: 17, #cached-token: 0, token usage: 0.00, #running-req: 13, #queue-req: 0, 
+[2026-09-16 16:18:36 DP0 TP0 EP0] Prefill batch, #new-seq: 12, #new-token: 12, #cached-token: 0, token usage: 0.00, #running-req: 19, #queue-req: 0, 
+[2026-09-16 16:18:36 DP1 TP1 EP1] Prefill batch, #new-seq: 17, #new-token: 17, #cached-token: 0, token usage: 0.00, #running-req: 14, #queue-req: 0, 
+[2026-09-16 16:18:36 DP5 TP5 EP5] Prefill batch, #new-seq: 17, #new-token: 17, #cached-token: 0, token usage: 0.00, #running-req: 13, #queue-req: 0, 
+[2026-09-16 16:18:36 DP3 TP3 EP3] Prefill batch, #new-seq: 15, #new-token: 15, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 0, 
+[2026-09-16 16:18:36 DP7 TP7 EP7] Prefill batch, #new-seq: 15, #new-token: 15, #cached-token: 0, token usage: 0.00, #running-req: 15, #queue-req: 0, 
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47656 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47668 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47680 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47690 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47700 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47704 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47712 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47728 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47744 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47760 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47764 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47780 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47788 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47800 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47808 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47816 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47830 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47844 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47858 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47864 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47876 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47886 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47902 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47916 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47928 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47930 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47938 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47944 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47946 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47952 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47966 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47980 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47988 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47996 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:47998 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48002 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48014 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48016 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48024 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48030 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48040 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48054 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48056 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48062 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48074 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48082 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48084 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48092 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48102 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48114 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48122 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48124 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48138 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48154 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48160 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48170 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48176 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48180 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48196 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48210 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48218 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48232 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48244 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48260 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48276 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48288 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48292 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48298 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48300 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48308 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48310 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48326 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48338 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48354 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48370 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48378 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48386 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48392 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48402 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48408 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48420 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48428 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48434 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48442 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48454 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48470 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48474 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48480 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48488 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48500 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48512 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48528 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48542 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48556 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48566 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48572 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48586 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48596 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48606 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48610 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48618 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48624 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48638 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48642 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48650 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48666 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48668 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48676 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48682 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48688 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48698 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48714 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48726 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48742 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48746 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48750 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48754 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48756 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48758 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48774 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48782 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48792 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48798 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48800 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48814 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48820 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48834 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48850 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48856 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48868 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48878 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48884 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48892 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48908 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48918 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48920 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48932 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48942 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48954 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48964 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48978 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:48992 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49008 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49012 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49026 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49030 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49034 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49036 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49038 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49042 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49044 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49050 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49054 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49060 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49064 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49076 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49090 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49098 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49106 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49118 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49122 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49138 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49152 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49154 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49162 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49176 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49178 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49186 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49196 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49206 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49212 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49218 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49220 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49228 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49230 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49236 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49250 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49258 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49260 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49264 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49270 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49278 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49292 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49308 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49314 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49326 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49336 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49340 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49352 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49354 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49356 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49362 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49368 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49380 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49384 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49394 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49396 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49400 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49414 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49424 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49430 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49432 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49434 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49438 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49450 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49456 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49470 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49480 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49486 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49490 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49492 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49508 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49510 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49512 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49514 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49516 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49522 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49534 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49548 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49560 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49566 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49578 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49588 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49600 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49604 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49620 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49632 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49636 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49652 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49658 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49670 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49682 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49692 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49694 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49710 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49720 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49728 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49744 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49756 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49766 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49768 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49776 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49786 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49802 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49804 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49816 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49832 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49844 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49854 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49856 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49872 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49882 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49888 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49890 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49894 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:37] INFO:     127.0.0.1:49902 - "GET /health HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38 DP0 TP0 EP0] Prefill batch, #new-seq: 1, #new-token: 222, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 0, 
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47788 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47864 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47680 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47712 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47760 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47704 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47808 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47780 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47764 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47952 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47928 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48232 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47938 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48040 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47930 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48180 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47966 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48084 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48114 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47980 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48014 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47996 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47886 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48074 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47988 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47944 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48124 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48170 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48210 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48016 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48160 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48082 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48056 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:47916 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48596 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49026 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48676 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48442 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48556 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48726 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48964 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48820 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48758 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48954 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48606 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48918 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48742 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48402 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48276 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48884 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48638 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48488 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48244 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48288 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48714 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48378 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48666 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48868 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48310 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48920 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48474 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48798 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48386 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48750 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48792 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48500 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48428 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48298 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48338 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49012 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48754 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48572 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49008 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48542 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48698 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48892 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48300 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48774 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48942 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48746 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48650 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:48908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49064 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49034 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49044 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49036 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49042 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49050 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49038 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49060 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49098 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49090 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49076 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49106 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49152 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49186 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49178 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49212 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49206 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49236 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49228 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49220 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49230 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49250 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49258 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49264 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49270 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49278 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49336 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49314 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49340 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49356 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49352 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49394 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49384 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49400 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49380 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49368 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49414 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49430 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49424 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49432 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49456 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49450 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49490 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49508 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49492 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49486 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49510 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49516 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49514 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49548 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49522 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49534 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49578 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49588 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49600 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49620 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49670 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49658 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49652 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49710 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49720 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49694 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49766 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49768 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49776 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49786 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49802 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49804 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49832 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49854 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49872 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49882 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49890 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49888 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49894 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:38] INFO:     127.0.0.1:49902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:39 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 1, #queue-req: 26, 
+[2026-09-16 16:18:39 DP7 TP7 EP7] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 28, 
+[2026-09-16 16:18:39 DP3 TP3 EP3] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 28, 
+[2026-09-16 16:18:39 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 27, 
+[2026-09-16 16:18:39 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 27, 
+[2026-09-16 16:18:39 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 27, 
+[2026-09-16 16:18:39 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 27, 
+[2026-09-16 16:18:39 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 0, #queue-req: 27, 
+[2026-09-16 16:18:39 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 23, 
+[2026-09-16 16:18:39 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 23, 
+[2026-09-16 16:18:39 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 23, 
+[2026-09-16 16:18:39 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 23, 
+[2026-09-16 16:18:39 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 4, #queue-req: 23, 
+[2026-09-16 16:18:39 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 5, #queue-req: 23, 
+[2026-09-16 16:18:39 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 23, 
+[2026-09-16 16:18:39 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 3, #queue-req: 24, 
+[2026-09-16 16:18:39] INFO:     127.0.0.1:47668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 19, 
+[2026-09-16 16:18:40 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 20, 
+[2026-09-16 16:18:40 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 19, 
+[2026-09-16 16:18:40 DP6 TP6 EP6] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 20, 
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47788 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 19, 
+[2026-09-16 16:18:40 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 8, #queue-req: 19, 
+[2026-09-16 16:18:40 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 8, #queue-req: 19, 
+[2026-09-16 16:18:40 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 7, #queue-req: 20, 
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48232 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47764 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47680 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47712 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48040 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47808 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47928 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47952 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47760 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47780 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47704 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47864 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 19, 
+[2026-09-16 16:18:40 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 19, 
+[2026-09-16 16:18:40 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 11, #queue-req: 20, 
+[2026-09-16 16:18:40 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 12, #queue-req: 19, 
+[2026-09-16 16:18:40 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 19, 
+[2026-09-16 16:18:40 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 18, 
+[2026-09-16 16:18:40 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 12, #queue-req: 19, 
+[2026-09-16 16:18:40 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 11, #queue-req: 20, 
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47930 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48014 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47944 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48056 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48124 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47966 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48170 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47916 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48074 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48016 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48160 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47980 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47988 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48596 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48114 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48210 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47938 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47996 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48180 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:47886 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48084 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 15, #queue-req: 20, 
+[2026-09-16 16:18:40 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 20, 
+[2026-09-16 16:18:40 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 15, #queue-req: 20, 
+[2026-09-16 16:18:40 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 19, 
+[2026-09-16 16:18:40 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 16, #queue-req: 19, 
+[2026-09-16 16:18:40 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 19, 
+[2026-09-16 16:18:40 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 19, 
+[2026-09-16 16:18:40 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 16, #queue-req: 18, 
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48556 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48714 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48726 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48276 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48758 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48402 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48082 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48676 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48442 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48288 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48378 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48884 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48954 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48918 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48488 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48742 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48820 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48638 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48606 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:49026 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:40] INFO:     127.0.0.1:48964 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 19, #queue-req: 20, 
+[2026-09-16 16:18:41 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 20, #queue-req: 19, 
+[2026-09-16 16:18:41 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 19, 
+[2026-09-16 16:18:41 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 19, 
+[2026-09-16 16:18:41 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 19, 
+[2026-09-16 16:18:41 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 19, #queue-req: 20, 
+[2026-09-16 16:18:41 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 19, 
+[2026-09-16 16:18:41 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 20, #queue-req: 18, 
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48338 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48868 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48386 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49012 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48310 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48666 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48244 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48428 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48798 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48750 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48792 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48754 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48920 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48572 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48298 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48474 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48500 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 19, 
+[2026-09-16 16:18:41 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 19, 
+[2026-09-16 16:18:41 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 24, #queue-req: 19, 
+[2026-09-16 16:18:41 DP6 TP6 EP6] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 18, 
+[2026-09-16 16:18:41 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 20, 
+[2026-09-16 16:18:41 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 18, 
+[2026-09-16 16:18:41 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 24, #queue-req: 19, 
+[2026-09-16 16:18:41 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 23, #queue-req: 20, 
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49044 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48698 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49090 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48746 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49050 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48892 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49036 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49008 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49042 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49064 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48774 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49060 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48542 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48942 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49034 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48300 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48650 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:49038 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:41] INFO:     127.0.0.1:48908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 19, 
+[2026-09-16 16:18:42 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 19, 
+[2026-09-16 16:18:42 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 18, 
+[2026-09-16 16:18:42 DP0 TP0 EP0] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 28, #queue-req: 18, 
+[2026-09-16 16:18:42 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 19, 
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 27, #queue-req: 20, 
+[2026-09-16 16:18:42 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 27, #queue-req: 19, 
+[2026-09-16 16:18:42 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 28, #queue-req: 18, 
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49220 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49186 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49356 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49236 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49270 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49230 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49384 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49178 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49098 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49152 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49206 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49264 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49228 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49076 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49278 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49258 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49314 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49250 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49336 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49106 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49212 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 32, #queue-req: 19, 
+[2026-09-16 16:18:42 DP2 TP2 EP2] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 32, #queue-req: 18, 
+[2026-09-16 16:18:42 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 33, #queue-req: 18, 
+[2026-09-16 16:18:42 DP5 TP5 EP5] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 18, 
+[2026-09-16 16:18:42 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 32, #queue-req: 18, 
+[2026-09-16 16:18:42 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 32, #queue-req: 18, 
+[2026-09-16 16:18:42 DP1 TP1 EP1] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 32, #queue-req: 18, 
+[2026-09-16 16:18:42 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 31, #queue-req: 20, 
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49456 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49368 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49578 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49510 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49516 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49352 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49548 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49508 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49424 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49522 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49380 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49492 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49600 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49514 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49450 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49414 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49394 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49486 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49340 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49432 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49490 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49400 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49430 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 37, #queue-req: 18, 
+[2026-09-16 16:18:42 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 37, #queue-req: 18, 
+[2026-09-16 16:18:42 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 36, #queue-req: 18, 
+[2026-09-16 16:18:42 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 36, #queue-req: 19, 
+[2026-09-16 16:18:42 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 36, #queue-req: 20, 
+[2026-09-16 16:18:42 DP1 TP1 EP1] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 37, #queue-req: 19, 
+[2026-09-16 16:18:42 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 35, #queue-req: 20, 
+[2026-09-16 16:18:42 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 36, #queue-req: 18, 
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49658 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49894 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49588 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49766 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49872 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49776 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49670 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49890 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49804 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49786 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49620 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49720 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:47668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49854 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49768 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49710 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49802 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49694 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49534 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49832 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49652 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:42] INFO:     127.0.0.1:49728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 40, #queue-req: 19, 
+[2026-09-16 16:18:43 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 40, #queue-req: 19, 
+[2026-09-16 16:18:43 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 41, #queue-req: 18, 
+[2026-09-16 16:18:43 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 39, #queue-req: 20, 
+[2026-09-16 16:18:43 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 39, #queue-req: 20, 
+[2026-09-16 16:18:43 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 41, #queue-req: 18, 
+[2026-09-16 16:18:43 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 40, #queue-req: 18, 
+[2026-09-16 16:18:43 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 40, #queue-req: 19, 
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47760 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47864 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47808 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48040 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:49888 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47712 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47764 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47680 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:49882 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47780 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47930 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47928 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47944 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47788 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47952 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48232 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48014 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43 DP5 TP5 EP5] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 43, #queue-req: 19, 
+[2026-09-16 16:18:43 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 43, #queue-req: 20, 
+[2026-09-16 16:18:43 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 44, #queue-req: 19, 
+[2026-09-16 16:18:43 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 44, #queue-req: 20, 
+[2026-09-16 16:18:43 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 45, #queue-req: 19, 
+[2026-09-16 16:18:43 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 45, #queue-req: 18, 
+[2026-09-16 16:18:43 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 44, #queue-req: 19, 
+[2026-09-16 16:18:43 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 44, #queue-req: 19, 
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47988 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48170 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48714 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48596 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48180 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47916 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48160 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48016 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47938 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47886 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48210 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48074 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48114 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48056 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47704 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48556 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47980 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47966 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47996 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:47998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48124 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 48, #queue-req: 19, 
+[2026-09-16 16:18:43 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 49, #queue-req: 18, 
+[2026-09-16 16:18:43 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 48, #queue-req: 19, 
+[2026-09-16 16:18:43 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 49, #queue-req: 18, 
+[2026-09-16 16:18:43 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 48, #queue-req: 19, 
+[2026-09-16 16:18:43 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 48, #queue-req: 19, 
+[2026-09-16 16:18:43 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 47, #queue-req: 20, 
+[2026-09-16 16:18:43 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 48, #queue-req: 19, 
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48442 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48386 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48638 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48918 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48402 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48378 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48338 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48488 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48758 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48084 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48820 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:43] INFO:     127.0.0.1:48082 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49026 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48276 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48288 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48742 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48884 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48726 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48954 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48676 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44 DP1 TP1 EP1] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 52, #queue-req: 18, 
+[2026-09-16 16:18:44 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 52, #queue-req: 19, 
+[2026-09-16 16:18:44 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 53, #queue-req: 18, 
+[2026-09-16 16:18:44 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 52, #queue-req: 19, 
+[2026-09-16 16:18:44 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 53, #queue-req: 18, 
+[2026-09-16 16:18:44 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 51, #queue-req: 20, 
+[2026-09-16 16:18:44 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 52, #queue-req: 19, 
+[2026-09-16 16:18:44 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 52, #queue-req: 19, 
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49090 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48428 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48920 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48474 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48606 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48964 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48310 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48298 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48572 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48798 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48868 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48666 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49044 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48792 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48750 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49012 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48500 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48244 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48754 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48698 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 57, #queue-req: 18, 
+[2026-09-16 16:18:44 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 55, #queue-req: 20, 
+[2026-09-16 16:18:44 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 56, #queue-req: 19, 
+[2026-09-16 16:18:44 DP4 TP4 EP4] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 56, #queue-req: 18, 
+[2026-09-16 16:18:44 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 57, #queue-req: 19, 
+[2026-09-16 16:18:44 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 57, #queue-req: 18, 
+[2026-09-16 16:18:44 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 56, #queue-req: 19, 
+[2026-09-16 16:18:44 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 56, #queue-req: 19, 
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49064 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48892 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48300 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49236 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48942 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49038 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49036 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49060 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49186 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49050 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49220 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48650 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48774 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49042 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49034 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:49008 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48542 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:44] INFO:     127.0.0.1:48746 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 60, #queue-req: 19, 
+[2026-09-16 16:18:45 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 60, #queue-req: 19, 
+[2026-09-16 16:18:45 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 61, #queue-req: 18, 
+[2026-09-16 16:18:45 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 61, #queue-req: 18, 
+[2026-09-16 16:18:45 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 61, #queue-req: 19, 
+[2026-09-16 16:18:45 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 61, #queue-req: 18, 
+[2026-09-16 16:18:45 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 59, #queue-req: 20, 
+[2026-09-16 16:18:45 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 60, #queue-req: 19, 
+[2026-09-16 16:18:45] INFO:     127.0.0.1:48528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49356 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49228 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49098 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49250 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49152 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49230 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49456 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49336 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49076 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49384 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49368 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49258 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49510 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49264 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49178 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49270 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49278 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49212 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49578 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49314 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49206 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45 DP2 TP2 EP2] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 65, #queue-req: 17, 
+[2026-09-16 16:18:45 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 64, #queue-req: 19, 
+[2026-09-16 16:18:45 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 64, #queue-req: 19, 
+[2026-09-16 16:18:45 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 65, #queue-req: 19, 
+[2026-09-16 16:18:45 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 65, #queue-req: 19, 
+[2026-09-16 16:18:45 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 65, #queue-req: 18, 
+[2026-09-16 16:18:45 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 63, #queue-req: 20, 
+[2026-09-16 16:18:45 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 64, #queue-req: 19, 
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49548 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49430 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49600 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49508 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49486 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49340 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49450 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49424 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49352 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49514 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49658 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49490 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49588 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49380 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49394 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49414 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49522 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49894 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49432 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49516 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49106 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49492 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 69, #queue-req: 19, 
+[2026-09-16 16:18:45 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 68, #queue-req: 19, 
+[2026-09-16 16:18:45 DP0 TP0 EP0] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 69, #queue-req: 18, 
+[2026-09-16 16:18:45 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 69, #queue-req: 18, 
+[2026-09-16 16:18:45 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 67, #queue-req: 20, 
+[2026-09-16 16:18:45 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 70, #queue-req: 18, 
+[2026-09-16 16:18:45 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 68, #queue-req: 19, 
+[2026-09-16 16:18:45 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 68, #queue-req: 19, 
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49890 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:47668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49400 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49766 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49768 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49652 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49620 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:47808 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49670 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49534 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49776 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:47864 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49694 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49720 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:47876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49854 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49804 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49832 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49786 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49872 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49710 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49802 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:47760 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:45] INFO:     127.0.0.1:49856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 73, #queue-req: 18, 
+[2026-09-16 16:18:46 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 72, #queue-req: 19, 
+[2026-09-16 16:18:46 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 74, #queue-req: 18, 
+[2026-09-16 16:18:46 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 71, #queue-req: 20, 
+[2026-09-16 16:18:46 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 73, #queue-req: 19, 
+[2026-09-16 16:18:46 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 72, #queue-req: 19, 
+[2026-09-16 16:18:46 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 74, #queue-req: 18, 
+[2026-09-16 16:18:46 DP6 TP6 EP6] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 72, #queue-req: 18, 
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48040 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48232 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47988 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48002 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47712 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:49902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47928 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47764 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47930 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47952 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47858 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47944 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47680 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48170 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48014 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:49882 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47656 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:49888 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47700 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47780 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47788 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47902 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 76, #queue-req: 19, 
+[2026-09-16 16:18:46 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 77, #queue-req: 19, 
+[2026-09-16 16:18:46 DP0 TP0 EP0] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 78, #queue-req: 19, 
+[2026-09-16 16:18:46 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 77, #queue-req: 18, 
+[2026-09-16 16:18:46 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 78, #queue-req: 18, 
+[2026-09-16 16:18:46 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 75, #queue-req: 21, 
+[2026-09-16 16:18:46 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 77, #queue-req: 18, 
+[2026-09-16 16:18:46 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 76, #queue-req: 19, 
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48016 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48714 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48114 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48782 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48638 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47966 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48092 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48978 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48442 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48758 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48556 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47916 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48618 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48386 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47980 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47886 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48160 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48210 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48062 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48074 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47946 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48402 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47998 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48124 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48056 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48596 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47704 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:47938 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:46] INFO:     127.0.0.1:48180 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 80, #queue-req: 19, 
+[2026-09-16 16:18:47 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 81, #queue-req: 19, 
+[2026-09-16 16:18:47 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 81, #queue-req: 19, 
+[2026-09-16 16:18:47 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 81, #queue-req: 19, 
+[2026-09-16 16:18:47 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 80, #queue-req: 19, 
+[2026-09-16 16:18:47 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 79, #queue-req: 21, 
+[2026-09-16 16:18:47 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 82, #queue-req: 18, 
+[2026-09-16 16:18:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 81, #queue-req: 18, 
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48276 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48084 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48428 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48378 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48820 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48726 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49090 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49026 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48964 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48742 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48370 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48920 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48288 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48586 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48918 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:47996 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48488 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48082 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48676 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48392 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48954 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48884 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48338 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 84, #queue-req: 20, 
+[2026-09-16 16:18:47 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 85, #queue-req: 19, 
+[2026-09-16 16:18:47 DP0 TP0 EP0] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 85, #queue-req: 18, 
+[2026-09-16 16:18:47 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 86, #queue-req: 18, 
+[2026-09-16 16:18:47 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 83, #queue-req: 21, 
+[2026-09-16 16:18:47 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 85, #queue-req: 19, 
+[2026-09-16 16:18:47 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 84, #queue-req: 18, 
+[2026-09-16 16:18:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 85, #queue-req: 18, 
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48572 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48814 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48606 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48834 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48750 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48798 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49118 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48310 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48688 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48792 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48698 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48800 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48610 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49236 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48868 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48500 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48932 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48642 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48408 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48474 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48298 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48454 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48754 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49044 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48850 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48892 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48244 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48666 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 89, #queue-req: 19, 
+[2026-09-16 16:18:47 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 90, #queue-req: 18, 
+[2026-09-16 16:18:47 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 88, #queue-req: 19, 
+[2026-09-16 16:18:47 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 89, #queue-req: 18, 
+[2026-09-16 16:18:47 DP3 TP3 EP3] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 87, #queue-req: 20, 
+[2026-09-16 16:18:47 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 89, #queue-req: 19, 
+[2026-09-16 16:18:47 DP2 TP2 EP2] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 90, #queue-req: 17, 
+[2026-09-16 16:18:47 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 89, #queue-req: 18, 
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49008 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49064 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49030 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48624 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49152 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49122 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49050 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49162 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49186 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48774 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48746 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49054 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48942 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49012 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48878 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48528 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48992 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48908 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48542 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48650 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48300 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49060 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49038 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49034 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48292 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49260 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:48420 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49036 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49220 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:47] INFO:     127.0.0.1:49228 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 94, #queue-req: 18, 
+[2026-09-16 16:18:48 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 92, #queue-req: 20, 
+[2026-09-16 16:18:48 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 92, #queue-req: 19, 
+[2026-09-16 16:18:48 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 93, #queue-req: 19, 
+[2026-09-16 16:18:48 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 93, #queue-req: 19, 
+[2026-09-16 16:18:48 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 93, #queue-req: 18, 
+[2026-09-16 16:18:48 DP2 TP2 EP2] Prefill batch, #new-seq: 4, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 95, #queue-req: 18, 
+[2026-09-16 16:18:48 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 93, #queue-req: 18, 
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49356 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49456 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49258 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49154 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49566 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49326 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49212 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49230 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49308 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49396 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49178 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49196 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49844 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49206 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49250 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49480 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49264 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49508 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49218 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49098 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49314 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49076 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49384 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49270 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49434 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49340 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49510 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49336 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49578 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49600 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49176 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49368 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49138 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49042 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 98, #queue-req: 18, 
+[2026-09-16 16:18:48 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 97, #queue-req: 19, 
+[2026-09-16 16:18:48 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 98, #queue-req: 18, 
+[2026-09-16 16:18:48 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 96, #queue-req: 20, 
+[2026-09-16 16:18:48 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 97, #queue-req: 19, 
+[2026-09-16 16:18:48 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 97, #queue-req: 19, 
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49490 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 96, #queue-req: 20, 
+[2026-09-16 16:18:48 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 97, #queue-req: 18, 
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49516 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49352 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49768 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49560 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49766 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49658 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49432 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49588 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49470 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49512 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49744 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49414 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49450 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49278 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49362 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49548 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49424 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49894 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49514 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49430 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49394 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49492 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49534 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49438 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49816 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49380 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49106 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49682 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49486 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:47668 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49522 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49354 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:48] INFO:     127.0.0.1:49756 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 102, #queue-req: 19, 
+[2026-09-16 16:18:49 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 101, #queue-req: 19, 
+[2026-09-16 16:18:49 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 101, #queue-req: 19, 
+[2026-09-16 16:18:49 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 101, #queue-req: 19, 
+[2026-09-16 16:18:49 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 100, #queue-req: 20, 
+[2026-09-16 16:18:49 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 100, #queue-req: 20, 
+[2026-09-16 16:18:49 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 102, #queue-req: 18, 
+[2026-09-16 16:18:49 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 101, #queue-req: 19, 
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49786 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47864 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49890 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49692 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49776 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49728 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49604 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47988 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49636 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47876 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47830 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49856 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49832 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49710 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:48232 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49720 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49632 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49670 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:47760 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49804 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49] INFO:     127.0.0.1:49652 - "POST /v1/completions HTTP/1.1" 200 OK
+[2026-09-16 16:18:49 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 106, #queue-req: 17, 
+[2026-09-16 16:18:49 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 106, #queue-req: 17, 
+[2026-09-16 16:18:49 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 104, #queue-req: 19, 
+[2026-09-16 16:18:49 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 104, #queue-req: 19, 
+[2026-09-16 16:18:49 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 105, #queue-req: 18, 
+[2026-09-16 16:18:49 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 105, #queue-req: 18, 
+[2026-09-16 16:18:49 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 105, #queue-req: 18, 
+[2026-09-16 16:18:49 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 105, #queue-req: 18, 
+[2026-09-16 16:18:49 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 110, #queue-req: 13, 
+[2026-09-16 16:18:49 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 109, #queue-req: 14, 
+[2026-09-16 16:18:49 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 109, #queue-req: 14, 
+[2026-09-16 16:18:49 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 110, #queue-req: 13, 
+[2026-09-16 16:18:49 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 109, #queue-req: 14, 
+[2026-09-16 16:18:49 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 108, #queue-req: 15, 
+[2026-09-16 16:18:49 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 108, #queue-req: 15, 
+[2026-09-16 16:18:49 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 109, #queue-req: 14, 
+[2026-09-16 16:18:50 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 114, #queue-req: 9, 
+[2026-09-16 16:18:50 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 113, #queue-req: 10, 
+[2026-09-16 16:18:50 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 114, #queue-req: 9, 
+[2026-09-16 16:18:50 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 113, #queue-req: 10, 
+[2026-09-16 16:18:50 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 112, #queue-req: 11, 
+[2026-09-16 16:18:50 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 113, #queue-req: 10, 
+[2026-09-16 16:18:50 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 113, #queue-req: 10, 
+[2026-09-16 16:18:50 DP3 TP3 EP3] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 112, #queue-req: 10, 
+[2026-09-16 16:18:50 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 117, #queue-req: 6, 
+[2026-09-16 16:18:50 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 116, #queue-req: 7, 
+[2026-09-16 16:18:50 DP1 TP1 EP1] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 117, #queue-req: 5, 
+[2026-09-16 16:18:50 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 117, #queue-req: 6, 
+[2026-09-16 16:18:50 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 117, #queue-req: 6, 
+[2026-09-16 16:18:50 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 118, #queue-req: 5, 
+[2026-09-16 16:18:50 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 118, #queue-req: 5, 
+[2026-09-16 16:18:50 DP7 TP7 EP7] Prefill batch, #new-seq: 6, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 117, #queue-req: 5, 
+[2026-09-16 16:18:51 DP2 TP2 EP2] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 122, #queue-req: 1, 
+[2026-09-16 16:18:51 DP5 TP5 EP5] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 120, #queue-req: 3, 
+[2026-09-16 16:18:51 DP6 TP6 EP6] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 121, #queue-req: 2, 
+[2026-09-16 16:18:51 DP0 TP0 EP0] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 122, #queue-req: 1, 
+[2026-09-16 16:18:51 DP4 TP4 EP4] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 121, #queue-req: 2, 
+[2026-09-16 16:18:51 DP1 TP1 EP1] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 122, #queue-req: 1, 
+[2026-09-16 16:18:51 DP7 TP7 EP7] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.01, #running-req: 122, #queue-req: 1, 
+[2026-09-16 16:18:51 DP3 TP3 EP3] Prefill batch, #new-seq: 5, #new-token: 1024, #cached-token: 0, token usage: 0.00, #running-req: 121, #queue-req: 2, 
+[2026-09-16 16:18:51 DP4 TP4 EP4] Prefill batch, #new-seq: 3, #new-token: 639, #cached-token: 0, token usage: 0.01, #running-req: 125, #queue-req: 0, 
+[2026-09-16 16:18:51 DP0 TP0 EP0] Prefill batch, #new-seq: 2, #new-token: 275, #cached-token: 0, token usage: 0.01, #running-req: 126, #queue-req: 0, 
+[2026-09-16 16:18:51 DP2 TP2 EP2] Prefill batch, #new-seq: 2, #new-token: 431, #cached-token: 0, token usage: 0.01, #running-req: 126, #queue-req: 0, 
+[2026-09-16 16:18:51 DP6 TP6 EP6] Prefill batch, #new-seq: 3, #new-token: 680, #cached-token: 0, token usage: 0.00, #running-req: 125, #queue-req: 0, 
+[2026-09-16 16:18:51 DP5 TP5 EP5] Prefill batch, #new-seq: 4, #new-token: 787, #cached-token: 0, token usage: 0.01, #running-req: 124, #queue-req: 0, 
+[2026-09-16 16:18:51 DP1 TP1 EP1] Prefill batch, #new-seq: 2, #new-token: 481, #cached-token: 0, token usage: 0.00, #running-req: 126, #queue-req: 0, 
+[2026-09-16 16:18:51 DP3 TP3 EP3] Prefill batch, #new-seq: 3, #new-token: 693, #cached-token: 0, token usage: 0.00, #running-req: 125, #queue-req: 0, 
+[2026-09-16 16:18:51 DP7 TP7 EP7] Prefill batch, #new-seq: 2, #new-token: 481, #cached-token: 0, token usage: 0.00, #running-req: 126, #queue-req: 0, 
+[2026-09-16 16:18:51] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-09-16 16:18:56] Gracefully exiting... Remaining number of requests 0. Remaining requests remaining_rids=[].

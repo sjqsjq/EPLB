@@ -1,0 +1,21 @@
+{
+  "label": "oeplb_fixed_a100",
+  "dataset": "benchmarks/final_grid/L512_O1.jsonl",
+  "num_requests": 8192,
+  "concurrency": 1024,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 326.96,
+  "total_comp_tokens": 8192,
+  "tps": 25.1,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 38381.0,
+  "lat_p50_ms": 40239.48,
+  "lat_p99_ms": 42733.78,
+  "ttft_mean_ms": 38380.99,
+  "ttft_p50_ms": 40239.46,
+  "ttft_p99_ms": 42733.76,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

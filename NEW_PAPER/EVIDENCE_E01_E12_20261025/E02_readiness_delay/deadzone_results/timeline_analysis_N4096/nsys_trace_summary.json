@@ -1,0 +1,801 @@
+{
+  "status": "PASS",
+  "report_count": 48,
+  "sqlite_count": 48,
+  "conditions": [
+    {
+      "condition": "timeline-original-zero",
+      "target_differential_us": 0.0,
+      "rank3_delay_kernel_us": 21.024,
+      "other_rank_median_delay_kernel_us": 21.024,
+      "measured_differential_us": 0.0,
+      "differential_error_us": 0.0
+    },
+    {
+      "condition": "timeline-original-inside",
+      "target_differential_us": 10.579999908804893,
+      "rank3_delay_kernel_us": 31.616,
+      "other_rank_median_delay_kernel_us": 21.056,
+      "measured_differential_us": 10.559999999999999,
+      "differential_error_us": -0.019999908804894773
+    },
+    {
+      "condition": "timeline-original-outside",
+      "target_differential_us": 84.63999927043915,
+      "rank3_delay_kernel_us": 105.824,
+      "other_rank_median_delay_kernel_us": 20.992,
+      "measured_differential_us": 84.832,
+      "differential_error_us": 0.19200072956084568
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "target_differential_us": 0.0,
+      "rank3_delay_kernel_us": 20.96,
+      "other_rank_median_delay_kernel_us": 20.992,
+      "measured_differential_us": -0.03200000000000003,
+      "differential_error_us": -0.03200000000000003
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "target_differential_us": 10.579999908804893,
+      "rank3_delay_kernel_us": 31.648,
+      "other_rank_median_delay_kernel_us": 21.024,
+      "measured_differential_us": 10.623999999999999,
+      "differential_error_us": 0.044000091195105284
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "target_differential_us": 84.63999927043915,
+      "rank3_delay_kernel_us": 105.695,
+      "other_rank_median_delay_kernel_us": 21.12,
+      "measured_differential_us": 84.57499999999999,
+      "differential_error_us": -0.06499927043915932
+    }
+  ],
+  "captures": [
+    {
+      "condition": "timeline-original-zero",
+      "rank": 0,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 1,
+      "delay_kernel_us": 21.024,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 2,
+      "delay_kernel_us": 20.896,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 3,
+      "delay_kernel_us": 21.024,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 4,
+      "delay_kernel_us": 21.248,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 5,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 6,
+      "delay_kernel_us": 20.704,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-zero",
+      "rank": 7,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 0,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 1,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 2,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 3,
+      "delay_kernel_us": 31.616,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 4,
+      "delay_kernel_us": 21.057,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 5,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 6,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-inside",
+      "rank": 7,
+      "delay_kernel_us": 21.216,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 0,
+      "delay_kernel_us": 20.928,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 1,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 2,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 3,
+      "delay_kernel_us": 105.824,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 4,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 5,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 6,
+      "delay_kernel_us": 21.025,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-original-outside",
+      "rank": 7,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 20,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-original-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 0,
+      "delay_kernel_us": 20.736,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 1,
+      "delay_kernel_us": 20.928,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 2,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 3,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 4,
+      "delay_kernel_us": 21.024,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 5,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 6,
+      "delay_kernel_us": 21.248,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-zero",
+      "rank": 7,
+      "delay_kernel_us": 21.088,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-zero",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 0,
+      "delay_kernel_us": 21.024,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 1,
+      "delay_kernel_us": 20.928,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 2,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 3,
+      "delay_kernel_us": 31.648,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 4,
+      "delay_kernel_us": 21.056,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 5,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 6,
+      "delay_kernel_us": 21.024,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-inside",
+      "rank": 7,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-inside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 0,
+      "delay_kernel_us": 20.96,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 1,
+      "delay_kernel_us": 20.992,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 2,
+      "delay_kernel_us": 21.248,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 3,
+      "delay_kernel_us": 105.695,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 4,
+      "delay_kernel_us": 21.184,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 5,
+      "delay_kernel_us": 20.928,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 6,
+      "delay_kernel_us": 21.12,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    },
+    {
+      "condition": "timeline-barrier-outside",
+      "rank": 7,
+      "delay_kernel_us": 21.12,
+      "kernel_count": 21,
+      "nvtx_ranges": [
+        "deadzone_layer:timeline-barrier-outside",
+        "deadzone_profile_capture",
+        "deepep_combine",
+        "dispatch",
+        "experts_deepgemm_fp8",
+        "injected_gpu_delay",
+        "ncclAllReduce",
+        "strict_gpu_ready_allreduce"
+      ]
+    }
+  ]
+}

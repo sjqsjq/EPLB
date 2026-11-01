@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "purpose": "Step 1 consolidated audit: evidence export, ILP documentation, v3 online mechanism verification, switch-independence audit. NO new performance experiments run.",
+    "date_utc": "2026-10-15T11:26:20+00:00",
+    "campaign_ref": "fullservice_v3 protocol sha dd9a90691cb85cd616591b14aaf68d6d51733bcc3ed1336ca02eba62f09a4e8c; local commit ba10a60 (not pushed)",
+    "controller_deployed_sha256": "e6e158426cf3610a2d13515c7a42e18e2548a1f06f10c79cd047248be2bbde2c",
+    "controller_repo_sha256": "ada04359c2a7ffa2abb2594525c3605c28cfcaa57419497e9e6466d856127df9"
+  },
+  "item1_nine_starts": {
+    "artifact": "results/fullservice_v3/audit_nine_starts.json",
+    "artifact_sha256": "989897e27cbad2903dd978140869b5f0dcb677b37a1fc53ee88d2d8f65497b8e",
+    "summary": "9/9 valid starts exported: boot order, arm, label, total_time_s, total_comp_tokens=7963 (all), ok=7963, errors=0, server_args sha, server_log sha, bench_json sha, layout (identity trivial-canonical; frozen map sha daf84eff...; online initial trivial + dp0 window/swap trajectory).",
+    "per_arm_service_time_s": {
+      "identity": [
+        402.36,
+        399.55,
+        400.64
+      ],
+      "frozen_ilp": [
+        388.85,
+        386.59,
+        391.9
+      ],
+      "online": [
+        376.57,
+        373.11,
+        382.35
+      ]
+    },
+    "config_verification": "normalized per-arm server_args identical across 3 starts except random_seed; identity: enable_pb_oeplb=False, ep_dispatch_algorithm=None; frozen: enable_pb_oeplb=False, ep_dispatch_algorithm='static', init=frozen_map_ilp.json; online: enable_pb_oeplb=True, ep_dispatch_algorithm='static', init='trivial', sync_window=16, adaptive_window=True, adaptive_decay=True, window_floor=8, shift_confirm=2"
+  },
+  "item2_ilp": {
+    "solver": "Gurobi (gurobipy 13.0.3, restricted license), per-layer MILP via OEPLB/baselines/moetuner/src/solve_ilp.py",
+    "objective": "minimize sum_c d_c with d_c >= |T_c - Tbar|; T_c = sum_e P_l[e]*x[c,e]; Tbar = total/G (per-layer absolute deviation of cluster token load from mean)",
+    "decision_variables": "x[c,e] in {0,1}: logical expert e assigned to cluster c",
+    "constraints": [
+      "each expert assigned to exactly one cluster",
+      "each cluster receives exactly K=16 experts (128 logical / 8 clusters)",
+      "continuous d_c >= |T_c - Tbar| via two linear inequalities"
+    ],
+    "solver_settings": {
+      "TimeLimit_s": 30,
+      "MIPGap": 0.005,
+      "OutputFlag": 0,
+      "accepted_statuses": [
+        "OPTIMAL",
+        "TIME_LIMIT",
+        "SUBOPTIMAL"
+      ]
+    },
+    "post_processing": "greedy LPT: clusters assigned heaviest-first to least-loaded GPU; slots within GPU filled by descending expert load",
+    "solve_status": "ALL 94 layers hit the 30 s time limit -> status TIME_LIMIT for every layer; solve_ilp.py does NOT record the per-layer final MIP gap and it was not archived -> per-layer optimality gaps are UNRECOVERABLE. Must be reported honestly: the frozen map is a time-limited feasible solution of unknown per-layer gap, not a proven optimum.",
+    "achieved_quality": {
+      "raw_imbalance_range": [
+        1.000002,
+        1.000068
+      ],
+      "objective_median_tokens": 200,
+      "tokens_per_layer_approx": 64650000.0,
+      "aligned_padding_aware_imbalance": {
+        "ilp_map_mean": 1.0,
+        "ilp_map_max": 1.0001,
+        "identity_mean": 1.2885,
+        "identity_max": 1.5514
+      }
+    },
+    "zero_token_layers": "none (no identity fallback used)",
+    "artifacts": {
+      "frozen_map": "results/fullservice_v2/setup/frozen_map_ilp.json (sha daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac)",
+      "meta": "frozen_map_ilp.meta.json (per-layer obj/gpu_max_load/gpu_mean_load/imbalance_ratio/solve_s)",
+      "solve_log": "results/fullservice_v2/setup/ilp_solve_calib.log",
+      "attempt1_crash": "ilp_solve_calib_attempt1_crash.log (setup tooling failure, retained, documented in diagnostics/facts.json; re-run legal, not a measured start)"
+    }
+  },
+  "item3_online_mechanisms": {
+    "artifact": "results/fullservice_v3/audit_online_mechanisms.json",
+    "artifact_sha256": "479d3ba71b7ae6561245c9593174f3161acaa36a1d758d7fb80ff0a09db1734b",
+    "answers": {
+      "W_changed": true,
+      "alpha_changed": true,
+      "history_zeroing_occurred": true
+    },
+    "detail": "init sync_window=16; auto dead_zone_ratio=1.096 (CLI 0.0 triggers auto-set); decay->0 events on ratio jumps; RESET domain-shift zeroings 6/7/6 per start (s1/s2/s3); trajectories near-identical across starts.",
+    "mechanism_attribution_per_start_per_rank": {
+      "ADW_ratio_jump_shrink_ungated": 3,
+      "ADW_grow_converged_or_volatile_ungated": 7,
+      "WINDOW_cos_sim_shift_halving_gated": 3,
+      "WINDOW_cos_sim_stable_doubling_gated": 0,
+      "RESET_domain_shift_zeroing_gated": {
+        "s1": 6,
+        "s2": 7,
+        "s3": 6
+      },
+      "note": "v3 window trajectory is a MIXTURE of the ungated ADW block and the gated cos_sim block; both were active because adaptive_window=True. Counts are log-lines / 8 ranks."
+    }
+  },
+  "item4_switch_independence": {
+    "version_verification": {
+      "deployed_vs_protocol_lock": "8/8 files identical (locked hashes in fullservice_protocol_v3.json)",
+      "deployed_vs_repo": "identical except controller.py: (a) deployed carries inert HOOKDIAG diagnostic counters; (b) repo carries a shrink-clamp FIX (new_window = min(W, max(window_floor, W//2)) at repo L807-812) that DEPLOYED LACKS (deployed L829-830: max(window_floor, W//2)). Not triggered in v3 (window_floor=8 <= all observed windows) but a hazard for fixed-W arms if window_floor > sync_window.",
+      "env_check": "/workspace/logs/env_235b.sh contains NO OEPLB_* variables -> v3 configs came purely from CLI flags; no hidden env activation.",
+      "flag_readers": "cfg.adaptive_window / cfg.adaptive_decay are read ONLY in controller.py (no other pb_oeplb file)."
+    },
+    "findings": {
+      "F1_adaptive_window_False_does_NOT_freeze_window": {
+        "severity": "BLOCKER for E-A fixed-W arms",
+        "evidence": "on_forward_pass_end ADW block (deployed L404-450, repo L380-427) mutates _effective_sync_window with NO cfg.adaptive_window gate: ratio jump delta>0.03 -> shrink max(8, W//2) (hard floor 8, IGNORES cfg.window_floor); converged x3 or volatile x3 -> grow min(128, W*2) (hard cap 128, IGNORES sync_window*2 ceiling). Entry condition only needs _prev_window_ratio set, and _prev_window_ratio is assigned UNCONDITIONALLY every window in _decide_and_begin_swap (deployed L807). Both deployed AND repo are affected.",
+        "consequence": "With adaptive_window=False the window still adapts. A00/A01 'fixed W' arms are NOT realizable on current code."
+      },
+      "F2_adaptive_decay_False_leaves_RESET_zeroing_active": {
+        "severity": "BLOCKER for E-A A10 arm",
+        "evidence": "RESET domain-shift load.zero_() (deployed L784-806) is gated by cfg.adaptive_window, NOT cfg.adaptive_decay. With W on / D off (A10), history is still zeroed on every detected domain shift (v3: 6-7 events/start).",
+        "consequence": "'D off' does not mean 'no history clearing'; zeroing is coupled to the W flag."
+      },
+      "F3_A01_D_can_work_but_W_not_fixed_and_RESET_absent": {
+        "evidence": "decay->0 (deployed L425-426) is gated ONLY by adaptive_decay -> fires on ratio jumps regardless of adaptive_window (D independent, works). BUT window still mutates via F1, and RESET zeroing (gated by adaptive_window) does NOT fire in A01.",
+        "consequence": "D-family history management is split across two flags: ratio-jump decay->0 under adaptive_decay, domain-shift zeroing under adaptive_window. A clean 2x2 requires decoupling."
+      },
+      "F4_dead_zone_ratio_0_is_AUTO_SET_not_off": {
+        "evidence": "controller L164-167: if cfg.dead_zone_ratio <= 0.0 -> cfg.dead_zone_ratio = 1 + 0.00408*EP^1.52 = 1.096 at EP=8 (log line confirms in all v3 online starts). No CLI value disables it (0.0 and negatives both trigger auto). config.py comment '0.0 keeps the old behaviour' is STALE for this version.",
+        "consequence": "v3 online effective swap threshold = max(threshold_ratio=1.02, dead_zone=1.096) = 1.096 (L684), and early-exit path always active (L900: bias_correct or dead_zone_ratio>0). bias_correct=False, bias_gate=0.0 defaults -> bias-gate skip block inactive. Nearest no-dead-zone approximation without code change: explicit dead_zone_ratio=1.0 (thr becomes max(1.02,1.0)=1.02, early-exit still active at base threshold)."
+      },
+      "F5_other_zeroing_branches_never_fired_in_v3": {
+        "evidence": "load.zero_() also at L583 (_warm_start_placement, setup-time one-shot bulk re-placement; 0 WARMSTART log lines in all 9 v3 logs -> did not fire) and L650 (_check_eplb_refinement, effectively disabled by 'if self._plateau_count < 999: return'; 0 REFINE log lines -> never fired).",
+        "consequence": "The only history zeroings actually executed in v3 were RESET (W-gated) and decay->0 (D-gated). No hidden zeroing beyond F2."
+      }
+    },
+    "v3_validity_impact": "NONE of F1-F5 invalidates v3: online arm intentionally ran all mechanisms on (both W paths + D path active as logged); identity/frozen arms ran with enable_pb_oeplb=False (controller never decides; window/decay machinery inert). The F4 auto dead-zone was part of the online arm's as-measured behaviour and is now documented.",
+    "e_a_required_code_changes": [
+      "C1: gate ALL window mutations in the on_forward_pass_end ADW block on cfg.adaptive_window (both deployed and repo).",
+      "C2: re-attribute RESET domain-shift zeroing to the D family: gate on cfg.adaptive_decay (with both flags True, A11 behaves exactly as v3; A10 loses zeroing = correct 'D off'; A01 gains zeroing = D works independently).",
+      "C3: port repo shrink-clamp fix (min(W, max(window_floor, W//2))) into the patched version.",
+      "C4: after patching, re-establish deployed==locked discipline: new campaign protocol must sha256-lock the new deployed pb_oeplb files; A11 re-runs in the 25-start campaign as contemporaneous control (user rule); identity and ILP frozen map are NOT re-run.",
+      "C5: pre-freeze switch-independence verification (short logging run per arm confirming: fixed-W arms keep _effective_sync_window == cfg.sync_window for the whole run; D-off arms show zero load.zero_/decay->0 events; D-on/W-off arm shows decay->0 without window change). This is E-A preparation, NOT a Step-1 performance experiment.",
+      "C6: document in the E-A protocol that dead_zone_ratio=0.0 means AUTO 1.096 (identical across all five arms, so it does not confound the ablation), and record the effective threshold max(1.02, dead_zone)."
+    ]
+  },
+  "artifacts": {
+    "audit_nine_starts.json": "989897e27cbad2903dd978140869b5f0dcb677b37a1fc53ee88d2d8f65497b8e",
+    "audit_online_mechanisms.json": "479d3ba71b7ae6561245c9593174f3161acaa36a1d758d7fb80ff0a09db1734b",
+    "analysis.json": "86785b86cd6da65bf46c18fe62dd2b0480c76ae39f0780c38c09bcd0e6825663",
+    "overhead_supplement.json": "a06683b809ff1f1560a3b8115c22e41ecf2863bf6cbfe6f0b61548614134c397",
+    "evidence_index_final.json": "380c19031715968a22f1de718f3d85eb416744b8f964c753f540323467657654",
+    "frozen_map_ilp.json": "daf84eff41011663bd8ac81172b8a4d95c5544a036da8993dfe3af8d7df793ac",
+    "controller_deployed": "e6e158426cf3610a2d13515c7a42e18e2548a1f06f10c79cd047248be2bbde2c",
+    "controller_repo": "ada04359c2a7ffa2abb2594525c3605c28cfcaa57419497e9e6466d856127df9",
+    "config_deployed": "232ecbd529d0b109dfed93242c7299770e89e8918fe613e716eab34a8586d4ea"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "lock_id": "ea-v1-code-lock",
+  "created_at_utc": "2026-10-15T12:30:16+00:00",
+  "supersedes": {
+    "artifact": "configs/followup_v1/fullservice_protocol_v3.json",
+    "field": "controller_version_decision",
+    "deployed_sha256_v3": "e6e158426cf3610a2d13515c7a42e18e2548a1f06f10c79cd047248be2bbde2c",
+    "repo_sha256_v3": "ada04359c2a7ffa2abb2594525c3605c28cfcaa57419497e9e6466d856127df9"
+  },
+  "reason": "Step-1 audit findings F1-F3 (audit_report_step1.json sha a9a28e9e9e642f0cfce5758a466b7e1df37f43fac86bf4edcda0e2304a53cd9f): adaptive_window=False did not freeze the window (ungated ADW block), adaptive_decay=False did not disable RESET history zeroing (gated by adaptive_window), calibration warmup gate coupled to adaptive_window. Code changes were REQUIRED before any fixed-W/fixed-D ablation arm can be trusted.",
+  "changes_applied_2026_10_15": [
+    {
+      "id": "C1",
+      "finding": "F1",
+      "files": [
+        "deployed",
+        "repo"
+      ],
+      "description": "ADW ratio-jump/converged/volatile window mutations now execute only under cfg.adaptive_window (_adw_on); changepoint tracking and decay->0 remain under cfg.adaptive_decay. adaptive_window=False => _effective_sync_window never mutates at runtime."
+    },
+    {
+      "id": "C2",
+      "finding": "F2/F3",
+      "files": [
+        "deployed",
+        "repo"
+      ],
+      "description": "RESET domain-shift load.zero_() gate changed from cfg.adaptive_window to cfg.adaptive_decay. adaptive_decay=False => no live history zeroing anywhere; adaptive_decay=True with W off => D works independently."
+    },
+    {
+      "id": "C3",
+      "finding": "repo-only fix ported",
+      "files": [
+        "deployed"
+      ],
+      "description": "cos_sim shift-halving now clamped: new_window=min(W,max(window_floor,W//2)) (monotone non-expanding). Identical to v3 behaviour under sync_window=16/window_floor=8 (clamp is a no-op when floor<=W)."
+    },
+    {
+      "id": "C7",
+      "finding": "calibration coupling",
+      "files": [
+        "deployed",
+        "repo"
+      ],
+      "description": "_calib_done = not cfg.calibrate_adaptive_sensitivity (was: not (cfg.adaptive_window and ...)). With calibrate_adaptive_sensitivity=False (v3 and all planned E-A arms) the value is True either way; warm-start/tier paths remain unreachable exactly as in v3."
+    }
+  ],
+  "a11_equivalence": "With adaptive_window=True, adaptive_decay=True, calibrate_adaptive_sensitivity=False, sync_window=16, window_floor=8 (the v3/E-A flag set) every changed branch evaluates identically to the v3-locked code: same window mutations, same log strings, same RESET trigger, same decay->0, clamp no-op. Static gate verification: results/ea_v1/switch_independence_static.json (sha 1e4c41ffb5fcb0c1a100d1e39f721daf71bcf4c00e3a32325ce34f1dd661ec6e), all checks pass on both files.",
+  "user_rule_consequence": "Because code was modified for the switch fix, A11 MUST be re-run in the new campaign as contemporaneous control; identity and ILP/frozen arms are NOT re-run (user directive).",
+  "deployed_vs_repo_after_edit": [
+    "deployed-only: HOOKDIAG diagnostic counters/logging (inert)",
+    "comment wording at C3 clamp site (code identical)"
+  ],
+  "deployed_package_files": {
+    "__init__.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/__init__.py",
+      "sha256": "ca61e4353a3f84b1f387eac4952b5cb694d4518e58122a5a8c365fc078d8b365"
+    },
+    "async_swapper.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/async_swapper.py",
+      "sha256": "93fa4ccdd653443a13d3b3f4975dd3b2f5dcddad71efedbd86a257f0ed0d12b9"
+    },
+    "config.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/config.py",
+      "sha256": "232ecbd529d0b109dfed93242c7299770e89e8918fe613e716eab34a8586d4ea"
+    },
+    "controller.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py",
+      "sha256": "e8e8d5b1ad9e46c8062e3749f24949eb7f8dd6828e239f037e01ffc88c26ec34"
+    },
+    "fast_metadata.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/fast_metadata.py",
+      "sha256": "5990377dd400eea0052afc97182022ab5c62361cf26d769ca7b2ff2b5956107f"
+    },
+    "per_request_tracer.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/per_request_tracer.py",
+      "sha256": "cb0b2bb55ae4c19b7016fbeca846f4c2d92a2d0fa29c006a4477f602f9158103"
+    },
+    "rebalancer.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/rebalancer.py",
+      "sha256": "a4aa498c2eaba929df8e325e58ad6811335642377eb715c8e02f98585d7fb085"
+    },
+    "routing_tracer.py": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/routing_tracer.py",
+      "sha256": "008f787429d807357bd23bf06e4d5e36365a601a1a7690f9c1aabd7f55948c02"
+    },
+    "controller.py.new_bak": {
+      "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py.new_bak",
+      "sha256": "f2f38bfe0e4d9121a3c9a73821f19c70aa3ca47a36265b5554962f534d08b630"
+    }
+  },
+  "repo_controller": {
+    "path": "/workspace/EPLB/OEPLB/src/controller.py",
+    "sha256": "940c4566ff796a8984b614c31d798c08054c09eebcf4341163405eaaec521e3f"
+  },
+  "controller_deployed": {
+    "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py",
+    "sha256": "e8e8d5b1ad9e46c8062e3749f24949eb7f8dd6828e239f037e01ffc88c26ec34"
+  },
+  "dynamic_verification_pending": "C5 dynamic log-level smoke (per-arm expected log signatures: A00 no ADW/WINDOW/RESET lines & fixed window; A10 ADW lines, no RESET; A01 decay->0 'window fixed' + RESET lines, no window mutation lines; A11 v3-style signatures) must pass BEFORE the E-A protocol freeze; no performance claims from smoke runs.",
+  "prohibitions_reaffirmed": [
+    "no push without separate instruction",
+    "failed starts retired never retried in-campaign",
+    "no post-freeze flag/workload/launcher changes"
+  ]
+}

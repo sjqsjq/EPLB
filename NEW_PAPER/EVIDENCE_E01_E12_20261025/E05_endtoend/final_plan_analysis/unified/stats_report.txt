@@ -1,0 +1,237 @@
+====================================================================================================
+1. CONFIRMATORY FAMILY — P-vs-I and P-vs-E (equal-weight 4-workflow log-time-ratio, complete blocks, Holm)
+====================================================================================================
+
+P-vs-I: complete blocks [1, 2, 4, 5, 7, 8] (lost: [3, 6])
+  g_b(b1) = +0.0023  terms {'E1': -0.02375, 'E2': 0.0918, 'E3': 0.04178, 'E4': -0.10059}
+  g_b(b2) = +0.0121  terms {'E1': -0.09722, 'E2': 0.1452, 'E3': -0.01843, 'E4': 0.01881}
+  g_b(b4) = +0.0525  terms {'E1': 0.01895, 'E2': 0.1778, 'E3': -0.01265, 'E4': 0.02609}
+  g_b(b5) = -0.0050  terms {'E1': 0.00648, 'E2': 0.17357, 'E3': -0.06742, 'E4': -0.13282}
+  g_b(b7) = +0.0466  terms {'E1': 0.03048, 'E2': 0.10774, 'E3': 0.084, 'E4': -0.03596}
+  g_b(b8) = +0.0224  terms {'E1': -0.11049, 'E2': 0.14169, 'E3': 0.06307, 'E4': -0.0046}
+  n=6 mean_logratio=0.0218 [-0.0028,0.0464] G=exp(mean)-1=+2.21% [-0.28%,+4.75%] p=7.18e-02
+
+P-vs-E: complete blocks [1, 2, 4, 5, 7, 8] (lost: [3, 6])
+  g_b(b1) = +0.3041  terms {'E1': -0.02066, 'E2': 0.19714, 'E3': 0.10183, 'E4': 0.93805}
+  g_b(b2) = +0.2965  terms {'E1': -0.08387, 'E2': 0.22054, 'E3': -0.01746, 'E4': 1.06671}
+  g_b(b4) = +0.3091  terms {'E1': 0.0367, 'E2': 0.18902, 'E3': -0.01511, 'E4': 1.02588}
+  g_b(b5) = +0.3068  terms {'E1': -0.00333, 'E2': 0.2811, 'E3': -0.01077, 'E4': 0.96013}
+  g_b(b7) = +0.3284  terms {'E1': 0.03002, 'E2': 0.12526, 'E3': 0.11748, 'E4': 1.04065}
+  g_b(b8) = +0.3232  terms {'E1': -0.11187, 'E2': 0.24227, 'E3': 0.08461, 'E4': 1.07785}
+  n=6 mean_logratio=0.3113 [0.2987,0.3240] G=exp(mean)-1=+36.53% [+34.81%,+38.27%] p=1.89e-08
+
+Holm-adjusted p-values: P-vs-I=7.182e-02, P-vs-E=3.773e-08 (alpha=0.05)
+  P-vs-I: G=+2.21%, Holm p=7.182e-02 -> not significant
+  P-vs-E: G=+36.53%, Holm p=3.773e-08 -> SIGNIFICANT
+
+====================================================================================================
+2. PER-WORKFLOW EFFECTS (unadjusted; raw times, paired diffs, time-reduction, throughput-gain named separately)
+====================================================================================================
+
+P-vs-I @E1: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [315.6,370.7]s  T_I range [322.9,332.0]s
+  n=8 mean_logratio=-0.0192 [-0.0648,0.0265] G=exp(mean)-1=-1.90% [-6.28%,+2.69%] p=3.54e-01
+  time_reduction(1-T_P/T_I): mean -2.07% [-11.68,+3.00]
+  throughput_gain(T_I/T_P-1): mean -1.77% [-10.46,+3.10]
+
+P-vs-I @E2: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [84.6,97.1]s  T_I range [98.4,104.7]s
+  n=8 mean_logratio=0.1266 [0.0826,0.1706] G=exp(mean)-1=+13.50% [+8.61%,+18.60%] p=2.53e-04
+  time_reduction(1-T_P/T_I): mean +11.78% [+1.88,+16.29]
+  throughput_gain(T_I/T_P-1): mean +13.63% [+1.92,+19.46]
+
+P-vs-I @E3: n=6 blocks [1, 2, 4, 5, 7, 8]
+  T_P range [178.5,206.3]s  T_I range [188.4,195.6]s
+  n=6 mean_logratio=0.0151 [-0.0452,0.0753] G=exp(mean)-1=+1.52% [-4.42%,+7.82%] p=5.49e-01
+  time_reduction(1-T_P/T_I): mean +1.36% [-6.97,+8.06]
+  throughput_gain(T_I/T_P-1): mean +1.66% [-6.52,+8.76]
+
+P-vs-I @E4: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [90.4,101.7]s  T_I range [89.1,95.0]s
+  n=8 mean_logratio=-0.0462 [-0.0942,0.0018] G=exp(mean)-1=-4.51% [-8.99%,+0.18%] p=5.70e-02
+  time_reduction(1-T_P/T_I): mean -4.88% [-14.20,+2.58]
+  throughput_gain(T_I/T_P-1): mean -4.38% [-12.44,+2.64]
+
+P-vs-E @E1: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [315.6,370.7]s  T_E range [324.1,331.5]s
+  n=8 mean_logratio=-0.0157 [-0.0614,0.0300] G=exp(mean)-1=-1.56% [-5.95%,+3.04%] p=4.43e-01
+  time_reduction(1-T_P/T_E): mean -1.72% [-11.84,+3.60]
+  throughput_gain(T_E/T_P-1): mean -1.43% [-10.58,+3.74]
+
+P-vs-E @E2: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [84.6,97.1]s  T_E range [103.9,112.0]s
+  n=8 mean_logratio=0.1920 [0.1415,0.2426] G=exp(mean)-1=+21.17% [+15.20%,+27.45%] p=4.32e-05
+  time_reduction(1-T_P/T_E): mean +17.34% [+8.88,+24.50]
+  throughput_gain(T_E/T_P-1): mean +21.36% [+9.74,+32.46]
+
+P-vs-E @E3: n=6 blocks [1, 2, 4, 5, 7, 8]
+  T_P range [178.5,206.3]s  T_E range [194.8,204.1]s
+  n=6 mean_logratio=0.0434 [-0.0240,0.1109] G=exp(mean)-1=+4.44% [-2.37%,+11.73%] p=1.59e-01
+  time_reduction(1-T_P/T_E): mean +4.09% [-1.76,+11.08]
+  throughput_gain(T_E/T_P-1): mean +4.62% [-1.73,+12.47]
+
+P-vs-E @E4: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [90.4,101.7]s  T_E range [248.6,270.9]s
+  n=8 mean_logratio=1.0033 [0.9569,1.0498] G=exp(mean)-1=+172.73% [+160.35%,+185.69%] p=2.89e-10
+  time_reduction(1-T_P/T_E): mean +63.28% [+60.86,+65.97]
+  throughput_gain(T_E/T_P-1): mean +173.10% [+155.50,+193.84]
+
+P-vs-F @E1: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [315.6,370.7]s  T_F range [321.2,366.8]s
+  n=8 mean_logratio=0.0431 [-0.0301,0.1162] G=exp(mean)-1=+4.40% [-2.96%,+12.33%] p=2.06e-01
+  time_reduction(1-T_P/T_F): mean +3.88% [-15.42,+11.90]
+  throughput_gain(T_F/T_P-1): mean +4.74% [-13.36,+13.51]
+
+P-vs-F @E2: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  T_P range [84.6,97.1]s  T_F range [84.1,93.8]s
+  n=8 mean_logratio=-0.0127 [-0.0547,0.0292] G=exp(mean)-1=-1.27% [-5.32%,+2.96%] p=4.96e-01
+  time_reduction(1-T_P/T_F): mean -1.40% [-10.95,+4.91]
+  throughput_gain(T_F/T_P-1): mean -1.16% [-9.87,+5.16]
+
+P-vs-F @E3: n=4 blocks [1, 2, 5, 7]
+  T_P range [178.5,206.3]s  T_F range [179.9,198.8]s
+  n=4 mean_logratio=-0.0101 [-0.1028,0.0825] G=exp(mean)-1=-1.01% [-9.77%,+8.60%] p=7.51e-01
+  time_reduction(1-T_P/T_F): mean -1.15% [-9.36,+4.92]
+  throughput_gain(T_F/T_P-1): mean -0.88% [-8.56,+5.17]
+
+P-vs-F @E4: n=6 blocks [1, 2, 3, 5, 6, 8]
+  T_P range [91.5,101.7]s  T_F range [90.4,109.3]s
+  n=6 mean_logratio=0.0108 [-0.0486,0.0703] G=exp(mean)-1=+1.09% [-4.75%,+7.28%] p=6.59e-01
+  time_reduction(1-T_P/T_F): mean +0.95% [-6.89,+7.40]
+  throughput_gain(T_F/T_P-1): mean +1.23% [-6.45,+7.99]
+
+====================================================================================================
+3. SECONDARY FAMILY — P-vs-F* (complete blocks) + 5 condition×ablation contrasts (each vs same-cond P)
+====================================================================================================
+
+P-vs-F* (complete blocks [1, 2, 5], lost [3, 4, 6, 7, 8]):
+  g_b(b1) = -0.0017
+  g_b(b2) = +0.0024
+  g_b(b5) = -0.0163
+  n=3 mean_logratio=-0.0052 [-0.0296,0.0192] G=exp(mean)-1=-0.52% [-2.92%,+1.94%] p=4.57e-01  [small-n caveat: n=3]
+
+A3@E1 vs P@E1: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  b1: T_P=331.0s T_A=341.3s logratio=+0.0306
+  b2: T_P=355.9s T_A=366.0s logratio=+0.0281
+  b3: T_P=323.2s T_A=375.9s logratio=+0.1511
+  b4: T_P=317.3s T_A=344.7s logratio=+0.0829
+  b5: T_P=327.7s T_A=354.9s logratio=+0.0797
+  b6: T_P=318.1s T_A=332.0s logratio=+0.0427
+  b7: T_P=315.6s T_A=355.0s logratio=+0.1175
+  b8: T_P=370.7s T_A=339.4s logratio=-0.0884
+  n=8 mean_logratio=0.0555 [-0.0049,0.1159] G=exp(mean)-1=+5.71% [-0.49%,+12.29%] p=6.62e-02
+
+A2@E2 vs P@E2: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  b1: T_P=89.8s T_A=92.9s logratio=+0.0340
+  b2: T_P=85.4s T_A=96.8s logratio=+0.1247
+  b3: T_P=97.1s T_A=95.9s logratio=-0.0121
+  b4: T_P=86.0s T_A=104.8s logratio=+0.1978
+  b5: T_P=84.6s T_A=110.3s logratio=+0.2658
+  b6: T_P=88.1s T_A=92.0s logratio=+0.0431
+  b7: T_P=94.0s T_A=91.6s logratio=-0.0259
+  b8: T_P=87.1s T_A=90.2s logratio=+0.0350
+  n=8 mean_logratio=0.0828 [-0.0041,0.1697] G=exp(mean)-1=+8.63% [-0.40%,+18.49%] p=5.88e-02
+
+A2@E3 vs P@E3: n=6 blocks [1, 2, 4, 5, 7, 8]
+  b1: T_P=180.7s T_A=205.7s logratio=+0.1295
+  b2: T_P=198.2s T_A=203.0s logratio=+0.0240
+  b4: T_P=198.1s T_A=221.7s logratio=+0.1127
+  b5: T_P=206.3s T_A=215.7s logratio=+0.0445
+  b7: T_P=178.5s T_A=185.4s logratio=+0.0382
+  b8: T_P=179.9s T_A=203.7s logratio=+0.1243
+  n=6 mean_logratio=0.0789 [0.0283,0.1295] G=exp(mean)-1=+8.21% [+2.87%,+13.82%] p=1.02e-02
+
+A4@E3 vs P@E3: n=6 blocks [1, 2, 4, 5, 7, 8]
+  b1: T_P=180.7s T_A=190.7s logratio=+0.0538
+  b2: T_P=198.2s T_A=197.6s logratio=-0.0032
+  b4: T_P=198.1s T_A=190.0s logratio=-0.0417
+  b5: T_P=206.3s T_A=197.3s logratio=-0.0446
+  b7: T_P=178.5s T_A=190.7s logratio=+0.0659
+  b8: T_P=179.9s T_A=195.1s logratio=+0.0813
+  n=6 mean_logratio=0.0186 [-0.0399,0.0770] G=exp(mean)-1=+1.87% [-3.91%,+8.01%] p=4.51e-01
+
+A1@E4 vs P@E4: n=8 blocks [1, 2, 3, 4, 5, 6, 7, 8]
+  b1: T_P=101.3s T_A=100.7s logratio=-0.0052
+  b2: T_P=93.2s T_A=107.0s logratio=+0.1381
+  b3: T_P=95.2s T_A=103.7s logratio=+0.0849
+  b4: T_P=90.4s T_A=91.6s logratio=+0.0127
+  b5: T_P=101.7s T_A=104.3s logratio=+0.0256
+  b6: T_P=99.3s T_A=91.3s logratio=-0.0838
+  b7: T_P=94.3s T_A=98.6s logratio=+0.0451
+  b8: T_P=91.5s T_A=89.3s logratio=-0.0245
+  n=8 mean_logratio=0.0241 [-0.0325,0.0808] G=exp(mean)-1=+2.44% [-3.20%,+8.41%] p=3.47e-01
+
+====================================================================================================
+4. P1 — redundancy R vs pressure (descriptive range estimates; NOT confirmatory; no ad-hoc SLO)
+====================================================================================================
+
+--- pressure PL (conc=64) ---
+  P_final: T mean   402.2s range [380.3,429.2]  tps_out mean  653.1  ttft_p99 mean  11.13s  lat_p99 mean  17.01s  ok=8192/8192 err=0  KV_min 227258
+  E-R0   : T mean  1056.7s range [959.2,1144.7]  tps_out mean  249.4  ttft_p99 mean   6.89s  lat_p99 mean  36.24s  ok=8192/8192 err=0  KV_min 227053
+  E-R16  : T mean  1048.6s range [959.4,1180.3]  tps_out mean  251.5  ttft_p99 mean   6.96s  lat_p99 mean  36.67s  ok=8192/8192 err=0  KV_min 208673
+  E-R32  : T mean  1027.2s range [969.5,1105.6]  tps_out mean  256.0  ttft_p99 mean   8.39s  lat_p99 mean  36.52s  ok=8192/8192 err=0  KV_min 190219
+  paired log(T_E-R0/T_P): n=4 mean +0.9644 -> P advantage G-form +162.32% [+118.12,+215.47%] (t-CI, df=3, range-estimate only)
+  paired log(T_E-R16/T_P): n=4 mean +0.9562 -> P advantage G-form +160.19% [+117.79,+210.84%] (t-CI, df=3, range-estimate only)
+  paired log(T_E-R32/T_P): n=4 mean +0.9372 -> P advantage G-form +155.28% [+115.83,+201.95%] (t-CI, df=3, range-estimate only)
+
+--- pressure PH (conc=256 (C_hi)) ---
+  P_final: T mean   273.9s range [271.9,276.7]  tps_out mean  957.2  ttft_p99 mean  30.75s  lat_p99 mean  39.91s  ok=8192/8192 err=0  KV_min 227162
+  E-R0   : T mean   401.1s range [378.9,446.0]  tps_out mean  656.5  ttft_p99 mean  28.69s  lat_p99 mean  57.18s  ok=8192/8192 err=0  KV_min 225713
+  E-R16  : T mean   404.6s range [386.8,429.3]  tps_out mean  649.0  ttft_p99 mean  27.90s  lat_p99 mean  56.15s  ok=8192/8192 err=0  KV_min 207150
+  E-R32  : T mean   402.8s range [388.3,424.4]  tps_out mean  651.5  ttft_p99 mean  28.13s  lat_p99 mean  56.62s  ok=8192/8192 err=0  KV_min 190219
+  paired log(T_E-R0/T_P): n=4 mean +0.3793 -> P advantage G-form +46.13% [+28.31,+66.41%] (t-CI, df=3, range-estimate only)
+  paired log(T_E-R16/T_P): n=4 mean +0.3895 -> P advantage G-form +47.62% [+38.53,+57.32%] (t-CI, df=3, range-estimate only)
+  paired log(T_E-R32/T_P): n=4 mean +0.3853 -> P advantage G-form +47.00% [+37.03,+57.71%] (t-CI, df=3, range-estimate only)
+
+====================================================================================================
+5. COMPLETION REPORT — all planned boots; RESULT_RETIRE counted, never deleted
+====================================================================================================
+
+cond  arm  boots valid retired  completed/planned  rate
+E1    A3       8     8       0     25768/25768    100.00%
+E1    E        8     8       0     25768/25768    100.00%
+E1    F        8     8       0     25768/25768    100.00%
+E1    I        8     8       0     25768/25768    100.00%
+E1    P        8     8       0     25768/25768    100.00%
+E2    A2       8     8       0     32656/32656    100.00%
+E2    E        8     8       0     32656/32656    100.00%
+E2    F        8     8       0     32656/32656    100.00%
+E2    I        8     8       0     32656/32656    100.00%
+E2    P        8     8       0     32656/32656    100.00%
+E3    A2       8     8       0     65536/65536    100.00%
+E3    A4       8     8       0     65536/65536    100.00%
+E3    E        8     8       0     65536/65536    100.00%
+E3    F        8     5       3     40960/65536     62.50%  <-- retired
+E3    I        8     8       0     65536/65536    100.00%
+E3    P        8     6       2     49152/65536     75.00%  <-- retired
+E4    A1       8     8       0     16384/16384    100.00%
+E4    E        8     8       0     16384/16384    100.00%
+E4    F        8     6       2     14593/16384     89.07%  <-- retired
+E4    I        8     8       0     16384/16384    100.00%
+E4    P        8     8       0     16384/16384    100.00%
+
+MAIN aggregate request completion (retired crash cells count 0 completed — client killed after watchdog; partial-completion cells keep measured ok): 724505/767256 = 94.43%
+P1 aggregate: 65536/65536 = 100.00% (32/32 boots VALID, zero errors)
+Retired cell detail: m_E4_F_b4 ok=1281/2048 err=767 (completion-rate path); m_E4_F_b7 ok=1024/2048 err=1024 (completion-rate path); m_E3_{P_b6,F_b8,F_b4,F_b3,P_b3} no bench (NCCL hang -> watchdog abort -> client killed; completed count not measured, counted 0 conservatively)
+
+====================================================================================================
+6. MECHANISM/COUNTS PER BOOT + ablation manipulation checks (§7)
+====================================================================================================
+  A1@E4 boots=8: swaps_started [12,22]  transitions [0,0]  sp_fwd [1162,1194]  recorded_steps [136,140]  nocommit_planned [0,0]  decode_record_batches [1020,1054]
+  A2@E2 boots=8: swaps_started [6,8]  transitions [0,0]  sp_fwd [266,266]  recorded_steps [252,254]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  A2@E3 boots=8: swaps_started [26,28]  transitions [0,0]  sp_fwd [522,522]  recorded_steps [508,510]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  A3@E1 boots=8: swaps_started [49,49]  transitions [0,0]  sp_fwd [810,810]  recorded_steps [796,798]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  A4@E3 boots=8: swaps_started [0,0]  transitions [0,0]  sp_fwd [522,522]  recorded_steps [508,509]  nocommit_planned [8853,8878]  decode_record_batches [0,0]
+  F@E1 boots=8: swaps_started [49,49]  transitions [0,0]  sp_fwd [810,810]  recorded_steps [796,797]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  F@E2 boots=8: swaps_started [2,2]  transitions [0,0]  sp_fwd [266,266]  recorded_steps [252,254]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  F@E3 boots=5: swaps_started [13,14]  transitions [0,0]  sp_fwd [522,522]  recorded_steps [509,510]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  F@E4 boots=6: swaps_started [12,14]  transitions [0,0]  sp_fwd [1162,1162]  recorded_steps [132,136]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  P@E1 boots=8: swaps_started [49,49]  transitions [0,0]  sp_fwd [810,810]  recorded_steps [796,798]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  P@E2 boots=8: swaps_started [2,2]  transitions [1,4]  sp_fwd [266,266]  recorded_steps [135,204]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  P@E3 boots=6: swaps_started [12,14]  transitions [0,4]  sp_fwd [522,522]  recorded_steps [438,509]  nocommit_planned [0,0]  decode_record_batches [0,0]
+  P@E4 boots=8: swaps_started [12,21]  transitions [0,0]  sp_fwd [1162,1178]  recorded_steps [134,136]  nocommit_planned [0,0]  decode_record_batches [0,0]
+
+Manipulation checks:
+  A4 (noCommit) @E3: nocommit_planned_ops 8853>0 & swaps_started max 0 -> planning continued, commits blocked
+  A1 (allphase) @E4: decode_record_batches range [1020,1054] -> decode recording actually exercised
+  A3 (denseSample) @E1: recorded_steps range [796,798] vs P@E1 [796,798]

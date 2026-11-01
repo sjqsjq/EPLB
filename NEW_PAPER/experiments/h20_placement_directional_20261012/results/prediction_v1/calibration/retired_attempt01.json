@@ -1,0 +1,15 @@
+{
+  "attempt": "calibration-protocol-attempt01",
+  "campaign_artifacts_reset": true,
+  "failure_record": "results/prediction_v1/calibration/raw/cal-01-start-1.failure.json",
+  "favorable_repeat_selection_risk": "none: no timing, correctness, or route value from this attempt was persisted or observed",
+  "fix": "result writer now mirrors the confirmation-proven execution block using DeepEPConfig.num_sms only",
+  "log": "results/prediction_v1/calibration/logs/cal-01-start-1.log",
+  "raw_output_files_written": 0,
+  "reason": "prediction_replay.py result writer referenced a nonexistent DeepEPConfig attribute (num_max_dispatch_tokens_per_rank); rank0 raised AttributeError after the schedule completed but before any raw output was written",
+  "retired_at_utc": "2026-10-12T08:17:40.341451+00:00",
+  "retired_protocol_sha256": "8ecf5afb463cd65384eadc0289874a6c751faef63b7be0c50eb0f3bad47d7d5a",
+  "schema_version": 1,
+  "study_id": "h20-placement-prediction-v1",
+  "timed_values_persisted": false
+}

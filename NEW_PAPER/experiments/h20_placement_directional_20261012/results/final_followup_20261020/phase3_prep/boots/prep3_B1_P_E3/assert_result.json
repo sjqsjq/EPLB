@@ -1,0 +1,51 @@
+{
+ "label": "prep3_B1_P_E3",
+ "mode": "pb",
+ "checks": {
+  "no_watchdog": {
+   "ok": false,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": false,
+   "detail": ""
+  },
+  "no_coalesced_err": {
+   "ok": false,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "planhash_identity": {
+   "ok": true,
+   "detail": "plan_windows=5"
+  },
+  "swaps_min": {
+   "ok": true,
+   "detail": "issued_windows=5 min=4"
+  },
+  "v2p1_no_desync": {
+   "ok": true,
+   "detail": "rows=17"
+  },
+  "v2p1_hash_identical": {
+   "ok": true,
+   "detail": ""
+  },
+  "p2l_version_match": {
+   "ok": true,
+   "detail": "p2l=4 issued=5"
+  },
+  "bench_complete": {
+   "ok": false,
+   "detail": "[Errno 2] No such file or directory: '/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/boots/prep3_B1_P_E3/prep3_B1_P_E3.json'"
+  },
+  "perreq_lines": {
+   "ok": false,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase3_prep/boots/prep3_B1_P_E3/prep3_B1_P_E3_perreq.jsonl"
+  }
+ },
+ "pass": false
+}

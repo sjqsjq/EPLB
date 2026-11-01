@@ -1,0 +1,63 @@
+{
+ "arm": "F_sparse",
+ "condition": "W1",
+ "label": "sp_dev_W1_b1_F_sparse",
+ "protocol": "sp_coupling_v1",
+ "checks": {
+  "bench": {
+   "label": "sp_dev_W1_b1_F_sparse",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+   "num_requests": 4000,
+   "concurrency": 256,
+   "ok": 4000,
+   "errors": 0,
+   "total_time_s": 353.73
+  },
+  "adw21_banner_count": 8,
+  "knob_strings_unique": 1,
+  "knob_authority": "A-frozen",
+  "sp_banner_count": 8,
+  "sp_banner_variants": [
+   [
+    "fixed",
+    "4",
+    "64",
+    "64",
+    "20261018",
+    "3",
+    "2"
+   ]
+  ],
+  "meta_sp_env": {
+   "OEPLB_SP_MODE": "fixed",
+   "OEPLB_SP_S": "4",
+   "OEPLB_SP_W": "64"
+  },
+  "jsonl_lines": 15,
+  "jsonl_min_lines": 7,
+  "sp_run_end": {
+   "mode": "fixed",
+   "state_final": "FIXED",
+   "S_final": 4,
+   "H_final": 64,
+   "W_final": 64,
+   "sp_fwd_total": 970,
+   "h_cycles": 15,
+   "window_count": 15,
+   "true_steps_total": 960,
+   "sample_opportunities": 243,
+   "recorded_steps": 239,
+   "swaps_started_total": 2,
+   "residency_committed_h": {
+    "FIXED": 15
+   },
+   "p2l_version": 2
+  },
+  "sp_transitions": [],
+  "sp_seals": []
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

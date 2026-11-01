@@ -1,0 +1,167 @@
+{
+ "spec_id": "h20-placement-ea-v1-calibration-grid",
+ "status": "frozen_before_execution",
+ "frozen_at_utc": "2026-10-15T12:41:28+00:00",
+ "purpose": "Pre-freeze calibration phase of experiment E-A (four-arm W x D ablation). Selects the fixed control parameters (W*, alpha*) for the fixed arms using ONLY the 8037 real calibration requests, and runs the C5-dynamic log-signature smokes for the A10/A01/A11 arm configurations on the decoupled controller (ea_v1_code_lock). No evaluation-request access; no performance claims from this phase; smoke data never enters selection.",
+ "why_existing_scans_insufficient": "All retained fixed-vs-adaptive scans (driver35/38/39, oeplb_fixed_adaptive_results.json, oeplb_adaptive_both_constructions.json) ran on synthetic grid/crossdomain workloads (L512_O1_realprover, crossdomain_freq6_O10, universal_16k) outside the paper's real-request scope, and none swept (sync_window, decay_factor) jointly. Per the user rule this counts as insufficient -> small grid on calibration requests, chosen before evaluation and frozen.",
+ "grid": {
+  "W_candidates": [
+   8,
+   16,
+   32,
+   64
+  ],
+  "W16_justification": "v3-lineage value (sync_window=16) included as candidate so the adaptive arms' starting window is in the fixed candidate set; avoids weak-control strawman per user rule",
+  "alpha_candidates": [
+   0.0,
+   0.5,
+   0.9
+  ],
+  "starts_per_combo": 2,
+  "adaptive_flags": "adaptive_window=False, adaptive_decay=False for ALL grid combos (A00-style)",
+  "order": "2 rounds; within round W ascending x alpha ascending; deterministic, fixed before execution",
+  "n_starts": 24
+ },
+ "smokes": [
+  {
+   "label": "easmoke_A10_s1",
+   "arm": "A10 (adaptive W + fixed D)",
+   "W": 16,
+   "alpha": 0.5,
+   "adaptive_window": true,
+   "adaptive_decay": false,
+   "expected_signature": {
+    "adw_shrink_or_grow": ">=0 (mechanism enabled; firing workload-dependent)",
+    "window_shift": ">=0",
+    "reset": "==0 (D off -> no history zeroing anywhere)",
+    "warmstart": "==0",
+    "calib_tier": "==0",
+    "arg_adw_true": ">=1",
+    "arg_add_true": "==0"
+   }
+  },
+  {
+   "label": "easmoke_A01_s1",
+   "arm": "A01 (fixed W + adaptive D)",
+   "W": 16,
+   "alpha": 0.5,
+   "adaptive_window": false,
+   "adaptive_decay": true,
+   "expected_signature": {
+    "adw_shrink": "==0 (window frozen)",
+    "adw_grow": "==0",
+    "window_shift": "==0",
+    "window_stable": "==0",
+    "adw_decay0_window_fixed": ">=0 (fires only at changepoints)",
+    "reset": ">=0 (enabled; firing workload-dependent)",
+    "arg_adw_true": "==0",
+    "arg_add_true": ">=1"
+   }
+  },
+  {
+   "label": "easmoke_A11_s1",
+   "arm": "A11 (both adaptive, v3-equivalent)",
+   "W": 16,
+   "alpha": 0.5,
+   "adaptive_window": true,
+   "adaptive_decay": true,
+   "expected_signature": {
+    "note": "v3-style signatures (ADW shrink/grow, WINDOW shift, RESET events); exact counts workload-dependent; arg flags both True"
+   }
+  }
+ ],
+ "fixed_shared_flags": "threshold-ratio 1.02; min-prefill-tokens 256; window-floor 8; window-shift-confirm 2; max-total-swap-layers 94; max-swaps-per-layer 64; min-swap-ops 8; max-total-ops 300; dead_zone_ratio default 0.0 -> controller auto-sets 1+0.00408*EP^1.52=1.096 IDENTICALLY in every arm (C6, audit F4: no CLI value disables it; documented, not varied); calibrate_adaptive_sensitivity default False -> warm-start/tier paths unreachable in every arm (C7); model/parallelism/backend/mem-fraction/cuda-graph identical to v3 online launcher.",
+ "arm_parameter_mapping_after_selection": {
+  "A00": "sync_window=W*, decay_factor=alpha*, both adaptive flags OFF",
+  "A10": "sync_window=16 (adaptive start, v3 lineage), decay_factor=alpha*, adaptive_window ON, adaptive_decay OFF",
+  "A01": "sync_window=W*, decay_factor=0.5 (v3 lineage base alpha; modulated by D), adaptive_window OFF, adaptive_decay ON",
+  "A11": "sync_window=16, decay_factor=0.5, both adaptive flags ON -> byte-identical launch configuration to v3 online arm (contemporaneous re-run required by user rule because controller code changed)"
+ },
+ "selection_rule": {
+  "metric": "total_time_s of the full calibration pass (8037 requests, concurrency 256, identical completed workload per start)",
+  "validity": "bench_rc==0 AND errors==0 AND ok==8037; invalid starts are retained+retired, never retried",
+  "combo_score": "mean total_time_s over valid starts of the combo; combo with 1 valid start uses n=1 mean (flagged); 0 valid -> ineligible",
+  "choice": "(W*,alpha*) = argmin combo_score",
+  "tie_break": [
+   "smaller W",
+   "smaller alpha",
+   "(16,0.5) lineage"
+  ],
+  "freeze_point": "written to configs/followup_v1/ea_v1_fixed_params.json BEFORE any evaluation or campaign start; never revised afterwards",
+  "prohibited": [
+   "best-start selection within combos",
+   "using smoke runs",
+   "using evaluation requests",
+   "revisiting after seeing campaign data"
+  ]
+ },
+ "locked_artifacts": {
+  "calibration_workload": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl",
+   "sha256": "7d53aa0b07dbc9f11f47af44ee4f4106861f5ace6d4eeca1ba41cdf5b01b17f9"
+  },
+  "deployed_controller": {
+   "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py",
+   "sha256": "e8e8d5b1ad9e46c8062e3749f24949eb7f8dd6828e239f037e01ffc88c26ec34"
+  },
+  "deployed_config": {
+   "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/config.py",
+   "sha256": "c4225de281a5b86c07ef7c0cad4e007447fe6373e38c133d811741f4603dd643"
+  },
+  "repo_controller": {
+   "path": "/workspace/EPLB/OEPLB/src/controller.py",
+   "sha256": "940c4566ff796a8984b614c31d798c08054c09eebcf4341163405eaaec521e3f"
+  },
+  "repo_config": {
+   "path": "/workspace/EPLB/OEPLB/src/config.py",
+   "sha256": "c4225de281a5b86c07ef7c0cad4e007447fe6373e38c133d811741f4603dd643"
+  },
+  "launcher_template": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_launchers/launch235b_eagrid.sh",
+   "sha256": "3f00afe826a2bb4097db33f8f7e273e9294563f1a10fb1e86fb85666b5168b7e"
+  },
+  "driver": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_ea_calibration_grid.sh",
+   "sha256": "f1ab99f1d60e946e210129ea3972bc741ec2cbd42d724a1b9cfc1be13968d5ea"
+  },
+  "bench_tool": {
+   "path": "/workspace/EPLB/OEPLB/scripts/run_grid_bench.py",
+   "sha256": "2d56c9778a5dea3956fffe44b3d5e50b7b7fbd4227c025007ad1e9950d23ddb0"
+  },
+  "code_lock": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_code_lock.json",
+   "sha256": "0c173198f17131a437e54570370ebbb3021413d26ebd102ac41fed2590bab662"
+  },
+  "static_verification": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/switch_independence_static.json",
+   "sha256": "1e4c41ffb5fcb0c1a100d1e39f721daf71bcf4c00e3a32325ce34f1dd661ec6e"
+  },
+  "v3_online_launcher_reference": {
+   "path": "/workspace/logs/launch235b_oeplb.sh",
+   "sha256": "46860da0667efff7d561e67e468756031be4d5b618e54517c47bff9f82c4e0f8"
+  },
+  "v3_protocol_reference": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_protocol_v3.json",
+   "sha256": "dd9a90691cb85cd616591b14aaf68d6d51733bcc3ed1336ca02eba62f09a4e8c"
+  }
+ },
+ "recording_per_start": [
+  "full server log",
+  "bench json (ok/errors/total_time_s/tps/tokens/latency)",
+  "campaign_state entry with mechanism line counts (ADW/WINDOW/RESET/WARMSTART/CALIB/REFINE/arg flags/tracebacks)",
+  "wall-clock timestamps"
+ ],
+ "prohibitions": [
+  "evaluation_requests_in_setup_or_selection",
+  "retry_failed_start_same_campaign",
+  "best_start_or_repeat_selection",
+  "post_freeze_flag_workload_or_launcher_change",
+  "artificial_delay_floor",
+  "differential_delay",
+  "sleep_or_spin",
+  "mid_layer_collective_or_gate",
+  "push_without_separate_instruction",
+  "performance_claims_from_smokes"
+ ],
+ "estimated_runtime": "27 starts x (boot ~8-13 min + calibration pass ~7 min + teardown ~1-2 min) ~ 7.5-9.5 h"
+}

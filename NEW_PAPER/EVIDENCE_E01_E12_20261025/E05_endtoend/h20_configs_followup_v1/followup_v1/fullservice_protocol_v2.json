@@ -1,0 +1,239 @@
+{
+ "spec_id": "h20-placement-fullservice-v2",
+ "frozen_utc": "2026-10-15T04:55:45.765492+00:00",
+ "status": "frozen_before_execution",
+ "parent_campaign": "h20_placement_directional_20261012",
+ "supersedes": {
+  "protocol": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_protocol.json",
+  "sha256": "0b0385ec2939bf4a5ad8fb86ae0d5f768f93ee7ee547983f7d389792f50c9dec",
+  "reason": "v1 produced zero measured data: its profiling boot failed with NotImplementedError (recorder stat mode requires --deepep-mode normal/low_latency, not auto). v1 also generated the static map from the whole workload (hindsight), violating the calibration/evaluation separation required for a deployable static reference. v1 file is retained unmodified as provenance."
+ },
+ "objective": "Experiment 3 (v2): full-service three-arm validation on one node, 8xH20, EP=8, real Qwen3-235B-A22B-FP8 weights, real SGLang serving stack, identical serving configuration across arms. Arms: identity placement vs frozen static placement derived from CALIBRATION requests only (campaign optimizer lineage, greedy_base) vs original online PB-OEPLB (deployed controller unchanged). ALL measured benches run on the DISJOINT EVALUATION requests. All real online record/plan/migration/commit costs stay inside the online arm's measured wall time; the controller-log overhead decomposition is reported alongside and never subtracted. Every independent start is retained.",
+ "hardware": {
+  "node": 1,
+  "gpus": 8,
+  "gpu": "NVIDIA H20",
+  "ep_size": 8,
+  "tp": 8,
+  "dp": 8
+ },
+ "workload": {
+  "source": {
+   "path": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/prefill_heavy_universal.jsonl",
+   "sha256": "e2a30dee2901f7af53e39eb61abd70461a3bc8a0cea0d900f056c57f0feac343",
+   "bytes": 73454319,
+   "num_requests": 16000,
+   "lineage": "identical workload as prior driver35/driver39 H20 runs"
+  },
+  "split_rule": "sha256(fullservice-v2-split-v1|index|line)[:8] big-endian < 2**63 -> calibration, else evaluation",
+  "split_properties": "deterministic content-hash split; disjoint and exhaustive; uses no performance or timing information",
+  "calibration": {
+   "bytes": 36657294,
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl",
+   "requests": 8037,
+   "sha256": "7d53aa0b07dbc9f11f47af44ee4f4106861f5ace6d4eeca1ba41cdf5b01b17f9"
+  },
+  "evaluation": {
+   "bytes": 36797025,
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+   "requests": 7963,
+   "sha256": "53e5b0e1f74af708037d69f95856aced71374ec55826c96ea1f4134a78fedb1c"
+  },
+  "concurrency": 256,
+  "usage": "calibration requests: untimed profiling pass only; evaluation requests: all nine measured arm benches"
+ },
+ "arms": {
+  "identity": {
+   "launcher": "/workspace/logs/launch235b_identity.sh",
+   "labels": [
+    "fs300v2_id_s1",
+    "fs300v2_id_s2",
+    "fs300v2_id_s3"
+   ],
+   "init_expert_location": "trivial (default)"
+  },
+  "frozen": {
+   "launcher": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_launchers_v2/launch235b_fixedh20.sh",
+   "labels": [
+    "fs300v2_fx_s1",
+    "fs300v2_fx_s2",
+    "fs300v2_fx_s3"
+   ],
+   "init_expert_location": "results/fullservice_v2/setup/frozen_map.json generated in setup phase by gen_frozen_map.py (greedy_base lineage over CALIBRATION-aggregate logical counts only)"
+  },
+  "online": {
+   "launcher": "/workspace/logs/launch235b_oeplb.sh",
+   "labels": [
+    "fs300v2_on_s1",
+    "fs300v2_on_s2",
+    "fs300v2_on_s3"
+   ],
+   "controller": "deployed site-packages pb_oeplb, UNCHANGED (see controller_version_decision)",
+   "flags_note": "verbatim H20-validated production flags: threshold 1.02, sync-window 16, adaptive-window, adaptive-decay, window-floor 8, window-shift-confirm 2, min-prefill-tokens 256, min-swap-ops 8, max-total-ops 300, max-total-swap-layers 94, max-swaps-per-layer 64, decay 0.5"
+  }
+ },
+ "run_order": {
+  "scheme": "round-robin over starts to decorrelate temporal drift",
+  "sequence": [
+   "id_s1",
+   "fx_s1",
+   "on_s1",
+   "id_s2",
+   "fx_s2",
+   "on_s2",
+   "id_s3",
+   "fx_s3",
+   "on_s3"
+  ],
+  "each_run": "fresh server boot (pkill -> gpu-clear-wait -> setsid boot -> poll 'ready to roll'/'Traceback' 600x4s -> full evaluation bench -> collect logs+json -> pkill -> gpu-clear-wait)"
+ },
+ "setup_phase_untimed": {
+  "profiling": "boot profiling launcher (--deepep-mode normal, recorder requirement); POST /start_expert_distribution_record; CALIBRATION-request pass via run_grid_bench.py fs300v2_profile_calib (result retained as provenance only, excluded from analysis); POST /stop+/dump; dump_counts.py -> results/fullservice_v2/setup/counts_calibration.json",
+  "map_generation": "gen_frozen_map.py: per layer greedy_base (frozen lexicographic-descent optimizer from experiments 1/2) over the 94x128 CALIBRATION-aggregate logical counts -> frozen_map.json + frozen_map_report.json (hashes, per-layer r_identity/r_greedy/moves)",
+  "placement_independence_note": "logical routing counts are produced by frozen router gate weights and do not depend on physical placement or DeepEP comm mode; profiling on identity under normal mode is canonical",
+  "no_timing_use": "setup uses no performance measurement to select anything; map is a deterministic function of calibration counts",
+  "no_evaluation_leakage": "the evaluation requests are never served before or during setup; the static map cannot encode evaluation-specific hindsight"
+ },
+ "metrics": {
+  "primary": "total_time_s per start (fixed 7963-request evaluation workload at concurrency 256 -> full-service wall time; lower is better)",
+  "secondary": [
+   "tps",
+   "ttft_mean_ms",
+   "ttft_p50_ms",
+   "ttft_p99_ms",
+   "tpot_mean_ms",
+   "lat_p99_ms",
+   "ok",
+   "errors"
+  ],
+  "source": "run_grid_bench.py output json (single-machine client perf_counter; no cross-device timestamp subtraction)"
+ },
+ "statistics": {
+  "design": "3 independent server starts per arm; every start enters its arm mean; no best-start or repeat selection",
+  "contrasts": [
+   "frozen-identity",
+   "online-identity",
+   "online-frozen"
+  ],
+  "test": "Welch two-sample t on per-start total_time_s (unequal variance), 95% CI, scipy.stats",
+  "verdict_language": "frozen trichotomy: CI excludes zero -> directional effect; CI crosses zero -> 'compatible with zero' (never 'equivalence', never 'no effect proven'); negative point estimates preserved exactly as measured",
+  "validity_gate": "a start is valid iff boot ok, no Traceback in server log, bench rc=0, ok==7963, errors==0; invalid starts retained with status, never retried under this frozen campaign; if an arm has <2 valid starts its contrasts are reported blocked"
+ },
+ "online_net_overhead": {
+  "extraction": "from arm-online server logs only: (a) sum of '(X ms)' over all '[PB-OEPLB] K swap(s) done' lines and final cumulative 'total=N' swap count; (b) last '[PB-OEPLB-PROF] window#' line cumulative record/allreduce/planbuild/finalize ms and avg_record_us; (c) '[PB-OEPLB] swap budget exhausted' line spent/elapsed if present; (d) '[PB-OEPLB-TIMING]' async_swapper lines if present; (e) window decision counts (executed/skipped/deferred/below_min_prefill) from '[PB-OEPLB] window#' lines",
+  "reporting": "overhead_fraction = cumulative_swap_wall_s / mean arm-online total_time_s; reported as a mechanism decomposition alongside (NEVER subtracted from) the measured online-identity and online-frozen contrasts, because arm contrasts are already global completion-time measurements",
+  "caveat_frozen": "async swapper overlaps migration with serving, so swap wall time is not purely additive latency; the fraction is an upper-bound wall-share, stated as such"
+ },
+ "controller_version_decision": {
+  "deployed_sha256": "e6e158426cf3610a2d13515c7a42e18e2548a1f06f10c79cd047248be2bbde2c",
+  "repo_sha256": "ada04359c2a7ffa2abb2594525c3605c28cfcaa57419497e9e6466d856127df9",
+  "decision": "run the deployed site-packages version UNCHANGED: preserves lineage with prior H20 driver35/38/39 results and avoids mutating the environment inside a frozen campaign",
+  "diff_scope": [
+   "deployed-only: [PB-OEPLB-HOOKDIAG] diagnostic counters/logging (no decision-path effect)",
+   "repo-only: adaptive-window shrink clamp new_window=min(W,max(floor,W//2)) vs deployed max(floor,W//2)"
+  ],
+  "equivalence_argument": "Under the frozen online flags (sync_window=16, window_floor=8) the invariant W>=floor holds at all times (init 16>=8; shrink maps W->max(floor,W//2)>=floor; grow maps W->min(128,2W)). For any W>=floor: max(floor,W//2) <= max(W,W//2) = W, hence the deployed shrink is non-expanding and min(W,max(floor,W//2)) = max(floor,W//2). The two controller versions are therefore functionally identical on this campaign's flag set; the repo clamp differs only when floor>W (the GB200 repro case), unreachable here. The ratio-jump shrink path (max(8,W//2)) is byte-identical in both versions."
+ },
+ "scope_note": "this is the server-side full-service validation; the layer-replay crosstab (h20-placement-crosstab-v1) complements but cannot replace it",
+ "prohibitions": [
+  "push_without_separate_instruction",
+  "best_start_or_repeat_selection",
+  "retry_failed_start_same_campaign",
+  "overwrite_existing_raw_result",
+  "post_freeze_flag_workload_or_launcher_change",
+  "subtract_overhead_from_measured_contrast",
+  "evaluation_requests_in_setup_or_map_generation",
+  "artificial_delay_floor",
+  "differential_delay",
+  "sleep_or_spin_as_intervention",
+  "mid_layer_collective_or_gate",
+  "cross_device_timestamp_subtraction"
+ ],
+ "interpretation_rules": [
+  "arm contrasts are whole-service effects under one fixed evaluation workload; they do not isolate MoE-layer placement effects",
+  "the frozen static arm is calibration-derived: it is a deployable-style static reference, not a hindsight optimum of the evaluation traffic",
+  "the online arm carries decision+swap overhead that the frozen arm does not; the overhead decomposition explains mechanism, it never rewrites the measured contrast",
+  "with n=3 starts per arm, CIs are wide by construction; a CI crossing zero means 'compatible with zero' at this sample size",
+  "negative effects are preserved exactly; no sign is flipped or discarded"
+ ],
+ "estimated_wall_time_h": [
+  2.0,
+  3.0
+ ],
+ "locked_implementation": {
+  "identity_launcher": {
+   "path": "/workspace/logs/launch235b_identity.sh",
+   "sha256": "f362cc540ef9adc02e5260cc9f5e2d8f3eb1934cec8ee03ee2121179b89acfd6"
+  },
+  "online_launcher": {
+   "path": "/workspace/logs/launch235b_oeplb.sh",
+   "sha256": "46860da0667efff7d561e67e468756031be4d5b618e54517c47bff9f82c4e0f8"
+  },
+  "frozen_arm_launcher": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_launchers_v2/launch235b_fixedh20.sh",
+   "sha256": "ec3bf1f378573d02d1f115a033c2aff06a58550f47a52bc078dbc1ea63e4fe6a"
+  },
+  "profiling_launcher": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_launchers_v2/launch235b_profileh20.sh",
+   "sha256": "3fcad883236a7d9860b3870b709eb4f8c6b6effda1060bfa6469fb78e5d7befb"
+  },
+  "env_file": {
+   "path": "/workspace/logs/env_235b.sh",
+   "sha256": "26242c03be2bc1f5b62e3b87662acad6720a0ed5e8b674bd3bedf9ab2eaa2eb1"
+  },
+  "bench_client": {
+   "path": "/workspace/EPLB/OEPLB/scripts/run_grid_bench.py",
+   "sha256": "2d56c9778a5dea3956fffe44b3d5e50b7b7fbd4227c025007ad1e9950d23ddb0"
+  },
+  "recorder_tool": {
+   "path": "/workspace/EPLB/OEPLB/repro/dump_counts.py",
+   "sha256": "c3fd78507a724915d086305e9052d907e970235117e20d43ac306b06fd97c7a2"
+  },
+  "workload_splitter": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/split_fullservice_workload.py",
+   "sha256": "fb246d2e4dd3b57a0398db8921d5a7eaa67cc20e2f9b5b367324400b0d2d4512"
+  },
+  "split_manifest": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/split_manifest.json",
+   "sha256": "0fa0ced92c3f16bb89371afd1b7e5bec6ca837d2f4369d557f0c25b0f4f404fa"
+  },
+  "map_generator": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/gen_frozen_map.py",
+   "sha256": "1305b4a35ada7d95d2ddf6485fd65b701b71b9a6bf9b4e1dba03ddfcc0d45cc6"
+  },
+  "campaign_driver": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_fullservice_campaign_v2.sh",
+   "sha256": "29b4a1e230cc468679d7903774e33834f7108d2786935d8fca49ab713cbf017e"
+  },
+  "optimizer_lineage": {
+   "generate_stopping_layouts.py": "9b1ef72b22ac1fdfdcf565227043cc0a7afdb69e4c4381d20b3465221212a115",
+   "prediction_common.py": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+  },
+  "model": {
+   "path": "/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8",
+   "config_json_sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+   "safetensors_index_sha256": "e03d4abec9611fca05844d2c8b5a08318ddc3c86acfb9481a0ef5692bf76e6d6"
+  },
+  "deployed_pb_oeplb_sha256": {
+   "__init__.py": "ca61e4353a3f84b1f387eac4952b5cb694d4518e58122a5a8c365fc078d8b365",
+   "async_swapper.py": "93fa4ccdd653443a13d3b3f4975dd3b2f5dcddad71efedbd86a257f0ed0d12b9",
+   "config.py": "232ecbd529d0b109dfed93242c7299770e89e8918fe613e716eab34a8586d4ea",
+   "controller.py": "e6e158426cf3610a2d13515c7a42e18e2548a1f06f10c79cd047248be2bbde2c",
+   "fast_metadata.py": "5990377dd400eea0052afc97182022ab5c62361cf26d769ca7b2ff2b5956107f",
+   "per_request_tracer.py": "cb0b2bb55ae4c19b7016fbeca846f4c2d92a2d0fa29c006a4477f602f9158103",
+   "rebalancer.py": "a4aa498c2eaba929df8e325e58ad6811335642377eb715c8e02f98585d7fb085",
+   "routing_tracer.py": "008f787429d807357bd23bf06e4d5e36365a601a1a7690f9c1aabd7f55948c02"
+  },
+  "repo_src_pb_oeplb_sha256": {
+   "__init__.py": "ca61e4353a3f84b1f387eac4952b5cb694d4518e58122a5a8c365fc078d8b365",
+   "async_swapper.py": "93fa4ccdd653443a13d3b3f4975dd3b2f5dcddad71efedbd86a257f0ed0d12b9",
+   "config.py": "232ecbd529d0b109dfed93242c7299770e89e8918fe613e716eab34a8586d4ea",
+   "controller.py": "ada04359c2a7ffa2abb2594525c3605c28cfcaa57419497e9e6466d856127df9",
+   "fast_metadata.py": "5990377dd400eea0052afc97182022ab5c62361cf26d769ca7b2ff2b5956107f",
+   "per_request_tracer.py": "cb0b2bb55ae4c19b7016fbeca846f4c2d92a2d0fa29c006a4477f602f9158103",
+   "rebalancer.py": "a4aa498c2eaba929df8e325e58ad6811335642377eb715c8e02f98585d7fb085",
+   "routing_tracer.py": "008f787429d807357bd23bf06e4d5e36365a601a1a7690f9c1aabd7f55948c02"
+  }
+ },
+ "freezer_sha256": "4e5fcdd6088d8c69eab45df9a3458d80e61024b4cff2cee8bf390751a6acba52"
+}

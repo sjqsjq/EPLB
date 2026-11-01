@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 7.361297861672938,
+  "batch_id": "calibration-01",
+  "capture_id": "pred-v1-calibration-01-layer-024",
+  "capture_trigger": {
+    "bytes": 3512,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/triggers/pred-v1-calibration-01-layer-024.json",
+    "sha256": "40d82a5d264a5d28d786c1abbf92bf98b15f5a0834d5002c767696674370f794",
+    "target_layer": 24
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-12T05:31:06.559989+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 10432,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/calibration-01.jsonl",
+    "sha256": "b2bd4ddaa8ee92dad00e39ad36609d2497fd41ceef005c2cfa9ec44f4e335623"
+  },
+  "request_manifest": {
+    "bytes": 15723,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_requests.json",
+    "sha256": "9c5d836a75168e044aeb7c11415a1630257a36ab47ab09351c62532dab71c01e"
+  },
+  "responses": [
+    {
+      "elapsed_s": 7.1245493879541755,
+      "id": "realprover512_188",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "27e7fc8904894d4384e88cd0dbe3d680",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 502,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 503
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.358249946497381,
+      "id": "realprover512_219",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "1d05e99a5d334b8b90f35803567eeaac",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 510,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 511
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.3587740221992135,
+      "id": "realprover512_221",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "c870aa829b684916968b9b68873f87b6",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 505,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 506
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.357457076199353,
+      "id": "realprover512_228",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "4bd5e560618142f8a524a36e3c0bde54",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 509,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 510
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.357915457338095,
+      "id": "realprover512_233",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "e6be49739ce444fca3c4505039e94439",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 506,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 507
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.35994681995362,
+      "id": "realprover512_297",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "9020bf92546c41de88fdbc3d7c7f0c77",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 510,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 511
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.358454115688801,
+      "id": "realprover512_311",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "6a899afa9fed457a8b3fbd4362f25256",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 511,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 512
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 7.358500954695046,
+      "id": "realprover512_316",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "<think>"
+          }
+        ],
+        "created": 1791783066,
+        "id": "3cc61b5a531a4bd1967f5d3a234a2b84",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 503,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 504
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-prediction-v1"
+}

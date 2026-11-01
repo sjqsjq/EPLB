@@ -1,0 +1,34 @@
+[PASS] T0a locked snapshot matches MANIFEST.sha256 :: {'config.py': '180fa41eae6e9394186afceb2ceadf9468ebbacda69591fb9b9897a2e6c2680c', 'controller.py': '2a4dedb22d4bcaba203233c0f9a5ae6c211370f524addb7d166669406690878b', 'window_v2.py': '810c54daf1c4b9ec4bf87d3032a80f092a8ad9e7a5947d71cf6e60a960067b74'}
+[PASS] T0b window_v2.py untouched (810c54da...) :: 810c54daf1c4b9ec
+[PASS] T0c controller.py: purely additive vs frozen (0 removals) :: +319 -0
+[PASS] T0d controller.py: hash differs from frozen (patched, new lock needed) :: f5b9a1e8433f448d
+[PASS] T0c config.py: purely additive vs frozen (0 removals) :: +35 -0
+[PASS] T0d config.py: hash differs from frozen (patched, new lock needed) :: 66b0760d3e7169bd
+[PASS] T1 logical_load conserves mass + per-expert bins (redundant p2l)
+[PASS] T2 mid-window swap + count remap -> logical counts exact :: gathered=[[7, 9, 2, 1], [5, 6, 1, 2]] oracle=[[7, 9, 2, 1], [5, 6, 1, 2]]
+[PASS] T3 logical s_change ~ 0 across swap (artifact removed) :: s_log=5.96e-08 z_log=2.98e-05
+[PASS] T3b physical-space s_change > 0 (v2 artifact reproduced for contrast) :: s_phys=0.2942 z_phys=147.09
+[PASS] T4a error_sentinel deterministic per window_id
+[PASS] T4b det all_reduce is UNCONDITIONAL: no local check/raise before it (tripwire moved AFTER the collective; r1 gap closed)
+[PASS] T4b2 phase-2 recoverable scope contains NO collective
+[PASS] T4c confirm_commit appears exactly once, strictly between phase 2 and phase 4 (unconditional)
+[PASS] T4d no 'return' anywhere in the method before phase 4
+[PASS] T4e symmetric commit rule (verdict AND local proposal validity)
+[PASS] T4f phase order 1<2<3<4 and det-clone inside phase 1 try only
+[PASS] T4g confirm reducer: elementwise MIN/MAX all_reduce on [h, prop_valid]
+[PASS] T5 v2.1 rate-scale invariance: (h,n)->(c*h,c*n) identical trajectory :: c=0.5:same c=1.0:same c=2.0:same c=4.0:same c=8.0:same
+[PASS] T6a frozen v2 raw-theta: same imbalance RATE, different window workload -> different decisions (artifact demo) :: small=['shrink_rejected_low_headroom', 'shrink_rejected_low_headroom', 'shrink_rejected_low_headroom', 'shrink_rejected_low_headroom'] big=['hold_alert', 'hold_alert', 'hold_alert', 'hold_alert']
+[PASS] T6b v2.1 rate-theta: identical decisions across workload scales :: ['hold_alert', 'hold_alert', 'hold_alert', 'hold_alert']
+[PASS] T7 h_rate in [0,1] (random + exact 0.5 case + floor case + zero guard) :: h=60.0 r=0.5 hot=0.0 zero=0.0
+[PASS] T8 joint MIN/MAX verdict: all-same+all-valid -> commit; one hash divergent -> hold; one proposal invalid -> hold DESPITE identical hashes; all-invalid sentinel -> hold; order MIN then MAX; two collectives per window :: verdicts=True,False,False,False order=['min', 'max']
+[PASS] T9 rollback restores all 9 state fields; streak>=2 -> freeze at w_init; subsequent windows w_desync_freeze :: streak=2 ev=w_desync_freeze
+[PASS] T9b _STATE_FIELDS covers the full transition state (9 fields)
+[PASS] T10 error windows: unanimous sentinel -> coordinated HOLD (v_min=0, never commits); mixed valid/sentinel -> HOLD; exactly two confirm collectives per window per rank :: ['min', 'max', 'min', 'max']
+[PASS] T11 rollback->replay equivalence (rec identical incl. window_seq) :: hold_alert / hold_alert
+[PASS] T12 decision_hash deterministic, sensitive to every committed field + window_id, in [0,2^58), distinct from error namespace :: {'W_after': True, 'event': True, 'z': True, 'h_w': True, 'n_fresh': True}
+[PASS] T13a found 6 phaseB V2 rank0 logs :: 6
+[PASS] T13b frozen v2 replay reproduces every logged window (W_after + event) across all 6 formal V2 starts (350 windows; phaseC ablation logs excluded -- different knobs by design) :: total=350 mismatch=0 | W0_V2__s1:65w/0mm W0_V2__s2:63w/0mm W1_V2__s1:37w/0mm W1_V2__s2:35w/0mm W2_V2__s1:75w/0mm W2_V2__s2:75w/0mm
+[PASS] T14 placeholder/invalid rate thresholds refused; valid + inert (logging-run) values accepted :: wrongly_accepted=[]
+[PASS] T15 verdict symmetry: divergent-hash world gives identical HOLD verdict from every rank's viewpoint :: verdictA=False verdictB=False h_min=2337538297616494 h_max=1
+
+ALL_V2P1_TESTS_PASS

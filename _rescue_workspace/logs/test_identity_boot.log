@@ -1,0 +1,30 @@
+[2026-09-15 13:02:18] WARNING server_args.py:1433: Attention backend not explicitly specified. Use fa3 backend by default.
+[2026-09-15 13:02:18] WARNING server_args.py:1599: DP attention is enabled. The chunked prefill size is adjusted to 1024 to avoid MoE kernel issues. 
+[2026-09-15 13:02:18] WARNING server_args.py:1650: DeepEP MoE is enabled. The expert parallel size is adjusted to be the same as the tensor parallel size[8].
+[2026-09-15 13:02:20] port 30234 is in use. Waiting for 15 seconds for port_base to be available. port_base is used by a process already. process.name()='python3'' process.cmdline()=['/opt/conda/bin/python3', '-c', 'from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=74, pipe_handle=76)', '--multiprocessing-fork'] process.status()='sleeping' pid=8809
+[2026-09-15 13:02:21] port 30234 is in use. Waiting for 20 seconds for port_base to be available. port_base is used by a process already. process.name()='python3'' process.cmdline()=['/opt/conda/bin/python3', '-c', 'from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=74, pipe_handle=76)', '--multiprocessing-fork'] process.status()='sleeping' pid=8809
+[2026-09-15 13:02:21] port 30234 is in use. Waiting for 25 seconds for port_base to be available. port_base is used by a process already. process.name()='python3'' process.cmdline()=['/opt/conda/bin/python3', '-c', 'from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=74, pipe_handle=76)', '--multiprocessing-fork'] process.status()='sleeping' pid=8809
+[2026-09-15 13:02:22] Port is already in use. dist_init_port=30233 port_base=30234 detokenizer_port=30235 nccl_port=30870 scheduler_input_port=30238
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/server_args.py", line 4642, in init_new
+    wait_port_available(port_base, "port_base")
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/utils/common.py", line 694, in wait_port_available
+    raise ValueError(
+ValueError: port_base at 30234 is not available in 30 seconds. port_base is used by a process already. process.name()='python3'' process.cmdline()=['/opt/conda/bin/python3', '-c', 'from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=74, pipe_handle=76)', '--multiprocessing-fork'] process.status()='sleeping' pid=8809
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/conda/lib/python3.11/site-packages/sglang/launch_server.py", line 28, in <module>
+    run_server(server_args)
+  File "/opt/conda/lib/python3.11/site-packages/sglang/launch_server.py", line 21, in run_server
+    launch_server(server_args)
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/entrypoints/http_server.py", line 1390, in launch_server
+    _launch_subprocesses(server_args=server_args)
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/entrypoints/engine.py", line 796, in _launch_subprocesses
+    port_args = PortArgs.init_new(server_args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/server_args.py", line 4642, in init_new
+    wait_port_available(port_base, "port_base")
+  File "/opt/conda/lib/python3.11/site-packages/sglang/srt/utils/common.py", line 694, in wait_port_available
+    raise ValueError(
+ValueError: port_base at 30234 is not available in 30 seconds. port_base is used by a process already. process.name()='python3'' process.cmdline()=['/opt/conda/bin/python3', '-c', 'from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=74, pipe_handle=76)', '--multiprocessing-fork'] process.status()='sleeping' pid=8809

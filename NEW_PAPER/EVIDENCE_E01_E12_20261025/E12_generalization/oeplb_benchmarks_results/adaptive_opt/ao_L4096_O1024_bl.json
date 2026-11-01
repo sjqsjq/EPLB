@@ -1,0 +1,21 @@
+{
+  "label": "final/f_L4096_O1024_bl",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L4096_O1024.jsonl",
+  "num_requests": 1024,
+  "concurrency": 256,
+  "ok": 1024,
+  "errors": 0,
+  "total_time_s": 505.88,
+  "total_comp_tokens": 1048576,
+  "tps": 2072.8,
+  "avg_output_tokens": 1024,
+  "lat_mean_ms": 126444.8,
+  "lat_p50_ms": 125056.98,
+  "lat_p99_ms": 133172.51,
+  "ttft_mean_ms": 31024.42,
+  "ttft_p50_ms": 31085.74,
+  "ttft_p99_ms": 62501.31,
+  "tpot_mean_ms": 93.28,
+  "tpot_p50_ms": 93.05,
+  "tpot_p99_ms": 124.34
+}

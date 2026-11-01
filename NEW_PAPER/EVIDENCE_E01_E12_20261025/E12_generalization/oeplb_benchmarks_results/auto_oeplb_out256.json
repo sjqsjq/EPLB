@@ -1,0 +1,21 @@
+{
+  "label": "auto_oeplb_out256",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/medium_out256.jsonl",
+  "num_requests": 2048,
+  "concurrency": 1024,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 60.35,
+  "total_comp_tokens": 524288,
+  "tps": 8686.8,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 30088.8,
+  "lat_p50_ms": 29884.3,
+  "lat_p99_ms": 32014.95,
+  "ttft_mean_ms": 5277.89,
+  "ttft_p50_ms": 5269.41,
+  "ttft_p99_ms": 10021.22,
+  "tpot_mean_ms": 97.3,
+  "tpot_p50_ms": 97.28,
+  "tpot_p99_ms": 116.82
+}

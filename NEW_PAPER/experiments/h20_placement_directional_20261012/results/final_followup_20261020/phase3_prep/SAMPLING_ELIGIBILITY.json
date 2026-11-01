@@ -1,0 +1,53 @@
+{
+ "rule": "ELIGIBLE iff pooled S>1 share >=0.10 AND pooled recording_ratio < 0.039062 (A3 frozen ref)",
+ "pool_labels": [
+  "prep3_B1r_P_E3",
+  "prep3_B2_P_E3",
+  "prep3_B3_P_E4",
+  "prep3_B4_P_E4"
+ ],
+ "note": "v2 resume pool; prep3_B1_P_E3 (v1, FAIL) kept as failure evidence and excluded (see PROTOCOL.md addendum A1)",
+ "per_boot": {
+  "prep3_B1r_P_E3": {
+   "windows": 32,
+   "S>1_share": 0.0,
+   "recording_ratio": 0.060251,
+   "sp_s_values": [
+    1
+   ]
+  },
+  "prep3_B2_P_E3": {
+   "windows": 32,
+   "S>1_share": 0.0,
+   "recording_ratio": 0.060133,
+   "sp_s_values": [
+    1
+   ]
+  },
+  "prep3_B3_P_E4": {
+   "windows": 73,
+   "S>1_share": 0.0,
+   "recording_ratio": 0.003147,
+   "sp_s_values": [
+    1
+   ]
+  },
+  "prep3_B4_P_E4": {
+   "windows": 72,
+   "S>1_share": 0.0,
+   "recording_ratio": 0.003211,
+   "sp_s_values": [
+    1
+   ]
+  }
+ },
+ "pooled": {
+  "S>1_share": 0.0,
+  "recording_ratio": 0.012608,
+  "steps": 3344,
+  "steps_s_gt1": 0,
+  "rec": 1288,
+  "true": 102160
+ },
+ "ELIGIBLE": false
+}

@@ -1,0 +1,617 @@
+{
+ "source": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/fivearm_campaign/logs/eacR5_P11_server.log",
+ "source_sha256": "21d29937e3de1c93ac5777f1f0fe2559c55f3945b3aaeefe08e0b6ea18e3b5ae",
+ "mechanisms": {
+  "adw_ratio_jump": 32,
+  "adw_shrink": 32,
+  "adw_decay0_window_fixed": 0,
+  "adw_grow": 56,
+  "window_shift": 24,
+  "window_stable": 0,
+  "reset": 48,
+  "warmstart": 0,
+  "calib_tier": 0,
+  "refine": 0,
+  "arg_adw_true": 1,
+  "arg_add_true": 1,
+  "tracebacks": 0,
+  "hookdiag": 40,
+  "planner_bi_log": 8,
+  "planner_default_log": 0,
+  "issued_windows_dp0": 12,
+  "verify_move_before": 24,
+  "swap_done_lines": 96
+ },
+ "server_args_pb_oeplb": {
+  "sync_window": "16",
+  "decay_factor": "0.5",
+  "adaptive_window": "True",
+  "adaptive_decay": "True",
+  "calibrate_adaptive_sensitivity": "False",
+  "dead_zone_ratio": "0.0",
+  "threshold_ratio": "1.02",
+  "max_total_ops": "300",
+  "window_floor": "8",
+  "min_swap_ops": "8"
+ },
+ "window_events_dp0": [
+  [
+   "2026-10-15 19:59:19",
+   "ratio jump 0.142 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 19:59:25",
+   "ratio jump 0.031 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 19:59:34",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 20:00:01",
+   "converged 3x -> grow sw to 32"
+  ],
+  [
+   "2026-10-15 20:01:01",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 32 -> 16"
+  ],
+  [
+   "2026-10-15 20:01:07",
+   "shift confirmed (3 low-cos_sim window(s)) -- halving sync_window 16 -> 8"
+  ],
+  [
+   "2026-10-15 20:01:07",
+   "ratio jump 0.040 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 20:01:44",
+   "converged 3x -> grow sw to 16"
+  ],
+  [
+   "2026-10-15 20:02:05",
+   "volatile 3x -> grow sw to 32 for stability"
+  ],
+  [
+   "2026-10-15 20:03:02",
+   "shift confirmed (2 low-cos_sim window(s)) -- halving sync_window 32 -> 16"
+  ],
+  [
+   "2026-10-15 20:03:08",
+   "ratio jump 0.033 -> shrink sw to 8, decay->0 (clear stale history)"
+  ],
+  [
+   "2026-10-15 20:03:16",
+   "volatile 3x -> grow sw to 16 for stability"
+  ],
+  [
+   "2026-10-15 20:04:16",
+   "converged 3x -> grow sw to 32"
+  ],
+  [
+   "2026-10-15 20:04:49",
+   "converged 3x -> grow sw to 64"
+  ]
+ ],
+ "reset_events_dp0": [
+  [
+   "2026-10-15 20:00:13",
+   1.077,
+   1.078,
+   1.274
+  ],
+  [
+   "2026-10-15 20:00:25",
+   1.274,
+   1.274,
+   1.722
+  ],
+  [
+   "2026-10-15 20:00:38",
+   1.722,
+   1.722,
+   1.773
+  ],
+  [
+   "2026-10-15 20:01:10",
+   1.179,
+   1.179,
+   1.294
+  ],
+  [
+   "2026-10-15 20:02:27",
+   1.082,
+   1.087,
+   1.223
+  ],
+  [
+   "2026-10-15 20:02:39",
+   1.223,
+   1.223,
+   1.467
+  ]
+ ],
+ "ready_after_forwards": [
+  [
+   5,
+   10
+  ],
+  [
+   7,
+   10
+  ],
+  [
+   6,
+   10
+  ],
+  [
+   1,
+   10
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   4,
+   10
+  ],
+  [
+   3,
+   10
+  ],
+  [
+   2,
+   10
+  ]
+ ],
+ "issued_windows_dp0": [
+  [
+   1,
+   233,
+   62373888,
+   8
+  ],
+  [
+   3,
+   58,
+   49283072,
+   8
+  ],
+  [
+   5,
+   55,
+   49283072,
+   8
+  ],
+  [
+   16,
+   296,
+   196872848,
+   8
+  ],
+  [
+   17,
+   231,
+   295546241,
+   8
+  ],
+  [
+   18,
+   179,
+   246315670,
+   8
+  ],
+  [
+   20,
+   294,
+   49283072,
+   8
+  ],
+  [
+   21,
+   81,
+   73902607,
+   8
+  ],
+  [
+   40,
+   295,
+   197132288,
+   8
+  ],
+  [
+   41,
+   185,
+   295674678,
+   8
+  ],
+  [
+   43,
+   96,
+   49283072,
+   8
+  ],
+  [
+   48,
+   74,
+   183225591,
+   8
+  ]
+ ],
+ "prof_dp0": [
+  {
+   "window": 4,
+   "calls": 4042,
+   "record_ms": 370.74,
+   "allreduce_ms": 472.54,
+   "planbuild_ms": 19.75,
+   "finalize_ms": 72.76,
+   "total_ms": 935.8
+  },
+  {
+   "window": 8,
+   "calls": 7802,
+   "record_ms": 681.16,
+   "allreduce_ms": 535.15,
+   "planbuild_ms": 24.41,
+   "finalize_ms": 89.16,
+   "total_ms": 1329.88
+  },
+  {
+   "window": 12,
+   "calls": 13818,
+   "record_ms": 1175.62,
+   "allreduce_ms": 598.62,
+   "planbuild_ms": 24.41,
+   "finalize_ms": 89.16,
+   "total_ms": 1887.81
+  },
+  {
+   "window": 16,
+   "calls": 25850,
+   "record_ms": 2154.91,
+   "allreduce_ms": 614.62,
+   "planbuild_ms": 24.41,
+   "finalize_ms": 89.16,
+   "total_ms": 2883.1
+  },
+  {
+   "window": 20,
+   "calls": 31866,
+   "record_ms": 2655.45,
+   "allreduce_ms": 662.05,
+   "planbuild_ms": 71.63,
+   "finalize_ms": 144.58,
+   "total_ms": 3533.7
+  },
+  {
+   "window": 24,
+   "calls": 34874,
+   "record_ms": 2906.75,
+   "allreduce_ms": 725.34,
+   "planbuild_ms": 99.14,
+   "finalize_ms": 175.79,
+   "total_ms": 3907.02
+  },
+  {
+   "window": 28,
+   "calls": 37882,
+   "record_ms": 3155.52,
+   "allreduce_ms": 787.94,
+   "planbuild_ms": 99.14,
+   "finalize_ms": 175.79,
+   "total_ms": 4218.38
+  },
+  {
+   "window": 32,
+   "calls": 40890,
+   "record_ms": 3403.36,
+   "allreduce_ms": 851.05,
+   "planbuild_ms": 99.14,
+   "finalize_ms": 175.79,
+   "total_ms": 4529.33
+  },
+  {
+   "window": 36,
+   "calls": 46906,
+   "record_ms": 3901.41,
+   "allreduce_ms": 913.61,
+   "planbuild_ms": 99.14,
+   "finalize_ms": 175.79,
+   "total_ms": 5089.95
+  },
+  {
+   "window": 40,
+   "calls": 58938,
+   "record_ms": 4898.66,
+   "allreduce_ms": 945.32,
+   "planbuild_ms": 99.14,
+   "finalize_ms": 175.79,
+   "total_ms": 6118.91
+  },
+  {
+   "window": 44,
+   "calls": 64954,
+   "record_ms": 5396.35,
+   "allreduce_ms": 1008.52,
+   "planbuild_ms": 143.68,
+   "finalize_ms": 242.37,
+   "total_ms": 6790.91
+  },
+  {
+   "window": 48,
+   "calls": 70218,
+   "record_ms": 5832.07,
+   "allreduce_ms": 1070.42,
+   "planbuild_ms": 143.68,
+   "finalize_ms": 242.37,
+   "total_ms": 7288.54
+  },
+  {
+   "window": 52,
+   "calls": 76234,
+   "record_ms": 6336.93,
+   "allreduce_ms": 1133.48,
+   "planbuild_ms": 152.63,
+   "finalize_ms": 259.98,
+   "total_ms": 7883.01
+  },
+  {
+   "window": 56,
+   "calls": 82250,
+   "record_ms": 6840.3,
+   "allreduce_ms": 1196.39,
+   "planbuild_ms": 152.63,
+   "finalize_ms": 259.98,
+   "total_ms": 8449.29
+  },
+  {
+   "window": 60,
+   "calls": 97290,
+   "record_ms": 8078.18,
+   "allreduce_ms": 1258.2,
+   "planbuild_ms": 152.63,
+   "finalize_ms": 259.98,
+   "total_ms": 9748.99
+  }
+ ],
+ "diag_dp0": [
+  {
+   "layers_touched": 93,
+   "total_ops": 233,
+   "avg_ratio_before": 1.235,
+   "avg_ratio_after": 1.068,
+   "max_ratio_before": 1.477,
+   "max_ratio_after": 1.097
+  },
+  {
+   "layers_touched": 46,
+   "total_ops": 58,
+   "avg_ratio_before": 1.14,
+   "avg_ratio_after": 1.067,
+   "max_ratio_before": 1.266,
+   "max_ratio_after": 1.096
+  },
+  {
+   "layers_touched": 48,
+   "total_ops": 55,
+   "avg_ratio_before": 1.124,
+   "avg_ratio_after": 1.064,
+   "max_ratio_before": 1.189,
+   "max_ratio_after": 1.093
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 296,
+   "avg_ratio_before": 1.77,
+   "avg_ratio_after": 1.165,
+   "max_ratio_before": 2.674,
+   "max_ratio_after": 1.535
+  },
+  {
+   "layers_touched": 90,
+   "total_ops": 231,
+   "avg_ratio_before": 1.225,
+   "avg_ratio_after": 1.078,
+   "max_ratio_before": 1.628,
+   "max_ratio_after": 1.134
+  },
+  {
+   "layers_touched": 80,
+   "total_ops": 179,
+   "avg_ratio_before": 1.196,
+   "avg_ratio_after": 1.08,
+   "max_ratio_before": 1.44,
+   "max_ratio_after": 1.157
+  },
+  {
+   "layers_touched": 92,
+   "total_ops": 294,
+   "avg_ratio_before": 1.297,
+   "avg_ratio_after": 1.092,
+   "max_ratio_before": 1.621,
+   "max_ratio_after": 1.168
+  },
+  {
+   "layers_touched": 50,
+   "total_ops": 81,
+   "avg_ratio_before": 1.123,
+   "avg_ratio_after": 1.075,
+   "max_ratio_before": 1.223,
+   "max_ratio_after": 1.103
+  },
+  {
+   "layers_touched": 94,
+   "total_ops": 295,
+   "avg_ratio_before": 1.471,
+   "avg_ratio_after": 1.116,
+   "max_ratio_before": 2.109,
+   "max_ratio_after": 1.249
+  },
+  {
+   "layers_touched": 77,
+   "total_ops": 185,
+   "avg_ratio_before": 1.133,
+   "avg_ratio_after": 1.081,
+   "max_ratio_before": 1.259,
+   "max_ratio_after": 1.141
+  },
+  {
+   "layers_touched": 59,
+   "total_ops": 96,
+   "avg_ratio_before": 1.123,
+   "avg_ratio_after": 1.077,
+   "max_ratio_before": 1.196,
+   "max_ratio_after": 1.126
+  },
+  {
+   "layers_touched": 49,
+   "total_ops": 74,
+   "avg_ratio_before": 1.118,
+   "avg_ratio_after": 1.074,
+   "max_ratio_before": 1.162,
+   "max_ratio_after": 1.11
+  }
+ ],
+ "wall_events": [
+  [
+   "2026-10-15 19:59:14",
+   2194.0,
+   233,
+   8
+  ],
+  [
+   "2026-10-15 19:59:22",
+   635.4,
+   58,
+   8
+  ],
+  [
+   "2026-10-15 19:59:28",
+   524.1,
+   55,
+   8
+  ],
+  [
+   "2026-10-15 20:00:51",
+   502.1,
+   296,
+   8
+  ],
+  [
+   "2026-10-15 20:01:02",
+   435.1,
+   231,
+   8
+  ],
+  [
+   "2026-10-15 20:01:07",
+   413.5,
+   179,
+   8
+  ],
+  [
+   "2026-10-15 20:01:13",
+   437.1,
+   294,
+   8
+  ],
+  [
+   "2026-10-15 20:01:16",
+   377.9,
+   81,
+   8
+  ],
+  [
+   "2026-10-15 20:02:52",
+   538.6,
+   295,
+   8
+  ],
+  [
+   "2026-10-15 20:03:03",
+   412.4,
+   185,
+   8
+  ],
+  [
+   "2026-10-15 20:03:11",
+   387.3,
+   96,
+   8
+  ],
+  [
+   "2026-10-15 20:03:33",
+   394.4,
+   74,
+   8
+  ]
+ ],
+ "wall_summary": {
+  "n_events": 12,
+  "max_wall_ms": 2194.0,
+  "sum_wall_ms": 7251.9
+ },
+ "timing_begin_max_ms_per_event": [
+  [
+   "2026-10-15 19:59:13",
+   1672.2
+  ],
+  [
+   "2026-10-15 19:59:22",
+   35.5
+  ],
+  [
+   "2026-10-15 19:59:28",
+   37.2
+  ],
+  [
+   "2026-10-15 20:00:50",
+   49.8
+  ],
+  [
+   "2026-10-15 20:01:01",
+   26.0
+  ],
+  [
+   "2026-10-15 20:01:07",
+   23.9
+  ],
+  [
+   "2026-10-15 20:01:13",
+   40.1
+  ],
+  [
+   "2026-10-15 20:01:15",
+   27.2
+  ],
+  [
+   "2026-10-15 20:02:51",
+   31.7
+  ],
+  [
+   "2026-10-15 20:03:02",
+   20.5
+  ],
+  [
+   "2026-10-15 20:03:03",
+   24.4
+  ],
+  [
+   "2026-10-15 20:03:11",
+   20.8
+  ],
+  [
+   "2026-10-15 20:03:33",
+   23.0
+  ]
+ ],
+ "move_sequence_len": 12,
+ "swap_stats": {
+  "n_ops": 12,
+  "n_reversals": 0,
+  "n_repeats": 0,
+  "reversals_sample": [],
+  "repeats_sample": []
+ }
+}

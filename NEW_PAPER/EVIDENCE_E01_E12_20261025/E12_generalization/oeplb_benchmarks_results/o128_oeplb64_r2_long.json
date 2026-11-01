@@ -1,0 +1,21 @@
+{
+  "label": "o128_oeplb64_r2_long",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/long_out128.jsonl",
+  "num_requests": 2048,
+  "concurrency": 1024,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 99.46,
+  "total_comp_tokens": 262144,
+  "tps": 2635.7,
+  "avg_output_tokens": 128,
+  "lat_mean_ms": 49524.6,
+  "lat_p50_ms": 49578.7,
+  "lat_p99_ms": 51550.5,
+  "ttft_mean_ms": 10842.06,
+  "ttft_p50_ms": 10865.52,
+  "ttft_p99_ms": 21147.15,
+  "tpot_mean_ms": 304.59,
+  "tpot_p50_ms": 304.53,
+  "tpot_p99_ms": 383.77
+}

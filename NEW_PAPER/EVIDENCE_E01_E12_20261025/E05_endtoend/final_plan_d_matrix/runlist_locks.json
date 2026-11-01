@@ -1,0 +1,5 @@
+{
+ "smoke_slice_sha256": "8b224dee4bcd126c93b32826dec8e1ff625ccd86a141149e4e963fa07ddfff90",
+ "calib_screen_sha256": "d4fa14d2ee28343fa06428e6f9df2d5064ec6273ed1a96fa3e3c04dc8ae0b009",
+ "rotation_rule": "random.Random(20261019*1000+attempt).shuffle; constraint: no same-candidate adjacency; first success wins; generated BEFORE any calibration timing"
+}

@@ -1,0 +1,9 @@
+nature=P1_pre_registered_feasibility_smoke (M2 diagnostic boot 1/4, NOT measurement)
+prereg=FREEZE_final_plan.md L153-155
+utc_start=2026-10-19T18:58:57Z
+arm=E params='auto 32 256' label=p1_smoke_ER32 conc=256 n_slice=512 bench_timeout=1200
+ds=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/p1_longio.jsonl ds_sha=3c09e0270a60d185c801646c3cebc7157a99086d0c10c8b4e78c5dc615068457
+launcher_sha=c2f6b9dd6e57c64d48379b8bf7b6c012df0bd9c48c9bd254f5ca16299d5f8ede benchv2_sha=066682433d6a83ba641c34cb6ccb6a328bf306dfedf7a6263263539be733b18c
+executor_detail=slice=first 512 rows of p1_longio.jsonl, max_tokens rewritten to '1' (2 waves at conc=256; count/waves not fixed by prereg)
+slice_sha=2bbdb768c4b4692d2a9f639262bfce78480b6cbf9e3e443b4a7e32e31aa7e072
+kv_line=[2026-10-19 19:00:00 DP7 TP7 EP7] KV Cache is allocated. #tokens: 190315, K size: 17.06 GB, V size: 17.06 GB

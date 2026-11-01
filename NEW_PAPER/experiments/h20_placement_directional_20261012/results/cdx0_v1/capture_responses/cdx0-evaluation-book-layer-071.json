@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 1.1388252321630716,
+  "batch_id": "cdx0-evaluation-book",
+  "capture_id": "cdx0-evaluation-book-layer-071",
+  "capture_trigger": {
+    "bytes": 3186,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-book-layer-071.json",
+    "sha256": "a4cba24debece18e89c5c5614311e0c821035ada49373d2b0a580fcb2be7ad45",
+    "target_layer": 71
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-16T07:16:04.840100+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 36518,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-book.jsonl",
+    "sha256": "4b05caf4d7de7b473b5957fb6e9800764d24093a59d63f07ef3ff65caa31bf3b"
+  },
+  "request_manifest": {
+    "bytes": 15374,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+    "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+  },
+  "responses": [
+    {
+      "elapsed_s": 0.7733607748523355,
+      "id": "book_1990",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " examining"
+          }
+        ],
+        "created": 1792134964,
+        "id": "2eb8eb4613f443749eed3cb885181e20",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1005,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1006
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.1380246011540294,
+      "id": "book_1993",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " our"
+          }
+        ],
+        "created": 1792134964,
+        "id": "c418ac63321445e2aa380b7b54a226dd",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1038,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1039
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.13747966196388,
+      "id": "book_2001",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " way"
+          }
+        ],
+        "created": 1792134964,
+        "id": "9c275f4288cf43b6a031316759b69f06",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1074,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1075
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.1378618236631155,
+      "id": "book_2007",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " view"
+          }
+        ],
+        "created": 1792134964,
+        "id": "de0e4f20868345a6a053d50304b72d7c",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 1075,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 1076
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9591024313122034,
+      "id": "book_2008",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " Chapter"
+          }
+        ],
+        "created": 1792134964,
+        "id": "2e102b45a1044fa1a56b210336917224",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 987,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 988
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9596913373097777,
+      "id": "book_2012",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "."
+          }
+        ],
+        "created": 1792134964,
+        "id": "bc2dae04bdbb462b8b2d3d85f7cef383",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 976,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 977
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9592482158914208,
+      "id": "book_2013",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " friends"
+          }
+        ],
+        "created": 1792134964,
+        "id": "5fb4e177c4ca483889867c5e2303a18e",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 992,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 993
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 0.9583421461284161,
+      "id": "book_2014",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " holy"
+          }
+        ],
+        "created": 1792134964,
+        "id": "5d48366531e14b7f9afd414cbd5f7d5b",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 989,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 990
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1"
+}

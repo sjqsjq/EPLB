@@ -1,0 +1,467 @@
+{
+  "source_calibration": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/calibration_N256.json",
+  "total_tokens": 256,
+  "normalization": {
+    "definition": "C0 is the median across repetitions of the cross-rank maximum gate-done-to-combine-done CUDA-event interval on original-zero",
+    "c0_original_ms": 0.0939520001411438,
+    "c0_barrier_ms": 0.04790399968624115,
+    "delay_ratios_use": "c0_original_ms for both paths"
+  },
+  "ratios": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.8,
+    1.2,
+    2.0
+  ],
+  "conditions": [
+    {
+      "name": "original-zero",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.0
+    },
+    {
+      "name": "barrier-zero",
+      "mode": "strict_barrier",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.0
+    },
+    {
+      "name": "original-rank0-x0.05",
+      "mode": "original",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "original-rank3-x0.05",
+      "mode": "original",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "original-rank7-x0.05",
+      "mode": "original",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "barrier-rank0-x0.05",
+      "mode": "strict_barrier",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "barrier-rank3-x0.05",
+      "mode": "strict_barrier",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "barrier-rank7-x0.05",
+      "mode": "strict_barrier",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "original-all-ranks-x0.05",
+      "mode": "original",
+      "delay_us": 4.69760000705719,
+      "delay_ranks": "all",
+      "delay_ratio": 0.05
+    },
+    {
+      "name": "original-rank0-x0.1",
+      "mode": "original",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "original-rank3-x0.1",
+      "mode": "original",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "original-rank7-x0.1",
+      "mode": "original",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "barrier-rank0-x0.1",
+      "mode": "strict_barrier",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "barrier-rank3-x0.1",
+      "mode": "strict_barrier",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "barrier-rank7-x0.1",
+      "mode": "strict_barrier",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "original-all-ranks-x0.1",
+      "mode": "original",
+      "delay_us": 9.39520001411438,
+      "delay_ranks": "all",
+      "delay_ratio": 0.1
+    },
+    {
+      "name": "original-rank0-x0.2",
+      "mode": "original",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank3-x0.2",
+      "mode": "original",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank7-x0.2",
+      "mode": "original",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank0-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank3-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank7-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-all-ranks-x0.2",
+      "mode": "original",
+      "delay_us": 18.79040002822876,
+      "delay_ranks": "all",
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank0-x0.4",
+      "mode": "original",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank3-x0.4",
+      "mode": "original",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank7-x0.4",
+      "mode": "original",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank0-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank3-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank7-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-all-ranks-x0.4",
+      "mode": "original",
+      "delay_us": 37.58080005645752,
+      "delay_ranks": "all",
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank0-x0.8",
+      "mode": "original",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "original-rank3-x0.8",
+      "mode": "original",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "original-rank7-x0.8",
+      "mode": "original",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "barrier-rank0-x0.8",
+      "mode": "strict_barrier",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "barrier-rank3-x0.8",
+      "mode": "strict_barrier",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "barrier-rank7-x0.8",
+      "mode": "strict_barrier",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "original-all-ranks-x0.8",
+      "mode": "original",
+      "delay_us": 75.16160011291504,
+      "delay_ranks": "all",
+      "delay_ratio": 0.8
+    },
+    {
+      "name": "original-rank0-x1.2",
+      "mode": "original",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "original-rank3-x1.2",
+      "mode": "original",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "original-rank7-x1.2",
+      "mode": "original",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "barrier-rank0-x1.2",
+      "mode": "strict_barrier",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "barrier-rank3-x1.2",
+      "mode": "strict_barrier",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "barrier-rank7-x1.2",
+      "mode": "strict_barrier",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "original-all-ranks-x1.2",
+      "mode": "original",
+      "delay_us": 112.74240016937256,
+      "delay_ranks": "all",
+      "delay_ratio": 1.2
+    },
+    {
+      "name": "original-rank0-x2",
+      "mode": "original",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "original-rank3-x2",
+      "mode": "original",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "original-rank7-x2",
+      "mode": "original",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "barrier-rank0-x2",
+      "mode": "strict_barrier",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "barrier-rank3-x2",
+      "mode": "strict_barrier",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "barrier-rank7-x2",
+      "mode": "strict_barrier",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 2.0
+    },
+    {
+      "name": "original-all-ranks-x2",
+      "mode": "original",
+      "delay_us": 187.9040002822876,
+      "delay_ranks": "all",
+      "delay_ratio": 2.0
+    }
+  ]
+}

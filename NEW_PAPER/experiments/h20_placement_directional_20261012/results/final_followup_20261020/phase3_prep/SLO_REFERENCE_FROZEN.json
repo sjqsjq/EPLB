@@ -1,0 +1,32 @@
+{
+ "frozen_utc": "2026-10-20T09:24:53Z",
+ "source": {
+  "E3": "prep3_C1_I_E3",
+  "E4": "prep3_C2_I_E4"
+ },
+ "reference": {
+  "E3": {
+   "n_ok": 8192,
+   "ref_p95_TTFT_s": 6.7419
+  },
+  "E4": {
+   "n_ok": 2048,
+   "ref_p95_TTFT_s": 7.3127,
+   "ref_p95_TPOT_s": 0.08313,
+   "n_tpot": 2048
+  }
+ },
+ "goodput_def": {
+  "good_request": "error==null AND TTFT<=k*ref_p95_TTFT AND (E4: TPOT<=k*ref_p95_TPOT)",
+  "tpot": "(elapsed_s - ttft_s)/(comp_tokens-1), comp_tokens>1 only",
+  "E3_note": "TTFT-only (comp_tokens==1 by stream design, pre-declared)",
+  "k_grid": [
+   0.8,
+   1.0,
+   1.2
+  ],
+  "primary_k": 1.0,
+  "goodput_req_s": "GOOD_count / bench_wall_time_s",
+  "goodness_rate": "GOOD_count / total_requests"
+ }
+}

@@ -1,0 +1,105 @@
+{
+ "artifact": "c5_dynamic_verification",
+ "created_utc": "2026-10-15T14:15:43.263624+00:00",
+ "purpose": "Live-runtime verification that audit findings C1/C2/C5 fixes decouple the W (adaptive_window) and D (adaptive_decay) switches: each mechanism fires only under its own flag. Closes dynamic_verification_pending in ea_v1_code_lock.json.",
+ "source": "results/ea_v1/calibration_grid smoke phase (campaign.log / campaign_state.json), driver PID 859340, calibration.jsonl (8037 real requests, sha 7d53aa0b...), concurrency 256",
+ "code_lock": "configs/followup_v1/ea_v1_code_lock.json (sha256 0c173198f17131a437e54570370ebbb3021413d26ebd102ac41fed2590bab662)",
+ "smokes": {
+  "easmoke_A10_s1": {
+   "status": "completed",
+   "bench_rc": 0,
+   "bench": {
+    "ok": 8037,
+    "errors": 0,
+    "total_time_s": 379.64,
+    "tps": 21.2,
+    "total_comp_tokens": 8037,
+    "lat_mean_ms": 11667.7
+   },
+   "mechanisms": {
+    "adw_ratio_jump": 96,
+    "adw_shrink": 96,
+    "adw_decay0_window_fixed": 0,
+    "adw_grow": 80,
+    "window_shift": 8,
+    "window_stable": 16,
+    "reset": 0,
+    "warmstart": 0,
+    "calib_tier": 0,
+    "refine": 0,
+    "arg_adw_true": 1,
+    "arg_add_true": 0,
+    "tracebacks": 0
+   },
+   "expectation_failures": [],
+   "passed": true
+  },
+  "easmoke_A01_s1": {
+   "status": "completed",
+   "bench_rc": 0,
+   "bench": {
+    "ok": 8037,
+    "errors": 0,
+    "total_time_s": 371.57,
+    "tps": 21.6,
+    "total_comp_tokens": 8037,
+    "lat_mean_ms": 11409.6
+   },
+   "mechanisms": {
+    "adw_ratio_jump": 56,
+    "adw_shrink": 0,
+    "adw_decay0_window_fixed": 56,
+    "adw_grow": 0,
+    "window_shift": 0,
+    "window_stable": 0,
+    "reset": 32,
+    "warmstart": 0,
+    "calib_tier": 0,
+    "refine": 0,
+    "arg_adw_true": 0,
+    "arg_add_true": 1,
+    "tracebacks": 0
+   },
+   "expectation_failures": [],
+   "passed": true
+  },
+  "easmoke_A11_s1": {
+   "status": "completed",
+   "bench_rc": 0,
+   "bench": {
+    "ok": 8037,
+    "errors": 0,
+    "total_time_s": 383.43,
+    "tps": 21.0,
+    "total_comp_tokens": 8037,
+    "lat_mean_ms": 11789.7
+   },
+   "mechanisms": {
+    "adw_ratio_jump": 32,
+    "adw_shrink": 32,
+    "adw_decay0_window_fixed": 0,
+    "adw_grow": 40,
+    "window_shift": 24,
+    "window_stable": 16,
+    "reset": 56,
+    "warmstart": 0,
+    "calib_tier": 0,
+    "refine": 0,
+    "arg_adw_true": 1,
+    "arg_add_true": 1,
+    "tracebacks": 0
+   },
+   "expectation_failures": [],
+   "passed": true
+  }
+ },
+ "verdict": {
+  "all_passed": true,
+  "interpretation": {
+   "A10": "adaptive_window ON / adaptive_decay OFF: window mutations fired (adw_ratio_jump=96, adw_shrink=96, adw_grow=80, window_shift=8) while history zeroing stayed at zero (reset=0, decay0_window_fixed=0) -> W works independently, D fully off.",
+   "A01": "adaptive_window OFF / adaptive_decay ON: window completely frozen (adw_shrink=0, adw_grow=0, window_shift=0, window_stable=0) while D worked independently (reset=32, decay0_window_fixed=56) -> F1/F3 fixes verified live; no branch secretly clears or mutates.",
+   "A11": "both ON: v3-style signature (adw_shrink=32, adw_grow=40, window_shift=24, window_stable=16, reset=56, decay0_window_fixed=0 -> v3 log branch used since W on), both arg flags true -> A11 == v3 controller behavior as argued in code lock."
+  },
+  "note": "This is runtime mechanism-signature verification on real service requests, not a performance claim. Smoke runs never enter grid selection (frozen rule)."
+ }
+}

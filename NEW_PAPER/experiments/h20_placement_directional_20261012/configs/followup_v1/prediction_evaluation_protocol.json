@@ -1,0 +1,5292 @@
+{
+  "capture_index": {
+    "bytes": 74342,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_index.json",
+    "sha256": "3406f8427e62e5d44ad747d5522f2703dceb80853d84034901121dc982a4a35e"
+  },
+  "design": {
+    "capture_units": 12,
+    "fresh_start_semantics": "one torchrun process group per start; every start reloads all immutable artifacts and rebuilds weights before warmup",
+    "layout_ids": [
+      "identity",
+      "raw-01",
+      "raw-02",
+      "padding-01",
+      "padding-02",
+      "m2-01",
+      "m2-02",
+      "random-01",
+      "random-02"
+    ],
+    "layout_purpose": "out_of_sample_model_comparison_on_unseen_captures_and_unseen_layouts_after_lock",
+    "no_refit_before_or_during_evaluation": true,
+    "response_definition": "start-level Q = mean of four paired block effects; each block effect is completion_fenced_us_per_forward(identity) - completion_fenced_us_per_forward(candidate)",
+    "starts_per_capture": 4
+  },
+  "followup_protocol": {
+    "bytes": 17479,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/protocol.json",
+    "sha256": "7c0cf10200ac9971a2e327c7bb291b118e693e1819a48858711cff1b8c2d9eb9"
+  },
+  "frozen_at_utc": "2026-10-12T10:13:29.059325+00:00",
+  "generator": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_prediction_evaluation_protocol.py",
+    "seed_derivation": "uint64 big-endian SHA256(study|version|parts) mod 2^62",
+    "sha256": "ed4987d695eeaac30af50bf1ae862f9e4b4d50f83b0a373f4bf32b5b898d0bc0",
+    "version": "evaluation-protocol-v1"
+  },
+  "implementation": {
+    "fit_prediction_models_record": {
+      "bytes": 23611,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/fit_prediction_models.py",
+      "sha256": "89f98406da57884891af8a28c9561c04ca177677bfdcdcda971af71f2ecfed43"
+    },
+    "generate_prediction_calibration_layouts_record": {
+      "bytes": 21541,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_prediction_calibration_layouts.py",
+      "sha256": "d0b0f3e6266ee23ef43c5644349c111ba695546dd93763fc3049186312446f0e"
+    },
+    "generate_prediction_evaluation_layouts_record": {
+      "bytes": 21297,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_prediction_evaluation_layouts.py",
+      "sha256": "fe27bc45420ba92f6d60f69696c7255b5dd561d57746f3e2a58e760712b85b8b"
+    },
+    "index_prediction_timing_results_record": {
+      "bytes": 9882,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_prediction_timing_results.py",
+      "sha256": "950922ea7a43693c1e53e2e26713a7f26db81c34077601c30f15d1553ee5bfe9"
+    },
+    "prediction_common_record": {
+      "bytes": 25260,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    },
+    "prediction_models_record": {
+      "bytes": 7025,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_models.py",
+      "sha256": "a5058b6e38346c0e23d67b239a3cf39cd089ba87d4a7d6bcc527201839b3dda7"
+    },
+    "prediction_replay_record": {
+      "bytes": 26692,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py",
+      "sha256": "955d60a3131d335718bb1ccb8250feed4c75bd95ea89a8d742f19447460278a4"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    },
+    "run_prediction_evaluation_record": {
+      "bytes": 6454,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_prediction_evaluation.sh",
+      "sha256": "730064637b08e16a994cbba9857dfae307a854b725602572de9e2e2db0d26137"
+    },
+    "verify_prediction_timing_protocol_record": {
+      "bytes": 3946,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/verify_prediction_timing_protocol.py",
+      "sha256": "8b6b4039b1a1e46cf2a489c449999770e9aedeebe707df39335c5fdbcbb22800"
+    }
+  },
+  "layout_index": {
+    "bytes": 14921,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/index.json",
+    "sha256": "bb9db074f5402901f83e737270efa85ff0449fb5a25f153f6b5b8ce3919eb719"
+  },
+  "model_lock": {
+    "bytes": 257792,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_model_lock.json",
+    "sha256": "092f9736a9768d947e3f0fa15659889c5438fe4e10fa8509df4a029bf8088543"
+  },
+  "prohibitions": {
+    "artificial_delay_floor": true,
+    "best_start_or_repeat_selection": true,
+    "cross_device_timestamp_subtraction": true,
+    "differential_delay": true,
+    "mid_layer_collective_or_gate": true,
+    "overwrite_existing_raw_result": true,
+    "push_without_separate_instruction": true,
+    "sleep_or_spin": true
+  },
+  "protocol_id": "h20-placement-prediction-evaluation-v1",
+  "result_index_relative_path": "results/prediction_v1/evaluation/index.json",
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "expert_parallel_size": 8,
+    "geometry": {
+      "hidden_size": 4096,
+      "intermediate_size": 1536,
+      "local_experts_per_rank": 16,
+      "routed_experts": 128,
+      "top_k": 8,
+      "weight_block": [
+        128,
+        128
+      ]
+    },
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner": "DeepGEMM FP8",
+    "node_count": 1
+  },
+  "split": "evaluation",
+  "starts": [
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "m2-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "identity",
+          "random-02",
+          "random-01",
+          "m2-01",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "random-01",
+          "identity",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "identity",
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178443,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-024.json",
+        "sha256": "37f717412f6d6445807912168632914cb1aacc38d8a54ff3e00cf2d4773e45f5"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-01-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-1.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "random-01",
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "raw-01",
+          "raw-02",
+          "random-02",
+          "identity"
+        ],
+        [
+          "m2-02",
+          "padding-02",
+          "padding-01",
+          "raw-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "random-01"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "random-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 3673570461613612733,
+      "start_id": "eval-01-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "m2-01",
+          "raw-02",
+          "random-02",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "m2-02",
+          "padding-02",
+          "identity",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "raw-02",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "identity",
+          "padding-01",
+          "m2-02",
+          "random-02",
+          "raw-02"
+        ],
+        [
+          "random-01",
+          "m2-01",
+          "m2-02",
+          "raw-02",
+          "random-02",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178443,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-024.json",
+        "sha256": "37f717412f6d6445807912168632914cb1aacc38d8a54ff3e00cf2d4773e45f5"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-01-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "m2-02",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "m2-01",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "identity",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "raw-02",
+          "random-02",
+          "raw-01",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 4594459141029356944,
+      "start_id": "eval-01-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "raw-02",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "padding-02",
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "identity"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "identity",
+          "padding-02",
+          "raw-01",
+          "random-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178443,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-024.json",
+        "sha256": "37f717412f6d6445807912168632914cb1aacc38d8a54ff3e00cf2d4773e45f5"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-01-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "random-01",
+          "random-02",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "m2-02",
+          "raw-01",
+          "random-02",
+          "padding-01",
+          "identity",
+          "m2-01",
+          "raw-02",
+          "padding-02",
+          "random-01"
+        ],
+        [
+          "identity",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "random-02",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "padding-01",
+          "random-02",
+          "random-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 4223265829611012092,
+      "start_id": "eval-01-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "identity",
+          "m2-02",
+          "random-02",
+          "raw-02"
+        ],
+        [
+          "random-01",
+          "random-02",
+          "m2-01",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "raw-01",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "padding-01",
+          "m2-02",
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "random-02",
+          "random-01"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "m2-01",
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178443,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-024.json",
+        "sha256": "37f717412f6d6445807912168632914cb1aacc38d8a54ff3e00cf2d4773e45f5"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-01-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-01-start-4.json",
+      "primary_schedules": [
+        [
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "raw-02",
+          "identity",
+          "raw-01",
+          "padding-02"
+        ],
+        [
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "raw-01",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "m2-02",
+          "raw-02",
+          "random-02",
+          "padding-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 3704781142368441814,
+      "start_id": "eval-01-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "diagnostic_schedules": [
+        [
+          "random-02",
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "identity",
+          "padding-01",
+          "m2-02"
+        ],
+        [
+          "random-01",
+          "identity",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "random-02",
+          "identity",
+          "random-01",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "identity",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178323,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-028.json",
+        "sha256": "9168f19bb40f6d0d95dcd03d83c0b0d92d3351b3224247e35a66c61bdcf5737a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-02-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-1.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "identity",
+          "random-02",
+          "padding-02",
+          "m2-02"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "random-02",
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "m2-02"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "m2-01",
+          "random-02",
+          "raw-02",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "random-02",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 383855854766817330,
+      "start_id": "eval-02-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "diagnostic_schedules": [
+        [
+          "m2-01",
+          "identity",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "raw-01",
+          "padding-01"
+        ],
+        [
+          "m2-02",
+          "raw-01",
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "raw-02",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "random-01"
+        ],
+        [
+          "random-02",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "random-01",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178323,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-028.json",
+        "sha256": "9168f19bb40f6d0d95dcd03d83c0b0d92d3351b3224247e35a66c61bdcf5737a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-02-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "identity",
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "raw-01",
+          "random-01",
+          "raw-02"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "identity",
+          "padding-01",
+          "padding-02",
+          "raw-01",
+          "random-01",
+          "m2-02",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "m2-02",
+          "identity",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "raw-01",
+          "random-02",
+          "random-01",
+          "identity",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 1656668843932095421,
+      "start_id": "eval-02-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "random-01",
+          "padding-01",
+          "random-02",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "raw-02",
+          "padding-02"
+        ],
+        [
+          "random-02",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "random-01"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "random-02",
+          "raw-02",
+          "padding-01"
+        ],
+        [
+          "m2-02",
+          "padding-01",
+          "m2-01",
+          "padding-02",
+          "random-02",
+          "identity",
+          "random-01",
+          "raw-01",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178323,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-028.json",
+        "sha256": "9168f19bb40f6d0d95dcd03d83c0b0d92d3351b3224247e35a66c61bdcf5737a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-02-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "padding-01",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "m2-01"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "raw-02"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "padding-01",
+          "m2-01",
+          "padding-02",
+          "random-01"
+        ]
+      ],
+      "random_seed": 3620915433356259395,
+      "start_id": "eval-02-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "m2-01",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "identity",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "random-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "random-02",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178323,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-028.json",
+        "sha256": "9168f19bb40f6d0d95dcd03d83c0b0d92d3351b3224247e35a66c61bdcf5737a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-02-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-02-start-4.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "padding-02",
+          "random-02",
+          "identity",
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "raw-02"
+        ],
+        [
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "raw-01",
+          "random-01",
+          "padding-01",
+          "random-02",
+          "m2-02",
+          "m2-01",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 387643478401549173,
+      "start_id": "eval-02-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "random-02",
+          "identity",
+          "raw-01",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "m2-02",
+          "padding-02",
+          "random-01",
+          "padding-01",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-01"
+        ],
+        [
+          "padding-01",
+          "random-02",
+          "random-01",
+          "m2-02",
+          "identity",
+          "raw-01",
+          "m2-01",
+          "padding-02",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178620,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-044.json",
+        "sha256": "34cc42099b24275c655c2e00d83dc2f2dbef8a24834b17596c56a3b53aa3bd05"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-03-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "raw-01",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "random-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "m2-01",
+          "raw-01"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "padding-02",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "m2-01"
+        ]
+      ],
+      "random_seed": 1549347508610054296,
+      "start_id": "eval-03-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "random-02",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "m2-02"
+        ],
+        [
+          "raw-01",
+          "identity",
+          "m2-01",
+          "padding-02",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "padding-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "identity",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "random-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178620,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-044.json",
+        "sha256": "34cc42099b24275c655c2e00d83dc2f2dbef8a24834b17596c56a3b53aa3bd05"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-03-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-2.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "padding-01",
+          "m2-01",
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "random-02",
+          "identity",
+          "random-01"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "identity",
+          "raw-01",
+          "raw-02"
+        ],
+        [
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "random-01",
+          "raw-01",
+          "identity",
+          "padding-02",
+          "random-02",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 433583563879648853,
+      "start_id": "eval-03-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "random-02",
+          "raw-02",
+          "m2-01",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-02",
+          "identity"
+        ],
+        [
+          "random-02",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "raw-02",
+          "padding-02",
+          "identity",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "m2-02",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "m2-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178620,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-044.json",
+        "sha256": "34cc42099b24275c655c2e00d83dc2f2dbef8a24834b17596c56a3b53aa3bd05"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-03-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "raw-01",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "random-01"
+        ],
+        [
+          "m2-02",
+          "m2-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "raw-01"
+        ],
+        [
+          "random-01",
+          "padding-01",
+          "m2-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "identity",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 3785082022460408686,
+      "start_id": "eval-03-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "raw-01",
+          "raw-02"
+        ],
+        [
+          "m2-01",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "random-02"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "padding-01",
+          "padding-02",
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "raw-02",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178620,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-044.json",
+        "sha256": "34cc42099b24275c655c2e00d83dc2f2dbef8a24834b17596c56a3b53aa3bd05"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-03-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-03-start-4.json",
+      "primary_schedules": [
+        [
+          "random-02",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "m2-02"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "padding-02",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "random-02"
+        ]
+      ],
+      "random_seed": 835140929443271037,
+      "start_id": "eval-03-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "identity",
+          "padding-02",
+          "m2-01"
+        ],
+        [
+          "padding-01",
+          "identity",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "raw-02",
+          "random-02"
+        ],
+        [
+          "m2-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "raw-02",
+          "random-02",
+          "identity",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178666,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-071.json",
+        "sha256": "4c7aca7cf31ca16317724f4432c3c3283c37b9009b8ec1e6abacaf46520df0d6"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-04-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "identity",
+          "m2-02",
+          "m2-01",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "random-01",
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "m2-01",
+          "identity",
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "padding-01"
+        ],
+        [
+          "padding-01",
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "m2-01",
+          "random-01",
+          "random-02",
+          "identity",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 4194351059817656351,
+      "start_id": "eval-04-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "diagnostic_schedules": [
+        [
+          "m2-02",
+          "raw-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "padding-02"
+        ],
+        [
+          "raw-01",
+          "m2-02",
+          "identity",
+          "m2-01",
+          "random-02",
+          "raw-02",
+          "random-01",
+          "padding-02",
+          "padding-01"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "identity",
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "random-01",
+          "padding-02",
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "identity",
+          "m2-01",
+          "raw-01",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178666,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-071.json",
+        "sha256": "4c7aca7cf31ca16317724f4432c3c3283c37b9009b8ec1e6abacaf46520df0d6"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-04-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-2.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "random-02",
+          "random-01",
+          "raw-02",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "identity",
+          "raw-01",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-02",
+          "raw-02",
+          "identity",
+          "random-02",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 1342621864093304240,
+      "start_id": "eval-04-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "identity",
+          "m2-02",
+          "padding-01",
+          "m2-01",
+          "random-02",
+          "random-01"
+        ],
+        [
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "m2-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178666,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-071.json",
+        "sha256": "4c7aca7cf31ca16317724f4432c3c3283c37b9009b8ec1e6abacaf46520df0d6"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-04-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-3.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "identity",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "identity"
+        ],
+        [
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "identity",
+          "raw-01",
+          "m2-01"
+        ]
+      ],
+      "random_seed": 3223339607631065845,
+      "start_id": "eval-04-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "random-01",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "raw-02",
+          "random-01"
+        ],
+        [
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "random-02",
+          "identity",
+          "m2-02",
+          "raw-02",
+          "m2-01",
+          "padding-02"
+        ],
+        [
+          "identity",
+          "random-01",
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "random-02",
+          "m2-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178666,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-01-layer-071.json",
+        "sha256": "4c7aca7cf31ca16317724f4432c3c3283c37b9009b8ec1e6abacaf46520df0d6"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-04-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-04-start-4.json",
+      "primary_schedules": [
+        [
+          "random-02",
+          "padding-02",
+          "random-01",
+          "identity",
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "raw-01",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "padding-01"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "random-01",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "m2-01",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 2060701514446110931,
+      "start_id": "eval-04-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "random-01",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "random-02",
+          "padding-02"
+        ],
+        [
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "identity",
+          "raw-02"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "m2-02",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178404,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-024.json",
+        "sha256": "9cb5c7386c39126badfcf0bc98686d047f4431560d9d8d391b3862f7a19f1542"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-05-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-1.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "raw-01",
+          "identity",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "random-01"
+        ],
+        [
+          "random-02",
+          "identity",
+          "raw-02",
+          "m2-01",
+          "padding-02",
+          "padding-01",
+          "raw-01",
+          "random-01",
+          "m2-02"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "raw-02",
+          "m2-01"
+        ]
+      ],
+      "random_seed": 50888356564189520,
+      "start_id": "eval-05-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "random-02",
+          "random-01",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "raw-02",
+          "identity",
+          "raw-01",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "raw-02"
+        ],
+        [
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "raw-02",
+          "identity",
+          "random-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178404,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-024.json",
+        "sha256": "9cb5c7386c39126badfcf0bc98686d047f4431560d9d8d391b3862f7a19f1542"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-05-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "identity",
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "identity"
+        ],
+        [
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "identity",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 543528054969495985,
+      "start_id": "eval-05-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "identity",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "m2-01",
+          "padding-01",
+          "identity",
+          "random-01"
+        ],
+        [
+          "identity",
+          "m2-02",
+          "raw-02",
+          "padding-02",
+          "raw-01",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "padding-01"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "m2-01",
+          "padding-02",
+          "random-01",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178404,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-024.json",
+        "sha256": "9cb5c7386c39126badfcf0bc98686d047f4431560d9d8d391b3862f7a19f1542"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-05-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "random-01"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "raw-01",
+          "m2-02",
+          "identity",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "raw-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-02"
+        ],
+        [
+          "identity",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "padding-01",
+          "random-01"
+        ]
+      ],
+      "random_seed": 3123966768880791535,
+      "start_id": "eval-05-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-01",
+          "m2-02",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "raw-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "padding-01",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "raw-01",
+          "m2-01",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "m2-02",
+          "random-01",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "random-01",
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "random-02",
+          "padding-02",
+          "m2-01",
+          "identity",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178404,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-024.json",
+        "sha256": "9cb5c7386c39126badfcf0bc98686d047f4431560d9d8d391b3862f7a19f1542"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-05-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-05-start-4.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "padding-01",
+          "identity",
+          "random-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "raw-01",
+          "m2-01"
+        ],
+        [
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "m2-02",
+          "raw-01"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 4523396569046680757,
+      "start_id": "eval-05-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "m2-02"
+        ],
+        [
+          "padding-01",
+          "m2-01",
+          "identity",
+          "random-01",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "raw-02",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "random-01",
+          "random-02",
+          "m2-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178414,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-028.json",
+        "sha256": "2f31b881353a9bf2b29d99f4e7431e76902824f766d7e9f9f68423c3bfaa5f85"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-06-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "random-02",
+          "padding-01",
+          "m2-01",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "raw-02",
+          "random-01"
+        ],
+        [
+          "identity",
+          "padding-02",
+          "padding-01",
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 4204065025660106036,
+      "start_id": "eval-06-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-01",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "m2-01",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "random-02",
+          "raw-01",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "random-01",
+          "raw-02",
+          "identity",
+          "m2-02",
+          "padding-02"
+        ],
+        [
+          "identity",
+          "random-01",
+          "m2-01",
+          "raw-02",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "random-02",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178414,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-028.json",
+        "sha256": "2f31b881353a9bf2b29d99f4e7431e76902824f766d7e9f9f68423c3bfaa5f85"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-06-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "m2-02",
+          "raw-01",
+          "random-02",
+          "identity",
+          "padding-01",
+          "raw-02"
+        ],
+        [
+          "m2-02",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "m2-01",
+          "random-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "padding-01",
+          "padding-02",
+          "random-02",
+          "identity",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "m2-01"
+        ],
+        [
+          "raw-02",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "padding-01",
+          "identity",
+          "raw-01",
+          "m2-01",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 4413098377472075614,
+      "start_id": "eval-06-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "raw-01",
+          "random-01",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "random-02",
+          "m2-01"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "random-01",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "random-01",
+          "identity",
+          "m2-01",
+          "padding-01"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "padding-01",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "padding-02",
+          "raw-01",
+          "random-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178414,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-028.json",
+        "sha256": "2f31b881353a9bf2b29d99f4e7431e76902824f766d7e9f9f68423c3bfaa5f85"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-06-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-3.json",
+      "primary_schedules": [
+        [
+          "padding-01",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "random-01",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "m2-02"
+        ],
+        [
+          "random-01",
+          "identity",
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "m2-02"
+        ],
+        [
+          "padding-01",
+          "random-02",
+          "identity",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "padding-02",
+          "raw-02",
+          "m2-01"
+        ],
+        [
+          "m2-02",
+          "raw-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "padding-02",
+          "padding-01",
+          "m2-01",
+          "random-01"
+        ]
+      ],
+      "random_seed": 4438807738152065623,
+      "start_id": "eval-06-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "random-02",
+          "raw-01",
+          "identity",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "m2-02"
+        ],
+        [
+          "random-02",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "raw-01",
+          "random-02",
+          "padding-02",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "random-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178414,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-028.json",
+        "sha256": "2f31b881353a9bf2b29d99f4e7431e76902824f766d7e9f9f68423c3bfaa5f85"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-06-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-06-start-4.json",
+      "primary_schedules": [
+        [
+          "m2-01",
+          "padding-02",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "random-01",
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "raw-01",
+          "padding-01"
+        ],
+        [
+          "m2-02",
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "identity",
+          "raw-01",
+          "padding-01",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 2752594330398337984,
+      "start_id": "eval-06-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "random-02"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "m2-01",
+          "padding-01",
+          "random-01",
+          "identity",
+          "padding-02",
+          "m2-02",
+          "random-02"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "identity",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-02",
+          "random-02",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178591,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-044.json",
+        "sha256": "b40779ce25099f944f6c65a524482f3e4ec5d435d3c7b4ed1c2da071547badc9"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-07-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-1.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "identity",
+          "raw-02",
+          "m2-01",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "m2-02",
+          "random-02"
+        ],
+        [
+          "random-01",
+          "raw-02",
+          "padding-02",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "padding-01",
+          "m2-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "random-02",
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "raw-01",
+          "random-01"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "random-02",
+          "m2-01"
+        ]
+      ],
+      "random_seed": 1704592155078750644,
+      "start_id": "eval-07-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "m2-02",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "identity",
+          "m2-02",
+          "random-02",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "random-01",
+          "random-02",
+          "m2-02",
+          "padding-02",
+          "identity",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "m2-02",
+          "random-02",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178591,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-044.json",
+        "sha256": "b40779ce25099f944f6c65a524482f3e4ec5d435d3c7b4ed1c2da071547badc9"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-07-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-2.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "random-01",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "random-02"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "m2-02",
+          "padding-02",
+          "random-02"
+        ],
+        [
+          "random-02",
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 1759726484817177104,
+      "start_id": "eval-07-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "identity",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "random-01"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "m2-02",
+          "raw-01"
+        ],
+        [
+          "m2-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "padding-02",
+          "random-01",
+          "padding-01",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178591,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-044.json",
+        "sha256": "b40779ce25099f944f6c65a524482f3e4ec5d435d3c7b4ed1c2da071547badc9"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-07-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-3.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "raw-01",
+          "identity",
+          "random-02",
+          "m2-01",
+          "padding-02"
+        ],
+        [
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "padding-02",
+          "random-01"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "random-01",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-02"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "identity",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 4222472468874986908,
+      "start_id": "eval-07-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "random-02",
+          "raw-01",
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "identity",
+          "random-01"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "random-02"
+        ],
+        [
+          "m2-01",
+          "raw-01",
+          "identity",
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-02",
+          "padding-02"
+        ],
+        [
+          "padding-01",
+          "m2-01",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178591,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-044.json",
+        "sha256": "b40779ce25099f944f6c65a524482f3e4ec5d435d3c7b4ed1c2da071547badc9"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-07-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-07-start-4.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "m2-01",
+          "padding-02",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "random-01",
+          "identity",
+          "m2-02",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "padding-01",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 3276205543020907273,
+      "start_id": "eval-07-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "diagnostic_schedules": [
+        [
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "raw-01",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "identity",
+          "random-02",
+          "raw-02",
+          "raw-01",
+          "m2-02",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-071.json",
+        "sha256": "b4fa5d3f7ce9044aa9f39442276de328f73692ef295bdac2d5eaf0b1a2f01e62"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-08-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-1.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "raw-02",
+          "identity",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "padding-01",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "random-01",
+          "identity",
+          "padding-01",
+          "m2-02",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "random-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "identity",
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "m2-01"
+        ]
+      ],
+      "random_seed": 724485839990460446,
+      "start_id": "eval-08-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "m2-01",
+          "m2-02",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "padding-01",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "random-01",
+          "raw-01",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "random-02",
+          "identity",
+          "random-01",
+          "raw-01",
+          "m2-01",
+          "m2-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-071.json",
+        "sha256": "b4fa5d3f7ce9044aa9f39442276de328f73692ef295bdac2d5eaf0b1a2f01e62"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-08-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "raw-01",
+          "random-01",
+          "m2-02",
+          "identity",
+          "m2-01",
+          "raw-02",
+          "padding-01",
+          "random-02"
+        ],
+        [
+          "random-02",
+          "identity",
+          "padding-02",
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "padding-01",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "m2-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "m2-01",
+          "padding-02",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 2700541150306982879,
+      "start_id": "eval-08-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "padding-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "padding-02",
+          "raw-01",
+          "m2-02",
+          "random-01",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "random-02"
+        ],
+        [
+          "m2-02",
+          "raw-02",
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "padding-01",
+          "random-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "raw-01",
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-071.json",
+        "sha256": "b4fa5d3f7ce9044aa9f39442276de328f73692ef295bdac2d5eaf0b1a2f01e62"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-08-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-3.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "padding-02",
+          "identity",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "raw-02"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "random-01",
+          "identity",
+          "m2-01",
+          "random-02",
+          "padding-02",
+          "padding-01",
+          "m2-02"
+        ],
+        [
+          "m2-02",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "m2-01",
+          "random-02",
+          "padding-02",
+          "random-01"
+        ],
+        [
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 3858070268855190360,
+      "start_id": "eval-08-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "random-02",
+          "identity",
+          "raw-01",
+          "m2-02",
+          "padding-02"
+        ],
+        [
+          "random-01",
+          "m2-01",
+          "identity",
+          "padding-02",
+          "random-02",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "identity",
+          "padding-01",
+          "raw-01",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-02-layer-071.json",
+        "sha256": "b4fa5d3f7ce9044aa9f39442276de328f73692ef295bdac2d5eaf0b1a2f01e62"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-08-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-08-start-4.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "padding-01",
+          "random-02",
+          "raw-02",
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "identity",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "random-01",
+          "raw-02",
+          "identity",
+          "m2-01",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "random-01"
+        ]
+      ],
+      "random_seed": 1067644099638583263,
+      "start_id": "eval-08-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "identity",
+          "random-02",
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "raw-02"
+        ],
+        [
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "identity",
+          "random-01",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "raw-01",
+          "random-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "random-01",
+          "random-02",
+          "identity",
+          "padding-02",
+          "raw-01",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178439,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-024.json",
+        "sha256": "8235b261bf9ce38a95c28a079f635eaa15559a2fbaef7a789a38b2eae7a643ab"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-09-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-1.json",
+      "primary_schedules": [
+        [
+          "padding-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "random-02",
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "random-01",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "padding-01"
+        ],
+        [
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "m2-01",
+          "identity",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "random-02",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 1612807923954613648,
+      "start_id": "eval-09-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "m2-02",
+          "random-01"
+        ],
+        [
+          "m2-01",
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "padding-01",
+          "m2-02",
+          "identity",
+          "random-01",
+          "random-02"
+        ],
+        [
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "random-01",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "padding-02",
+          "raw-02"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "random-02",
+          "random-01",
+          "identity",
+          "padding-02",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178439,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-024.json",
+        "sha256": "8235b261bf9ce38a95c28a079f635eaa15559a2fbaef7a789a38b2eae7a643ab"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-09-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-2.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "m2-01",
+          "padding-02",
+          "random-02"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "identity",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "random-02"
+        ],
+        [
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "m2-02"
+        ],
+        [
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "m2-01",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 1658204412758068833,
+      "start_id": "eval-09-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "m2-01",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "padding-02",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "m2-01",
+          "raw-02",
+          "identity",
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "random-02",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "identity",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "padding-01",
+          "random-02",
+          "m2-02"
+        ],
+        [
+          "random-02",
+          "identity",
+          "m2-02",
+          "raw-01",
+          "raw-02",
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178439,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-024.json",
+        "sha256": "8235b261bf9ce38a95c28a079f635eaa15559a2fbaef7a789a38b2eae7a643ab"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-09-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-3.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "m2-01",
+          "padding-02",
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "raw-02"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "m2-01",
+          "random-01"
+        ],
+        [
+          "random-02",
+          "m2-02",
+          "m2-01",
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "random-01"
+        ],
+        [
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 601921362384723867,
+      "start_id": "eval-09-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-01",
+          "padding-02",
+          "padding-01"
+        ],
+        [
+          "m2-02",
+          "identity",
+          "padding-01",
+          "random-02",
+          "raw-01",
+          "m2-01",
+          "padding-02",
+          "random-01",
+          "raw-02"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "random-01",
+          "m2-01",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "padding-01",
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "identity",
+          "m2-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 178439,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-024.json",
+        "sha256": "8235b261bf9ce38a95c28a079f635eaa15559a2fbaef7a789a38b2eae7a643ab"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-09-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-09-start-4.json",
+      "primary_schedules": [
+        [
+          "padding-01",
+          "random-02",
+          "padding-02",
+          "m2-02",
+          "identity",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "m2-01"
+        ],
+        [
+          "identity",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "raw-02",
+          "padding-01"
+        ],
+        [
+          "random-01",
+          "raw-02",
+          "random-02",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "padding-01",
+          "m2-02",
+          "padding-02"
+        ],
+        [
+          "random-02",
+          "raw-02",
+          "identity",
+          "random-01",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 1148792835772805162,
+      "start_id": "eval-09-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "padding-01",
+          "random-01",
+          "raw-02",
+          "raw-01",
+          "random-02"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "identity",
+          "raw-02"
+        ],
+        [
+          "padding-01",
+          "m2-02",
+          "identity",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "padding-02",
+          "random-01",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "identity",
+          "m2-02",
+          "random-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178403,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-028.json",
+        "sha256": "01ebfe67dbf6decf22ee5cc55c6a7b5deb025a652b89b60c69188750f85df71a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-10-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-1.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "padding-01",
+          "padding-02",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "raw-01",
+          "raw-02",
+          "random-02"
+        ],
+        [
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "identity"
+        ],
+        [
+          "m2-01",
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "identity",
+          "padding-01",
+          "random-02",
+          "raw-02",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "random-01",
+          "padding-01",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "padding-02",
+          "m2-02",
+          "random-02"
+        ]
+      ],
+      "random_seed": 3994501817894434832,
+      "start_id": "eval-10-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "diagnostic_schedules": [
+        [
+          "m2-01",
+          "raw-01",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "random-01"
+        ],
+        [
+          "identity",
+          "m2-01",
+          "m2-02",
+          "random-02",
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "raw-02",
+          "padding-02"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "m2-01",
+          "identity",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "random-01",
+          "random-02",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "raw-01",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178403,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-028.json",
+        "sha256": "01ebfe67dbf6decf22ee5cc55c6a7b5deb025a652b89b60c69188750f85df71a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-10-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-2.json",
+      "primary_schedules": [
+        [
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "m2-02",
+          "raw-01",
+          "random-01",
+          "padding-02"
+        ],
+        [
+          "m2-01",
+          "identity",
+          "raw-02",
+          "random-02",
+          "random-01",
+          "m2-02",
+          "raw-01",
+          "padding-02",
+          "padding-01"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "raw-01",
+          "random-02",
+          "padding-01",
+          "random-01"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "random-01",
+          "identity",
+          "m2-01",
+          "raw-02",
+          "padding-02",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 2627182354049000558,
+      "start_id": "eval-10-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "m2-01",
+          "random-02",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "raw-01",
+          "padding-01",
+          "m2-02",
+          "random-02",
+          "raw-02",
+          "identity"
+        ],
+        [
+          "m2-02",
+          "raw-02",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "identity",
+          "padding-01",
+          "random-01",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "identity",
+          "padding-01",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178403,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-028.json",
+        "sha256": "01ebfe67dbf6decf22ee5cc55c6a7b5deb025a652b89b60c69188750f85df71a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-10-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "m2-02",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "random-02"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "random-01",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "random-02",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 2370042728396501987,
+      "start_id": "eval-10-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "raw-01"
+        ],
+        [
+          "padding-01",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "m2-02",
+          "m2-01"
+        ],
+        [
+          "random-02",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "padding-02",
+          "raw-01",
+          "m2-02",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "m2-01",
+          "padding-01",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 178403,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-028.json",
+        "sha256": "01ebfe67dbf6decf22ee5cc55c6a7b5deb025a652b89b60c69188750f85df71a"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-10-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-10-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "padding-02",
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "random-02",
+          "raw-01",
+          "m2-02"
+        ],
+        [
+          "identity",
+          "raw-01",
+          "m2-02",
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "padding-02",
+          "random-01"
+        ],
+        [
+          "padding-01",
+          "padding-02",
+          "random-02",
+          "random-01",
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "random-02",
+          "raw-01",
+          "identity",
+          "random-01",
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 4581998583671267729,
+      "start_id": "eval-10-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "identity",
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "random-02",
+          "padding-02",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "identity",
+          "padding-01",
+          "random-01"
+        ],
+        [
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "identity",
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "random-01",
+          "identity",
+          "m2-01",
+          "raw-01",
+          "raw-02",
+          "random-02",
+          "m2-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178602,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-044.json",
+        "sha256": "1afaa42174b5f94aedbbd4cabccfbbf074beecbfe3b7e8fd300eb897c2b5842b"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-11-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-1.json",
+      "primary_schedules": [
+        [
+          "random-01",
+          "raw-02",
+          "raw-01",
+          "random-02",
+          "identity",
+          "padding-01",
+          "m2-01",
+          "m2-02",
+          "padding-02"
+        ],
+        [
+          "random-01",
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "m2-01",
+          "random-02",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "identity",
+          "padding-01",
+          "padding-02",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "identity",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 2695449913541180599,
+      "start_id": "eval-11-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-01",
+          "padding-02",
+          "identity",
+          "random-02"
+        ],
+        [
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "random-02",
+          "m2-01",
+          "random-01",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "random-01",
+          "identity",
+          "raw-01",
+          "raw-02",
+          "random-02",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "m2-02"
+        ],
+        [
+          "m2-01",
+          "padding-01",
+          "identity",
+          "m2-02",
+          "raw-02",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178602,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-044.json",
+        "sha256": "1afaa42174b5f94aedbbd4cabccfbbf074beecbfe3b7e8fd300eb897c2b5842b"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-11-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-2.json",
+      "primary_schedules": [
+        [
+          "padding-02",
+          "random-02",
+          "random-01",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "m2-02",
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "random-01",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "padding-02"
+        ],
+        [
+          "random-01",
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "identity",
+          "raw-02",
+          "padding-02",
+          "m2-01",
+          "padding-01"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "identity",
+          "random-02",
+          "padding-01",
+          "m2-02",
+          "raw-01",
+          "padding-02",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 34156981911642458,
+      "start_id": "eval-11-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "m2-02",
+          "raw-01",
+          "raw-02",
+          "m2-01"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "raw-01",
+          "padding-01",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "m2-01"
+        ],
+        [
+          "padding-01",
+          "identity",
+          "raw-01",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "raw-02",
+          "m2-02",
+          "random-02"
+        ],
+        [
+          "m2-02",
+          "padding-01",
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "padding-02",
+          "raw-02",
+          "identity",
+          "random-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178602,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-044.json",
+        "sha256": "1afaa42174b5f94aedbbd4cabccfbbf074beecbfe3b7e8fd300eb897c2b5842b"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-11-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "m2-01",
+          "m2-02",
+          "random-01",
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "identity",
+          "padding-01"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "identity",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "m2-02",
+          "random-02",
+          "padding-01",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "m2-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "raw-01",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "padding-02",
+          "m2-01",
+          "padding-01",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 4343989941521470211,
+      "start_id": "eval-11-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "m2-02",
+          "raw-01",
+          "m2-01",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "random-01",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "m2-01",
+          "identity",
+          "raw-01",
+          "m2-02",
+          "random-02"
+        ],
+        [
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "random-01",
+          "padding-01",
+          "m2-02"
+        ],
+        [
+          "raw-02",
+          "random-02",
+          "m2-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "m2-01",
+          "random-01",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 178602,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-044.json",
+        "sha256": "1afaa42174b5f94aedbbd4cabccfbbf074beecbfe3b7e8fd300eb897c2b5842b"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-11-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-11-start-4.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "random-01",
+          "m2-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "padding-02",
+          "random-02"
+        ],
+        [
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "padding-01",
+          "identity",
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "padding-02"
+        ],
+        [
+          "identity",
+          "m2-01",
+          "raw-02",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-02",
+          "raw-01",
+          "random-02"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "identity",
+          "random-01",
+          "random-02",
+          "m2-02"
+        ]
+      ],
+      "random_seed": 3246661829524305035,
+      "start_id": "eval-11-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "diagnostic_schedules": [
+        [
+          "random-01",
+          "random-02",
+          "raw-01",
+          "identity",
+          "m2-02",
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "m2-01"
+        ],
+        [
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "random-01",
+          "raw-01",
+          "random-02",
+          "identity"
+        ],
+        [
+          "padding-01",
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "m2-01",
+          "random-02",
+          "padding-01",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "identity",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178550,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-071.json",
+        "sha256": "9561f54ed780ef2826dbaacc4fa4618193f16c9393e251666d8f71780b300617"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-12-start-1.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-1.json",
+      "primary_schedules": [
+        [
+          "m2-02",
+          "identity",
+          "random-01",
+          "raw-02",
+          "random-02",
+          "m2-01",
+          "padding-02",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "random-02",
+          "random-01",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "m2-02"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "identity",
+          "m2-02",
+          "padding-01",
+          "random-01",
+          "raw-02",
+          "m2-01"
+        ],
+        [
+          "identity",
+          "raw-01",
+          "m2-01",
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "random-01",
+          "padding-02",
+          "random-02"
+        ]
+      ],
+      "random_seed": 1788254493315540362,
+      "start_id": "eval-12-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "padding-01",
+          "random-02",
+          "raw-01",
+          "random-01",
+          "m2-01"
+        ],
+        [
+          "identity",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "m2-01",
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "raw-02"
+        ],
+        [
+          "m2-02",
+          "identity",
+          "padding-02",
+          "m2-01",
+          "padding-01",
+          "random-02",
+          "random-01",
+          "raw-02",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "identity",
+          "padding-01",
+          "random-01",
+          "padding-02",
+          "raw-01",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178550,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-071.json",
+        "sha256": "9561f54ed780ef2826dbaacc4fa4618193f16c9393e251666d8f71780b300617"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-12-start-2.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-2.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "random-02",
+          "raw-02",
+          "random-01"
+        ],
+        [
+          "padding-01",
+          "m2-02",
+          "m2-01",
+          "random-01",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "m2-02",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "m2-01",
+          "random-01",
+          "random-02",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "random-01",
+          "identity",
+          "random-02",
+          "raw-01",
+          "m2-01",
+          "raw-02",
+          "padding-01",
+          "m2-02",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 4429718104175576,
+      "start_id": "eval-12-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "diagnostic_schedules": [
+        [
+          "random-02",
+          "m2-01",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "m2-02",
+          "raw-02",
+          "identity",
+          "random-01"
+        ],
+        [
+          "random-01",
+          "m2-01",
+          "raw-01",
+          "m2-02",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "random-02"
+        ],
+        [
+          "raw-02",
+          "padding-02",
+          "m2-02",
+          "identity",
+          "m2-01",
+          "random-01",
+          "random-02",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "random-02",
+          "padding-02",
+          "raw-02",
+          "m2-01",
+          "identity",
+          "random-01",
+          "padding-01",
+          "m2-02",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178550,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-071.json",
+        "sha256": "9561f54ed780ef2826dbaacc4fa4618193f16c9393e251666d8f71780b300617"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-12-start-3.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-3.json",
+      "primary_schedules": [
+        [
+          "m2-01",
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "m2-02",
+          "identity",
+          "random-01",
+          "padding-01",
+          "random-02"
+        ],
+        [
+          "raw-01",
+          "random-02",
+          "m2-02",
+          "random-01",
+          "padding-01",
+          "raw-02",
+          "m2-01",
+          "identity",
+          "padding-02"
+        ],
+        [
+          "random-02",
+          "raw-01",
+          "identity",
+          "m2-01",
+          "m2-02",
+          "padding-02",
+          "raw-02",
+          "random-01",
+          "padding-01"
+        ],
+        [
+          "padding-01",
+          "identity",
+          "random-01",
+          "m2-02",
+          "m2-01",
+          "padding-02",
+          "random-02",
+          "raw-02",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 4277426091928619846,
+      "start_id": "eval-12-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "diagnostic_schedules": [
+        [
+          "padding-01",
+          "identity",
+          "padding-02",
+          "m2-02",
+          "random-01",
+          "raw-02",
+          "m2-01",
+          "random-02",
+          "raw-01"
+        ],
+        [
+          "padding-02",
+          "raw-02",
+          "m2-02",
+          "m2-01",
+          "random-02",
+          "random-01",
+          "padding-01",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "identity",
+          "random-02",
+          "random-01",
+          "m2-02",
+          "padding-02",
+          "padding-01",
+          "raw-01",
+          "m2-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "random-02",
+          "m2-01",
+          "m2-02",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "random-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 178550,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/evaluation_layouts/pred-v1-evaluation-03-layer-071.json",
+        "sha256": "9561f54ed780ef2826dbaacc4fa4618193f16c9393e251666d8f71780b300617"
+      },
+      "log_relative_path": "results/prediction_v1/evaluation/logs/eval-12-start-4.log",
+      "output_relative_path": "results/prediction_v1/evaluation/raw/eval-12-start-4.json",
+      "primary_schedules": [
+        [
+          "random-02",
+          "m2-01",
+          "padding-01",
+          "random-01",
+          "raw-01",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "m2-02"
+        ],
+        [
+          "m2-01",
+          "random-01",
+          "padding-02",
+          "random-02",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "padding-01",
+          "m2-02"
+        ],
+        [
+          "random-01",
+          "raw-01",
+          "m2-02",
+          "m2-01",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "random-02",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "m2-01",
+          "padding-02",
+          "random-02",
+          "raw-01",
+          "m2-02",
+          "identity",
+          "random-01"
+        ]
+      ],
+      "random_seed": 702132756161692936,
+      "start_id": "eval-12-start-4"
+    }
+  ],
+  "status": "frozen_before_evaluation_timing",
+  "study_id": "h20-placement-prediction-v1",
+  "timing": {
+    "activation_warmup_forwards": 10,
+    "blocks_per_start": 4,
+    "diagnostic_blocks_per_start": 4,
+    "diagnostic_metric": "same-device CUDA elapsed interval bracketing real runner.run",
+    "diagnostic_substitution_for_primary": false,
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "initial_warmup_forwards_per_layout": 10,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "random.Random(seed + offset + block).shuffle over the frozen layout order; offset 0 for the primary pass, 1000003 for the diagnostic pass",
+    "timed_forwards_per_activation": 20
+  },
+  "tolerance_file": {
+    "bytes": 339,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_tolerance.json",
+    "sha256": "56e7f45dc6ec6b653dfae03c3b6882ac080ab9e828d098ebad8c58cf4ad0fbf3"
+  }
+}

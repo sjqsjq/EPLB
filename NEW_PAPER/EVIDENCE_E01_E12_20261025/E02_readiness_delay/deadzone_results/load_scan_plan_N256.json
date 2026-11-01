@@ -1,0 +1,117 @@
+{
+  "total_tokens": 256,
+  "definition": "r=max_d L_d / mean_d L_d; mean_d L_d equals total_tokens",
+  "communication_control": "every token has seven unique destination ranks and one destination receives two distinct experts; destination support is invariant across r",
+  "conditions": [
+    {
+      "name": "route-r1",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.0,
+      "target_hot_assignments": 256,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "route-r1.02",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.02,
+      "target_hot_assignments": 261,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "route-r1.05",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.05,
+      "target_hot_assignments": 269,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "route-r1.10",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.1,
+      "target_hot_assignments": 282,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "route-r1.20",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.2,
+      "target_hot_assignments": 307,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    },
+    {
+      "name": "route-r1.40",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "route_kind": "fixed7_one_double",
+      "requested_r": 1.4,
+      "target_hot_assignments": 358,
+      "hot_rank": 0,
+      "expert_policy": "packed_hot_balanced_cold"
+    }
+  ],
+  "realized": [
+    {
+      "requested_r": 1.0,
+      "target_hot_assignments": 256,
+      "realized_raw_max_mean_r": 1.0
+    },
+    {
+      "requested_r": 1.02,
+      "target_hot_assignments": 261,
+      "realized_raw_max_mean_r": 1.01953125
+    },
+    {
+      "requested_r": 1.05,
+      "target_hot_assignments": 269,
+      "realized_raw_max_mean_r": 1.05078125
+    },
+    {
+      "requested_r": 1.1,
+      "target_hot_assignments": 282,
+      "realized_raw_max_mean_r": 1.1015625
+    },
+    {
+      "requested_r": 1.2,
+      "target_hot_assignments": 307,
+      "realized_raw_max_mean_r": 1.19921875
+    },
+    {
+      "requested_r": 1.4,
+      "target_hot_assignments": 358,
+      "realized_raw_max_mean_r": 1.3984375
+    }
+  ]
+}

@@ -1,0 +1,528 @@
+{
+  "source_calibration": "/workspace/EPLB/NEW_PAPER/experiments/deadzone_combine_20261011/results/calibration_N256.json",
+  "total_tokens": 256,
+  "normalization": {
+    "definition": "C0 is the median across repetitions of the cross-rank maximum gate-done-to-combine-done CUDA-event interval on original-zero",
+    "c0_original_ms": 0.08723200112581253,
+    "c0_barrier_ms": 0.048128001391887665,
+    "delay_ratios_use": "c0_original_ms for both paths"
+  },
+  "ratios": [
+    0.0,
+    0.12,
+    0.16,
+    0.2,
+    0.24,
+    0.28,
+    0.32,
+    0.36,
+    0.4,
+    0.48
+  ],
+  "conditions": [
+    {
+      "name": "original-zero",
+      "mode": "original",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.0
+    },
+    {
+      "name": "barrier-zero",
+      "mode": "strict_barrier",
+      "delay_us": 0.0,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.0
+    },
+    {
+      "name": "original-rank0-x0.12",
+      "mode": "original",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "original-rank3-x0.12",
+      "mode": "original",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "original-rank7-x0.12",
+      "mode": "original",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "barrier-rank0-x0.12",
+      "mode": "strict_barrier",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "barrier-rank3-x0.12",
+      "mode": "strict_barrier",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "barrier-rank7-x0.12",
+      "mode": "strict_barrier",
+      "delay_us": 10.467840135097504,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.12
+    },
+    {
+      "name": "original-rank0-x0.16",
+      "mode": "original",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "original-rank3-x0.16",
+      "mode": "original",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "original-rank7-x0.16",
+      "mode": "original",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "barrier-rank0-x0.16",
+      "mode": "strict_barrier",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "barrier-rank3-x0.16",
+      "mode": "strict_barrier",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "barrier-rank7-x0.16",
+      "mode": "strict_barrier",
+      "delay_us": 13.957120180130005,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.16
+    },
+    {
+      "name": "original-rank0-x0.2",
+      "mode": "original",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank3-x0.2",
+      "mode": "original",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank7-x0.2",
+      "mode": "original",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank0-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank3-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "barrier-rank7-x0.2",
+      "mode": "strict_barrier",
+      "delay_us": 17.446400225162506,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.2
+    },
+    {
+      "name": "original-rank0-x0.24",
+      "mode": "original",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "original-rank3-x0.24",
+      "mode": "original",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "original-rank7-x0.24",
+      "mode": "original",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "barrier-rank0-x0.24",
+      "mode": "strict_barrier",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "barrier-rank3-x0.24",
+      "mode": "strict_barrier",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "barrier-rank7-x0.24",
+      "mode": "strict_barrier",
+      "delay_us": 20.935680270195007,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.24
+    },
+    {
+      "name": "original-rank0-x0.28",
+      "mode": "original",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "original-rank3-x0.28",
+      "mode": "original",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "original-rank7-x0.28",
+      "mode": "original",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "barrier-rank0-x0.28",
+      "mode": "strict_barrier",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "barrier-rank3-x0.28",
+      "mode": "strict_barrier",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "barrier-rank7-x0.28",
+      "mode": "strict_barrier",
+      "delay_us": 24.424960315227512,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.28
+    },
+    {
+      "name": "original-rank0-x0.32",
+      "mode": "original",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "original-rank3-x0.32",
+      "mode": "original",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "original-rank7-x0.32",
+      "mode": "original",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "barrier-rank0-x0.32",
+      "mode": "strict_barrier",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "barrier-rank3-x0.32",
+      "mode": "strict_barrier",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "barrier-rank7-x0.32",
+      "mode": "strict_barrier",
+      "delay_us": 27.91424036026001,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.32
+    },
+    {
+      "name": "original-rank0-x0.36",
+      "mode": "original",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "original-rank3-x0.36",
+      "mode": "original",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "original-rank7-x0.36",
+      "mode": "original",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "barrier-rank0-x0.36",
+      "mode": "strict_barrier",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "barrier-rank3-x0.36",
+      "mode": "strict_barrier",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "barrier-rank7-x0.36",
+      "mode": "strict_barrier",
+      "delay_us": 31.40352040529251,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.36
+    },
+    {
+      "name": "original-rank0-x0.4",
+      "mode": "original",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank3-x0.4",
+      "mode": "original",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank7-x0.4",
+      "mode": "original",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank0-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank3-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "barrier-rank7-x0.4",
+      "mode": "strict_barrier",
+      "delay_us": 34.89280045032501,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.4
+    },
+    {
+      "name": "original-rank0-x0.48",
+      "mode": "original",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.48
+    },
+    {
+      "name": "original-rank3-x0.48",
+      "mode": "original",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.48
+    },
+    {
+      "name": "original-rank7-x0.48",
+      "mode": "original",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.48
+    },
+    {
+      "name": "barrier-rank0-x0.48",
+      "mode": "strict_barrier",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        0
+      ],
+      "delay_ratio": 0.48
+    },
+    {
+      "name": "barrier-rank3-x0.48",
+      "mode": "strict_barrier",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        3
+      ],
+      "delay_ratio": 0.48
+    },
+    {
+      "name": "barrier-rank7-x0.48",
+      "mode": "strict_barrier",
+      "delay_us": 41.871360540390015,
+      "delay_ranks": [
+        7
+      ],
+      "delay_ratio": 0.48
+    }
+  ]
+}

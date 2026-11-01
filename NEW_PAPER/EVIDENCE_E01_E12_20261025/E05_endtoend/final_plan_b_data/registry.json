@@ -1,0 +1,189 @@
+{
+ "built_utc": "2026-10-18T20:10:12+0000",
+ "rules": "see scripts/build_streams.py docstring R1-R7 (pre-registered)",
+ "corpus_caps": {
+  "book|confirm": {
+   "docs": 798,
+   "tok": 664545
+  },
+  "book|screen": {
+   "docs": 737,
+   "tok": 601081
+  },
+  "book|test": {
+   "docs": 4510,
+   "tok": 3631176
+  },
+  "code|confirm": {
+   "docs": 51,
+   "tok": 153600
+  },
+  "code|screen": {
+   "docs": 35,
+   "tok": 126976
+  },
+  "code|test": {
+   "docs": 247,
+   "tok": 827391
+  },
+  "prover|confirm": {
+   "docs": 570,
+   "tok": 199756
+  },
+  "prover|screen": {
+   "docs": 498,
+   "tok": 164482
+  },
+  "prover|test": {
+   "docs": 3132,
+   "tok": 1045450
+  },
+  "sharegpt|confirm": {
+   "docs": 438,
+   "tok": 298253
+  },
+  "sharegpt|screen": {
+   "docs": 394,
+   "tok": 269378
+  },
+  "sharegpt|test": {
+   "docs": 2556,
+   "tok": 1787690
+  }
+ },
+ "pool_sizes": {
+  "code|test|L2048|s256": 3221,
+  "prover|test|L512|s256": 4082,
+  "sharegpt|test|L512|s512": 3491,
+  "book|test|L512|s512": 7092,
+  "code|test|L512|s256": 3186,
+  "code|screen|L2048|s256": 489,
+  "prover|screen|L512|s256": 641,
+  "sharegpt|screen|L512|s256": 1051,
+  "book|screen|L512|s256": 2346,
+  "code|screen|L512|s256": 495,
+  "code|confirm|L2048|s256": 593,
+  "prover|confirm|L512|s256": 779,
+  "sharegpt|confirm|L512|s256": 1164,
+  "book|confirm|L512|s256": 2594,
+  "code|confirm|L512|s256": 599
+ },
+ "calib_segments": {
+  "screen": [
+   [
+    "S1_code_stable_O1",
+    256
+   ],
+   [
+    "S2_prover_stable_O1",
+    256
+   ],
+   [
+    "S3_switch_O1",
+    512
+   ],
+   [
+    "S4_longout_O128",
+    256
+   ]
+  ],
+  "confirm": [
+   [
+    "S1_code_stable_O1",
+    256
+   ],
+   [
+    "S2_prover_stable_O1",
+    256
+   ],
+   [
+    "S3_switch_O1",
+    512
+   ],
+   [
+    "S4_longout_O128",
+    256
+   ]
+  ]
+ },
+ "N_adjustments": {
+  "E1": {
+   "plan_target": 4096,
+   "actual": 3221,
+   "reason": "code unique-content capacity (333 docs / 1.108M tok; doc-level calib/test split; L2048 s256 windows). Adjusted per plan §5.1 BEFORE freeze; never 32x repeats as independent."
+  },
+  "E2": {
+   "plan_target": 8192,
+   "actual": 4082,
+   "reason": "prover unique-content capacity (4200 docs / 1.410M tok, p50=285; doc-level split; L512 s256 spliced windows). Adjusted per plan §5.1 BEFORE freeze."
+  }
+ },
+ "streams": {
+  "e1_code_stable": {
+   "n": 3221,
+   "uniq_text_hash": 3221,
+   "sha256": "dee24c502f7f301d92ce242c671c7a59278fb4749ecef1da74a40c36cb8fc682",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e1_code_stable.jsonl",
+   "retok_len_p5_p50_p95": [
+    2048,
+    2048,
+    2048
+   ]
+  },
+  "e2_prover_stable": {
+   "n": 4082,
+   "uniq_text_hash": 4082,
+   "sha256": "fa788238fa2dcc90b12b8b2e18ab723509dd92937d1a8ff664ffec47627bc78f",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e2_prover_stable.jsonl",
+   "retok_len_p5_p50_p95": [
+    512,
+    512,
+    512
+   ]
+  },
+  "e3_multidomain_switch": {
+   "n": 8192,
+   "uniq_text_hash": 8192,
+   "sha256": "d55fe2f73376e2fe8c16b3c5e91a2462b0889a4aff60e253b73f5029f7a5d879",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e3_multidomain_switch.jsonl",
+   "retok_len_p5_p50_p95": [
+    512,
+    512,
+    512
+   ]
+  },
+  "e4_fullduplex": {
+   "n": 2048,
+   "uniq_text_hash": 2048,
+   "sha256": "a024c5e61d0dbf321dee6245ef3d5f270da7e4374304d910e943cdd0657bc0a6",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/e4_fullduplex.jsonl",
+   "retok_len_p5_p50_p95": [
+    512,
+    512,
+    512
+   ]
+  },
+  "calib_screen": {
+   "n": 1280,
+   "uniq_text_hash": 1280,
+   "sha256": "d4fa14d2ee28343fa06428e6f9df2d5064ec6273ed1a96fa3e3c04dc8ae0b009",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/calib_screen.jsonl",
+   "retok_len_p5_p50_p95": [
+    512,
+    512,
+    2048
+   ]
+  },
+  "calib_confirm": {
+   "n": 1280,
+   "uniq_text_hash": 1280,
+   "sha256": "69ea817a3a20fd1a38deab1d60c0a730cec82caed12b17dd834c953a6e718bcf",
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/calib_confirm.jsonl",
+   "retok_len_p5_p50_p95": [
+    512,
+    512,
+    2048
+   ]
+  }
+ }
+}

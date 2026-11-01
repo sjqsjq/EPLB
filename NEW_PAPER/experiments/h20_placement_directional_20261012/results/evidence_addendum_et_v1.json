@@ -1,0 +1,151 @@
+{
+  "addendum_id": "evidence-addendum-et-v1",
+  "created_at_utc": "2026-10-15T12:10:50+00:00",
+  "relation": "extends results/evidence_index_final.json (sha 380c19031715968a..., frozen, NOT modified)",
+  "study": "E-T workload lower bound -> execution time -> slack, retained-data analysis, zero new performance launches",
+  "files": {
+    "spec": {
+      "path": "configs/followup_v1/et_workload_time_spec.json",
+      "sha256": "e5deafa7536725453234405d7a765195ff683108d0821c7a9207556c7f39bf84"
+    },
+    "analyzer": {
+      "path": "scripts/analyze_et_workload_time.py",
+      "sha256": "d684b2d97177764d61b70c4bb1c1d94b0dbaa775ea2c9a57a22db3f63e957036"
+    },
+    "freezer": {
+      "path": "scripts/freeze_et_spec.py",
+      "sha256": "4edd45b458bf7cd141062e386d24a397879e3b8c0ccbd315f95f5b09bc3d5a5c"
+    },
+    "analysis": {
+      "path": "results/et_v1/analysis.json",
+      "sha256": "aca1b2385bc7b4e3cb1a0a8b880e3734ff106dbe68ff19ece949e8810ae8a92d"
+    }
+  },
+  "key_numbers": {
+    "primary_model": {
+      "F_us": 785.2862288057094,
+      "c_us_per_padded_token": 0.1354912244734509,
+      "r2_calibration": 0.9705068455651085,
+      "resid_sd_us": 62.34024572437224,
+      "n_points": 60
+    },
+    "component_expert_gather": {
+      "a_us": 339.3019378093461,
+      "c_e_us_per_padded_token": 0.147354357862758,
+      "r2": 0.9762938250541732
+    },
+    "comm_layout_invariance_ratio_range": [
+      19.688088615271997,
+      60.96960299121621
+    ],
+    "validation_primary": {
+      "n_conditions": 12,
+      "mae_us": 88.26294553709182,
+      "signed_bias_us": 88.26294553709182,
+      "max_abs_err_us": 134.89686755398543,
+      "role_bias_us": {
+        "identity": {
+          "mean": 52.851299888725634,
+          "ci95_low": 30.770184341102823,
+          "ci95_high": 74.93241543634845
+        },
+        "near_balanced": {
+          "mean": 115.10105303982527,
+          "ci95_low": 104.78149398577187,
+          "ci95_high": 125.42061209387867
+        },
+        "greedy_base": {
+          "mean": 96.83648368272458,
+          "ci95_low": 48.47989036932544,
+          "ci95_high": 145.19307699612372
+        }
+      }
+    },
+    "validation_secondary": {
+      "n_conditions": 24,
+      "mae_us": 91.12785007303383,
+      "signed_bias_us": 89.09906673125106,
+      "role_bias_us": {
+        "identity": 59.51027754640825,
+        "near_balanced": 109.13190741412174,
+        "greedy_base": 98.65501523322317
+      }
+    },
+    "q_hat_errors_primary_us": [
+      -58.7,
+      -14.5,
+      -53.4,
+      -45.9,
+      -82.7,
+      -99.3,
+      -54.2,
+      -16.2
+    ],
+    "slack_primary_summary": {
+      "identity_slack_us_range": [
+        632.0937647347719,
+        902.6356137219866
+      ],
+      "balanced_slack_us_range": [
+        -108.88255245508276,
+        3.6257870618303514
+      ],
+      "LB_share_of_identity_T_range": [
+        0.6213466704393605,
+        0.6996596396406397
+      ],
+      "unsplittability_price_us_base_range": [
+        6.503578774725644,
+        67.20364733883166
+      ]
+    },
+    "lb_in_sample_violations": 14
+  },
+  "verdicts": {
+    "role_verdicts_primary": {
+      "identity": {
+        "verdict": "violated_bias_excludes_zero",
+        "mean": 52.851299888725634,
+        "sd": 13.876818918177682,
+        "ci95_low": 30.770184341102823,
+        "ci95_high": 74.93241543634845,
+        "n": 4
+      },
+      "near_balanced": {
+        "verdict": "violated_bias_excludes_zero",
+        "mean": 115.10105303982527,
+        "sd": 6.485299712312621,
+        "ci95_low": 104.78149398577187,
+        "ci95_high": 125.42061209387867,
+        "n": 4
+      },
+      "greedy_base": {
+        "verdict": "violated_bias_excludes_zero",
+        "mean": 96.83648368272458,
+        "sd": 30.389573727050365,
+        "ci95_low": 48.47989036932544,
+        "ci95_high": 145.19307699612372,
+        "n": 4
+      }
+    },
+    "naming_decision": "balanced_execution_reference",
+    "lb_status": "strict workload lower bound retained unconditionally (mathematical; independent of the time model)",
+    "exit_condition": "errors and applicability quantified; uncertainty reported as-is; no experiments added to chase significance"
+  },
+  "conclusions": [
+    "Workload lower bound LB=max(sum w_e/8, max w_e) in PADDED-TOKEN units is strict (mathematical) and retained unconditionally; greedy base lands within 48-496 padded tokens (6.5-67.2 us converted) of LB.",
+    "Linear-compute assumption is supported at component level: expert gather = 339.3us + 0.1474us/padded-row, R2=0.976.",
+    "Fixed-communication assumption is REFUTED: dispatch+combine varies across layouts within a capture by 20-61x the within-layout repeat variance.",
+    "End-to-end single-slope conversion T=F+c*W has systematic role-dependent out-of-sample bias (+2-3% identity, +4-10% balanced; all role CIs exclude zero) -> per pre-frozen rule the time outputs are named BALANCED EXECUTION REFERENCE, not a strict time bound.",
+    "Gain prediction q_hat=c*deltaW is conservative: underestimates observed gains by 14.5-99.3us (2-11%); 5/8 per-capture error CIs compatible with zero, 3/8 exclude zero negative.",
+    "Remaining slack: identity layouts sit 632-903us above the converted LB reference; balanced layouts sit -109 to +4us around it, i.e. greedy balancing exhausts essentially all workload-LB headroom up to the conversion bias (~115us scale).",
+    "Exit condition met: explicit errors and applicability scope quantified; no further experiments added to chase a tighter actual-time upper bound."
+  ],
+  "invariants_reaffirmed": [
+    "no new synthetic hidden states/routes/outputs/weights: all data are retained real captures and replays",
+    "no timing-based selection; triple layouts and capture roles pre-designated in the frozen spec",
+    "negatives preserved; zero-crossing CIs read as compatible-with-zero",
+    "no overhead subtraction from measured contrasts",
+    "local commit only; no push without separate instruction"
+  ]
+}

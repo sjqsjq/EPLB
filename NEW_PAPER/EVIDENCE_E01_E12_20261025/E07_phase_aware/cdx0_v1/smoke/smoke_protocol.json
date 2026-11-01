@@ -1,0 +1,126 @@
+{
+  "capture_index": {
+    "bytes": 77750,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/capture_index.json",
+    "sha256": "8a5212e69ff6cbf4d7ca1beee8f641012d0b8ab6668e6cc2907f39ac551af9d4"
+  },
+  "correctness_gate": {
+    "candidate": {
+      "applies_to": "versus_captured_output and versus_identity_replay comparisons for every layout; identity comparisons are trivially exact against themselves",
+      "atol": 0.00390625,
+      "max_isclose_failure_fraction": 1.52587890625e-05,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0078125
+    },
+    "identity_versus_captured": {
+      "atol": 0.00390625,
+      "max_isclose_failure_count": 0,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0,
+      "strict_equivalence_note": "enforced via max_abs_error <= atol on the identity-versus-captured comparison, which at rtol=0 is exactly equivalent to zero isclose failures under the strict bound"
+    }
+  },
+  "created_at_utc": "2026-10-16T07:35:54.487310+00:00",
+  "implementation": {
+    "cdx0_common_record": {
+      "bytes": 25619,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/cdx0_common.py",
+      "sha256": "fc233e41bc65e97491ad1583ae82f92137100c2ec47fc61e03588f454154d571"
+    },
+    "cdx0_replay_record": {
+      "bytes": 36069,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/cdx0_replay.py",
+      "sha256": "2563e7ce55ecaa0dbe9aff2092f8bcc433aff0ead680da6c70af427b4e5a4a5f"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    }
+  },
+  "outputs_never_indexed_as_campaign_results": true,
+  "protocol_id": "h20-placement-cdx0-smoke-v1",
+  "purpose": "pre-freeze mechanics smoke: harness load, tier-1/tier-2 correctness gates, DeepEP dispatch and DeepGEMM grouped-GEMM shapes at the real evaluation row counts (worst case 8x1024), timing machinery, output schema",
+  "schema_version": 1,
+  "selection_uses_performance_timing": false,
+  "split": "cdx0",
+  "starts": [
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 109940,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-prover-layer-024.json",
+        "sha256": "0c607519094f1f250225a37fed3b6e9b69bd581cbde8b9cae58e0df46c3465c2"
+      },
+      "log_relative_path": "results/cdx0_v1/smoke/logs/cdx0-smoke-prover-024.log",
+      "output_relative_path": "results/cdx0_v1/smoke/raw/cdx0-smoke-prover-024.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code"
+        ],
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ]
+      ],
+      "random_seed": 854071954724463563,
+      "start_id": "cdx0-smoke-prover-024",
+      "start_index": 0
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 110622,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/layouts/cdx0_cdx0-evaluation-code-layer-071.json",
+        "sha256": "5d4b69b93bd9d93d3a90cd9b7a66c0e001c6bd8bb416e3d69a9240f83c64821e"
+      },
+      "log_relative_path": "results/cdx0_v1/smoke/logs/cdx0-smoke-code-071.log",
+      "output_relative_path": "results/cdx0_v1/smoke/raw/cdx0-smoke-code-071.json",
+      "primary_schedules": [
+        [
+          "base-of-sharegpt",
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity"
+        ],
+        [
+          "base-of-prover",
+          "base-of-book",
+          "base-of-code",
+          "identity",
+          "base-of-sharegpt"
+        ]
+      ],
+      "random_seed": 272517850729283744,
+      "start_id": "cdx0-smoke-code-071",
+      "start_index": 1
+    }
+  ],
+  "status": "frozen_before_cdx0_timing",
+  "study_id": "h20-placement-cdx0-v1",
+  "timing": {
+    "activation_warmup_forwards": 2,
+    "blocks_per_start": 2,
+    "diagnostic_blocks_per_start": 0,
+    "diagnostic_pass": false,
+    "empty_fence_repetitions": 5,
+    "empty_fence_warmup": 2,
+    "initial_warmup_forwards_per_layout": 2,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "smoke rotation by (start_index + block_index) mod 5",
+    "timed_forwards_per_activation": 5
+  },
+  "values_not_used_for_any_decision": true
+}

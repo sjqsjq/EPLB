@@ -1,0 +1,39 @@
+2026-10-27T22:18:43Z	queue	CAMPAIGN_OPEN book_single_knobs_20261027 EXPLORATORY single-domain knob trial; dirs+guards cloned from pbd frozen pattern; locked pb_oeplb code UNMODIFIED (knobs are env-read config fields, controller.py enforcement verified present: budget L1014-1038 gate at L1224, bias_gate L1234-1244)
+2026-10-27T22:18:43Z	author	AUTHOR_AUTHORIZATION verbatim: 可以尝试一下，看看会不会在单域的情况下就有好效果。 (trial the churn-mitigation knobs; check single-domain effect; follows DIAGNOSIS_P0_BOOK in pbd LEDGER)
+2026-10-27T22:18:43Z	author-side	KNOB_CALIBRATION measured spent_frac=cum_swap_s/logspan: pb_P0_r1 0.4046 (216 ev, b_late 3.97) | pb_P0_r2 0.0884 (48 ev, book 4.72 best-of-both-campaigns, zero book-late swaps) | pbd_P0_r1 0.2654 (192 ev) | pbd_P0_r2 0.2373 (192 ev). Chosen: OEPLB_SWAP_BUDGET_FRAC=0.08 (anchored to healthy pb_P0_r2 profile), OEPLB_BIAS_GATE=0.5 (documented config.py semantics: margin at least 2x noise). Per-swap cost mean ~1.0-1.2s, 8-ish migrations per swap window
+2026-10-27T22:18:43Z	author-side	STREAM_BUILT bs_book_single.jsonl n=2000 bytes=36683191 sha256=2e9fe867cf2cb317ea56492d0297e09f8b5303d08a9276dec81058ffda8d156a byte-preserved sed extraction rows 3345-5344 of frozen pbd stream (book block; no switch); registry.json written
+2026-10-27T22:18:43Z	author-side	STREAM_FROZEN bs_book_single.jsonl + registry.json frozen; rebuild requires new appended row
+2026-10-27T22:18:43Z	author-side	SCRIPTS_READY launch_arm_bsk.sh sha256=2896f550e39529392a7b528087007dcfa6875f5b61701af8c9c80eb22c4d6372 (knob arms P0B/P0S/P0F appended, PL to bsk placements) run_bsk_boot.sh + mech_check_bsk.py transformed (counts asserted) queue_bsk.sh 12 boots NREQ=2000 CONC=32 TIMEOUT=1800 rotation r1 P0 P0B P0S P0F ED DF / r2 P0B P0S P0F ED DF P0
+2026-10-27T22:18:43Z	author-side	PROTOCOL_FROZEN PROTOCOL_bsk.md frozen before first boot (questions A/B, calibration, pre-registered interpretation rules R1-R4, analysis-before-inspection rule)
+2026-10-27T22:19:20Z	P0_r1	START arm=P policy=AERO-base
+2026-10-27T22:28:31Z	P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-27T22:28:31Z	P0B_r1	START arm=P0B policy=AERO-base+bias_gate_0.5
+2026-10-27T22:38:34Z	P0B_r1	DONE arm=P0B policy=AERO-base+bias_gate_0.5 bench_rc=0 mech_rc=0
+2026-10-27T22:38:34Z	P0S_r1	START arm=P0S policy=AERO-base+swap_budget_0.08
+2026-10-27T22:47:57Z	P0S_r1	DONE arm=P0S policy=AERO-base+swap_budget_0.08 bench_rc=0 mech_rc=0
+2026-10-27T22:47:58Z	P0F_r1	START arm=P0F policy=AERO-base+bias_gate_0.5+swap_budget_0.08
+2026-10-27T22:57:05Z	P0F_r1	DONE arm=P0F policy=AERO-base+bias_gate_0.5+swap_budget_0.08 bench_rc=0 mech_rc=0
+2026-10-27T22:57:05Z	ED_r1	START arm=ED policy=n-a
+2026-10-27T23:06:13Z	ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T23:06:13Z	DF_r1	START arm=DF policy=n-a
+2026-10-27T23:15:46Z	DF_r1	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T23:15:46Z	P0B_r2	START arm=P0B policy=AERO-base+bias_gate_0.5
+2026-10-27T23:25:12Z	P0B_r2	DONE arm=P0B policy=AERO-base+bias_gate_0.5 bench_rc=0 mech_rc=0
+2026-10-27T23:25:12Z	P0S_r2	START arm=P0S policy=AERO-base+swap_budget_0.08
+2026-10-27T23:34:16Z	P0S_r2	DONE arm=P0S policy=AERO-base+swap_budget_0.08 bench_rc=0 mech_rc=0
+2026-10-27T23:34:16Z	P0F_r2	START arm=P0F policy=AERO-base+bias_gate_0.5+swap_budget_0.08
+2026-10-27T23:43:58Z	P0F_r2	DONE arm=P0F policy=AERO-base+bias_gate_0.5+swap_budget_0.08 bench_rc=0 mech_rc=0
+2026-10-27T23:43:58Z	ED_r2	START arm=ED policy=n-a
+2026-10-27T23:53:13Z	ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-10-27T23:53:13Z	DF_r2	START arm=DF policy=n-a
+2026-10-28T00:03:12Z	DF_r2	DONE arm=DF policy=n-a bench_rc=0 mech_rc=0
+2026-10-28T00:03:12Z	P0_r2	START arm=P policy=AERO-base
+2026-10-28T00:13:12Z	P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-10-28T00:13:12Z	queue	QUEUE_BSK_COMPLETE 12_exploratory_boots
+2026-10-30T04:48:39Z	author-side	ANALYSIS_SCRIPT_WRITTEN descriptive_bsk.py written from PROTOCOL_bsk.md sec.6 endpoints BEFORE results inspection (sec.7); includes knob-engagement facts (budget-exhausted lines, bias-skip log lines marked as lower bound due to window%8 logging) and spent_frac methodology identical to KNOB_CALIBRATION row; py_compile OK. NOTE campaign finished 2026-10-28T00:13:12Z, patrol resumed 2026-10-30 after session gap
+2026-10-30T04:57:13Z	ANALYSIS_DONE	descriptive_bsk.py rc=0; descriptive_bsk.json/.md written; 12/12 boots analyzed; pre-registered endpoints only; descriptive n=2 no significance claims
+2026-10-30T04:57:13Z	KNOB_ENGAGEMENT_BUDGET	P0S_r1 engaged (8 rank lines same stamp 22:40:55Z-local, 41s after first swap) but 144 of 168 swap-done lines AFTER stamp: predicate is instantaneous cum/elapsed rate not a latch, swaps resumed thru w58; effect where engaged: half2 4.412 vs baseline r1 4.212, z_tail 1.154 vs 1.428, half1 hurt 4.518 vs 4.982, net tps 4.5 vs 4.6; P0S_r2/P0F both rounds never engaged (0 lines, baseline-identical trajectories)
+2026-10-30T04:57:13Z	KNOB_ENGAGEMENT_BIAS	ENGAGEMENT FAILURE per pre-registered rule: bias_skip_log_lines=0 in all P0B/P0F rounds AND swap-window id sequences identical to baseline -> gate never altered a decision; bias=c/sqrt(n_per_layer) tiny at book token volumes; R3 not adjudicable at gate=0.5
+2026-10-30T04:57:13Z	ROUND_VARIANCE_NOTE	single-domain book trajectories round-nondeterministic: P0_r1 192ev/23sw vs P0_r2 176ev/21sw; P0F_r2 drew r1-type trajectory with no knob engaged -> intrinsic variance; attribution weak at n=2
+2026-10-30T04:57:13Z	R1_PATHOLOGY_CONFIRMED	treadmill reproduces in single-domain pure book without any domain switch: P0 spent_frac 0.453/0.392 (rank-summed basis, same as calibration), half1 4.761 -> half2 4.260, swaps thru final window w64, z_tail 1.43/1.30 non-converging, grow_blocked_headroom 31/64 windows
+2026-10-30T04:57:13Z	CAMPAIGN_RESULT_SUMMARY	R4 net: P0-family full-run tps 4.55-4.60 > ED 4.50 > DF 4.40 in single domain (early adaptation gain outweighs late churn over 2000 rows); knobs gave no clear net gain at chosen settings; ED remains most stable late reference (half2 4.396); report delivered to author

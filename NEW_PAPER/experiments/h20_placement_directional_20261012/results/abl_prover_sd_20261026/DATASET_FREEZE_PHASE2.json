@@ -1,0 +1,22 @@
+{
+  "frozen_at": "2026-10-26",
+  "purpose": "abl_prover_sd_20261026 phase-2 formal (PHASE2_PREREGISTRATION.md §2)",
+  "construction": "cat x4 byte-exact concatenation of frozen phase-1 file; verified data == orig*4 == True before sha lock",
+  "source_file": {
+    "path": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_256tok_out1.jsonl",
+    "sha256": "b4034e3b67ac2925134f123da706117721b7fbfbee47cbf8658f752b6d1d257a"
+  },
+  "stream": {
+    "path": "streams_p2/prover_256tok_out1_x4.jsonl",
+    "sha256": "b312ba50c39abe1a81e85bd16f27f2b7913ae7fffb57550efb5b702fb34aabf0",
+    "bytes": 6970560,
+    "lines": 8192,
+    "unique_prompts": 2048,
+    "repetition": "each unique prompt appears exactly 4x; whole-file repeat, relative order unchanged; ids repeat by design (id not sent to server)",
+    "output_len": {"max_tokens": 1, "temperature": 0, "ignore_eos": false},
+    "requests_per_boot": 8192,
+    "concurrency": 256,
+    "bench_timeout_s": 3600
+  },
+  "extension_cap": "one-time 4x only; if state transitions still not exercised, results retained as-is; no further extension or rerun-until-trigger"
+}

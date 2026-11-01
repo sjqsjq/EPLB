@@ -1,0 +1,21 @@
+{
+  "label": "fix_bl_w1",
+  "dataset": "/tmp/q235_warmup20.jsonl",
+  "num_requests": 20,
+  "concurrency": 1024,
+  "ok": 20,
+  "errors": 0,
+  "total_time_s": 5.58,
+  "total_comp_tokens": 20,
+  "tps": 3.6,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 4079.2,
+  "lat_p50_ms": 4562.8,
+  "lat_p99_ms": 5573.76,
+  "ttft_mean_ms": 4079.13,
+  "ttft_p50_ms": 4562.89,
+  "ttft_p99_ms": 5573.73,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

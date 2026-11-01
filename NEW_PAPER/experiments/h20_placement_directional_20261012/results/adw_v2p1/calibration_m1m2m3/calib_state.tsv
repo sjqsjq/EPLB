@@ -1,0 +1,51 @@
+2026-10-18T04:16:26+00:00	STAGE_START	M1	pid=1914286	timed_used=0	infra_used=0
+2026-10-18T04:16:26+00:00	START	1	cal_m1_w1_a	W1	off	infra_used=0	timed_used=0
+2026-10-18T04:18:05+00:00	BOOT_OK	1	cal_m1_w1_a	W1	off	boot_s=92	attempt=1
+2026-10-18T04:24:09+00:00	VERDICT	1	cal_m1_w1_a	W1	off	VALID	t=354.99	attempt=1
+2026-10-18T04:24:09+00:00	START	2	cal_m1_w1_b	W1	off	infra_used=0	timed_used=1
+2026-10-18T04:25:24+00:00	BOOT_OK	2	cal_m1_w1_b	W1	off	boot_s=68	attempt=1
+2026-10-18T04:31:33+00:00	VERDICT	2	cal_m1_w1_b	W1	off	VALID	t=359.19	attempt=1
+2026-10-18T04:31:33+00:00	START	3	cal_m1_w2_a	W2	off	infra_used=0	timed_used=2
+2026-10-18T04:32:52+00:00	BOOT_OK	3	cal_m1_w2_a	W2	off	boot_s=72	attempt=1
+2026-10-18T04:44:53+00:00	VERDICT	3	cal_m1_w2_a	W2	off	VALID	t=711.85	attempt=1
+2026-10-18T04:44:53+00:00	START	4	cal_m1_w2_b	W2	off	infra_used=0	timed_used=3
+2026-10-18T04:46:04+00:00	BOOT_OK	4	cal_m1_w2_b	W2	off	boot_s=64	attempt=1
+2026-10-18T04:58:00+00:00	VERDICT	4	cal_m1_w2_b	W2	off	VALID	t=706.97	attempt=1
+2026-10-18T04:58:00+00:00	STAGE_END	M1	valid_total=4	timed_used=4	infra_used=0
+2026-10-18T05:04:36+00:00	STAGE_START	M2	pid=1941315	timed_used=4	infra_used=0
+2026-10-18T05:04:36+00:00	START	5	cal_m2_w1_norm	W1	gate	infra_used=0	timed_used=4
+2026-10-18T05:05:50+00:00	BOOT_OK	5	cal_m2_w1_norm	W1	gate	boot_s=68	attempt=1
+2026-10-18T05:11:52+00:00	VERDICT	5	cal_m2_w1_norm	W1	gate	VALID	t=352.19	attempt=1
+2026-10-18T05:11:52+00:00	START	6	cal_m2_w1_abort	W1	gate	infra_used=0	timed_used=5
+2026-10-18T05:13:10+00:00	BOOT_OK	6	cal_m2_w1_abort	W1	gate	boot_s=72	attempt=1
+2026-10-18T05:19:11+00:00	VERDICT	6	cal_m2_w1_abort	W1	gate	VALID	t=352.45	attempt=1
+2026-10-18T05:19:11+00:00	START	7	cal_m2_w2_obs	W2	gate	infra_used=0	timed_used=6
+2026-10-18T05:20:26+00:00	BOOT_OK	7	cal_m2_w2_obs	W2	gate	boot_s=68	attempt=1
+2026-10-18T05:32:21+00:00	VERDICT	7	cal_m2_w2_obs	W2	gate	VALID	t=706.15	attempt=1
+2026-10-18T05:32:21+00:00	STAGE_END	M2	valid_total=7	timed_used=7	infra_used=0
+2026-10-18T05:39:10+00:00	STAGE_START	M3	pid=1961486	timed_used=7	infra_used=0
+2026-10-18T05:39:10+00:00	START	8	cal_m3_b1_aaa	W1	aaa	infra_used=0	timed_used=7
+2026-10-18T05:40:21+00:00	BOOT_OK	8	cal_m3_b1_aaa	W1	aaa	boot_s=64	attempt=1
+2026-10-18T05:46:21+00:00	VERDICT	8	cal_m3_b1_aaa	W1	aaa	VALID	t=351.58	attempt=1
+2026-10-18T05:46:21+00:00	START	9	cal_m3_b1_aba	W1	gate	infra_used=0	timed_used=8
+2026-10-18T05:47:40+00:00	BOOT_OK	9	cal_m3_b1_aba	W1	gate	boot_s=72	attempt=1
+2026-10-18T05:53:41+00:00	VERDICT	9	cal_m3_b1_aba	W1	gate	VALID	t=352.54	attempt=1
+2026-10-18T05:53:41+00:00	START	10	cal_m3_b2_aaa	W1	aaa	infra_used=0	timed_used=9
+2026-10-18T05:54:56+00:00	BOOT_OK	10	cal_m3_b2_aaa	W1	aaa	boot_s=68	attempt=1
+2026-10-18T06:00:57+00:00	VERDICT	10	cal_m3_b2_aaa	W1	aaa	VALID	t=352.15	attempt=1
+2026-10-18T06:00:57+00:00	START	11	cal_m3_b2_aba	W1	gate	infra_used=0	timed_used=10
+2026-10-18T06:02:07+00:00	BOOT_OK	11	cal_m3_b2_aba	W1	gate	boot_s=64	attempt=1
+2026-10-18T06:08:13+00:00	VERDICT	11	cal_m3_b2_aba	W1	gate	VALID	t=356.82	attempt=1
+2026-10-18T06:08:13+00:00	START	12	cal_m3_b3_aaa	W2	aaa	infra_used=0	timed_used=11
+2026-10-18T06:09:29+00:00	BOOT_OK	12	cal_m3_b3_aaa	W2	aaa	boot_s=68	attempt=1
+2026-10-18T06:21:27+00:00	VERDICT	12	cal_m3_b3_aaa	W2	aaa	VALID	t=708.22	attempt=1
+2026-10-18T06:21:27+00:00	START	13	cal_m3_b3_aba	W2	gate	infra_used=0	timed_used=12
+2026-10-18T06:22:37+00:00	BOOT_OK	13	cal_m3_b3_aba	W2	gate	boot_s=64	attempt=1
+2026-10-18T06:34:39+00:00	VERDICT	13	cal_m3_b3_aba	W2	gate	VALID	t=711.45	attempt=1
+2026-10-18T06:34:39+00:00	START	14	cal_m3_b4_aaa	W2	aaa	infra_used=0	timed_used=13
+2026-10-18T06:35:54+00:00	BOOT_OK	14	cal_m3_b4_aaa	W2	aaa	boot_s=68	attempt=1
+2026-10-18T06:47:51+00:00	VERDICT	14	cal_m3_b4_aaa	W2	aaa	VALID	t=707.39	attempt=1
+2026-10-18T06:47:51+00:00	START	15	cal_m3_b4_aba	W2	gate	infra_used=0	timed_used=14
+2026-10-18T06:49:01+00:00	BOOT_OK	15	cal_m3_b4_aba	W2	gate	boot_s=64	attempt=1
+2026-10-18T07:00:59+00:00	VERDICT	15	cal_m3_b4_aba	W2	gate	VALID	t=708.41	attempt=1
+2026-10-18T07:00:59+00:00	STAGE_END	M3	valid_total=15	timed_used=15	infra_used=0

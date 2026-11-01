@@ -1,0 +1,299 @@
+{
+ "campaign": "sixarm_service_t2_20261101",
+ "n_formal": 36,
+ "scenarios": {
+  "PROV": "prover_1024_out32_ie.jsonl conc256 timeout1800",
+  "PBD": "pbd_prover_book_double_out32_ie.jsonl conc256 timeout1800 (conc delta vs pbd mother conc32 O1 regime, declared in PROTOCOL sec.2)"
+ },
+ "rotation": "XD/pbd scheme continued per scenario r1 ES ED MT DF P0 I, r2 ED MT DF P0 I ES, r3 MT DF P0 I ES ED",
+ "order": [
+  {
+   "seq": 1,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "ES",
+   "params": "",
+   "label": "PROV_ES_r1"
+  },
+  {
+   "seq": 2,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "ED",
+   "params": "",
+   "label": "PROV_ED_r1"
+  },
+  {
+   "seq": 3,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "MT",
+   "params": "",
+   "label": "PROV_MT_r1"
+  },
+  {
+   "seq": 4,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "DF",
+   "params": "",
+   "label": "PROV_DF_r1"
+  },
+  {
+   "seq": 5,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "P",
+   "params": "0",
+   "label": "PROV_P0_r1"
+  },
+  {
+   "seq": 6,
+   "scenario": "PROV",
+   "round": 1,
+   "arm": "I",
+   "params": "",
+   "label": "PROV_I_r1"
+  },
+  {
+   "seq": 7,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "ED",
+   "params": "",
+   "label": "PROV_ED_r2"
+  },
+  {
+   "seq": 8,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "MT",
+   "params": "",
+   "label": "PROV_MT_r2"
+  },
+  {
+   "seq": 9,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "DF",
+   "params": "",
+   "label": "PROV_DF_r2"
+  },
+  {
+   "seq": 10,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "P",
+   "params": "0",
+   "label": "PROV_P0_r2"
+  },
+  {
+   "seq": 11,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "I",
+   "params": "",
+   "label": "PROV_I_r2"
+  },
+  {
+   "seq": 12,
+   "scenario": "PROV",
+   "round": 2,
+   "arm": "ES",
+   "params": "",
+   "label": "PROV_ES_r2"
+  },
+  {
+   "seq": 13,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "MT",
+   "params": "",
+   "label": "PROV_MT_r3"
+  },
+  {
+   "seq": 14,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "DF",
+   "params": "",
+   "label": "PROV_DF_r3"
+  },
+  {
+   "seq": 15,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "P",
+   "params": "0",
+   "label": "PROV_P0_r3"
+  },
+  {
+   "seq": 16,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "I",
+   "params": "",
+   "label": "PROV_I_r3"
+  },
+  {
+   "seq": 17,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "ES",
+   "params": "",
+   "label": "PROV_ES_r3"
+  },
+  {
+   "seq": 18,
+   "scenario": "PROV",
+   "round": 3,
+   "arm": "ED",
+   "params": "",
+   "label": "PROV_ED_r3"
+  },
+  {
+   "seq": 19,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "ES",
+   "params": "",
+   "label": "PBD_ES_r1"
+  },
+  {
+   "seq": 20,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "ED",
+   "params": "",
+   "label": "PBD_ED_r1"
+  },
+  {
+   "seq": 21,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "MT",
+   "params": "",
+   "label": "PBD_MT_r1"
+  },
+  {
+   "seq": 22,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "DF",
+   "params": "",
+   "label": "PBD_DF_r1"
+  },
+  {
+   "seq": 23,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "P",
+   "params": "0",
+   "label": "PBD_P0_r1"
+  },
+  {
+   "seq": 24,
+   "scenario": "PBD",
+   "round": 1,
+   "arm": "I",
+   "params": "",
+   "label": "PBD_I_r1"
+  },
+  {
+   "seq": 25,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "ED",
+   "params": "",
+   "label": "PBD_ED_r2"
+  },
+  {
+   "seq": 26,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "MT",
+   "params": "",
+   "label": "PBD_MT_r2"
+  },
+  {
+   "seq": 27,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "DF",
+   "params": "",
+   "label": "PBD_DF_r2"
+  },
+  {
+   "seq": 28,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "P",
+   "params": "0",
+   "label": "PBD_P0_r2"
+  },
+  {
+   "seq": 29,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "I",
+   "params": "",
+   "label": "PBD_I_r2"
+  },
+  {
+   "seq": 30,
+   "scenario": "PBD",
+   "round": 2,
+   "arm": "ES",
+   "params": "",
+   "label": "PBD_ES_r2"
+  },
+  {
+   "seq": 31,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "MT",
+   "params": "",
+   "label": "PBD_MT_r3"
+  },
+  {
+   "seq": 32,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "DF",
+   "params": "",
+   "label": "PBD_DF_r3"
+  },
+  {
+   "seq": 33,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "P",
+   "params": "0",
+   "label": "PBD_P0_r3"
+  },
+  {
+   "seq": 34,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "I",
+   "params": "",
+   "label": "PBD_I_r3"
+  },
+  {
+   "seq": 35,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "ES",
+   "params": "",
+   "label": "PBD_ES_r3"
+  },
+  {
+   "seq": 36,
+   "scenario": "PBD",
+   "round": 3,
+   "arm": "ED",
+   "params": "",
+   "label": "PBD_ED_r3"
+  }
+ ]
+}

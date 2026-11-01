@@ -1,0 +1,58 @@
+{
+ "stage1_mean_wall_s": {
+  "f_1_16_16": 55.375,
+  "f_4_16_64": 56.575,
+  "f_2_16_32": 57.015,
+  "f_1_8_8": 59.83,
+  "e0": 79.46000000000001,
+  "e5": 80.33,
+  "e1": 80.91,
+  "e3": 82.39500000000001,
+  "e2": 84.78999999999999,
+  "e4": 94.39500000000001
+ },
+ "topE": [
+  "e0",
+  "e5"
+ ],
+ "topF": [
+  "f_1_16_16",
+  "f_4_16_64"
+ ],
+ "tie_checks": [
+  "no exact ties at cut",
+  "no exact ties at cut"
+ ],
+ "e6": "excluded (INCIDENT_e6.md)",
+ "selection_rule": "stage-1 mean wall ascending; tie-break only on exact-equal means -> smaller R/simpler (pre-registered)",
+ "calib2_csv_sha256": "95f738594ccfede00ccde65a5271f32bb7a8547f5a6ec96992507dd1340e2e07",
+ "calib2_rotation": "random.Random(20261019*1000+attempt), no same-candidate adjacency, attempt=10",
+ "calib_confirm_sha256": "69ea817a3a20fd1a38deab1d60c0a730cec82caed12b17dd834c953a6e718bcf",
+ "stage2_mean_wall_s": {
+  "f_1_16_16": 56.935,
+  "f_4_16_64": 56.980000000000004,
+  "e5": 78.63,
+  "e0": 79.655
+ },
+ "stage2_runs": {
+  "f_1_16_16": [
+   57.41,
+   56.46
+  ],
+  "f_4_16_64": [
+   57.43,
+   56.53
+  ],
+  "e5": [
+   78.62,
+   78.64
+  ],
+  "e0": [
+   79.57,
+   79.74
+  ]
+ },
+ "E_star": "e5",
+ "F_star": "f_1_16_16",
+ "final_rule": "E*/F* by stage-2 mean wall ONLY (pre-registered)"
+}

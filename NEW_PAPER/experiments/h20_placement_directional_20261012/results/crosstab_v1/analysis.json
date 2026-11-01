@@ -1,0 +1,2015 @@
+{
+  "analysis": "trigger_x_map_crosstab_frozen_analysis",
+  "analyzer_implementation": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_crosstab.py",
+    "sha256": "f5b39eb48f8f50489f7cefd9f05fe9e5129ef13191b96213a5850b7190c50471"
+  },
+  "created_at_utc": "2026-10-15T05:10:38.815383+00:00",
+  "drift_cross_check_reference_only": {
+    "note": "scan-era identity/base cells vs crosstab cells for the same capture and map; Welch reference only, never used in any verdict",
+    "rows": [
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-024",
+        "ci95_high_us": 120.64311555605214,
+        "ci95_low_us": -49.402987992575575,
+        "column": "identity",
+        "crosstab_mean_us": 2419.424835205078,
+        "mean_us": 35.62006378173828,
+        "scan_mean_us": 2383.80477142334,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.911241897098656
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-024",
+        "ci95_high_us": 141.43906413884105,
+        "ci95_low_us": -93.9659348663801,
+        "column": "base-of-evaluation-01",
+        "crosstab_mean_us": 1508.531509399414,
+        "mean_us": 23.73656463623047,
+        "scan_mean_us": 1484.7949447631836,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.1549052954364587
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-024",
+        "ci95_high_us": 81.28093495697479,
+        "ci95_low_us": 9.410150858454898,
+        "column": "identity",
+        "crosstab_mean_us": 2444.3743286132812,
+        "mean_us": 45.345542907714844,
+        "scan_mean_us": 2399.0287857055664,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.989690435766441
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-024",
+        "ci95_high_us": 81.31812635462279,
+        "ci95_low_us": -17.45183912317748,
+        "column": "base-of-evaluation-02",
+        "crosstab_mean_us": 1494.2188415527344,
+        "mean_us": 31.933143615722656,
+        "scan_mean_us": 1462.2856979370117,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.322351040483091
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-024",
+        "ci95_high_us": 167.31166768112382,
+        "ci95_low_us": -52.010154009248836,
+        "column": "identity",
+        "crosstab_mean_us": 2363.699966430664,
+        "mean_us": 57.6507568359375,
+        "scan_mean_us": 2306.0492095947266,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.250463474086772
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-024",
+        "ci95_high_us": 137.42156110930992,
+        "ci95_low_us": -0.46538435149741986,
+        "column": "base-of-evaluation-03",
+        "crosstab_mean_us": 1490.813232421875,
+        "mean_us": 68.47808837890625,
+        "scan_mean_us": 1422.3351440429688,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.5863421354420755
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-028",
+        "ci95_high_us": 65.9701782050364,
+        "ci95_low_us": -13.821054059528592,
+        "column": "identity",
+        "crosstab_mean_us": 2140.18595123291,
+        "mean_us": 26.074562072753906,
+        "scan_mean_us": 2114.1113891601562,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.046078630239242
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-028",
+        "ci95_high_us": 94.77885973097865,
+        "ci95_low_us": -15.343038197775527,
+        "column": "base-of-evaluation-01",
+        "crosstab_mean_us": 1431.519027709961,
+        "mean_us": 39.71791076660156,
+        "scan_mean_us": 1391.8011169433594,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.632376629502165
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-028",
+        "ci95_high_us": 43.56413943449997,
+        "ci95_low_us": -25.921164580984346,
+        "column": "identity",
+        "crosstab_mean_us": 2145.1531143188477,
+        "mean_us": 8.821487426757812,
+        "scan_mean_us": 2136.33162689209,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.326833949178797
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-028",
+        "ci95_high_us": 136.0926490032728,
+        "ci95_low_us": -4.806333085304047,
+        "column": "base-of-evaluation-02",
+        "crosstab_mean_us": 1473.6620788574219,
+        "mean_us": 65.64315795898438,
+        "scan_mean_us": 1408.0189208984375,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.5680357585031945
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-028",
+        "ci95_high_us": 279.0279565469242,
+        "ci95_low_us": -68.62977844633824,
+        "column": "identity",
+        "crosstab_mean_us": 2141.827308654785,
+        "mean_us": 105.19908905029297,
+        "scan_mean_us": 2036.6282196044922,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.025201084027896
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-028",
+        "ci95_high_us": 238.14800286302437,
+        "ci95_low_us": -61.352287530993124,
+        "column": "base-of-evaluation-03",
+        "crosstab_mean_us": 1494.653663635254,
+        "mean_us": 88.39785766601562,
+        "scan_mean_us": 1406.2558059692383,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.653340821884499
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-044",
+        "ci95_high_us": 120.30440955944927,
+        "ci95_low_us": -43.65031104870708,
+        "column": "identity",
+        "crosstab_mean_us": 2348.851593017578,
+        "mean_us": 38.327049255371094,
+        "scan_mean_us": 2310.524543762207,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.7488813486744905
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-044",
+        "ci95_high_us": 83.03128839444705,
+        "ci95_low_us": -2.1387407870251707,
+        "column": "base-of-evaluation-01",
+        "crosstab_mean_us": 1419.236457824707,
+        "mean_us": 40.44627380371094,
+        "scan_mean_us": 1378.790184020996,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.2188482565967345
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-044",
+        "ci95_high_us": 140.7850195333982,
+        "ci95_low_us": -111.19540466523414,
+        "column": "identity",
+        "crosstab_mean_us": 2437.3139724731445,
+        "mean_us": 14.794807434082031,
+        "scan_mean_us": 2422.5191650390625,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.71156844962328
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-044",
+        "ci95_high_us": 173.3134209739423,
+        "ci95_low_us": -75.81384822003604,
+        "column": "base-of-evaluation-02",
+        "crosstab_mean_us": 1442.3851165771484,
+        "mean_us": 48.749786376953125,
+        "scan_mean_us": 1393.6353302001953,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.1801602847633337
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-044",
+        "ci95_high_us": 95.94281508927085,
+        "ci95_low_us": -6.4872486830208445,
+        "column": "identity",
+        "crosstab_mean_us": 2318.4113693237305,
+        "mean_us": 44.727783203125,
+        "scan_mean_us": 2273.6835861206055,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.069935772269772
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-044",
+        "ci95_high_us": 57.595068579363605,
+        "ci95_low_us": -29.589636450457355,
+        "column": "base-of-evaluation-03",
+        "crosstab_mean_us": 1414.049201965332,
+        "mean_us": 14.002716064453125,
+        "scan_mean_us": 1400.046485900879,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.995483466067937
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-071",
+        "ci95_high_us": 96.47984082993335,
+        "ci95_low_us": -2.4014716893083587,
+        "column": "identity",
+        "crosstab_mean_us": 2151.6306686401367,
+        "mean_us": 47.0391845703125,
+        "scan_mean_us": 2104.591484069824,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.744430867893888
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-071",
+        "ci95_high_us": 140.8836542604526,
+        "ci95_low_us": 18.99154410380521,
+        "column": "base-of-evaluation-01",
+        "crosstab_mean_us": 1474.6107482910156,
+        "mean_us": 79.9375991821289,
+        "scan_mean_us": 1394.6731491088867,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.794647165871017
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-071",
+        "ci95_high_us": 81.77554287234236,
+        "ci95_low_us": -11.3984066418736,
+        "column": "identity",
+        "crosstab_mean_us": 2168.4404907226562,
+        "mean_us": 35.188568115234375,
+        "scan_mean_us": 2133.251922607422,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.318597934237057
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-071",
+        "ci95_high_us": 99.6358165160144,
+        "ci95_low_us": -2.7860698119128386,
+        "column": "base-of-evaluation-02",
+        "crosstab_mean_us": 1456.211311340332,
+        "mean_us": 48.42487335205078,
+        "scan_mean_us": 1407.7864379882812,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 5.927971116157738
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-071",
+        "ci95_high_us": 172.3273138364156,
+        "ci95_low_us": -69.70190184911094,
+        "column": "identity",
+        "crosstab_mean_us": 2185.9842529296875,
+        "mean_us": 51.312705993652344,
+        "scan_mean_us": 2134.671546936035,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 3.7772532025757615
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-071",
+        "ci95_high_us": 124.92210745569281,
+        "ci95_low_us": 1.8126184964556344,
+        "column": "base-of-evaluation-03",
+        "crosstab_mean_us": 1465.9169540405273,
+        "mean_us": 63.36736297607422,
+        "scan_mean_us": 1402.5495910644531,
+        "verdict": "reference_only_drift_cross_check",
+        "welch_df": 4.050707238046236
+      }
+    ]
+  },
+  "execution_index": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/crosstab_v1/execution/index.json",
+    "sha256": "c20914df83123b64cc9509f6666a98722325bc71ce35671aa719931b83e04df2"
+  },
+  "interpretation_rules": [
+    "an interval crossing zero means compatible with zero, not proof of no effect and not equivalence",
+    "equivalence is claimed only when the interval lies wholly inside [-epsilon,+epsilon]",
+    "negative effects are preserved exactly as measured",
+    "no best-start, repeat, prefix or subset selection was applied",
+    "crosstab numbers are layer-replay completion times, not server-side latencies"
+  ],
+  "layers": {
+    "layer-024": {
+      "common_static_sufficient": true,
+      "common_static_sufficient_columns": [
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "rows": {
+        "evaluation-01": {
+          "capture_id": "pred-v1-evaluation-01-layer-024",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1527.7328138912067,
+              "ci95_low_us": 1489.3302049076215,
+              "map_sha256": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+              "mean_us": 1508.531509399414,
+              "padded_max_over_mean": 1.0965732087227413,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0029585798816567,
+              "start_means_us": [
+                1490.5370788574219,
+                1514.3000183105469,
+                1513.0591735839844,
+                1516.2297668457031
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1544.3911289850387,
+              "ci95_low_us": 1485.691298993477,
+              "map_sha256": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+              "mean_us": 1515.0412139892578,
+              "padded_max_over_mean": 1.146417445482866,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0724852071005917,
+              "start_means_us": [
+                1503.030029296875,
+                1499.7209777832031,
+                1540.2861938476562,
+                1517.1276550292969
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1548.1991863487383,
+              "ci95_low_us": 1399.2169971229414,
+              "map_sha256": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec",
+              "mean_us": 1473.7080917358398,
+              "padded_max_over_mean": 1.071651090342679,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0929487179487178,
+              "start_means_us": [
+                1430.8523254394531,
+                1498.650390625,
+                1438.1935119628906,
+                1527.1361389160156
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2501.968152021082,
+              "ci95_low_us": 2336.8815183890742,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2419.424835205078,
+              "padded_max_over_mean": 2.367601246105919,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.6992110453648914,
+              "start_means_us": [
+                2405.2973022460938,
+                2423.4636840820312,
+                2361.9952392578125,
+                2486.943115234375
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-02": {
+                "ci95_high_us": 34.69478496359987,
+                "ci95_low_us": -21.67537578391237,
+                "mean_us": 6.50970458984375,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 28.02697759419314,
+                "ci95_low_us": -97.67381292134158,
+                "mean_us": -34.82341766357422,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -831.6772476407291,
+              "ci95_low_us": -990.109403970599,
+              "mean_us": -910.8933258056641,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 678.6911124373206,
+              "estimated_migration_cost_us": 4418.078649719387,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 6.50970458984375,
+              "moves_k_experts": 113,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-01"
+            },
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 4574.470814311223,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -34.82341766357422,
+              "moves_k_experts": 117,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-01"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-02": {
+          "capture_id": "pred-v1-evaluation-02-layer-024",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1622.4426025952773,
+              "ci95_low_us": 1529.7616057787461,
+              "map_sha256": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+              "mean_us": 1576.1021041870117,
+              "padded_max_over_mean": 1.2136222910216719,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1500863984201433,
+              "start_means_us": [
+                1554.7028503417969,
+                1556.5625305175781,
+                1575.7550048828125,
+                1617.3880310058594
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1545.4973137247289,
+              "ci95_low_us": 1442.9403693807399,
+              "map_sha256": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+              "mean_us": 1494.2188415527344,
+              "padded_max_over_mean": 1.089783281733746,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0002468526289805,
+              "start_means_us": [
+                1485.0998840332031,
+                1454.848388671875,
+                1530.8472290039062,
+                1506.0798645019531
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1550.9757536119291,
+              "ci95_low_us": 1424.0448304945162,
+              "map_sha256": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec",
+              "mean_us": 1487.5102920532227,
+              "padded_max_over_mean": 1.089783281733746,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.093557146383609,
+              "start_means_us": [
+                1440.0289306640625,
+                1486.4557800292969,
+                1537.6520690917969,
+                1485.9043884277344
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2478.0872174550323,
+              "ci95_low_us": 2410.6614397715302,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2444.3743286132812,
+              "padded_max_over_mean": 2.4024767801857587,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.765736855097507,
+              "start_means_us": [
+                2426.386474609375,
+                2426.3056640625,
+                2467.2276611328125,
+                2457.5775146484375
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 130.29656841056538,
+                "ci95_low_us": 33.46995685798931,
+                "mean_us": 81.88326263427734,
+                "practically_equivalent_within_margin": false,
+                "verdict": "excludes_zero_positive"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 46.0963705448102,
+                "ci95_low_us": -59.51346954383364,
+                "mean_us": -6.708549499511719,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -925.4363752549173,
+              "ci95_low_us": -974.8745988661765,
+              "mean_us": -950.1554870605469,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 56.05293272793229,
+              "estimated_migration_cost_us": 4589.79701198276,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "excludes_zero_positive",
+              "measured_per_forward_gain_us": 81.88326263427734,
+              "moves_k_experts": 113,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-02"
+            },
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 4183.620285258621,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -6.708549499511719,
+              "moves_k_experts": 103,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-02"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-03": {
+          "capture_id": "pred-v1-evaluation-03-layer-024",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1601.938918669582,
+              "ci95_low_us": 1496.316955964207,
+              "map_sha256": "d1d0f66f0b1ce7b96b652134a8fa5cf98ec65ed4759142c9c0630d785a9c5794",
+              "mean_us": 1549.1279373168945,
+              "padded_max_over_mean": 1.1713395638629283,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1298540687608212,
+              "start_means_us": [
+                1531.1387023925781,
+                1553.9833679199219,
+                1593.5833435058594,
+                1517.8063354492188
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1645.7048142472486,
+              "ci95_low_us": 1467.4785658797045,
+              "map_sha256": "5ab7a66abc908af80959c67165a33d4b65cc7a6136f90bd1d0d5d80fb7810b02",
+              "mean_us": 1556.5916900634766,
+              "padded_max_over_mean": 1.1214953271028036,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1068513480089044,
+              "start_means_us": [
+                1549.4627990722656,
+                1523.0819702148438,
+                1637.7776794433594,
+                1516.0443115234375
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1564.0472607718364,
+              "ci95_low_us": 1417.5792040719136,
+              "map_sha256": "6313cf6c2b2992cbdca5df01ee6d3b435a07ce7b678e76cf432f44348784e0ec",
+              "mean_us": 1490.813232421875,
+              "padded_max_over_mean": 1.071651090342679,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0019787286668316,
+              "start_means_us": [
+                1433.6935424804688,
+                1487.0540771484375,
+                1545.997802734375,
+                1496.5075073242188
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2475.872232156377,
+              "ci95_low_us": 2251.5277007049513,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2363.699966430664,
+              "padded_max_over_mean": 2.292834890965732,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.6510017313875833,
+              "start_means_us": [
+                2326.4705505371094,
+                2311.990936279297,
+                2466.878173828125,
+                2349.460205078125
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 109.38853706087977,
+                "ci95_low_us": 7.240872729159285,
+                "mean_us": 58.31470489501953,
+                "practically_equivalent_within_margin": false,
+                "verdict": "excludes_zero_positive"
+              },
+              "base-of-evaluation-02": {
+                "ci95_high_us": 138.10791039188217,
+                "ci95_low_us": -6.550995108679061,
+                "mean_us": 65.77845764160156,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -805.4045596982993,
+              "ci95_low_us": -940.3689083192788,
+              "mean_us": -872.8867340087891,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 90.04687975598372,
+              "estimated_migration_cost_us": 5251.057219687499,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "excludes_zero_positive",
+              "measured_per_forward_gain_us": 58.31470489501953,
+              "moves_k_experts": 117,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-03"
+            },
+            {
+              "break_even_forwards_n_star": 70.27719639991768,
+              "estimated_migration_cost_us": 4622.725586562499,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 65.77845764160156,
+              "moves_k_experts": 103,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-03"
+            }
+          ],
+          "row_tracks_own_base": false
+        }
+      },
+      "rows_tracking_own_base": {
+        "evaluation-01": false,
+        "evaluation-02": false,
+        "evaluation-03": false
+      },
+      "tracking_room_supported": false,
+      "verdict": "common_static_sufficient"
+    },
+    "layer-028": {
+      "common_static_sufficient": true,
+      "common_static_sufficient_columns": [
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "rows": {
+        "evaluation-01": {
+          "capture_id": "pred-v1-evaluation-01-layer-028",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1489.9769660681845,
+              "ci95_low_us": 1373.0610893517373,
+              "map_sha256": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+              "mean_us": 1431.519027709961,
+              "padded_max_over_mean": 1.025,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0002465483234715,
+              "start_means_us": [
+                1448.43896484375,
+                1464.6878967285156,
+                1433.0083923339844,
+                1379.9408569335938
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1508.783977245245,
+              "ci95_low_us": 1381.8498728524112,
+              "map_sha256": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+              "mean_us": 1445.3169250488281,
+              "padded_max_over_mean": 1.075,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1116863905325445,
+              "start_means_us": [
+                1421.0205383300781,
+                1487.1867980957031,
+                1470.2554931640625,
+                1402.8048706054688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1519.8158908399582,
+              "ci95_low_us": 1413.927074858284,
+              "map_sha256": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d",
+              "mean_us": 1466.871482849121,
+              "padded_max_over_mean": 1.075,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0784023668639053,
+              "start_means_us": [
+                1434.7877197265625,
+                1443.6769409179688,
+                1483.8797302246094,
+                1505.1415405273438
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2182.135346711248,
+              "ci95_low_us": 2098.2365557545722,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2140.18595123291,
+              "padded_max_over_mean": 2.0,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.267258382642998,
+              "start_means_us": [
+                2150.1781616210938,
+                2168.181121826172,
+                2105.7015075683594,
+                2136.6830139160156
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-02": {
+                "ci95_high_us": 58.8658807756187,
+                "ci95_low_us": -31.270086097884324,
+                "mean_us": 13.797897338867188,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 143.6325760621159,
+                "ci95_low_us": -72.9276657837956,
+                "mean_us": 35.352455139160156,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -652.9354560231731,
+              "ci95_low_us": -764.3983910227254,
+              "mean_us": -708.6669235229492,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 324.61240444046746,
+              "estimated_migration_cost_us": 4478.968631392405,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 13.797897338867188,
+              "moves_k_experts": 108,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-01"
+            },
+            {
+              "break_even_forwards_n_star": 127.86779716912034,
+              "estimated_migration_cost_us": 4520.440563164557,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 35.352455139160156,
+              "moves_k_experts": 109,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-01"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-02": {
+          "capture_id": "pred-v1-evaluation-02-layer-028",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1594.1517428639486,
+              "ci95_low_us": 1354.1155911204264,
+              "map_sha256": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+              "mean_us": 1474.1336669921875,
+              "padded_max_over_mean": 1.065015479876161,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.066403357195754,
+              "start_means_us": [
+                1580.5999450683594,
+                1469.8049011230469,
+                1407.301513671875,
+                1438.8283081054688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1548.5086761863886,
+              "ci95_low_us": 1398.8154815284552,
+              "map_sha256": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+              "mean_us": 1473.6620788574219,
+              "padded_max_over_mean": 1.0402476780185759,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0002468526289805,
+              "start_means_us": [
+                1535.1791076660156,
+                1433.6135559082031,
+                1440.35791015625,
+                1485.4977416992188
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1627.9121018432913,
+              "ci95_low_us": 1416.9325484252633,
+              "map_sha256": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d",
+              "mean_us": 1522.4223251342773,
+              "padded_max_over_mean": 1.089783281733746,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1128116514440878,
+              "start_means_us": [
+                1617.7388916015625,
+                1465.5789794921875,
+                1495.170654296875,
+                1511.2007751464844
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2162.9882838246012,
+              "ci95_low_us": 2127.317944813094,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2145.1531143188477,
+              "padded_max_over_mean": 2.0061919504643964,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.3016539126141695,
+              "start_means_us": [
+                2157.4161071777344,
+                2148.7613830566406,
+                2143.8333740234375,
+                2130.601593017578
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 75.34782596450465,
+                "ci95_low_us": -74.4046496949734,
+                "mean_us": 0.471588134765625,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 89.77084081716083,
+                "ci95_low_us": 7.749651736550099,
+                "mean_us": 48.76024627685547,
+                "practically_equivalent_within_margin": false,
+                "verdict": "excludes_zero_positive"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -600.0266150761435,
+              "ci95_low_us": -742.9554558467081,
+              "mean_us": -671.4910354614258,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 8616.62679743739,
+              "estimated_migration_cost_us": 4063.4989593749992,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 0.471588134765625,
+              "moves_k_experts": 108,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-02"
+            },
+            {
+              "break_even_forwards_n_star": 87.19447164105057,
+              "estimated_migration_cost_us": 4251.623911197916,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "excludes_zero_positive",
+              "measured_per_forward_gain_us": 48.76024627685547,
+              "moves_k_experts": 113,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-02"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-03": {
+          "capture_id": "pred-v1-evaluation-03-layer-028",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1651.0070223932164,
+              "ci95_low_us": 1322.0608792181117,
+              "map_sha256": "e11f99241a812ac25dae0a06948cbb4b5a1aabfc681d68e9d53520bca4796267",
+              "mean_us": 1486.533950805664,
+              "padded_max_over_mean": 1.0566037735849056,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0437793717536483,
+              "start_means_us": [
+                1390.7183532714844,
+                1445.6644897460938,
+                1477.8726501464844,
+                1631.8803100585938
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1659.8307163325348,
+              "ci95_low_us": 1327.2029750737152,
+              "map_sha256": "ebfde8f3492db70ece50d6ba108e6da0bc720a31ab52f6e3613f4262781d2491",
+              "mean_us": 1493.516845703125,
+              "padded_max_over_mean": 1.0817610062893082,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.072223596339352,
+              "start_means_us": [
+                1429.8556213378906,
+                1466.0314636230469,
+                1429.9779663085938,
+                1648.2023315429688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1651.5113427174117,
+              "ci95_low_us": 1337.795984553096,
+              "map_sha256": "c1f47123842fd2f2f4cdf0aadf81d4992be87c058aba2eb7f987f58b18c58b3d",
+              "mean_us": 1494.653663635254,
+              "padded_max_over_mean": 1.0566037735849056,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.000247341083354,
+              "start_means_us": [
+                1426.5307006835938,
+                1487.72119140625,
+                1428.1460571289062,
+                1636.2167053222656
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2316.1107283949095,
+              "ci95_low_us": 1967.543888914661,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2141.827308654785,
+              "padded_max_over_mean": 1.9622641509433962,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.25204056393767,
+              "start_means_us": [
+                2066.9720458984375,
+                2084.3512573242188,
+                2112.268035888672,
+                2303.7178955078125
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 58.63021644851548,
+                "ci95_low_us": -74.86964210769517,
+                "mean_us": -8.119712829589844,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-02": {
+                "ci95_high_us": 21.800009225336886,
+                "ci95_low_us": -24.0736450895947,
+                "mean_us": -1.1368179321289062,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -586.3844379220463,
+              "ci95_low_us": -707.9628521170162,
+              "mean_us": -647.1736450195312,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 4521.747137694445,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -8.119712829589844,
+              "moves_k_experts": 109,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-03"
+            },
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 4687.682812472222,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -1.1368179321289062,
+              "moves_k_experts": 113,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-03"
+            }
+          ],
+          "row_tracks_own_base": false
+        }
+      },
+      "rows_tracking_own_base": {
+        "evaluation-01": false,
+        "evaluation-02": false,
+        "evaluation-03": false
+      },
+      "tracking_room_supported": false,
+      "verdict": "common_static_sufficient"
+    },
+    "layer-044": {
+      "common_static_sufficient": true,
+      "common_static_sufficient_columns": [
+        "base-of-evaluation-01",
+        "base-of-evaluation-03"
+      ],
+      "rows": {
+        "evaluation-01": {
+          "capture_id": "pred-v1-evaluation-01-layer-044",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1464.4798988164807,
+              "ci95_low_us": 1373.9930168329333,
+              "map_sha256": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+              "mean_us": 1419.236457824707,
+              "padded_max_over_mean": 1.037037037037037,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0007396449704142,
+              "start_means_us": [
+                1397.8399963378906,
+                1453.8265686035156,
+                1431.1329650878906,
+                1394.1463012695312
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1529.4863636223313,
+              "ci95_low_us": 1448.5279948981765,
+              "map_sha256": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+              "mean_us": 1489.007179260254,
+              "padded_max_over_mean": 1.1358024691358024,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1328895463510849,
+              "start_means_us": [
+                1475.4569091796875,
+                1522.3427734375,
+                1494.1283874511719,
+                1464.1006469726562
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1517.0418436790296,
+              "ci95_low_us": 1382.4036824440172,
+              "map_sha256": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe",
+              "mean_us": 1449.7227630615234,
+              "padded_max_over_mean": 1.0864197530864197,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0894970414201184,
+              "start_means_us": [
+                1440.1990661621094,
+                1508.8408508300781,
+                1441.5699157714844,
+                1408.2812194824219
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2435.0455076828453,
+              "ci95_low_us": 2262.657678352311,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2348.851593017578,
+              "padded_max_over_mean": 2.2222222222222223,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.549802761341223,
+              "start_means_us": [
+                2292.4126892089844,
+                2395.2815551757812,
+                2312.5556640625,
+                2395.156463623047
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-02": {
+                "ci95_high_us": 79.36545517220686,
+                "ci95_low_us": 60.17598769888689,
+                "mean_us": 69.77072143554688,
+                "practically_equivalent_within_margin": false,
+                "verdict": "excludes_zero_positive"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 65.00678638467872,
+                "ci95_low_us": -4.0341759110458995,
+                "mean_us": 30.486305236816406,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -843.4932749816314,
+              "ci95_low_us": -1015.7369954041108,
+              "mean_us": -929.6151351928711,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 63.877209944848595,
+              "estimated_migration_cost_us": 4456.759021141976,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "excludes_zero_positive",
+              "measured_per_forward_gain_us": 69.77072143554688,
+              "moves_k_experts": 97,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-01"
+            },
+            {
+              "break_even_forwards_n_star": 159.75280398595376,
+              "estimated_migration_cost_us": 4870.272744753087,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 30.486305236816406,
+              "moves_k_experts": 106,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-01"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-02": {
+          "capture_id": "pred-v1-evaluation-02-layer-044",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1511.3320885212756,
+              "ci95_low_us": 1387.9322852580212,
+              "map_sha256": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+              "mean_us": 1449.6321868896484,
+              "padded_max_over_mean": 1.0817610062893082,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0814613675635645,
+              "start_means_us": [
+                1497.5946044921875,
+                1454.2367858886719,
+                1443.4396362304688,
+                1403.2577209472656
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1569.0834212301645,
+              "ci95_low_us": 1315.6868119241324,
+              "map_sha256": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+              "mean_us": 1442.3851165771484,
+              "padded_max_over_mean": 1.0314465408805031,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0,
+              "start_means_us": [
+                1520.9129943847656,
+                1500.5277404785156,
+                1365.8962097167969,
+                1382.2035217285156
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1530.4029047417544,
+              "ci95_low_us": 1429.3777959418394,
+              "map_sha256": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe",
+              "mean_us": 1479.8903503417969,
+              "padded_max_over_mean": 1.1320754716981132,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.1690940508516416,
+              "start_means_us": [
+                1496.543212890625,
+                1505.9668579101562,
+                1482.535400390625,
+                1434.5159301757812
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2483.198157364426,
+              "ci95_low_us": 2391.429787581863,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2437.3139724731445,
+              "padded_max_over_mean": 2.339622641509434,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.6578622562330287,
+              "start_means_us": [
+                2418.0510864257812,
+                2479.709686279297,
+                2431.1554260253906,
+                2420.3396911621094
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 94.07587629088034,
+                "ci95_low_us": -79.58173566588034,
+                "mean_us": 7.2470703125,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 135.32853296394796,
+                "ci95_low_us": -60.31806543465109,
+                "mean_us": 37.50523376464844,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -876.4771733441628,
+              "ci95_low_us": -1113.3805384478294,
+              "mean_us": -994.9288558959961,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 648.445633366142,
+              "estimated_migration_cost_us": 4699.331098838027,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 7.2470703125,
+              "moves_k_experts": 97,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-02"
+            },
+            {
+              "break_even_forwards_n_star": 124.00627644834701,
+              "estimated_migration_cost_us": 4650.884386478872,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 37.50523376464844,
+              "moves_k_experts": 96,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-02"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-03": {
+          "capture_id": "pred-v1-evaluation-03-layer-044",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1404.4583585506286,
+              "ci95_low_us": 1358.7799379581604,
+              "map_sha256": "0bf3c7eb958515eaaf4b9b26ec111ae75150a0c1c62bad6f3573ec1f4000d337",
+              "mean_us": 1381.6191482543945,
+              "padded_max_over_mean": 1.0632911392405062,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0610932475884245,
+              "start_means_us": [
+                1375.5826110839844,
+                1364.1560363769531,
+                1392.8542785644531,
+                1393.8836669921875
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1473.0610311945204,
+              "ci95_low_us": 1365.0426522771593,
+              "map_sha256": "2990fb7da3ae2dca981a640e3b99d778b3e5c8af7c7a57677c82e986a895fc6e",
+              "mean_us": 1419.0518417358398,
+              "padded_max_over_mean": 1.0632911392405062,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0863220380905267,
+              "start_means_us": [
+                1391.8113403320312,
+                1387.6987915039062,
+                1451.0415344238281,
+                1445.6557006835938
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1459.9642293615589,
+              "ci95_low_us": 1368.1341745691052,
+              "map_sha256": "02d7b48e6f297d950e413648f8803494e33376a4938e512385ecbd77df3e7ffe",
+              "mean_us": 1414.049201965332,
+              "padded_max_over_mean": 1.0379746835443038,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.000247341083354,
+              "start_means_us": [
+                1413.0003051757812,
+                1388.8675537109375,
+                1454.7201232910156,
+                1399.6088256835938
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2372.7189216889706,
+              "ci95_low_us": 2264.1038169584904,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2318.4113693237305,
+              "padded_max_over_mean": 2.2531645569620253,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.545634429878803,
+              "start_means_us": [
+                2293.3053283691406,
+                2313.535888671875,
+                2367.9776000976562,
+                2298.82666015625
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 5.046202681460109,
+                "ci95_low_us": -69.9063101033351,
+                "mean_us": -32.4300537109375,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-02": {
+                "ci95_high_us": 50.79079985175493,
+                "ci95_low_us": -40.78552031073931,
+                "mean_us": 5.0026397705078125,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -873.9386170773338,
+              "ci95_low_us": -934.7857176394631,
+              "mean_us": -904.3621673583984,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 5042.587351180555,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -32.4300537109375,
+              "moves_k_experts": 106,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-03"
+            },
+            {
+              "break_even_forwards_n_star": 912.8923474075676,
+              "estimated_migration_cost_us": 4566.871563333332,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 5.0026397705078125,
+              "moves_k_experts": 96,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-03"
+            }
+          ],
+          "row_tracks_own_base": false
+        }
+      },
+      "rows_tracking_own_base": {
+        "evaluation-01": false,
+        "evaluation-02": false,
+        "evaluation-03": false
+      },
+      "tracking_room_supported": false,
+      "verdict": "common_static_sufficient"
+    },
+    "layer-071": {
+      "common_static_sufficient": true,
+      "common_static_sufficient_columns": [
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "rows": {
+        "evaluation-01": {
+          "capture_id": "pred-v1-evaluation-01-layer-071",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1535.1846323582845,
+              "ci95_low_us": 1414.0368642237468,
+              "map_sha256": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+              "mean_us": 1474.6107482910156,
+              "padded_max_over_mean": 1.0094637223974763,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0002465483234715,
+              "start_means_us": [
+                1466.33447265625,
+                1425.3347473144531,
+                1493.5215454101562,
+                1513.2522277832031
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1441.744943343371,
+              "ci95_low_us": 1408.47183827284,
+              "map_sha256": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+              "mean_us": 1425.1083908081055,
+              "padded_max_over_mean": 1.0599369085173502,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0993589743589745,
+              "start_means_us": [
+                1438.7115478515625,
+                1417.7330017089844,
+                1416.1166381835938,
+                1427.8723754882812
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1509.5435402614935,
+              "ci95_low_us": 1389.8974387424128,
+              "map_sha256": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787",
+              "mean_us": 1449.7204895019531,
+              "padded_max_over_mean": 1.0347003154574133,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0557199211045365,
+              "start_means_us": [
+                1505.225830078125,
+                1426.5220031738281,
+                1440.6174926757812,
+                1426.5166320800781
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2204.032934010817,
+              "ci95_low_us": 2099.2284032694565,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2151.6306686401367,
+              "padded_max_over_mean": 2.0189274447949526,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.2206607495069033,
+              "start_means_us": [
+                2150.2923583984375,
+                2139.4827575683594,
+                2119.5584411621094,
+                2197.1891174316406
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-02": {
+                "ci95_high_us": 10.741203737238742,
+                "ci95_low_us": -109.74591870305906,
+                "mean_us": -49.502357482910156,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 63.97994454527594,
+                "ci95_low_us": -113.76046212340094,
+                "mean_us": -24.8902587890625,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -618.3835185664798,
+              "ci95_low_us": -735.6563221317624,
+              "mean_us": -677.0199203491211,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 3892.0307594097226,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -49.502357482910156,
+              "moves_k_experts": 91,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-01"
+            },
+            {
+              "break_even_forwards_n_star": null,
+              "estimated_migration_cost_us": 4362.496016041667,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": -24.8902587890625,
+              "moves_k_experts": 102,
+              "status": "no_finite_break_even",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-01"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-02": {
+          "capture_id": "pred-v1-evaluation-02-layer-071",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1566.0451817671021,
+              "ci95_low_us": 1367.4597773393432,
+              "map_sha256": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+              "mean_us": 1466.7524795532227,
+              "padded_max_over_mean": 1.05,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0476425573932362,
+              "start_means_us": [
+                1459.6900024414062,
+                1466.2863464355469,
+                1546.6841430664062,
+                1394.3494262695312
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1505.6898159345856,
+              "ci95_low_us": 1406.7328067460785,
+              "map_sha256": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+              "mean_us": 1456.211311340332,
+              "padded_max_over_mean": 1.025,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0002468526289805,
+              "start_means_us": [
+                1413.6773376464844,
+                1486.4122924804688,
+                1469.5659790039062,
+                1455.1896362304688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1495.682466917861,
+              "ci95_low_us": 1465.7718177501079,
+              "map_sha256": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787",
+              "mean_us": 1480.7271423339844,
+              "padded_max_over_mean": 1.1,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.090594914835843,
+              "start_means_us": [
+                1476.6610412597656,
+                1493.1292419433594,
+                1471.0858764648438,
+                1482.0324096679688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2201.7100915335504,
+              "ci95_low_us": 2135.170889911762,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2168.4404907226562,
+              "padded_max_over_mean": 2.05,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.3421377437669713,
+              "start_means_us": [
+                2174.204071044922,
+                2156.3212890625,
+                2195.1891174316406,
+                2148.0474853515625
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 110.02548022016202,
+                "ci95_low_us": -88.94314379438077,
+                "mean_us": 10.541168212890625,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-03": {
+                "ci95_high_us": 68.86887537001832,
+                "ci95_low_us": -19.83721338271362,
+                "mean_us": 24.515830993652344,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -649.3923286411721,
+              "ci95_low_us": -775.0660301234764,
+              "mean_us": -712.2291793823242,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 459.90930632303946,
+              "estimated_migration_cost_us": 4847.981360625001,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 10.541168212890625,
+              "moves_k_experts": 91,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-02"
+            },
+            {
+              "break_even_forwards_n_star": 197.74901213343506,
+              "estimated_migration_cost_us": 4847.981360625001,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 24.515830993652344,
+              "moves_k_experts": 91,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-03",
+              "switch_to_column": "base-of-evaluation-02"
+            }
+          ],
+          "row_tracks_own_base": false
+        },
+        "evaluation-03": {
+          "capture_id": "pred-v1-evaluation-03-layer-071",
+          "cells": {
+            "base-of-evaluation-01": {
+              "ci95_high_us": 1538.6419261117014,
+              "ci95_low_us": 1417.8445393424001,
+              "map_sha256": "63e74bc0e8db1442e2d0b8a62988e69a080a200d1ccf902f12eacea264f2fb42",
+              "mean_us": 1478.2432327270508,
+              "padded_max_over_mean": 1.075,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0925055651743754,
+              "start_means_us": [
+                1462.4724731445312,
+                1529.1932067871094,
+                1439.9306030273438,
+                1481.3766479492188
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-02": {
+              "ci95_high_us": 1549.2207230999811,
+              "ci95_low_us": 1425.8807631060736,
+              "map_sha256": "91de01e793484ea820fa7e4883e00079b58844c1f97a7f05925d4e8c428cedf5",
+              "mean_us": 1487.5507431030273,
+              "padded_max_over_mean": 1.05,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.0489735345040812,
+              "start_means_us": [
+                1524.5572814941406,
+                1488.2218017578125,
+                1433.8807373046875,
+                1503.5431518554688
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "base-of-evaluation-03": {
+              "ci95_high_us": 1493.664934758855,
+              "ci95_low_us": 1438.1689733221997,
+              "map_sha256": "87945747401847b1238ac7784a74a2f51a9fd32b74290302f92b83abffac9787",
+              "mean_us": 1465.9169540405273,
+              "padded_max_over_mean": 1.025,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 1.000247341083354,
+              "start_means_us": [
+                1474.2501220703125,
+                1448.1001892089844,
+                1455.1600646972656,
+                1486.1574401855469
+              ],
+              "verdict": "excludes_zero_positive"
+            },
+            "identity": {
+              "ci95_high_us": 2313.351346319064,
+              "ci95_low_us": 2058.617159540311,
+              "map_sha256": "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b",
+              "mean_us": 2185.9842529296875,
+              "padded_max_over_mean": 2.05,
+              "practically_equivalent_within_margin": false,
+              "r_raw_on_this_capture": 2.292357160524363,
+              "start_means_us": [
+                2166.1922607421875,
+                2302.7365112304688,
+                2121.733367919922,
+                2153.274871826172
+              ],
+              "verdict": "excludes_zero_positive"
+            }
+          },
+          "contrasts": {
+            "other_base_vs_own_base": {
+              "base-of-evaluation-01": {
+                "ci95_high_us": 85.60225981987706,
+                "ci95_low_us": -60.94970244683019,
+                "mean_us": 12.326278686523438,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              },
+              "base-of-evaluation-02": {
+                "ci95_high_us": 72.14974470761359,
+                "ci95_low_us": -28.882166582613586,
+                "mean_us": 21.6337890625,
+                "practically_equivalent_within_margin": false,
+                "verdict": "compatible_with_zero"
+              }
+            },
+            "own_base_vs_identity": {
+              "ci95_high_us": -576.0780364908973,
+              "ci95_low_us": -864.056561287423,
+              "mean_us": -720.0672988891602,
+              "practically_equivalent_within_margin": false,
+              "verdict": "excludes_zero_negative"
+            }
+          },
+          "cost_linkage": [
+            {
+              "break_even_forwards_n_star": 389.6957314061565,
+              "estimated_migration_cost_us": 4803.498188260869,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 12.326278686523438,
+              "moves_k_experts": 102,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-01",
+              "switch_to_column": "base-of-evaluation-03"
+            },
+            {
+              "break_even_forwards_n_star": 198.09169172630138,
+              "estimated_migration_cost_us": 4285.47387384058,
+              "estimator": "C_batch(k)=C_multi(capture)*moves_k/moves_base (frozen scan cost-benefit)",
+              "gain_verdict": "compatible_with_zero",
+              "measured_per_forward_gain_us": 21.6337890625,
+              "moves_k_experts": 91,
+              "status": "finite",
+              "switch_from_column": "base-of-evaluation-02",
+              "switch_to_column": "base-of-evaluation-03"
+            }
+          ],
+          "row_tracks_own_base": false
+        }
+      },
+      "rows_tracking_own_base": {
+        "evaluation-01": false,
+        "evaluation-02": false,
+        "evaluation-03": false
+      },
+      "tracking_room_supported": false,
+      "verdict": "common_static_sufficient"
+    }
+  },
+  "pooled": {
+    "own_base_vs_best_other_base": [
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-024",
+        "ci95_high_us": 28.02697759419314,
+        "ci95_low_us": -97.67381292134158,
+        "column": "base-of-evaluation-03",
+        "mean_us": -34.82341766357422,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-024",
+        "ci95_high_us": 46.0963705448102,
+        "ci95_low_us": -59.51346954383364,
+        "column": "base-of-evaluation-03",
+        "mean_us": -6.708549499511719,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-024",
+        "ci95_high_us": 109.38853706087977,
+        "ci95_low_us": 7.240872729159285,
+        "column": "base-of-evaluation-01",
+        "mean_us": 58.31470489501953,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_positive"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-028",
+        "ci95_high_us": 58.8658807756187,
+        "ci95_low_us": -31.270086097884324,
+        "column": "base-of-evaluation-02",
+        "mean_us": 13.797897338867188,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-028",
+        "ci95_high_us": 75.34782596450465,
+        "ci95_low_us": -74.4046496949734,
+        "column": "base-of-evaluation-01",
+        "mean_us": 0.471588134765625,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-028",
+        "ci95_high_us": 58.63021644851548,
+        "ci95_low_us": -74.86964210769517,
+        "column": "base-of-evaluation-01",
+        "mean_us": -8.119712829589844,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-044",
+        "ci95_high_us": 65.00678638467872,
+        "ci95_low_us": -4.0341759110458995,
+        "column": "base-of-evaluation-03",
+        "mean_us": 30.486305236816406,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-044",
+        "ci95_high_us": 94.07587629088034,
+        "ci95_low_us": -79.58173566588034,
+        "column": "base-of-evaluation-01",
+        "mean_us": 7.2470703125,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-044",
+        "ci95_high_us": 5.046202681460109,
+        "ci95_low_us": -69.9063101033351,
+        "column": "base-of-evaluation-01",
+        "mean_us": -32.4300537109375,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-071",
+        "ci95_high_us": 10.741203737238742,
+        "ci95_low_us": -109.74591870305906,
+        "column": "base-of-evaluation-02",
+        "mean_us": -49.502357482910156,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-071",
+        "ci95_high_us": 110.02548022016202,
+        "ci95_low_us": -88.94314379438077,
+        "column": "base-of-evaluation-01",
+        "mean_us": 10.541168212890625,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-071",
+        "ci95_high_us": 85.60225981987706,
+        "ci95_low_us": -60.94970244683019,
+        "column": "base-of-evaluation-01",
+        "mean_us": 12.326278686523438,
+        "practically_equivalent_within_margin": false,
+        "verdict": "compatible_with_zero"
+      }
+    ],
+    "own_base_vs_identity": [
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-024",
+        "ci95_high_us": -831.6772476407291,
+        "ci95_low_us": -990.109403970599,
+        "mean_us": -910.8933258056641,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-024",
+        "ci95_high_us": -925.4363752549173,
+        "ci95_low_us": -974.8745988661765,
+        "mean_us": -950.1554870605469,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-024",
+        "ci95_high_us": -805.4045596982993,
+        "ci95_low_us": -940.3689083192788,
+        "mean_us": -872.8867340087891,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-028",
+        "ci95_high_us": -652.9354560231731,
+        "ci95_low_us": -764.3983910227254,
+        "mean_us": -708.6669235229492,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-028",
+        "ci95_high_us": -600.0266150761435,
+        "ci95_low_us": -742.9554558467081,
+        "mean_us": -671.4910354614258,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-028",
+        "ci95_high_us": -586.3844379220463,
+        "ci95_low_us": -707.9628521170162,
+        "mean_us": -647.1736450195312,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-044",
+        "ci95_high_us": -843.4932749816314,
+        "ci95_low_us": -1015.7369954041108,
+        "mean_us": -929.6151351928711,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-044",
+        "ci95_high_us": -876.4771733441628,
+        "ci95_low_us": -1113.3805384478294,
+        "mean_us": -994.9288558959961,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-044",
+        "ci95_high_us": -873.9386170773338,
+        "ci95_low_us": -934.7857176394631,
+        "mean_us": -904.3621673583984,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-01-layer-071",
+        "ci95_high_us": -618.3835185664798,
+        "ci95_low_us": -735.6563221317624,
+        "mean_us": -677.0199203491211,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-02-layer-071",
+        "ci95_high_us": -649.3923286411721,
+        "ci95_low_us": -775.0660301234764,
+        "mean_us": -712.2291793823242,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      },
+      {
+        "capture_id": "pred-v1-evaluation-03-layer-071",
+        "ci95_high_us": -576.0780364908973,
+        "ci95_low_us": -864.056561287423,
+        "mean_us": -720.0672988891602,
+        "practically_equivalent_within_margin": false,
+        "verdict": "excludes_zero_negative"
+      }
+    ]
+  },
+  "protocol": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/crosstab_execution_protocol.json",
+    "sha256": "5b0700de2ea7bedee835ce8b87e858bd26b5547d5f8df1348ee74cae773221df"
+  },
+  "schema_version": 1,
+  "statistics": {
+    "blocks_per_start": 5,
+    "overhead_subtracted_from_contrasts": false,
+    "paired_within_block": true,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "starts_per_capture": 4,
+    "t_quantile_95_df3": 3.1824463052837078
+  },
+  "status": "complete",
+  "study_id": "h20-placement-crosstab-v1",
+  "verdict_rules": {
+    "common_static_sufficient": "some base column's delta-vs-own CI lower bound is <= epsilon in every row (not significantly worse beyond the practical margin anywhere)",
+    "precedence": "tracking_room_supported > common_static_sufficient > mixed",
+    "row_tracks_own_base": "both other-base-minus-own-base paired CIs exclude zero positively",
+    "tracking_room_supported": ">=2 of 3 rows track their own base"
+  }
+}

@@ -1,0 +1,392 @@
+{
+ "spec_id": "h20-placement-ea-v1-fivearm-campaign",
+ "status": "frozen_before_execution",
+ "frozen_at_utc": "2026-10-15T17:23:27.505122+00:00",
+ "purpose": "E-A four-arm W x D ablation + E-P fifth-arm planner-rule control, on 7963 real evaluation requests (v3 order/concurrency 256/service protocol). Answers: A11-A00 net benefit; A11-A10 increment of D history strategy; A11-A01 increment of adaptive W; WxD interaction; A11-P11 net effect of planner rule (same controller).",
+ "user_rules_honored": [
+  "A11 re-run in this new campaign as contemporaneous control (controller code changed for switch fixes); identity and frozen-ILP NOT re-run (v3 references retained)",
+  "five rounds do not guarantee resolution of all small effects; budget frozen; uncertainty reported as uncertainty; no significance-driven additions",
+  "migration wall upper bound reported alongside; complete service time already contains real exposed overhead; never subtracted again",
+  "7963 requests are NOT 7963 independent replicates; independent starts are replicates; rounds are paired blocks",
+  "failed starts retained and retired, never retried under this frozen campaign; no best-start/repeat selection"
+ ],
+ "fixed_params_source": {
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_fixed_params.json",
+  "sha256": "636b4bffb74f69f040cd0a1a1751eae9a1de72e17ba924c34b8bcaadb43019a0",
+  "W_star": 16,
+  "alpha_star": 0.0,
+  "selection": "argmin mean total_time_s over valid calibration-grid starts; tie-break smaller W, smaller alpha, then (16,0.5); frozen BEFORE any evaluation start; calibration requests only"
+ },
+ "arms": {
+  "A00": {
+   "W": 16,
+   "alpha": 0.0,
+   "adw": 0,
+   "add": 0,
+   "planner_bi": 0,
+   "meaning": "fixed W* + fixed alpha* (both adaptive flags OFF); control fixed at the calibration-selected point, not a known-weak strawman"
+  },
+  "A10": {
+   "W": 16,
+   "alpha": 0.0,
+   "adw": 1,
+   "add": 0,
+   "planner_bi": 0,
+   "meaning": "adaptive W (start 16, v3 lineage) + fixed alpha*; adaptive_decay OFF"
+  },
+  "A01": {
+   "W": 16,
+   "alpha": 0.5,
+   "adw": 0,
+   "add": 1,
+   "planner_bi": 0,
+   "meaning": "fixed W* + adaptive D (base decay 0.5, v3 lineage); adaptive_window OFF"
+  },
+  "A11": {
+   "W": 16,
+   "alpha": 0.5,
+   "adw": 1,
+   "add": 1,
+   "planner_bi": 0,
+   "meaning": "both adaptive; byte-identical launch configuration to v3 online arm; contemporaneous re-run required (controller code changed after v3)"
+  },
+  "P11": {
+   "W": 16,
+   "alpha": 0.5,
+   "adw": 1,
+   "add": 1,
+   "planner_bi": 1,
+   "meaning": "A11 controller with planner rule best_improvement_rank_pair (E-P fifth arm); OEPLB_PLANNER_BEST_IMPROVEMENT=1"
+  }
+ },
+ "schedule": [
+  {
+   "label": "eacR1_A00",
+   "round": 1,
+   "position": 1,
+   "arm": "A00"
+  },
+  {
+   "label": "eacR1_A10",
+   "round": 1,
+   "position": 2,
+   "arm": "A10"
+  },
+  {
+   "label": "eacR1_A01",
+   "round": 1,
+   "position": 3,
+   "arm": "A01"
+  },
+  {
+   "label": "eacR1_A11",
+   "round": 1,
+   "position": 4,
+   "arm": "A11"
+  },
+  {
+   "label": "eacR1_P11",
+   "round": 1,
+   "position": 5,
+   "arm": "P11"
+  },
+  {
+   "label": "eacR2_A10",
+   "round": 2,
+   "position": 1,
+   "arm": "A10"
+  },
+  {
+   "label": "eacR2_A01",
+   "round": 2,
+   "position": 2,
+   "arm": "A01"
+  },
+  {
+   "label": "eacR2_A11",
+   "round": 2,
+   "position": 3,
+   "arm": "A11"
+  },
+  {
+   "label": "eacR2_P11",
+   "round": 2,
+   "position": 4,
+   "arm": "P11"
+  },
+  {
+   "label": "eacR2_A00",
+   "round": 2,
+   "position": 5,
+   "arm": "A00"
+  },
+  {
+   "label": "eacR3_A01",
+   "round": 3,
+   "position": 1,
+   "arm": "A01"
+  },
+  {
+   "label": "eacR3_A11",
+   "round": 3,
+   "position": 2,
+   "arm": "A11"
+  },
+  {
+   "label": "eacR3_P11",
+   "round": 3,
+   "position": 3,
+   "arm": "P11"
+  },
+  {
+   "label": "eacR3_A00",
+   "round": 3,
+   "position": 4,
+   "arm": "A00"
+  },
+  {
+   "label": "eacR3_A10",
+   "round": 3,
+   "position": 5,
+   "arm": "A10"
+  },
+  {
+   "label": "eacR4_A11",
+   "round": 4,
+   "position": 1,
+   "arm": "A11"
+  },
+  {
+   "label": "eacR4_P11",
+   "round": 4,
+   "position": 2,
+   "arm": "P11"
+  },
+  {
+   "label": "eacR4_A00",
+   "round": 4,
+   "position": 3,
+   "arm": "A00"
+  },
+  {
+   "label": "eacR4_A10",
+   "round": 4,
+   "position": 4,
+   "arm": "A10"
+  },
+  {
+   "label": "eacR4_A01",
+   "round": 4,
+   "position": 5,
+   "arm": "A01"
+  },
+  {
+   "label": "eacR5_P11",
+   "round": 5,
+   "position": 1,
+   "arm": "P11"
+  },
+  {
+   "label": "eacR5_A00",
+   "round": 5,
+   "position": 2,
+   "arm": "A00"
+  },
+  {
+   "label": "eacR5_A10",
+   "round": 5,
+   "position": 3,
+   "arm": "A10"
+  },
+  {
+   "label": "eacR5_A01",
+   "round": 5,
+   "position": 4,
+   "arm": "A01"
+  },
+  {
+   "label": "eacR5_A11",
+   "round": 5,
+   "position": 5,
+   "arm": "A11"
+  }
+ ],
+ "schedule_design": "5 rounds x 5 arms; round-robin rotation (round r order = ARM_ORDER rotated by r-1); each arm occupies each within-round position exactly once (verified Latin square)",
+ "workload": {
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+  "sha256": "53e5b0e1f74af708037d69f95856aced71374ec55826c96ea1f4134a78fedb1c",
+  "n_requests": 7963,
+  "concurrency": 256,
+  "order": "original v3 evaluation order, unmodified",
+  "service_protocol": "identical to v3 (run_grid_bench.py, same flags); calibration.jsonl NEVER touched by this campaign"
+ },
+ "primary_endpoint": {
+  "total_time_s": "complete service time to serve all 7963 evaluation requests (same completed token workload across arms; total_comp_tokens recorded per start)",
+  "tps_fixed_caliber": "total_comp_tokens / total_time_s as recorded by run_grid_bench.py"
+ },
+ "recording_per_start": {
+  "primary": [
+   "bench.total_time_s",
+   "bench.tps",
+   "bench.ok",
+   "bench.errors",
+   "bench.total_comp_tokens",
+   "bench.lat_mean_ms"
+  ],
+  "W_explanatory": [
+   "mechanisms.adw_ratio_jump/adw_shrink/adw_grow/window_shift/window_stable (check counts)",
+   "diag.window_events_dp0 (window trajectory with timestamps)",
+   "diag.prof_dp0 (per-window record/allreduce/total ms = check-and-act delay)",
+   "diag.issued_windows_dp0"
+  ],
+  "D_explanatory": [
+   "server_args_pb_oeplb.decay_factor + adaptive_decay (alpha)",
+   "diag.reset_events_dp0 (zeroing moments + converged/prev/current ratios)",
+   "mechanisms.adw_decay0_window_fixed",
+   "diag.ready_after_forwards (history recovery)",
+   "diag.swap_stats.n_reversals/n_repeats (reverse or repeated swaps)"
+  ],
+  "planner_explanatory": [
+   "diag.prof_dp0.planbuild_ms (planning time)",
+   "diag.diag_dp0 layers_touched/total_ops/ratios (candidate and effective swaps)",
+   "diag.swap_stats.n_ops (executed swaps; migration bytes derivable offline from ops x expert-slot size at frozen geometry)",
+   "diag.wall_events + timing_begin_max_ms_per_event (migration wall per event)",
+   "mechanisms.planner_bi_log/planner_default_log (rule actually active)"
+  ],
+  "system": [
+   "config_verify CONFIG_OK (actual configuration asserted from server_args dump + planner rule log, every start)",
+   "diag.server_args_pb_oeplb (actual config)",
+   "mechanisms.tracebacks",
+   "boot_rc/bench_rc/status"
+  ],
+  "raw": [
+   "server log (logs/<label>_server.log)",
+   "bench json (bench/<label>.json)",
+   "diag json (diag/<label>_diag.json, sha256 recorded in state)"
+  ]
+ },
+ "statistics_plan": {
+  "replicate_unit": "independent formal start (5 per arm)",
+  "blocks": "rounds (paired)",
+  "primary_contrasts_prefixed": [
+   "A11-A00 (net adaptive benefit)",
+   "A11-P11 (planner rule: heuristic_first_improvement vs best_improvement_rank_pair, same controller)"
+  ],
+  "secondary_contrasts": [
+   "A11-A10 (increment of D history strategy)",
+   "A11-A01 (increment of adaptive W)",
+   "WxD interaction = (A11-A10)-(A01-A00) per round"
+  ],
+  "method": "paired per-round differences of total_time_s; mean +/- t(0.975, df=n_pairs-1) 95% CI; negative effects preserved exactly; CI crossing zero reported as 'compatible with zero' (not proof of no effect, not equivalence); no imputation; rounds with an invalid start excluded from that contrast only (n reported)",
+  "underpowered_rule": "if fewer than 3 valid paired rounds, contrast reported as underpowered/indeterminate; NO additional runs (budget frozen)",
+  "validity_per_start": "status=completed AND boot_rc=0 AND config_verify=CONFIG_OK AND bench_rc=0 AND errors=0 AND ok=7963 AND tracebacks=0",
+  "analyzer": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_fivearm_campaign.py",
+   "sha256": "b77562781c07be9d85ca36f2ea150cd1f4eed0ab5bbc1132fd6ecc653b363be6"
+  }
+ },
+ "ep_two_level_evaluation": "level 1 frozen-layout quality: from ep_v1 offline (planner_offline_quality.json, sha 5b460ee0...) + per-start diag layout-quality proxies (avg/max ratio_after); level 2 online net effect: A11-P11 paired contrast incl. planbuild and migration-wall descriptors; distinction_rule per ep_v1_planner_protocol.json (better layout found vs less planning/migration time)",
+ "identity_ilp_policy": "v3 identity (400.85s) and frozen-ILP (389.11s) references NOT re-run per user rule; A11 in this campaign serves as the contemporaneous online control",
+ "locked_artifacts": {
+  "evaluation_workload": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+   "sha256": "53e5b0e1f74af708037d69f95856aced71374ec55826c96ea1f4134a78fedb1c"
+  },
+  "deployed_controller": {
+   "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py",
+   "sha256": "9443e6a53e189dc9064f2048dddcdca72a33c05ba59a5065ff18ca42bda5761f"
+  },
+  "deployed_rebalancer": {
+   "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/rebalancer.py",
+   "sha256": "8ec3ec5f0ceac7a467a94c9a00958d413f002d5f4dd68ae51adf3ed89258875d"
+  },
+  "deployed_config": {
+   "path": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/config.py",
+   "sha256": "afb91a5f81b14b3aeed46fa8a3b9433719d779be7c6ea0135c199de3bdedea6b"
+  },
+  "repo_controller": {
+   "path": "/workspace/EPLB/OEPLB/src/controller.py",
+   "sha256": "0b2f745dfe648681cec9d228ce7ea75198de8b358f55477714c8bf001fa920f5"
+  },
+  "repo_rebalancer": {
+   "path": "/workspace/EPLB/OEPLB/src/rebalancer.py",
+   "sha256": "8ec3ec5f0ceac7a467a94c9a00958d413f002d5f4dd68ae51adf3ed89258875d"
+  },
+  "repo_config": {
+   "path": "/workspace/EPLB/OEPLB/src/config.py",
+   "sha256": "afb91a5f81b14b3aeed46fa8a3b9433719d779be7c6ea0135c199de3bdedea6b"
+  },
+  "campaign_launcher": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_launchers/launch235b_eacampaign.sh",
+   "sha256": "05b5c32f90f6374cad000f0d3a32a62da9a23b82cefdb03e4add114699d67967"
+  },
+  "campaign_driver": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_fivearm_campaign.sh",
+   "sha256": "af98ae0740c040d5a94eef49dba48c2e4b723cc20016d65fa6256888ca018759"
+  },
+  "campaign_analyzer": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_fivearm_campaign.py",
+   "sha256": "b77562781c07be9d85ca36f2ea150cd1f4eed0ab5bbc1132fd6ecc653b363be6"
+  },
+  "bench_tool": {
+   "path": "/workspace/EPLB/OEPLB/scripts/run_grid_bench.py",
+   "sha256": "2d56c9778a5dea3956fffe44b3d5e50b7b7fbd4227c025007ad1e9950d23ddb0"
+  },
+  "campaign_code_lock": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/eacampaign_code_lock.json",
+   "sha256": "5ce0ad3299ee93364ad3918791f662acdf9ec87467075ecbcc0e84dca45da028"
+  },
+  "fixed_params": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_fixed_params.json",
+   "sha256": "636b4bffb74f69f040cd0a1a1751eae9a1de72e17ba924c34b8bcaadb43019a0"
+  },
+  "grid_selection": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/grid_selection.json",
+   "sha256": "9c7c7af3fb4a228cad13a74e7d4dded5bee03718cd06ba1621fe203b3e95071c"
+  },
+  "grid_protocol": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_calibration_grid_protocol.json",
+   "sha256": "a87ffd4599398d56bcabd77c95c10f9cc665438854f7a377f03e1d553d7d87a3"
+  },
+  "ea_code_lock_superseded": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ea_v1_code_lock.json",
+   "sha256": "0c173198f17131a437e54570370ebbb3021413d26ebd102ac41fed2590bab662"
+  },
+  "c5_dynamic_verification": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/c5_dynamic_verification.json",
+   "sha256": "2493ad0ea9afcb2fd65196678b07dccc1c4367d4f7517843d14dc89d40197f81"
+  },
+  "static_verification_postp11": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ea_v1/switch_independence_static_postp11.json",
+   "sha256": "636bdb3ee146d8a2ed09b7f4f94dd5ffaed033baa34a67414c0cbb5257030962"
+  },
+  "ep_planner_protocol": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/ep_v1_planner_protocol.json",
+   "sha256": "2e5fabe63646baff9e922e78222034e15e3f88e59f2b9d3e0e43e18dc952a726"
+  },
+  "ep_offline_quality": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/ep_v1/planner_offline_quality.json",
+   "sha256": "5b460ee02703168aedfabcad44b13ef89f67d9d893f2fec76e335055a01012b4"
+  },
+  "v3_protocol_reference": {
+   "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/fullservice_protocol_v3.json",
+   "sha256": "dd9a90691cb85cd616591b14aaf68d6d51733bcc3ed1336ca02eba62f09a4e8c"
+  }
+ },
+ "prohibitions": [
+  "push_without_separate_instruction",
+  "best_start_or_repeat_selection",
+  "overwrite_existing_raw_result",
+  "retry_failed_start_same_campaign",
+  "post_freeze_flag_workload_or_launcher_change",
+  "deployed_code_change_during_campaign",
+  "evaluation_requests_in_setup_or_map_generation",
+  "subtract_overhead_from_measured_contrast",
+  "artificial_delay_floor",
+  "differential_delay",
+  "sleep_or_spin",
+  "mid_layer_collective_or_gate",
+  "significance_driven_extra_runs"
+ ],
+ "estimated_runtime": "25 starts x ~8 min (boot ~3 min + bench ~400 s + teardown) ~= 3.5-4 h"
+}

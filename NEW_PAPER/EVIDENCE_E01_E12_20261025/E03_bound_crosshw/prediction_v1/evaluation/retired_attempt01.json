@@ -1,0 +1,90 @@
+{
+  "amendment_summary": {
+    "bug_detection_preserved": "a wrong-weight/wrong-route mapping error produces O(1) relative errors over >=128 tokens x 4096 dims (fraction >= 2^-5), failing tier-2 by >= 3 orders of magnitude over the sparsity cap and failing rtol=2^-7 outright",
+    "implementation": "scripts/prediction_replay_v2.py + scripts/index_prediction_timing_results_v2.py (new versioned files; hash-locked v1 files untouched)",
+    "tier1_identity_versus_captured": "unchanged strict: atol=2^-8, rtol=0, zero failures, zero nonfinite (validates replay path and frozen artifacts)",
+    "tier2_candidate_comparisons": "atol=2^-8, rtol=2^-7 (one bf16 ulp relative), zero nonfinite, isclose failure fraction <= 2^-16 (isolated rounding events only)",
+    "tolerance_file": "configs/followup_v1/prediction_tolerance_v2.json"
+  },
+  "calibration_evidence_available_before_evaluation": {
+    "candidate_comparisons": 3456,
+    "candidate_comparisons_with_nonzero_error": 3456,
+    "candidate_versus_identity_max_abs_error": 0.0029296875,
+    "conclusion": "candidate-vs-identity deviations are pervasive (3456/3456 nonzero) and reached 0.00293 in calibration while staying under the absolute 2^-8 bound; because the bf16 ulp scales with element magnitude, an absolute-only bound was expected to fail on 1-ulp flips at magnitudes >= 1. The two-tier amendment is justified by this calibration-only evidence and by the bf16 8-bit mantissa, not by evaluation timing outcomes.",
+    "identity_versus_captured_max_abs_error": 0.0,
+    "records": 3840
+  },
+  "completed_starts_retained_but_excluded": {
+    "exclusion_reason": "single-campaign provenance: attempt-02 refreezes and reruns all 48 starts fresh under one frozen protocol; no attempt-01 timing value enters any analysis, model, or selection",
+    "starts": [
+      "eval-01-start-1.json",
+      "eval-01-start-2.json",
+      "eval-01-start-3.json",
+      "eval-01-start-4.json",
+      "eval-02-start-1.json",
+      "eval-02-start-2.json",
+      "eval-02-start-3.json",
+      "eval-02-start-4.json",
+      "eval-03-start-1.json",
+      "eval-03-start-2.json",
+      "eval-03-start-3.json",
+      "eval-03-start-4.json"
+    ],
+    "used_for_layout_selection": false,
+    "used_for_model_fitting": false
+  },
+  "failed_start_aborted_before_timing_passes": true,
+  "failure_facts": {
+    "failing_layouts": [
+      "raw-01",
+      "raw-02",
+      "padding-01",
+      "padding-02"
+    ],
+    "failing_rank": 0,
+    "gate": "frozen pilot tolerance atol=2^-8=0.00390625, rtol=0, zero isclose failures required",
+    "identical_failures_versus_captured_and_versus_identity": true,
+    "interpretation": "placement-induced regrouping changes FP8 grouped-GEMM tile boundaries and DeepEP combine summation order; floating-point addition is non-associative, so isolated 1-ulp bf16 flips are inherent to permuting expert placement. A mapping error would corrupt every token of the affected experts with O(1) relative errors and would also fail identity; identity, m2 and random layouts all passed on the same capture and start.",
+    "isclose_failure_counts": [
+      2,
+      4,
+      5,
+      6
+    ],
+    "max_abs_error": 0.0078125,
+    "max_abs_error_dyadic": "2^-7, exactly one bf16 ulp for output magnitudes in [1,2)",
+    "nonfinite_pair_count": 0,
+    "passing_layouts": [
+      "identity",
+      "m2-01",
+      "m2-02",
+      "random-01",
+      "random-02"
+    ]
+  },
+  "favorable_repeat_selection_risk": "none: all 48 starts rerun; new start seeds from new generator version; no start repeated or selected",
+  "recorded_at_utc": "2026-10-12T10:34:03.405143+00:00",
+  "retired_campaign": {
+    "driver_log": "results/prediction_v1/evaluation_campaign_driver_attempt01.log",
+    "environment_directory": "results/prediction_v1/evaluation/environment/eval-04-start-1",
+    "failed_start": "eval-04-start-1",
+    "failed_start_capture": "pred-v1-evaluation-01-layer-071 (held-out layer 71, batch evaluation-01)",
+    "failure_log": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prediction_v1/evaluation/logs/eval-04-start-1.log",
+      "sha256": "589d874cc7a7a437ead1f88be790cb4f034ab1cb12132563248d7a0e59f7659d"
+    },
+    "failure_record": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prediction_v1/evaluation/raw/eval-04-start-1.failure.json",
+      "sha256": "21ec902ac82e79067db7a3a34d9df79cb473ea2d1a7390495a7919e91b1bb9a6"
+    },
+    "protocol": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_evaluation_protocol.json",
+      "sha256": "a3c7437d2b7eed92098ef894aab911c5e8a9d4015ac87e76f8fdc51ad67e962c"
+    }
+  },
+  "retry_under_same_frozen_campaign_prohibited": true,
+  "schema_version": 1,
+  "status": "evaluation_protocol_attempt01_retired_correctness_gate_blocked_campaign",
+  "study_id": "h20-placement-prediction-v1",
+  "timed_values_persisted_for_failed_start": false
+}

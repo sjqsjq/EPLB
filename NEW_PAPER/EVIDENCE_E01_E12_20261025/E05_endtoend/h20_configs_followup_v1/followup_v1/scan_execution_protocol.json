@@ -1,0 +1,3640 @@
+{
+  "attempt": 1,
+  "capture_index": {
+    "bytes": 74342,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_index.json",
+    "sha256": "3406f8427e62e5d44ad747d5522f2703dceb80853d84034901121dc982a4a35e"
+  },
+  "correctness_gate": {
+    "candidate": {
+      "applies_to": "versus_captured_output and versus_identity_replay comparisons for every layout; identity comparisons are trivially exact against themselves",
+      "atol": 0.00390625,
+      "max_isclose_failure_fraction": 1.52587890625e-05,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0078125
+    },
+    "identity_versus_captured": {
+      "atol": 0.00390625,
+      "max_isclose_failure_count": 0,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0,
+      "strict_equivalence_note": "enforced via max_abs_error <= atol on the identity-versus-captured comparison, which at rtol=0 is exactly equivalent to zero isclose failures under the strict bound"
+    }
+  },
+  "design": {
+    "capture_units": 12,
+    "cross_capture_map_reuse": "two maps (identity and one perfectly balanced layout) recur across captures by construction; the measurement unit is (capture, layout), so reuse is legal and is recorded in the frozen layout index",
+    "deadzone_rule": "a plateau is supported only where raw r strictly decreases while every adjacent-bin contrast interval lies wholly inside [-epsilon,+epsilon]; an interval crossing zero is compatible with zero and is never by itself a plateau declaration",
+    "equivalence_rule": "only an interval wholly inside [-epsilon,+epsilon] supports practical equivalence; crossing zero alone does not",
+    "fresh_start_semantics": "one torchrun process group per start; every start reloads all immutable artifacts and rebuilds weights before warmup",
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "layout_purpose": "near_equilibrium_real_layout_deadzone_scan",
+    "no_best_measured_prefix_selection": true,
+    "no_refit_before_or_during_scan": true,
+    "no_slack_subtracted_from_measured_q": true,
+    "no_subset_selection": true,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "report_all_signed_effects_including_negative": true,
+    "response_definition": "start-level contrast T(a) - T(b) for two layouts of the same capture = mean of the five paired block effects; each block effect is completion_fenced_us_per_forward(a) - completion_fenced_us_per_forward(b) within the same randomized block; adjacent-bin contrasts follow r-descending layout order; identity-vs-layout contrasts measure cumulative gain",
+    "starts_per_capture": 4,
+    "timed_layout_ids_by_capture": {
+      "pred-v1-evaluation-01-layer-024": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-01-layer-028": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-01-layer-044": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-01-layer-071": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-02-layer-024": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-02-layer-028": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-02-layer-044": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-02-layer-071": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-03-layer-024": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-03-layer-028": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-03-layer-044": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ],
+      "pred-v1-evaluation-03-layer-071": [
+        "identity",
+        "bin-r-gt-1.80",
+        "bin-r-1.40-1.80",
+        "bin-r-1.20-1.40",
+        "bin-r-1.10-1.20",
+        "bin-r-1.05-1.10",
+        "bin-r-1.00-1.05",
+        "base"
+      ]
+    },
+    "zero_crossing_is_not_a_deadzone": true
+  },
+  "followup_protocol": {
+    "bytes": 17479,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/protocol.json",
+    "sha256": "7c0cf10200ac9971a2e327c7bb291b118e693e1819a48858711cff1b8c2d9eb9"
+  },
+  "frozen_at_utc": "2026-10-14T18:41:08.335563+00:00",
+  "generator": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_scan_protocol.py",
+    "seed_derivation": "uint64 big-endian SHA256(nearscan_study|version|parts) mod 2^62",
+    "sha256": "1f9c11dbcaf09c83990fdcd5a30c087cbc6448bcacda0db5e46750f7e582905b",
+    "version": "nearscan-execution-protocol-v1"
+  },
+  "implementation": {
+    "generate_scan_layouts_record": {
+      "bytes": 14709,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_scan_layouts.py",
+      "sha256": "5f3212e66124fa6f1525e7adae87a8fff4d9ec305a2e5803f1929b9caf6d38b9"
+    },
+    "index_scan_results_record": {
+      "bytes": 13246,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_scan_results.py",
+      "sha256": "bff7bbf8b8483530f5492b40b0d5072835c248778ae3cee60bf9cdb085049e7a"
+    },
+    "prediction_common_record": {
+      "bytes": 25260,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    },
+    "prediction_models_record": {
+      "bytes": 7025,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_models.py",
+      "sha256": "a5058b6e38346c0e23d67b239a3cf39cd089ba87d4a7d6bcc527201839b3dda7"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    },
+    "run_scan_execution_record": {
+      "bytes": 6659,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_scan_execution.sh",
+      "sha256": "6e07a8a0e461af5c0f278f807c7b5d55ec532bbf6a50dc9e148054a20765b199"
+    },
+    "scan_replay_record": {
+      "bytes": 33804,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/scan_replay.py",
+      "sha256": "ff56dfdb74a0844979db8d7346c27e1bddd26691bf573ffd8cbdc52329173fb1"
+    }
+  },
+  "layout_index": {
+    "bytes": 9778,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/index.json",
+    "sha256": "3cb34063ed7e5514c01390e3edfb63e1ce31b7c57150d20164f6690d80032fc8"
+  },
+  "layout_manifests": [
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 157856,
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+      "r_base": 1.0029585798816567,
+      "r_identity": 2.6992110453648914,
+      "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 157644,
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+      "r_base": 1.0002465483234715,
+      "r_identity": 2.267258382642998,
+      "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 158034,
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "empty_bins": [],
+      "layer_id": 44,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+      "r_base": 1.0007396449704142,
+      "r_identity": 2.549802761341223,
+      "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 158082,
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+      "r_base": 1.0002465483234715,
+      "r_identity": 2.2206607495069033,
+      "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157821,
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.765736855097507,
+      "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157842,
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.3016539126141695,
+      "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157983,
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "empty_bins": [],
+      "layer_id": 44,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+      "r_base": 1.0,
+      "r_identity": 2.6578622562330287,
+      "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157854,
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.3421377437669713,
+      "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157861,
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+      "r_base": 1.0019787286668316,
+      "r_identity": 2.6510017313875833,
+      "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157821,
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.25204056393767,
+      "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 140526,
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "empty_bins": [
+        "bin-r-1.20-1.40"
+      ],
+      "layer_id": 44,
+      "layout_count": 7,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.545634429878803,
+      "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157836,
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.292357160524363,
+      "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+    }
+  ],
+  "model_lock": {
+    "bytes": 257792,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_model_lock.json",
+    "sha256": "092f9736a9768d947e3f0fa15659889c5438fe4e10fa8509df4a029bf8088543"
+  },
+  "prohibitions": {
+    "artificial_delay_floor": true,
+    "best_start_or_repeat_selection": true,
+    "cross_device_timestamp_subtraction": true,
+    "differential_delay": true,
+    "mid_layer_collective_or_gate": true,
+    "overwrite_existing_raw_result": true,
+    "push_without_separate_instruction": true,
+    "sleep_or_spin": true
+  },
+  "protocol_id": "h20-placement-nearscan-execution-v1",
+  "result_index_relative_path": "results/nearscan_v1/execution/index.json",
+  "scan_study_spec": {
+    "activation_warmup": 10,
+    "blocks_per_start": 5,
+    "deadzone_rule": "a plateau is supported only where raw r strictly decreases while every adjacent-bin contrast interval lies wholly inside [-epsilon,+epsilon]; an interval crossing zero is compatible with zero and is never by itself a plateau declaration",
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "initial_warmup": 10,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "r_bins": [
+      "bin-r-gt-1.80",
+      "bin-r-1.40-1.80",
+      "bin-r-1.20-1.40",
+      "bin-r-1.10-1.20",
+      "bin-r-1.05-1.10",
+      "bin-r-1.00-1.05"
+    ],
+    "starts": 4,
+    "timed_forwards": 50
+  },
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "expert_parallel_size": 8,
+    "geometry": {
+      "hidden_size": 4096,
+      "intermediate_size": 1536,
+      "local_experts_per_rank": 16,
+      "routed_experts": 128,
+      "top_k": 8,
+      "weight_block": [
+        128,
+        128
+      ]
+    },
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner": "DeepGEMM FP8",
+    "node_count": 1
+  },
+  "source_study_id": "h20-placement-prediction-v1",
+  "split": "nearscan",
+  "starts": [
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157856,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+        "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-01-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "identity",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 2002262530730004299,
+      "start_id": "scan-01-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157856,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+        "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-01-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 4595066528929770101,
+      "start_id": "scan-01-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157856,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+        "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-01-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 2015751056637821811,
+      "start_id": "scan-01-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157856,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+        "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-01-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-01-start-4.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "base"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 2542837203469483492,
+      "start_id": "scan-01-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157644,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+        "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-02-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "identity"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "base",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity"
+        ]
+      ],
+      "random_seed": 4356461711871667889,
+      "start_id": "scan-02-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157644,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+        "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-02-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 1409724526642718462,
+      "start_id": "scan-02-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157644,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+        "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-02-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "base"
+        ],
+        [
+          "identity",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "base"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 1472841434893828723,
+      "start_id": "scan-02-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157644,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+        "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-02-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-02-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "identity",
+          "base"
+        ]
+      ],
+      "random_seed": 1635581284327085371,
+      "start_id": "scan-02-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 158034,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+        "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-03-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "base"
+        ]
+      ],
+      "random_seed": 409607977790790890,
+      "start_id": "scan-03-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 158034,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+        "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-03-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-2.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "base"
+        ]
+      ],
+      "random_seed": 1786528637823152077,
+      "start_id": "scan-03-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 158034,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+        "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-03-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "base",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "identity",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 1829663952678510024,
+      "start_id": "scan-03-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 158034,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+        "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-03-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-03-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "identity"
+        ],
+        [
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "identity"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 383895944833613195,
+      "start_id": "scan-03-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 158082,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+        "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-04-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base"
+        ]
+      ],
+      "random_seed": 4531188191120032247,
+      "start_id": "scan-04-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 158082,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+        "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-04-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-2.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "base",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 3901051368309100924,
+      "start_id": "scan-04-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 158082,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+        "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-04-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "identity"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 4510912881861977327,
+      "start_id": "scan-04-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 158082,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+        "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-04-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-04-start-4.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "identity",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 4549563085132099777,
+      "start_id": "scan-04-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+        "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-05-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "identity",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 806672933780928636,
+      "start_id": "scan-05-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+        "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-05-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base"
+        ]
+      ],
+      "random_seed": 4391066868477722865,
+      "start_id": "scan-05-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+        "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-05-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-3.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 3785551456197403497,
+      "start_id": "scan-05-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+        "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-05-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-05-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "identity",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "base",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 431944797457005765,
+      "start_id": "scan-05-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157842,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+        "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-06-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 2836256420855860726,
+      "start_id": "scan-06-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157842,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+        "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-06-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "base",
+          "identity"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base"
+        ],
+        [
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 4008738060589304003,
+      "start_id": "scan-06-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157842,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+        "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-06-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40"
+        ]
+      ],
+      "random_seed": 1266886596226799767,
+      "start_id": "scan-06-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157842,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+        "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-06-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-06-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "base"
+        ],
+        [
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 4183381607776898686,
+      "start_id": "scan-06-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 157983,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+        "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-07-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "base",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 1607602666998882252,
+      "start_id": "scan-07-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 157983,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+        "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-07-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 2083808128020135148,
+      "start_id": "scan-07-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 157983,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+        "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-07-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "base"
+        ]
+      ],
+      "random_seed": 1937059155203719451,
+      "start_id": "scan-07-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 157983,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+        "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-07-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-07-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "base"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 2656621548537165288,
+      "start_id": "scan-07-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157854,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+        "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-08-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "base",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 4275265588391997010,
+      "start_id": "scan-08-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157854,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+        "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-08-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "identity",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "identity",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 4319577103926163672,
+      "start_id": "scan-08-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157854,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+        "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-08-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "identity"
+        ],
+        [
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "base"
+        ]
+      ],
+      "random_seed": 871748911982622279,
+      "start_id": "scan-08-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157854,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+        "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-08-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-08-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "base",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-gt-1.80"
+        ]
+      ],
+      "random_seed": 2711233220801698436,
+      "start_id": "scan-08-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+        "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-09-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.20-1.40"
+        ]
+      ],
+      "random_seed": 4215221022318224489,
+      "start_id": "scan-09-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+        "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-09-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-2.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base",
+          "identity"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "base",
+          "identity"
+        ],
+        [
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05"
+        ]
+      ],
+      "random_seed": 670433531443738072,
+      "start_id": "scan-09-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+        "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-09-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "identity",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "identity",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "identity"
+        ]
+      ],
+      "random_seed": 4471422944287432385,
+      "start_id": "scan-09-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 157861,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+        "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-09-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-09-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "identity",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 1728978193372934115,
+      "start_id": "scan-09-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+        "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-10-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "base"
+        ]
+      ],
+      "random_seed": 4560584913777510061,
+      "start_id": "scan-10-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+        "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-10-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "identity",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ]
+      ],
+      "random_seed": 1277445959371993741,
+      "start_id": "scan-10-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+        "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-10-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 869088847420913344,
+      "start_id": "scan-10-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 157821,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+        "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-10-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-10-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ]
+      ],
+      "random_seed": 1410493617994118967,
+      "start_id": "scan-10-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 140526,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+        "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-11-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-1.json",
+      "primary_schedules": [
+        [
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "identity",
+          "base"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "identity",
+          "base",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 3612849192878010869,
+      "start_id": "scan-11-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 140526,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+        "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-11-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "base",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "base",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "base",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80"
+        ]
+      ],
+      "random_seed": 290243619975000912,
+      "start_id": "scan-11-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 140526,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+        "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-11-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.40-1.80",
+          "identity"
+        ],
+        [
+          "base",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "identity"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 2160345840135970237,
+      "start_id": "scan-11-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 140526,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+        "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-11-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-11-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ],
+        [
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "base",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 4353798965104523657,
+      "start_id": "scan-11-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157836,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+        "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-12-start-1.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "identity",
+          "bin-r-1.40-1.80",
+          "base"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "base",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05"
+        ]
+      ],
+      "random_seed": 3772712073268798738,
+      "start_id": "scan-12-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157836,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+        "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-12-start-2.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-2.json",
+      "primary_schedules": [
+        [
+          "base",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-gt-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "bin-r-1.00-1.05",
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "identity",
+          "base"
+        ],
+        [
+          "bin-r-1.40-1.80",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.10-1.20",
+          "identity"
+        ],
+        [
+          "base",
+          "identity",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10"
+        ]
+      ],
+      "random_seed": 3375602061854722033,
+      "start_id": "scan-12-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157836,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+        "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-12-start-3.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-3.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "identity"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "base",
+          "identity",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40",
+          "bin-r-1.10-1.20",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.00-1.05"
+        ],
+        [
+          "base",
+          "bin-r-gt-1.80",
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40"
+        ]
+      ],
+      "random_seed": 2950591884473987495,
+      "start_id": "scan-12-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 157836,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+        "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+      },
+      "log_relative_path": "results/nearscan_v1/execution/logs/scan-12-start-4.log",
+      "output_relative_path": "results/nearscan_v1/execution/raw/scan-12-start-4.json",
+      "primary_schedules": [
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-gt-1.80",
+          "base",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "bin-r-1.00-1.05",
+          "identity"
+        ],
+        [
+          "identity",
+          "bin-r-1.00-1.05",
+          "bin-r-1.05-1.10",
+          "bin-r-1.40-1.80",
+          "bin-r-1.10-1.20",
+          "bin-r-1.20-1.40",
+          "base",
+          "bin-r-gt-1.80"
+        ],
+        [
+          "bin-r-1.10-1.20",
+          "bin-r-gt-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-1.00-1.05",
+          "identity",
+          "base",
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80"
+        ],
+        [
+          "bin-r-1.05-1.10",
+          "bin-r-1.10-1.20",
+          "identity",
+          "bin-r-1.00-1.05",
+          "base",
+          "bin-r-gt-1.80",
+          "bin-r-1.40-1.80",
+          "bin-r-1.20-1.40"
+        ],
+        [
+          "bin-r-1.20-1.40",
+          "bin-r-1.40-1.80",
+          "bin-r-1.05-1.10",
+          "bin-r-gt-1.80",
+          "bin-r-1.10-1.20",
+          "base",
+          "bin-r-1.00-1.05",
+          "identity"
+        ]
+      ],
+      "random_seed": 1021735599101010522,
+      "start_id": "scan-12-start-4"
+    }
+  ],
+  "status": "frozen_before_scan_timing",
+  "study_id": "h20-placement-nearscan-v1",
+  "timing": {
+    "activation_warmup_forwards": 10,
+    "blocks_per_start": 5,
+    "diagnostic_blocks_per_start": 0,
+    "diagnostic_pass": false,
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "initial_warmup_forwards_per_layout": 10,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "random.Random(seed + block).shuffle over that capture's frozen layout order (identity anchor + first-entry r-bin layouts + base anchor; every layout in the manifest is timed)",
+    "timed_forwards_per_activation": 50
+  },
+  "tolerance_file": {
+    "bytes": 2499,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_tolerance_v2.json",
+    "sha256": "88c9b0e2bf3c8914dfebe6b1d96f91fb63124c44f91d11a485265f26051b02f1"
+  }
+}

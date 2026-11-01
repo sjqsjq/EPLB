@@ -1,0 +1,21 @@
+{
+  "label": "verify_sw32_anomaly/run17_timing",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/comprehensive_grid/L256_O1.jsonl",
+  "num_requests": 1024,
+  "concurrency": 1024,
+  "ok": 1024,
+  "errors": 0,
+  "total_time_s": 14.06,
+  "total_comp_tokens": 1024,
+  "tps": 72.8,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 7483.5,
+  "lat_p50_ms": 7313.16,
+  "lat_p99_ms": 13949.7,
+  "ttft_mean_ms": 7483.47,
+  "ttft_p50_ms": 7313.13,
+  "ttft_p99_ms": 13949.68,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

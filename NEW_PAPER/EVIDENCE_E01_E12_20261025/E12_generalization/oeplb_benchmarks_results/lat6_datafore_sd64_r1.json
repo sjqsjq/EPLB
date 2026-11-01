@@ -1,0 +1,21 @@
+{
+  "label": "lat6_datafore_sd64_r1",
+  "dataset": "/workspace/EPLB/OEPLB/baselines/a100/latency/lat_prover256_o64.jsonl",
+  "num_requests": 256,
+  "concurrency": 256,
+  "ok": 256,
+  "errors": 0,
+  "total_time_s": 12.16,
+  "total_comp_tokens": 16384,
+  "tps": 1346.9,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 12145.9,
+  "lat_p50_ms": 12147.58,
+  "lat_p99_ms": 12159.29,
+  "ttft_mean_ms": 3681.33,
+  "ttft_p50_ms": 3458.71,
+  "ttft_p99_ms": 5936.97,
+  "tpot_mean_ms": 134.36,
+  "tpot_p50_ms": 137.86,
+  "tpot_p99_ms": 173.52
+}

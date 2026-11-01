@@ -1,0 +1,1130 @@
+[
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/domain_switch_160k.jsonl",
+  "tag": "pool",
+  "rows": 160000,
+  "bad_json": 0,
+  "domains": {
+   "sharegpt": 40000,
+   "prover": 40000,
+   "book": 40000,
+   "code": 40000
+  },
+  "uniq_content": {
+   "sharegpt": 3388,
+   "prover": 1336,
+   "book": 4000,
+   "code": 125
+  },
+  "len_pct": {
+   "sharegpt": {
+    "n": 40000,
+    "min": 129,
+    "p10": 242,
+    "p25": 315,
+    "p50": 479,
+    "p75": 850,
+    "p90": 1367,
+    "max": 5800
+   },
+   "prover": {
+    "n": 40000,
+    "min": 450,
+    "p10": 457,
+    "p25": 470,
+    "p50": 500,
+    "p75": 540,
+    "p90": 574,
+    "max": 600
+   },
+   "book": {
+    "n": 40000,
+    "min": 950,
+    "p10": 964,
+    "p25": 986,
+    "p50": 1024,
+    "p75": 1062,
+    "p90": 1085,
+    "max": 1100
+   },
+   "code": {
+    "n": 40000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/fixeddata.jsonl",
+  "tag": "pool",
+  "rows": 3072,
+  "bad_json": 0,
+  "domains": {
+   "prover": 1024,
+   "book": 2048
+  },
+  "uniq_content": {
+   "prover": 1024,
+   "book": 2045
+  },
+  "len_pct": {
+   "prover": {
+    "n": 1024,
+    "min": 106,
+    "p10": 149,
+    "p25": 176,
+    "p50": 228,
+    "p75": 304,
+    "p90": 420,
+    "max": 2074
+   },
+   "book": {
+    "n": 2048,
+    "min": 262,
+    "p10": 354,
+    "p25": 367,
+    "p50": 382,
+    "p75": 399,
+    "p90": 426,
+    "max": 1650
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_500.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 500
+  },
+  "uniq_content": {
+   "unknown": 1
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 500,
+    "min": 32,
+    "p10": 32,
+    "p25": 32,
+    "p50": 32,
+    "p75": 32,
+    "p90": 32,
+    "max": 32
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_hellaswag.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 500
+  },
+  "uniq_content": {
+   "unknown": 500
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 500,
+    "min": 1993,
+    "p10": 2013,
+    "p25": 2019,
+    "p50": 2024,
+    "p75": 2030,
+    "p90": 2048,
+    "max": 2087
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_in2048.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 500
+  },
+  "uniq_content": {
+   "unknown": 134
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 500,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_longbench_4k.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "gov_report": 13,
+   "gov_report_e": 14,
+   "lcc": 2,
+   "lcc_e": 75,
+   "multi_news_e": 11,
+   "narrativeqa": 125,
+   "passage_count": 32,
+   "passage_count_e": 2,
+   "qasper": 1,
+   "qasper_e": 2,
+   "qmsum": 22,
+   "repobench-p": 41,
+   "repobench-p_e": 94,
+   "triviaqa": 18,
+   "triviaqa_e": 14,
+   "vcsum": 5,
+   "农业、农村": 29
+  },
+  "uniq_content": {
+   "gov_report": 13,
+   "gov_report_e": 14,
+   "lcc": 2,
+   "lcc_e": 75,
+   "multi_news_e": 11,
+   "narrativeqa": 113,
+   "passage_count": 32,
+   "passage_count_e": 2,
+   "qasper": 1,
+   "qasper_e": 2,
+   "qmsum": 22,
+   "repobench-p": 41,
+   "repobench-p_e": 94,
+   "triviaqa": 18,
+   "triviaqa_e": 14,
+   "vcsum": 5,
+   "农业、农村": 29
+  },
+  "len_pct": {
+   "gov_report": {
+    "n": 13,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "gov_report_e": {
+    "n": 14,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "lcc": {
+    "n": 2,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "lcc_e": {
+    "n": 75,
+    "min": 4095,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "multi_news_e": {
+    "n": 11,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "narrativeqa": {
+    "n": 125,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "passage_count": {
+    "n": 32,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "passage_count_e": {
+    "n": 2,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "qasper": {
+    "n": 1,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "qasper_e": {
+    "n": 2,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "qmsum": {
+    "n": 22,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "repobench-p": {
+    "n": 41,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "repobench-p_e": {
+    "n": 94,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "triviaqa": {
+    "n": 18,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "triviaqa_e": {
+    "n": 14,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "vcsum": {
+    "n": 5,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   },
+   "农业、农村": {
+    "n": 29,
+    "min": 4096,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_prefill_heavy.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 500
+  },
+  "uniq_content": {
+   "unknown": 480
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 500,
+    "min": 4095,
+    "p10": 4096,
+    "p25": 4096,
+    "p50": 4096,
+    "p75": 4096,
+    "p90": 4096,
+    "max": 4096
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_real_production.jsonl",
+  "tag": "pool",
+  "rows": 500,
+  "bad_json": 0,
+  "domains": {
+   "real": 500
+  },
+  "uniq_content": {
+   "real": 498
+  },
+  "len_pct": {
+   "real": {
+    "n": 500,
+    "min": 1038,
+    "p10": 1349,
+    "p25": 1681,
+    "p50": 2426,
+    "p75": 3417,
+    "p90": 4052,
+    "max": 5082
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/frozen_requests_short_in_long_out.jsonl",
+  "tag": "pool",
+  "rows": 3000,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 3000
+  },
+  "uniq_content": {
+   "unknown": 10
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 3000,
+    "min": 30,
+    "p10": 31,
+    "p25": 31,
+    "p50": 32,
+    "p75": 33,
+    "p90": 33,
+    "max": 33
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/multidomain.jsonl",
+  "tag": "pool",
+  "rows": 3200,
+  "bad_json": 0,
+  "domains": {
+   "prover": 1600,
+   "book": 800,
+   "hella": 800
+  },
+  "uniq_content": {
+   "prover": 1000,
+   "book": 800,
+   "hella": 800
+  },
+  "len_pct": {
+   "prover": {
+    "n": 1600,
+    "min": 106,
+    "p10": 149,
+    "p25": 177,
+    "p50": 228,
+    "p75": 306,
+    "p90": 422,
+    "max": 2074
+   },
+   "book": {
+    "n": 800,
+    "min": 294,
+    "p10": 355,
+    "p25": 368,
+    "p50": 383,
+    "p75": 400,
+    "p90": 434,
+    "max": 1542
+   },
+   "hella": {
+    "n": 800,
+    "min": 93,
+    "p10": 111,
+    "p25": 121,
+    "p50": 133,
+    "p75": 151,
+    "p90": 170,
+    "max": 235
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/multidomain_v2.jsonl",
+  "tag": "pool",
+  "rows": 4400,
+  "bad_json": 0,
+  "domains": {
+   "prover": 2800,
+   "book": 800,
+   "real": 800
+  },
+  "uniq_content": {
+   "prover": 2800,
+   "book": 800,
+   "real": 797
+  },
+  "len_pct": {
+   "prover": {
+    "n": 2800,
+    "min": 100,
+    "p10": 153,
+    "p25": 181,
+    "p50": 232,
+    "p75": 305,
+    "p90": 419,
+    "max": 2074
+   },
+   "book": {
+    "n": 800,
+    "min": 294,
+    "p10": 355,
+    "p25": 368,
+    "p50": 383,
+    "p75": 400,
+    "p90": 434,
+    "max": 1542
+   },
+   "real": {
+    "n": 800,
+    "min": 903,
+    "p10": 1322,
+    "p25": 1667,
+    "p50": 2327,
+    "p75": 3141,
+    "p90": 3821,
+    "max": 5499
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/multidomain_v2_out1.jsonl",
+  "tag": "pool",
+  "rows": 4400,
+  "bad_json": 0,
+  "domains": {
+   "prover": 2800,
+   "book": 800,
+   "real": 800
+  },
+  "uniq_content": {
+   "prover": 2800,
+   "book": 800,
+   "real": 797
+  },
+  "len_pct": {
+   "prover": {
+    "n": 2800,
+    "min": 100,
+    "p10": 153,
+    "p25": 181,
+    "p50": 232,
+    "p75": 305,
+    "p90": 419,
+    "max": 2074
+   },
+   "book": {
+    "n": 800,
+    "min": 294,
+    "p10": 355,
+    "p25": 368,
+    "p50": 383,
+    "p75": 400,
+    "p90": 434,
+    "max": 1542
+   },
+   "real": {
+    "n": 800,
+    "min": 903,
+    "p10": 1322,
+    "p25": 1667,
+    "p50": 2327,
+    "p75": 3141,
+    "p90": 3821,
+    "max": 5499
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/prefill_heavy_universal.jsonl",
+  "tag": "pool",
+  "rows": 16000,
+  "bad_json": 0,
+  "domains": {
+   "sharegpt": 4000,
+   "prover": 4000,
+   "book": 4000,
+   "code": 4000
+  },
+  "uniq_content": {
+   "sharegpt": 3388,
+   "prover": 1336,
+   "book": 4000,
+   "code": 125
+  },
+  "len_pct": {
+   "sharegpt": {
+    "n": 4000,
+    "min": 129,
+    "p10": 242,
+    "p25": 315,
+    "p50": 479,
+    "p75": 850,
+    "p90": 1367,
+    "max": 5800
+   },
+   "prover": {
+    "n": 4000,
+    "min": 450,
+    "p10": 457,
+    "p25": 470,
+    "p50": 500,
+    "p75": 540,
+    "p90": 574,
+    "max": 600
+   },
+   "book": {
+    "n": 4000,
+    "min": 950,
+    "p10": 964,
+    "p25": 986,
+    "p50": 1024,
+    "p75": 1062,
+    "p90": 1085,
+    "max": 1100
+   },
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/prefill_heavy_universal_O256.jsonl",
+  "tag": "pool",
+  "rows": 16000,
+  "bad_json": 0,
+  "domains": {
+   "sharegpt": 4000,
+   "prover": 4000,
+   "book": 4000,
+   "code": 4000
+  },
+  "uniq_content": {
+   "sharegpt": 3388,
+   "prover": 1336,
+   "book": 4000,
+   "code": 125
+  },
+  "len_pct": {
+   "sharegpt": {
+    "n": 4000,
+    "min": 129,
+    "p10": 242,
+    "p25": 315,
+    "p50": 479,
+    "p75": 850,
+    "p90": 1367,
+    "max": 5800
+   },
+   "prover": {
+    "n": 4000,
+    "min": 450,
+    "p10": 457,
+    "p25": 470,
+    "p50": 500,
+    "p75": 540,
+    "p90": 574,
+    "max": 600
+   },
+   "book": {
+    "n": 4000,
+    "min": 950,
+    "p10": 964,
+    "p25": 986,
+    "p50": 1024,
+    "p75": 1062,
+    "p90": 1085,
+    "max": 1100
+   },
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/raw_hellaswag_val.jsonl",
+  "tag": "pool",
+  "rows": 10042,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 10042
+  },
+  "uniq_content": {
+   "unknown": 1
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 10042,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "p50": 0,
+    "p75": 0,
+    "p90": 0,
+    "max": 0
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/spliced_L512_L1024_O1.jsonl",
+  "tag": "pool",
+  "rows": 12288,
+  "bad_json": 0,
+  "domains": {
+   "unknown": 12288
+  },
+  "uniq_content": {
+   "unknown": 5432
+  },
+  "len_pct": {
+   "unknown": {
+    "n": 12288,
+    "min": 450,
+    "p10": 462,
+    "p25": 484,
+    "p50": 540,
+    "p75": 986,
+    "p90": 1054,
+    "max": 1100
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/spliced_code_chinese_O1.jsonl",
+  "tag": "pool",
+  "rows": 8000,
+  "bad_json": 0,
+  "domains": {
+   "code": 4000,
+   "chinese": 4000
+  },
+  "uniq_content": {
+   "code": 125,
+   "chinese": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   },
+   "chinese": {
+    "n": 4000,
+    "min": 2047,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/spliced_code_chinese_big.jsonl",
+  "tag": "pool",
+  "rows": 8000,
+  "bad_json": 0,
+  "domains": {
+   "code": 4000,
+   "chinese": 4000
+  },
+  "uniq_content": {
+   "code": 125,
+   "chinese": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   },
+   "chinese": {
+    "n": 4000,
+    "min": 2047,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/spliced_code_chinese_extreme.jsonl",
+  "tag": "pool",
+  "rows": 2000,
+  "bad_json": 0,
+  "domains": {
+   "code": 1000,
+   "chinese": 1000
+  },
+  "uniq_content": {
+   "code": 125,
+   "chinese": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 1000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   },
+   "chinese": {
+    "n": 1000,
+    "min": 2047,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/data/minghua/sjq/OEPLBdata/datasets/multi_domain/triplefixed.jsonl",
+  "tag": "pool",
+  "rows": 5120,
+  "bad_json": 0,
+  "domains": {
+   "prover": 1024,
+   "book": 2048,
+   "hella": 2048
+  },
+  "uniq_content": {
+   "prover": 1024,
+   "book": 2045,
+   "hella": 2048
+  },
+  "len_pct": {
+   "prover": {
+    "n": 1024,
+    "min": 106,
+    "p10": 149,
+    "p25": 176,
+    "p50": 228,
+    "p75": 304,
+    "p90": 420,
+    "max": 2074
+   },
+   "book": {
+    "n": 2048,
+    "min": 262,
+    "p10": 354,
+    "p25": 367,
+    "p50": 382,
+    "p75": 399,
+    "p90": 426,
+    "max": 1650
+   },
+   "hella": {
+    "n": 2048,
+    "min": 92,
+    "p10": 109,
+    "p25": 119,
+    "p50": 133,
+    "p75": 150,
+    "p90": 169,
+    "max": 250
+   }
+  }
+ },
+ {
+  "file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl",
+  "tag": "workload",
+  "rows": 8037,
+  "bad_json": 0,
+  "domains": {
+   "sharegpt": 2075,
+   "prover": 1977,
+   "book": 2016,
+   "code": 1969
+  },
+  "uniq_content": {
+   "sharegpt": 1886,
+   "prover": 1158,
+   "book": 2016,
+   "code": 125
+  },
+  "len_pct": {
+   "sharegpt": {
+    "n": 2075,
+    "min": 184,
+    "p10": 242,
+    "p25": 315,
+    "p50": 485,
+    "p75": 846,
+    "p90": 1340,
+    "max": 5800
+   },
+   "prover": {
+    "n": 1977,
+    "min": 450,
+    "p10": 456,
+    "p25": 470,
+    "p50": 498,
+    "p75": 540,
+    "p90": 575,
+    "max": 600
+   },
+   "book": {
+    "n": 2016,
+    "min": 950,
+    "p10": 964,
+    "p25": 987,
+    "p50": 1024,
+    "p75": 1061,
+    "p90": 1084,
+    "max": 1100
+   },
+   "code": {
+    "n": 1969,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/evaluation.jsonl",
+  "tag": "workload",
+  "rows": 7963,
+  "bad_json": 0,
+  "domains": {
+   "sharegpt": 1925,
+   "prover": 2023,
+   "book": 1984,
+   "code": 2031
+  },
+  "uniq_content": {
+   "sharegpt": 1752,
+   "prover": 1186,
+   "book": 1984,
+   "code": 125
+  },
+  "len_pct": {
+   "sharegpt": {
+    "n": 1925,
+    "min": 129,
+    "p10": 242,
+    "p25": 315,
+    "p50": 477,
+    "p75": 854,
+    "p90": 1402,
+    "max": 3601
+   },
+   "prover": {
+    "n": 2023,
+    "min": 450,
+    "p10": 458,
+    "p25": 470,
+    "p50": 502,
+    "p75": 540,
+    "p90": 574,
+    "max": 600
+   },
+   "book": {
+    "n": 1984,
+    "min": 950,
+    "p10": 963,
+    "p25": 985,
+    "p50": 1024,
+    "p75": 1063,
+    "p90": 1085,
+    "max": 1100
+   },
+   "code": {
+    "n": 2031,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/smoke_w1_300.jsonl",
+  "tag": "workload",
+  "rows": 300,
+  "bad_json": 0,
+  "domains": {
+   "code": 300
+  },
+  "uniq_content": {
+   "code": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 300,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+  "tag": "workload",
+  "rows": 4000,
+  "bad_json": 0,
+  "domains": {
+   "code": 4000
+  },
+  "uniq_content": {
+   "code": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ },
+ {
+  "file": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w2_switch_code_chinese_8000.jsonl",
+  "tag": "workload",
+  "rows": 8000,
+  "bad_json": 0,
+  "domains": {
+   "code": 4000,
+   "chinese": 4000
+  },
+  "uniq_content": {
+   "code": 125,
+   "chinese": 125
+  },
+  "len_pct": {
+   "code": {
+    "n": 4000,
+    "min": 2048,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   },
+   "chinese": {
+    "n": 4000,
+    "min": 2047,
+    "p10": 2048,
+    "p25": 2048,
+    "p50": 2048,
+    "p75": 2048,
+    "p90": 2048,
+    "max": 2048
+   }
+  }
+ }
+]

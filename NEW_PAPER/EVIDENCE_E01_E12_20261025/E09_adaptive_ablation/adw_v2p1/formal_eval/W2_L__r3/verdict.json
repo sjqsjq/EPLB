@@ -1,0 +1,21 @@
+{
+ "arm": "L",
+ "condition": "W2",
+ "label": "fev_r3_W2_L",
+ "checks": {
+  "bench": {
+   "label": "fev_r3_W2_L",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w2_switch_code_chinese_8000.jsonl",
+   "num_requests": 8000,
+   "concurrency": 256,
+   "ok": 8000,
+   "errors": 0,
+   "total_time_s": 709.52
+  },
+  "adw_banner_count_must_be_0": 0
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

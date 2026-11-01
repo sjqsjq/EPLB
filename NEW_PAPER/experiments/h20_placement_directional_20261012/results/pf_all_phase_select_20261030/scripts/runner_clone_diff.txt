@@ -1,0 +1,159 @@
+2,16c2,16
+< # Usage: run_pb_boot.sh LABEL ARM "PARAMS" DS_PATH DS_SHA NREQ CONC BENCH_TIMEOUT
+< # prover_book_switch_20261027 boot runner.
+< # Cloned from run_xd_boot.sh (frozen pattern). Deltas (PROTOCOL_pc.md
+< # sec.4): campaign paths; frozen prover->book two-block stream (stage2 changed code->book 1000 by author 2026-10-27) (author
+< # spec 2026-10-27); launcher = launch_arm_pc.sh (paper-lineage prover-frozen
+< # placements + ED period 100); placement guards read frozen shas from
+< # code_lock/placement_shas.env (written once at campaign open, never
+< # modified; missing lock = BOOT_ABORT); boot_meta records per-boot placement
+< # shas for mech_check cross-verification.
+< # AUTHORIZATION: author message 2026-10-27 (stage2 -> 1024 book reqs, run
+< # only 2 reps then joint analysis; book published set = 1000 rows, disclosed;
+< # formal 12 boots, zero-data INFRA restarts <=2).
+< # Facts-only mech check; no auto-retries.
+< LABEL=$1; ARM=$2; PARAMS=$3; DS=$4; DSSHA=$5; NREQ=$6; CONC=$7; BENCH_TIMEOUT=$8
+< PB=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_book_switch_20261027
+---
+> # Usage: run_g3_boot.sh LABEL ARM DS DSSHA NREQ CONC BENCH_TIMEOUT S1LABEL [DS2 DSSHA2 NREQ2 S2LABEL]
+> # pf_all_phase_select_20261030 boot runner. Cloned from run_pb_boot.sh
+> # (PBS archive, frozen) by BYTE-SPLICE: code guards (4 frozen pb_oeplb
+> # shas), env_clear/kill_server_quiet, ready loop are verbatim mother
+> # bytes. Deltas (PROTOCOL_g3.md sec.4/6): campaign paths + LEDGER_g3;
+> # launcher = launch_arm_g3.sh (sha below, computed at materialization);
+> # placement guards REPLACED by stream-lock membership guard (frozen shas
+> # in code_lock/stream_shas.env, written once); optional second bench
+> # segment per boot (smoke covers both tasks in one boot, per-task
+> # accounting via segment_meta.jsonl with v2p1/server.log line offsets);
+> # mech_check_pb.py (PBS-scoped) replaced by check_g3_boot.py modes
+> # smoke|formal|readyfail. Facts-only; no auto-retries.
+> LABEL=$1; ARM=$2; DS=$3; DSSHA=$4; NREQ=$5; CONC=$6; BENCH_TIMEOUT=$7; S1LABEL=$8
+> DS2=${9:-}; DSSHA2=${10:-}; NREQ2=${11:-0}; S2LABEL=${12:-}
+> G3=/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/pf_all_phase_select_20261030
+20c20
+< ART=$PB/boots/$LABEL
+---
+> ART=$G3/boots/$LABEL
+22,23c22,23
+< ledger(){ printf "%s\t%s\t%s\n" "$(date -u +%FT%TZ)" "$1" "$2" >> "$PB/LEDGER_pb.tsv"; }
+< # 1) stream integrity (frozen prover->book two-block stream (stage2 changed code->book 1000 by author 2026-10-27))
+---
+> ledger(){ printf "%s\t%s\t%s\n" "$(date -u +%FT%TZ)" "$1" "$2" >> "$G3/LEDGER_g3.tsv"; }
+> # 1) stream integrity: every bench segment stream must match its frozen sha
+26c26
+<   echo "{\"label\":\"$LABEL\",\"error\":\"stream_sha_mismatch\",\"expected\":\"$DSSHA\",\"actual\":\"$ACTUAL_SHA\"}" > "$ART/BOOT_ABORT.json"
+---
+>   echo "{\"error\":\"stream_sha_mismatch\",\"expected\":\"$DSSHA\",\"actual\":\"$ACTUAL_SHA\"}" > "$ART/BOOT_ABORT.json"
+29c29,36
+< # 2) code guards: frozen async_swapper/controller/window_v2 + patched sp_state
+---
+> if [ -n "$DS2" ]; then
+>   ACTUAL_SHA2=$(sha256sum "$DS2" | cut -d" " -f1)
+>   if [ "$ACTUAL_SHA2" != "$DSSHA2" ]; then
+>     echo "{\"error\":\"stream2_sha_mismatch\",\"expected\":\"$DSSHA2\",\"actual\":\"$ACTUAL_SHA2\"}" > "$ART/BOOT_ABORT.json"
+>     ledger "$LABEL" "ABORT stream2_sha_mismatch"; exit 2
+>   fi
+> fi
+> # 2) code guards: frozen async_swapper/controller/window_v2 + patched sp_state (verbatim mother block)
+42c49
+< LSHA=$(sha256sum $PB/scripts/launch_arm_pc.sh | cut -d" " -f1)
+---
+> LSHA=$(sha256sum $G3/scripts/launch_arm_g3.sh | cut -d" " -f1)
+44c51
+< if [ "$LSHA" != "cfbdaee752283935047b9d42bbcc36e74da327400ca0fcd3e53533965ced0c2c" ] || \
+---
+> if [ "$LSHA" != "c12c374b78e18b42e0153cca526bcc98995c3f0555ea8cf66d7dd48cdc860009" ] || \
+46c53
+<   echo "{\"label\":\"$LABEL\",\"error\":\"tool_sha_mismatch\",\"launcher\":\"$LSHA\",\"bench_client\":\"$BSHA\"}" > "$ART/BOOT_ABORT.json"
+---
+>   echo "{\"error\":\"tool_sha_mismatch\",\"launcher\":\"$LSHA\",\"bench_client\":\"$BSHA\"}" > "$ART/BOOT_ABORT.json"
+49,50c56,57
+< # 4) placement guards (paper-lineage prover-frozen placements)
+< LOCK=$PB/code_lock/placement_shas.env
+---
+> # 4) stream-lock membership guard (replaces PBS placement guards)
+> LOCK=$G3/code_lock/stream_shas.env
+52,53c59,60
+<   echo "{\"label\":\"$LABEL\",\"error\":\"placement_lock_missing\"}" > "$ART/BOOT_ABORT.json"
+<   ledger "$LABEL" "ABORT placement_lock_missing"; exit 2
+---
+>   echo "{\"error\":\"stream_lock_missing\"}" > "$ART/BOOT_ABORT.json"
+>   ledger "$LABEL" "ABORT stream_lock_missing"; exit 2
+56,69c63,70
+< if [ -z "${PL_ES:-}" ] || [ -z "${PL_DF:-}" ] || [ -z "${PL_MT:-}" ]; then
+<   echo "{\"label\":\"$LABEL\",\"error\":\"placement_lock_incomplete\"}" > "$ART/BOOT_ABORT.json"
+<   ledger "$LABEL" "ABORT placement_lock_incomplete"; exit 2
+< fi
+< PL1=$(sha256sum $PB/placements/datafore_prover_placement.json | cut -d" " -f1)
+< PL2=$PL1
+< PL3=$(sha256sum $PB/placements/placement_pinned_fair.json | cut -d" " -f1)
+< if [ "$PL1" != "$PL_ES" ] || [ "$PL2" != "$PL_DF" ] || [ "$PL3" != "$PL_MT" ]; then
+<   echo "{\"label\":\"$LABEL\",\"error\":\"placement_sha_mismatch\",\"esdf\":\"$PL1\",\"mt\":\"$PL3\"}" > "$ART/BOOT_ABORT.json"
+<   ledger "$LABEL" "ABORT placement_sha_mismatch"; exit 2
+< fi
+< POLICY="n-a"
+< if [ "$ARM" = "P" ]; then
+<   if [ "$PARAMS" = "1" ]; then POLICY="AERO-RG"; else POLICY="AERO-base"; fi
+---
+> inlock(){ [ "$1" = "$SM_ARC_FULL" ] || [ "$1" = "$SM_PROVER_FULL" ] || [ "$1" = "$SM_ARC_SMOKE" ] || [ "$1" = "$SM_PROVER_SMOKE" ]; }
+> if ! inlock "$DSSHA"; then
+>   echo "{\"error\":\"stream_not_in_lock\",\"sha\":\"$DSSHA\"}" > "$ART/BOOT_ABORT.json"
+>   ledger "$LABEL" "ABORT stream_not_in_lock"; exit 2
+> fi
+> if [ -n "$DS2" ] && ! inlock "$DSSHA2"; then
+>   echo "{\"error\":\"stream2_not_in_lock\",\"sha\":\"$DSSHA2\"}" > "$ART/BOOT_ABORT.json"
+>   ledger "$LABEL" "ABORT stream2_not_in_lock"; exit 2
+71,72c72,73
+< echo "{\"label\":\"$LABEL\",\"purpose\":\"pb_switch\",\"arm\":\"$ARM\",\"params\":\"$PARAMS\",\"policy\":\"$POLICY\",\"ds\":\"$DS\",\"ds_sha256\":\"$ACTUAL_SHA\",\"nreq\":$NREQ,\"conc\":$CONC,\"bench_timeout\":$BENCH_TIMEOUT,\"code_async_swapper\":\"$ASHA\",\"code_controller\":\"$CSHA\",\"code_sp_state\":\"$SSHA\",\"code_window_v2\":\"$WSHA\",\"launch_arm_pc_sha\":\"$LSHA\",\"bench_client_sha\":\"$BSHA\",\"placement_es\":\"$PL1\",\"placement_df\":\"$PL2\",\"placement_mt\":\"$PL3\",\"start\":\"$(date -u +%FT%TZ)\"}" > "$ART/boot_meta.json"
+< ledger "$LABEL" "START arm=$ARM policy=$POLICY"
+---
+> echo "{\"label\":\"$LABEL\",\"purpose\":\"g3_phase_select\",\"arm\":\"$ARM\",\"ds\":\"$DS\",\"ds_sha256\":\"$ACTUAL_SHA\",\"nreq\":$NREQ,\"conc\":$CONC,\"bench_timeout\":$BENCH_TIMEOUT,\"s1label\":\"$S1LABEL\",\"ds2\":\"$DS2\",\"ds2_sha256\":\"${ACTUAL_SHA2:-}\",\"nreq2\":$NREQ2,\"s2label\":\"$S2LABEL\",\"code_async_swapper\":\"$ASHA\",\"code_controller\":\"$CSHA\",\"code_sp_state\":\"$SSHA\",\"code_window_v2\":\"$WSHA\",\"launch_arm_g3_sha\":\"$LSHA\",\"bench_client_sha\":\"$BSHA\",\"start\":\"$(date -u +%FT%TZ)\"}" > "$ART/boot_meta.json"
+> ledger "$LABEL" "START arm=$ARM"
+83c84
+< ART=$ART setsid nohup bash $PB/scripts/launch_arm_pc.sh $ARM $PARAMS > "$ART/server.log" 2>&1 &
+---
+> ART=$ART setsid nohup bash $G3/scripts/launch_arm_g3.sh $ARM > "$ART/server.log" 2>&1 &
+95,96c96,97
+<   python3 $PB/scripts/mech_check_pb.py "$ART" "$LABEL" "$NREQ" --no-bench
+<   ledger "$LABEL" "READY_FAIL arm=$ARM policy=$POLICY"
+---
+>   python3 $G3/scripts/check_g3_boot.py "$ART" "$LABEL" readyfail
+>   ledger "$LABEL" "READY_FAIL arm=$ARM"
+100,103c101,121
+< (cd $F/scripts && OEPLB_BENCH_OUT=$ART OEPLB_MODEL=$MODEL timeout $BENCH_TIMEOUT \
+<   python3 bench_client_v2.py $LABEL "$DS" $CONC) > "$ART/bench.log" 2>&1
+< BRC=$?
+< echo "[$LABEL] bench rc=$BRC $(date -u +%FT%TZ)"
+---
+> seg(){ # $1=seglabel $2=ds $3=nreq
+>   SL=$1; SDS=$2; SN=$3
+>   V1=$(wc -l < "$ART/v2p1_rank0.jsonl" 2>/dev/null || echo 0)
+>   G1=$(wc -l < "$ART/server.log" 2>/dev/null || echo 0)
+>   T1=$(date -u +%FT%TZ)
+>   (cd $F/scripts && OEPLB_BENCH_OUT=$ART OEPLB_MODEL=$MODEL timeout $BENCH_TIMEOUT \
+>     python3 bench_client_v2.py "$SL" "$SDS" $CONC) > "$ART/bench_$SL.log" 2>&1
+>   BRC=$?
+>   T2=$(date -u +%FT%TZ)
+>   V2=$(wc -l < "$ART/v2p1_rank0.jsonl" 2>/dev/null || echo 0)
+>   G2=$(wc -l < "$ART/server.log" 2>/dev/null || echo 0)
+>   echo "{\"seg\":\"$SL\",\"ds\":\"$SDS\",\"nreq\":$SN,\"bench_rc\":$BRC,\"start\":\"$T1\",\"end\":\"$T2\",\"v2p1_before\":$V1,\"v2p1_after\":$V2,\"slog_before\":$G1,\"slog_after\":$G2}" >> "$ART/segment_meta.jsonl"
+>   echo "[$LABEL] seg $SL bench rc=$BRC $T2"
+>   return $BRC
+> }
+> ANYBRC=0
+> seg "$S1LABEL" "$DS" "$NREQ" || ANYBRC=1
+> if [ -n "$DS2" ]; then
+>   sleep 5
+>   seg "$S2LABEL" "$DS2" "$NREQ2" || ANYBRC=1
+> fi
+106c124,125
+< python3 $PB/scripts/mech_check_pb.py "$ART" "$LABEL" "$NREQ"
+---
+> if [[ "$LABEL" == SM_* ]]; then MODE=smoke; else MODE=formal; fi
+> python3 $G3/scripts/check_g3_boot.py "$ART" "$LABEL" "$MODE"
+108,109c127,128
+< echo "{\"label\":\"$LABEL\",\"bench_rc\":$BRC,\"mech_check_rc\":$MRC,\"end\":\"$(date -u +%FT%TZ)\"}" > "$ART/boot_meta.json.end"
+< ledger "$LABEL" "DONE arm=$ARM policy=$POLICY bench_rc=$BRC mech_rc=$MRC"
+---
+> echo "{\"label\":\"$LABEL\",\"any_bench_rc\":$ANYBRC,\"check_rc\":$MRC,\"end\":\"$(date -u +%FT%TZ)\"}" > "$ART/boot_meta.json.end"
+> ledger "$LABEL" "DONE arm=$ARM any_bench_rc=$ANYBRC check_rc=$MRC"

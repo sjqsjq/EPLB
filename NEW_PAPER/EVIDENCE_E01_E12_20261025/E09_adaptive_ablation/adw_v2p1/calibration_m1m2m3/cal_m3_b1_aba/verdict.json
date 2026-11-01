@@ -1,0 +1,25 @@
+{
+ "arm": "A",
+ "condition": "W1",
+ "label": "cal_m3_b1_aba",
+ "checks": {
+  "bench": {
+   "label": "cal_m3_b1_aba",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+   "num_requests": 4000,
+   "concurrency": 256,
+   "ok": 4000,
+   "errors": 0,
+   "total_time_s": 352.54
+  },
+  "banner_count": 8,
+  "knob_strings_unique": 1,
+  "knob_authority": "A-frozen",
+  "jsonl_lines": 59,
+  "jsonl_min_lines": 7
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

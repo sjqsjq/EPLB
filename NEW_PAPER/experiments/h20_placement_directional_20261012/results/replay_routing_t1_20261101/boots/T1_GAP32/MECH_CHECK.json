@@ -1,0 +1,57 @@
+{
+ "label": "T1_GAP32",
+ "arm": "GAP32",
+ "facts": {
+  "label": "T1_GAP32",
+  "arm": "GAP32",
+  "nreq_expected": 8192,
+  "no_bench": false,
+  "ready_to_roll": true,
+  "deepep_mode": "normal",
+  "disable_cuda_graph": "True",
+  "init_expert_location": "trivial",
+  "pb_max_total_ops": 32,
+  "redundancy": 0,
+  "issued_lines_total": 496,
+  "issued_windows": 62,
+  "issued_ops_dedup_sum": 1981,
+  "dedup_cross_rank_identical": true,
+  "issued_lines_expect_windows_x8": true,
+  "v2p1_present": true,
+  "v2p1_lines": 64,
+  "v2p1_committed_sum": 64,
+  "reps": {
+   "1": {
+    "ok": 8192,
+    "num_requests": 8192,
+    "total_time_s": 217.18,
+    "tps": 37.7,
+    "avg_output_tokens": 1,
+    "ttft_mean_ms": 6701.86,
+    "tpot_mean_ms": null,
+    "lat_mean_ms": 6701.9
+   },
+   "2": {
+    "ok": 8192,
+    "num_requests": 8192,
+    "total_time_s": 192.05,
+    "tps": 42.7,
+    "avg_output_tokens": 1,
+    "ttft_mean_ms": 5905.7,
+    "tpot_mean_ms": null,
+    "lat_mean_ms": 5905.7
+   }
+  }
+ },
+ "checks": {
+  "ready": true,
+  "deepep_normal": true,
+  "graph_off": true,
+  "trivial_init": true,
+  "redundancy_zero": true,
+  "dedup_ok": true,
+  "budget_matches_arm": true,
+  "bench_both_reps_ok": true
+ },
+ "all_ok": true
+}

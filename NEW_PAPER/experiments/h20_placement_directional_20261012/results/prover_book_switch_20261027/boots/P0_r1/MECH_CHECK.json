@@ -1,0 +1,365 @@
+{
+ "label": "P0_r1",
+ "nreq": 3048,
+ "purpose": "pb_switch",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "2da3467263d4f528"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_pc": {
+   "ok": true,
+   "detail": "cfbdaee752283935"
+  },
+  "placement_es_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_df_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_mt_lock": {
+   "ok": true,
+   "detail": "299cea283e93efe6"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=3048 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_book_switch_20261027/boots/P0_r1/P0_r1_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "n_rows": 94,
+  "sp_mode": "adaptive",
+  "protocol_rev": "r3",
+  "spec_rev": "v1.1-calib",
+  "true_forwards_total": 1000,
+  "true_steps_monotonic": true,
+  "detection_cycles_committed": 94,
+  "event_counts": {
+   "init": 1,
+   "hold": 30,
+   "confirmed_grow": 14,
+   "grow_blocked_headroom": 47,
+   "midband_hold": 2
+  },
+  "rg_annotation_rows": 0,
+  "sp_run_end_transitions": [
+   {
+    "h_id": 13,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 22,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 26,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 31,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 33,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 92,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   }
+  ],
+  "rg_policy_tagged_transitions": 0,
+  "z_range": [
+   0.03493173344311495,
+   73.00722393310613
+  ],
+  "h_rate_range": [
+   0.00872398944611245,
+   0.08424626789900472
+  ],
+  "alert_k_max": 0,
+  "stable_s_max": 15,
+  "shw_trajectory_rle": [
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 1,
+    "rows": 12
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 13,
+    "rows": 9
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 15,
+    "rows": 4
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 19,
+    "rows": 5
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 24,
+    "rows": 2
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 24,
+    "rows": 59
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 83,
+    "rows": 3
+   }
+  ],
+  "state_transitions": [
+   {
+    "window_id": 13,
+    "event": "hold",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 15,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   },
+   {
+    "window_id": 19,
+    "event": "hold",
+    "before": "RECOVER",
+    "after": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ]
+   },
+   {
+    "window_id": 24,
+    "event": "hold",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 24,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   },
+   {
+    "window_id": 83,
+    "event": "hold",
+    "before": "RECOVER",
+    "after": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ]
+   }
+  ],
+  "residency_final": {
+   "TRACK": 20,
+   "QUIET": 11,
+   "RECOVER": 63
+  },
+  "recording": {
+   "recorded_steps_sum": 866,
+   "sample_opportunities_sum": 879,
+   "valid_rows_sum": 666861568,
+   "valid_rows_max_cycle": 12320768
+  },
+  "planning": {
+   "plan_opportunity_rows": 85,
+   "s_change_logical_rows": 93,
+   "det_map_version_final": 27,
+   "det_map_version_bumps": 27
+  },
+  "migration": {
+   "swaps_started_sum": 27,
+   "swap_pending_rows": 0,
+   "serverlog_issued_windows": [
+    1,
+    2,
+    27,
+    28,
+    29,
+    30,
+    35,
+    40,
+    47,
+    51,
+    55,
+    56,
+    57,
+    58,
+    59,
+    62,
+    63,
+    64,
+    67,
+    69,
+    70,
+    71,
+    72,
+    77,
+    78,
+    80,
+    81
+   ],
+   "planhash_windows": 27,
+   "planhash_8rank_identical": true
+  },
+  "integrity": {
+   "desync_rows": 0,
+   "h_hash_identical_all_rows": true,
+   "lockstep_ok_all_rows": true
+  },
+  "exercise_summary": {
+   "detection_cycles_present": true,
+   "recording_present": true,
+   "planning_present": true,
+   "migration_present": true,
+   "state_transition_present": true,
+   "shw_constant": false
+  }
+ },
+ "baseline_facts": {
+  "arm": "P",
+  "policy": "AERO-base",
+  "eplb_rebalance_starts": 0,
+  "eplb_banner": false,
+  "injection_evidence": [
+   "[2026-10-27 12:59:30] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 3048,
+  "errors": 0,
+  "total_time_s": 416.71,
+  "tps": 7.3,
+  "total_comp_tokens": 3048,
+  "total_prompt_tokens": 8241604,
+  "ttft_mean_ms": 4343.57,
+  "lat_mean_ms": 4343.6,
+  "wall_start_s": 1793106062.112474,
+  "wall_end_s": 1793106478.82126,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}

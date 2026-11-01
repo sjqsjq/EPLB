@@ -1,0 +1,21 @@
+{
+  "label": "verify_L4096_sw8/run02_sw8_a",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/workload_grid/tok4096_out1.jsonl",
+  "num_requests": 2048,
+  "concurrency": 16,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 396.4,
+  "total_comp_tokens": 2048,
+  "tps": 5.2,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 3091.3,
+  "lat_p50_ms": 3070.22,
+  "lat_p99_ms": 3586.8,
+  "ttft_mean_ms": 3091.26,
+  "ttft_p50_ms": 3070.19,
+  "ttft_p99_ms": 3586.77,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

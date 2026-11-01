@@ -1,0 +1,21 @@
+{
+  "label": "bl_multidomain",
+  "dataset": "/tmp/exp_data/multidomain_2k.jsonl",
+  "num_requests": 2048,
+  "concurrency": 256,
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 30.46,
+  "total_comp_tokens": 65484,
+  "tps": 2150.0,
+  "avg_output_tokens": 32.0,
+  "lat_mean_ms": 3717.0,
+  "lat_p50_ms": 1918.19,
+  "lat_p99_ms": 10572.22,
+  "ttft_mean_ms": 1566.26,
+  "ttft_p50_ms": 909.27,
+  "ttft_p99_ms": 7362.15,
+  "tpot_mean_ms": 69.73,
+  "tpot_p50_ms": 38.65,
+  "tpot_p99_ms": 293.15
+}

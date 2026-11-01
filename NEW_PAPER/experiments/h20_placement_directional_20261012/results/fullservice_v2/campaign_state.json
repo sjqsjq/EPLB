@@ -1,0 +1,119 @@
+[
+ {
+  "phase": "setup",
+  "step": "profile",
+  "bench_rc": 0,
+  "dump_rc": 0,
+  "status": "completed",
+  "ts": "2026-10-15T05:20:11.762823+00:00"
+ },
+ {
+  "phase": "setup",
+  "step": "gen_frozen_map",
+  "rc": 0,
+  "frozen_map_sha256": "237fa8b3948f830ab147515405bfbbf01387ce1f8ed726578554e9ccd1aadab0",
+  "status": "completed",
+  "ts": "2026-10-15T05:20:28.211338+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_id_s1",
+  "arm": "identity",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 0,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T05:28:24.439386+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_fx_s1",
+  "arm": "frozen",
+  "boot_rc": 2,
+  "status": "boot_failed",
+  "ts": "2026-10-15T05:29:44.568783+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_on_s1",
+  "arm": "online",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 8,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T05:37:20.480301+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_id_s2",
+  "arm": "identity",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 0,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T05:45:31.486772+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_fx_s2",
+  "arm": "frozen",
+  "boot_rc": 2,
+  "status": "boot_failed",
+  "ts": "2026-10-15T05:46:46.474250+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_on_s2",
+  "arm": "online",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 8,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T05:54:15.728593+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_id_s3",
+  "arm": "identity",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 0,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T06:02:07.780187+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_fx_s3",
+  "arm": "frozen",
+  "boot_rc": 2,
+  "status": "boot_failed",
+  "ts": "2026-10-15T06:03:22.785188+00:00"
+ },
+ {
+  "phase": "measure",
+  "run": "fs300v2_on_s3",
+  "arm": "online",
+  "boot_rc": 0,
+  "bench_rc": 0,
+  "init_by_mapping_lines": 0,
+  "oeplb_init_lines": 8,
+  "server_tracebacks": 0,
+  "status": "completed",
+  "ts": "2026-10-15T06:10:54.158125+00:00"
+ },
+ {
+  "phase": "campaign",
+  "status": "done",
+  "ts": "2026-10-15T06:10:59.714563+00:00"
+ }
+]

@@ -1,0 +1,27 @@
+[
+ {
+  "wid": 1,
+  "seq": [
+   "1:det_sum:32",
+   "1:cmin:2",
+   "1:cmax:2"
+  ],
+  "committed": true,
+  "verdict": {
+   "commit": true,
+   "h_min": 207319690781293020,
+   "h_max": 207319690781293020,
+   "v_min": 1
+  }
+ },
+ {
+  "wid": 2,
+  "seq": [],
+  "fatal": "phase1_det_collective",
+  "err": "RuntimeError: simulated communicator fatal error on det SUM (NCCL async-error class)",
+  "committed": false
+ },
+ {
+  "terminated_with": "Traceback (most recent call last):\n  File \"/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/test_v2p1_fatal_boundary.py\", line 94, in worker\n    raise RuntimeError(\nRuntimeError: simulated communicator fatal error on det SUM (NCCL async-error class)\n"
+ }
+]

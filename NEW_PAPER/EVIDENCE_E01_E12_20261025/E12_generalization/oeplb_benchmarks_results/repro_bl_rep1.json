@@ -1,0 +1,21 @@
+{
+  "label": "repro_bl_rep1",
+  "dataset": "/tmp/focused_prefill_heavy.jsonl",
+  "num_requests": 1500,
+  "concurrency": 1024,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 87.52,
+  "total_comp_tokens": 48000,
+  "tps": 548.5,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 51264.4,
+  "lat_p50_ms": 61576.1,
+  "lat_p99_ms": 64958.86,
+  "ttft_mean_ms": 24590.94,
+  "ttft_p50_ms": 20104.57,
+  "ttft_p99_ms": 56977.14,
+  "tpot_mean_ms": 860.44,
+  "tpot_p50_ms": 723.49,
+  "tpot_p99_ms": 1780.17
+}

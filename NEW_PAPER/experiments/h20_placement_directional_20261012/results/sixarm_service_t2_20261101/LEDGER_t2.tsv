@@ -1,0 +1,52 @@
+ts	tag	note
+2026-11-01T13:49:09Z	CAMPAIGN_OPEN	sixarm_service_t2 author_authorized_20261101 D1_pathA D3_o32_variant RG0 36boots_3rounds_2scenarios order_frozen_scenario_prefixed_labels placements_xd_identical_shas pbd_o32_sha_cdd1d864
+2026-11-01T14:10:33Z	MATERIALIZE	protocol_sha16=2a1da289ed75cba6 {"launch_arm_t2.sh": "586a43d48aed8101", "mech_check_t2.py": "86ae65e22df390b0", "queue_t2_formal.sh": "7e6e91eaaa2ec596", "queue_t2_smoke.sh": "ee41f0e5e71f9215", "run_t2_boot.sh": "17131654dfc06298"} order_table_sha16=3ec5a2235af99d51 pbd_o32_sha16=cdd1d8643812e695 mothers=launch_arm_xd+run_xd_boot byte_splice diffs_verified_PL_BASE_only bash_n_ok
+2026-11-01T15:13:47Z	PROV_I_s0	START arm=I policy=n-a
+2026-11-01T15:15:52Z	PROV_I_s0	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:15:52Z	PROV_P0_s0	START arm=P policy=AERO-base
+2026-11-01T15:18:09Z	PROV_P0_s0	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-11-01T15:18:09Z	queue	T2_SMOKE_END 2_boots
+2026-11-01T15:18:09Z	PROV_ES_r1	START arm=ES policy=n-a
+2026-11-01T15:18:21Z	PROV_ES_r1	READY_FAIL arm=ES policy=n-a
+2026-11-01T15:18:21Z	PROV_ED_r1	START arm=ED policy=n-a
+2026-11-01T15:20:51Z	PROV_ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:20:51Z	PROV_MT_r1	START arm=MT policy=n-a
+2026-11-01T15:21:02Z	PROV_MT_r1	READY_FAIL arm=MT policy=n-a
+2026-11-01T15:21:02Z	PROV_DF_r1	START arm=DF policy=n-a
+2026-11-01T15:21:14Z	PROV_DF_r1	READY_FAIL arm=DF policy=n-a
+2026-11-01T15:21:14Z	PROV_P0_r1	START arm=P policy=AERO-base
+2026-11-01T15:23:27Z	PROV_P0_r1	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-11-01T15:23:27Z	PROV_I_r1	START arm=I policy=n-a
+2026-11-01T15:25:38Z	PROV_I_r1	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:25:38Z	PROV_ED_r2	START arm=ED policy=n-a
+2026-11-01T15:28:14Z	PROV_ED_r2	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:28:14Z	PROV_MT_r2	START arm=MT policy=n-a
+2026-11-01T15:28:30Z	PROV_MT_r2	READY_FAIL arm=MT policy=n-a
+2026-11-01T15:28:30Z	PROV_DF_r2	START arm=DF policy=n-a
+2026-11-01T15:28:43Z	PROV_DF_r2	READY_FAIL arm=DF policy=n-a
+2026-11-01T15:28:43Z	PROV_P0_r2	START arm=P policy=AERO-base
+2026-11-01T15:31:23Z	PROV_P0_r2	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-11-01T15:31:23Z	PROV_I_r2	START arm=I policy=n-a
+2026-11-01T15:33:58Z	PROV_I_r2	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:33:58Z	PROV_ES_r2	START arm=ES policy=n-a
+2026-11-01T15:34:11Z	PROV_ES_r2	READY_FAIL arm=ES policy=n-a
+2026-11-01T15:34:11Z	PROV_MT_r3	START arm=MT policy=n-a
+2026-11-01T15:34:23Z	PROV_MT_r3	READY_FAIL arm=MT policy=n-a
+2026-11-01T15:34:23Z	PROV_DF_r3	START arm=DF policy=n-a
+2026-11-01T15:34:35Z	PROV_DF_r3	READY_FAIL arm=DF policy=n-a
+2026-11-01T15:34:35Z	PROV_P0_r3	START arm=P policy=AERO-base
+2026-11-01T15:37:04Z	PROV_P0_r3	DONE arm=P policy=AERO-base bench_rc=0 mech_rc=0
+2026-11-01T15:37:04Z	PROV_I_r3	START arm=I policy=n-a
+2026-11-01T15:39:18Z	PROV_I_r3	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:39:18Z	PROV_ES_r3	START arm=ES policy=n-a
+2026-11-01T15:39:31Z	PROV_ES_r3	READY_FAIL arm=ES policy=n-a
+2026-11-01T15:39:31Z	PROV_ED_r3	START arm=ED policy=n-a
+2026-11-01T15:41:44Z	PROV_ED_r3	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:41:44Z	PBD_ES_r1	START arm=ES policy=n-a
+2026-11-01T15:41:55Z	PBD_ES_r1	READY_FAIL arm=ES policy=n-a
+2026-11-01T15:41:56Z	PBD_ED_r1	START arm=ED policy=n-a
+2026-11-01T15:43:55Z	DEFECT_FIX	DEFECT_FIX launcher line19 lost PL= prefix during byte_splice (mother launch_arm_xd line26 format PL=path); effect: arms ES/MT/DF reference unbound PL -> server dies ~8s, rc=1 zero_data; scope first_attempt_failures=10 PROV_ES_r1..r3 PROV_MT_r1..r3 PROV_DF_r1..r3 PBD_ES_r1; I/P0/ED unaffected (no PL ref); fix: line19 restored to mother byte format, old_sha16=586a43d48aed8101 new_sha16=ad0ae540cff81805 runner LSHA2 guard synced in same call, bash -n both OK; policy: failed boots archived then rerun after formal queue (zero_data restarts, no protocol/order change, no arm dropped)
+2026-11-01T15:58:26Z	PBD_ED_r1	DONE arm=ED policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T15:58:26Z	PBD_MT_r1	START arm=MT policy=n-a
+2026-11-01T16:15:00Z	PBD_MT_r1	DONE arm=MT policy=n-a bench_rc=0 mech_rc=0
+2026-11-01T16:15:00Z	PBD_DF_r1	START arm=DF policy=n-a

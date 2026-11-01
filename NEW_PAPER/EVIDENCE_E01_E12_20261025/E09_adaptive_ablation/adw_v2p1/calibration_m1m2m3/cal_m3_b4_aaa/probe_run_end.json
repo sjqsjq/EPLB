@@ -1,0 +1,339 @@
+{
+ "mode": "aaa",
+ "params": {
+  "r": 12,
+  "n_ref": 4,
+  "n_cand": 3,
+  "n_fb": 4,
+  "w_base": 16,
+  "w_cand": 32,
+  "eps_risk_us": 2000000,
+  "eps_prac_frac": 0.01,
+  "force_abort_at": 0,
+  "commit_enabled": false,
+  "calib_trigger": true,
+  "dwell_grow": 2,
+  "k_tb": 8
+ },
+ "state": "DONE",
+ "license_used": true,
+ "trigger_window": 12,
+ "pending_abort": false,
+ "abort_reason": null,
+ "excess_cum_us": 50256,
+ "overshoot_us": 0,
+ "contaminated": false,
+ "admission_applied": false,
+ "eval_window": 26,
+ "eval": {
+  "rate_ref_us_per_step": 348566.125,
+  "rate_cand_us_per_step": 349089.625,
+  "rate_fb_us_per_step": 357136.671875,
+  "g_us_per_step2": 53.56591796875,
+  "predicted_cand_us_per_step": 352851.3984375,
+  "delta_net_us_per_step": -3761.7734375,
+  "delta_net_rel": -0.010792137180570831,
+  "eps_prac_us_per_step": 3485.66125,
+  "classification": "favorable",
+  "flags": [],
+  "excess_cum_us": 50256,
+  "overshoot_us": 0,
+  "abort_reason": null,
+  "contaminated": false,
+  "midpoints_steps": {
+   "ref": 224.0,
+   "cand": 304.0,
+   "fb": 384.0
+  },
+  "n_windows": {
+   "REF": 4,
+   "CAND": 6,
+   "FB": 4
+  },
+  "n_steps": {
+   "REF": 64,
+   "CAND": 96,
+   "FB": 64
+  },
+  "commit_eligible": false,
+  "estimator": "observational_ABA_diff_trend_corrected",
+  "causal_isolation_claimed": false,
+  "coverage_guarantee": null
+ },
+ "segments": {
+  "REF": [
+   {
+    "window_id": 13,
+    "steps": 16,
+    "span_us": 5550321,
+    "bcost_us": 2953,
+    "true_steps_end": 208,
+    "cum_steps_before": 192,
+    "committed": true
+   },
+   {
+    "window_id": 14,
+    "steps": 16,
+    "span_us": 5616323,
+    "bcost_us": 2264,
+    "true_steps_end": 224,
+    "cum_steps_before": 208,
+    "committed": true
+   },
+   {
+    "window_id": 15,
+    "steps": 16,
+    "span_us": 5575122,
+    "bcost_us": 3666,
+    "true_steps_end": 240,
+    "cum_steps_before": 224,
+    "committed": true
+   },
+   {
+    "window_id": 16,
+    "steps": 16,
+    "span_us": 5566466,
+    "bcost_us": 3698,
+    "true_steps_end": 256,
+    "cum_steps_before": 240,
+    "committed": true
+   }
+  ],
+  "CAND": [
+   {
+    "window_id": 17,
+    "steps": 16,
+    "span_us": 5599252,
+    "bcost_us": 1808,
+    "true_steps_end": 272,
+    "cum_steps_before": 256,
+    "committed": true
+   },
+   {
+    "window_id": 18,
+    "steps": 16,
+    "span_us": 5585738,
+    "bcost_us": 2550,
+    "true_steps_end": 288,
+    "cum_steps_before": 272,
+    "committed": true
+   },
+   {
+    "window_id": 19,
+    "steps": 16,
+    "span_us": 5578510,
+    "bcost_us": 1855,
+    "true_steps_end": 304,
+    "cum_steps_before": 288,
+    "committed": true
+   },
+   {
+    "window_id": 20,
+    "steps": 16,
+    "span_us": 5541248,
+    "bcost_us": 2499,
+    "true_steps_end": 320,
+    "cum_steps_before": 304,
+    "committed": true
+   },
+   {
+    "window_id": 21,
+    "steps": 16,
+    "span_us": 5533184,
+    "bcost_us": 2570,
+    "true_steps_end": 336,
+    "cum_steps_before": 320,
+    "committed": true
+   },
+   {
+    "window_id": 22,
+    "steps": 16,
+    "span_us": 5674672,
+    "bcost_us": 1975,
+    "true_steps_end": 352,
+    "cum_steps_before": 336,
+    "committed": true
+   }
+  ],
+  "FB": [
+   {
+    "window_id": 23,
+    "steps": 16,
+    "span_us": 5934679,
+    "bcost_us": 1858,
+    "true_steps_end": 368,
+    "cum_steps_before": 352,
+    "committed": true
+   },
+   {
+    "window_id": 24,
+    "steps": 16,
+    "span_us": 5662488,
+    "bcost_us": 4071,
+    "true_steps_end": 384,
+    "cum_steps_before": 368,
+    "committed": true
+   },
+   {
+    "window_id": 25,
+    "steps": 16,
+    "span_us": 5689603,
+    "bcost_us": 2108,
+    "true_steps_end": 400,
+    "cum_steps_before": 384,
+    "committed": true
+   },
+   {
+    "window_id": 26,
+    "steps": 16,
+    "span_us": 5569977,
+    "bcost_us": 1873,
+    "true_steps_end": 416,
+    "cum_steps_before": 400,
+    "committed": true
+   }
+  ]
+ },
+ "seg_flags": {
+  "REF": [],
+  "CAND": [],
+  "FB": []
+ },
+ "seg_layout_ver": {
+  "REF": 2,
+  "CAND": 2,
+  "FB": 3
+ },
+ "events": [
+  [
+   12,
+   "trigger",
+   ""
+  ],
+  [
+   16,
+   "cand_start",
+   "probe_start_aaa"
+  ],
+  [
+   22,
+   "fb_start",
+   "probe_fallback_aaa"
+  ],
+  [
+   26,
+   "eval",
+   "favorable"
+  ]
+ ],
+ "bcost_series": [
+  [
+   1,
+   21235
+  ],
+  [
+   2,
+   3695
+  ],
+  [
+   3,
+   2847
+  ],
+  [
+   4,
+   1982
+  ],
+  [
+   5,
+   2100
+  ],
+  [
+   6,
+   2019
+  ],
+  [
+   7,
+   2248
+  ],
+  [
+   8,
+   2179
+  ],
+  [
+   9,
+   1925
+  ],
+  [
+   10,
+   1823
+  ],
+  [
+   11,
+   1781
+  ],
+  [
+   12,
+   2094
+  ],
+  [
+   13,
+   2953
+  ],
+  [
+   14,
+   2264
+  ],
+  [
+   15,
+   3666
+  ],
+  [
+   16,
+   3698
+  ],
+  [
+   17,
+   1808
+  ],
+  [
+   18,
+   2550
+  ],
+  [
+   19,
+   1855
+  ],
+  [
+   20,
+   2499
+  ],
+  [
+   21,
+   2570
+  ],
+  [
+   22,
+   1975
+  ],
+  [
+   23,
+   1858
+  ],
+  [
+   24,
+   4071
+  ],
+  [
+   25,
+   2108
+  ],
+  [
+   26,
+   1873
+  ]
+ ],
+ "cum_steps": 416,
+ "true_steps_total": 416,
+ "window_count": 26,
+ "prof_probe_cum_ms": 7.652778
+}

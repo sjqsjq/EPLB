@@ -1,0 +1,21 @@
+ts	tag	note
+2026-11-01T13:48:15Z	CAMPAIGN_OPEN	replay_routing_t1 author_authorized_20261101 D1_pathA D4_existing_capture capture_sha_locked plans_g2_archived_5cells
+2026-11-01T14:10:33Z	MATERIALIZE	protocol_sha16=6e3f0df9c19022a1 {"launch_arm_t1.sh": "c00ee3cd7550a04a", "master_run_t1t2.sh": "3c77929ff31a6443", "mech_check_t1.py": "773752ce8bd588f5", "queue_t1.sh": "b623fb434673b51d", "run_t1_boot.sh": "e31cc78c6c873c01", "t1_offline_replay.py": "8e96542c923dc5f1"} mothers=launch_arm_g3+run_xd_boot byte_splice asserts_passed bash_n_ok py_compile_ok
+2026-11-01T14:10:33Z	OFFLINE_REPLAY	capture_agg_equals_P_e3_elementwise plan_lens_match_g2_archive {"BI300": {"fin_max_raw": 1.09572, "plan_len": 246}, "GAP128": {"fin_max_raw": 1.178292, "plan_len": 128}, "GAP300": {"fin_max_raw": 1.096219, "plan_len": 251}, "GAP32": {"fin_max_raw": 1.314006, "plan_len": 32}, "MD300": {"fin_max_raw": 1.161569, "plan_len": 239}, "ORIG": {"fin_max_raw": 1.531831, "plan_len": 0}} padding_tokens=761120_all_conditions occupied_rank_slots=752_all_conditions expert_edges=12032 FACT full_support_counts_make_padding_and_connections_permutation_invariant discriminating_metric=rank_load_ratio
+2026-11-01T14:18:25Z	GPU_QUEUE_START	master_run_t1t2 detached launch gpu_idle_8x4MiB live_sglang_procs=0 zombie_defunct_only=8400 load_0.82 queue=T1_smoke,T1_6formal,T2_smoke,T2_36formal budget_cap_5.6h
+2026-11-01T14:18:25Z	T1_SMOKE_GAP300	START arm=GAP300 policy=t1-GAP300
+2026-11-01T14:21:49Z	T1_SMOKE_GAP300	DONE arm=GAP300 policy=t1-GAP300 bench_rc=0 mech_rc=0
+2026-11-01T14:21:49Z	T1_ORIG	START arm=ORIG policy=t1-ORIG
+2026-11-01T14:30:19Z	T1_ORIG	DONE arm=ORIG policy=t1-ORIG bench_rc=0 mech_rc=0
+2026-11-01T14:30:19Z	T1_GAP32	START arm=GAP32 policy=t1-GAP32
+2026-11-01T14:39:12Z	T1_GAP32	DONE arm=GAP32 policy=t1-GAP32 bench_rc=0 mech_rc=0
+2026-11-01T14:39:12Z	T1_GAP128	START arm=GAP128 policy=t1-GAP128
+2026-11-01T14:47:29Z	T1_GAP128	DONE arm=GAP128 policy=t1-GAP128 bench_rc=0 mech_rc=0
+2026-11-01T14:47:30Z	T1_GAP300	START arm=GAP300 policy=t1-GAP300
+2026-11-01T14:56:02Z	T1_GAP300	DONE arm=GAP300 policy=t1-GAP300 bench_rc=0 mech_rc=0
+2026-11-01T14:56:02Z	T1_MD300	START arm=MD300 policy=t1-MD300
+2026-11-01T15:05:32Z	T1_MD300	DONE arm=MD300 policy=t1-MD300 bench_rc=0 mech_rc=0
+2026-11-01T15:05:32Z	T1_BI300	START arm=BI300 policy=t1-BI300
+2026-11-01T15:13:47Z	T1_BI300	DONE arm=BI300 policy=t1-BI300 bench_rc=0 mech_rc=0
+2026-11-01T15:13:47Z	queue	T1_QUEUE_END 1smoke_6formal
+2026-11-01T16:13:09Z	T1_CLOSEOUT	7of7_boots_mech_all_ok bench_errors=0 zero_rc2 closeout_sha16=2de240717b7d3b81 export_full_sha16=ba9bdc1b150e2a22 R=fin_max_raw GAP300_1.096219 BI300_1.095720 at_prod_threshold_1.0962402945 M=issued_lines_8xwindows_dedup_ok rank0_begin_wall_2.1-14.8s X=rep_mean_tps ORIG_43.1 GAP32_40.2 GAP128_43.6 GAP300_41.9 MD300_38.2 BI300_43.2 honest_no_throughput_gain_on_prefill_heavy_E3 padding_connections_layout_invariant

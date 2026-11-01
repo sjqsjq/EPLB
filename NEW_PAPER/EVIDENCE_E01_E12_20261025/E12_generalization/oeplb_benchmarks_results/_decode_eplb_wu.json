@@ -1,0 +1,21 @@
+{
+  "label": "_decode_eplb_wu",
+  "dataset": "/tmp/exp_data/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 50,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 3.82,
+  "total_comp_tokens": 1600,
+  "tps": 418.5,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 3815.3,
+  "lat_p50_ms": 3815.35,
+  "lat_p99_ms": 3821.96,
+  "ttft_mean_ms": 1006.13,
+  "ttft_p50_ms": 986.35,
+  "ttft_p99_ms": 1065.41,
+  "tpot_mean_ms": 90.62,
+  "tpot_p50_ms": 91.18,
+  "tpot_p99_ms": 103.56
+}

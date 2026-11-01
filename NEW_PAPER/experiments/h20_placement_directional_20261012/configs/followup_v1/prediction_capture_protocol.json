@@ -1,0 +1,298 @@
+{
+  "capture_index_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_index.json",
+  "current_trigger_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_trigger.json",
+  "expected_artifact_counts": {
+    "expert_rank_files": 32,
+    "forward_rank_files": 144,
+    "profile_rank_files": 8,
+    "response_files": 19,
+    "snapshot_units": 18,
+    "trigger_archives": 19
+  },
+  "followup_protocol": {
+    "bytes": 17479,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/protocol.json",
+    "sha256": "7c0cf10200ac9971a2e327c7bb291b118e693e1819a48858711cff1b8c2d9eb9"
+  },
+  "frozen_at_utc": "2026-10-12T05:29:26.927015+00:00",
+  "git_head_at_freeze": "e892f37300fe5bcd1b0bbb12fdbf39c8a72e1ced",
+  "identity_map": {
+    "bytes": 123178,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/identity_service_map.json",
+    "sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d"
+  },
+  "implementation": {
+    "capture_patch": {
+      "bytes": 12666,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_capture_site/placement_prediction_capture_patch.py",
+      "sha256": "9dd82453fa137525994b60b63ad389a6d52893828dee3a5530995b22c02fcc68"
+    },
+    "capture_sitecustomize": {
+      "bytes": 208,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_capture_site/sitecustomize.py",
+      "sha256": "42c80c7f9782385a20c97b184aef54e1e520be47940714c388832c29df16eae1"
+    },
+    "freeze_capture_protocol": {
+      "bytes": 12401,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_prediction_capture_protocol.py",
+      "sha256": "44a59c619eb57ce0238c158993a61fe01ee94c479e6cd198495ab0a5daf26d08"
+    },
+    "freeze_prediction_requests": {
+      "bytes": 9171,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_prediction_requests.py",
+      "sha256": "91e2b5063ad62487519b1aeb45f0a4284aa333b8907b1e7bb06cb45543e9a46e"
+    },
+    "index_prediction_captures": {
+      "bytes": 15390,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_prediction_captures.py",
+      "sha256": "f4a1e8ced2b61c00783d5c15c52cd241cb3a040252708d9c3269de4d327cb3f5"
+    },
+    "launch_capture_server": {
+      "bytes": 2387,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/launch_prediction_capture_server.sh",
+      "sha256": "03965c67794ab7ab323f934ba68ec90b46ed74acd6af242f1c97661ad0f2533f"
+    },
+    "make_capture_trigger": {
+      "bytes": 7086,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/make_prediction_capture_trigger.py",
+      "sha256": "4ccd9968bbb69d8cac095075f11f7412808b34b887ff1c8313a993eae01bb202"
+    },
+    "run_prediction_capture": {
+      "bytes": 8582,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_prediction_capture.sh",
+      "sha256": "b31d5b86822c9e813eb3aeb5b8ba192d6fa561e918731a3ba857da7e2bf3d272"
+    },
+    "select_layers": {
+      "bytes": 11285,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/select_prediction_layers.py",
+      "sha256": "b515460955d616e0c3192d67ba36d905efcf9966b228f6bf964a462b6f9cd286"
+    },
+    "send_prediction_batch": {
+      "bytes": 6745,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/send_prediction_batch.py",
+      "sha256": "e3df7b8e81fd7cd49b9fb5659cf4a67411ae54a6eba3a318b97f6a04d577e972"
+    },
+    "verify_capture_protocol": {
+      "bytes": 3287,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/verify_prediction_capture_protocol.py",
+      "sha256": "95eaed15d1aee2e1ed93ebfc4c71b82d978e02c53d90ca7ee21bd5212e5dc6c0"
+    }
+  },
+  "invariants": {
+    "best_repeat_selection": false,
+    "capture_artifacts_may_not_be_overwritten": true,
+    "collective_or_gate_between_expert_execution_and_combine": false,
+    "common_20us_delay_floor": false,
+    "differential_delay": false,
+    "expert_weights_and_both_scale_tensors_frozen_within_each_replay": true,
+    "logical_routes_and_weights_frozen_within_each_replay": true,
+    "only_logical_expert_to_physical_slot_bijection_changes": true,
+    "push_or_external_publication_authorized": false,
+    "real_requests_and_real_routed_layer_forwards_only": true,
+    "sleep_or_spin": false,
+    "source_ranks_frozen_within_each_replay": true,
+    "zero_expert_padding_rule": "0 if n_e == 0 else 128*ceil(n_e/128)"
+  },
+  "layer_selection": {
+    "bridge_duplicate_rule": "if layer 24 is the first early-third winner, take the next-ranked early-third layer as that third's winner",
+    "bridge_layer": 24,
+    "calibration_assignment": "layer 24 plus the depth-third winner with largest screening raw max/mean imbalance, ties by lower layer ID",
+    "calibration_layer_count": 2,
+    "depth_thirds": [
+      {
+        "begin_inclusive": 0,
+        "end_exclusive": 31,
+        "name": "early"
+      },
+      {
+        "begin_inclusive": 31,
+        "end_exclusive": 62,
+        "name": "middle"
+      },
+      {
+        "begin_inclusive": 62,
+        "end_exclusive": 94,
+        "name": "late"
+      }
+    ],
+    "depth_winner_order": [
+      "descending screening identity-placement raw max/mean rank assignment imbalance",
+      "ascending layer ID"
+    ],
+    "held_out_assignment": "the remaining two depth-third winners are completely held out",
+    "held_out_layer_count": 2,
+    "layer_manifest_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/layers/selected_layers.json",
+    "profile_summary_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/layers/screening_profile_summary.json",
+    "selected_layer_count": 4
+  },
+  "model_files": [
+    {
+      "bytes": 12909,
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/config.json",
+      "sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e"
+    },
+    {
+      "bytes": 6990003,
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/model.safetensors.index.json",
+      "sha256": "e03d4abec9611fca05844d2c8b5a08318ddc3c86acfb9481a0ef5692bf76e6d6"
+    },
+    {
+      "bytes": 11422654,
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master/tokenizer.json",
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    }
+  ],
+  "model_lock_boundary": {
+    "M0_M1_M2_code_features_coefficients_transformations_and_hyperparameters_must_lock_before_evaluation_timing": true,
+    "evaluation_layouts_must_be_generated_only_from_reserved_seeds_and_locked_models": true,
+    "evaluation_routes_outputs_or_timing_may_not_be_used_for_fitting": true,
+    "evaluation_snapshots_may_be_captured_and_mechanically_validated": true
+  },
+  "model_path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_files": [
+    {
+      "bytes": 10396,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/screening-01.jsonl",
+      "sha256": "0919df1d6e71af5a213dc29c33e5df4b7d4f2d30edf1aa88738a6c4ee503cf70"
+    },
+    {
+      "bytes": 10432,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/calibration-01.jsonl",
+      "sha256": "b2bd4ddaa8ee92dad00e39ad36609d2497fd41ceef005c2cfa9ec44f4e335623"
+    },
+    {
+      "bytes": 9901,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/calibration-02.jsonl",
+      "sha256": "5d76317569244056e395ae66975bd1aac7c20011f94f1f03fac602efc8864711"
+    },
+    {
+      "bytes": 11021,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/calibration-03.jsonl",
+      "sha256": "f1390c9585c5bddd68bdee795ece24ea03d6cfc081eb25c5cb1a66f76b9a3602"
+    },
+    {
+      "bytes": 11052,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/evaluation-01.jsonl",
+      "sha256": "002f3bd03b0788db1be10f8b0b33c29abb66985211922efc982e4a47e54724d1"
+    },
+    {
+      "bytes": 10806,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/evaluation-02.jsonl",
+      "sha256": "9fb1e55d6cc1cd0cd84b9e6dc878a4373efea25fb072b3b97b956e1a23a54c19"
+    },
+    {
+      "bytes": 10748,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/requests/evaluation-03.jsonl",
+      "sha256": "e9dec7274bc507a1276ebb791dad4e5b86247fdffd13050bcaf82d5465e5f813"
+    }
+  ],
+  "request_manifest": {
+    "bytes": 15723,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_requests.json",
+    "sha256": "9c5d836a75168e044aeb7c11415a1630257a36ab47ab09351c62532dab71c01e"
+  },
+  "runtime_environment": {
+    "bytes": 453,
+    "path": "/workspace/logs/env_235b.sh",
+    "sha256": "26242c03be2bc1f5b62e3b87662acad6720a0ed5e8b674bd3bedf9ab2eaa2eb1"
+  },
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "dtype": "bfloat16",
+    "ep": 8,
+    "grouped_gemm_alignment_rows_per_expert": 128,
+    "hidden_size": 4096,
+    "intermediate_size": 1536,
+    "local_experts_per_rank": 16,
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner_backend": "deep_gemm",
+    "node_count": 1,
+    "quantization": "fp8",
+    "routed_experts": 128,
+    "routed_layers": 94,
+    "top_k": 8,
+    "weight_block_size": [
+      128,
+      128
+    ]
+  },
+  "screening_profile": {
+    "batch_id": "screening-01",
+    "capture_id": "pred-v1-screening-01-profile",
+    "expected_layers_per_rank": 94,
+    "output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/screening-01/profile",
+    "rank_files": 8,
+    "response_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prediction_v1/capture_responses/pred-v1-screening-01-profile.json",
+    "selection_uses_performance_timing": false,
+    "trigger_archive_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/triggers/pred-v1-screening-01-profile.json"
+  },
+  "server": {
+    "environment": {
+      "CUDA_VISIBLE_DEVICES": "0,1,2,3,4,5,6,7",
+      "SGLANG_CI_DISABLE_MOE_FUSED_FUNC": "1",
+      "SGLANG_ENABLE_JIT_DEEPGEMM": "1"
+    },
+    "identity_mapping_required": true,
+    "launch_arguments": [
+      "--tp",
+      "8",
+      "--dp",
+      "8",
+      "--ep-size",
+      "8",
+      "--enable-dp-attention",
+      "--moe-a2a-backend",
+      "deepep",
+      "--deepep-mode",
+      "normal",
+      "--moe-runner-backend",
+      "deep_gemm",
+      "--dtype",
+      "bfloat16",
+      "--quantization",
+      "fp8",
+      "--mem-fraction-static",
+      "0.8",
+      "--disable-cuda-graph",
+      "--disable-radix-cache",
+      "--watchdog-timeout",
+      "600",
+      "--init-expert-location",
+      "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/identity_service_map.json"
+    ],
+    "profile_and_snapshot_are_not_performance_timing": true
+  },
+  "snapshot_matrix": {
+    "calibration": {
+      "batch_ids": [
+        "calibration-01",
+        "calibration-02",
+        "calibration-03"
+      ],
+      "layers": "both frozen calibration layers",
+      "units": 6
+    },
+    "capture_id_template": "pred-v1-{batch_id}-layer-{layer_id:03d}",
+    "evaluation": {
+      "batch_ids": [
+        "evaluation-01",
+        "evaluation-02",
+        "evaluation-03"
+      ],
+      "layers": "all four frozen selected layers",
+      "units": 12
+    },
+    "expert_output_template": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/expert_weights/layer-{layer_id:03d}/expert_rank{rank}.pt",
+    "expert_rank_files_per_selected_layer": 8,
+    "forward_output_template": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/captures/{batch_id}/layer-{layer_id:03d}/forward_rank{rank}.pt",
+    "forward_rank_files_per_unit": 8,
+    "response_template": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prediction_v1/capture_responses/pred-v1-{batch_id}-layer-{layer_id:03d}.json",
+    "storage": "each real forward stores hidden states, logical top-k IDs and weights, and routed output; each selected layer stores immutable w13, w2, and both FP8 scale tensors once per rank",
+    "trigger_archive_template": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/triggers/pred-v1-{batch_id}-layer-{layer_id:03d}.json"
+  },
+  "status": "frozen_before_screening_route_profile",
+  "study_id": "h20-placement-prediction-v1"
+}

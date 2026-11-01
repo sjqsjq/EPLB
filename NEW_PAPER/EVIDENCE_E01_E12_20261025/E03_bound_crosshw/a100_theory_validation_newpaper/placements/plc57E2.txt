@@ -1,0 +1,9 @@
+layers=28 experts=64 ep=2 per_gpu=32
+identity  r_avg=1.021  r_agg=1.003  per-layer max=1.131 min=1.001  -> (not written)
+     bal  r_avg=1.001  r_agg=1.000  per-layer max=1.005 min=1.000  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_bal.json
+    r101  r_avg=1.009  r_agg=1.009  per-layer max=1.011 min=1.005  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_r101.json
+    r102  r_avg=1.014  r_agg=1.014  per-layer max=1.020 min=1.008  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_r102.json
+    r103  r_avg=1.023  r_agg=1.023  per-layer max=1.030 min=1.014  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_r103.json
+    r105  r_avg=1.036  r_agg=1.036  per-layer max=1.050 min=1.023  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_r105.json
+    r107  r_avg=1.049  r_agg=1.049  per-layer max=1.070 min=1.030  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_r107.json
+    conc  r_avg=1.237  r_agg=1.237  per-layer max=1.793 min=1.111  -> /workspace/EPLB/OEPLB/theory_a100/placements/plc57E2_conc.json

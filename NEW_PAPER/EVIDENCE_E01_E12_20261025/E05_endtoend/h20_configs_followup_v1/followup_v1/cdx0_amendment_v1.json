@@ -1,0 +1,115 @@
+{
+ "amendment_id": "cdx0-amendment-01",
+ "amends": {
+  "path": "configs/followup_v1/cdx0_pilot_protocol.json",
+  "sha256": "fd98d9f085c3d7718556c97acce3dbf0f6a38cf70c00709db58ac2368d3ffd77",
+  "policy": "original protocol and report_v2.md are preserved verbatim; where this amendment conflicts with the original protocol text, THIS AMENDMENT GOVERNS implementation; all non-conflicting provisions (40 cells, 32 starts, statistics, prohibitions) are unchanged"
+ },
+ "status": "FROZEN_BEFORE_ANY_CDX0_TIMING",
+ "created_at_utc": "2026-10-16T06:00:25+00:00",
+ "user_authorization": "user message 2026-10-16: support executing scaled-down CD-X0, keep 40 timed cells and 32 replay starts, no extension, no follow-up service experiment; save an amendment before formal timing covering the five listed items; original protocol and report preserved; results only judge cross-domain response among the chosen captures, two layers and candidate layouts; no full-service benefit conversion; no significance-driven extra starts; after the pilot, decide concrete correction rules from the matrix and existing control trajectories rather than another large ablation",
+ "amendment_1_w_normalization_and_gpu_units": {
+  "w_share_normalization_fix": {
+   "defect": "the per-arm W time-fraction table in log_check_w_reset_cost.json averaged each W value only over starts in which that W occurred, so arm means summed to 1.032 (A10), 1.034 (P11) instead of 1; per-run fractions themselves were correctly normalized (sums 1.000+-0.001)",
+   "corrected_rule": "per-arm mean over ALL 5 starts with missing-W filled as 0.0; corrected means sum to 1.0000+-0.0002",
+   "corrected_w_time_fractions_mean_over_5_starts": {
+    "A00": {
+     "16": 1.0
+    },
+    "A10": {
+     "8": 0.1796,
+     "16": 0.2758,
+     "32": 0.4964,
+     "64": 0.048
+    },
+    "A01": {
+     "16": 1.0
+    },
+    "A11": {
+     "8": 0.14,
+     "16": 0.3622,
+     "32": 0.2628,
+     "64": 0.2352
+    },
+    "P11": {
+     "8": 0.1272,
+     "16": 0.3642,
+     "32": 0.3776,
+     "64": 0.1312
+    }
+   },
+   "material_changes": "A10 W64 0.080 -> 0.048; P11 W64 0.164 -> 0.131; A11 essentially unchanged; A10 remains dominated by W32 (~50%), the qualitative finding is unchanged",
+   "original_file_policy": "log_check_w_reset_cost.json is NOT overwritten; the corrected table lives in this amendment"
+  },
+  "gpu_hours_unit_fix": {
+   "defect": "the pilot budget wrote node wall-clock hours as 'GPU-h'; one node = 8x H20, so GPU-hours = 8 x node-hours",
+   "corrected_budget": {
+    "replay_estimate_basis": "crosstab_v1 measured ~12 min/start at ~4050 rows/capture; per-start timing share scales with rows per the frozen E-T model (T_us = 785.286 + 0.135491*W_max_pad); boot/JIT/weight-load share (~6 min) is size-independent; estimates: prover(4001 rows) ~12 min, sharegpt(5437) ~14 min, book(8136) ~18 min, code(16384) ~30 min per start",
+    "replay": "32 starts (8 per domain-layer size class x ... 8 evaluation units x 4 starts): ~0.8+0.9+2.4+4.0 = ~8.1 node-hours = ~65 GPU-hours (upper estimate; DeepGEMM JIT cached after first code start)",
+    "capture": "~1.0 node-hour = ~8 GPU-hours (one server boot + 16 arm/send cycles)",
+    "total": "~9-10 node-hours = ~72-80 GPU-hours (8x H20, one node), one long operating day",
+    "cpu_analysis": "<1 h, no GPU",
+    "note": "the original protocol's '6.4 GPU-h' conflated node-hours with GPU-hours AND assumed uniform 12-min starts; the start COUNT (32) and cell COUNT (40) are unchanged - only the honest duration estimate is restated"
+   }
+  }
+ },
+ "amendment_2_epsilon_role": {
+  "question": "does epsilon=22.948043518066406 us enter the clear-crossover verdict?",
+  "ruling": "NO. Following the frozen crosstab_v1 precedent (crosstab_execution_protocol.json: row_tracks_own_base = 'both other-base-minus-own-base paired 95% CIs exclude zero positively'), the CD-X0 primary criteria row_tracks_own_base and clear_crossover_advantage use CI-excludes-zero ONLY; epsilon is never a threshold for the verdict",
+  "epsilon_uses_enumerated": [
+   "per-contrast descriptive label practically_equivalent_within_margin = CI wholly inside [-epsilon, +epsilon] (equivalence is claimed only then; crossing zero alone does not, per frozen rule)",
+   "descriptive oracle-gap context (gaps below epsilon per forward are flagged as within-margin)"
+  ],
+  "rationale": "epsilon was calibrated at ~4050-row captures; CD-X0 rows range ~4000-16384 (amendment 5), so epsilon is not re-tuned (prohibited) and is kept out of verdicts entirely"
+ },
+ "amendment_3_multiple_comparisons": {
+  "family": "24 primary paired contrasts = 2 layers x 4 rows x 3 own-vs-other-base contrasts",
+  "ruling": "all primary labels are EXPLORATORY screening: verdict strings must carry the word 'exploratory'; no family-wise error rate control is claimed for detected/not_detected/indeterminate",
+  "secondary_sensitivity": "Holm-Bonferroni adjusted p-values are computed and reported WITHIN each layer (family = that layer's 12 contrasts) for every contrast, as descriptive sensitivity only; they never alter the pre-registered verdict",
+  "confirmatory_use": "any confirmatory claim from these or new data requires a NEW pre-registered protocol with a pre-specified multiplicity rule; this pilot cannot be relabeled confirmatory post hoc"
+ },
+ "amendment_4_own_base_not_necessary_condition": {
+  "ruling": "row_tracks_own_base / clear_crossover is ONE pre-registered binary screening summary. It is NOT a necessary condition for cross-domain tracking value: a layer can fail the screen while individual cells still show meaningful layout-domain interaction (e.g., a domain base beating identity everywhere, or partial row tracking)",
+  "mandatory_reporting": [
+   "the complete per-layer 4x5 cell matrix: cell estimates, per-start values, within-block paired CIs for all 20 pairs, not only the 12 own-vs-other contrasts",
+   "per-row best column and its delta versus identity and versus own base",
+   "descriptive oracle gaps (row-equal K and K-tilde weighted, with the assumption note)",
+   "pairwise column displacement counts and frozen C_batch migration-cost context"
+  ],
+  "verdict_wording": "'not_detected' means only that the pre-registered screen did not fire on these two layers and candidates at replay caliber; it is NOT evidence of absence of exploitable cross-domain structure, and 'detected' is NOT a whole-service benefit claim"
+ },
+ "amendment_5_batch_metadata_and_capture_mechanism": {
+  "decision": "ADOPT the proven prediction_v1 frozen-request-batch capture mechanism INSTEAD OF the original protocol's mid-service client-index triggers",
+  "reason": "the frozen-batch mechanism records complete batch composition metadata BY CONSTRUCTION (per-request source line indices, domains, tokenized lengths, sums; indexer verifies captured hidden rows equal the request token multiset), so domain purity is VERIFIABLE, not merely bounded; the mid-service trigger design could not record batch composition without modifying the deployed capture patch and bench client, and its purity caveat was pre-registered as unverifiable",
+  "batch_selection_rule_pre_registered": {
+   "rule": "per (split, domain): scan the domain segment FORWARD in source-line order from the segment midpoint (inclusive); retain requests whose Qwen3-tokenized prompt length (add_special_tokens=True) lies in [400, 2048]; if fewer than 8 by segment end, continue BACKWARD from midpoint-1 to segment start; take the first 8 in scan order",
+   "uniformity": "one identical content-only rule for all 4 domains and both splits; uses NO routing, layout or performance information",
+   "why_not_500_512": "the prediction_v1 band [500,512] was scanned before freezing: book domain has ZERO requests below 950 tokens and code domain is uniformly 2048 tokens in both splits (0 in-band); band [400,2048] is feasible in all 8 segments (sharegpt >=443, prover >=1977, book >=1006, code all)",
+   "min_400_rationale": "every rank's captured forward must reach min_hidden_rows=400; with 8 concurrent requests and dp-attention assignment, one request per rank, per-request tokens >=400 guarantees the gate on all 8 ranks (empirically the prediction_v1 pattern, 18/18 units)",
+   "batch_size_8_rationale": "8 = one request per dp rank; fewer requests leave ranks without a >=400-row forward and the unit cannot complete (all 8 rank files required)"
+  },
+  "row_count_heterogeneity_documented": {
+   "expected_capture_sizes": "sharegpt ~3900-4200 rows, prover ~4000-4100, book ~7700-8200, code 16384 (8 x 2048 exactly)",
+   "impact_on_statistics": "all primary contrasts are WITHIN-row paired (same capture, different layouts), so row-count differences across rows do not bias them; the inherited epsilon labels are relatively stricter for larger rows (descriptive only, amendment 2)",
+   "oracle_gap_note_update": "the K-tilde assumption note gains one clause: rows are NOT equal-token across domains in CD-X0 (book ~2x, code ~4x the sharegpt/prover rows); row-equal K and K-tilde weightings bracket the descriptive range and neither is a service-caliber quantity",
+   "replay_feasibility_evidence": "DeepEP normal-mode buffer sizing is independent of SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK (deepep.py DeepEPBuffer.get_deepep_buffer: the parameter is used only for low-latency RDMA sizing; assert <=1024 concerns internode_ll); the five-arm service ran 2048-token code prefills (48.6% of evaluation tokens) for hours under the same env=512 normal-mode configuration; a pre-freeze smoke replay of one code-sized capture validates the harness end-to-end before any formal start"
+  },
+  "histogram_bound_note": "prediction_common.MAX_BLOCKS_PER_EXPERT=32 (4096 tokens/expert) can bind for 16384-row code captures; the CD-X0 copy cdx0_common.py raises it to 256 (32768 tokens/expert) for the CD-X0 study only; prediction_common.py itself is NEVER modified (frozen-hash compatibility of prior protocols preserved); the raise is a validation-bound widening, not a timing-path change",
+  "provenance_policy": "CD-X0 tooling is built as hash-recorded copies: cdx0_common.py (from prediction_common.py), cdx0_replay.py (from crosstab_replay.py), cdx0 capture site (from prediction_capture_site, study-id gate widened to h20-placement-cdx0-v1); replay_placement.py is reused UNCHANGED (self-contained, no study constants); every copy records its source path and source sha256 in the frozen execution protocol",
+  "setup_retry_rule": "capture units are SETUP, not timing starts: a failed capture unit (rank-file or row-multiset verification failure) may be re-armed once under a new capture_id with suffix '-r2' and the failure retained on disk; this does not touch the frozen no-retry rule for the 32 timed replay starts",
+  "capture_server": "same launch flags as launch_prediction_capture_server.sh (tp8 dp8 ep8, dp-attention, deepep normal, deep_gemm, bf16+fp8, mem-fraction 0.8, no cuda graph, no radix cache, identity init map, watchdog 600), env from /workspace/logs/env_235b.sh; trigger path switched to inputs/cdx0_v1/capture_trigger.json; batches sent via the frozen request files with max_tokens=1 as in the source workload",
+  "expected_capture_sizes_note": "ACTUAL frozen batch sums (configs/followup_v1/cdx0_requests.json): calibration sharegpt 8174, prover 4023, book 8136, code 16384; evaluation sharegpt 5437, prover 4001, book 8136, code 16384; replay rows = evaluation sums"
+ },
+ "scope_reaffirmation": {
+  "cells_and_starts_frozen": "40 timed cells and 32 replay starts; NO extension path is exercised by this amendment",
+  "no_service_experiment": "the 30-start paired-order service experiment remains NOT proposed; nothing in CD-X0 authorizes it",
+  "verdict_scope": "results judge only the cross-domain execution-time response among the chosen captures, the two layers (024, 071) and the candidate layouts at replay caliber; NO full-service benefit or harm conversion in either direction; NO multiplication by service token/time shares in any verdict or headline number",
+  "no_significance_driven_starts": "if the outcome is indeterminate, it is reported as indeterminate; no additional starts are launched under this pilot",
+  "next_step_after_pilot": "use the full matrix plus the existing five-arm control trajectories (W deviation, reset classification, cumulative-cost decomposition) to decide CONCRETE correction rules for the controller; developing/validating any corrected controller happens on the calibration split only; the old controller's failure results remain on disk and in git history unchanged; the pilot does NOT automatically chain into another large ablation"
+ },
+ "prohibitions_unchanged": "all prohibitions of the original protocol remain frozen; this amendment adds: modify_prediction_common_or_any_frozen_prior_artifact, relabel_exploratory_as_confirmatory, capture_retry_beyond_one_r2_suffix, band_or_rule_change_after_batch_freeze",
+ "execution_discipline_clarification": {
+  "failed_start_handling": "run_cdx0_execution.sh writes the failure record, retires the start (no retry, per frozen protocol) and CONTINUES with the remaining starts; the row-validity rule (<3 valid starts -> indeterminate row) from the protocol applies; this continuation is the implementation of the frozen validity rule, not a relaxation",
+  "capture_setup_retry": "failed capture units: one re-arm under capture_id suffix '-r2' permitted (setup, not timing); failure retained"
+ }
+}

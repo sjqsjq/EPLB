@@ -1,0 +1,75 @@
+{
+  "analyzer_implementation": {
+    "path": "scripts/analyze_scan_cost_benefit.py",
+    "sha256": "f99c434faf8e41cee9a16a49fe3ea9e88db808c13437137cba175b6387ecd73d"
+  },
+  "benefit_model": {
+    "cumulative": "observed identity-cumulative start-level mean Q per (capture, prefix layout) from the frozen scan analysis, with its 4-start CI and verdict",
+    "marginal_final_step": "observed adjacent effect bin-r-1.00-1.05 -> base per capture from the frozen scan analysis"
+  },
+  "break_even_rule": {
+    "finite": "CI(Q) excludes zero and mean Q > 0: N* = C/Q with Fieller 95% interval (t df=3)",
+    "harmful": "mean Q <= 0 or CI excludes zero negative: no_finite_beneficial_breakeven",
+    "indeterminate": "CI(Q) crosses zero: reported as indeterminate_ci_crosses_zero, never as a finite horizon",
+    "t_quantile_95_df3": 3.1824463052837078
+  },
+  "cost_model": {
+    "cross_campaign_independence": "cost and benefit come from separate frozen campaigns on the same node; Fieller intervals use the same independence assumption as the frozen stopping analysis spec",
+    "measured_basis": "stopping migration campaign (48 starts, 624 transactions, 31200 forward/reverse pairs): per-capture single-swap combined cost C_single(c) = mean of that capture's 12 single-swap transaction combined means; per-capture identity-to-base multi-batch combined cost C_multi(c); SEs from the frozen 4-start Student-t intervals",
+    "prefix_batch_estimator": "C_batch(c,k) = C_multi(c) * moves_k / moves_base(c), where moves_x is the count of logical experts whose owner rank differs from identity under layout x; linear-in-bytes extrapolation anchored at the measured full-displacement endpoint; flagged as an estimator, never presented as a measurement",
+    "prefix_sequential_upper_bound": "C_seq(c,k) = k * C_single(c) with SE = k * SE_single(c): the cost of applying the first k greedy swaps one measured single-swap transaction at a time; an upper bound because batching was measured to be cheaper per move"
+  },
+  "frozen_at_utc": "2026-10-15T02:25:07.462301+00:00",
+  "horizon_net_benefit": {
+    "definition": "net(c,k,N) = N * Q_cum_mean(c,k) - C_batch(c,k) for N in the frozen horizon grid; descriptive decision readout at point means; rows whose CI crosses zero are flagged indeterminate and never counted as established gains",
+    "horizons_forwards": [
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "optimal_prefix_rule": "argmax_k net(c,k,N); ties to the smaller k"
+  },
+  "inputs": {
+    "scan_analysis": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/nearscan_v1/analysis.json",
+      "sha256": "ec39c1773a56fa32c5ab4d8da610f2bc09e8d1eec80db224803c20f0c34fc9c2"
+    },
+    "scan_layout_index": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/index.json",
+      "sha256": "3cb34063ed7e5514c01390e3edfb63e1ce31b7c57150d20164f6690d80032fc8"
+    },
+    "stopping_analysis": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/stopping_v1/analysis.json",
+      "sha256": "e4b3c88909b2defd7ed08b705b6c1e81ddcaf2766ec0faf11cd65e8cbed2e5c7"
+    },
+    "stopping_migration_protocol": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/stopping_migration_protocol.json",
+      "sha256": "7a83dee539d741d763c814039661898418688bd6f6a97e8e5c5dd40d97f931fe"
+    }
+  },
+  "interpretation_rules": [
+    "all signed values preserved; negative benefits reported as harmful actions",
+    "a CI crossing zero means compatible-with-zero: the action is indeterminate, not free and not worthless",
+    "no slack, fence, or H term is subtracted from any measured effect",
+    "migration costs are never subtracted from execution timings inside a measurement; they are compared only at the decision level via break-even and net benefit",
+    "no new timing; no refit; no subset selection",
+    "stopping decisions should follow expected benefit versus amortized cost over the intended horizon, not an assumed universal zero-gain deadzone"
+  ],
+  "purpose": "compare low-gain placement actions against actually measured migration costs: break-even horizons for adopting each greedy-prefix layout from identity, for the final marginal step into base, and horizon-indexed expected net benefit, using only frozen measured campaigns (no new timing, no refit)",
+  "refreeze_note": {
+    "changed_fields": [
+      "analyzer_implementation",
+      "refreeze_note"
+    ],
+    "previous_spec_sha256": "30d5c6f72cbba81f7c5934d0bc3bb396ed77e2057cfbff22f71d23fc8bf5e036",
+    "reason": "first freeze omitted the analyzer hash binding; re-frozen before any comparison was computed",
+    "refrozen_at_utc": "2026-10-15T02:37:10.182621+00:00",
+    "statistical_content_identical_to_previous": true
+  },
+  "schema_version": 1,
+  "spec_id": "h20-placement-nearscan-cost-benefit-v1",
+  "status": "frozen_before_cost_benefit_comparison",
+  "study_id": "h20-placement-nearscan-v1"
+}

@@ -1,0 +1,339 @@
+{
+ "mode": "aaa",
+ "params": {
+  "r": 12,
+  "n_ref": 4,
+  "n_cand": 3,
+  "n_fb": 4,
+  "w_base": 16,
+  "w_cand": 32,
+  "eps_risk_us": 2000000,
+  "eps_prac_frac": 0.01,
+  "force_abort_at": 0,
+  "commit_enabled": false,
+  "calib_trigger": true,
+  "dwell_grow": 2,
+  "k_tb": 8
+ },
+ "state": "DONE",
+ "license_used": true,
+ "trigger_window": 12,
+ "pending_abort": false,
+ "abort_reason": null,
+ "excess_cum_us": 253599,
+ "overshoot_us": 0,
+ "contaminated": false,
+ "admission_applied": false,
+ "eval_window": 26,
+ "eval": {
+  "rate_ref_us_per_step": 348419.609375,
+  "rate_cand_us_per_step": 351061.2708333333,
+  "rate_fb_us_per_step": 346962.625,
+  "g_us_per_step2": -9.10615234375,
+  "predicted_cand_us_per_step": 347691.1171875,
+  "delta_net_us_per_step": 3370.153645833314,
+  "delta_net_rel": 0.009672686482482266,
+  "eps_prac_us_per_step": 3484.1960937500003,
+  "classification": "UNKNOWN",
+  "flags": [],
+  "excess_cum_us": 253599,
+  "overshoot_us": 0,
+  "abort_reason": null,
+  "contaminated": false,
+  "midpoints_steps": {
+   "ref": 224.0,
+   "cand": 304.0,
+   "fb": 384.0
+  },
+  "n_windows": {
+   "REF": 4,
+   "CAND": 6,
+   "FB": 4
+  },
+  "n_steps": {
+   "REF": 64,
+   "CAND": 96,
+   "FB": 64
+  },
+  "commit_eligible": false,
+  "estimator": "observational_ABA_diff_trend_corrected",
+  "causal_isolation_claimed": false,
+  "coverage_guarantee": null
+ },
+ "segments": {
+  "REF": [
+   {
+    "window_id": 13,
+    "steps": 16,
+    "span_us": 5659771,
+    "bcost_us": 2805,
+    "true_steps_end": 208,
+    "cum_steps_before": 192,
+    "committed": true
+   },
+   {
+    "window_id": 14,
+    "steps": 16,
+    "span_us": 5524062,
+    "bcost_us": 2695,
+    "true_steps_end": 224,
+    "cum_steps_before": 208,
+    "committed": true
+   },
+   {
+    "window_id": 15,
+    "steps": 16,
+    "span_us": 5551687,
+    "bcost_us": 3336,
+    "true_steps_end": 240,
+    "cum_steps_before": 224,
+    "committed": true
+   },
+   {
+    "window_id": 16,
+    "steps": 16,
+    "span_us": 5563335,
+    "bcost_us": 2835,
+    "true_steps_end": 256,
+    "cum_steps_before": 240,
+    "committed": true
+   }
+  ],
+  "CAND": [
+   {
+    "window_id": 17,
+    "steps": 16,
+    "span_us": 5510341,
+    "bcost_us": 3441,
+    "true_steps_end": 272,
+    "cum_steps_before": 256,
+    "committed": true
+   },
+   {
+    "window_id": 18,
+    "steps": 16,
+    "span_us": 5724779,
+    "bcost_us": 13480,
+    "true_steps_end": 288,
+    "cum_steps_before": 272,
+    "committed": true
+   },
+   {
+    "window_id": 19,
+    "steps": 16,
+    "span_us": 5744067,
+    "bcost_us": 2915,
+    "true_steps_end": 304,
+    "cum_steps_before": 288,
+    "committed": true
+   },
+   {
+    "window_id": 20,
+    "steps": 16,
+    "span_us": 5596490,
+    "bcost_us": 4488,
+    "true_steps_end": 320,
+    "cum_steps_before": 304,
+    "committed": true
+   },
+   {
+    "window_id": 21,
+    "steps": 16,
+    "span_us": 5575180,
+    "bcost_us": 2838,
+    "true_steps_end": 336,
+    "cum_steps_before": 320,
+    "committed": true
+   },
+   {
+    "window_id": 22,
+    "steps": 16,
+    "span_us": 5551025,
+    "bcost_us": 4694,
+    "true_steps_end": 352,
+    "cum_steps_before": 336,
+    "committed": true
+   }
+  ],
+  "FB": [
+   {
+    "window_id": 23,
+    "steps": 16,
+    "span_us": 5541540,
+    "bcost_us": 3196,
+    "true_steps_end": 368,
+    "cum_steps_before": 352,
+    "committed": true
+   },
+   {
+    "window_id": 24,
+    "steps": 16,
+    "span_us": 5547340,
+    "bcost_us": 2937,
+    "true_steps_end": 384,
+    "cum_steps_before": 368,
+    "committed": true
+   },
+   {
+    "window_id": 25,
+    "steps": 16,
+    "span_us": 5564125,
+    "bcost_us": 3080,
+    "true_steps_end": 400,
+    "cum_steps_before": 384,
+    "committed": true
+   },
+   {
+    "window_id": 26,
+    "steps": 16,
+    "span_us": 5552603,
+    "bcost_us": 3354,
+    "true_steps_end": 416,
+    "cum_steps_before": 400,
+    "committed": true
+   }
+  ]
+ },
+ "seg_flags": {
+  "REF": [],
+  "CAND": [],
+  "FB": []
+ },
+ "seg_layout_ver": {
+  "REF": 2,
+  "CAND": 2,
+  "FB": 2
+ },
+ "events": [
+  [
+   12,
+   "trigger",
+   ""
+  ],
+  [
+   16,
+   "cand_start",
+   "probe_start_aaa"
+  ],
+  [
+   22,
+   "fb_start",
+   "probe_fallback_aaa"
+  ],
+  [
+   26,
+   "eval",
+   "UNKNOWN"
+  ]
+ ],
+ "bcost_series": [
+  [
+   1,
+   29302
+  ],
+  [
+   2,
+   19934
+  ],
+  [
+   3,
+   2987
+  ],
+  [
+   4,
+   3180
+  ],
+  [
+   5,
+   28001
+  ],
+  [
+   6,
+   3648
+  ],
+  [
+   7,
+   3158
+  ],
+  [
+   8,
+   2629
+  ],
+  [
+   9,
+   3175
+  ],
+  [
+   10,
+   3251
+  ],
+  [
+   11,
+   2732
+  ],
+  [
+   12,
+   2866
+  ],
+  [
+   13,
+   2805
+  ],
+  [
+   14,
+   2695
+  ],
+  [
+   15,
+   3336
+  ],
+  [
+   16,
+   2835
+  ],
+  [
+   17,
+   3441
+  ],
+  [
+   18,
+   13480
+  ],
+  [
+   19,
+   2915
+  ],
+  [
+   20,
+   4488
+  ],
+  [
+   21,
+   2838
+  ],
+  [
+   22,
+   4694
+  ],
+  [
+   23,
+   3196
+  ],
+  [
+   24,
+   2937
+  ],
+  [
+   25,
+   3080
+  ],
+  [
+   26,
+   3354
+  ]
+ ],
+ "cum_steps": 416,
+ "true_steps_total": 416,
+ "window_count": 26,
+ "prof_probe_cum_ms": 8.437504
+}

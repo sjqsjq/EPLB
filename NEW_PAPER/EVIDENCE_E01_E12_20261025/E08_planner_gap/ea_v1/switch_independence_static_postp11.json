@@ -1,0 +1,214 @@
+{
+  "verification_id": "ea-v1-switch-independence-static",
+  "created_at_utc": "2026-10-15T17:23:00+00:00",
+  "scope": "static source-level verification (C5 static part); dynamic log-level smoke verification runs before E-A protocol freeze (C5 dynamic part)",
+  "audit_findings_addressed": [
+    "F1 ungated ADW window mutations",
+    "F2 RESET zeroing gated by wrong flag",
+    "F3 D independence with W off",
+    "C3 clamp ported to deployed",
+    "C7 calib gate decoupled"
+  ],
+  "per_file": {
+    "deployed": {
+      "file": "/opt/conda/lib/python3.11/site-packages/sglang/srt/managers/pb_oeplb/controller.py",
+      "sha256": "9443e6a53e189dc9064f2048dddcdca72a33c05ba59a5065ff18ca42bda5761f",
+      "checks": {
+        "window_mutations": {
+          "n_sites": 6,
+          "sites": [
+            {
+              "line": 161,
+              "method": "def __init__(self, cfg: PBOEPLBConfig, model_runner):",
+              "gate": "init (cfg.sync_window)",
+              "gated": true
+            },
+            {
+              "line": 431,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 456,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 466,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 866,
+              "method": "def _decide_and_begin_swap(self):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 891,
+              "method": "def _decide_and_begin_swap(self):",
+              "gate": "adaptive_window",
+              "gated": true
+            }
+          ],
+          "verdict": "ALL writes gated by adaptive_window (or __init__)"
+        },
+        "history_zeroing": {
+          "n_sites": 3,
+          "sites": [
+            {
+              "line": 604,
+              "method": "def _warm_start_placement(self):",
+              "class": "warm_start (unreachable when _calib_done=True)",
+              "dominating_chain": "try: || def _warm_start_placement(self):",
+              "correctly_gated": true
+            },
+            {
+              "line": 671,
+              "method": "def _check_eplb_refinement(self, global_load):",
+              "class": "refine (hard-disabled by plateau<999 early return)",
+              "dominating_chain": "try: || def _check_eplb_refinement(self, global_load):",
+              "correctly_gated": true
+            },
+            {
+              "line": 823,
+              "method": "def _decide_and_begin_swap(self):",
+              "class": "RESET domain-shift",
+              "dominating_chain": "if (self._converged_ratio is not None and || if self._prev_window_ratio is not None and self.cfg.adaptive_decay: || try: || def _decide_and_begin_swap(self):",
+              "correctly_gated": true
+            }
+          ],
+          "verdict": "RESET gated by adaptive_decay only; other zero_ sites unreachable"
+        },
+        "decay_zero_step": {
+          "gated_by_adaptive_decay_only": true
+        },
+        "changepoint_tracking_unconditional": true,
+        "shrink_clamp_C3_present": true,
+        "calib_gate_C7_decoupled": true
+      },
+      "overall_static_pass": true
+    },
+    "repo": {
+      "file": "/workspace/EPLB/OEPLB/src/controller.py",
+      "sha256": "0b2f745dfe648681cec9d228ce7ea75198de8b358f55477714c8bf001fa920f5",
+      "checks": {
+        "window_mutations": {
+          "n_sites": 6,
+          "sites": [
+            {
+              "line": 161,
+              "method": "def __init__(self, cfg: PBOEPLBConfig, model_runner):",
+              "gate": "init (cfg.sync_window)",
+              "gated": true
+            },
+            {
+              "line": 409,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 434,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 444,
+              "method": "def on_forward_pass_end(self, forward_batch):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 843,
+              "method": "def _decide_and_begin_swap(self):",
+              "gate": "adaptive_window",
+              "gated": true
+            },
+            {
+              "line": 868,
+              "method": "def _decide_and_begin_swap(self):",
+              "gate": "adaptive_window",
+              "gated": true
+            }
+          ],
+          "verdict": "ALL writes gated by adaptive_window (or __init__)"
+        },
+        "history_zeroing": {
+          "n_sites": 3,
+          "sites": [
+            {
+              "line": 582,
+              "method": "def _warm_start_placement(self):",
+              "class": "warm_start (unreachable when _calib_done=True)",
+              "dominating_chain": "try: || def _warm_start_placement(self):",
+              "correctly_gated": true
+            },
+            {
+              "line": 649,
+              "method": "def _check_eplb_refinement(self, global_load):",
+              "class": "refine (hard-disabled by plateau<999 early return)",
+              "dominating_chain": "try: || def _check_eplb_refinement(self, global_load):",
+              "correctly_gated": true
+            },
+            {
+              "line": 801,
+              "method": "def _decide_and_begin_swap(self):",
+              "class": "RESET domain-shift",
+              "dominating_chain": "if (self._converged_ratio is not None and || if self._prev_window_ratio is not None and self.cfg.adaptive_decay: || try: || def _decide_and_begin_swap(self):",
+              "correctly_gated": true
+            }
+          ],
+          "verdict": "RESET gated by adaptive_decay only; other zero_ sites unreachable"
+        },
+        "decay_zero_step": {
+          "gated_by_adaptive_decay_only": true
+        },
+        "changepoint_tracking_unconditional": true,
+        "shrink_clamp_C3_present": true,
+        "calib_gate_C7_decoupled": true
+      },
+      "overall_static_pass": true
+    }
+  },
+  "arm_reachability_matrix": {
+    "A00_Woff_Doff": {
+      "window_trajectory": "fixed at cfg.sync_window (no reachable mutation)",
+      "history_zeroing": "none (RESET off, warm-start/refine unreachable)",
+      "decay_alpha": "constant cfg.decay_factor (no decay->0 step)"
+    },
+    "A10_Won_Doff": {
+      "window_trajectory": "adaptive (ADW + cos_sim mechanisms, both gated ON)",
+      "history_zeroing": "none (RESET gated by adaptive_decay=False)",
+      "decay_alpha": "constant cfg.decay_factor"
+    },
+    "A01_Woff_Don": {
+      "window_trajectory": "fixed at cfg.sync_window",
+      "history_zeroing": "RESET domain-shift zeroing active (gated by adaptive_decay=True)",
+      "decay_alpha": "adaptive: decay->0 at changepoints (reachable with W off)"
+    },
+    "A11_Won_Don": {
+      "window_trajectory": "adaptive, identical mutation set to v3-locked code",
+      "history_zeroing": "RESET active, same trigger condition as v3",
+      "decay_alpha": "adaptive, identical to v3"
+    }
+  },
+  "a11_v3_equivalence": {
+    "v3_launch_flags": {
+      "adaptive_window": true,
+      "adaptive_decay": true,
+      "calibrate_adaptive_sensitivity": false
+    },
+    "argument": "With both adaptive flags True every gate evaluates as in the v3-locked code: ADW shrink/grow and cos_sim window mutations fire on the same conditions with the same log strings; RESET fires on the same condition (prev_window_ratio set + adaptive_decay True == adaptive_window True in v3); decay->0 unchanged; C7 gives _calib_done=True either way when calibrate_adaptive_sensitivity=False, so warm-start/tier remain unreachable as in v3. The C3 clamp differs from v3 only when window_floor > _effective_sync_window; with sync_window=16, window_floor=8 (v3 and E-A launch config) max(8, W//2) <= W for all reachable W>=8, so min() is a no-op and behaviour is identical.",
+    "consequence": "Per user rule, because code was modified for the switch fix, A11 must be re-run in the new 25-start campaign as the contemporaneous control; identity and ILP arms are NOT re-run."
+  },
+  "all_static_checks_pass": true,
+  "known_inert_differences_deployed_vs_repo": [
+    "deployed-only HOOKDIAG diagnostic counters (logging only, no state mutation)",
+    "comment wording at the C3 clamp site (code identical)"
+  ]
+}

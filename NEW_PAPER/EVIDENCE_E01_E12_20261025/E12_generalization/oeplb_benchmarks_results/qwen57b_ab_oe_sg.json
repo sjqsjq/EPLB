@@ -1,0 +1,21 @@
+{
+  "label": "qwen57b_ab_oe_sg",
+  "dataset": "/tmp/exp_data/sharegpt_o1_20k.jsonl",
+  "num_requests": 20000,
+  "concurrency": 256,
+  "ok": 20000,
+  "errors": 0,
+  "total_time_s": 76.89,
+  "total_comp_tokens": 20000,
+  "tps": 260.1,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 978.0,
+  "lat_p50_ms": 914.4,
+  "lat_p99_ms": 1767.23,
+  "ttft_mean_ms": 977.95,
+  "ttft_p50_ms": 914.38,
+  "ttft_p99_ms": 1767.21,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

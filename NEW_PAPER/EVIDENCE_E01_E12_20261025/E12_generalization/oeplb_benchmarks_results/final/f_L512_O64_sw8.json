@@ -1,0 +1,21 @@
+{
+  "label": "final/f_L512_O64_sw8",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/final_grid/L512_O64.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 263.71,
+  "total_comp_tokens": 524288,
+  "tps": 1988.1,
+  "avg_output_tokens": 64,
+  "lat_mean_ms": 8237.2,
+  "lat_p50_ms": 7915.98,
+  "lat_p99_ms": 18188.32,
+  "ttft_mean_ms": 3345.14,
+  "ttft_p50_ms": 3055.11,
+  "ttft_p99_ms": 14023.54,
+  "tpot_mean_ms": 77.65,
+  "tpot_p50_ms": 77.14,
+  "tpot_p99_ms": 123.0
+}

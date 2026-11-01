@@ -1,0 +1,49 @@
+{
+  "analyzer_implementation": {
+    "bytes": 20485,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_scan.py",
+    "sha256": "b4b37ef0da6d71e72ddf501e9e7e37f16971cfd21242f0ea69e5227959386c46"
+  },
+  "frozen_at_utc": "2026-10-14T18:22:15.281823+00:00",
+  "interpretation_rules": [
+    "all signed effects including negatives are reported for every contrast; nothing is suppressed",
+    "an interval crossing zero means compatible-with-zero; it is not proof of no effect and not equivalence",
+    "practical equivalence is supported only by an interval wholly inside [-epsilon,+epsilon]",
+    "a regional plateau claim requires every adjacent contrast in the band to be practically equivalent AND raw r to strictly decrease across the band; a single equivalent step is not a region",
+    "no slack, fence, or H term is subtracted from an effect already measured as a global completion-time change",
+    "no best-start, best-block, repeat, or prefix selection; failed starts are retained and never retried under this frozen campaign",
+    "no model refit before or during the scan; locked-M2 predictions play no role in this analysis",
+    "raw r is route metadata, not compute time; padded/aligned descriptors are recorded per layout but contrasts are measured completion times",
+    "cross-capture map reuse (identity; one perfectly balanced map) is legal because the measurement unit is (capture, layout); reused layouts are never pooled across captures"
+  ],
+  "purpose": "decide, on real captured routed-layer forwards with frozen logical top-k and frozen expert weights, whether a region exists where further balancing (strictly decreasing raw r along the frozen greedy path) yields no discernible completion-time gain beyond a pre-registered practical-equivalence margin",
+  "schema_version": 1,
+  "spec_id": "h20-placement-nearscan-analysis-v1",
+  "statistics": {
+    "adjacent_contrast_definition": "for every consecutive layout pair along the frozen r-descending manifest order (identity, first-entry bin layouts, base), the effect T(earlier) - T(later); positive means the later (more balanced) layout is faster",
+    "blocks_per_start": 5,
+    "classification_rules": {
+      "compatible_with_zero": "interval contains zero",
+      "excludes_zero_negative": "ci95_high_us < 0",
+      "excludes_zero_positive": "ci95_low_us > 0",
+      "practically_equivalent_within_margin": "CI95 wholly inside [-epsilon,+epsilon]",
+      "zero_crossing_is_not_a_deadzone": true
+    },
+    "cumulative_contrast_definition": "for every non-identity layout L, the effect T(identity) - T(L); positive means cumulative gain relative to the identity placement",
+    "deadzone_rule": "a plateau is supported only where raw r strictly decreases while every adjacent-bin contrast interval lies wholly inside [-epsilon,+epsilon]; an interval crossing zero is compatible with zero and is never by itself a plateau declaration",
+    "effect_definition": "contrast T(a) - T(b) for two layouts of the same capture: start-level mean of the five paired within-block differences of completion_fenced_us_per_forward; inference across the four independent starts with two-sided 95% Student-t, df=3",
+    "expected_counts": {
+      "adjacent_contrasts": 83,
+      "captures": 12,
+      "identity_cumulative_contrasts": 83,
+      "layout_time_rows": 95
+    },
+    "plateau_operationalization": "maximal runs of consecutive adjacent contrasts that each have delta_r>0 and CI95 wholly inside [-epsilon,+epsilon] are reported as bands; a band of >=2 contrasts is a supported_plateau_region; a band of exactly 1 is a single_step_equivalence and is not by itself a region declaration",
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "sign_convention": "positive effect = candidate direction faster; negatives preserved exactly",
+    "starts_per_capture": 4,
+    "t_quantile_95_df3": 3.1824463052837078
+  },
+  "status": "frozen_before_any_scan_timing",
+  "study_id": "h20-placement-nearscan-v1"
+}

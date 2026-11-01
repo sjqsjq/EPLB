@@ -1,0 +1,9 @@
+cdx0-smoke-prover-024: launched from a dash shell; 'source env_235b.sh' failed
+(dash has no source builtin), so the smoke ran under the bare environment
+(NVSHMEM_* / NCCL_* exports NOT applied). The replay nevertheless completed
+all correctness gates and wrote its result - a strictly harder environment
+than the frozen campaign one. The ${PIPESTATUS[0]} bash-ism then aborted the
+loop before the code smoke. cdx0-smoke-code-071 is re-run under bash with
+env_235b.sh properly sourced (frozen campaign environment). The real campaign
+driver run_cdx0_execution.sh is bash (#!/usr/bin/env bash) and sources the
+env file; this deviation affected the smoke launch only, no campaign artifact.

@@ -1,0 +1,89 @@
+{
+ "label": "ED_r2",
+ "nreq": 3048,
+ "purpose": "pb_switch",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "2da3467263d4f528"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_pc": {
+   "ok": true,
+   "detail": "cfbdaee752283935"
+  },
+  "placement_es_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_df_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_mt_lock": {
+   "ok": true,
+   "detail": "299cea283e93efe6"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=3048 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_book_switch_20261027/boots/ED_r2/ED_r2_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "error": "v2p1_rank0.jsonl missing",
+  "v2p1_not_applicable": true
+ },
+ "baseline_facts": {
+  "arm": "ED",
+  "policy": "n-a",
+  "eplb_rebalance_starts": 80,
+  "eplb_banner": true,
+  "injection_evidence": [
+   "[2026-10-27 13:17:39] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-",
+   "[2026-10-27 13:18:44 DP5 TP5 EP5] [EPLBManager] system started, will rebalance per 100 iterations.",
+   "[2026-10-27 13:18:44 DP7 TP7 EP7] [EPLBManager] system started, will rebalance per 100 iterations."
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 3048,
+  "errors": 0,
+  "total_time_s": 431.85,
+  "tps": 7.1,
+  "total_comp_tokens": 3048,
+  "total_prompt_tokens": 8241604,
+  "ttft_mean_ms": 4503.47,
+  "lat_mean_ms": 4503.5,
+  "wall_start_s": 1793107162.906429,
+  "wall_end_s": 1793107594.761029,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}

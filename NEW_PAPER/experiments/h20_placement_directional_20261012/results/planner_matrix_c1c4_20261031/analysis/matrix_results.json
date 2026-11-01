@@ -1,0 +1,6041 @@
+{
+ "mode": "FULL",
+ "n_cells": 52,
+ "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+ "thr_prod": 1.0962402945,
+ "thr_diag": 1.02,
+ "results": [
+  {
+   "cellid": "C1_gap_32_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.6,
+   "cpu_ms_traced": 5.7,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3295515587693187,
+    "avg": 1.2329691115411978,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3295165696638556,
+    "avg": 1.232938350029974,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_32_diag102",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.53,
+   "cpu_ms_traced": 5.87,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3295515587693187,
+    "avg": 1.2329691115411978,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3295165696638556,
+    "avg": 1.232938350029974,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_128_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.11,
+   "cpu_ms_traced": 20.74,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.197396554849735,
+    "avg": 1.146014673299139,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1973504479928416,
+    "avg": 1.1459925687320092,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_128_diag102",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.01,
+   "cpu_ms_traced": 20.01,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.197396554849735,
+    "avg": 1.146014673299139,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1973504479928416,
+    "avg": 1.1459925687320092,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_300_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 5.83,
+   "cpu_ms_traced": 46.65,
+   "event_count": 2623,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.163031549092556,
+    "avg": 1.0749417749366503,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1629976877514174,
+    "avg": 1.0749321087530832,
+    "n_above_1_02": 94
+   },
+   "plan_len": 281,
+   "rounds": 282,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 294,
+    "accepted": 281,
+    "rejected": 13,
+    "branch_maxdelta": 269,
+    "branch_gap": 25,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 25,
+    "gapbranch_near_half_le_025gap": 25,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 10604.9,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_300_diag102",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 7.22,
+   "cpu_ms_traced": 53.57,
+   "event_count": 2840,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.163031549092556,
+    "avg": 1.0704722684882768,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1629976877514174,
+    "avg": 1.0704640010033746,
+    "n_above_1_02": 94
+   },
+   "plan_len": 299,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 321,
+    "accepted": 299,
+    "rejected": 22,
+    "branch_maxdelta": 285,
+    "branch_gap": 36,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 36,
+    "gapbranch_near_half_le_025gap": 36,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11284.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_32_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.61,
+   "cpu_ms_traced": 7.36,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3295515587693187,
+    "avg": 1.2329691115411978,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3295165696638556,
+    "avg": 1.232938350029974,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_32_diag102",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.74,
+   "cpu_ms_traced": 6.22,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3295515587693187,
+    "avg": 1.2329691115411978,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3295165696638556,
+    "avg": 1.232938350029974,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_128_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.66,
+   "cpu_ms_traced": 22.64,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.197396554849735,
+    "avg": 1.146014673299139,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1973504479928416,
+    "avg": 1.1459925687320092,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_128_diag102",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.22,
+   "cpu_ms_traced": 21.05,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.197396554849735,
+    "avg": 1.146014673299139,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1973504479928416,
+    "avg": 1.1459925687320092,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_300_prod1096",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 6.74,
+   "cpu_ms_traced": 53.84,
+   "event_count": 3171,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.163031549092556,
+    "avg": 1.085325893893062,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1629976877514174,
+    "avg": 1.0853145745928685,
+    "n_above_1_02": 94
+   },
+   "plan_len": 262,
+   "rounds": 281,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 19,
+   "exhibit": {
+    "trials_total": 413,
+    "accepted": 262,
+    "rejected": 151,
+    "branch_maxdelta": 413,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 9887.9,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_maxdelta_300_diag102",
+   "snapshot": "C1",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 9.22,
+   "cpu_ms_traced": 79.0,
+   "event_count": 4964,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.163031549092556,
+    "avg": 1.0834135945509882,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1629976877514174,
+    "avg": 1.0834033239643297,
+    "n_above_1_02": 94
+   },
+   "plan_len": 274,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 26,
+   "exhibit": {
+    "trials_total": 758,
+    "accepted": 274,
+    "rejected": 484,
+    "branch_maxdelta": 758,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 10340.8,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_32_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.33,
+   "cpu_ms_traced": 6.13,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3140060065042651,
+    "avg": 1.2194974143737163,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3139669235550504,
+    "avg": 1.2194460762346322,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_32_diag102",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.66,
+   "cpu_ms_traced": 6.38,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3140060065042651,
+    "avg": 1.2194974143737163,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3139669235550504,
+    "avg": 1.2194460762346322,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_128_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.74,
+   "cpu_ms_traced": 20.99,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1782915743496807,
+    "avg": 1.1300767697722738,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1782193697970889,
+    "avg": 1.1300525858528008,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_128_diag102",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.34,
+   "cpu_ms_traced": 22.1,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1782915743496807,
+    "avg": 1.1300767697722738,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1782193697970889,
+    "avg": 1.1300525858528008,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_300_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 5.55,
+   "cpu_ms_traced": 41.5,
+   "event_count": 2273,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.096219449573828,
+    "avg": 1.0742537866486759,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.096299121017408,
+    "avg": 1.0742334625584338,
+    "n_above_1_02": 94
+   },
+   "plan_len": 251,
+   "rounds": 251,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 251,
+    "accepted": 251,
+    "rejected": 0,
+    "branch_maxdelta": 238,
+    "branch_gap": 13,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 13,
+    "gapbranch_near_half_le_025gap": 12,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 9472.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_300_diag102",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 6.99,
+   "cpu_ms_traced": 53.71,
+   "event_count": 2837,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.0937110975387063,
+    "avg": 1.0625184810229107,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.0936630084122057,
+    "avg": 1.0625045932475363,
+    "n_above_1_02": 94
+   },
+   "plan_len": 299,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 317,
+    "accepted": 299,
+    "rejected": 18,
+    "branch_maxdelta": 264,
+    "branch_gap": 53,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 53,
+    "gapbranch_near_half_le_025gap": 51,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11284.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_32_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.4,
+   "cpu_ms_traced": 9.53,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3140060065042651,
+    "avg": 1.2194974143737163,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3139669235550504,
+    "avg": 1.2194460762346322,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_32_diag102",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 2.26,
+   "cpu_ms_traced": 9.06,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.3140060065042651,
+    "avg": 1.2194974143737163,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3139669235550504,
+    "avg": 1.2194460762346322,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_128_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 4.94,
+   "cpu_ms_traced": 27.1,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1782915743496807,
+    "avg": 1.1300767697722738,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1782193697970889,
+    "avg": 1.1300525858528008,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_128_diag102",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.12,
+   "cpu_ms_traced": 26.96,
+   "event_count": 1152,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1782915743496807,
+    "avg": 1.1300767697722738,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1782193697970889,
+    "avg": 1.1300525858528008,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 128,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_300_prod1096",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 5.76,
+   "cpu_ms_traced": 133.82,
+   "event_count": 2638,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1615686712027742,
+    "avg": 1.0814358232014294,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.161509773564472,
+    "avg": 1.0814145463196145,
+    "n_above_1_02": 94
+   },
+   "plan_len": 239,
+   "rounds": 251,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 12,
+   "exhibit": {
+    "trials_total": 329,
+    "accepted": 239,
+    "rejected": 90,
+    "branch_maxdelta": 329,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 9019.9,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_maxdelta_300_diag102",
+   "snapshot": "C2",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 9.58,
+   "cpu_ms_traced": 78.4,
+   "event_count": 5426,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.1615686712027742,
+    "avg": 1.0764185992355193,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.161509773564472,
+    "avg": 1.0763997602563087,
+    "n_above_1_02": 94
+   },
+   "plan_len": 266,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 34,
+   "exhibit": {
+    "trials_total": 852,
+    "accepted": 266,
+    "rejected": 586,
+    "branch_maxdelta": 852,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 10038.8,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_32_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.33,
+   "cpu_ms_traced": 5.7,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8495638513671755,
+    "avg": 1.5790119906609505,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.8492723792273018,
+    "avg": 1.5788599815659392,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_32_diag102",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.51,
+   "cpu_ms_traced": 5.67,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8495638513671755,
+    "avg": 1.5790119906609505,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.8492723792273018,
+    "avg": 1.5788599815659392,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_128_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.19,
+   "cpu_ms_traced": 20.56,
+   "event_count": 1153,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4342271802413114,
+    "avg": 1.3279598357261038,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.4341232071401517,
+    "avg": 1.3278832226102848,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 127,
+    "branch_gap": 1,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 1,
+    "gapbranch_near_half_le_025gap": 1,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_128_diag102",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.57,
+   "cpu_ms_traced": 24.23,
+   "event_count": 1153,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4342271802413114,
+    "avg": 1.3279598357261038,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.4341232071401517,
+    "avg": 1.3278832226102848,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 127,
+    "branch_gap": 1,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 1,
+    "gapbranch_near_half_le_025gap": 1,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_300_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 7.85,
+   "cpu_ms_traced": 48.28,
+   "event_count": 2771,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.2156685115974306,
+    "avg": 1.1681891330905465,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.2156071696155841,
+    "avg": 1.168146232424882,
+    "n_above_1_02": 94
+   },
+   "plan_len": 300,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 300,
+    "accepted": 300,
+    "rejected": 0,
+    "branch_maxdelta": 229,
+    "branch_gap": 71,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 71,
+    "gapbranch_near_half_le_025gap": 60,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11322.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_300_diag102",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 6.58,
+   "cpu_ms_traced": 51.69,
+   "event_count": 2771,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.2156685115974306,
+    "avg": 1.1681891330905465,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.2156071696155841,
+    "avg": 1.168146232424882,
+    "n_above_1_02": 94
+   },
+   "plan_len": 300,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 300,
+    "accepted": 300,
+    "rejected": 0,
+    "branch_maxdelta": 229,
+    "branch_gap": 71,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 71,
+    "gapbranch_near_half_le_025gap": 60,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11322.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_32_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.58,
+   "cpu_ms_traced": 6.39,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8495638513671755,
+    "avg": 1.5790119906609505,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.8492723792273018,
+    "avg": 1.5788599815659392,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_32_diag102",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.65,
+   "cpu_ms_traced": 6.92,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8495638513671755,
+    "avg": 1.5790119906609505,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.8492723792273018,
+    "avg": 1.5788599815659392,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_128_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.84,
+   "cpu_ms_traced": 27.1,
+   "event_count": 1236,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4344711578797829,
+    "avg": 1.3284620033192478,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.434333537792744,
+    "avg": 1.328384575887505,
+    "n_above_1_02": 94
+   },
+   "plan_len": 127,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 145,
+    "accepted": 127,
+    "rejected": 18,
+    "branch_maxdelta": 145,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4793.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_128_diag102",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.32,
+   "cpu_ms_traced": 24.6,
+   "event_count": 1236,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4344711578797829,
+    "avg": 1.3284620033192478,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.434333537792744,
+    "avg": 1.328384575887505,
+    "n_above_1_02": 94
+   },
+   "plan_len": 127,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 145,
+    "accepted": 127,
+    "rejected": 18,
+    "branch_maxdelta": 145,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4793.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_300_prod1096",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 13.53,
+   "cpu_ms_traced": 124.19,
+   "event_count": 7689,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4344711578797829,
+    "avg": 1.2415628014025417,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.434333537792744,
+    "avg": 1.2415012651825903,
+    "n_above_1_02": 94
+   },
+   "plan_len": 229,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 71,
+   "exhibit": {
+    "trials_total": 1312,
+    "accepted": 229,
+    "rejected": 1083,
+    "branch_maxdelta": 1312,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 8642.5,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_maxdelta_300_diag102",
+   "snapshot": "C3",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 15.96,
+   "cpu_ms_traced": 141.73,
+   "event_count": 9544,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4344711578797829,
+    "avg": 1.2415628014025417,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.434333537792744,
+    "avg": 1.2415012651825903,
+    "n_above_1_02": 94
+   },
+   "plan_len": 229,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 71,
+   "exhibit": {
+    "trials_total": 1683,
+    "accepted": 229,
+    "rejected": 1454,
+    "branch_maxdelta": 1683,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 8642.5,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_32_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.62,
+   "cpu_ms_traced": 6.15,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8637018225739017,
+    "avg": 1.5610634245438462,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.845403560107291,
+    "avg": 1.5517830685627332,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_32_diag102",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.97,
+   "cpu_ms_traced": 6.52,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8637018225739017,
+    "avg": 1.5610634245438462,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.845403560107291,
+    "avg": 1.5517830685627332,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_128_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.52,
+   "cpu_ms_traced": 21.02,
+   "event_count": 1155,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4599327954907941,
+    "avg": 1.3399562073567821,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.4527703197461557,
+    "avg": 1.3343917887182017,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 125,
+    "branch_gap": 3,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 3,
+    "gapbranch_near_half_le_025gap": 1,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_128_diag102",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.38,
+   "cpu_ms_traced": 21.7,
+   "event_count": 1155,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.4599327954907941,
+    "avg": 1.3399562073567821,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.4527703197461557,
+    "avg": 1.3343917887182017,
+    "n_above_1_02": 94
+   },
+   "plan_len": 128,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 128,
+    "accepted": 128,
+    "rejected": 0,
+    "branch_maxdelta": 125,
+    "branch_gap": 3,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 3,
+    "gapbranch_near_half_le_025gap": 1,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4830.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_300_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 6.59,
+   "cpu_ms_traced": 49.44,
+   "event_count": 2774,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.2280772387308567,
+    "avg": 1.176835530158839,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.225067056815411,
+    "avg": 1.1741631067069065,
+    "n_above_1_02": 94
+   },
+   "plan_len": 300,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 300,
+    "accepted": 300,
+    "rejected": 0,
+    "branch_maxdelta": 226,
+    "branch_gap": 74,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 74,
+    "gapbranch_near_half_le_025gap": 49,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11322.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_300_diag102",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 6.67,
+   "cpu_ms_traced": 50.01,
+   "event_count": 2774,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.2280772387308567,
+    "avg": 1.176835530158839,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.225067056815411,
+    "avg": 1.1741631067069065,
+    "n_above_1_02": 94
+   },
+   "plan_len": 300,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 300,
+    "accepted": 300,
+    "rejected": 0,
+    "branch_maxdelta": 226,
+    "branch_gap": 74,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 74,
+    "gapbranch_near_half_le_025gap": 49,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11322.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_32_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.47,
+   "cpu_ms_traced": 5.91,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8637018225739017,
+    "avg": 1.5610634245438462,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.845403560107291,
+    "avg": 1.5517830685627332,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_32_diag102",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 32,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 1.56,
+   "cpu_ms_traced": 6.62,
+   "event_count": 288,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.8637018225739017,
+    "avg": 1.5610634245438462,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.845403560107291,
+    "avg": 1.5517830685627332,
+    "n_above_1_02": 94
+   },
+   "plan_len": 32,
+   "rounds": 32,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 32,
+    "accepted": 32,
+    "rejected": 0,
+    "branch_maxdelta": 32,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 1207.7,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_128_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.42,
+   "cpu_ms_traced": 23.28,
+   "event_count": 1354,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.5120395174902057,
+    "avg": 1.3436821402649501,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.5029239766081872,
+    "avg": 1.3380403247733206,
+    "n_above_1_02": 94
+   },
+   "plan_len": 125,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 3,
+   "exhibit": {
+    "trials_total": 169,
+    "accepted": 125,
+    "rejected": 44,
+    "branch_maxdelta": 169,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4717.5,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_128_diag102",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 128,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 3.51,
+   "cpu_ms_traced": 25.2,
+   "event_count": 1424,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.5120395174902057,
+    "avg": 1.3436821402649501,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.5029239766081872,
+    "avg": 1.3380403247733206,
+    "n_above_1_02": 94
+   },
+   "plan_len": 125,
+   "rounds": 128,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 3,
+   "exhibit": {
+    "trials_total": 183,
+    "accepted": 125,
+    "rejected": 58,
+    "branch_maxdelta": 183,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 4717.5,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_300_prod1096",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 13.13,
+   "cpu_ms_traced": 239.89,
+   "event_count": 8037,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.5120395174902057,
+    "avg": 1.2513723089615125,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.5029239766081872,
+    "avg": 1.2475308336242275,
+    "n_above_1_02": 94
+   },
+   "plan_len": 222,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 78,
+   "exhibit": {
+    "trials_total": 1383,
+    "accepted": 222,
+    "rejected": 1161,
+    "branch_maxdelta": 1383,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 8378.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_maxdelta_300_diag102",
+   "snapshot": "C4",
+   "pair_rule": "maxdelta",
+   "budget": 300,
+   "threshold": 1.02,
+   "threshold_label": "diag102",
+   "planner": "try_build_swap_plan",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 16.09,
+   "cpu_ms_traced": 135.01,
+   "event_count": 9937,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.5120395174902057,
+    "avg": 1.2513723089615125,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.5029239766081872,
+    "avg": 1.2475308336242275,
+    "n_above_1_02": 94
+   },
+   "plan_len": 222,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 78,
+   "exhibit": {
+    "trials_total": 1763,
+    "accepted": 222,
+    "rejected": 1541,
+    "branch_maxdelta": 1763,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "diag102",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 8378.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  },
+  {
+   "cellid": "C1_gap_300_prod1096_BI",
+   "snapshot": "C1",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan_best_improvement",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 15.45,
+   "cpu_ms_traced": 132.07,
+   "event_count": 1357,
+   "events_truncated": false,
+   "snapshot_sum": 6077073680,
+   "init_ratio_raw": {
+    "max": 1.551413494134236,
+    "avg": 1.288558956553576,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5513542833839467,
+    "avg": 1.2885213866544245,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.163031549092556,
+    "avg": 1.0714869805560758,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1629976877514174,
+    "avg": 1.0714770627558017,
+    "n_above_1_02": 94
+   },
+   "plan_len": 268,
+   "rounds": 269,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 0,
+    "accepted": 0,
+    "rejected": 0,
+    "branch_maxdelta": 0,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.5514134941,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 10114.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.551413494134236
+    ],
+    [
+     76,
+     79,
+     112,
+     4,
+     7,
+     79,
+     112,
+     1.545130651764617
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.520703755561509
+    ],
+    [
+     11,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4812542420910717
+    ],
+    [
+     31,
+     94,
+     29,
+     5,
+     1,
+     94,
+     29,
+     1.4795191069659699
+    ]
+   ]
+  },
+  {
+   "cellid": "C2_gap_300_prod1096_BI",
+   "snapshot": "C2",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan_best_improvement",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 14.04,
+   "cpu_ms_traced": 117.7,
+   "event_count": 1231,
+   "events_truncated": false,
+   "snapshot_sum": 3154479072,
+   "init_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.0957200200439308,
+    "avg": 1.0716698468557797,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.0956985967053081,
+    "avg": 1.0716494713456703,
+    "n_above_1_02": 94
+   },
+   "plan_len": 246,
+   "rounds": 246,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 0,
+    "accepted": 0,
+    "rejected": 0,
+    "branch_maxdelta": 0,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 0.531830706,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 9284.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     57,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.5318307060240974
+    ],
+    [
+     28,
+     109,
+     13,
+     6,
+     0,
+     109,
+     13,
+     1.4976859367796116
+    ],
+    [
+     65,
+     94,
+     123,
+     5,
+     7,
+     94,
+     123,
+     1.4675156253501371
+    ],
+    [
+     6,
+     14,
+     61,
+     0,
+     3,
+     14,
+     61,
+     1.4526278575355214
+    ],
+    [
+     77,
+     4,
+     51,
+     0,
+     3,
+     4,
+     51,
+     1.4491227919612586
+    ]
+   ]
+  },
+  {
+   "cellid": "C3_gap_300_prod1096_BI",
+   "snapshot": "C3",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan_best_improvement",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 17.01,
+   "cpu_ms_traced": 151.62,
+   "event_count": 1516,
+   "events_truncated": false,
+   "snapshot_sum": 2921972704,
+   "init_ratio_raw": {
+    "max": 2.310585077936443,
+    "avg": 1.7287671007620744,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.3103111839315633,
+    "avg": 1.7285772525441023,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.319483055650064,
+    "avg": 1.16080638924408,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3194188865972591,
+    "avg": 1.160765318869363,
+    "n_above_1_02": 94
+   },
+   "plan_len": 299,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 1,
+   "exhibit": {
+    "trials_total": 0,
+    "accepted": 0,
+    "rejected": 0,
+    "branch_maxdelta": 0,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.3105850779,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11284.3,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     89,
+     22,
+     43,
+     1,
+     2,
+     22,
+     43,
+     2.310585077936443
+    ],
+    [
+     86,
+     85,
+     7,
+     5,
+     0,
+     85,
+     7,
+     2.2748768401910437
+    ],
+    [
+     82,
+     67,
+     41,
+     4,
+     2,
+     67,
+     41,
+     2.2521696766678625
+    ],
+    [
+     66,
+     46,
+     71,
+     2,
+     4,
+     46,
+     71,
+     2.1688325258222534
+    ],
+    [
+     65,
+     81,
+     28,
+     5,
+     1,
+     81,
+     28,
+     2.1519458246109613
+    ]
+   ]
+  },
+  {
+   "cellid": "C4_gap_300_prod1096_BI",
+   "snapshot": "C4",
+   "pair_rule": "gap",
+   "budget": 300,
+   "threshold": 1.0962402945,
+   "threshold_label": "prod1096",
+   "planner": "try_build_swap_plan_best_improvement",
+   "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+   "plans_identical_ctrl_vs_traced": true,
+   "cpu_ms_control": 16.81,
+   "cpu_ms_traced": 145.18,
+   "event_count": 1500,
+   "events_truncated": false,
+   "snapshot_sum": 48563408,
+   "init_ratio_raw": {
+    "max": 2.4983973118196316,
+    "avg": 1.720054902242445,
+    "n_above_1_02": 94
+   },
+   "init_ratio_padded": {
+    "max": 2.476701634545011,
+    "avg": 1.708270420662925,
+    "n_above_1_02": 94
+   },
+   "final_ratio_raw": {
+    "max": 1.2111057774199043,
+    "avg": 1.1631738859842782,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.2085769980506822,
+    "avg": 1.160763623405262,
+    "n_above_1_02": 94
+   },
+   "plan_len": 300,
+   "rounds": 300,
+   "earlybreak_reason": "ratio_below_threshold",
+   "exhausted_events": 0,
+   "exhibit": {
+    "trials_total": 0,
+    "accepted": 0,
+    "rejected": 0,
+    "branch_maxdelta": 0,
+    "branch_gap": 0,
+    "maxdelta_flip_gt_half_gap": 0,
+    "maxdelta_strong_overshoot_gt_gap": 0,
+    "gapbranch_feasible_half_candidates": 0,
+    "gapbranch_near_half_le_025gap": 0,
+    "maxdiff_overshoot_with_feasible_half": 0,
+    "maxdiff_top5": []
+   },
+   "execution_permission_chain": {
+    "threshold_aperture": "prod1096",
+    "early_exit_pred_init_max_le_thr": false,
+    "plan_empty": false,
+    "meets_min_swap_ops_8": true,
+    "defer_gate_score_init_max_minus_1": 1.4983973118,
+    "dead_gate_score_reference": 0.0096240295,
+    "bias_correct_env_unset_default_false": true,
+    "moved_mb_estimate": 11322.0,
+    "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+   },
+   "plan_ops_first5": [
+    [
+     44,
+     89,
+     25,
+     5,
+     1,
+     89,
+     25,
+     2.4983973118196316
+    ],
+    [
+     24,
+     89,
+     16,
+     5,
+     1,
+     89,
+     16,
+     2.491537496709457
+    ],
+    [
+     71,
+     51,
+     9,
+     3,
+     0,
+     51,
+     9,
+     2.3063534585546384
+    ],
+    [
+     34,
+     56,
+     0,
+     3,
+     0,
+     56,
+     0,
+     2.26909676520231
+    ],
+    [
+     48,
+     56,
+     86,
+     3,
+     5,
+     56,
+     86,
+     2.22920763715759
+    ]
+   ]
+  }
+ ]
+}

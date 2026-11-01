@@ -1,0 +1,21 @@
+{
+  "label": "o256_bl_multi_O256",
+  "dataset": "/tmp/exp_data/multi_O256.jsonl",
+  "num_requests": 16000,
+  "concurrency": 256,
+  "ok": 16000,
+  "errors": 0,
+  "total_time_s": 964.98,
+  "total_comp_tokens": 4096000,
+  "tps": 4244.6,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 15354.9,
+  "lat_p50_ms": 14243.28,
+  "lat_p99_ms": 24706.59,
+  "ttft_mean_ms": 2762.55,
+  "ttft_p50_ms": 1456.91,
+  "ttft_p99_ms": 13159.6,
+  "tpot_mean_ms": 49.38,
+  "tpot_p50_ms": 45.47,
+  "tpot_p99_ms": 90.24
+}

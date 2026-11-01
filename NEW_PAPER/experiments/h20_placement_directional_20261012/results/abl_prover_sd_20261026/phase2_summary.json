@@ -1,0 +1,1832 @@
+{
+ "generated_utc": "2026-10-26T14:09:55Z",
+ "prereg": "PHASE2_PREREGISTRATION.md sha ccbb50093ea1535c680cd5ebac61ee73ad40938db6d59610756dd939fa0e7327",
+ "primary_metric": "per-boot whole-stream tps",
+ "descriptives_tps": {
+  "P": {
+   "n": 8,
+   "median": 96.55,
+   "min": 87.8,
+   "max": 99.4,
+   "mean": 95.71249999999999
+  },
+  "F_1_16_16": {
+   "n": 8,
+   "median": 95.6,
+   "min": 90.5,
+   "max": 99.4,
+   "mean": 95.175
+  },
+  "F_4_16_64": {
+   "n": 8,
+   "median": 88.45,
+   "min": 86.0,
+   "max": 95.4,
+   "mean": 89.8375
+  }
+ },
+ "welch": {
+  "P_vs_F_1_16_16": {
+   "t": 0.3256894905711777,
+   "df": 12.87830651414694,
+   "p": 0.7498905053695867,
+   "mean_x": 95.71249999999999,
+   "mean_y": 95.175,
+   "sd_x": 3.7563042247096328,
+   "sd_y": 2.7711524162856356,
+   "n_x": 8,
+   "n_y": 8,
+   "p_holm": 0.7498905053695867,
+   "significant_alpha05": false
+  },
+  "P_vs_F_4_16_64": {
+   "t": 3.2723086380345894,
+   "df": 13.876485405622622,
+   "p": 0.005617341567155252,
+   "mean_x": 95.71249999999999,
+   "mean_y": 89.8375,
+   "sd_x": 3.7563042247096328,
+   "sd_y": 3.4171573399119763,
+   "n_x": 8,
+   "n_y": 8,
+   "p_holm": 0.011234683134310504,
+   "significant_alpha05": true
+  }
+ },
+ "holm": "two pre-declared pairs, alpha=0.05",
+ "mechanism_summary": {
+  "P": {
+   "boots_usable": 8,
+   "transitions_total": 56,
+   "boots_with_transition": 8,
+   "transition_kinds": {
+    "TRACK->QUIET": 24,
+    "QUIET->RECOVER": 16,
+    "RECOVER->TRACK": 16
+   },
+   "swaps_total": 16,
+   "det_map_finals": [
+    2
+   ],
+   "stable_s_max_range": [
+    2,
+    2
+   ],
+   "forwards_set": [
+    256
+   ],
+   "planhash8_all_identical": true
+  },
+  "F_1_16_16": {
+   "boots_usable": 8,
+   "transitions_total": 0,
+   "boots_with_transition": 0,
+   "transition_kinds": {},
+   "swaps_total": 16,
+   "det_map_finals": [
+    2
+   ],
+   "stable_s_max_range": [
+    2,
+    2
+   ],
+   "forwards_set": [
+    256
+   ],
+   "planhash8_all_identical": true
+  },
+  "F_4_16_64": {
+   "boots_usable": 8,
+   "transitions_total": 0,
+   "boots_with_transition": 0,
+   "transition_kinds": {},
+   "swaps_total": 16,
+   "det_map_finals": [
+    2
+   ],
+   "stable_s_max_range": [
+    7,
+    7
+   ],
+   "forwards_set": [
+    256
+   ],
+   "planhash8_all_identical": true
+  }
+ },
+ "excluded_boots": {},
+ "per_boot": {
+  "apsd2_F_1_16_16_b1": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 97.0,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01466954267208506,
+     0.15246489347181702
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b2": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 96.3,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01515871022961433,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b3": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 93.4,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01612486446482455,
+     0.1462488056162003
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b4": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 90.5,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015014780137144069,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b5": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 99.4,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01515871022961433,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b6": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 96.7,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015014780137144069,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b7": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 93.2,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015014780137144069,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_1_16_16_b8": {
+   "arm": "F_1_16_16",
+   "status": "USABLE",
+   "tps": 94.9,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 192884992,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01515871022961433,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b1": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 92.5,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.010303375001090707,
+     0.052386591696970485
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b2": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 86.5,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.01398932312313491,
+     0.12292956543156784
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b3": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 88.2,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.010303375001090707,
+     0.052386591696970485
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b4": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 93.2,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.01398932312313491,
+     0.12292956543156784
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b5": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 95.4,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.010303375001090707,
+     0.052386591696970485
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b6": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 86.0,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.010303375001090707,
+     0.052386591696970485
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b7": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 88.4,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 47935488,
+    "stable_s_max": 7,
+    "z_range": [
+     0.012930346527781036,
+     0.039879657238428096
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_F_4_16_64_b8": {
+   "arm": "F_4_16_64",
+   "status": "USABLE",
+   "tps": 88.5,
+   "mech": {
+    "rows": 16,
+    "sp_mode": "fixed",
+    "forwards": 256,
+    "cycles": 16,
+    "transitions": [],
+    "n_transitions": 0,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 15,
+    "valid_rows_sum": 48513024,
+    "stable_s_max": 7,
+    "z_range": [
+     0.010303375001090707,
+     0.052386591696970485
+    ],
+    "residency_final": {
+     "FIXED": 16
+    },
+    "shw_rle": [
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      16
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b1": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 97.3,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015927914787664393,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b2": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 96.6,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015927914787664393,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b3": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 92.8,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.017488349274883463,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b4": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 87.8,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015927914787664393,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b5": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 96.5,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.017488349274883463,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b6": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 98.8,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.017488349274883463,
+     0.15731779380408195
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b7": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 96.5,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.01113551544033918,
+     0.14642571286359818
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  },
+  "apsd2_P_b8": {
+   "arm": "P",
+   "status": "USABLE",
+   "tps": 99.4,
+   "mech": {
+    "rows": 18,
+    "sp_mode": "adaptive",
+    "forwards": 256,
+    "cycles": 18,
+    "transitions": [
+     [
+      6,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      6,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      8,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      11,
+      "TRACK",
+      "QUIET"
+     ],
+     [
+      11,
+      "QUIET",
+      "RECOVER"
+     ],
+     [
+      13,
+      "RECOVER",
+      "TRACK"
+     ],
+     [
+      16,
+      "TRACK",
+      "QUIET"
+     ]
+    ],
+    "n_transitions": 7,
+    "swaps": 2,
+    "issued": [
+     1,
+     2
+    ],
+    "planhash8": true,
+    "det_map_final": 2,
+    "s_change_rows": 17,
+    "valid_rows_sum": 174403840,
+    "stable_s_max": 2,
+    "z_range": [
+     0.015927914787664393,
+     0.1592171684199521
+    ],
+    "residency_final": {
+     "TRACK": 12,
+     "QUIET": 2,
+     "RECOVER": 4
+    },
+    "shw_rle": [
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      5
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       8,
+       8
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       16,
+       16
+      ],
+      3
+     ],
+     [
+      [
+       4,
+       16,
+       64
+      ],
+      1
+     ]
+    ]
+   }
+  }
+ }
+}

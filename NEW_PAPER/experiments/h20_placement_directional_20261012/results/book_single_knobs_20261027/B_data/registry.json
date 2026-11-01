@@ -1,0 +1,53 @@
+{
+ "built_utc": "2026-10-27T22:18:43Z",
+ "campaign": "book_single_knobs_20261027 (EXPLORATORY, author single-domain trial directive)",
+ "stream": "bs_book_single.jsonl",
+ "structure": "single-domain pure book, 2000 rows, no switch",
+ "provenance": "byte-preserved extraction (sed -n 3345,5344p) of pbd_prover_book_double.jsonl rows [3344:5344) = book block (1000 existing pb book rows raw-preserved + 1000 BookCorpus books1 rows built under pbd recipe); ids pb_book_*/pbd_book_*",
+ "workload": "temperature=0, max_tokens=1, ignore_eos=true (book), conc=32, NREQ=2000, BENCH_TIMEOUT=1800",
+ "n": 2000,
+ "sha256": "2e9fe867cf2cb317ea56492d0297e09f8b5303d08a9276dec81058ffda8d156a",
+ "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_single_knobs_20261027/B_data/streams/bs_book_single.jsonl",
+ "bytes": 36683191,
+ "domains": {
+  "book": 2000
+ },
+ "knob_arms": {
+  "P0": "AERO-base RG=0, knobs off (baseline)",
+  "P0B": "+ OEPLB_BIAS_GATE=0.5 (documented margin-at-least-2x-noise plan-quality gate)",
+  "P0S": "+ OEPLB_SWAP_BUDGET_FRAC=0.08 (cumulative swap wall-time cap, fraction of elapsed serving time)",
+  "P0F": "+ both knobs"
+ },
+ "knob_calibration": {
+  "measured_spent_frac": {
+   "pb_P0_r1": 0.4046,
+   "pb_P0_r2": 0.0884,
+   "pbd_P0_r1": 0.2654,
+   "pbd_P0_r2": 0.2373
+  },
+  "cum_swap_s": {
+   "pb_P0_r1": 205.5,
+   "pb_P0_r2": 42.1,
+   "pbd_P0_r1": 224.8,
+   "pbd_P0_r2": 194.3
+  },
+  "swap_events": {
+   "pb_P0_r1": 216,
+   "pb_P0_r2": 48,
+   "pbd_P0_r1": 192,
+   "pbd_P0_r2": 192
+  },
+  "rationale": "0.08 anchored to pb P0_r2 = only P0 boot with zero book-late swaps and best book mean 4.72 of both campaigns; preserves early adaptive swaps, cuts the late treadmill. bias_gate=0.5 = documented semantics in config.py."
+ },
+ "launcher": {
+  "file": "scripts/launch_arm_bsk.sh",
+  "sha256": "2896f550e39529392a7b528087007dcfa6875f5b61701af8c9c80eb22c4d6372",
+  "cloned_from": "launch_arm_pc.sh cfbdaee7 (frozen)",
+  "deltas": "knob arms P0B/P0S/P0F appended; PL -> bsk placements; locked pb_oeplb code UNMODIFIED (knobs are env-read config fields with controller.py enforcement)"
+ },
+ "lineage": [
+  "prover_book_switch_20261027 (pb)",
+  "prover_book_double_20261027 (pbd)",
+  "DIAGNOSIS_P0_BOOK ledger row (pbd)"
+ ]
+}

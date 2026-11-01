@@ -1,0 +1,194 @@
+{
+ "mode": "adaptive",
+ "seed": 20261018,
+ "state_final": "TRACK",
+ "S_final": 1,
+ "H_final": 16,
+ "W_final": 16,
+ "sp_fwd_total": 1002,
+ "h_cycles": 71,
+ "window_count": 57,
+ "true_steps_total": 992,
+ "sample_opportunities": 799,
+ "recorded_steps": 786,
+ "swaps_started_total": 3,
+ "residency_committed_h": {
+  "TRACK": 36,
+  "QUIET": 17,
+  "RECOVER": 18
+ },
+ "transitions": [
+  {
+   "h_id": 26,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 35,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.012385>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 38,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 40,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 54,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 57,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 59,
+   "from": "QUIET",
+   "to": "TRACK",
+   "reasons": [
+    "P3 h_rate=0.011749>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  },
+  {
+   "h_id": 62,
+   "from": "TRACK",
+   "to": "QUIET",
+   "reasons": [
+    "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+   ],
+   "S": 4,
+   "H": 16,
+   "W": 64
+  },
+  {
+   "h_id": 66,
+   "from": "QUIET",
+   "to": "RECOVER",
+   "reasons": [
+    "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+   ],
+   "S": 1,
+   "H": 8,
+   "W": 8
+  },
+  {
+   "h_id": 70,
+   "from": "RECOVER",
+   "to": "TRACK",
+   "reasons": [
+    "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+   ],
+   "S": 1,
+   "H": 16,
+   "W": 16
+  }
+ ],
+ "seals": [
+  {
+   "h_id": 26,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 35,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 38,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 40,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 57,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 59,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 32,
+   "S_before": 4,
+   "S_after": 1
+  },
+  {
+   "h_id": 62,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 16,
+   "S_before": 1,
+   "S_after": 4
+  },
+  {
+   "h_id": 66,
+   "reason": "sp_seal_S_change",
+   "cover_steps": 64,
+   "S_before": 4,
+   "S_after": 1
+  }
+ ],
+ "p2l_version": 3,
+ "p2l_fp8": "673e042a4e885788",
+ "prof_sp_gate_ms": 9.313416,
+ "prof_record_calls": 73884
+}

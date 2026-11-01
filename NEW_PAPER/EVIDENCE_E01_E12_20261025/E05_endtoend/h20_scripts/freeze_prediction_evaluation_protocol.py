@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""Freeze the evaluation timing protocol after model lock and layout generation, before any evaluation timing."""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import hashlib
+import json
+import pathlib
+import random
+from typing import Any
+
+from prediction_common import STUDY_ID, sha256_file, write_json_atomic
+
+PROTOCOL_ID = "h20-placement-prediction-evaluation-v1"
+GENERATOR_VERSION = "evaluation-protocol-v1"
+LAYOUT_IDS = (
+    "identity",
+    "raw-01",
+    "raw-02",
+    "padding-01",
+    "padding-02",
+    "m2-01",
+    "m2-02",
+    "random-01",
+    "random-02",
+)
+LOCK_STATUS = "models_locked_before_evaluation_layout_generation_and_timing"
+LAYOUT_INDEX_STATUS = "all_evaluation_layouts_frozen_after_model_lock_before_timing"
+IMPLEMENTATION_FILES = {
+    "prediction_common_record": "prediction_common.py",
+    "prediction_models_record": "prediction_models.py",
+    "prediction_replay_record": "prediction_replay.py",
+    "replay_placement_record": "replay_placement.py",
+    "fit_prediction_models_record": "fit_prediction_models.py",
+    "generate_prediction_calibration_layouts_record": "generate_prediction_calibration_layouts.py",
+    "generate_prediction_evaluation_layouts_record": "generate_prediction_evaluation_layouts.py",
+    "index_prediction_timing_results_record": "index_prediction_timing_results.py",
+    "verify_prediction_timing_protocol_record": "verify_prediction_timing_protocol.py",
+    "run_prediction_evaluation_record": "run_prediction_evaluation.sh",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    root = pathlib.Path(__file__).resolve().parents[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=pathlib.Path, default=root)
+    parser.add_argument("--output", type=pathlib.Path)
+    return parser.parse_args()
+
+
+def derived_seed(*parts: str) -> int:
+    text = "|".join((STUDY_ID, GENERATOR_VERSION, *parts))
+    return int.from_bytes(hashlib.sha256(text.encode()).digest()[:8], "big") % 2**62
+
+
+def file_record(path: pathlib.Path) -> dict[str, Any]:
+    resolved = path.resolve()
+    return {
+        "path": str(resolved),
+        "bytes": resolved.stat().st_size,
+        "sha256": sha256_file(resolved),
+    }
+
+
+def schedule(seed: int, block: int, offset: int = 0) -> list[str]:
+    order = list(range(len(LAYOUT_IDS)))
+    random.Random(seed + offset + block).shuffle(order)
+    return [LAYOUT_IDS[index] for index in order]
+
+
+def main() -> None:
+    args = parse_args()
+    root = args.root.resolve()
+    output = (
+        args.output
+        or root / "configs/followup_v1/prediction_evaluation_protocol.json"
+    ).resolve()
+
+    followup = root / "configs/followup_v1/protocol.json"
+    capture_index = root / "inputs/prediction_v1/capture_index.json"
+    tolerance_path = root / "configs/followup_v1/prediction_tolerance.json"
+    lock_path = root / "configs/followup_v1/prediction_model_lock.json"
+    layout_index_path = root / "inputs/prediction_v1/evaluation_layouts/index.json"
+
+    lock = json.loads(lock_path.read_text())
+    if lock.get("status") != LOCK_STATUS:
+        raise ValueError("model lock is not in locked status")
+    lock_sha = sha256_file(lock_path)
+    for name, record in lock["locked_implementation"].items():
+        actual = sha256_file(pathlib.Path(record["path"]))
+        if actual != record["sha256"]:
+            raise ValueError(
+                f"locked implementation changed since model lock ({name}): "
+                f"{actual} != {record['sha256']}"
+            )
+
+    layout_index = json.loads(layout_index_path.read_text())
+    if layout_index.get("status") != LAYOUT_INDEX_STATUS:
+        raise ValueError("evaluation layout index is not in frozen post-lock status")
+    if layout_index.get("model_lock", {}).get("sha256") != lock_sha:
+        raise ValueError("evaluation layout index references a different model lock")
+    if layout_index.get("calibration_nonidentity_maps_excluded") != 54:
+        raise ValueError("calibration exclusion count differs")
+    counts = layout_index.get("counts", {})
+    if (
+        counts.get("capture_units") != 12
+        or counts.get("layouts_per_capture") != 9
+        or counts.get("unique_nonidentity_map_hashes") != 96
+    ):
+        raise ValueError(f"evaluation layout index counts differ: {counts}")
+    manifests = {record["capture_id"]: record for record in layout_index["manifests"]}
+    if len(manifests) != 12:
+        raise ValueError("expected twelve evaluation layout manifests")
+    for capture_id, record in manifests.items():
+        manifest = json.loads(pathlib.Path(record["path"]).read_text())
+        if sha256_file(pathlib.Path(record["path"])) != record["sha256"]:
+            raise ValueError(f"evaluation layout manifest hash differs: {capture_id}")
+        if manifest.get("model_lock", {}).get("sha256") != lock_sha:
+            raise ValueError(f"manifest references a different model lock: {capture_id}")
+        if manifest.get("split") != "evaluation":
+            raise ValueError(f"manifest split differs: {capture_id}")
+        if tuple(layout["layout_id"] for layout in manifest["layouts"]) != LAYOUT_IDS:
+            raise ValueError(f"manifest layout IDs/order differ: {capture_id}")
+
+    starts = []
+    for capture_number, capture_id in enumerate(sorted(manifests), 1):
+        manifest_record = manifests[capture_id]
+        for start_number in range(1, 5):
+            start_id = f"eval-{capture_number:02d}-start-{start_number}"
+            seed = derived_seed(capture_id, f"timing-start-{start_number}")
+            starts.append(
+                {
+                    "start_id": start_id,
+                    "capture_id": capture_id,
+                    "batch_id": manifest_record["batch_id"],
+                    "layer_id": manifest_record["layer_id"],
+                    "layout_manifest": {
+                        "path": manifest_record["path"],
+                        "bytes": manifest_record["bytes"],
+                        "sha256": manifest_record["sha256"],
+                    },
+                    "random_seed": seed,
+                    "primary_schedules": [
+                        schedule(seed, block) for block in range(4)
+                    ],
+                    "diagnostic_schedules": [
+                        schedule(seed, block, offset=1_000_003) for block in range(4)
+                    ],
+                    "output_relative_path": f"results/prediction_v1/evaluation/raw/{start_id}.json",
+                    "log_relative_path": f"results/prediction_v1/evaluation/logs/{start_id}.log",
+                    "failure_relative_path": f"results/prediction_v1/evaluation/raw/{start_id}.failure.json",
+                }
+            )
+
+    implementation = {
+        name: file_record(root / "scripts" / filename)
+        for name, filename in IMPLEMENTATION_FILES.items()
+    }
+    locked_names = set(lock["locked_implementation"])
+    if not locked_names.issubset(implementation):
+        raise ValueError(f"model lock records absent from implementation: {sorted(locked_names - set(implementation))}")
+    for name in sorted(locked_names):
+        locked = lock["locked_implementation"][name]
+        if implementation[name]["sha256"] != locked["sha256"]:
+            raise ValueError(f"implementation hash differs from model lock: {name}")
+
+    payload = {
+        "schema_version": 1,
+        "protocol_id": PROTOCOL_ID,
+        "study_id": STUDY_ID,
+        "status": "frozen_before_evaluation_timing",
+        "split": "evaluation",
+        "frozen_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "generator": {
+            "path": str(pathlib.Path(__file__).resolve()),
+            "sha256": sha256_file(pathlib.Path(__file__).resolve()),
+            "version": GENERATOR_VERSION,
+            "seed_derivation": "uint64 big-endian SHA256(study|version|parts) mod 2^62",
+        },
+        "scope": json.loads(followup.read_text())["scope"],
+        "followup_protocol": file_record(followup),
+        "capture_index": file_record(capture_index),
+        "layout_index": file_record(layout_index_path),
+        "tolerance_file": file_record(tolerance_path),
+        "model_lock": file_record(lock_path),
+        "implementation": implementation,
+        "design": {
+            "capture_units": 12,
+            "starts_per_capture": 4,
+            "fresh_start_semantics": (
+                "one torchrun process group per start; every start reloads all "
+                "immutable artifacts and rebuilds weights before warmup"
+            ),
+            "layout_ids": list(LAYOUT_IDS),
+            "response_definition": (
+                "start-level Q = mean of four paired block effects; each block effect is "
+                "completion_fenced_us_per_forward(identity) - completion_fenced_us_per_forward(candidate)"
+            ),
+            "layout_purpose": (
+                "out_of_sample_model_comparison_on_unseen_captures_and_unseen_layouts_after_lock"
+            ),
+            "no_refit_before_or_during_evaluation": True,
+        },
+        "timing": {
+            "initial_warmup_forwards_per_layout": 10,
+            "activation_warmup_forwards": 10,
+            "timed_forwards_per_activation": 20,
+            "blocks_per_start": 4,
+            "diagnostic_blocks_per_start": 4,
+            "empty_fence_warmup": 5,
+            "empty_fence_repetitions": 20,
+            "schedule_algorithm": (
+                "random.Random(seed + offset + block).shuffle over the frozen layout "
+                "order; offset 0 for the primary pass, 1000003 for the diagnostic pass"
+            ),
+            "primary_metric": "completion_fenced_us_per_forward",
+            "diagnostic_metric": "same-device CUDA elapsed interval bracketing real runner.run",
+            "diagnostic_substitution_for_primary": False,
+        },
+        "result_index_relative_path": "results/prediction_v1/evaluation/index.json",
+        "prohibitions": json.loads(followup.read_text())["prohibitions"],
+        "starts": starts,
+    }
+    write_json_atomic(output, payload)
+    print(f"frozen {output}")
+    print(f"protocol_sha256={sha256_file(output)}")
+    print(f"starts={len(starts)} captures={len(manifests)}")
+
+
+if __name__ == "__main__":
+    main()

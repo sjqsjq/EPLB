@@ -1,0 +1,3025 @@
+{
+  "capture_index": {
+    "bytes": 74342,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_index.json",
+    "sha256": "3406f8427e62e5d44ad747d5522f2703dceb80853d84034901121dc982a4a35e"
+  },
+  "design": {
+    "capture_units": 6,
+    "fresh_start_semantics": "one torchrun process group per start; every start reloads all immutable artifacts and rebuilds weights before warmup",
+    "layout_ids": [
+      "identity",
+      "raw-01",
+      "raw-02",
+      "raw-03",
+      "padding-01",
+      "padding-02",
+      "padding-03",
+      "shape-01",
+      "shape-02",
+      "shape-03"
+    ],
+    "layout_purpose": "model_identification_not_measured_winner_selection",
+    "response_definition": "start-level Q = mean of four paired block effects; each block effect is completion_fenced_us_per_forward(identity) - completion_fenced_us_per_forward(candidate)",
+    "starts_per_capture": 4
+  },
+  "evaluation_layout_design": {
+    "generation_order": "after model lock; identity, two raw-load, two padding, two locked-M2 top-predicted, two stratified-random layouts per capture",
+    "layout_ids": [
+      "identity",
+      "raw-01",
+      "raw-02",
+      "padding-01",
+      "padding-02",
+      "m2-01",
+      "m2-02",
+      "random-01",
+      "random-02"
+    ],
+    "timing_never_determines_candidate_membership": true,
+    "unseen_requirement": "every nonidentity evaluation map hash must be absent from all calibration manifests and unique across evaluation captures"
+  },
+  "evaluation_reserved_seeds": {
+    "pred-v1-evaluation-01-layer-024": {
+      "m2_pool": 1284339568592807921,
+      "padding-01": 1875710743708390038,
+      "padding-02": 1552484129683748778,
+      "random_pool": 1777955617289699664,
+      "raw-01": 589857221266075805,
+      "raw-02": 1170916496014202286
+    },
+    "pred-v1-evaluation-01-layer-028": {
+      "m2_pool": 2888640663975956252,
+      "padding-01": 2545559351076906395,
+      "padding-02": 1482642806054730739,
+      "random_pool": 3339993733539677399,
+      "raw-01": 1826327751655645567,
+      "raw-02": 2872873623627565924
+    },
+    "pred-v1-evaluation-01-layer-044": {
+      "m2_pool": 501444660344285935,
+      "padding-01": 3838781050912041394,
+      "padding-02": 4351434533254212552,
+      "random_pool": 4463357598197687464,
+      "raw-01": 1956472176548288973,
+      "raw-02": 1954590856406874264
+    },
+    "pred-v1-evaluation-01-layer-071": {
+      "m2_pool": 2579382736216848294,
+      "padding-01": 944011605924440233,
+      "padding-02": 2281872875105839191,
+      "random_pool": 454126548535373742,
+      "raw-01": 837272590708147041,
+      "raw-02": 2211966492149032561
+    },
+    "pred-v1-evaluation-02-layer-024": {
+      "m2_pool": 1488376359976985905,
+      "padding-01": 632384333087338280,
+      "padding-02": 3040671872239054176,
+      "random_pool": 4525216764053724066,
+      "raw-01": 1362866649892870010,
+      "raw-02": 2367990560420104215
+    },
+    "pred-v1-evaluation-02-layer-028": {
+      "m2_pool": 2165834525272430402,
+      "padding-01": 57182934720447173,
+      "padding-02": 1396108092255620220,
+      "random_pool": 2595705950281934773,
+      "raw-01": 198400572545698819,
+      "raw-02": 23717437537559177
+    },
+    "pred-v1-evaluation-02-layer-044": {
+      "m2_pool": 2042365501240683798,
+      "padding-01": 829844126495613805,
+      "padding-02": 2124760812348142643,
+      "random_pool": 3416124607059930771,
+      "raw-01": 544308325621644505,
+      "raw-02": 2404990919768252428
+    },
+    "pred-v1-evaluation-02-layer-071": {
+      "m2_pool": 4186581616961568475,
+      "padding-01": 2284598396009060927,
+      "padding-02": 4226033047776859381,
+      "random_pool": 3718548428007655245,
+      "raw-01": 3995934330622522225,
+      "raw-02": 3050574276521430016
+    },
+    "pred-v1-evaluation-03-layer-024": {
+      "m2_pool": 1107885459831297552,
+      "padding-01": 4116050757777279845,
+      "padding-02": 245010697682159039,
+      "random_pool": 745750627048348298,
+      "raw-01": 2438717173986348898,
+      "raw-02": 2968278240758615676
+    },
+    "pred-v1-evaluation-03-layer-028": {
+      "m2_pool": 3634355440121920375,
+      "padding-01": 222669253816357637,
+      "padding-02": 2830980015860964467,
+      "random_pool": 4599304919673483946,
+      "raw-01": 3213612469088147546,
+      "raw-02": 582593863303181321
+    },
+    "pred-v1-evaluation-03-layer-044": {
+      "m2_pool": 3614034011315955807,
+      "padding-01": 4516292956902219380,
+      "padding-02": 4567560287113807860,
+      "random_pool": 1381407386389749606,
+      "raw-01": 437779110631212025,
+      "raw-02": 1271235521125703175
+    },
+    "pred-v1-evaluation-03-layer-071": {
+      "m2_pool": 4589647855892782026,
+      "padding-01": 919095715250326676,
+      "padding-02": 539267989900731771,
+      "random_pool": 1917121078302834290,
+      "raw-01": 1388473114971318857,
+      "raw-02": 2446078999960389204
+    }
+  },
+  "followup_protocol": {
+    "bytes": 17479,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/protocol.json",
+    "sha256": "7c0cf10200ac9971a2e327c7bb291b118e693e1819a48858711cff1b8c2d9eb9"
+  },
+  "frozen_at_utc": "2026-10-12T08:10:55.293099+00:00",
+  "generator": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_prediction_calibration_protocol.py",
+    "seed_derivation": "uint64 big-endian SHA256(study|version|parts) mod 2^62",
+    "sha256": "4cb1ec97f59a2212e59a606b089d12b359f877242636cb42c6660a405b8ac6ba",
+    "version": "calibration-protocol-v1"
+  },
+  "implementation": {
+    "fit_prediction_models_record": {
+      "bytes": 23611,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/fit_prediction_models.py",
+      "sha256": "89f98406da57884891af8a28c9561c04ca177677bfdcdcda971af71f2ecfed43"
+    },
+    "generate_prediction_calibration_layouts_record": {
+      "bytes": 21541,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_prediction_calibration_layouts.py",
+      "sha256": "d0b0f3e6266ee23ef43c5644349c111ba695546dd93763fc3049186312446f0e"
+    },
+    "generate_prediction_evaluation_layouts_record": {
+      "bytes": 21297,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_prediction_evaluation_layouts.py",
+      "sha256": "fe27bc45420ba92f6d60f69696c7255b5dd561d57746f3e2a58e760712b85b8b"
+    },
+    "index_prediction_timing_results_record": {
+      "bytes": 9882,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_prediction_timing_results.py",
+      "sha256": "950922ea7a43693c1e53e2e26713a7f26db81c34077601c30f15d1553ee5bfe9"
+    },
+    "prediction_common_record": {
+      "bytes": 25260,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    },
+    "prediction_models_record": {
+      "bytes": 7025,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_models.py",
+      "sha256": "a5058b6e38346c0e23d67b239a3cf39cd089ba87d4a7d6bcc527201839b3dda7"
+    },
+    "prediction_replay_record": {
+      "bytes": 26504,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_replay.py",
+      "sha256": "fc5b46f5be60e9ea1b6e118e85abf3e40f6da7df698012775e5c589b12d055c2"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    },
+    "run_prediction_calibration_record": {
+      "bytes": 6449,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_prediction_calibration.sh",
+      "sha256": "4e8ff96dc696a4b5d89210f0871c8ac65949585af373e681ad9e48048a404800"
+    },
+    "verify_prediction_timing_protocol_record": {
+      "bytes": 3946,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/verify_prediction_timing_protocol.py",
+      "sha256": "8b6b4039b1a1e46cf2a489c449999770e9aedeebe707df39335c5fdbcbb22800"
+    }
+  },
+  "layout_index": {
+    "bytes": 8044,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/index.json",
+    "sha256": "3f9d9181a620858ec7ceeadc7f9a99d9b1c0fdf504b40d1c7a0ba1f8ba06e8cd"
+  },
+  "prohibitions": {
+    "artificial_delay_floor": true,
+    "best_start_or_repeat_selection": true,
+    "cross_device_timestamp_subtraction": true,
+    "differential_delay": true,
+    "mid_layer_collective_or_gate": true,
+    "overwrite_existing_raw_result": true,
+    "push_without_separate_instruction": true,
+    "sleep_or_spin": true
+  },
+  "protocol_id": "h20-placement-prediction-calibration-v1",
+  "result_index_relative_path": "results/prediction_v1/calibration/index.json",
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "expert_parallel_size": 8,
+    "geometry": {
+      "hidden_size": 4096,
+      "intermediate_size": 1536,
+      "local_experts_per_rank": 16,
+      "routed_experts": 128,
+      "top_k": 8,
+      "weight_block": [
+        128,
+        128
+      ]
+    },
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner": "DeepGEMM FP8",
+    "node_count": 1
+  },
+  "split": "calibration",
+  "starts": [
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "shape-01",
+          "identity",
+          "raw-02",
+          "raw-03",
+          "shape-02",
+          "padding-03",
+          "padding-01",
+          "raw-01",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "shape-02",
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "raw-01",
+          "shape-01",
+          "shape-03",
+          "padding-03",
+          "identity"
+        ],
+        [
+          "shape-02",
+          "raw-01",
+          "padding-03",
+          "shape-03",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "raw-03",
+          "shape-01",
+          "padding-02"
+        ],
+        [
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "raw-01",
+          "identity",
+          "padding-02",
+          "shape-03",
+          "padding-01",
+          "shape-02",
+          "shape-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195246,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-024.json",
+        "sha256": "f7e015e11540a5677db09340663ded759cc1ac249aa608bcf68050988d82324d"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-01-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "shape-03",
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "padding-03",
+          "shape-01",
+          "shape-02"
+        ],
+        [
+          "identity",
+          "raw-03",
+          "padding-02",
+          "shape-03",
+          "padding-03",
+          "raw-02",
+          "shape-02",
+          "raw-01",
+          "padding-01",
+          "shape-01"
+        ],
+        [
+          "raw-02",
+          "raw-03",
+          "padding-03",
+          "shape-01",
+          "shape-02",
+          "shape-03",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "raw-01",
+          "shape-01",
+          "shape-02",
+          "padding-03",
+          "padding-02",
+          "shape-03",
+          "padding-01",
+          "raw-02",
+          "raw-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 1549802723775465574,
+      "start_id": "cal-01-start-1"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "identity",
+          "padding-03",
+          "padding-02",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "raw-02",
+          "raw-03",
+          "shape-02"
+        ],
+        [
+          "shape-01",
+          "raw-02",
+          "raw-01",
+          "shape-02",
+          "padding-03",
+          "shape-03",
+          "raw-03",
+          "padding-02",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "shape-03",
+          "raw-01",
+          "shape-01",
+          "shape-02",
+          "identity",
+          "raw-02",
+          "padding-03",
+          "raw-03",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "identity",
+          "padding-02",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "raw-02",
+          "shape-03"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195246,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-024.json",
+        "sha256": "f7e015e11540a5677db09340663ded759cc1ac249aa608bcf68050988d82324d"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-01-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-2.json",
+      "primary_schedules": [
+        [
+          "raw-01",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "shape-03",
+          "raw-02"
+        ],
+        [
+          "shape-01",
+          "identity",
+          "raw-02",
+          "raw-03",
+          "padding-02",
+          "shape-03",
+          "padding-01",
+          "raw-01",
+          "padding-03",
+          "shape-02"
+        ],
+        [
+          "raw-02",
+          "shape-02",
+          "identity",
+          "raw-03",
+          "padding-02",
+          "shape-01",
+          "raw-01",
+          "padding-03",
+          "shape-03",
+          "padding-01"
+        ],
+        [
+          "raw-03",
+          "raw-01",
+          "shape-02",
+          "shape-01",
+          "raw-02",
+          "shape-03",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "padding-03"
+        ]
+      ],
+      "random_seed": 3512835986225324905,
+      "start_id": "cal-01-start-2"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "identity",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "raw-03",
+          "shape-01",
+          "shape-02",
+          "padding-03",
+          "raw-02"
+        ],
+        [
+          "raw-03",
+          "raw-01",
+          "identity",
+          "shape-03",
+          "raw-02",
+          "shape-01",
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "padding-02"
+        ],
+        [
+          "identity",
+          "shape-03",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "shape-01",
+          "padding-03"
+        ],
+        [
+          "shape-02",
+          "padding-03",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "raw-03",
+          "shape-01",
+          "shape-03",
+          "raw-02",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195246,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-024.json",
+        "sha256": "f7e015e11540a5677db09340663ded759cc1ac249aa608bcf68050988d82324d"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-01-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-3.json",
+      "primary_schedules": [
+        [
+          "shape-03",
+          "shape-01",
+          "padding-01",
+          "identity",
+          "shape-02",
+          "raw-02",
+          "padding-02",
+          "padding-03",
+          "raw-03",
+          "raw-01"
+        ],
+        [
+          "shape-02",
+          "padding-03",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "padding-02",
+          "shape-01",
+          "shape-03",
+          "identity",
+          "raw-03"
+        ],
+        [
+          "padding-01",
+          "shape-01",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "raw-03",
+          "padding-03",
+          "shape-03",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "identity",
+          "shape-03",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "shape-02",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 2550926597140805158,
+      "start_id": "cal-01-start-3"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-024",
+      "diagnostic_schedules": [
+        [
+          "padding-01",
+          "padding-03",
+          "raw-01",
+          "raw-03",
+          "padding-02",
+          "identity",
+          "shape-01",
+          "shape-03",
+          "raw-02",
+          "shape-02"
+        ],
+        [
+          "shape-03",
+          "identity",
+          "raw-03",
+          "raw-02",
+          "shape-01",
+          "padding-03",
+          "padding-02",
+          "padding-01",
+          "shape-02",
+          "raw-01"
+        ],
+        [
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "shape-01",
+          "raw-03",
+          "raw-01",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "shape-03"
+        ],
+        [
+          "raw-02",
+          "raw-03",
+          "raw-01",
+          "identity",
+          "shape-02",
+          "shape-03",
+          "padding-01",
+          "padding-03",
+          "padding-02",
+          "shape-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195246,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-024.json",
+        "sha256": "f7e015e11540a5677db09340663ded759cc1ac249aa608bcf68050988d82324d"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-01-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-01-start-4.json",
+      "primary_schedules": [
+        [
+          "padding-03",
+          "raw-03",
+          "identity",
+          "raw-02",
+          "shape-03",
+          "shape-02",
+          "raw-01",
+          "padding-01",
+          "shape-01",
+          "padding-02"
+        ],
+        [
+          "padding-01",
+          "shape-01",
+          "raw-02",
+          "raw-03",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "shape-03",
+          "padding-03",
+          "shape-02"
+        ],
+        [
+          "padding-02",
+          "shape-02",
+          "identity",
+          "padding-01",
+          "shape-01",
+          "padding-03",
+          "shape-03",
+          "raw-02",
+          "raw-03",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "shape-02",
+          "raw-02",
+          "padding-03",
+          "shape-01",
+          "padding-01",
+          "shape-03",
+          "padding-02",
+          "raw-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 4273551710601729051,
+      "start_id": "cal-01-start-4"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "shape-01",
+          "raw-01",
+          "raw-03",
+          "raw-02",
+          "identity",
+          "padding-03",
+          "shape-02",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "shape-02",
+          "raw-03",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "raw-02",
+          "shape-01",
+          "raw-01",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "shape-03",
+          "shape-02",
+          "shape-01",
+          "raw-03",
+          "padding-02",
+          "padding-01",
+          "padding-03",
+          "identity",
+          "raw-02",
+          "raw-01"
+        ],
+        [
+          "shape-02",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "padding-03",
+          "shape-01",
+          "raw-03",
+          "identity",
+          "shape-03",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195444,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-044.json",
+        "sha256": "f9ebed68dc78cf219af4dc1a8cf2231ad5fe182ac77630f517234e756701bc7a"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-02-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "shape-03",
+          "padding-02",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "raw-02",
+          "identity",
+          "padding-03",
+          "shape-02"
+        ],
+        [
+          "shape-03",
+          "raw-02",
+          "padding-03",
+          "raw-01",
+          "shape-02",
+          "padding-02",
+          "padding-01",
+          "shape-01",
+          "raw-03",
+          "identity"
+        ],
+        [
+          "shape-02",
+          "padding-03",
+          "shape-01",
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "shape-03",
+          "padding-01",
+          "raw-03"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "shape-03",
+          "shape-02",
+          "shape-01",
+          "padding-03",
+          "raw-03",
+          "identity",
+          "padding-02",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 1328806603324506967,
+      "start_id": "cal-02-start-1"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "padding-01",
+          "shape-03",
+          "shape-01",
+          "shape-02",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "raw-03",
+          "padding-03"
+        ],
+        [
+          "raw-03",
+          "padding-02",
+          "padding-03",
+          "shape-02",
+          "shape-01",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "shape-03",
+          "padding-01"
+        ],
+        [
+          "raw-02",
+          "shape-01",
+          "padding-02",
+          "padding-03",
+          "shape-02",
+          "shape-03",
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "shape-02",
+          "padding-03",
+          "padding-01",
+          "identity",
+          "raw-01",
+          "shape-03",
+          "raw-02",
+          "raw-03",
+          "shape-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195444,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-044.json",
+        "sha256": "f9ebed68dc78cf219af4dc1a8cf2231ad5fe182ac77630f517234e756701bc7a"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-02-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-2.json",
+      "primary_schedules": [
+        [
+          "shape-03",
+          "raw-02",
+          "shape-02",
+          "padding-03",
+          "shape-01",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "padding-01",
+          "raw-03"
+        ],
+        [
+          "shape-01",
+          "shape-02",
+          "padding-03",
+          "raw-02",
+          "identity",
+          "shape-03",
+          "raw-01",
+          "raw-03",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "raw-01",
+          "padding-03",
+          "shape-01",
+          "identity",
+          "padding-02",
+          "shape-02",
+          "padding-01",
+          "raw-03",
+          "raw-02",
+          "shape-03"
+        ],
+        [
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "raw-03",
+          "identity",
+          "shape-01",
+          "shape-02",
+          "padding-03",
+          "shape-03",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 2945246228388250188,
+      "start_id": "cal-02-start-2"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "padding-02",
+          "padding-03",
+          "identity",
+          "raw-03",
+          "shape-01",
+          "raw-02",
+          "shape-02",
+          "raw-01",
+          "padding-01"
+        ],
+        [
+          "shape-03",
+          "padding-01",
+          "raw-01",
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "identity",
+          "raw-02",
+          "padding-02",
+          "shape-02"
+        ],
+        [
+          "shape-03",
+          "padding-01",
+          "raw-02",
+          "padding-02",
+          "raw-01",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "identity"
+        ],
+        [
+          "padding-03",
+          "shape-03",
+          "shape-02",
+          "identity",
+          "shape-01",
+          "raw-03",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195444,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-044.json",
+        "sha256": "f9ebed68dc78cf219af4dc1a8cf2231ad5fe182ac77630f517234e756701bc7a"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-02-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "raw-01",
+          "shape-02",
+          "shape-03",
+          "padding-01",
+          "padding-02",
+          "shape-01",
+          "identity"
+        ],
+        [
+          "raw-03",
+          "padding-02",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "padding-03",
+          "shape-03",
+          "raw-01",
+          "shape-02",
+          "shape-01"
+        ],
+        [
+          "raw-03",
+          "shape-02",
+          "shape-03",
+          "padding-03",
+          "raw-02",
+          "identity",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "identity",
+          "padding-02",
+          "shape-01",
+          "raw-01",
+          "padding-01",
+          "shape-02",
+          "shape-03",
+          "raw-03",
+          "padding-03",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 525895870377519008,
+      "start_id": "cal-02-start-3"
+    },
+    {
+      "batch_id": "calibration-01",
+      "capture_id": "pred-v1-calibration-01-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-01",
+          "raw-01",
+          "raw-02",
+          "raw-03",
+          "shape-02",
+          "shape-03",
+          "padding-01",
+          "padding-03",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "shape-02",
+          "padding-01",
+          "shape-03",
+          "padding-02",
+          "identity",
+          "shape-01",
+          "padding-03",
+          "raw-01",
+          "raw-03"
+        ],
+        [
+          "raw-02",
+          "shape-01",
+          "padding-01",
+          "raw-01",
+          "identity",
+          "raw-03",
+          "padding-03",
+          "shape-03",
+          "shape-02",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "shape-01",
+          "raw-03",
+          "identity",
+          "raw-01",
+          "padding-03",
+          "padding-01",
+          "raw-02",
+          "shape-03",
+          "shape-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195444,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-01-layer-044.json",
+        "sha256": "f9ebed68dc78cf219af4dc1a8cf2231ad5fe182ac77630f517234e756701bc7a"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-02-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-02-start-4.json",
+      "primary_schedules": [
+        [
+          "shape-03",
+          "raw-03",
+          "shape-01",
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "identity",
+          "shape-02",
+          "padding-03"
+        ],
+        [
+          "identity",
+          "padding-02",
+          "padding-03",
+          "raw-03",
+          "raw-01",
+          "padding-01",
+          "shape-03",
+          "shape-02",
+          "raw-02",
+          "shape-01"
+        ],
+        [
+          "shape-01",
+          "padding-01",
+          "padding-02",
+          "raw-01",
+          "identity",
+          "raw-03",
+          "padding-03",
+          "shape-03",
+          "raw-02",
+          "shape-02"
+        ],
+        [
+          "identity",
+          "shape-03",
+          "raw-03",
+          "padding-02",
+          "padding-01",
+          "raw-01",
+          "shape-02",
+          "shape-01",
+          "raw-02",
+          "padding-03"
+        ]
+      ],
+      "random_seed": 3744523581999082363,
+      "start_id": "cal-02-start-4"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "raw-02",
+          "shape-01",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "shape-03",
+          "raw-03",
+          "padding-03",
+          "shape-02"
+        ],
+        [
+          "identity",
+          "shape-01",
+          "shape-02",
+          "raw-02",
+          "shape-03",
+          "padding-02",
+          "padding-03",
+          "raw-01",
+          "padding-01",
+          "raw-03"
+        ],
+        [
+          "shape-03",
+          "identity",
+          "raw-01",
+          "shape-02",
+          "shape-01",
+          "raw-02",
+          "padding-01",
+          "raw-03",
+          "padding-02",
+          "padding-03"
+        ],
+        [
+          "raw-01",
+          "identity",
+          "shape-03",
+          "raw-02",
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "shape-01",
+          "shape-02",
+          "padding-03"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195263,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-024.json",
+        "sha256": "de940bf2fd9117322f873237acfda5eb0a9cc43d04c9a615ea0e4e4ac23c5cf8"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-03-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-1.json",
+      "primary_schedules": [
+        [
+          "padding-03",
+          "shape-03",
+          "padding-01",
+          "raw-02",
+          "raw-03",
+          "shape-01",
+          "padding-02",
+          "shape-02",
+          "raw-01",
+          "identity"
+        ],
+        [
+          "shape-01",
+          "padding-02",
+          "raw-02",
+          "raw-03",
+          "padding-03",
+          "padding-01",
+          "identity",
+          "raw-01",
+          "shape-03",
+          "shape-02"
+        ],
+        [
+          "raw-02",
+          "shape-03",
+          "shape-01",
+          "identity",
+          "padding-03",
+          "raw-01",
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "shape-02"
+        ],
+        [
+          "shape-03",
+          "identity",
+          "padding-01",
+          "shape-01",
+          "padding-03",
+          "shape-02",
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "raw-03"
+        ]
+      ],
+      "random_seed": 1291811849751142176,
+      "start_id": "cal-03-start-1"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "raw-02",
+          "identity",
+          "shape-01",
+          "raw-01",
+          "shape-03",
+          "raw-03",
+          "padding-02"
+        ],
+        [
+          "padding-03",
+          "padding-02",
+          "shape-01",
+          "padding-01",
+          "shape-02",
+          "identity",
+          "raw-02",
+          "shape-03",
+          "raw-01",
+          "raw-03"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "raw-03",
+          "shape-03",
+          "shape-02",
+          "shape-01",
+          "padding-02",
+          "padding-01",
+          "padding-03",
+          "raw-01"
+        ],
+        [
+          "padding-03",
+          "identity",
+          "raw-01",
+          "shape-01",
+          "raw-03",
+          "shape-02",
+          "raw-02",
+          "shape-03",
+          "padding-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195263,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-024.json",
+        "sha256": "de940bf2fd9117322f873237acfda5eb0a9cc43d04c9a615ea0e4e4ac23c5cf8"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-03-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "shape-03",
+          "raw-01",
+          "raw-03",
+          "padding-01",
+          "raw-02",
+          "padding-03",
+          "padding-02",
+          "shape-01",
+          "shape-02"
+        ],
+        [
+          "raw-03",
+          "raw-01",
+          "padding-01",
+          "shape-01",
+          "shape-02",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "padding-01",
+          "raw-03",
+          "identity",
+          "shape-03",
+          "padding-03",
+          "padding-02",
+          "raw-01",
+          "shape-02",
+          "shape-01",
+          "raw-02"
+        ],
+        [
+          "raw-01",
+          "shape-01",
+          "padding-03",
+          "raw-03",
+          "raw-02",
+          "identity",
+          "padding-01",
+          "shape-03",
+          "shape-02",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 2429640276687063340,
+      "start_id": "cal-03-start-2"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "identity",
+          "shape-02",
+          "padding-01",
+          "padding-03",
+          "raw-02",
+          "raw-03",
+          "raw-01",
+          "shape-01",
+          "shape-03"
+        ],
+        [
+          "shape-01",
+          "raw-03",
+          "identity",
+          "raw-01",
+          "shape-02",
+          "padding-01",
+          "padding-02",
+          "raw-02",
+          "shape-03",
+          "padding-03"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "identity",
+          "shape-03",
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "padding-02",
+          "shape-02",
+          "shape-01"
+        ],
+        [
+          "shape-03",
+          "padding-01",
+          "raw-02",
+          "shape-01",
+          "padding-03",
+          "padding-02",
+          "identity",
+          "raw-01",
+          "raw-03",
+          "shape-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195263,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-024.json",
+        "sha256": "de940bf2fd9117322f873237acfda5eb0a9cc43d04c9a615ea0e4e4ac23c5cf8"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-03-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-02",
+          "padding-02",
+          "shape-01",
+          "raw-01",
+          "raw-03",
+          "shape-03",
+          "shape-02",
+          "padding-03",
+          "identity",
+          "padding-01"
+        ],
+        [
+          "shape-03",
+          "padding-02",
+          "padding-03",
+          "raw-03",
+          "shape-02",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "shape-01"
+        ],
+        [
+          "shape-03",
+          "raw-02",
+          "padding-02",
+          "padding-01",
+          "shape-02",
+          "raw-01",
+          "shape-01",
+          "raw-03",
+          "padding-03",
+          "identity"
+        ],
+        [
+          "shape-01",
+          "raw-01",
+          "raw-03",
+          "raw-02",
+          "padding-02",
+          "shape-02",
+          "identity",
+          "shape-03",
+          "padding-03",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 2265392487665471416,
+      "start_id": "cal-03-start-3"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "raw-03",
+          "shape-02",
+          "padding-03",
+          "shape-03",
+          "identity",
+          "raw-02",
+          "shape-01"
+        ],
+        [
+          "padding-02",
+          "identity",
+          "raw-03",
+          "shape-02",
+          "raw-01",
+          "padding-01",
+          "shape-03",
+          "raw-02",
+          "shape-01",
+          "padding-03"
+        ],
+        [
+          "shape-03",
+          "padding-02",
+          "raw-01",
+          "raw-02",
+          "shape-01",
+          "padding-03",
+          "shape-02",
+          "raw-03",
+          "identity",
+          "padding-01"
+        ],
+        [
+          "shape-01",
+          "shape-02",
+          "raw-01",
+          "raw-02",
+          "raw-03",
+          "padding-03",
+          "padding-01",
+          "shape-03",
+          "padding-02",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195263,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-024.json",
+        "sha256": "de940bf2fd9117322f873237acfda5eb0a9cc43d04c9a615ea0e4e4ac23c5cf8"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-03-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-03-start-4.json",
+      "primary_schedules": [
+        [
+          "padding-01",
+          "identity",
+          "raw-02",
+          "raw-03",
+          "shape-02",
+          "shape-03",
+          "shape-01",
+          "raw-01",
+          "padding-02",
+          "padding-03"
+        ],
+        [
+          "raw-03",
+          "padding-02",
+          "padding-01",
+          "shape-02",
+          "raw-01",
+          "shape-01",
+          "raw-02",
+          "shape-03",
+          "identity",
+          "padding-03"
+        ],
+        [
+          "raw-01",
+          "padding-03",
+          "identity",
+          "shape-02",
+          "raw-02",
+          "shape-03",
+          "padding-01",
+          "raw-03",
+          "padding-02",
+          "shape-01"
+        ],
+        [
+          "shape-01",
+          "padding-02",
+          "raw-02",
+          "shape-03",
+          "identity",
+          "raw-03",
+          "padding-03",
+          "raw-01",
+          "shape-02",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 3014227596037051319,
+      "start_id": "cal-03-start-4"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "identity",
+          "raw-03",
+          "padding-03",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "padding-02",
+          "shape-02",
+          "shape-03",
+          "shape-01"
+        ],
+        [
+          "shape-02",
+          "raw-03",
+          "padding-01",
+          "raw-02",
+          "padding-03",
+          "raw-01",
+          "shape-01",
+          "shape-03",
+          "identity",
+          "padding-02"
+        ],
+        [
+          "shape-03",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "padding-03",
+          "identity",
+          "raw-03",
+          "shape-02",
+          "shape-01",
+          "padding-02"
+        ],
+        [
+          "padding-03",
+          "raw-01",
+          "raw-02",
+          "shape-01",
+          "shape-03",
+          "padding-02",
+          "padding-01",
+          "identity",
+          "raw-03",
+          "shape-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195459,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-044.json",
+        "sha256": "700861172848ed83711eacaab0243c37f0e31f676a4878cf800b7ded8b971018"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-04-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "padding-03",
+          "identity",
+          "raw-02",
+          "shape-03",
+          "padding-02",
+          "shape-02"
+        ],
+        [
+          "identity",
+          "raw-01",
+          "shape-02",
+          "padding-01",
+          "raw-02",
+          "padding-03",
+          "shape-01",
+          "shape-03",
+          "raw-03",
+          "padding-02"
+        ],
+        [
+          "padding-02",
+          "raw-03",
+          "shape-03",
+          "shape-01",
+          "shape-02",
+          "raw-02",
+          "padding-01",
+          "padding-03",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "padding-03",
+          "shape-02",
+          "shape-03",
+          "identity",
+          "shape-01",
+          "raw-02",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 2245764842488896091,
+      "start_id": "cal-04-start-1"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "shape-02",
+          "identity",
+          "padding-02",
+          "padding-01",
+          "shape-03",
+          "raw-02",
+          "raw-03",
+          "shape-01",
+          "padding-03"
+        ],
+        [
+          "identity",
+          "raw-03",
+          "shape-02",
+          "padding-02",
+          "shape-03",
+          "shape-01",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "padding-03"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "padding-02",
+          "raw-01",
+          "shape-01",
+          "identity",
+          "shape-03"
+        ],
+        [
+          "padding-03",
+          "raw-02",
+          "shape-03",
+          "raw-01",
+          "shape-01",
+          "identity",
+          "padding-02",
+          "raw-03",
+          "padding-01",
+          "shape-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195459,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-044.json",
+        "sha256": "700861172848ed83711eacaab0243c37f0e31f676a4878cf800b7ded8b971018"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-04-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-2.json",
+      "primary_schedules": [
+        [
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "raw-01",
+          "shape-03",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "shape-01",
+          "padding-01"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "raw-03",
+          "shape-02",
+          "shape-01",
+          "padding-03",
+          "shape-03",
+          "raw-01"
+        ],
+        [
+          "padding-03",
+          "padding-01",
+          "raw-01",
+          "raw-03",
+          "identity",
+          "shape-02",
+          "shape-03",
+          "shape-01",
+          "padding-02",
+          "raw-02"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "padding-03",
+          "raw-02",
+          "raw-03",
+          "shape-01",
+          "shape-02",
+          "padding-01",
+          "shape-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 2206984247043906435,
+      "start_id": "cal-04-start-2"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-01",
+          "raw-02",
+          "padding-02",
+          "shape-02",
+          "identity",
+          "raw-01",
+          "raw-03",
+          "padding-01",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "shape-03",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "shape-01",
+          "raw-01",
+          "padding-03",
+          "identity",
+          "padding-01",
+          "raw-03"
+        ],
+        [
+          "padding-03",
+          "padding-01",
+          "shape-03",
+          "raw-03",
+          "shape-01",
+          "raw-02",
+          "raw-01",
+          "padding-02",
+          "shape-02",
+          "identity"
+        ],
+        [
+          "shape-01",
+          "padding-01",
+          "padding-03",
+          "raw-02",
+          "shape-02",
+          "padding-02",
+          "shape-03",
+          "identity",
+          "raw-01",
+          "raw-03"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195459,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-044.json",
+        "sha256": "700861172848ed83711eacaab0243c37f0e31f676a4878cf800b7ded8b971018"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-04-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-3.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "shape-02",
+          "shape-03",
+          "padding-02",
+          "raw-01",
+          "padding-01",
+          "shape-01",
+          "identity"
+        ],
+        [
+          "raw-03",
+          "padding-01",
+          "identity",
+          "shape-02",
+          "padding-02",
+          "shape-03",
+          "raw-01",
+          "padding-03",
+          "raw-02",
+          "shape-01"
+        ],
+        [
+          "identity",
+          "shape-03",
+          "shape-02",
+          "padding-01",
+          "raw-02",
+          "raw-01",
+          "shape-01",
+          "raw-03",
+          "padding-02",
+          "padding-03"
+        ],
+        [
+          "shape-02",
+          "raw-03",
+          "identity",
+          "shape-01",
+          "padding-03",
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "shape-03",
+          "raw-01"
+        ]
+      ],
+      "random_seed": 1208066037916005556,
+      "start_id": "cal-04-start-3"
+    },
+    {
+      "batch_id": "calibration-02",
+      "capture_id": "pred-v1-calibration-02-layer-044",
+      "diagnostic_schedules": [
+        [
+          "raw-03",
+          "padding-03",
+          "shape-02",
+          "identity",
+          "padding-01",
+          "raw-02",
+          "shape-01",
+          "raw-01",
+          "padding-02",
+          "shape-03"
+        ],
+        [
+          "identity",
+          "shape-01",
+          "raw-02",
+          "raw-01",
+          "raw-03",
+          "padding-02",
+          "shape-02",
+          "padding-01",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "raw-03",
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "shape-01",
+          "padding-02",
+          "identity",
+          "shape-02",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "identity",
+          "shape-03",
+          "raw-02",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "raw-01",
+          "padding-01",
+          "shape-01",
+          "padding-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195459,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-02-layer-044.json",
+        "sha256": "700861172848ed83711eacaab0243c37f0e31f676a4878cf800b7ded8b971018"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-04-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-04-start-4.json",
+      "primary_schedules": [
+        [
+          "shape-01",
+          "padding-03",
+          "shape-02",
+          "raw-03",
+          "shape-03",
+          "padding-02",
+          "raw-02",
+          "raw-01",
+          "identity",
+          "padding-01"
+        ],
+        [
+          "raw-02",
+          "shape-03",
+          "shape-02",
+          "identity",
+          "padding-03",
+          "padding-02",
+          "padding-01",
+          "shape-01",
+          "raw-03",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "raw-03",
+          "raw-02",
+          "shape-01",
+          "padding-03",
+          "identity",
+          "shape-03",
+          "padding-02",
+          "shape-02"
+        ],
+        [
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "shape-02",
+          "shape-03",
+          "raw-03",
+          "identity",
+          "padding-02",
+          "padding-03",
+          "raw-02"
+        ]
+      ],
+      "random_seed": 3555972841958323878,
+      "start_id": "cal-04-start-4"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-03",
+          "padding-03",
+          "identity",
+          "shape-01",
+          "raw-01",
+          "shape-03",
+          "raw-02",
+          "shape-02",
+          "padding-01",
+          "padding-02"
+        ],
+        [
+          "raw-02",
+          "padding-01",
+          "padding-02",
+          "shape-02",
+          "shape-03",
+          "padding-03",
+          "shape-01",
+          "identity",
+          "raw-03",
+          "raw-01"
+        ],
+        [
+          "shape-02",
+          "padding-03",
+          "shape-03",
+          "shape-01",
+          "identity",
+          "raw-02",
+          "raw-03",
+          "raw-01",
+          "padding-02",
+          "padding-01"
+        ],
+        [
+          "raw-01",
+          "padding-01",
+          "raw-02",
+          "shape-01",
+          "shape-02",
+          "shape-03",
+          "padding-03",
+          "padding-02",
+          "raw-03",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195241,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-024.json",
+        "sha256": "910caf3a35ae52250ce6fc6c3d22f9c1750e639eb6a98eb6367f291db795eb55"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-05-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-1.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "raw-02",
+          "shape-01",
+          "raw-01",
+          "padding-01",
+          "shape-03",
+          "shape-02",
+          "identity",
+          "padding-03",
+          "padding-02"
+        ],
+        [
+          "padding-03",
+          "shape-01",
+          "raw-01",
+          "raw-03",
+          "shape-02",
+          "padding-01",
+          "shape-03",
+          "raw-02",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "shape-02",
+          "raw-03",
+          "raw-01",
+          "shape-03",
+          "padding-02",
+          "shape-01",
+          "identity",
+          "raw-02",
+          "padding-01",
+          "padding-03"
+        ],
+        [
+          "shape-02",
+          "padding-02",
+          "raw-01",
+          "identity",
+          "raw-02",
+          "shape-03",
+          "padding-03",
+          "raw-03",
+          "shape-01",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 1253105156949066703,
+      "start_id": "cal-05-start-1"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "raw-01",
+          "shape-02",
+          "raw-02",
+          "padding-01",
+          "identity",
+          "padding-03",
+          "shape-01",
+          "raw-03",
+          "padding-02"
+        ],
+        [
+          "raw-03",
+          "padding-01",
+          "shape-03",
+          "shape-02",
+          "padding-02",
+          "identity",
+          "raw-01",
+          "raw-02",
+          "padding-03",
+          "shape-01"
+        ],
+        [
+          "padding-01",
+          "shape-03",
+          "identity",
+          "raw-03",
+          "padding-03",
+          "padding-02",
+          "raw-02",
+          "raw-01",
+          "shape-02",
+          "shape-01"
+        ],
+        [
+          "padding-03",
+          "raw-03",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "padding-01",
+          "shape-01",
+          "raw-01",
+          "shape-03",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195241,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-024.json",
+        "sha256": "910caf3a35ae52250ce6fc6c3d22f9c1750e639eb6a98eb6367f291db795eb55"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-05-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-2.json",
+      "primary_schedules": [
+        [
+          "shape-03",
+          "shape-01",
+          "identity",
+          "raw-02",
+          "raw-03",
+          "padding-03",
+          "raw-01",
+          "padding-02",
+          "padding-01",
+          "shape-02"
+        ],
+        [
+          "padding-02",
+          "shape-03",
+          "shape-01",
+          "identity",
+          "padding-03",
+          "shape-02",
+          "padding-01",
+          "raw-01",
+          "raw-03",
+          "raw-02"
+        ],
+        [
+          "padding-01",
+          "shape-03",
+          "padding-03",
+          "raw-01",
+          "shape-01",
+          "shape-02",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "raw-03"
+        ],
+        [
+          "padding-02",
+          "shape-01",
+          "raw-03",
+          "identity",
+          "raw-01",
+          "raw-02",
+          "padding-01",
+          "padding-03",
+          "shape-03",
+          "shape-02"
+        ]
+      ],
+      "random_seed": 425756159413138047,
+      "start_id": "cal-05-start-2"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-01",
+          "identity",
+          "padding-01",
+          "raw-03",
+          "padding-03",
+          "padding-02",
+          "shape-02",
+          "shape-03",
+          "shape-01",
+          "raw-02"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "raw-03",
+          "identity",
+          "shape-01",
+          "shape-02",
+          "shape-03",
+          "raw-02",
+          "padding-03",
+          "padding-02"
+        ],
+        [
+          "shape-03",
+          "raw-03",
+          "raw-01",
+          "shape-02",
+          "shape-01",
+          "raw-02",
+          "padding-03",
+          "padding-01",
+          "padding-02",
+          "identity"
+        ],
+        [
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "raw-02",
+          "shape-02",
+          "shape-01",
+          "shape-03",
+          "padding-03",
+          "identity",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195241,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-024.json",
+        "sha256": "910caf3a35ae52250ce6fc6c3d22f9c1750e639eb6a98eb6367f291db795eb55"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-05-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "raw-03",
+          "raw-02",
+          "padding-01",
+          "shape-02",
+          "padding-03",
+          "raw-01",
+          "padding-02",
+          "shape-03",
+          "shape-01"
+        ],
+        [
+          "raw-03",
+          "padding-01",
+          "padding-03",
+          "raw-02",
+          "shape-01",
+          "shape-03",
+          "shape-02",
+          "identity",
+          "raw-01",
+          "padding-02"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "raw-03",
+          "padding-02",
+          "padding-03",
+          "raw-02",
+          "shape-02",
+          "shape-03",
+          "shape-01",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "padding-03",
+          "shape-02",
+          "padding-01",
+          "shape-01",
+          "raw-01",
+          "shape-03",
+          "identity",
+          "raw-03",
+          "padding-02"
+        ]
+      ],
+      "random_seed": 1877793694530459367,
+      "start_id": "cal-05-start-3"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-024",
+      "diagnostic_schedules": [
+        [
+          "raw-02",
+          "shape-02",
+          "raw-01",
+          "shape-01",
+          "padding-02",
+          "raw-03",
+          "shape-03",
+          "identity",
+          "padding-01",
+          "padding-03"
+        ],
+        [
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "padding-01",
+          "shape-02",
+          "raw-01",
+          "identity",
+          "shape-01",
+          "shape-03",
+          "padding-02"
+        ],
+        [
+          "shape-03",
+          "identity",
+          "raw-01",
+          "padding-03",
+          "padding-01",
+          "padding-02",
+          "shape-02",
+          "raw-03",
+          "raw-02",
+          "shape-01"
+        ],
+        [
+          "raw-03",
+          "raw-01",
+          "padding-03",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "shape-03",
+          "shape-01",
+          "shape-02",
+          "padding-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 195241,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-024.json",
+        "sha256": "910caf3a35ae52250ce6fc6c3d22f9c1750e639eb6a98eb6367f291db795eb55"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-05-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-05-start-4.json",
+      "primary_schedules": [
+        [
+          "raw-03",
+          "shape-02",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "raw-02",
+          "padding-02",
+          "padding-03",
+          "shape-03",
+          "identity"
+        ],
+        [
+          "shape-02",
+          "shape-03",
+          "padding-02",
+          "padding-03",
+          "padding-01",
+          "raw-03",
+          "raw-02",
+          "shape-01",
+          "identity",
+          "raw-01"
+        ],
+        [
+          "raw-01",
+          "identity",
+          "padding-03",
+          "shape-03",
+          "shape-01",
+          "padding-02",
+          "raw-03",
+          "raw-02",
+          "shape-02",
+          "padding-01"
+        ],
+        [
+          "padding-03",
+          "raw-01",
+          "padding-02",
+          "shape-02",
+          "shape-03",
+          "shape-01",
+          "raw-03",
+          "raw-02",
+          "identity",
+          "padding-01"
+        ]
+      ],
+      "random_seed": 516840014246678893,
+      "start_id": "cal-05-start-4"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "shape-01",
+          "shape-03",
+          "padding-03",
+          "raw-02",
+          "shape-02",
+          "identity",
+          "raw-03",
+          "padding-01",
+          "raw-01"
+        ],
+        [
+          "shape-01",
+          "padding-01",
+          "raw-03",
+          "padding-03",
+          "shape-02",
+          "padding-02",
+          "identity",
+          "raw-02",
+          "raw-01",
+          "shape-03"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "padding-03",
+          "padding-02",
+          "raw-03",
+          "raw-02",
+          "shape-03",
+          "shape-01",
+          "shape-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "shape-02",
+          "padding-03",
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "shape-03",
+          "shape-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195466,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-044.json",
+        "sha256": "b54613090b1869d1636d4330d66a46b195fb18be083484dacc25271722d19c42"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-06-start-1.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "raw-02",
+          "padding-03",
+          "shape-03",
+          "raw-01",
+          "padding-01",
+          "padding-02",
+          "shape-01",
+          "shape-02",
+          "raw-03"
+        ],
+        [
+          "padding-03",
+          "shape-02",
+          "shape-01",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "shape-03",
+          "padding-01",
+          "raw-01",
+          "raw-03"
+        ],
+        [
+          "padding-03",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "padding-02",
+          "shape-01",
+          "shape-02",
+          "raw-03",
+          "identity",
+          "shape-03"
+        ],
+        [
+          "raw-01",
+          "shape-03",
+          "padding-03",
+          "padding-01",
+          "shape-01",
+          "raw-03",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 3017490128746635638,
+      "start_id": "cal-06-start-1"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "raw-01",
+          "shape-02",
+          "identity",
+          "padding-01",
+          "raw-03",
+          "padding-02",
+          "shape-01",
+          "padding-03",
+          "raw-02"
+        ],
+        [
+          "padding-03",
+          "shape-02",
+          "raw-03",
+          "shape-03",
+          "padding-02",
+          "raw-01",
+          "shape-01",
+          "padding-01",
+          "identity",
+          "raw-02"
+        ],
+        [
+          "shape-01",
+          "raw-03",
+          "identity",
+          "raw-01",
+          "raw-02",
+          "shape-02",
+          "padding-01",
+          "shape-03",
+          "padding-02",
+          "padding-03"
+        ],
+        [
+          "padding-01",
+          "padding-03",
+          "shape-01",
+          "raw-03",
+          "raw-01",
+          "padding-02",
+          "raw-02",
+          "shape-02",
+          "shape-03",
+          "identity"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195466,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-044.json",
+        "sha256": "b54613090b1869d1636d4330d66a46b195fb18be083484dacc25271722d19c42"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-06-start-2.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-2.json",
+      "primary_schedules": [
+        [
+          "shape-01",
+          "shape-03",
+          "padding-03",
+          "identity",
+          "padding-02",
+          "raw-02",
+          "padding-01",
+          "raw-01",
+          "shape-02",
+          "raw-03"
+        ],
+        [
+          "raw-03",
+          "padding-01",
+          "identity",
+          "shape-03",
+          "raw-02",
+          "raw-01",
+          "padding-02",
+          "shape-02",
+          "padding-03",
+          "shape-01"
+        ],
+        [
+          "padding-01",
+          "shape-02",
+          "shape-01",
+          "identity",
+          "raw-03",
+          "raw-02",
+          "padding-03",
+          "raw-01",
+          "shape-03",
+          "padding-02"
+        ],
+        [
+          "shape-03",
+          "identity",
+          "padding-01",
+          "padding-03",
+          "raw-01",
+          "raw-03",
+          "padding-02",
+          "shape-02",
+          "raw-02",
+          "shape-01"
+        ]
+      ],
+      "random_seed": 257495272791136367,
+      "start_id": "cal-06-start-2"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "padding-02",
+          "padding-03",
+          "shape-01",
+          "raw-01",
+          "identity",
+          "raw-03",
+          "shape-03",
+          "raw-02",
+          "shape-02",
+          "padding-01"
+        ],
+        [
+          "padding-02",
+          "raw-01",
+          "padding-03",
+          "shape-01",
+          "shape-02",
+          "raw-02",
+          "padding-01",
+          "raw-03",
+          "identity",
+          "shape-03"
+        ],
+        [
+          "padding-01",
+          "raw-01",
+          "shape-02",
+          "padding-02",
+          "shape-01",
+          "padding-03",
+          "raw-03",
+          "raw-02",
+          "shape-03",
+          "identity"
+        ],
+        [
+          "raw-01",
+          "shape-02",
+          "shape-03",
+          "padding-02",
+          "shape-01",
+          "padding-03",
+          "padding-01",
+          "identity",
+          "raw-03",
+          "raw-02"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195466,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-044.json",
+        "sha256": "b54613090b1869d1636d4330d66a46b195fb18be083484dacc25271722d19c42"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-06-start-3.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-3.json",
+      "primary_schedules": [
+        [
+          "shape-01",
+          "padding-02",
+          "padding-03",
+          "identity",
+          "shape-02",
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "raw-02",
+          "shape-03"
+        ],
+        [
+          "raw-03",
+          "padding-03",
+          "padding-02",
+          "raw-02",
+          "raw-01",
+          "shape-01",
+          "shape-03",
+          "shape-02",
+          "padding-01",
+          "identity"
+        ],
+        [
+          "raw-02",
+          "raw-03",
+          "padding-02",
+          "shape-01",
+          "identity",
+          "padding-01",
+          "padding-03",
+          "shape-03",
+          "shape-02",
+          "raw-01"
+        ],
+        [
+          "raw-02",
+          "raw-01",
+          "shape-01",
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "identity",
+          "padding-03",
+          "shape-03",
+          "shape-02"
+        ]
+      ],
+      "random_seed": 6206344308825284,
+      "start_id": "cal-06-start-3"
+    },
+    {
+      "batch_id": "calibration-03",
+      "capture_id": "pred-v1-calibration-03-layer-044",
+      "diagnostic_schedules": [
+        [
+          "shape-03",
+          "identity",
+          "shape-01",
+          "raw-02",
+          "padding-03",
+          "shape-02",
+          "padding-02",
+          "padding-01",
+          "raw-03",
+          "raw-01"
+        ],
+        [
+          "raw-02",
+          "padding-03",
+          "shape-01",
+          "identity",
+          "raw-01",
+          "padding-02",
+          "shape-03",
+          "shape-02",
+          "raw-03",
+          "padding-01"
+        ],
+        [
+          "padding-01",
+          "identity",
+          "shape-02",
+          "padding-03",
+          "shape-01",
+          "raw-01",
+          "shape-03",
+          "raw-03",
+          "padding-02",
+          "raw-02"
+        ],
+        [
+          "identity",
+          "shape-01",
+          "padding-03",
+          "raw-03",
+          "shape-02",
+          "padding-01",
+          "raw-02",
+          "shape-03",
+          "padding-02",
+          "raw-01"
+        ]
+      ],
+      "failure_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 195466,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/calibration_layouts/pred-v1-calibration-03-layer-044.json",
+        "sha256": "b54613090b1869d1636d4330d66a46b195fb18be083484dacc25271722d19c42"
+      },
+      "log_relative_path": "results/prediction_v1/calibration/logs/cal-06-start-4.log",
+      "output_relative_path": "results/prediction_v1/calibration/raw/cal-06-start-4.json",
+      "primary_schedules": [
+        [
+          "shape-01",
+          "raw-01",
+          "identity",
+          "shape-03",
+          "padding-02",
+          "raw-03",
+          "shape-02",
+          "raw-02",
+          "padding-01",
+          "padding-03"
+        ],
+        [
+          "padding-03",
+          "shape-02",
+          "raw-03",
+          "padding-01",
+          "raw-01",
+          "shape-01",
+          "raw-02",
+          "padding-02",
+          "identity",
+          "shape-03"
+        ],
+        [
+          "padding-01",
+          "shape-01",
+          "padding-02",
+          "raw-03",
+          "raw-01",
+          "shape-02",
+          "raw-02",
+          "identity",
+          "padding-03",
+          "shape-03"
+        ],
+        [
+          "identity",
+          "raw-02",
+          "raw-01",
+          "shape-01",
+          "padding-02",
+          "padding-03",
+          "raw-03",
+          "padding-01",
+          "shape-02",
+          "shape-03"
+        ]
+      ],
+      "random_seed": 1307679345446878489,
+      "start_id": "cal-06-start-4"
+    }
+  ],
+  "status": "frozen_before_calibration_timing",
+  "study_id": "h20-placement-prediction-v1",
+  "timing": {
+    "activation_warmup_forwards": 10,
+    "blocks_per_start": 4,
+    "diagnostic_blocks_per_start": 4,
+    "diagnostic_metric": "same-device CUDA elapsed interval bracketing real runner.run",
+    "diagnostic_substitution_for_primary": false,
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "initial_warmup_forwards_per_layout": 10,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "random.Random(seed + offset + block).shuffle over the frozen layout order; offset 0 for the primary pass, 1000003 for the diagnostic pass",
+    "timed_forwards_per_activation": 20
+  },
+  "tolerance_file": {
+    "bytes": 339,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_tolerance.json",
+    "sha256": "56e7f45dc6ec6b653dfae03c3b6882ac080ab9e828d098ebad8c58cf4ad0fbf3"
+  }
+}

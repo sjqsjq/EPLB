@@ -1,0 +1,21 @@
+{
+  "label": "repro_oeplb_warmup",
+  "dataset": "/tmp/warmup_500.jsonl",
+  "num_requests": 500,
+  "concurrency": 1024,
+  "ok": 500,
+  "errors": 0,
+  "total_time_s": 28.56,
+  "total_comp_tokens": 16000,
+  "tps": 560.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 28428.8,
+  "lat_p50_ms": 28415.3,
+  "lat_p99_ms": 28548.86,
+  "ttft_mean_ms": 13891.85,
+  "ttft_p50_ms": 13935.35,
+  "ttft_p99_ms": 26911.29,
+  "tpot_mean_ms": 468.94,
+  "tpot_p50_ms": 471.54,
+  "tpot_p99_ms": 865.0
+}

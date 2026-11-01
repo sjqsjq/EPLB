@@ -1,0 +1,55 @@
+{
+ "harness_version": "v2 (fixes B1 knob mismatch, B2 state off-by-one, B3 z basis; v1 archived as pt2c_results_v1_harnessbug.json)",
+ "M_median_W64_nfresh": 394264576,
+ "fidelity": {
+  "n_windows": 243,
+  "mismatches": [],
+  "note": "inert-knob replay from previous-window state; checks live event + W_after + FULL post-state fields for every qualified window"
+ },
+ "paired": {
+  "n_stationary": 182,
+  "n_change_supplemental": 61,
+  "decision_mismatches": [
+   {
+    "W": 8,
+    "window_id": 132,
+    "zone": "stationary",
+    "orig": [
+     "uncertain_carry",
+     8,
+     0.02226643020356499,
+     6294992
+    ],
+    "scaled": [
+     "grow_blocked_headroom",
+     8,
+     0.02226643020356499,
+     394264576.0
+    ],
+    "n_min_flip": true,
+    "class": "n_min_absolute_gate"
+   }
+  ],
+  "hr_bitwise_identical": 241,
+  "hr_max_abs_delta": 1.734723475976807e-18,
+  "n_min_side": {
+   "orig_below": 1,
+   "scaled_below": 0,
+   "flips": 1
+  },
+  "note": "frozen knobs; z_frozen recomputed via deployed z_from_signals (same value in BOTH arms); only (h, n) scaled. n_min flips classified, not defects. Stationary = registered gate; change = supplemental."
+ },
+ "event_census_all_runs": {
+  "init": 4,
+  "hold": 8,
+  "grow_blocked_headroom": 235
+ },
+ "uncertain_or_carry_events_present": [],
+ "gate": {
+  "decision_identity_pct": 99.58847736625515,
+  "n_min_classified_mismatches": 1,
+  "f2_defects": 0,
+  "state_recon_fidelity_ok": true,
+  "pass": true
+ }
+}

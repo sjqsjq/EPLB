@@ -1,0 +1,217 @@
+{
+  "capture_index_sha256": "3406f8427e62e5d44ad747d5522f2703dceb80853d84034901121dc982a4a35e",
+  "counts": {
+    "capture_units": 12,
+    "cross_capture_reused_maps": 2,
+    "total_layouts": 95,
+    "unique_timed_map_hashes": 73
+  },
+  "created_at_utc": "2026-10-14T18:05:15.533628+00:00",
+  "cross_capture_map_reuse": {
+    "89795fdeb2d3e73a80b3d264267d874c23cf165049c8faa58293713f3f9f7d81": [
+      "pred-v1-evaluation-01-layer-024:bin-r-gt-1.80",
+      "pred-v1-evaluation-01-layer-028:bin-r-gt-1.80",
+      "pred-v1-evaluation-01-layer-044:bin-r-gt-1.80",
+      "pred-v1-evaluation-01-layer-071:bin-r-gt-1.80",
+      "pred-v1-evaluation-02-layer-024:bin-r-gt-1.80",
+      "pred-v1-evaluation-02-layer-028:bin-r-gt-1.80",
+      "pred-v1-evaluation-02-layer-044:bin-r-gt-1.80",
+      "pred-v1-evaluation-02-layer-071:bin-r-gt-1.80",
+      "pred-v1-evaluation-03-layer-024:bin-r-gt-1.80",
+      "pred-v1-evaluation-03-layer-028:bin-r-gt-1.80",
+      "pred-v1-evaluation-03-layer-044:bin-r-gt-1.80",
+      "pred-v1-evaluation-03-layer-071:bin-r-gt-1.80"
+    ],
+    "e374288e6fd77688ab0bf9c4f4da1c9310f37aa631ec818b593d9d22c3a25e4b": [
+      "pred-v1-evaluation-01-layer-024:identity",
+      "pred-v1-evaluation-01-layer-028:identity",
+      "pred-v1-evaluation-01-layer-044:identity",
+      "pred-v1-evaluation-01-layer-071:identity",
+      "pred-v1-evaluation-02-layer-024:identity",
+      "pred-v1-evaluation-02-layer-028:identity",
+      "pred-v1-evaluation-02-layer-044:identity",
+      "pred-v1-evaluation-02-layer-071:identity",
+      "pred-v1-evaluation-03-layer-024:identity",
+      "pred-v1-evaluation-03-layer-028:identity",
+      "pred-v1-evaluation-03-layer-044:identity",
+      "pred-v1-evaluation-03-layer-071:identity"
+    ]
+  },
+  "design": {
+    "bin_selection_rule": "first greedy-path prefix whose raw r enters (lo, hi]; interior prefixes only; identity and base are anchors",
+    "capture_units": 12,
+    "deadzone_rule": "a plateau is supported only where raw r strictly decreases while every adjacent-bin contrast interval lies wholly inside [-epsilon,+epsilon]; an interval crossing zero is compatible with zero and is never by itself a plateau declaration",
+    "identity_is_timed_anchor": true,
+    "no_subset_selection": true,
+    "planned_timing": "4 independent starts x 5 randomized blocks x 50 timed forwards; paired within-block contrasts; Student-t df=3",
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "selection_uses_performance_timing": false
+  },
+  "generation": {
+    "generator": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_scan_layouts.py",
+    "generator_sha256": "5f3212e66124fa6f1525e7adae87a8fff4d9ec305a2e5803f1929b9caf6d38b9",
+    "version": "nearscan-layouts-v1"
+  },
+  "locked_implementation": {
+    "generate_stopping_layouts": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_stopping_layouts.py",
+      "sha256": "9b1ef72b22ac1fdfdcf565227043cc0a7afdb69e4c4381d20b3465221212a115"
+    },
+    "prediction_common": {
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    }
+  },
+  "manifests": [
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 157856,
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-024.json",
+      "r_base": 1.0029585798816567,
+      "r_identity": 2.6992110453648914,
+      "sha256": "7eff637834399ff21aaca098f383c0bd84a6b8f728b26a3329d747d1c8755312"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 157644,
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-028.json",
+      "r_base": 1.0002465483234715,
+      "r_identity": 2.267258382642998,
+      "sha256": "2d8b4ddad2da02bfa321619a8ea2eefee3d7760b45d2838658026cc90818b3b0"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 158034,
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "empty_bins": [],
+      "layer_id": 44,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-044.json",
+      "r_base": 1.0007396449704142,
+      "r_identity": 2.549802761341223,
+      "sha256": "246066f427ac672bdff46b1ba7c495bfe655e615c99ca8433b5e65be4384666b"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 158082,
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-01-layer-071.json",
+      "r_base": 1.0002465483234715,
+      "r_identity": 2.2206607495069033,
+      "sha256": "2a425d1c684e139f3930442bc68f68eb5965186a90e09c174cc673f73a0291ae"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157821,
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-024.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.765736855097507,
+      "sha256": "7580f823b01fc85e1d8dce599934f392293fb955b2cfc2ad48353ad184d70f5d"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157842,
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-028.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.3016539126141695,
+      "sha256": "4fc11a7ba7c948d4187086f17df0889733249a726e424fa275ed0f9ec4d7ab7d"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157983,
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "empty_bins": [],
+      "layer_id": 44,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-044.json",
+      "r_base": 1.0,
+      "r_identity": 2.6578622562330287,
+      "sha256": "1426adee5e4995fb8ef2907a5e695a8cd5069c3d7b0f608bbf04a73382525364"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 157854,
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-02-layer-071.json",
+      "r_base": 1.0002468526289805,
+      "r_identity": 2.3421377437669713,
+      "sha256": "07a38e4e8a80ce9b3780c346835c7a3ccc15414d6567df4ad251e9d4033a80f2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157861,
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "empty_bins": [],
+      "layer_id": 24,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-024.json",
+      "r_base": 1.0019787286668316,
+      "r_identity": 2.6510017313875833,
+      "sha256": "f0a4c0d76fa925f237baedb96cec41bee793051f3659d7c970b87e857bad1cd8"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157821,
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "empty_bins": [],
+      "layer_id": 28,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-028.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.25204056393767,
+      "sha256": "83ae7df3258586832406c10dd06de5617746786787a5cacaf2b047e618b6c5cf"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 140526,
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "empty_bins": [
+        "bin-r-1.20-1.40"
+      ],
+      "layer_id": 44,
+      "layout_count": 7,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-044.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.545634429878803,
+      "sha256": "88a239a971c33a13ba164f80f979c3b1d76a46152c62358056719ebc96f2b761"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 157836,
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "empty_bins": [],
+      "layer_id": 71,
+      "layout_count": 8,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/nearscan_v1/layouts/nearscan_pred-v1-evaluation-03-layer-071.json",
+      "r_base": 1.000247341083354,
+      "r_identity": 2.292357160524363,
+      "sha256": "7f9bf863d9d5a46b6a7d774027db19483226300f4fc19738274e6d94b4db173f"
+    }
+  ],
+  "schema_version": 1,
+  "status": "all_scan_layouts_frozen_before_timing",
+  "stopping_layout_index_sha256": "e0c32064fcd627e91713ace8e3fbef81107d9ab66a1e0e874f3abe1b002063ec",
+  "study_id": "h20-placement-nearscan-v1"
+}

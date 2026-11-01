@@ -1,0 +1,103 @@
+{
+ "campaign": "recovery_admission_e2e_20261027",
+ "generated_utc": "2026-10-26T17:40:09Z",
+ "seed": 20261027,
+ "rule": "rounds 1-3 = cyclic shifts (0,1,2) of seeded random base order; round 4 = pre-fixed permutation = reverse of base order; locked BEFORE any GPU spend; assert: no arm first in all rounds, AERO arms not always first (author order rule scaled 8->4 rounds)",
+ "base_order": [
+  "ES",
+  "I",
+  "P1",
+  "DF",
+  "ED",
+  "P0",
+  "MT"
+ ],
+ "first_positions": [
+  "ES",
+  "I",
+  "P1",
+  "MT"
+ ],
+ "rounds": {
+  "1": [
+   "ES",
+   "I",
+   "P1",
+   "DF",
+   "ED",
+   "P0",
+   "MT"
+  ],
+  "2": [
+   "I",
+   "P1",
+   "DF",
+   "ED",
+   "P0",
+   "MT",
+   "ES"
+  ],
+  "3": [
+   "P1",
+   "DF",
+   "ED",
+   "P0",
+   "MT",
+   "ES",
+   "I"
+  ],
+  "4": [
+   "MT",
+   "P0",
+   "ED",
+   "DF",
+   "P1",
+   "I",
+   "ES"
+  ]
+ },
+ "arm_positions": {
+  "ES": [
+   0,
+   6,
+   5,
+   6
+  ],
+  "I": [
+   1,
+   0,
+   6,
+   5
+  ],
+  "P1": [
+   2,
+   1,
+   0,
+   4
+  ],
+  "DF": [
+   3,
+   2,
+   1,
+   3
+  ],
+  "ED": [
+   4,
+   3,
+   2,
+   2
+  ],
+  "P0": [
+   5,
+   4,
+   3,
+   1
+  ],
+  "MT": [
+   6,
+   5,
+   4,
+   0
+  ]
+ }
+}

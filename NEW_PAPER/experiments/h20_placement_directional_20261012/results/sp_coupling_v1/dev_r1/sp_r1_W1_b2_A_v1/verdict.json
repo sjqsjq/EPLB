@@ -1,0 +1,253 @@
+{
+ "arm": "A_v1",
+ "condition": "W1",
+ "label": "sp_r1_W1_b2_A_v1",
+ "protocol": "sp_coupling_v1",
+ "checks": {
+  "bench": {
+   "label": "sp_r1_W1_b2_A_v1",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w1_stable_code_4000.jsonl",
+   "num_requests": 4000,
+   "concurrency": 256,
+   "ok": 4000,
+   "errors": 0,
+   "total_time_s": 352.37
+  },
+  "adw21_banner_count": 8,
+  "knob_strings_unique": 1,
+  "knob_authority": "A-frozen",
+  "sp_banner_count": 8,
+  "sp_banner_variants": [
+   [
+    "adaptive",
+    "1",
+    "16",
+    "16",
+    "20261018",
+    "3",
+    "2"
+   ]
+  ],
+  "meta_sp_env": {
+   "OEPLB_SP_MODE": "adaptive",
+   "OEPLB_SP_QUIET_STREAK": "3",
+   "OEPLB_SP_RECOVER_MIN_CYCLES": "2",
+   "OEPLB_SP_REV": "0",
+   "OEPLB_SP_S": "1",
+   "OEPLB_SP_SEED": "20261018",
+   "OEPLB_SP_W": "16"
+  },
+  "jsonl_lines": 85,
+  "jsonl_min_lines": 29,
+  "sp_run_end": {
+   "mode": "adaptive",
+   "state_final": "RECOVER",
+   "S_final": 1,
+   "H_final": 8,
+   "W_final": 8,
+   "sp_fwd_total": 1010,
+   "h_cycles": 85,
+   "window_count": 80,
+   "true_steps_total": 1000,
+   "sample_opportunities": 949,
+   "recorded_steps": 936,
+   "swaps_started_total": 4,
+   "residency_committed_h": {
+    "TRACK": 35,
+    "QUIET": 5,
+    "RECOVER": 45
+   },
+   "p2l_version": 4
+  },
+  "sp_transitions": [
+   {
+    "h_id": 26,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 27,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "h_rate=0.010609>=theta_h_low=0.010096 opportunity proxy rose"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 29,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 32,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 33,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "h_rate=0.010981>=theta_h_low=0.010096 opportunity proxy rose"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 51,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 54,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 56,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "h_rate=0.013493>=theta_h_low=0.010096 opportunity proxy rose"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   },
+   {
+    "h_id": 61,
+    "from": "RECOVER",
+    "to": "TRACK",
+    "reasons": [
+     "recover_min_cycles>=2 complete clean H8 cycles (stable+low-margin+coverage); no timeout convergence"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 64,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 65,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "h_rate=0.010105>=theta_h_low=0.010096 opportunity proxy rose"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   }
+  ],
+  "sp_seals": [
+   {
+    "h_id": 26,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 1,
+    "S_after": 4
+   },
+   {
+    "h_id": 27,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 4,
+    "S_after": 1
+   },
+   {
+    "h_id": 32,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 1,
+    "S_after": 4
+   },
+   {
+    "h_id": 33,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 4,
+    "S_after": 1
+   },
+   {
+    "h_id": 54,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 1,
+    "S_after": 4
+   },
+   {
+    "h_id": 56,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 32,
+    "S_before": 4,
+    "S_after": 1
+   },
+   {
+    "h_id": 64,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 1,
+    "S_after": 4
+   },
+   {
+    "h_id": 65,
+    "reason": "sp_seal_S_change",
+    "cover_steps": 16,
+    "S_before": 4,
+    "S_after": 1
+   }
+  ],
+  "pd9_adaptive_bound": [
+   932,
+   958,
+   10
+  ]
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

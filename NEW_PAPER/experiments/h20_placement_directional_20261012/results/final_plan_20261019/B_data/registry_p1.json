@@ -1,0 +1,49 @@
+{
+ "built_utc": "2026-10-18T23:38:46+0000",
+ "purpose": "P1 (plan §10): redundancy-vs-KV-pressure. Real long-in/long-out controlled stream.",
+ "rules": "P1 stream builder — final_plan_20261019 Task P1 (plan §10).\n\nPRE-REGISTERED construction (frozen BEFORE any P1 timing; reuses sealed\nbuild_streams.py rules R1-R4 verbatim — same doc universe, same doc-level\nsplit, same hash-ordered spliced corpora, same window/dedup rule):\n\nP1-R1 Pools: pool(dom, test, L=2048, s=256) for dom in sharegpt/prover/book/code.\n      code pool must be bit-identical to the sealed e1 pool (asserted against\n      e1_code_stable.jsonl first 512 rows: prompt text equality).\nP1-R2 Quota: first 512 windows of each pool (pool order = corpus offset order,\n      deterministic prefix selection, no RNG). N = 4*512 = 2048.\n      (N=2048 tier of plan §10.3 chosen: all four pools >= 512 windows,\n      capacity verified BEFORE construction; frozen here.)\nP1-R3 Sampling: max_tokens=128, temperature=0, ignore_eos=true for EVERY row\n      (fixed-length performance workload per §5.2/§10.3; identical across arms).\nP1-R4 Order: round-robin interleave, j=0..511, domain order\n      (sharegpt, prover, book, code) — same domain order as sealed E3 blocks.\n      Interleaved (not blocked) so routing composition is stationary over the\n      run: P1 measures KV/redundancy pressure, NOT domain switching.\nP1-R5 Determinism: no RNG anywhere; rerun is bit-identical.\n",
+ "stream": {
+  "name": "p1_longio",
+  "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_plan_20261019/B_data/streams/p1_longio.jsonl",
+  "n": 2048,
+  "uniq_text_hash": 2048,
+  "sha256": "3c09e0270a60d185c801646c3cebc7157a99086d0c10c8b4e78c5dc615068457",
+  "quota_per_domain": 512,
+  "domains_order": [
+   "sharegpt",
+   "prover",
+   "book",
+   "code"
+  ],
+  "interleave": "round-robin j-major (stationary composition)",
+  "max_tokens": 128,
+  "temperature": 0,
+  "ignore_eos": true,
+  "retok_len_p5_p50_p95": [
+   2048,
+   2048,
+   2048
+  ],
+  "pool_sizes_test_L2048_s256": {
+   "sharegpt": 6976,
+   "prover": 4076,
+   "book": 14177,
+   "code": 3221
+  },
+  "code_pool_identity": "first 512 windows bit-identical to sealed e1_code_stable (asserted)"
+ },
+ "n_choice": "N=2048 tier (§10.3 'N=2048 or 4096 by CPU inventory'): all four test-split L2048 pools >= 512; frozen before construction; 4096 would need 1024/domain — also feasible but 2048 keeps P1 bench wall bounded; recorded here as the frozen choice.",
+ "kv_capacity_evidence": {
+  "source": "server.log 'KV Cache is allocated. #tokens:' of EXISTING boots (capacity numbers only, not performance endpoints)",
+  "worst_arm_E_R32_tokens": 190307,
+  "E_R16_tokens": 208750,
+  "E_R0_tokens": 227168,
+  "P_I_F_tokens": {
+   "P": 227292,
+   "I": 227269,
+   "F_1_16_16": 227258
+  },
+  "per_request_budget_tokens": 2176,
+  "inflight_capacity_worst_arm": 87
+ }
+}

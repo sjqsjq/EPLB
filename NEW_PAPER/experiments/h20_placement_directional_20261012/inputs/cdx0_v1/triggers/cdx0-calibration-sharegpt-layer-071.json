@@ -1,0 +1,83 @@
+{
+  "armed_at_utc": "2026-10-16T07:15:31.635514+00:00",
+  "capture_context": {
+    "amendment": {
+      "bytes": 11794,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_amendment_v1.json",
+      "sha256": "bc7e7bcfc8e1708b9a71dd97a8c2bf01c26b58091ccfbcf062d2b3e1cd442207"
+    },
+    "batch_id": "cdx0-calibration-sharegpt",
+    "cdx0_request_manifest": {
+      "bytes": 15374,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+      "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+    },
+    "dataset": {
+      "bytes": 36657294,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/calibration.jsonl",
+      "sha256": "7d53aa0b07dbc9f11f47af44ee4f4106861f5ace6d4eeca1ba41cdf5b01b17f9"
+    },
+    "domain": "sharegpt",
+    "domain_purity": "verifiable_by_construction: every request line lies inside the named domain segment",
+    "model": {
+      "path": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master"
+    },
+    "request_file": {
+      "bytes": 35331,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-calibration-sharegpt.jsonl",
+      "sha256": "060acae5501ef88a16eddc112b3281a172d39c87decc9126d0cf23e225353863"
+    },
+    "request_source_lines_zero_based": [
+      1044,
+      1045,
+      1047,
+      1049,
+      1050,
+      1053,
+      1055,
+      1057
+    ],
+    "request_token_counts": [
+      1984,
+      625,
+      728,
+      1118,
+      788,
+      537,
+      1860,
+      534
+    ],
+    "segment_zero_based_half_open": [
+      0,
+      2075
+    ],
+    "selection_rule": {
+      "band_inclusive": [
+        400,
+        2048
+      ],
+      "description": "forward scan from segment midpoint (inclusive) for tokenized length in [400,2048] (add_special_tokens=True), then backward from midpoint-1 if needed; first 8 in scan order; identical rule for all domains/splits; no routing or performance information used",
+      "requests_per_batch": 8,
+      "route_or_performance_information_used": false
+    },
+    "split": "calibration",
+    "total_input_tokens": 8174
+  },
+  "capture_id": "cdx0-calibration-sharegpt-layer-071",
+  "expected_layers": 94,
+  "identity_map": {
+    "bytes": 123178,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/identity_service_map.json",
+    "sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d"
+  },
+  "identity_map_required": true,
+  "identity_map_sha256": "de6647d43e9e5679e3cdeec07a4c96c3a526364e08e75e4e99e32a8cf6c30f9d",
+  "min_hidden_rows": 400,
+  "mode": "snapshot_split",
+  "num_experts": 128,
+  "output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071",
+  "schema_version": 2,
+  "study_id": "h20-placement-cdx0-v1",
+  "target_layer": 71,
+  "weight_output_dir": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights"
+}

@@ -1,0 +1,29 @@
+total rows: 48
+
+== W1 (24 starts) position counts (arm: pos1/pos2/pos3/pos4) ==
+  A: [2, 2, 1, 1]
+  F: [1, 2, 2, 1]
+  L: [1, 1, 2, 2]
+  M: [2, 1, 1, 2]
+  precedence (X before Y, of 6 blocks):
+    A<F: 5 : 1
+    A<L: 4 : 2
+    A<M: 2 : 4
+    F<L: 5 : 1
+    F<M: 3 : 3
+    L<M: 4 : 2
+  block_pos in round: {'1': 12, '2': 12}
+
+== W2 (24 starts) position counts (arm: pos1/pos2/pos3/pos4) ==
+  A: [1, 1, 2, 2]
+  F: [2, 1, 1, 2]
+  L: [2, 2, 1, 1]
+  M: [1, 2, 2, 1]
+  precedence (X before Y, of 6 blocks):
+    A<F: 4 : 2
+    A<L: 2 : 4
+    A<M: 1 : 5
+    F<L: 4 : 2
+    F<M: 3 : 3
+    L<M: 5 : 1
+  block_pos in round: {'2': 12, '1': 12}

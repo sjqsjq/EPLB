@@ -74,7 +74,9 @@ class ReplayState:
 def parse_args() -> argparse.Namespace:
     root = pathlib.Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser()
-    parser.add_argument("--phase", choices=("correctness", "e0", "e1"), required=True)
+    parser.add_argument(
+        "--phase", choices=("correctness", "e0", "e1", "confirm"), required=True
+    )
     parser.add_argument("--root", type=pathlib.Path, default=root)
     parser.add_argument("--manifest", type=pathlib.Path)
     parser.add_argument("--snapshot-dir", type=pathlib.Path)
@@ -82,11 +84,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=pathlib.Path)
     parser.add_argument("--layouts", help="comma-separated layout IDs; default is phase protocol")
     parser.add_argument("--warmup", type=int, default=8)
+    parser.add_argument("--activation-warmup", type=int, default=0)
     parser.add_argument("--blocks", type=int, default=10)
     parser.add_argument("--iterations-per-block", type=int, default=50)
     parser.add_argument("--empty-fence-warmup", type=int, default=5)
     parser.add_argument("--empty-fence-repetitions", type=int, default=20)
     parser.add_argument("--random-seed", type=int, default=20261012)
+    parser.add_argument("--start-id")
+    parser.add_argument("--protocol-file", type=pathlib.Path)
     parser.add_argument("--e0-swap", default="A1")
     parser.add_argument("--atol", type=float)
     parser.add_argument("--rtol", type=float)
@@ -112,7 +117,11 @@ def tensor_sha256(tensor: torch.Tensor) -> str:
 
 def write_json_atomic(path: pathlib.Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        raise FileExistsError(f"refusing to overwrite existing result: {path}")
     temporary = path.with_suffix(path.suffix + ".tmp")
+    if temporary.exists():
+        raise FileExistsError(f"stale temporary result exists: {temporary}")
     temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     temporary.replace(path)
 
@@ -203,7 +212,7 @@ def selected_layouts(args: argparse.Namespace, layouts: list[Layout]) -> list[La
     by_id = {layout.layout_id: layout for layout in layouts}
     if args.layouts:
         ids = [piece for piece in args.layouts.split(",") if piece]
-    elif args.phase in {"correctness", "e1"}:
+    elif args.phase in {"correctness", "e1", "confirm"}:
         ids = [layout.layout_id for layout in layouts]
     else:
         ids = ["identity", args.e0_swap]
@@ -517,6 +526,50 @@ def warm_layouts(
             }
         )
     return results
+
+
+def warm_activation(
+    *,
+    layout: Layout,
+    state: ReplayState,
+    dispatcher,
+    runner,
+    marker: torch.Tensor,
+    group: dist.ProcessGroup,
+    warmup: int,
+    rank: int,
+    block: int,
+    condition_order: int,
+) -> dict[str, Any]:
+    if warmup <= 0:
+        raise ValueError("activation warmup must be positive")
+    start_alignment(marker, group)
+    counts = None
+    for _ in range(warmup):
+        _, counts = run_once(
+            dispatcher=dispatcher,
+            runner=runner,
+            hidden_states=state.hidden_states,
+            topk_output=state.topk_by_layout[layout.layout_id],
+            quant_info=state.quant_by_layout[layout.layout_id],
+        )
+    torch.cuda.synchronize()
+    actual = actual_aligned_counts(counts)
+    expected = state.expected_aligned_by_layout[layout.layout_id]
+    if actual != expected:
+        raise ValueError(
+            f"rank {rank} block {block} layout {layout.layout_id} activation "
+            f"warmup aligned counts differ: expected {expected}, got {actual}"
+        )
+    return {
+        "rank": rank,
+        "block": block,
+        "condition_order": condition_order,
+        "layout_id": layout.layout_id,
+        "forwards": warmup,
+        "actual_aligned_counts": actual,
+        "expected_aligned_counts": expected,
+    }
 
 
 def comparison_metrics(
@@ -911,6 +964,79 @@ def source_audit() -> dict[str, Any]:
     return prohibited
 
 
+def load_confirmation_protocol(
+    *,
+    args: argparse.Namespace,
+    manifest_sha256: str,
+    tolerance_path: pathlib.Path | None,
+    layouts: list[Layout],
+) -> dict[str, Any] | None:
+    if args.phase != "confirm":
+        if args.protocol_file is not None or args.start_id is not None:
+            raise ValueError("--protocol-file and --start-id are confirm-only")
+        return None
+    if args.protocol_file is None or args.start_id is None:
+        raise ValueError("confirm requires --protocol-file and --start-id")
+    if args.output is None:
+        raise ValueError("confirm requires an explicit no-clobber --output path")
+
+    protocol_path = args.protocol_file.resolve()
+    payload = json.loads(protocol_path.read_text())
+    if payload.get("status") != "frozen_before_confirmation_timing":
+        raise ValueError("confirmation protocol is not frozen before timing")
+    confirmation = payload["confirmation"]
+    expected_layouts = confirmation["layout_ids"]
+    actual_layouts = [layout.layout_id for layout in layouts]
+    if actual_layouts != expected_layouts:
+        raise ValueError(
+            f"confirmation layouts differ: expected {expected_layouts}, got {actual_layouts}"
+        )
+    if manifest_sha256 != confirmation["placement_manifest_sha256"]:
+        raise ValueError("confirmation placement manifest hash differs")
+    if tolerance_path is None:
+        raise ValueError("confirmation requires the frozen tolerance file")
+    tolerance_sha256 = sha256_file(tolerance_path)
+    if tolerance_sha256 != confirmation["tolerance_file_sha256"]:
+        raise ValueError("confirmation tolerance hash differs")
+    replay_sha256 = sha256_file(pathlib.Path(__file__).resolve())
+    if replay_sha256 != payload["implementation"]["replay_placement_sha256"]:
+        raise ValueError("replay implementation hash differs from frozen protocol")
+
+    starts = {item["start_id"]: item for item in confirmation["starts"]}
+    if args.start_id not in starts:
+        raise ValueError(f"unknown confirmation start ID: {args.start_id}")
+    start = starts[args.start_id]
+    expected_arguments = {
+        "warmup": confirmation["initial_warmup_forwards_per_layout"],
+        "activation_warmup": confirmation["activation_warmup_forwards_per_condition"],
+        "blocks": confirmation["blocks_per_start"],
+        "iterations_per_block": confirmation["timed_forwards_per_condition"],
+        "empty_fence_warmup": confirmation["empty_fence_warmup"],
+        "empty_fence_repetitions": confirmation["empty_fence_repetitions"],
+        "random_seed": start["random_seed"],
+    }
+    for name, expected in expected_arguments.items():
+        actual = getattr(args, name)
+        if actual != expected:
+            raise ValueError(
+                f"confirmation argument {name}={actual!r}, expected {expected!r}"
+            )
+    expected_output = (args.root / start["output_relative_path"]).resolve()
+    if args.output.resolve() != expected_output:
+        raise ValueError(
+            f"confirmation output path {args.output.resolve()} differs from "
+            f"frozen path {expected_output}"
+        )
+    return {
+        "path": str(protocol_path),
+        "sha256": sha256_file(protocol_path),
+        "payload": payload,
+        "start": start,
+        "tolerance_file_sha256": tolerance_sha256,
+        "replay_placement_sha256": replay_sha256,
+    }
+
+
 def main() -> None:
     args = parse_args()
     args.root = args.root.resolve()
@@ -921,8 +1047,20 @@ def main() -> None:
     manifest_sha256 = sha256_file(manifest_path)
     manifest, all_layouts = load_layouts(manifest_path)
     layouts = selected_layouts(args, all_layouts)
+    tolerance_path = None
+    if args.phase != "correctness":
+        tolerance_path = (
+            args.tolerance_file
+            or args.root / "inputs" / "correctness_tolerance.json"
+        ).resolve()
     atol, rtol, tolerance_payload = load_tolerance(
         args, manifest=manifest, manifest_sha256=manifest_sha256
+    )
+    confirmation_protocol = load_confirmation_protocol(
+        args=args,
+        manifest_sha256=manifest_sha256,
+        tolerance_path=tolerance_path,
+        layouts=layouts,
     )
 
     local_rank = int(os.environ["LOCAL_RANK"])
@@ -937,6 +1075,28 @@ def main() -> None:
     torch.set_grad_enabled(False)
     torch.manual_seed(args.random_seed + rank)
 
+    properties = torch.cuda.get_device_properties(device)
+    local_gpu = {
+        "rank": rank,
+        "local_rank": local_rank,
+        "pid": os.getpid(),
+        "parent_pid": os.getppid(),
+        "name": properties.name,
+        "compute_capability": [properties.major, properties.minor],
+        "total_memory_bytes": properties.total_memory,
+    }
+    gpu_inventory: list[Any] = [None] * WORLD_SIZE
+    dist.all_gather_object(gpu_inventory, local_gpu, group=group)
+    if confirmation_protocol is not None:
+        expected_gpu_name = confirmation_protocol["payload"]["scope"][
+            "accelerator_model"
+        ]
+        if any(item["name"] != expected_gpu_name for item in gpu_inventory):
+            raise ValueError(
+                f"confirmation requires eight {expected_gpu_name} GPUs, got "
+                f"{[item['name'] for item in gpu_inventory]}"
+            )
+
     configure_sglang_globals()
     from sglang.srt.layers import deep_gemm_wrapper
     from sglang.srt.layers.moe.token_dispatcher.deepep import DeepEPConfig
@@ -949,6 +1109,19 @@ def main() -> None:
     local_snapshot_meta = validate_local_snapshot(
         local_snapshot, rank=rank, manifest=manifest, path=local_path
     )
+    if confirmation_protocol is not None:
+        snapshot_specs = {
+            item["rank"]: item
+            for item in confirmation_protocol["payload"]["confirmation"][
+                "snapshot_files"
+            ]
+        }
+        expected_snapshot = snapshot_specs[rank]
+        actual_snapshot_sha256 = sha256_file(local_path)
+        if actual_snapshot_sha256 != expected_snapshot["sha256"]:
+            raise ValueError(f"rank {rank} snapshot file hash differs")
+        local_snapshot_meta["file_sha256"] = actual_snapshot_sha256
+        local_snapshot_meta["bytes"] = local_path.stat().st_size
     gathered_snapshot_meta: list[Any] = [None] * WORLD_SIZE
     dist.all_gather_object(gathered_snapshot_meta, local_snapshot_meta, group=group)
     if rank == 0:
@@ -1004,6 +1177,8 @@ def main() -> None:
     empty_fence = None
     timing_records: list[dict[str, Any]] = []
     schedule_records: list[list[str]] = []
+    local_activation_warmup_records: list[dict[str, Any]] = []
+    gathered_activation_warmup: list[Any] | None = None
     if args.phase != "correctness":
         empty_fence = calibrate_empty_fence(
             warmup=args.empty_fence_warmup,
@@ -1025,16 +1200,38 @@ def main() -> None:
             payload = [order]
             dist.broadcast_object_list(payload, src=0, group=group)
             order = payload[0]
+            schedule = [
+                f"{conditions[index][0].layout_id}:"
+                f"{conditions[index][1]}"
+                for index in order
+            ]
+            if confirmation_protocol is not None:
+                expected_schedule = confirmation_protocol["start"]["schedules"][
+                    block
+                ]
+                if schedule != expected_schedule:
+                    raise ValueError(
+                        f"block {block} schedule differs from frozen protocol"
+                    )
             if rank == 0:
-                schedule_records.append(
-                    [
-                        f"{conditions[index][0].layout_id}:"
-                        f"{conditions[index][1]}"
-                        for index in order
-                    ]
-                )
+                schedule_records.append(schedule)
             for condition_order, condition_index in enumerate(order):
                 layout, observation_mode = conditions[condition_index]
+                if args.activation_warmup:
+                    local_activation_warmup_records.append(
+                        warm_activation(
+                            layout=layout,
+                            state=state,
+                            dispatcher=dispatcher,
+                            runner=runner,
+                            marker=start_marker,
+                            group=group,
+                            warmup=args.activation_warmup,
+                            rank=rank,
+                            block=block,
+                            condition_order=condition_order,
+                        )
+                    )
                 record = timed_block(
                     layout=layout,
                     observation_mode=observation_mode,
@@ -1056,6 +1253,10 @@ def main() -> None:
                         }
                     )
                     timing_records.append(record)
+        gathered_activation_warmup = [None] * WORLD_SIZE
+        dist.all_gather_object(
+            gathered_activation_warmup, local_activation_warmup_records, group=group
+        )
 
     final_hashes = {
         "hidden_states": tensor_sha256(state.hidden_states),
@@ -1086,12 +1287,33 @@ def main() -> None:
         output = output.resolve()
         deep_ep_config = DeepEPConfig.get_instance()
         payload = {
-            "schema_version": 1,
+            "schema_version": 2 if args.phase == "confirm" else 1,
             "experiment": "h20_directional_expert_placement",
             "phase": args.phase,
+            "start_id": args.start_id,
+            "followup_protocol": (
+                None
+                if confirmation_protocol is None
+                else {
+                    "protocol_id": confirmation_protocol["payload"]["protocol_id"],
+                    "path": confirmation_protocol["path"],
+                    "sha256": confirmation_protocol["sha256"],
+                    "status": confirmation_protocol["payload"]["status"],
+                    "pilot_base_commit": confirmation_protocol["payload"][
+                        "pilot_base_commit"
+                    ],
+                    "replay_placement_sha256": confirmation_protocol[
+                        "replay_placement_sha256"
+                    ],
+                    "tolerance_file_sha256": confirmation_protocol[
+                        "tolerance_file_sha256"
+                    ],
+                }
+            ),
             "started_at_utc": started_at.isoformat(),
             "finished_at_utc": finished_at.isoformat(),
             "hostname": socket.gethostname(),
+            "gpu_inventory": gpu_inventory,
             "manifest_path": str(manifest_path),
             "placement_manifest_sha256": manifest_sha256,
             "capture_id": manifest["capture_id"],
@@ -1114,6 +1336,10 @@ def main() -> None:
                 "logical_routes_and_weights_frozen": True,
                 "weight_migration_before_warmup_and_timing": True,
                 "jit_and_warmup_before_timing": True,
+                "jit_and_initial_warmup_before_timing": True,
+                "identical_warmup_after_every_timed_activation": (
+                    args.activation_warmup > 0
+                ),
                 "common_delay_floor_us": None,
                 "differential_delay_us": None,
                 "mid_layer_collective_between_expert_and_combine": False,
@@ -1140,6 +1366,10 @@ def main() -> None:
             },
             "measurement": {
                 "warmup_forwards_per_layout": args.warmup,
+                "initial_warmup_forwards_per_layout": args.warmup,
+                "activation_warmup_forwards_per_condition": (
+                    0 if args.phase == "correctness" else args.activation_warmup
+                ),
                 "blocks": 0 if args.phase == "correctness" else args.blocks,
                 "iterations_per_block": (
                     0 if args.phase == "correctness" else args.iterations_per_block
@@ -1153,6 +1383,9 @@ def main() -> None:
                 ),
             },
             "warmup_aligned_count_checks": gathered_warmup,
+            "activation_warmup_aligned_count_checks": (
+                gathered_activation_warmup or []
+            ),
             "correctness": {
                 "records": correctness_records,
                 "relative_denominator": (

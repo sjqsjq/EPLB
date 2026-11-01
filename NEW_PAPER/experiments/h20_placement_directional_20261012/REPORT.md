@@ -6,7 +6,7 @@
 - **Model geometry:** Qwen3-235B-A22B-FP8, 128 routed experts, top-k 8, hidden size 4096, routed intermediate size 1536
 - **Captured layer:** routed layer 24
 - **Frozen real forward:** 4050 rank-local hidden rows in total and 32,400 valid expert assignments
-- **Status:** E0 and the requested 10×50 E1 pilot are complete and pass the frozen correctness/audit gates. The protocol's optional paper-main recommendation of four independent starts has not been run.
+- **Status:** E0 and the requested 10×50 E1 pilot are complete and pass the frozen correctness/audit gates. This is a deliberately imbalanced, single-hot-expert placement case from one process start; the four-start confirmation has not been run.
 
 ## 1. What changed—and what did not
 
@@ -75,7 +75,7 @@ E0 used identity and A1, minimal and detailed observation, ten randomized blocks
 | A1: detailed − minimal | +65.405 | [+4.246, +126.564] |
 | `Q_detailed − Q_minimal` | −31.733 | [−112.401, +48.936] |
 
-Detailed instrumentation changes some absolute timings. However, the interval for its change to the placement effect crosses zero, and A1 remains clearly positive in both modes. Minimal observation is therefore the lower-observer-effect primary mode used for E1.
+Detailed instrumentation changes some absolute timings. The interval for its change to the placement effect crosses zero, and A1 remains clearly positive in both modes, so minimal observation is retained as E1's lower-observer-effect primary mode. E0 supports only the claim that the large A1 effect has the same direction in both modes; it does **not** prove that detailed observation has no effect.
 
 ## 5. E1 signed block-paired effects
 
@@ -98,6 +98,8 @@ The table reports the primary completion-fenced `Q`. Intervals are unadjusted pe
 | D2 | D | e032 ↔ e055 | 10093 | 11264 | −33.068 | −25.953 | [−72.526, +6.391] | compatible with zero; not equivalent |
 | D3 | D | e082 ↔ e104 | 11171 | 12288 | −167.881 | −161.216 | [−205.365, −130.396] | slower |
 
+All six positive A/B examples revolve around the **same** hot expert, e089, which has 3312 assignments in the frozen route. A1–A3 exchange e089 with e016, e034, and e041, each of which has zero assignments in this forward. The result therefore establishes that moving this one large hot expert is effective in this intentionally imbalanced case; it does not test multiple hot experts, multiple layers, or other load regimes. Layer 24 was selected in advance from route-imbalance metadata rather than performance timing, which avoids performance-based layer selection but does not make this a representative layer sample.
+
 The secondary `T_proxy` gives essentially the same signed estimates (differences from the primary estimates are below 0.2 μs for every layout), but remains labeled only as a proxy.
 
 A post-pilot tolerance for a future confirmatory main run is
@@ -110,7 +112,7 @@ A1–A3 and B1–B3 have intervals wholly above `+epsilon`; D1 and D3 have inter
 
 Because this epsilon was derived after the pilot, the classifications are planning/descriptive labels for a future independent-start main run, not preregistered confirmatory decisions on this same pilot.
 
-## 6. What the load descriptors do—and do not show
+## 6. Load-model interpretation limits
 
 The identity layout has:
 
@@ -119,40 +121,59 @@ The identity layout has:
 - independently 128-row-aligned maximum rank work: 11,264 rows;
 - aligned `max/mean`: 2.2069.
 
-Category A reduces the raw maximum by 3312 assignments and the aligned maximum by 3328 rows. Category B has a broadly comparable raw-max improvement (2995–3171 assignments) but a smaller/different aligned-max improvement (2944–3072 rows). The three A layout-effect means average +498.071 μs; the three B means average +421.378 μs. This ordering is directionally consistent with the padding-aware descriptor, but category averages are descriptive and no inferential category interval is claimed.
+This experiment does **not** show that a padding-aware model is better than raw load. Across the 12 deliberately stratified layouts, the descriptive Pearson correlation between mean `Q` and raw-max improvement is 0.9956, versus 0.9965 for aligned-max improvement. The difference is negligible. Spearman correlations are likewise similar at 0.9537 and 0.9519. These are in-sample descriptive associations over selected layouts, not train/test evaluation of predictive models.
 
-Across all 12 deliberately stratified layouts, the descriptive Pearson correlation between mean `Q` and raw-max improvement is 0.9956; for aligned-max improvement it is 0.9965. Spearman correlations are 0.9537 and 0.9519, respectively. These near-identical values do **not** establish that one model is superior: the layouts were intentionally selected across extreme load strata, the sample is small, and these are not train/test-evaluated models.
+Category A reduces the raw maximum by 3312 assignments and the aligned maximum by 3328 rows. Category B has a broadly comparable raw-max improvement of 2995–3171 assignments and an aligned-max improvement of 2944–3072 rows. A's three layout-effect means average +498.071 μs and B's average +421.378 μs. That ordering is **compatible** with a padding-aware explanation, but A and B simultaneously change raw rank load, expert/slot composition, and source→destination communication. It cannot be attributed specifically to padding.
 
-Raw `r` remains route metadata, not compute time. The analysis explicitly includes per-expert 128-row padding and the actual aligned grouped-GEMM row shapes. No formula such as `delta = S(r-1)` is used. An M2 grouped-GEMM cost model has not been independently calibrated here, and no cost model is fitted to the same 12 timing effects it would be evaluated against.
+The logical route is frozen. Consequently, each logical expert keeps exactly the same token count and the same independently padded row count in every layout; placement does not reduce total per-expert work. It redistributes those fixed expert workloads across GPUs and changes their physical slots and communication destinations. Raw `r` remains route metadata rather than compute time, and no formula such as `delta = S(r-1)` is used.
 
-Several matched aggregate cases also caution against collapsing placement to one scalar. A2/A3 have identical raw rank vectors, aligned rank vectors, and source→destination assignment matrices, as do C2/C3, yet their point estimates differ. The paired intervals for those within-pair differences cross zero, so this pilot does not prove a local-slot/expert-composition effect; it only shows that aggregate maxima cannot be treated as a complete measured compute-time model without independent calibration.
+A2 and A3 provide a matched aggregate-load comparison: their raw rank vectors, aligned rank vectors, and source→destination assignment matrices are identical. The point estimate is `Q(A3)-Q(A2)=+17.038 μs`, but the paired 95% interval is `[−29.249,+63.325] μs`. Because it crosses zero, this pilot does **not** demonstrate that expert/slot structure changes time at fixed aggregate `r`. A2/A3 are useful controls for a higher-precision follow-up, not current evidence of a resolved structural effect. The same caution applies to other matched aggregate cases.
 
-## 7. Supported conclusions
+An independently calibrated grouped-GEMM cost model has not been evaluated here. Predictive comparisons among raw, padding-aware, and grouped-GEMM models require calibration on nonoverlapping real forwards and evaluation on unseen layouts.
 
-1. **A real placement intervention has a large directionally consistent effect on this captured H20 layer/forward.** Moving the 3312-assignment hot expert e089 away from the identity bottleneck rank produces approximately 397–518 μs/forward faster completion-fenced execution in all six A/B layouts.
-2. **Padding-aware shape information matters to the experimental interpretation.** A and B have broadly similar raw improvements but distinct aligned maxima and distinct average effects. This is useful directional evidence, not a calibrated causal conversion from rows to microseconds.
-3. **Changing noncritical composition while leaving the global raw/aligned maximum unchanged does not prove a deadzone.** C1–C3 and D2 have intervals crossing zero. That means compatibility with zero, not proof that all negative values are noise and not proof of a symmetric no-benefit interval.
-4. **Worsening the bottleneck can hurt.** D1 and D3 worsen both raw and aligned maxima and show clearly negative `Q`. This is a measured layout effect; no additional slack `H` is subtracted.
-5. **Minimal instrumentation is adequate for the E1 primary result.** E0 found no resolved change in the A1 layout effect between minimal and detailed observation, while detailed mode does add some absolute overhead.
+## 7. Supported claim and unanswered stopping question
 
-## 8. Scope and limitations
+The most reliable paper claim from this pilot is:
 
-- One real captured forward, one routed layer, one request mixture, one node, and one process start were measured.
+> **Real expert exchanges have directional performance effects, and their benefit must be evaluated through actual execution cost.**
+
+More specifically, moving e089 away from the identity bottleneck rank makes all six e089-centered A/B layouts faster in this captured layer/forward, while D1 and D3 worsen the bottleneck descriptors and are slower. These are placement-case observations, not evidence for general predictive accuracy, an optimal policy, or a theoretical bound.
+
+This experiment has **not** reached or identified a stopping region. After the beneficial A/B swaps, raw `r` remains approximately 1.67–1.75, still far from a nearly balanced layout. C1–C3 and D2 do not lower the global raw or aligned maximum; their intervals cross zero and are not wholly inside the post-pilot `[−epsilon,+epsilon]` negligibility band. They therefore cannot establish a deadzone or a stopping threshold. The pilot answers whether a real exchange can help in this case, not how far balancing should continue.
+
+No one-sided delay-slack observation is converted into a symmetric layout deadzone. Negative estimates remain signed, and no additional slack `H` is subtracted from effects that already measure the change in completion-fenced completion time.
+
+## 8. Pilot scope and limitations
+
+- All six positive layouts move the same 3312-assignment expert e089; multiple hotspots are untested.
+- One intentionally imbalanced routed layer was preselected using route metadata. Layer selection did not use performance, but other layers and lower-imbalance regimes are untested.
+- One real captured forward, one request mixture, one node, and one process start were measured.
 - The result is specific to 8×H20, EP=8, the recorded DeepEP 20-SM configuration, DeepGEMM FP8, and the recorded software environment. Runtime also warned that NVCC 12.9 is preferred while this environment uses the recorded 12.8 toolchain; that warning was not hidden or retuned after candidate selection.
-- Completion-fenced timing includes an end-fence operation and is not called pure layer makespan.
-- Ten paired blocks quantify within-start variability but do not replace independent process starts. The protocol recommends four starts × five blocks × 50 forwards for a paper-main confirmation.
-- Minimal timing records one CUDA interval around each 50-forward block rather than adding per-forward events. The raw artifact therefore preserves all 130 randomized block aggregates and each block's iteration count, but not 6500 individual-forward latency samples; the paired block is the statistical unit.
+- Completion-fenced timing is one CUDA interval around each 50-forward block and includes the end fence; it is not pure single-layer makespan. The primary and secondary estimates agree closely on the large-effect direction, but neither changes that label.
+- Ten paired blocks describe within-start variability and do not replace independent starts. The protocol recommends four starts × five blocks × 50 forwards for confirmation, with every signed repetition retained rather than selecting the best run.
+- E0 shows that the large A1 effect keeps its direction under detailed observation. It does not establish absence of observer effect.
+- The raw E1 artifact preserves all 130 randomized block aggregates and each block's iteration count, but not 6500 individual-forward latency samples; the paired block is the statistical unit.
 - The 12 per-layout intervals are unadjusted for multiplicity.
-- The result does not generalize a one-sided delay-slack observation into a symmetric layout deadzone, and no synthetic delay scan was extended.
+- No synthetic delay scan was extended.
 
-## 9. Reproducible artifacts
+## 9. Prioritized next experiments
+
+1. **Confirm the existing placement case.** Keep all 13 frozen layouts and run four independent process starts. Apply the same warmup after every layout activation, retain the frozen numerical tolerance, preserve all signed results, and do not select the best repeat.
+2. **Test predictive models out of sample.** Use nonoverlapping real forwards to calibrate raw-load, padding-aware, and grouped-GEMM cost models, then predict unseen layouts. Add different hot experts and additional routed layers.
+3. **Study stopping behavior directly.** Start from a frozen low-`r` layout, measure the residual benefit of real legal swaps, and only afterward incorporate online migration/exchange cost.
+
+The experimental design and this e089-centered placement case are suitable to write up now. Predictive ability, a stopping threshold, and theoretical upper bounds are not validated conclusions from this pilot.
+
+## 10. Reproducible artifacts
 
 - Raw E1 result: `results/raw/e1_pilot.json`
+  - Size: 613,491 bytes
   - SHA-256: `03cb13c23dc0ecde85a355cdde84b2f7fa7357f983b798e174ff4d275d4ca5d1`
+  - Repository status: tracked, so all 130 block records and randomized condition schedules can be independently recomputed.
 - Machine-readable validated summary: `results/e1_summary.json`
 - Layout-effect table: `results/e1_layout_effects.csv`
 - Raw/log/code artifact index with byte counts and SHA-256 hashes: `results/raw_index.json`
 - Replay implementation: `scripts/replay_placement.py`
 - Validation/analysis implementation: `scripts/analyze_e1.py`
 
-The timing JSON/log/code artifacts are below 100 MiB. The eight real forward snapshots are approximately 310 MB each, are excluded from Git, and are indexed locally with byte counts and SHA-256 hashes. They have **not** been uploaded or published because that outward-facing action requires explicit confirmation. Consequently, the protocol's fetchable archive/URL requirement remains incomplete for independent off-machine audit; `results/raw_index.json` records `archive_status=local_only_not_published` and a null fetch URL for each snapshot. This packaging limitation does not alter the local correctness or timing validation, but it must be resolved before claiming a fully reproducible published artifact bundle.
+The compact E1 timing JSON, logs, code, and summaries are tracked in Git. The eight real forward snapshots are approximately 310 MB each, remain excluded from Git, and are indexed locally with byte counts and SHA-256 hashes. They have **not** been uploaded or published. Consequently, the protocol's fetchable archive/URL requirement remains incomplete for independent off-machine replay; `results/raw_index.json` records `archive_status=local_only_not_published` and a null fetch URL for each snapshot. This packaging limitation does not prevent independent recomputation of the reported timing statistics from the tracked E1 JSON, but the large frozen tensors are still needed to rerun the operators.

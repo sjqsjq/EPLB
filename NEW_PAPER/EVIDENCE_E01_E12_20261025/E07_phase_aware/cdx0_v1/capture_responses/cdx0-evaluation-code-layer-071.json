@@ -1,0 +1,270 @@
+{
+  "api": "http://127.0.0.1:30000/v1/completions",
+  "batch_elapsed_s": 1.351321798749268,
+  "batch_id": "cdx0-evaluation-code",
+  "capture_id": "cdx0-evaluation-code-layer-071",
+  "capture_trigger": {
+    "bytes": 3191,
+    "mode": "snapshot_split",
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-code-layer-071.json",
+    "sha256": "f550d8178c660f3d96ad15dc3a2817e4027b5d16b476f787dfa375e18092d313",
+    "target_layer": 71
+  },
+  "concurrency": 8,
+  "created_at_utc": "2026-10-16T07:16:10.058552+00:00",
+  "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+  "request_file": {
+    "bytes": 74394,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/batches/cdx0-evaluation-code.jsonl",
+    "sha256": "3efde5d9b144e862bdd6fb9ca59eff094b79daf5954fc53b1022d1bd9a484beb"
+  },
+  "request_manifest": {
+    "bytes": 15374,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+    "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+  },
+  "responses": [
+    {
+      "elapsed_s": 1.163714119233191,
+      "id": "code_2003",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "     "
+          }
+        ],
+        "created": 1792134969,
+        "id": "0b30eace9b1045a88523326ff7ad7ed5",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3505847174674273,
+      "id": "code_2005",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "\","
+          }
+        ],
+        "created": 1792134970,
+        "id": "c4b3f976d6df4e238bfd757c0de7ee31",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3485146816819906,
+      "id": "code_2006",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "import"
+          }
+        ],
+        "created": 1792134970,
+        "id": "a434bfd78c0f499795cd32a8b3205c7e",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3503377418965101,
+      "id": "code_2010",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": "6"
+          }
+        ],
+        "created": 1792134970,
+        "id": "8cb84b31515b48b882187eefb6245102",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3494490487501025,
+      "id": "code_2011",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": ";"
+          }
+        ],
+        "created": 1792134970,
+        "id": "a27703e254514614b38503bde6777977",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3483999446034431,
+      "id": "code_2012",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": ".\n"
+          }
+        ],
+        "created": 1792134970,
+        "id": "0147c5a22c6f459690f5325757308d36",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3487178068608046,
+      "id": "code_2014",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " applicable"
+          }
+        ],
+        "created": 1792134970,
+        "id": "6a390376335243c48d4a12c3e7cda839",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    },
+    {
+      "elapsed_s": 1.3473016414791346,
+      "id": "code_2019",
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null,
+            "text": " "
+          }
+        ],
+        "created": 1792134970,
+        "id": "e5a7ccffcbaa40038bd6222494d1ef56",
+        "metadata": {
+          "weight_version": "default"
+        },
+        "model": "/root/models/ms_cache/models/Qwen--Qwen3-235B-A22B-FP8/snapshots/master",
+        "object": "text_completion",
+        "usage": {
+          "completion_tokens": 1,
+          "prompt_tokens": 2048,
+          "prompt_tokens_details": null,
+          "reasoning_tokens": 0,
+          "total_tokens": 2049
+        }
+      },
+      "status": 200
+    }
+  ],
+  "schema_version": 1,
+  "study_id": "h20-placement-cdx0-v1"
+}

@@ -1,0 +1,562 @@
+{
+  "confirmation": {
+    "activation_warmup_forwards_per_condition": 10,
+    "atol": 0.00390625,
+    "best_repeat_selection": false,
+    "blocks_per_start": 5,
+    "capture_id": "h20-real-snapshot-layer24-20261012-v1",
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "equivalence_rule": "interval wholly inside [-epsilon,+epsilon]; zero crossing alone is not equivalence",
+    "independent_process_starts": 4,
+    "inferential_unit": "independent process start",
+    "initial_warmup_forwards_per_layout": 10,
+    "layer_id": 24,
+    "layout_ids": [
+      "identity",
+      "A1",
+      "A2",
+      "A3",
+      "B1",
+      "B2",
+      "B3",
+      "C1",
+      "C2",
+      "C3",
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "multiplicity_secondary": "Holm-adjusted two-sided t-test p-values across all 12 identity contrasts",
+    "pilot_included_in_primary_inference": false,
+    "placement_manifest_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/placements/manifest.json",
+    "placement_manifest_sha256": "52b8a045d24456fb03cb5bc294a3a76ba31b243fbb1fbd4a000faf8fb6a12e04",
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "primary_estimand": "Q = completion(identity) - completion(layout)",
+    "primary_interval": {
+      "confidence_level": 0.95,
+      "critical_value": 3.182446305284263,
+      "degrees_of_freedom": 3,
+      "method": "two-sided Student-t",
+      "n": 4
+    },
+    "randomization": {
+      "algorithm": "Python random.Random(seed + block).shuffle over manifest layout order",
+      "frozen_before_timing": true,
+      "seed_derivation": "first eight bytes of SHA-256('h20-placement-followup-v1:confirmation:<start-id>'), big-endian, modulo 2^31-1"
+    },
+    "rtol": 0.0,
+    "snapshot_files": [
+      {
+        "bytes": 310325273,
+        "hidden_rows": 502,
+        "num_token_non_padded": 502,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank0.pt",
+        "rank": 0,
+        "sha256": "242131a4ebe4dde687fda1035af511efe653efe978087a666dead5f6269f0162"
+      },
+      {
+        "bytes": 310473241,
+        "hidden_rows": 511,
+        "num_token_non_padded": 511,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank1.pt",
+        "rank": 1,
+        "sha256": "b2972936ea356369d0b56766e2a343f18497b54ae5260b76f0aa08b38f3c79f4"
+      },
+      {
+        "bytes": 310440345,
+        "hidden_rows": 509,
+        "num_token_non_padded": 509,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank2.pt",
+        "rank": 2,
+        "sha256": "6d252e8fca5579e862442f3722a154ff6d27844e5e7a38b02142f937f6c266b3"
+      },
+      {
+        "bytes": 310341657,
+        "hidden_rows": 503,
+        "num_token_non_padded": 503,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank3.pt",
+        "rank": 3,
+        "sha256": "b534b1143b89bb08600808525e2decd41424f4aee405d20f42b6d965e4423d12"
+      },
+      {
+        "bytes": 310391065,
+        "hidden_rows": 506,
+        "num_token_non_padded": 506,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank4.pt",
+        "rank": 4,
+        "sha256": "8372793997195632573bef4253bdca0f98be7ea762a2d3276f1943251933d6e1"
+      },
+      {
+        "bytes": 310473241,
+        "hidden_rows": 511,
+        "num_token_non_padded": 511,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank5.pt",
+        "rank": 5,
+        "sha256": "7ebfc20917e6338b2e01e9c2d5340009cd0e53bf1f724e200f2e470aa2270513"
+      },
+      {
+        "bytes": 310292377,
+        "hidden_rows": 500,
+        "num_token_non_padded": 500,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank6.pt",
+        "rank": 6,
+        "sha256": "f73e5f7ef667289aa85bedaba0ebe369a7db01d3c7fd7a1130c46727331508da"
+      },
+      {
+        "bytes": 310423961,
+        "hidden_rows": 508,
+        "num_token_non_padded": 508,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/live_capture/snapshot_rank7.pt",
+        "rank": 7,
+        "sha256": "c7a32c65b1c9338568f1b49fdf730cf127d06ce4bdca9d3a9d7b61502c05f4f9"
+      }
+    ],
+    "start_reduction": "mean of five block-paired effects",
+    "starts": [
+      {
+        "log_relative_path": "results/confirmatory_v1/logs/start-01.log",
+        "output_relative_path": "results/confirmatory_v1/raw/start-01.json",
+        "random_seed": 1433499209,
+        "schedules": [
+          [
+            "D2:minimal",
+            "C3:minimal",
+            "B3:minimal",
+            "B1:minimal",
+            "D1:minimal",
+            "A2:minimal",
+            "D3:minimal",
+            "A3:minimal",
+            "C2:minimal",
+            "C1:minimal",
+            "A1:minimal",
+            "B2:minimal",
+            "identity:minimal"
+          ],
+          [
+            "B3:minimal",
+            "D2:minimal",
+            "B2:minimal",
+            "B1:minimal",
+            "A2:minimal",
+            "C1:minimal",
+            "D3:minimal",
+            "D1:minimal",
+            "A3:minimal",
+            "C3:minimal",
+            "A1:minimal",
+            "C2:minimal",
+            "identity:minimal"
+          ],
+          [
+            "A3:minimal",
+            "D3:minimal",
+            "identity:minimal",
+            "C3:minimal",
+            "A2:minimal",
+            "C1:minimal",
+            "B3:minimal",
+            "D2:minimal",
+            "C2:minimal",
+            "B1:minimal",
+            "D1:minimal",
+            "B2:minimal",
+            "A1:minimal"
+          ],
+          [
+            "A1:minimal",
+            "C3:minimal",
+            "D2:minimal",
+            "C2:minimal",
+            "A2:minimal",
+            "B3:minimal",
+            "D1:minimal",
+            "B1:minimal",
+            "B2:minimal",
+            "A3:minimal",
+            "D3:minimal",
+            "identity:minimal",
+            "C1:minimal"
+          ],
+          [
+            "C1:minimal",
+            "A3:minimal",
+            "identity:minimal",
+            "A2:minimal",
+            "C2:minimal",
+            "A1:minimal",
+            "C3:minimal",
+            "D1:minimal",
+            "D2:minimal",
+            "B3:minimal",
+            "B1:minimal",
+            "B2:minimal",
+            "D3:minimal"
+          ]
+        ],
+        "start_id": "start-01"
+      },
+      {
+        "log_relative_path": "results/confirmatory_v1/logs/start-02.log",
+        "output_relative_path": "results/confirmatory_v1/raw/start-02.json",
+        "random_seed": 239553911,
+        "schedules": [
+          [
+            "B3:minimal",
+            "A1:minimal",
+            "identity:minimal",
+            "D3:minimal",
+            "A2:minimal",
+            "A3:minimal",
+            "C3:minimal",
+            "D1:minimal",
+            "B1:minimal",
+            "C2:minimal",
+            "C1:minimal",
+            "B2:minimal",
+            "D2:minimal"
+          ],
+          [
+            "D1:minimal",
+            "D2:minimal",
+            "C2:minimal",
+            "D3:minimal",
+            "A1:minimal",
+            "A3:minimal",
+            "A2:minimal",
+            "identity:minimal",
+            "B2:minimal",
+            "C3:minimal",
+            "B1:minimal",
+            "C1:minimal",
+            "B3:minimal"
+          ],
+          [
+            "A2:minimal",
+            "B2:minimal",
+            "identity:minimal",
+            "C2:minimal",
+            "D2:minimal",
+            "C3:minimal",
+            "D1:minimal",
+            "A3:minimal",
+            "D3:minimal",
+            "C1:minimal",
+            "B1:minimal",
+            "A1:minimal",
+            "B3:minimal"
+          ],
+          [
+            "A1:minimal",
+            "A2:minimal",
+            "B3:minimal",
+            "C2:minimal",
+            "A3:minimal",
+            "C1:minimal",
+            "D3:minimal",
+            "B2:minimal",
+            "D1:minimal",
+            "D2:minimal",
+            "identity:minimal",
+            "B1:minimal",
+            "C3:minimal"
+          ],
+          [
+            "D1:minimal",
+            "C1:minimal",
+            "B1:minimal",
+            "identity:minimal",
+            "A1:minimal",
+            "B2:minimal",
+            "C3:minimal",
+            "A3:minimal",
+            "D2:minimal",
+            "D3:minimal",
+            "C2:minimal",
+            "B3:minimal",
+            "A2:minimal"
+          ]
+        ],
+        "start_id": "start-02"
+      },
+      {
+        "log_relative_path": "results/confirmatory_v1/logs/start-03.log",
+        "output_relative_path": "results/confirmatory_v1/raw/start-03.json",
+        "random_seed": 766505826,
+        "schedules": [
+          [
+            "B1:minimal",
+            "A2:minimal",
+            "D1:minimal",
+            "C3:minimal",
+            "C1:minimal",
+            "B3:minimal",
+            "identity:minimal",
+            "B2:minimal",
+            "A3:minimal",
+            "C2:minimal",
+            "D3:minimal",
+            "D2:minimal",
+            "A1:minimal"
+          ],
+          [
+            "B3:minimal",
+            "D1:minimal",
+            "D2:minimal",
+            "A2:minimal",
+            "A1:minimal",
+            "C2:minimal",
+            "D3:minimal",
+            "A3:minimal",
+            "C3:minimal",
+            "C1:minimal",
+            "B2:minimal",
+            "B1:minimal",
+            "identity:minimal"
+          ],
+          [
+            "D3:minimal",
+            "C3:minimal",
+            "A2:minimal",
+            "A1:minimal",
+            "identity:minimal",
+            "B2:minimal",
+            "C2:minimal",
+            "D1:minimal",
+            "B3:minimal",
+            "D2:minimal",
+            "C1:minimal",
+            "A3:minimal",
+            "B1:minimal"
+          ],
+          [
+            "B2:minimal",
+            "A2:minimal",
+            "D2:minimal",
+            "identity:minimal",
+            "D3:minimal",
+            "B1:minimal",
+            "A1:minimal",
+            "C3:minimal",
+            "B3:minimal",
+            "A3:minimal",
+            "D1:minimal",
+            "C1:minimal",
+            "C2:minimal"
+          ],
+          [
+            "D2:minimal",
+            "C2:minimal",
+            "B2:minimal",
+            "D3:minimal",
+            "B1:minimal",
+            "identity:minimal",
+            "A1:minimal",
+            "A3:minimal",
+            "B3:minimal",
+            "C3:minimal",
+            "C1:minimal",
+            "D1:minimal",
+            "A2:minimal"
+          ]
+        ],
+        "start_id": "start-03"
+      },
+      {
+        "log_relative_path": "results/confirmatory_v1/logs/start-04.log",
+        "output_relative_path": "results/confirmatory_v1/raw/start-04.json",
+        "random_seed": 1372685271,
+        "schedules": [
+          [
+            "B3:minimal",
+            "C2:minimal",
+            "D1:minimal",
+            "C1:minimal",
+            "identity:minimal",
+            "A2:minimal",
+            "C3:minimal",
+            "B2:minimal",
+            "A3:minimal",
+            "B1:minimal",
+            "D3:minimal",
+            "D2:minimal",
+            "A1:minimal"
+          ],
+          [
+            "C1:minimal",
+            "D3:minimal",
+            "D1:minimal",
+            "B2:minimal",
+            "B1:minimal",
+            "C3:minimal",
+            "D2:minimal",
+            "A2:minimal",
+            "B3:minimal",
+            "A1:minimal",
+            "A3:minimal",
+            "identity:minimal",
+            "C2:minimal"
+          ],
+          [
+            "identity:minimal",
+            "A1:minimal",
+            "D3:minimal",
+            "A3:minimal",
+            "B1:minimal",
+            "B2:minimal",
+            "C2:minimal",
+            "D1:minimal",
+            "C3:minimal",
+            "C1:minimal",
+            "A2:minimal",
+            "B3:minimal",
+            "D2:minimal"
+          ],
+          [
+            "A2:minimal",
+            "C2:minimal",
+            "D3:minimal",
+            "D2:minimal",
+            "C3:minimal",
+            "A3:minimal",
+            "C1:minimal",
+            "identity:minimal",
+            "D1:minimal",
+            "B1:minimal",
+            "A1:minimal",
+            "B2:minimal",
+            "B3:minimal"
+          ],
+          [
+            "B2:minimal",
+            "D2:minimal",
+            "identity:minimal",
+            "D3:minimal",
+            "C2:minimal",
+            "A2:minimal",
+            "D1:minimal",
+            "C3:minimal",
+            "A3:minimal",
+            "B1:minimal",
+            "C1:minimal",
+            "B3:minimal",
+            "A1:minimal"
+          ]
+        ],
+        "start_id": "start-04"
+      }
+    ],
+    "timed_forwards_per_condition": 50,
+    "tolerance_file_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/correctness_tolerance.json",
+    "tolerance_file_sha256": "479629bc0a481f9e7347e8c82df182e59da7df03b82f004d372ffa1093712fdb"
+  },
+  "design_document": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/FOLLOWUP_PROTOCOL.md",
+    "sha256": "ffc4e31779a67c631c130ec896d34cd1528626769bde75775fa047830e258f47"
+  },
+  "frozen_at_utc": "2026-10-12T05:00:36.703696+00:00",
+  "implementation": {
+    "analyze_confirmation_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_confirmation.py",
+    "analyze_confirmation_sha256": "84f233c433eb9ccbb21eeae593460f6e16fd3a2f99a6e934048cb44e532e1364",
+    "replay_placement_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+    "replay_placement_sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f",
+    "run_confirmation_path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_confirmation.sh",
+    "run_confirmation_sha256": "ae0a591bed263749a5b6d155f04be8c21c8cbb42ed64c341046fb624ad5ae3a2"
+  },
+  "interpretation_limits": [
+    "Confirmation remains one e089-centered case on one layer and forward.",
+    "Padding-aware superiority requires locked out-of-sample model loss, not E1 correlation.",
+    "Fixed-aggregate-load structural timing remains unresolved unless the new interval resolves it.",
+    "A stopping region requires directly measured low-r residual swaps and an equivalence interval.",
+    "Completion-fenced timing includes the end fence; observer effects remain explicit."
+  ],
+  "pilot_base_commit": "8d4a21a77cc6960484f2fed75da8902d920b1f8f",
+  "prediction_study": {
+    "activation_warmup": 10,
+    "blocks_per_start": 4,
+    "calibration_evaluation_timing_overlap": false,
+    "capture_units": {
+      "calibration": 6,
+      "evaluation": 12
+    },
+    "common_communication_covariates": true,
+    "layers": {
+      "calibration_layers": 2,
+      "count": 4,
+      "held_out_layers": 2,
+      "include_layer_24": true,
+      "selection_uses_screening_route_metadata_only": true
+    },
+    "models": [
+      "M0_raw",
+      "M1_padding_128",
+      "M2_grouped_gemm"
+    ],
+    "request_batches": {
+      "calibration": 3,
+      "evaluation": 3,
+      "must_be_disjoint_from_e1_and_between_splits": true,
+      "requests_per_batch": 8,
+      "screening": 1
+    },
+    "starts": 4,
+    "status": "design_rule_frozen_exact_capture_and_layout_manifests_pending",
+    "timed_forwards": 20
+  },
+  "prohibitions": {
+    "artificial_delay_floor": true,
+    "best_start_or_repeat_selection": true,
+    "cross_device_timestamp_subtraction": true,
+    "differential_delay": true,
+    "mid_layer_collective_or_gate": true,
+    "overwrite_existing_raw_result": true,
+    "push_without_separate_instruction": true,
+    "sleep_or_spin": true
+  },
+  "protocol_id": "h20-placement-followup-v1",
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "expert_parallel_size": 8,
+    "geometry": {
+      "hidden_size": 4096,
+      "intermediate_size": 1536,
+      "local_experts_per_rank": 16,
+      "routed_experts": 128,
+      "top_k": 8,
+      "weight_block": [
+        128,
+        128
+      ]
+    },
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner": "DeepGEMM FP8",
+    "node_count": 1
+  },
+  "status": "frozen_before_confirmation_timing",
+  "stopping_study": {
+    "activation_warmup": 10,
+    "base": "deterministic low-r lexicographic greedy legal-swap local optimum",
+    "blocks_per_start": 5,
+    "candidate_count_per_capture": 12,
+    "candidate_strata": [
+      "four largest locked-M2 predicted gains",
+      "four locked-M2 predictions closest to zero",
+      "four most negative locked-M2 predictions"
+    ],
+    "migration": {
+      "complete_w13_w2_and_both_scale_tensors": true,
+      "forward_reverse_pairs_per_start": 50,
+      "old_bench_p2p_cost_is_inadmissible": true,
+      "separate_from_execution_timing": true,
+      "starts": 4
+    },
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "starts": 4,
+    "status": "design_rule_frozen_exact_residual_manifest_pending_locked_model",
+    "timed_forwards": 50
+  }
+}

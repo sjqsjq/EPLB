@@ -1,0 +1,18 @@
+{
+ "built_utc": "2026-10-27",
+ "stream": "pb_prover_book_switch",
+ "structure": "block1 prover[0:2048] -> block2 book[0:1000], single switch at idx2048, n=3048; author spec 2026-10-27 (stage2 code->book, 2 reps only, joint analysis after run); author asked 1024 book, published book_4438tok_O10 set has exactly 1000 rows (README table) - full published set used, disclosed not silently adjusted",
+ "prover_src": "/data/minghua/sjq/OEPLBdata/datasets/single_domain/prover_2048tok_out1.jsonl",
+ "book_src": "/data/minghua/sjq/OEPLBdata/datasets/prefill_decode_correlation/book_4438tok_O10.jsonl",
+ "workload": "max_tokens=1 ALL rows (author standing spec), temperature=0, conc=32 (paper freq6 config)",
+ "n": 3048,
+ "uniq_text_hash": 3048,
+ "sha256": "2da3467263d4f52889ea2931fa84d9fb244ed3dfabe136fddb5c1b6feb7bf904",
+ "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/prover_book_switch_20261027/B_data/streams/pb_prover_book_switch.jsonl",
+ "bytes": 30263096,
+ "domains": {
+  "prover": 2048,
+  "book": 1000
+ },
+ "lineage": "stage1 byte-source identical to pc_prover_code_switch block1 (01e33f82 lineage); book = paper freq6 book family (BookCorpus ~4438tok, rho=0.967)"
+}

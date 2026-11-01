@@ -1,0 +1,21 @@
+{
+  "label": "streaming_test",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/frozen_requests_prefill_heavy.jsonl",
+  "num_requests": 500,
+  "concurrency": 128,
+  "ok": 500,
+  "errors": 0,
+  "total_time_s": 43.45,
+  "total_comp_tokens": 16000,
+  "tps": 368.3,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 10897.6,
+  "lat_p50_ms": 11135.1,
+  "lat_p99_ms": 12146.83,
+  "ttft_mean_ms": 5157.01,
+  "ttft_p50_ms": 5053.43,
+  "ttft_p99_ms": 10017.92,
+  "tpot_mean_ms": 185.18,
+  "tpot_p50_ms": 188.11,
+  "tpot_p99_ms": 342.3
+}

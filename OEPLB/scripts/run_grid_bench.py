@@ -96,8 +96,15 @@ async def run(label, dataset, conc):
                 return await send(session, req)
 
         t_start = time.perf_counter()
+        # v2.2-calib d1 (append-only): CLOCK_MONOTONIC stamps for alignment
+        # with the controller's per-window monotonic series (same node =>
+        # directly comparable across processes); wall-clock for reference.
+        mono_start_ns = time.monotonic_ns()
+        wall_start_s = time.time()
         results = await asyncio.gather(*[bound_send(r) for r in all_reqs])
         wall = time.perf_counter() - t_start
+        mono_end_ns = time.monotonic_ns()
+        wall_end_s = time.time()
 
     ok = [r for r in results if "error" not in r]
     errors = [r for r in results if "error" in r]
@@ -133,6 +140,10 @@ async def run(label, dataset, conc):
         "tpot_mean_ms": round(statistics.mean(tpots) * 1000, 2) if tpots else None,
         "tpot_p50_ms": pct(tpots, 0.50),
         "tpot_p99_ms": pct(tpots, 0.99),
+        "mono_start_ns": mono_start_ns,
+        "mono_end_ns": mono_end_ns,
+        "wall_start_s": round(wall_start_s, 6),
+        "wall_end_s": round(wall_end_s, 6),
     }
     print(f"\n  Results: {json.dumps(m, indent=2)}")
     if errors[:3]:

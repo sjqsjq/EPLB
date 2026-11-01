@@ -1,0 +1,42 @@
+{
+ "label": "PROV_I_r1",
+ "scenario": "PROV",
+ "arm": "I",
+ "facts": {
+  "label": "PROV_I_r1",
+  "scenario": "PROV",
+  "arm": "I",
+  "nreq_expected": 1024,
+  "no_bench": false,
+  "ready_to_roll": true,
+  "deepep_mode": "normal",
+  "disable_cuda_graph": "True",
+  "redundancy": 0,
+  "init_expert_location": "trivial",
+  "eplb": "False",
+  "eplb_algorithm": "auto",
+  "eplb_iters": 1000,
+  "bench": {
+   "ok": 1024,
+   "num_requests": 1024,
+   "total_time_s": 38.26,
+   "tps": 856.4,
+   "avg_output_tokens": 32,
+   "ttft_mean_ms": 2600.72,
+   "ttft_p99_ms": 4565.79,
+   "tpot_mean_ms": 223.37,
+   "lat_mean_ms": 9525.3,
+   "lat_p99_ms": 10503.94
+  }
+ },
+ "checks": {
+  "ready": true,
+  "deepep_normal": true,
+  "graph_off": true,
+  "redundancy_expected": true,
+  "init_location_trivial": true,
+  "bench_ok_eq_nreq": true,
+  "actual_o32": true
+ },
+ "all_ok": true
+}

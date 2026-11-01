@@ -1,0 +1,39 @@
+{
+  "correctness_gate": {
+    "candidate": {
+      "applies_to": "versus_captured_output and versus_identity_replay comparisons for every layout; identity comparisons are trivially exact against themselves",
+      "atol": 0.00390625,
+      "max_isclose_failure_fraction": 1.52587890625e-05,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0078125
+    },
+    "identity_versus_captured": {
+      "atol": 0.00390625,
+      "max_isclose_failure_count": 0,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0,
+      "strict_equivalence_note": "enforced via max_abs_error <= atol on the identity-versus-captured comparison, which at rtol=0 is exactly equivalent to zero isclose failures under the strict bound"
+    }
+  },
+  "frozen_at_utc": "2026-10-12T10:34:03.406364+00:00",
+  "justification": {
+    "calibration_only_evidence": {
+      "candidate_comparisons_with_nonzero_error": "3456/3456",
+      "candidate_versus_identity_max_abs_error": 0.0029296875,
+      "identity_versus_captured_max_abs_error": 0.0
+    },
+    "no_timing_influence": "no evaluation timing value was read before freezing this amendment; attempt-01 timing outputs are excluded from all analysis",
+    "numerics": "bf16 has an 8-bit mantissa; one rounding quantum is < 2^-7 relative. Placement permutation regroups FP8 grouped-GEMM tiles and reorders DeepEP combine summation; floating-point addition is non-associative, so isolated 1-ulp flips are inherent, not errors.",
+    "sparsity_cap_rationale": "observed worst failure count 6 of 16,613,376 elements (~2^-21.4); cap 2^-16 admits <= 253 elements, still ~2000x below the >= 524,288 elements (fraction >= 2^-5) that any wrong-weight or wrong-route mapping error would corrupt at O(1) relative magnitude"
+  },
+  "relative_denominator_floor": 1e-06,
+  "schema_version": 2,
+  "semantics": "two-tier torch.isclose gate; tier-1 strictness for identity-versus-captured is never relaxed; tier-2 admits at most isolated one-ulp relative deviations for placement-permuted candidates; any nonfinite value blocks the run",
+  "status": "frozen_before_evaluation_attempt02_timing",
+  "study_id": "h20-placement-prediction-v1",
+  "supersedes_for_evaluation_split_only": {
+    "note": "v1 tolerance remains the frozen reference for the capture protocol, calibration campaign, and confirmation campaigns; it is not edited or deleted",
+    "path": "configs/followup_v1/prediction_tolerance.json",
+    "sha256": "56e7f45dc6ec6b653dfae03c3b6882ac080ab9e828d098ebad8c58cf4ad0fbf3"
+  }
+}

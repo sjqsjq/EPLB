@@ -1,0 +1,21 @@
+{
+  "label": "longbench_S1",
+  "dataset": "/tmp/longbench_x3.jsonl",
+  "num_requests": 1500,
+  "concurrency": 512,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 219.24,
+  "total_comp_tokens": 768000,
+  "tps": 3503.0,
+  "avg_output_tokens": 512,
+  "lat_mean_ms": 73210.0,
+  "lat_p50_ms": 75198.4,
+  "lat_p99_ms": 78697.21,
+  "ttft_mean_ms": 18614.39,
+  "ttft_p50_ms": 18214.85,
+  "ttft_p99_ms": 38571.63,
+  "tpot_mean_ms": 106.84,
+  "tpot_p50_ms": 107.19,
+  "tpot_p99_ms": 143.09
+}

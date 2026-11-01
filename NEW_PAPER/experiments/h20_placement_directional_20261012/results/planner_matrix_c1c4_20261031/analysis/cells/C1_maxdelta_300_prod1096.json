@@ -1,0 +1,116 @@
+{
+ "cellid": "C1_maxdelta_300_prod1096",
+ "snapshot": "C1",
+ "pair_rule": "maxdelta",
+ "budget": 300,
+ "threshold": 1.0962402945,
+ "threshold_label": "prod1096",
+ "planner": "try_build_swap_plan",
+ "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+ "plans_identical_ctrl_vs_traced": true,
+ "cpu_ms_control": 6.74,
+ "cpu_ms_traced": 53.84,
+ "event_count": 3171,
+ "events_truncated": false,
+ "snapshot_sum": 6077073680,
+ "init_ratio_raw": {
+  "max": 1.551413494134236,
+  "avg": 1.288558956553576,
+  "n_above_1_02": 94
+ },
+ "init_ratio_padded": {
+  "max": 1.5513542833839467,
+  "avg": 1.2885213866544245,
+  "n_above_1_02": 94
+ },
+ "final_ratio_raw": {
+  "max": 1.163031549092556,
+  "avg": 1.085325893893062,
+  "n_above_1_02": 94
+ },
+ "final_ratio_padded": {
+  "max": 1.1629976877514174,
+  "avg": 1.0853145745928685,
+  "n_above_1_02": 94
+ },
+ "plan_len": 262,
+ "rounds": 281,
+ "earlybreak_reason": "ratio_below_threshold",
+ "exhausted_events": 19,
+ "exhibit": {
+  "trials_total": 413,
+  "accepted": 262,
+  "rejected": 151,
+  "branch_maxdelta": 413,
+  "branch_gap": 0,
+  "maxdelta_flip_gt_half_gap": 0,
+  "maxdelta_strong_overshoot_gt_gap": 0,
+  "gapbranch_feasible_half_candidates": 0,
+  "gapbranch_near_half_le_025gap": 0,
+  "maxdiff_overshoot_with_feasible_half": 0,
+  "maxdiff_top5": []
+ },
+ "execution_permission_chain": {
+  "threshold_aperture": "prod1096",
+  "early_exit_pred_init_max_le_thr": false,
+  "plan_empty": false,
+  "meets_min_swap_ops_8": true,
+  "defer_gate_score_init_max_minus_1": 0.5514134941,
+  "dead_gate_score_reference": 0.0096240295,
+  "bias_correct_env_unset_default_false": true,
+  "moved_mb_estimate": 9887.9,
+  "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+ },
+ "plan_ops_first5": [
+  [
+   57,
+   4,
+   51,
+   0,
+   3,
+   4,
+   51,
+   1.551413494134236
+  ],
+  [
+   76,
+   79,
+   112,
+   4,
+   7,
+   79,
+   112,
+   1.545130651764617
+  ],
+  [
+   65,
+   94,
+   123,
+   5,
+   7,
+   94,
+   123,
+   1.520703755561509
+  ],
+  [
+   11,
+   94,
+   123,
+   5,
+   7,
+   94,
+   123,
+   1.4812542420910717
+  ],
+  [
+   31,
+   94,
+   29,
+   5,
+   1,
+   94,
+   29,
+   1.4795191069659699
+  ]
+ ]
+}

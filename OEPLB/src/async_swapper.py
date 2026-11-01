@@ -134,25 +134,88 @@ class AsyncSwapExecutor:
         # channel buffers are created.
         if p2p_ops:
             torch.cuda.empty_cache()
+            # MIGRATION-RACE FIX-1 (final_followup_20261020 r1): drain all
+            # in-flight serving kernels before posting the coalesced P2P
+            # group so the rendezvous runs on quiesced GPUs. Root cause of
+            # the 7 retired final_plan boots: a large-plan (~300 op)
+            # batch_isend_irecv group overlapped with DeepEP spin kernels
+            # of the NEXT forward on ranks that returned from begin()
+            # early -> circular SM/rendezvous wait -> 600s NCCL watchdog.
+            # Sync cost is intentionally retained (per followup directive).
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
 
         # Synchronous P2P on default PG -- all ranks participate.
-        # A per-rank failure here would leave the ranks desynced (some complete
-        # their transfers, some do not) and hang the server until the watchdog
-        # fires, so retry once rather than letting the exception escape to the
-        # caller's blanket `except Exception`.
+        # MIGRATION-RACE FIX-3 (final_followup_20261020 r2): post the plan as
+        # PER-PEER SUBGROUPS in ascending peer order instead of one giant
+        # coalesced group. Root cause of the B1_P_E3 window#17 hang (same
+        # signature as retired m_E3_P_b3): torch batch_isend_irecv() wraps all
+        # ops in a single ncclGroup; NCCL splits large p2p groups into
+        # multiple SEQUENTIAL kernel plans via an internal budget
+        # (scheduleP2pTasksToPlan), and its own source notes the cut point
+        # "could vary by rank" (p2p work isn't collective). With the
+        # asymmetric per-rank participation of real swap plans, matched
+        # send/recv pairs land in different plan indices on the two sides ->
+        # circular wait between sequentially-executing plan kernels ->
+        # silent all-posted deadlock (upstream: pytorch/pytorch#174288, open,
+        # repro'd on NCCL<=2.29; this deployment: torch 2.9.1 / NCCL 2.27.5).
+        # Proven offline on 8xGPU (followup correctness/gpu_harness/
+        # test_split_deadlock_gpu.py): identical 299-op partitioned skewed
+        # plans deadlock the single-group path at iter 0 with the exact B1
+        # signature (plan hashes identical, all stuck ranks enqueued the
+        # COALESCED work, kernels resident, no NCCL WARN, watchdog timeout,
+        # opposite cluster completes and waits) and pass the per-peer path
+        # 40/40 iters with canary_bad=0.
+        # Why per-peer is safe: both sides of a pair derive mirror-symmetric
+        # op lists (same count/size/order) from the identical plan -> equal
+        # budget cuts -> matched plan boundaries. Ascending peer order with a
+        # host wait per subgroup is deadlock-free (any blocked chain strictly
+        # descends in rank, contradiction at the minimum). Same-peer
+        # send/recv stay in one group (gang safety preserved). Plan content,
+        # ordering, candidate rules, thresholds and action budgets are
+        # untouched; the added subgroup serialization cost is intentionally
+        # retained and measured in the TIMING line (per followup directive).
+        # A per-rank failure here would leave the ranks desynced (some
+        # complete their transfers, some do not) and hang the server until
+        # the watchdog fires, so retry each subgroup once rather than letting
+        # the exception escape to the caller's blanket `except Exception`.
         if p2p_ops:
-            try:
-                reqs = torch.distributed.batch_isend_irecv(p2p_ops)
-                for req in reqs:
-                    req.wait()
-            except Exception as ex:
-                logger.error(f"[PB-OEPLB] rank={self.my_rank} P2P swap failed "
-                             f"({type(ex).__name__}: {ex}); retrying once after "
-                             f"empty_cache()")
-                torch.cuda.empty_cache()
-                reqs = torch.distributed.batch_isend_irecv(p2p_ops)
-                for req in reqs:
-                    req.wait()
+            _by_peer = {}
+            for _pop in p2p_ops:
+                _by_peer.setdefault(_pop.peer, []).append(_pop)
+            _peers = sorted(_by_peer)
+            # DIAG-2 (r2): per-peer send/recv histogram -> pairwise mirror
+            # symmetry (rank i n_send->j == rank j n_recv<-i) becomes
+            # measured on every live window. Pure logging, no behavior change.
+            _hist = [[p,
+                      sum(1 for o in _by_peer[p] if o.op is torch.distributed.isend),
+                      sum(1 for o in _by_peer[p] if o.op is torch.distributed.irecv)]
+                     for p in _peers]
+            logger.info(f"[PB-OEPLB-P2PPEERS] rank={self.my_rank} "
+                        f"n_p2p_ops={len(p2p_ops)} n_subgroups={len(_peers)} "
+                        f"peer_send_recv={_hist}")
+            for _peer in _peers:
+                _sub = _by_peer[_peer]
+                try:
+                    reqs = torch.distributed.batch_isend_irecv(_sub)
+                    for req in reqs:
+                        req.wait()
+                except Exception as ex:
+                    logger.error(f"[PB-OEPLB] rank={self.my_rank} P2P swap "
+                                 f"subgroup(peer={_peer}) failed "
+                                 f"({type(ex).__name__}: {ex}); retrying this "
+                                 f"subgroup once after empty_cache()")
+                    torch.cuda.empty_cache()
+                    reqs = torch.distributed.batch_isend_irecv(_sub)
+                    for req in reqs:
+                        req.wait()
+            # MIGRATION-RACE FIX-2 (final_followup_20261020 r1, retained):
+            # req.wait() on NCCL work is stream-ordered (host non-blocking);
+            # enforce true completion before begin() returns so no rank can
+            # run ahead into the next forward while peers' group kernels are
+            # still pending.
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
 
         _t_p2p = time.perf_counter()
 

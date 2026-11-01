@@ -1,0 +1,204 @@
+{
+ "campaign": "book_prover_static_20261030",
+ "generated_utc": "2026-10-31T03:16:21Z",
+ "mech_applicability": "mech_check_pb.py is PBS-scoped (frozen byte-copy sha 838c72ce); checks ds_sha_frozen/launcher_pc/placement_es_lock/placement_mt_lock compare against PBS identities and are EXPECTED to fail on b2p boots; v2p1 facts are not applicable (no online rebalancer in b2p arms). Applicable checks: code shas, no_watchdog, no_scheduler_exc, no_rank_desync, bench_complete, perreq_lines, injection evidence, rebalance_starts==0.",
+ "boots": {
+  "OLD_b1": {
+   "arm": "B2P_OLD",
+   "mech_rc": 1,
+   "bench_rc": 0,
+   "total_time_s": 213.42,
+   "ok": 2048,
+   "errors": 0,
+   "tps": 9.6,
+   "total_prompt_tokens": 4194310,
+   "total_comp_tokens": 2048,
+   "ttft_mean_ms": 3315.78,
+   "ttft_p50_ms": 3220.54,
+   "ttft_p95_ms": 3684.19,
+   "ttft_p99_ms": 6381.13,
+   "lat_mean_ms": 3315.8,
+   "lat_p50_ms": 3220.6,
+   "lat_p95_ms": 3684.23,
+   "lat_p99_ms": 6381.17,
+   "mech_failed_checks_expected_PBS_scoped": [
+    "ds_sha_frozen",
+    "launcher_pc",
+    "placement_es_lock",
+    "placement_mt_lock"
+   ],
+   "mech_passed_checks": [
+    "bench_complete",
+    "code_sp_state_rg",
+    "code_v2_async",
+    "code_v2_ctrl",
+    "no_rank_desync",
+    "no_scheduler_exc",
+    "no_watchdog",
+    "perreq_lines",
+    "placement_df_lock"
+   ],
+   "server_log": {
+    "ready_to_roll": 1,
+    "traceback": 0,
+    "init_by_eplb_lines": 8,
+    "cuda_oom": 0
+   },
+   "rebalance_starts": 0,
+   "v2p1_not_applicable": true
+  },
+  "REF_b1": {
+   "arm": "B2P_REF",
+   "mech_rc": 1,
+   "bench_rc": 0,
+   "total_time_s": 184.18,
+   "ok": 2048,
+   "errors": 0,
+   "tps": 11.1,
+   "total_prompt_tokens": 4194310,
+   "total_comp_tokens": 2048,
+   "ttft_mean_ms": 2859.66,
+   "ttft_p50_ms": 2846.14,
+   "ttft_p95_ms": 3204.46,
+   "ttft_p99_ms": 3685.86,
+   "lat_mean_ms": 2859.7,
+   "lat_p50_ms": 2846.22,
+   "lat_p95_ms": 3204.49,
+   "lat_p99_ms": 3685.9,
+   "mech_failed_checks_expected_PBS_scoped": [
+    "ds_sha_frozen",
+    "launcher_pc",
+    "placement_es_lock",
+    "placement_mt_lock"
+   ],
+   "mech_passed_checks": [
+    "bench_complete",
+    "code_sp_state_rg",
+    "code_v2_async",
+    "code_v2_ctrl",
+    "no_rank_desync",
+    "no_scheduler_exc",
+    "no_watchdog",
+    "perreq_lines",
+    "placement_df_lock"
+   ],
+   "server_log": {
+    "ready_to_roll": 1,
+    "traceback": 0,
+    "init_by_eplb_lines": 8,
+    "cuda_oom": 0
+   },
+   "rebalance_starts": 0,
+   "v2p1_not_applicable": true
+  },
+  "REF_b2": {
+   "arm": "B2P_REF",
+   "mech_rc": 1,
+   "bench_rc": 0,
+   "total_time_s": 181.81,
+   "ok": 2048,
+   "errors": 0,
+   "tps": 11.3,
+   "total_prompt_tokens": 4194310,
+   "total_comp_tokens": 2048,
+   "ttft_mean_ms": 2824.29,
+   "ttft_p50_ms": 2811.47,
+   "ttft_p95_ms": 3179.05,
+   "ttft_p99_ms": 3337.34,
+   "lat_mean_ms": 2824.3,
+   "lat_p50_ms": 2811.53,
+   "lat_p95_ms": 3179.1,
+   "lat_p99_ms": 3337.38,
+   "mech_failed_checks_expected_PBS_scoped": [
+    "ds_sha_frozen",
+    "launcher_pc",
+    "placement_es_lock",
+    "placement_mt_lock"
+   ],
+   "mech_passed_checks": [
+    "bench_complete",
+    "code_sp_state_rg",
+    "code_v2_async",
+    "code_v2_ctrl",
+    "no_rank_desync",
+    "no_scheduler_exc",
+    "no_watchdog",
+    "perreq_lines",
+    "placement_df_lock"
+   ],
+   "server_log": {
+    "ready_to_roll": 1,
+    "traceback": 0,
+    "init_by_eplb_lines": 8,
+    "cuda_oom": 0
+   },
+   "rebalance_starts": 0,
+   "v2p1_not_applicable": true
+  },
+  "OLD_b2": {
+   "arm": "B2P_OLD",
+   "mech_rc": 1,
+   "bench_rc": 0,
+   "total_time_s": 204.76,
+   "ok": 2048,
+   "errors": 0,
+   "tps": 10.0,
+   "total_prompt_tokens": 4194310,
+   "total_comp_tokens": 2048,
+   "ttft_mean_ms": 3182.61,
+   "ttft_p50_ms": 3149.98,
+   "ttft_p95_ms": 3560.62,
+   "ttft_p99_ms": 3902.56,
+   "lat_mean_ms": 3182.7,
+   "lat_p50_ms": 3150.01,
+   "lat_p95_ms": 3560.66,
+   "lat_p99_ms": 3902.61,
+   "mech_failed_checks_expected_PBS_scoped": [
+    "ds_sha_frozen",
+    "launcher_pc",
+    "placement_es_lock",
+    "placement_mt_lock"
+   ],
+   "mech_passed_checks": [
+    "bench_complete",
+    "code_sp_state_rg",
+    "code_v2_async",
+    "code_v2_ctrl",
+    "no_rank_desync",
+    "no_scheduler_exc",
+    "no_watchdog",
+    "perreq_lines",
+    "placement_df_lock"
+   ],
+   "server_log": {
+    "ready_to_roll": 1,
+    "traceback": 0,
+    "init_by_eplb_lines": 8,
+    "cuda_oom": 0
+   },
+   "rebalance_starts": 0,
+   "v2p1_not_applicable": true
+  }
+ },
+ "paired_blocks": {
+  "block1_OLD_b1_vs_REF_b1": {
+   "old_s": 213.42,
+   "ref_s": 184.18,
+   "delta_s": 29.24,
+   "pct_of_old": 13.7
+  },
+  "block2_OLD_b2_vs_REF_b2": {
+   "old_s": 204.76,
+   "ref_s": 181.81,
+   "delta_s": 22.95,
+   "pct_of_old": 11.21
+  }
+ },
+ "means": {
+  "OLD_s": 209.09,
+  "REF_s": 182.995,
+  "delta_s": 26.095,
+  "pct_of_old": 12.48
+ },
+ "guardrails": "n=2 per cell NON-INFERIAL: descriptive paired deltas only, no statistical inference; identical DF-identical injection (BASE + --init-expert-location, no online rebalancer, zero redundancy); same stream f8e948f3 (PB first 2048 prover rows), C32/O1/temp0; costs preserved regardless of direction."
+}

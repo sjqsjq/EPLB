@@ -1,0 +1,116 @@
+{
+ "cellid": "C2_maxdelta_32_prod1096",
+ "snapshot": "C2",
+ "pair_rule": "maxdelta",
+ "budget": 32,
+ "threshold": 1.0962402945,
+ "threshold_label": "prod1096",
+ "planner": "try_build_swap_plan",
+ "frozen_sha256": "c250026bfa2bdd39a4931c6d18584a254f5133acd2b2355e221d4faac873dd2d",
+ "plans_identical_ctrl_vs_traced": true,
+ "cpu_ms_control": 1.4,
+ "cpu_ms_traced": 9.53,
+ "event_count": 288,
+ "events_truncated": false,
+ "snapshot_sum": 3154479072,
+ "init_ratio_raw": {
+  "max": 1.5318307060240974,
+  "avg": 1.2713876632116075,
+  "n_above_1_02": 94
+ },
+ "init_ratio_padded": {
+  "max": 1.5316643468644537,
+  "avg": 1.2713257890051406,
+  "n_above_1_02": 94
+ },
+ "final_ratio_raw": {
+  "max": 1.3140060065042651,
+  "avg": 1.2194974143737163,
+  "n_above_1_02": 94
+ },
+ "final_ratio_padded": {
+  "max": 1.3139669235550504,
+  "avg": 1.2194460762346322,
+  "n_above_1_02": 94
+ },
+ "plan_len": 32,
+ "rounds": 32,
+ "earlybreak_reason": "ratio_below_threshold",
+ "exhausted_events": 0,
+ "exhibit": {
+  "trials_total": 32,
+  "accepted": 32,
+  "rejected": 0,
+  "branch_maxdelta": 32,
+  "branch_gap": 0,
+  "maxdelta_flip_gt_half_gap": 0,
+  "maxdelta_strong_overshoot_gt_gap": 0,
+  "gapbranch_feasible_half_candidates": 0,
+  "gapbranch_near_half_le_025gap": 0,
+  "maxdiff_overshoot_with_feasible_half": 0,
+  "maxdiff_top5": []
+ },
+ "execution_permission_chain": {
+  "threshold_aperture": "prod1096",
+  "early_exit_pred_init_max_le_thr": false,
+  "plan_empty": false,
+  "meets_min_swap_ops_8": true,
+  "defer_gate_score_init_max_minus_1": 0.531830706,
+  "dead_gate_score_reference": 0.0096240295,
+  "bias_correct_env_unset_default_false": true,
+  "moved_mb_estimate": 1207.7,
+  "note": "CPU arithmetic only; production deferred=0 observed across 136 logs (G1/PBS evidence); no GPU gain claim"
+ },
+ "plan_ops_first5": [
+  [
+   57,
+   4,
+   51,
+   0,
+   3,
+   4,
+   51,
+   1.5318307060240974
+  ],
+  [
+   28,
+   109,
+   13,
+   6,
+   0,
+   109,
+   13,
+   1.4976859367796116
+  ],
+  [
+   65,
+   94,
+   123,
+   5,
+   7,
+   94,
+   123,
+   1.4675156253501371
+  ],
+  [
+   6,
+   14,
+   61,
+   0,
+   3,
+   14,
+   61,
+   1.4526278575355214
+  ],
+  [
+   77,
+   4,
+   51,
+   0,
+   3,
+   4,
+   51,
+   1.4491227919612586
+  ]
+ ]
+}

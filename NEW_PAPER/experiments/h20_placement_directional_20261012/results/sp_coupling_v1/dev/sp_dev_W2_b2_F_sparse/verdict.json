@@ -1,0 +1,66 @@
+{
+ "arm": "F_sparse",
+ "condition": "W2",
+ "label": "sp_dev_W2_b2_F_sparse",
+ "protocol": "sp_coupling_v1",
+ "checks": {
+  "bench": {
+   "label": "sp_dev_W2_b2_F_sparse",
+   "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/fullservice_v2/workload/w2_switch_code_chinese_8000.jsonl",
+   "num_requests": 8000,
+   "concurrency": 256,
+   "ok": 8000,
+   "errors": 0,
+   "total_time_s": 709.37
+  },
+  "adw21_banner_count": 8,
+  "knob_strings_unique": 1,
+  "knob_authority": "A-frozen",
+  "sp_banner_count": 8,
+  "sp_banner_variants": [
+   [
+    "fixed",
+    "4",
+    "64",
+    "64",
+    "20261018",
+    "3",
+    "2"
+   ]
+  ],
+  "meta_sp_env": {
+   "OEPLB_SP_MODE": "fixed",
+   "OEPLB_SP_QUIET_STREAK": "3",
+   "OEPLB_SP_RECOVER_MIN_CYCLES": "2",
+   "OEPLB_SP_S": "4",
+   "OEPLB_SP_SEED": "20261018",
+   "OEPLB_SP_W": "64"
+  },
+  "jsonl_lines": 31,
+  "jsonl_min_lines": 14,
+  "sp_run_end": {
+   "mode": "fixed",
+   "state_final": "FIXED",
+   "S_final": 4,
+   "H_final": 64,
+   "W_final": 64,
+   "sp_fwd_total": 1994,
+   "h_cycles": 31,
+   "window_count": 31,
+   "true_steps_total": 1984,
+   "sample_opportunities": 499,
+   "recorded_steps": 495,
+   "swaps_started_total": 5,
+   "residency_committed_h": {
+    "FIXED": 31
+   },
+   "p2l_version": 5
+  },
+  "sp_transitions": [],
+  "sp_seals": []
+ },
+ "verdict": "VALID",
+ "mech": [],
+ "result": [],
+ "integrity": []
+}

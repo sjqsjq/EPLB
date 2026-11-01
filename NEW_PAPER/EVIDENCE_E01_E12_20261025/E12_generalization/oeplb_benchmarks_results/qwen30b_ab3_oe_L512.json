@@ -1,0 +1,21 @@
+{
+  "label": "qwen30b_ab3_oe_L512",
+  "dataset": "/tmp/exp_data/L512_O1_full8k.jsonl",
+  "num_requests": 8192,
+  "concurrency": 256,
+  "ok": 8192,
+  "errors": 0,
+  "total_time_s": 72.91,
+  "total_comp_tokens": 8192,
+  "tps": 112.4,
+  "avg_output_tokens": 1,
+  "lat_mean_ms": 2225.7,
+  "lat_p50_ms": 2226.75,
+  "lat_p99_ms": 3173.26,
+  "ttft_mean_ms": 2225.64,
+  "ttft_p50_ms": 2226.73,
+  "ttft_p99_ms": 3173.24,
+  "tpot_mean_ms": null,
+  "tpot_p50_ms": null,
+  "tpot_p99_ms": null
+}

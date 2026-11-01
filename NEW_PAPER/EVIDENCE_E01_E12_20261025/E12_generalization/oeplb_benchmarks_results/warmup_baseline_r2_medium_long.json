@@ -1,0 +1,21 @@
+{
+  "label": "warmup_baseline_r2_medium_long",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 1.63,
+  "total_comp_tokens": 1600,
+  "tps": 983.1,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 1620.0,
+  "lat_p50_ms": 1619.5,
+  "lat_p99_ms": 1626.45,
+  "ttft_mean_ms": 827.89,
+  "ttft_p50_ms": 833.12,
+  "ttft_p99_ms": 838.64,
+  "tpot_mean_ms": 25.55,
+  "tpot_p50_ms": 25.4,
+  "tpot_p99_ms": 34.43
+}

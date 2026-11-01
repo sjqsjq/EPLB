@@ -1,0 +1,21 @@
+{
+  "label": "comprehensive/c_L1024_O256_sw32",
+  "dataset": "/workspace/EPLB/OEPLB/benchmarks/comprehensive_grid/L1024_O256.jsonl",
+  "num_requests": 1024,
+  "concurrency": 64,
+  "ok": 1024,
+  "errors": 0,
+  "total_time_s": 176.26,
+  "total_comp_tokens": 262144,
+  "tps": 1487.3,
+  "avg_output_tokens": 256,
+  "lat_mean_ms": 11015.0,
+  "lat_p50_ms": 10873.43,
+  "lat_p99_ms": 13593.62,
+  "ttft_mean_ms": 1864.83,
+  "ttft_p50_ms": 1913.87,
+  "ttft_p99_ms": 5016.95,
+  "tpot_mean_ms": 35.88,
+  "tpot_p50_ms": 35.58,
+  "tpot_p99_ms": 45.51
+}

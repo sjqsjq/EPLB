@@ -1,0 +1,303 @@
+{
+ "label": "P0F_r2",
+ "nreq": 2000,
+ "purpose": "bsk_single_book",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "2e9fe867cf2cb317"
+  },
+  "code_sp_state_rg": {
+   "ok": true,
+   "detail": "525e88f07e9d0cb5"
+  },
+  "launcher_bsk": {
+   "ok": true,
+   "detail": "2896f550e3952939"
+  },
+  "placement_es_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_df_lock": {
+   "ok": true,
+   "detail": "c1787ad19f16ef5d"
+  },
+  "placement_mt_lock": {
+   "ok": true,
+   "detail": "299cea283e93efe6"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=2000 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/book_single_knobs_20261027/boots/P0F_r2/P0F_r2_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "n_rows": 68,
+  "sp_mode": "adaptive",
+  "protocol_rev": "r3",
+  "spec_rev": "v1.1-calib",
+  "true_forwards_total": 992,
+  "true_steps_monotonic": true,
+  "detection_cycles_committed": 68,
+  "event_counts": {
+   "init": 1,
+   "hold": 24,
+   "grow_blocked_headroom": 32,
+   "confirmed_grow": 11
+  },
+  "rg_annotation_rows": 0,
+  "sp_run_end_transitions": [
+   {
+    "h_id": 14,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 16,
+    "from": "QUIET",
+    "to": "TRACK",
+    "reasons": [
+     "P3 h_rate=0.012845>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+    ],
+    "S": 1,
+    "H": 16,
+    "W": 16
+   },
+   {
+    "h_id": 54,
+    "from": "TRACK",
+    "to": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ],
+    "S": 4,
+    "H": 16,
+    "W": 64
+   },
+   {
+    "h_id": 56,
+    "from": "QUIET",
+    "to": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ],
+    "S": 1,
+    "H": 8,
+    "W": 8
+   }
+  ],
+  "rg_policy_tagged_transitions": 0,
+  "z_range": [
+   0.307979924933492,
+   16.04397027114028
+  ],
+  "h_rate_range": [
+   0.008532858909444605,
+   0.08983249529033688
+  ],
+  "alert_k_max": 0,
+  "stable_s_max": 17,
+  "shw_trajectory_rle": [
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 1,
+    "rows": 13
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 14,
+    "rows": 2
+   },
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 14,
+    "rows": 38
+   },
+   {
+    "shw": [
+     4,
+     16,
+     64
+    ],
+    "from_window": 52,
+    "rows": 2
+   },
+   {
+    "shw": [
+     1,
+     8,
+     8
+    ],
+    "from_window": 52,
+    "rows": 13
+   }
+  ],
+  "state_transitions": [
+   {
+    "window_id": 14,
+    "event": "confirmed_grow",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 14,
+    "event": "hold",
+    "before": "QUIET",
+    "after": "TRACK",
+    "reasons": [
+     "P3 h_rate=0.012845>=theta_out=0.011396 for 2 consecutive QUIET cycles (sustained low-margin failure through the hysteresis band) -> TRACK (rev1 R1/R3)"
+    ]
+   },
+   {
+    "window_id": 52,
+    "event": "hold",
+    "before": "TRACK",
+    "after": "QUIET",
+    "reasons": [
+     "quiet_streak>=3: z<z_lo & h_rate<theta_h_low & coverage & no pending/accepted swaps for 3 consecutive valid H cycles"
+    ]
+   },
+   {
+    "window_id": 52,
+    "event": "confirmed_grow",
+    "before": "QUIET",
+    "after": "RECOVER",
+    "reasons": [
+     "P1c/P1d confirmed change evidence: event='confirmed_grow' swap_pending=False swaps_started=0"
+    ]
+   }
+  ],
+  "residency_final": {
+   "TRACK": 52,
+   "QUIET": 4,
+   "RECOVER": 12
+  },
+  "recording": {
+   "recorded_steps_sum": 943,
+   "sample_opportunities_sum": 955,
+   "valid_rows_sum": 725759712,
+   "valid_rows_max_cycle": 12320768
+  },
+  "planning": {
+   "plan_opportunity_rows": 64,
+   "s_change_logical_rows": 67,
+   "det_map_version_final": 23,
+   "det_map_version_bumps": 23
+  },
+  "migration": {
+   "swaps_started_sum": 23,
+   "swap_pending_rows": 0,
+   "serverlog_issued_windows": [
+    1,
+    2,
+    5,
+    10,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    38,
+    43,
+    44,
+    45,
+    47,
+    53,
+    54,
+    56,
+    57,
+    58,
+    60,
+    61,
+    63,
+    64
+   ],
+   "planhash_windows": 24,
+   "planhash_8rank_identical": true
+  },
+  "integrity": {
+   "desync_rows": 0,
+   "h_hash_identical_all_rows": true,
+   "lockstep_ok_all_rows": true
+  },
+  "exercise_summary": {
+   "detection_cycles_present": true,
+   "recording_present": true,
+   "planning_present": true,
+   "migration_present": true,
+   "state_transition_present": true,
+   "shw_constant": false
+  }
+ },
+ "baseline_facts": {
+  "arm": "P0F",
+  "policy": "AERO-base+bias_gate_0.5+swap_budget_0.08",
+  "eplb_rebalance_starts": 0,
+  "eplb_banner": false,
+  "injection_evidence": [
+   "[2026-10-27 23:34:35] server_args=ServerArgs(model_path='/root/models/ms_cache/Qwen/Qwen3-235B-A22B-FP8', tokenizer_path='/root/models/ms_cache/Qwen/Qwen3-235B-"
+  ]
+ },
+ "bench_record_no_judgment": {
+  "ok": 2000,
+  "errors": 0,
+  "total_time_s": 435.09,
+  "tps": 4.6,
+  "total_comp_tokens": 2000,
+  "total_prompt_tokens": 8094587,
+  "ttft_mean_ms": 6898.88,
+  "lat_mean_ms": 6898.9,
+  "wall_start_s": 1793144174.808488,
+  "wall_end_s": 1793144609.897274,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}

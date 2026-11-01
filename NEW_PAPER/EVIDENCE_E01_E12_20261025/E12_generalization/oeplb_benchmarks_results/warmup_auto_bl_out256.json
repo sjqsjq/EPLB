@@ -1,0 +1,21 @@
+{
+  "label": "warmup_auto_bl_out256",
+  "dataset": "/tmp/prover_warmup50.jsonl",
+  "num_requests": 50,
+  "concurrency": 1024,
+  "ok": 50,
+  "errors": 0,
+  "total_time_s": 1.8,
+  "total_comp_tokens": 1600,
+  "tps": 887.2,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 1796.6,
+  "lat_p50_ms": 1796.9,
+  "lat_p99_ms": 1801.53,
+  "ttft_mean_ms": 955.56,
+  "ttft_p50_ms": 930.78,
+  "ttft_p99_ms": 1013.69,
+  "tpot_mean_ms": 27.13,
+  "tpot_p50_ms": 27.9,
+  "tpot_p99_ms": 37.72
+}

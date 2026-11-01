@@ -1,0 +1,12 @@
+layers=94 experts=128 ep=8 per_gpu=16
+identity  r_avg=1.716  r_agg=1.165  per-layer max=2.482 min=1.177  -> (not written)
+     bal  r_avg=1.000  r_agg=1.000  per-layer max=1.003 min=1.000  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_bal.json
+    r102  r_avg=1.020  r_agg=1.020  per-layer max=1.022 min=1.019  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r102.json
+    r106  r_avg=1.060  r_agg=1.060  per-layer max=1.061 min=1.059  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r106.json
+    r110  r_avg=1.100  r_agg=1.100  per-layer max=1.101 min=1.098  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r110.json
+    r115  r_avg=1.150  r_agg=1.150  per-layer max=1.153 min=1.148  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r115.json
+    r122  r_avg=1.220  r_agg=1.220  per-layer max=1.221 min=1.218  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r122.json
+    r130  r_avg=1.300  r_agg=1.300  per-layer max=1.301 min=1.298  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r130.json
+    r140  r_avg=1.400  r_agg=1.400  per-layer max=1.401 min=1.393  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r140.json
+    r155  r_avg=1.550  r_agg=1.550  per-layer max=1.552 min=1.544  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_r155.json
+    conc  r_avg=4.569  r_agg=4.569  per-layer max=5.571 min=2.613  -> /workspace/EPLB/OEPLB/theory_a100/placements/plcA100_conc.json

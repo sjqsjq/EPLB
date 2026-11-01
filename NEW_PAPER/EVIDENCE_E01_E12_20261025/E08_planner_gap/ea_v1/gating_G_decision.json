@@ -1,0 +1,23 @@
+{
+ "artifact": "gating_G_decision",
+ "created_utc": "2026-10-15T14:33:14.675631+00:00",
+ "user_rule_verbatim": "只有论文要正式声称'系统按预测收益与成本决定是否交换'时才实现 K_plan·q̂ > Ĉ + margin 并加匹配的开启/关闭比较；规划周期、预测器和余量只能用 calibration 确定。如果还没实现，先完成理论验证和 W/D、规划器消融，正文如实描述当前经验阈值；不把新门控默认塞进所有实验。",
+ "decision": "NOT_IMPLEMENTED_DOCUMENT_ONLY",
+ "rationale": [
+  "The predictive gate K_plan*q_hat > C_hat + margin is NOT implemented in the controller (neither v3-locked nor the E-A/E-P decoupled code).",
+  "The paper will NOT claim 'the system decides whether to swap by predicted benefit vs cost'; therefore per the frozen user rule the gate is not implemented and not added to any experiment.",
+  "Per the same rule the ordering is: finish theory validation (E-T, done), W/D ablation (E-A, grid running), planner ablation (E-P, offline done + P11 arm in campaign) BEFORE any gating work; gating stays out of the five-arm campaign so the campaign changes no additional factor.",
+  "E-T evidence is directly relevant context: q_hat (workload lower bound gains) UNDERestimated observed gains by 2-11% on real captured forwards, i.e. the benefit side of any future gate is measurable but currently biased; introducing a margin-calibrated gate would require new calibration runs and is deferred to future work."
+ ],
+ "paper_text_obligation": "正文如实描述当前经验阈值 (main text must honestly describe the current empirical thresholds):",
+ "current_empirical_gates_in_controller": {
+  "threshold_ratio": "1.02 (a layer is a planning candidate only if worst-rank load / avg > 1.02; hot-rank loop breaks below it)",
+  "acceptance_margin": "plan accepted only if simulated new_ratio < ratio - 0.0005 (per-plan first/best improvement rule)",
+  "min_swap_ops": "8 (plans with fewer ops are skipped as not worth a migration round)",
+  "defer_rule": "re-plan deferred while improvement < 0.003 (empirical hysteresis, not a cost model)",
+  "budgets": "max_total_ops=300, max_swaps_per_layer=64, max_total_swap_layers=94 (action budgets, not benefit-cost gates)",
+  "dead_zone_ratio": "0.0 -> auto 1.096 by EP power law (identical across all arms, C6)"
+ },
+ "what_would_be_required_if_claim_changes": "implement K_plan*q_hat > C_hat + margin with calibration-determined planning period K_plan, benefit predictor q_hat, cost predictor C_hat and margin; add matched gate-on/gate-off comparison arms; none of this is in scope of the frozen five-arm campaign.",
+ "task_ref": "#137"
+}

@@ -1,0 +1,1919 @@
+{
+  "capture_mechanism": {
+    "band_and_selection_unchanged": true,
+    "chunked_prefill_size": 1024,
+    "chunked_prefill_size_source": {
+      "bytes": 153173,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/logs/capture_server.log",
+      "sha256": "13db81d9091ac9e3ad1a20a47467993596bc1010eaffd04b96d5243255ba1402"
+    },
+    "frozen_request_totals_preserved_in": "capture_context.request_token_counts and total_input_tokens_expected",
+    "row_semantics": "each captured forward is the first prefill chunk of exactly one frozen request at the target layer; rows per rank = min(token_count, chunked_prefill_size); this is the sglang server default under the frozen launcher flags, identical to all prior runs in this lineage including the five-arm service campaign"
+  },
+  "capture_units": [
+    {
+      "batch_id": "cdx0-calibration-sharegpt",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          1044,
+          1045,
+          1047,
+          1049,
+          1050,
+          1053,
+          1055,
+          1057
+        ],
+        "request_token_counts": [
+          1984,
+          625,
+          728,
+          1118,
+          788,
+          537,
+          1860,
+          534
+        ],
+        "segment_zero_based_half_open": [
+          0,
+          2075
+        ]
+      },
+      "capture_id": "cdx0-calibration-sharegpt-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "sharegpt",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        534,
+        537,
+        625,
+        728,
+        788,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank0.pt",
+          "sha256": "5be7d7bb2afd007f55917bb8cd4fd1089c852d9ae0a8d405c5748231f30d9ad8"
+        },
+        {
+          "bytes": 8788535,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank1.pt",
+          "sha256": "d76463dbfb77cabf0263eb294a34d2f76baa40986a577a361c53ba2933db988e"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank2.pt",
+          "sha256": "28496e42274c11bdbde67e5f74e0aa183a3fc7feadbed51718078d6cef52e43e"
+        },
+        {
+          "bytes": 10285239,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank3.pt",
+          "sha256": "23c18d2c8d5b24f7e88117e114ac6e37076ea578ff42298b1674886c72815486"
+        },
+        {
+          "bytes": 11979447,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank4.pt",
+          "sha256": "e9ace1af70a697d8ce6c26dd7e7939f6ab5c2b6d89e578e203e068c923f40fd9"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank5.pt",
+          "sha256": "920d8bfacc4bf58323c84324635072e434836026cbab165bfcc51c24f58714bc"
+        },
+        {
+          "bytes": 12966327,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank6.pt",
+          "sha256": "d304cc60dc3cc70c54da5a8727b2cf8976aff2b08f1a28e5c22dd5e54da9613a"
+        },
+        {
+          "bytes": 8837815,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-024/forward_rank7.pt",
+          "sha256": "c0128863324b0aa7365f957d8838561dac293607af5290cfff76575bd5906ac3"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        534,
+        1024,
+        625,
+        728,
+        1024,
+        788,
+        537
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7880,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-sharegpt-layer-024.json",
+        "sha256": "d36fc99799eee0e4f76f3f0dc5d24583cd6639aa0aa2bf9a08b4393717134e51"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 50272,
+      "total_hidden_rows": 6284,
+      "total_input_tokens_expected": 8174,
+      "trigger": {
+        "bytes": 3208,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-sharegpt-layer-024.json",
+        "sha256": "bbe90e7572200199fafac6d992bea16ecda67b67c5d42bf7d4de499f843d4e17"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-sharegpt",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          1044,
+          1045,
+          1047,
+          1049,
+          1050,
+          1053,
+          1055,
+          1057
+        ],
+        "request_token_counts": [
+          1984,
+          625,
+          728,
+          1118,
+          788,
+          537,
+          1860,
+          534
+        ],
+        "segment_zero_based_half_open": [
+          0,
+          2075
+        ]
+      },
+      "capture_id": "cdx0-calibration-sharegpt-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "sharegpt",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        534,
+        537,
+        625,
+        728,
+        788,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 8837815,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank0.pt",
+          "sha256": "3898f3f0d2d09221b7d1930b2d7bfe3329f671a102d903ae2d430c5718c66692"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank1.pt",
+          "sha256": "5bf180e2c70a4a306f19d4ae910a5acab2fc9e54a79ff480f0b4a418b67a081a"
+        },
+        {
+          "bytes": 8788535,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank2.pt",
+          "sha256": "fadd6dd30318ac7cc4c277dafea156fbae0e855e502194ebb93512cbe96dadd5"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank3.pt",
+          "sha256": "22939e28bde342cac249d6d4eaeffc07f695ee1a4cb18e2ab6959d59a054f40a"
+        },
+        {
+          "bytes": 10285239,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank4.pt",
+          "sha256": "2d8377c854e0dff21b151d17d9294e55ed50f38d3dc6b91ca09a17c66bd773f9"
+        },
+        {
+          "bytes": 11979447,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank5.pt",
+          "sha256": "0fb92f9d8c297f989efb6654325a5d147d56df0edcef990e862c5161af746dc1"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank6.pt",
+          "sha256": "757f7b79e8ce6505d889c060a7430a9f150f2fb7a5d266986a742a62f3783b65"
+        },
+        {
+          "bytes": 12966327,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-sharegpt/layer-071/forward_rank7.pt",
+          "sha256": "463ff50abea99f968c0331c6b455a62b26add11b961366d771c2550b9a39aa6d"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        537,
+        1024,
+        534,
+        1024,
+        625,
+        728,
+        1024,
+        788
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7879,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-sharegpt-layer-071.json",
+        "sha256": "d9fe12b8a181e91634f202d822cb6ac3af3ed2f751b441ec2bd3c0a87078e06e"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 50272,
+      "total_hidden_rows": 6284,
+      "total_input_tokens_expected": 8174,
+      "trigger": {
+        "bytes": 3208,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-sharegpt-layer-071.json",
+        "sha256": "1fdb359c20b337e77ec9952e85efab1b4db99242c284f0e25cd6b5f28a5eb948"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-prover",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          3063,
+          3064,
+          3065,
+          3066,
+          3067,
+          3068,
+          3069,
+          3070
+        ],
+        "request_token_counts": [
+          528,
+          539,
+          534,
+          459,
+          547,
+          464,
+          469,
+          483
+        ],
+        "segment_zero_based_half_open": [
+          2075,
+          4052
+        ]
+      },
+      "capture_id": "cdx0-calibration-prover-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "prover",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        459,
+        464,
+        469,
+        483,
+        528,
+        534,
+        539,
+        547
+      ],
+      "forward_files": [
+        {
+          "bytes": 9002295,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank0.pt",
+          "sha256": "c328eea51d5552a9f3bec082518f700776236ff3c74c81916c0c6b296b051deb"
+        },
+        {
+          "bytes": 7637175,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank1.pt",
+          "sha256": "a99564fff24a647f1121c9ecb2098f75c5575f6418d63d9a1f4e0030efb79927"
+        },
+        {
+          "bytes": 7719351,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank2.pt",
+          "sha256": "10fe5de62b43231d195668a4823d3f7747500c05dc30f4e4b33797137e585326"
+        },
+        {
+          "bytes": 7949623,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank3.pt",
+          "sha256": "3d830b15fc0d43e8c2afa27a11ba55dae335d339374e62aa062eb1bafc740550"
+        },
+        {
+          "bytes": 8689847,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank4.pt",
+          "sha256": "1a124f0586c121f34582158f54998e779ebab85e552b116d82911c868732e023"
+        },
+        {
+          "bytes": 8870711,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank5.pt",
+          "sha256": "501b31ea6c0960f56477aff94a121776adf8f76a9e8c1365dc222cef9f7859bf"
+        },
+        {
+          "bytes": 8788535,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank6.pt",
+          "sha256": "162df20b6f267631b5ed3686ab141c709496c6e0c3f9cb0253d94d5308c34e68"
+        },
+        {
+          "bytes": 7554871,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-024/forward_rank7.pt",
+          "sha256": "ad5df73516b589e2e8e151fe757bd1245867487cd33ef447885f91cc85cc206c"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        547,
+        464,
+        469,
+        483,
+        528,
+        539,
+        534,
+        459
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7858,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-prover-layer-024.json",
+        "sha256": "2a6102433dde816617f22c06527e7a817b237382f6c54710e140a4e11052e39a"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 32184,
+      "total_hidden_rows": 4023,
+      "total_input_tokens_expected": 4023,
+      "trigger": {
+        "bytes": 3198,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-prover-layer-024.json",
+        "sha256": "20506f7a02c2dd8b1006485978b0602a90b5141c40eb7c820fdd733cf3b9ce1c"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-prover",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          3063,
+          3064,
+          3065,
+          3066,
+          3067,
+          3068,
+          3069,
+          3070
+        ],
+        "request_token_counts": [
+          528,
+          539,
+          534,
+          459,
+          547,
+          464,
+          469,
+          483
+        ],
+        "segment_zero_based_half_open": [
+          2075,
+          4052
+        ]
+      },
+      "capture_id": "cdx0-calibration-prover-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "prover",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        459,
+        464,
+        469,
+        483,
+        528,
+        534,
+        539,
+        547
+      ],
+      "forward_files": [
+        {
+          "bytes": 7554871,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank0.pt",
+          "sha256": "50a97bb4b137e4ca45a6564076ccb7c660a78eef61cf9cd5f5e5b979ea59823d"
+        },
+        {
+          "bytes": 9002295,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank1.pt",
+          "sha256": "74af9210a9aa964c7ed308489ce760ef873739016056490cf58c328e65cef085"
+        },
+        {
+          "bytes": 7637175,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank2.pt",
+          "sha256": "88890c97ab98a1aa0d1a5e9c7724408c89a0f29b73f6b0ce0fb6ba9d068948a6"
+        },
+        {
+          "bytes": 7719351,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank3.pt",
+          "sha256": "1098d3fa5ba3b4f64f00c4eb1339714bd7bfe39c67107459a250a541515b31df"
+        },
+        {
+          "bytes": 7949623,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank4.pt",
+          "sha256": "9bf3fc0077f7a5fe9ff9b7553f1e094f1a7722d68284c5964cb1b4a74b86348a"
+        },
+        {
+          "bytes": 8689847,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank5.pt",
+          "sha256": "d4b8aa1347d5154128bae23c114a8a9e3c459b8cab31713099d2d539849156d0"
+        },
+        {
+          "bytes": 8870711,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank6.pt",
+          "sha256": "155a3c19b3a3b13acf137a160054109dbb3aefec2f574bae86f78e9ecfb587cc"
+        },
+        {
+          "bytes": 8788535,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-prover/layer-071/forward_rank7.pt",
+          "sha256": "c9663bc72ca1b3e8a177464f325ef15c3b03a93a5b5c962a1d4d661334e0a8b2"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        459,
+        547,
+        464,
+        469,
+        483,
+        528,
+        539,
+        534
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7858,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-prover-layer-071.json",
+        "sha256": "d46efcbd9b2fe38feb05b785f2a4cab8f8db101ddd99ae0244c3ddde6f799a78"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 32184,
+      "total_hidden_rows": 4023,
+      "total_input_tokens_expected": 4023,
+      "trigger": {
+        "bytes": 3198,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-prover-layer-071.json",
+        "sha256": "cdec051abc6cc5bcc9bddeceaea8cbfe58771b06ed56b55135783e9181994f02"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-book",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          5060,
+          5061,
+          5062,
+          5063,
+          5064,
+          5065,
+          5066,
+          5067
+        ],
+        "request_token_counts": [
+          1090,
+          1082,
+          952,
+          1069,
+          993,
+          1020,
+          979,
+          951
+        ],
+        "segment_zero_based_half_open": [
+          4052,
+          6068
+        ]
+      },
+      "capture_id": "cdx0-calibration-book-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "book",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        951,
+        952,
+        979,
+        993,
+        1020,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 15663799,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank0.pt",
+          "sha256": "cc881874d1f94a65eda12977a31cd115230908f5bb7a74da059380a8332be4f2"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank1.pt",
+          "sha256": "a92522df52fd5c3d4edf99cf0752cc5c26fd2e4dfa640cb8f6d567fe153005e1"
+        },
+        {
+          "bytes": 16338103,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank2.pt",
+          "sha256": "e3b4a3eef634b7c7b55929349b22c0723592e7731e3dbf39731cf7be72d834e3"
+        },
+        {
+          "bytes": 16782263,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank3.pt",
+          "sha256": "3a21e08febceddd5bfc8bf75de353e338e95624bfd7a6fd44e6e448b28ec517f"
+        },
+        {
+          "bytes": 16107831,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank4.pt",
+          "sha256": "0e9f3b9647370cf1b9dd4478d6160c3132f2793ab229d68aa0b9cc82125c131c"
+        },
+        {
+          "bytes": 15647287,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank5.pt",
+          "sha256": "b17ef671103d5063661c3c25eddc83155d1e13bcd41d3152b44114d90b2de06f"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank6.pt",
+          "sha256": "257a73f0f7feb5d165a3359336cec7d0ccd52bbd72278218e196eed27407d4a5"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-024/forward_rank7.pt",
+          "sha256": "5bc2546392c67ee3105983084b75862ff1936af140b53269aa4ef724e152485a"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        952,
+        1024,
+        993,
+        1020,
+        979,
+        951,
+        1024,
+        1024
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7832,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-book-layer-024.json",
+        "sha256": "6b0d84f975996e3c0329823ba0be0ed5871b52473fbd5a7c0d5add03d2df97a2"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 63736,
+      "total_hidden_rows": 7967,
+      "total_input_tokens_expected": 8136,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-book-layer-024.json",
+        "sha256": "48e48e497e24779159e25274b96656533f2fa7e91deae5f86735dbc8fffaebd7"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-book",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          5060,
+          5061,
+          5062,
+          5063,
+          5064,
+          5065,
+          5066,
+          5067
+        ],
+        "request_token_counts": [
+          1090,
+          1082,
+          952,
+          1069,
+          993,
+          1020,
+          979,
+          951
+        ],
+        "segment_zero_based_half_open": [
+          4052,
+          6068
+        ]
+      },
+      "capture_id": "cdx0-calibration-book-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "book",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        951,
+        952,
+        979,
+        993,
+        1020,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank0.pt",
+          "sha256": "d7bdc03f45cc75e2c49bc84ce3de1303918be1e12a560dddd12f30a9e7e2f207"
+        },
+        {
+          "bytes": 15663799,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank1.pt",
+          "sha256": "8eca1e3f39d54e75aa0e8ad04690073ee569fff86de0c69dc182e12cc675032e"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank2.pt",
+          "sha256": "c01c7f88545697b865b88ce7e8ebf629781ccb09936129fc9e77744818b829ff"
+        },
+        {
+          "bytes": 16338103,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank3.pt",
+          "sha256": "b146a8a551fa8ddebb9cda56464a17b37dcc8abe3957177cccddc2464ea1cb15"
+        },
+        {
+          "bytes": 16782263,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank4.pt",
+          "sha256": "b7e9965add3d679b851c660aebf6e8da0ec834272d6d639bd49fc8d75a699fe5"
+        },
+        {
+          "bytes": 16107831,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank5.pt",
+          "sha256": "2cb6569942bcd4014749a5ca3c5044105c721614fee984bc6d2b6f1cb7b9998f"
+        },
+        {
+          "bytes": 15647287,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank6.pt",
+          "sha256": "8c03b4d462f3288c45fef5ce5f908e25a45c97c928a6b243a7d661fb4181b671"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-book/layer-071/forward_rank7.pt",
+          "sha256": "fc1a7fc43afd0db338d9ab588cbe72308936a679e5de4be962f55635a8d8cc68"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        952,
+        1024,
+        993,
+        1020,
+        979,
+        951,
+        1024
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7832,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-book-layer-071.json",
+        "sha256": "1bbb26f7078fdba9881b56ffa85d5807feeb0414ecde31857d2ff164835a197b"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 63736,
+      "total_hidden_rows": 7967,
+      "total_input_tokens_expected": 8136,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-book-layer-071.json",
+        "sha256": "a99137cac44b3940f84fe90911a42896a090b7872ba13c2e8ea99a8b74946b56"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-code",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          7052,
+          7053,
+          7054,
+          7055,
+          7056,
+          7057,
+          7058,
+          7059
+        ],
+        "request_token_counts": [
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048
+        ],
+        "segment_zero_based_half_open": [
+          6068,
+          8037
+        ]
+      },
+      "capture_id": "cdx0-calibration-code-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "code",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank0.pt",
+          "sha256": "a16748658a3ae6f34b2cdf6606a939b6939486b2fb8b8054f20db8acb761db9f"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank1.pt",
+          "sha256": "3861b8b1e8c6dbfc52f67ee2fef8008cf9a7183ae808b07c05cae7b591a7aae2"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank2.pt",
+          "sha256": "ebea173ff2157e057a8753927ce15828e28724265081ec8e3e3dba49b3fcdb4d"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank3.pt",
+          "sha256": "def878ab7e1dfc0674ad5b8e1c70855c67fd4542a95d81e630dbe95f722de569"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank4.pt",
+          "sha256": "d4acc9e6decfe2b5f48e4bb780f8f6d624c66e9218c0489411932178d1f2e66e"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank5.pt",
+          "sha256": "ce51d64e7548c7bc9fbca644f000f79d1ca389164ef02b9db515d6e54ca71dfc"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank6.pt",
+          "sha256": "0fa1b17fe4a003fd6cf802e25d6210cc375f57c516193c60d692ee360495dd1b"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-024/forward_rank7.pt",
+          "sha256": "5276ca8706ee3c155b48183851185935dba81fe323ec39b6541860c660c8009f"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7829,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-code-layer-024.json",
+        "sha256": "ecf166fb7cc0f39beb95f4079e7f0e9c1838e64b0459c15686e84dd92c123a72"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 65536,
+      "total_hidden_rows": 8192,
+      "total_input_tokens_expected": 16384,
+      "trigger": {
+        "bytes": 3197,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-code-layer-024.json",
+        "sha256": "b347df1138c068ece22a0278a6a504a7bea54398c67cad3fd7f93fc01281a895"
+      }
+    },
+    {
+      "batch_id": "cdx0-calibration-code",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          7052,
+          7053,
+          7054,
+          7055,
+          7056,
+          7057,
+          7058,
+          7059
+        ],
+        "request_token_counts": [
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048
+        ],
+        "segment_zero_based_half_open": [
+          6068,
+          8037
+        ]
+      },
+      "capture_id": "cdx0-calibration-code-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "code",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank0.pt",
+          "sha256": "c6e5166dcd9014e7f799a80160ea1d990c18a1da2b2a7d57d9351cb62f74f29f"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank1.pt",
+          "sha256": "ea5ed476288b21befa98c261ead477e56c1ac6ecf814eedaddc3b5045630cbec"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank2.pt",
+          "sha256": "34aef017e97d312662b9116c48ac8e728cf9685e4bf4507eb288703593294ce7"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank3.pt",
+          "sha256": "d051c32f4770b81004bc3dc80e35db86ba944e104e358e52220aa581b06fbd13"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank4.pt",
+          "sha256": "31f2ba266ff49457a498b672a1566ae3d00274f5a3bb85c195462844e15cba86"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank5.pt",
+          "sha256": "303c463e7e9e0f8aea43ce6cddf38286cf1221a5dbfcae4ddc411de079a52851"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank6.pt",
+          "sha256": "89d38fd51a6360bbbff600082f80126c3ef1522b20a3c3b985d3fc7762a71438"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-calibration-code/layer-071/forward_rank7.pt",
+          "sha256": "1d27a939a031954c2310b1fb57fc6eee3861dfc54a3864d3384832cfc6cc7dde"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7831,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-calibration-code-layer-071.json",
+        "sha256": "3531933d66f5b70df42a9b1b9e8999cc2ba4f7afc0b417df8e93e9ded1341d22"
+      },
+      "setup_attempt": 1,
+      "split": "calibration",
+      "total_assignments": 65536,
+      "total_hidden_rows": 8192,
+      "total_input_tokens_expected": 16384,
+      "trigger": {
+        "bytes": 3197,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-calibration-code-layer-071.json",
+        "sha256": "578e834816f3d10a433720c589891400d56fd7cd24e30a37bf8a27ebfa515847"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          962,
+          965,
+          966,
+          968,
+          969,
+          971,
+          973,
+          976
+        ],
+        "request_token_counts": [
+          544,
+          903,
+          936,
+          417,
+          655,
+          1042,
+          425,
+          515
+        ],
+        "segment_zero_based_half_open": [
+          0,
+          1925
+        ]
+      },
+      "capture_id": "cdx0-evaluation-sharegpt-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "sharegpt",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        417,
+        425,
+        515,
+        544,
+        655,
+        903,
+        936,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 6995639,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank0.pt",
+          "sha256": "d8b38a83c4f2e3a6fd39d744ba44351013318ee63b43a15943b47488b3871b59"
+        },
+        {
+          "bytes": 8475959,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank1.pt",
+          "sha256": "3fa841d9326702f98e9b279cce0ec5e19009b66289eae7171fb52fe546a31acc"
+        },
+        {
+          "bytes": 8953015,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank2.pt",
+          "sha256": "9c89f6061afaf1afe1d16634497afecd77fc519ac11fed090d933d94a1de2548"
+        },
+        {
+          "bytes": 14857783,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank3.pt",
+          "sha256": "e5096f9eaed999f2e672a6cfffe30bd425b6c7cd7d2d5450cc44343423761213"
+        },
+        {
+          "bytes": 15400631,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank4.pt",
+          "sha256": "bd01dfbceb4a22ff0fbb6654f762dbf0671179202054e42ef52f83a528a0739f"
+        },
+        {
+          "bytes": 6864055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank5.pt",
+          "sha256": "54943aad999dada3915060d70ef8d6e6995c12a4e7bb1bb5ba0e6c101dcfb214"
+        },
+        {
+          "bytes": 10778679,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank6.pt",
+          "sha256": "5bb5623c5e929cc33f98de0e99b19e23265cee91ab6e4b0e89fd9b8a76607d1f"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-024/forward_rank7.pt",
+          "sha256": "91aaee517b064f80fcf4466791e59748da00b3f0cefdec71756273c4f7d24d6c"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        425,
+        515,
+        544,
+        903,
+        936,
+        417,
+        655,
+        1024
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7879,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "e9e41f4bd21705bb7bb185b9878ad2ba1ef3d9f2478f1b001765f52f1756ff94"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 43352,
+      "total_hidden_rows": 5419,
+      "total_input_tokens_expected": 5437,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-sharegpt-layer-024.json",
+        "sha256": "3046e94804f55bb3820b4511aad629e263755185e2abc4323a7d41fc332918d1"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-sharegpt",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          962,
+          965,
+          966,
+          968,
+          969,
+          971,
+          973,
+          976
+        ],
+        "request_token_counts": [
+          544,
+          903,
+          936,
+          417,
+          655,
+          1042,
+          425,
+          515
+        ],
+        "segment_zero_based_half_open": [
+          0,
+          1925
+        ]
+      },
+      "capture_id": "cdx0-evaluation-sharegpt-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "sharegpt",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        417,
+        425,
+        515,
+        544,
+        655,
+        903,
+        936,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank0.pt",
+          "sha256": "351d85c87df11765af3bc9751ea5cdd5a12898c4c524f34d8fd290fd3ac56e6b"
+        },
+        {
+          "bytes": 6995639,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank1.pt",
+          "sha256": "51785dc7b7a2d5e6c3896cd6448fa1a167cbc0a53e45527f104f2308c14d0e34"
+        },
+        {
+          "bytes": 8475959,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank2.pt",
+          "sha256": "17cb28ef653040f9acedc78a784e5fbe7c5cde8800d97b386e1024c6a19be8c9"
+        },
+        {
+          "bytes": 8953015,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank3.pt",
+          "sha256": "0822abfa16304ef18af34e9dc0859226de14dd6ef26ef257037578e93fc6a497"
+        },
+        {
+          "bytes": 14857783,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank4.pt",
+          "sha256": "9b27c80d1ec5d5e62c81e29187088a68853690aa2e3d613164163a0d1e14baa4"
+        },
+        {
+          "bytes": 15400631,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank5.pt",
+          "sha256": "29cb545d3352be3df374b1792551c5d106c69d16ef1cab697cf955994830b654"
+        },
+        {
+          "bytes": 6864055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank6.pt",
+          "sha256": "f68229b2be8202f2e1494e7817e5e417f8ad6b3894c1e3561fa4fa3d98323d6a"
+        },
+        {
+          "bytes": 10778679,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-sharegpt/layer-071/forward_rank7.pt",
+          "sha256": "61bcccf9552ef3528e5e820fff649272720b2181c52ddafc2cecca71649e7620"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        425,
+        515,
+        544,
+        903,
+        936,
+        417,
+        655
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7879,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "4b63de36b6b69a90d63c7083dda19b98db4f21475b09942e5ad8e0163fd06374"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 43352,
+      "total_hidden_rows": 5419,
+      "total_input_tokens_expected": 5437,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-sharegpt-layer-071.json",
+        "sha256": "cb890ce1c5863fa98b372156cb1bec7fd88e1528cb401b6f4cfd8354c1f58249"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          2936,
+          2937,
+          2938,
+          2939,
+          2940,
+          2941,
+          2942,
+          2943
+        ],
+        "request_token_counts": [
+          458,
+          512,
+          503,
+          458,
+          560,
+          573,
+          475,
+          462
+        ],
+        "segment_zero_based_half_open": [
+          1925,
+          3948
+        ]
+      },
+      "capture_id": "cdx0-evaluation-prover-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "prover",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        458,
+        458,
+        462,
+        475,
+        503,
+        512,
+        560,
+        573
+      ],
+      "forward_files": [
+        {
+          "bytes": 9216183,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank0.pt",
+          "sha256": "585a87a019068763783ed7f90e8f1d96ba7968ade5b8a74782a44ad9a7816ff4"
+        },
+        {
+          "bytes": 9429943,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank1.pt",
+          "sha256": "1c9d15fb95821265bfe669e9fa1f540dabb9377a6f42f52cc6a255079e8fd6f0"
+        },
+        {
+          "bytes": 7818039,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank2.pt",
+          "sha256": "0a495f3e2e57b5c9239f19b4ecb827c23e19f98cc6fc65a69f1bb8836858f288"
+        },
+        {
+          "bytes": 7604279,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank3.pt",
+          "sha256": "5bf7571942b0021baa8bb9f184f54349776a4a2a22bca8de192a399ce3f867d3"
+        },
+        {
+          "bytes": 7538487,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank4.pt",
+          "sha256": "33097a8e24054e34271d85514b4d3e360ac8c93c5080dabd3bf2bc54e44d4320"
+        },
+        {
+          "bytes": 8426679,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank5.pt",
+          "sha256": "ad71c0fdaa90e298a2846a03df6738e158aaa1a190e8af35d2511c9db3087ea5"
+        },
+        {
+          "bytes": 8278583,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank6.pt",
+          "sha256": "4809bfeea5174b9a558e17b77575f6d1b9aca2fa37ce0455302d7eadc11f6785"
+        },
+        {
+          "bytes": 7538487,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-024/forward_rank7.pt",
+          "sha256": "4c04677c3bd8556ed10d2167cdae30852ce3ea5a5a7d9821f9212013efb84edd"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        560,
+        573,
+        475,
+        462,
+        458,
+        512,
+        503,
+        458
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7852,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-prover-layer-024.json",
+        "sha256": "6580068cf54723a4c6e0b0efc3dd3cc76c88a83a1a84ff5c538bcace4ab5d6d4"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 32008,
+      "total_hidden_rows": 4001,
+      "total_input_tokens_expected": 4001,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-prover-layer-024.json",
+        "sha256": "700c922d32df27cb14a825136f95e8a9595a6f4a1547c9eadd3b8ccb11ff986e"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-prover",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          2936,
+          2937,
+          2938,
+          2939,
+          2940,
+          2941,
+          2942,
+          2943
+        ],
+        "request_token_counts": [
+          458,
+          512,
+          503,
+          458,
+          560,
+          573,
+          475,
+          462
+        ],
+        "segment_zero_based_half_open": [
+          1925,
+          3948
+        ]
+      },
+      "capture_id": "cdx0-evaluation-prover-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "prover",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        458,
+        458,
+        462,
+        475,
+        503,
+        512,
+        560,
+        573
+      ],
+      "forward_files": [
+        {
+          "bytes": 7538487,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank0.pt",
+          "sha256": "7cfdc836a58a127b6750c6808e4ab26979302135d935aa6780e9dec24c8658f5"
+        },
+        {
+          "bytes": 9216183,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank1.pt",
+          "sha256": "ae53ee10d53b51df55a1f7dfc4944f0144afd903c8d0bf98e2973c0b3b4bcaa7"
+        },
+        {
+          "bytes": 9429943,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank2.pt",
+          "sha256": "0d6319dc536e92aa73dcc1b1015154ed8b1d6ef86d14394615e5c8f2cd84f531"
+        },
+        {
+          "bytes": 7818039,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank3.pt",
+          "sha256": "0dea9f72508d2ee587e1208a8d310395b98661f83df2572a3ffc5c97c4475e7a"
+        },
+        {
+          "bytes": 7604279,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank4.pt",
+          "sha256": "5b2b1aa8ac3ba940b69a6750188d7a25c7209b70903891cd0e099993b7037dae"
+        },
+        {
+          "bytes": 7538487,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank5.pt",
+          "sha256": "8998ea7bcfc9968416ba9b153ed2d02d4b5805b9b876d8ca28009b504f1c0e24"
+        },
+        {
+          "bytes": 8426679,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank6.pt",
+          "sha256": "df1e7dff4accfe4e8312f9a34866067ac54fd15f9ce260dcc090d8aa29df1bc3"
+        },
+        {
+          "bytes": 8278583,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-prover/layer-071/forward_rank7.pt",
+          "sha256": "de4b5c398acc16bad62e77730c3bb3d3853fbeb8adba214d7b7ac985bddda561"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        458,
+        560,
+        573,
+        475,
+        462,
+        458,
+        512,
+        503
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7854,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-prover-layer-071.json",
+        "sha256": "8ad889358f235b7af30b2a2af68fc3f24bb5a8e65ccde1d638c9c59c85866e37"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 32008,
+      "total_hidden_rows": 4001,
+      "total_input_tokens_expected": 4001,
+      "trigger": {
+        "bytes": 3192,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-prover-layer-071.json",
+        "sha256": "317095ca3dbc8e6ac2cef5fddfebf89882b84120cea8ea4a2bb66ef6283032b8"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          4940,
+          4941,
+          4942,
+          4943,
+          4944,
+          4945,
+          4946,
+          4947
+        ],
+        "request_token_counts": [
+          1005,
+          1038,
+          1074,
+          1075,
+          987,
+          976,
+          992,
+          989
+        ],
+        "segment_zero_based_half_open": [
+          3948,
+          5932
+        ]
+      },
+      "capture_id": "cdx0-evaluation-book-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "book",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        976,
+        987,
+        989,
+        992,
+        1005,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank0.pt",
+          "sha256": "2337efacc0c9efe1f06480758592814fab3d187263ec5f364d6df4b84161d05f"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank1.pt",
+          "sha256": "9a1576f2e5fa1dc3a0c5a780828c15f941a72bd2f1fc4020a46c2b893eeb78e4"
+        },
+        {
+          "bytes": 16239415,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank2.pt",
+          "sha256": "b3f99e87954e01147601143dcce81d5ed96c92d70d13a4a32e86a4a4b2b8cd68"
+        },
+        {
+          "bytes": 16058551,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank3.pt",
+          "sha256": "ca60d08398db1adff348343fef53a64c8fbfd2b0ab5f793c44c96b444331e213"
+        },
+        {
+          "bytes": 16321719,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank4.pt",
+          "sha256": "9f3b06c1637222201456d803e7cc8b8bd5324e9736e8ecf073a6d0287fbfe62a"
+        },
+        {
+          "bytes": 16272311,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank5.pt",
+          "sha256": "edbb4409ffce4a6d01bde031ef75536fa7ba3c95fae35ef46edc7e594f486275"
+        },
+        {
+          "bytes": 16535479,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank6.pt",
+          "sha256": "dce4733b6ea5d86840c2088afcf3552caed43fc2c19a80ee80aeaf266c2f813a"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-024/forward_rank7.pt",
+          "sha256": "d860457e831e8d0f6b566067f1c0e7c0d70654b33c8327e65ef6eee916193e79"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        987,
+        976,
+        992,
+        989,
+        1005,
+        1024
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7824,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-book-layer-024.json",
+        "sha256": "f25348043ca7dff7bd10c8a417d17cd85dcd2fb6a232cf8003d3eabff75d76f3"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 64168,
+      "total_hidden_rows": 8021,
+      "total_input_tokens_expected": 8136,
+      "trigger": {
+        "bytes": 3186,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-book-layer-024.json",
+        "sha256": "6b95563c5343d8757878b6541aa4a87006e43148eaadd98d2d2873aa25607ba7"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-book",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          4940,
+          4941,
+          4942,
+          4943,
+          4944,
+          4945,
+          4946,
+          4947
+        ],
+        "request_token_counts": [
+          1005,
+          1038,
+          1074,
+          1075,
+          987,
+          976,
+          992,
+          989
+        ],
+        "segment_zero_based_half_open": [
+          3948,
+          5932
+        ]
+      },
+      "capture_id": "cdx0-evaluation-book-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "book",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        976,
+        987,
+        989,
+        992,
+        1005,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank0.pt",
+          "sha256": "af77bfc75a0eddd395d64af2564d277ba36613e6789b4b56a952666045754b06"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank1.pt",
+          "sha256": "c917e6bdebae2954f2bb2ea4291d88c2caabd6470faae94dc87108aa00a258cd"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank2.pt",
+          "sha256": "42b6e43f1b3565d56d1634790ce171198db0dac09be53da39c0e5f163b2289c2"
+        },
+        {
+          "bytes": 16239415,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank3.pt",
+          "sha256": "900c7750d962192c6d2bd5ef589650cb1e224dc047c26b5abc32f3390683c330"
+        },
+        {
+          "bytes": 16058551,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank4.pt",
+          "sha256": "f15399a480d17dbd996086dd77d19ca44b100c001c4400b996e582b44527cb11"
+        },
+        {
+          "bytes": 16321719,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank5.pt",
+          "sha256": "a65dc9d3b249caa16c405ad34ede8202678c021356ced5e1b81711f0176895da"
+        },
+        {
+          "bytes": 16272311,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank6.pt",
+          "sha256": "03ce413f3e347db502dc5f222361dc9a4f50b92f3406456005821e17dd4eaac0"
+        },
+        {
+          "bytes": 16535479,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-book/layer-071/forward_rank7.pt",
+          "sha256": "5a75dcc2d8b823c028485e186ba468f822068ae0aa673f8b5a2ee03ad961e1a0"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        1024,
+        987,
+        976,
+        992,
+        989,
+        1005
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7825,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-book-layer-071.json",
+        "sha256": "2770591eaa9deafde9b151e4eb7fd58b2fe28467540402fbcc72e1237b6c1d8e"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 64168,
+      "total_hidden_rows": 8021,
+      "total_input_tokens_expected": 8136,
+      "trigger": {
+        "bytes": 3186,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-book-layer-071.json",
+        "sha256": "a4cba24debece18e89c5c5614311e0c821035ada49373d2b0a580fcb2be7ad45"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          6947,
+          6948,
+          6949,
+          6950,
+          6951,
+          6952,
+          6953,
+          6954
+        ],
+        "request_token_counts": [
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048
+        ],
+        "segment_zero_based_half_open": [
+          5932,
+          7963
+        ]
+      },
+      "capture_id": "cdx0-evaluation-code-layer-024",
+      "chunked_prefill_size": 1024,
+      "domain": "code",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank0.pt",
+          "sha256": "d4e9de983ccb9cae184ee809013b42141f80239638acca56a9db980350875fee"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank1.pt",
+          "sha256": "da4dc7c567c051e61941f75059484fb867d56061bf2ac7c85c580dd21cc7615e"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank2.pt",
+          "sha256": "215a2abeb35abb0b6e52444ad0e6fd7b7b5e5d8e3de9531a9d6677a82a908618"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank3.pt",
+          "sha256": "b6f08c95a72e1b5d304961d100d85f009de76e954630470dc41261f45c851b48"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank4.pt",
+          "sha256": "a00d434631fa8cdac2786bc0ad93434fd5f37b49607500ddfc667368aa70b2d7"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank5.pt",
+          "sha256": "d13c6b8d160dfa0857744aa2670a056696ba14d198a3381de8ff72bb63ac6106"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank6.pt",
+          "sha256": "947bd5d4c986509bacfcf2b17cfdcc17433573f26a51ebf03596da96cd16bcf7"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-024/forward_rank7.pt",
+          "sha256": "1d25fc3284ed48dc60d080c4541e9cdb3ca484a17abc0deac0fe5dc10fba45bf"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "layer_id": 24,
+      "response": {
+        "bytes": 7817,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-code-layer-024.json",
+        "sha256": "9049e5af4168408705e1372af7b8cadadcf639684fce8f56eee409a3b981f06e"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 65536,
+      "total_hidden_rows": 8192,
+      "total_input_tokens_expected": 16384,
+      "trigger": {
+        "bytes": 3191,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-code-layer-024.json",
+        "sha256": "8deb352052e343756af184c47cc9b13c66eb50dc82675985f53e946baa2c4b1c"
+      }
+    },
+    {
+      "batch_id": "cdx0-evaluation-code",
+      "capture_context": {
+        "request_source_lines_zero_based": [
+          6947,
+          6948,
+          6949,
+          6950,
+          6951,
+          6952,
+          6953,
+          6954
+        ],
+        "request_token_counts": [
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048,
+          2048
+        ],
+        "segment_zero_based_half_open": [
+          5932,
+          7963
+        ]
+      },
+      "capture_id": "cdx0-evaluation-code-layer-071",
+      "chunked_prefill_size": 1024,
+      "domain": "code",
+      "domain_purity": "verified_by_construction (all source lines inside the named domain segment; row multiset equals min(request token_count, chunked_prefill_size) per request - captured forward is the first prefill chunk of exactly one frozen request per rank)",
+      "expected_rows_per_request": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "forward_files": [
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank0.pt",
+          "sha256": "9be6e51376a70987d43f4d945a23f3afef94de1b0eec254c5e5b4bb94b600dda"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank1.pt",
+          "sha256": "46ba18d14ecf2156a6492faed1be1533aadce54364dc3599abfa0755b22a06f9"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank2.pt",
+          "sha256": "867c838d555df61033478a96acb298d89d3c35a39cfd872aa268a62beef4ace0"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank3.pt",
+          "sha256": "28bb47b9c376a9bcaf4635d4b802c5deea0a9cc2fc967bacada4011bd8bfe13b"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank4.pt",
+          "sha256": "2f72c9e29d9f592d0f5131579ef37e1c14606c56f9011d5bb1ee6f403b183b0b"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank5.pt",
+          "sha256": "92c6da89f17638c151a3a7065b8e800b5ccb4e51325b2c00fc15f7e607b3c4da"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank6.pt",
+          "sha256": "e2236250649074cf696965151588867508f198e8bb27b31ab0abe98beec0b02c"
+        },
+        {
+          "bytes": 16848055,
+          "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/captures/cdx0-evaluation-code/layer-071/forward_rank7.pt",
+          "sha256": "d1875a3e2bf1c8149e8717d944fedeb825b9e99c753f12ee7b4e4eb2a6a70403"
+        }
+      ],
+      "hidden_rows_by_source_rank": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "layer_id": 71,
+      "response": {
+        "bytes": 7819,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/cdx0_v1/capture_responses/cdx0-evaluation-code-layer-071.json",
+        "sha256": "4ecfa86410a305df5c8c2dda1ae5b6173d4482d23c092e1df2136ee28aee6c73"
+      },
+      "setup_attempt": 1,
+      "split": "evaluation",
+      "total_assignments": 65536,
+      "total_hidden_rows": 8192,
+      "total_input_tokens_expected": 16384,
+      "trigger": {
+        "bytes": 3191,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/triggers/cdx0-evaluation-code-layer-071.json",
+        "sha256": "f550d8178c660f3d96ad15dc3a2817e4027b5d16b476f787dfa375e18092d313"
+      }
+    }
+  ],
+  "counts": {
+    "capture_units": 16,
+    "expert_rank_files": 16,
+    "forward_rank_files": 128
+  },
+  "created_at_utc": "2026-10-16T07:30:54.584767+00:00",
+  "expert_files": [
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank0.pt",
+      "rank": 0,
+      "sha256": "f68aaf24f622e2b16a39ecf62e7b58ec90cf01b21daeeeeaefa7e2c88d0b98c5"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank1.pt",
+      "rank": 1,
+      "sha256": "fbebce6c7bfcf145ae6ddd0089beb89debb160dccba84b35a9a9f99fa6bc8a7a"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank2.pt",
+      "rank": 2,
+      "sha256": "f3914c985ccb5e8c1cba71b3a926d154af974d818b9ccd48b47324c6a781bed8"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank3.pt",
+      "rank": 3,
+      "sha256": "b6d3aad77c47cd583f2d305bb67321d213828161edbaeca5e5c9445d160f93a0"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank4.pt",
+      "rank": 4,
+      "sha256": "5652ddeec22fbf5e776e79fb393e9eff818b32ed68f974fab18b73ed7380b05d"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank5.pt",
+      "rank": 5,
+      "sha256": "6fdf6cb13bbebd3bf93947c2274dfe008133a23ccaf160ae422e223da4a705be"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank6.pt",
+      "rank": 6,
+      "sha256": "f05e1c42e946c3be4a19140574c53ff97fd92b40955264ea712b0d32948875d5"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-024/expert_rank7.pt",
+      "rank": 7,
+      "sha256": "9afa4ffd6d4bf2517ba7603582f7f932830f00ce1308bbc375a705414d61a28e"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank0.pt",
+      "rank": 0,
+      "sha256": "e4b6586f70f74d0d6ee934d07abe63094b9372c9b8bdf3ecea4760753f549603"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank1.pt",
+      "rank": 1,
+      "sha256": "224aac0f1e034558630d5df61f0e9cff6cba63c11f73bf479ca2168d7d3679b6"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank2.pt",
+      "rank": 2,
+      "sha256": "cbe25c6a2514f16d517644b42beb9bf592dbf42677dbc76a2d40d0f2d42904f7"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank3.pt",
+      "rank": 3,
+      "sha256": "3c27ccf7749170a2cd44ed8826077b3ff28141649672601f9afc1711c6ef0bf6"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank4.pt",
+      "rank": 4,
+      "sha256": "9eb5c9f1d2f2e6dc6bd6baf5ca158436b68b39fcbef6bda8460462ecbc5d01fd"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank5.pt",
+      "rank": 5,
+      "sha256": "0214c73aa004f542e72853b1846c9521ae8220c1208eda62005219211354f384"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank6.pt",
+      "rank": 6,
+      "sha256": "5fadb481517e8b88e0a3feb7d634a5d5b8c2bc1f4edcbcc0f513317db100cde1"
+    },
+    {
+      "bytes": 302066989,
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/cdx0_v1/expert_weights/layer-071/expert_rank7.pt",
+      "rank": 7,
+      "sha256": "a391e64f3081772e70f3acb408da19fd4f2e17d8f9bc640aac1fad36dded695f"
+    }
+  ],
+  "request_manifest": {
+    "bytes": 15374,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/cdx0_requests.json",
+    "sha256": "bbe0b73719c697b6e2837f1dd8c8d429baf23d7f5cf0a24c7570218761ba80ca"
+  },
+  "schema_version": 1,
+  "status": "all_cdx0_capture_inputs_validated_and_hash_indexed",
+  "study_id": "h20-placement-cdx0-v1"
+}

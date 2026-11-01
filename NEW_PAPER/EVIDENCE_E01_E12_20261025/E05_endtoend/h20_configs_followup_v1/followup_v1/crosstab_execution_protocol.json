@@ -1,0 +1,2620 @@
+{
+  "analysis_spec": {
+    "cells_remeasured_in_one_campaign": "all four columns are re-timed for every capture inside this single campaign so own-vs-other contrasts are internally consistent; the scan-era identity/base cells are reported only as a Welch drift cross-check and never enter any verdict",
+    "ci_crossing_zero_wording": "compatible with zero; never proof of no effect",
+    "common_static_sufficient": "some base column c* has, in every row, paired delta T(c*)-T(own base) whose 95% CI lower bound is <= epsilon (not significantly worse beyond the practical margin in any row)",
+    "cost_linkage": "for significant row gains, break-even horizons are computed with the frozen batch estimator C_batch(k)=C_multi(capture)*moves_k/moves_base using measured migration costs from the frozen scan cost-benefit study; moves_k is the expert displacement between the two frozen maps",
+    "equivalence_rule": "only an interval wholly inside [-epsilon,+epsilon] supports practical equivalence; crossing zero alone does not",
+    "estimand": "T(capture, column) = mean over 4 independent starts of the 5-block mean completion_fenced_us_per_forward for that frozen layout on that capture",
+    "no_selection": "no best-start, repeat, prefix or subset selection; failed starts are retired, never retried under this frozen campaign",
+    "paired_contrasts": "within-capture start-level means of within-block paired differences: own-base-vs-identity and other-base-vs-own-base for both other columns",
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "report_all_signed_effects_including_negative": true,
+    "row_tracks_own_base": "both other-base-minus-own-base paired 95% CIs exclude zero positively",
+    "scope_note": "crosstab numbers are layer-replay completion times on one node with 8xH20, EP=8, DeepEP normal, DeepGEMM FP8; they are not server-side latencies and cannot replace the full-service three-arm validation",
+    "t_quantile_95_df3": 3.1824463052837078,
+    "tracking_room_supported": ">=2 of the layer's 3 rows track their own base",
+    "verdict_precedence": "tracking_room_supported > common_static_sufficient > mixed"
+  },
+  "attempt": 1,
+  "capture_index": {
+    "bytes": 74342,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/prediction_v1/capture_index.json",
+    "sha256": "3406f8427e62e5d44ad747d5522f2703dceb80853d84034901121dc982a4a35e"
+  },
+  "correctness_gate": {
+    "candidate": {
+      "applies_to": "versus_captured_output and versus_identity_replay comparisons for every layout; identity comparisons are trivially exact against themselves",
+      "atol": 0.00390625,
+      "max_isclose_failure_fraction": 1.52587890625e-05,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0078125
+    },
+    "identity_versus_captured": {
+      "atol": 0.00390625,
+      "max_isclose_failure_count": 0,
+      "max_nonfinite_pair_count": 0,
+      "rtol": 0.0,
+      "strict_equivalence_note": "enforced via max_abs_error <= atol on the identity-versus-captured comparison, which at rtol=0 is exactly equivalent to zero isclose failures under the strict bound"
+    }
+  },
+  "crosstab_study_spec": {
+    "activation_warmup": 10,
+    "blocks_per_start": 5,
+    "columns": [
+      "identity",
+      "base-of-evaluation-01",
+      "base-of-evaluation-02",
+      "base-of-evaluation-03"
+    ],
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "initial_warmup": 10,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "rows": "three locked evaluation triggers per layer (real captured routes)",
+    "starts": 4,
+    "timed_forwards": 50
+  },
+  "design": {
+    "capture_units": 12,
+    "fresh_start_semantics": "one torchrun process group per start; every start reloads all immutable artifacts and rebuilds weights before warmup",
+    "identity_role": "timed_anchor_and_tier1_correctness_reference",
+    "layout_purpose": "trigger_x_map_crosstab_tracking_room_test",
+    "matrix": "rows = three locked evaluation triggers per layer; columns = identity + frozen greedy base of each trigger reused verbatim across the layer; every cell timed in this one campaign",
+    "no_best_measured_prefix_selection": true,
+    "no_slack_subtracted_from_measured_q": true,
+    "no_subset_selection": true,
+    "practical_equivalence_margin_us": 22.948043518066406,
+    "report_all_signed_effects_including_negative": true,
+    "response_definition": "start-level contrast T(a) - T(b) for two columns of the same capture = mean of the five paired block effects; each block effect is completion_fenced_us_per_forward(a) - completion_fenced_us_per_forward(b) within the same randomized block",
+    "starts_per_capture": 4,
+    "timed_layout_ids_by_capture": {
+      "pred-v1-evaluation-01-layer-024": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-01-layer-028": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-01-layer-044": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-01-layer-071": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-02-layer-024": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-02-layer-028": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-02-layer-044": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-02-layer-071": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-03-layer-024": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-03-layer-028": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-03-layer-044": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ],
+      "pred-v1-evaluation-03-layer-071": [
+        "identity",
+        "base-of-evaluation-01",
+        "base-of-evaluation-02",
+        "base-of-evaluation-03"
+      ]
+    },
+    "zero_crossing_is_not_a_deadzone": true
+  },
+  "followup_protocol": {
+    "bytes": 17479,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/protocol.json",
+    "sha256": "7c0cf10200ac9971a2e327c7bb291b118e693e1819a48858711cff1b8c2d9eb9"
+  },
+  "frozen_at_utc": "2026-10-15T04:45:52.137539+00:00",
+  "generator": {
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/freeze_crosstab_protocol.py",
+    "seed_derivation": "uint64 big-endian SHA256(crosstab_study|version|parts) mod 2^62",
+    "sha256": "1016816266c5cf532d7f12c32abbcad3dba211e3ec1c836dac3ab945901535b7",
+    "version": "crosstab-execution-protocol-v1"
+  },
+  "implementation": {
+    "analyze_crosstab_record": {
+      "bytes": 21350,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/analyze_crosstab.py",
+      "sha256": "f5b39eb48f8f50489f7cefd9f05fe9e5129ef13191b96213a5850b7190c50471"
+    },
+    "crosstab_replay_record": {
+      "bytes": 34415,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/crosstab_replay.py",
+      "sha256": "4a356de86cc65ce14cf3664382ab6b4b65091e7552577b84b41c16d2b6457598"
+    },
+    "generate_crosstab_layouts_record": {
+      "bytes": 15267,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/generate_crosstab_layouts.py",
+      "sha256": "2a3280211686013adba6de9df13589c5606c676eb59d2dc3488dfbc2f70cd663"
+    },
+    "index_crosstab_results_record": {
+      "bytes": 13858,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/index_crosstab_results.py",
+      "sha256": "aa5139ba975cf52e08eb6e5d93b1ef282671a9a76898a66a88a39acfb7ee9db5"
+    },
+    "prediction_common_record": {
+      "bytes": 25260,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_common.py",
+      "sha256": "049405c8a660c126c42df076e9a69cfb48b5b858b9008a75fda50d195e8acb6d"
+    },
+    "prediction_models_record": {
+      "bytes": 7025,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/prediction_models.py",
+      "sha256": "a5058b6e38346c0e23d67b239a3cf39cd089ba87d4a7d6bcc527201839b3dda7"
+    },
+    "replay_placement_record": {
+      "bytes": 55499,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/replay_placement.py",
+      "sha256": "51bbeb09d519fc94ff521a8eb1592e95617173367548d8f4730d11ef31511a1f"
+    },
+    "run_crosstab_execution_record": {
+      "bytes": 6951,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/scripts/run_crosstab_execution.sh",
+      "sha256": "98ebe222e6648fb0be56b28ec6276e4bb82d2753c9808142fb4a745a1b100f75"
+    }
+  },
+  "layout_index": {
+    "bytes": 12198,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/index.json",
+    "sha256": "70043ee80f989750d67391c2d9daaaebf1d601a47a7692e824d74ca37d81ec2b"
+  },
+  "layout_manifests": [
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 89552,
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+      "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 89449,
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "layer_id": 28,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+      "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 89661,
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "layer_id": 44,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+      "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "bytes": 89707,
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+      "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 89521,
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+      "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 89545,
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "layer_id": 28,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+      "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 89627,
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "layer_id": 44,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+      "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "bytes": 89594,
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+      "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 89553,
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "layer_id": 24,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+      "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 89529,
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "layer_id": 28,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+      "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 89645,
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "layer_id": 44,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+      "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "bytes": 89599,
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "layer_id": 71,
+      "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+      "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+    }
+  ],
+  "model_lock": {
+    "bytes": 257792,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_model_lock.json",
+    "sha256": "092f9736a9768d947e3f0fa15659889c5438fe4e10fa8509df4a029bf8088543"
+  },
+  "prohibitions": {
+    "artificial_delay_floor": true,
+    "best_start_or_repeat_selection": true,
+    "cross_device_timestamp_subtraction": true,
+    "differential_delay": true,
+    "mid_layer_collective_or_gate": true,
+    "overwrite_existing_raw_result": true,
+    "push_without_separate_instruction": true,
+    "sleep_or_spin": true
+  },
+  "protocol_id": "h20-placement-crosstab-execution-v1",
+  "result_index_relative_path": "results/crosstab_v1/execution/index.json",
+  "schema_version": 1,
+  "scope": {
+    "accelerator_count": 8,
+    "accelerator_model": "NVIDIA H20",
+    "deep_ep_mode": "normal",
+    "expert_parallel_size": 8,
+    "geometry": {
+      "hidden_size": 4096,
+      "intermediate_size": 1536,
+      "local_experts_per_rank": 16,
+      "routed_experts": 128,
+      "top_k": 8,
+      "weight_block": [
+        128,
+        128
+      ]
+    },
+    "model": "Qwen3-235B-A22B-FP8",
+    "moe_runner": "DeepGEMM FP8",
+    "node_count": 1
+  },
+  "source_study_id": "h20-placement-prediction-v1",
+  "split": "crosstab",
+  "starts": [
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89552,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+        "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-01-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 800501166284367762,
+      "start_id": "crosstab-01-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89552,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+        "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-01-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 265779873862398719,
+      "start_id": "crosstab-01-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89552,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+        "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-01-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 3736110227530790149,
+      "start_id": "crosstab-01-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89552,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-024_layer-024.json",
+        "sha256": "ffab68b236a56ea52068a010f94cba363aa7fd122095997261ff739205576a95"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-01-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-01-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 1908339186580594916,
+      "start_id": "crosstab-01-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89449,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+        "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-02-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 3731147961302594056,
+      "start_id": "crosstab-02-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89449,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+        "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-02-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 3399981171558322525,
+      "start_id": "crosstab-02-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89449,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+        "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-02-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 2746333489437663157,
+      "start_id": "crosstab-02-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89449,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-028_layer-028.json",
+        "sha256": "97a01e85f084c13f0c6f468b123faca151b211b225603f91c87f950b40039ee9"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-02-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-02-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 2291205958749122653,
+      "start_id": "crosstab-02-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89661,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+        "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-03-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 4046141636138879512,
+      "start_id": "crosstab-03-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89661,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+        "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-03-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 1259586616339174589,
+      "start_id": "crosstab-03-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89661,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+        "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-03-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 3788857740202939124,
+      "start_id": "crosstab-03-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89661,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-044_layer-044.json",
+        "sha256": "9af888a7b5a1e4e2d4f8e7f0b169113e28bf1ce171f3193ad0ac63f2144d9dbf"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-03-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-03-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 3429084181993348910,
+      "start_id": "crosstab-03-start-4"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89707,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+        "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-04-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 705927263993962289,
+      "start_id": "crosstab-04-start-1"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89707,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+        "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-04-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 3823718757883008677,
+      "start_id": "crosstab-04-start-2"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89707,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+        "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-04-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 3915288774575235088,
+      "start_id": "crosstab-04-start-3"
+    },
+    {
+      "batch_id": "evaluation-01",
+      "capture_id": "pred-v1-evaluation-01-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89707,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-01-layer-071_layer-071.json",
+        "sha256": "d46ef2786c7c6d9fce7216a2d47a97b964f65f45bd87c45fbd196242ce958d76"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-04-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-04-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 147742611302694362,
+      "start_id": "crosstab-04-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89521,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+        "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-05-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 2472533435074834121,
+      "start_id": "crosstab-05-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89521,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+        "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-05-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 584415285432763957,
+      "start_id": "crosstab-05-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89521,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+        "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-05-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 2143649355024169820,
+      "start_id": "crosstab-05-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89521,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-024_layer-024.json",
+        "sha256": "b0a8d48b4868c5283354fcddf567a80b2b1632991dd05265bdcaf9648da848f3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-05-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-05-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 2739566778583461336,
+      "start_id": "crosstab-05-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89545,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+        "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-06-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 3018023906552638919,
+      "start_id": "crosstab-06-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89545,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+        "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-06-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 2376432334816987480,
+      "start_id": "crosstab-06-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89545,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+        "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-06-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 1535357585686674583,
+      "start_id": "crosstab-06-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89545,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-028_layer-028.json",
+        "sha256": "65e40e93e4e662c4906b654d11ff474e20c5a4e4f04e3709dc6291af179d82a3"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-06-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-06-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 4473516249376739016,
+      "start_id": "crosstab-06-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89627,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+        "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-07-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 3147830883156301143,
+      "start_id": "crosstab-07-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89627,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+        "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-07-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 4144733545065794934,
+      "start_id": "crosstab-07-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89627,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+        "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-07-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 348627357988563260,
+      "start_id": "crosstab-07-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89627,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-044_layer-044.json",
+        "sha256": "ef134e1c1eef5226bf09f1c848ff8cfcb332b798834770951c064691208e4c58"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-07-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-07-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 2654134843646636378,
+      "start_id": "crosstab-07-start-4"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89594,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+        "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-08-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 944637683319559433,
+      "start_id": "crosstab-08-start-1"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89594,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+        "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-08-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 144035705892191238,
+      "start_id": "crosstab-08-start-2"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89594,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+        "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-08-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 2567617918791409494,
+      "start_id": "crosstab-08-start-3"
+    },
+    {
+      "batch_id": "evaluation-02",
+      "capture_id": "pred-v1-evaluation-02-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89594,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-02-layer-071_layer-071.json",
+        "sha256": "71030c10417359758674396017badb7ae9ba46bb3aa59f85ce9c2e7dcfc05826"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-08-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-08-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 265026334371035644,
+      "start_id": "crosstab-08-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-1.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+        "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-09-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 240755738582553744,
+      "start_id": "crosstab-09-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-2.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+        "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-09-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-2.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity"
+        ]
+      ],
+      "random_seed": 1258994224978284850,
+      "start_id": "crosstab-09-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-3.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+        "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-09-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 3209570135153240628,
+      "start_id": "crosstab-09-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-024",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-4.failure.json",
+      "layer_id": 24,
+      "layout_manifest": {
+        "bytes": 89553,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-024_layer-024.json",
+        "sha256": "788dfa465c9f5791de75949f1bfa49a2d103e3f3a288cd406db5c2b875be577f"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-09-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-09-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 3310195483014301675,
+      "start_id": "crosstab-09-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-1.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89529,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+        "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-10-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 3792650517409367592,
+      "start_id": "crosstab-10-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-2.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89529,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+        "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-10-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity"
+        ]
+      ],
+      "random_seed": 4160303827534596860,
+      "start_id": "crosstab-10-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-3.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89529,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+        "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-10-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 3132976186990626437,
+      "start_id": "crosstab-10-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-028",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-4.failure.json",
+      "layer_id": 28,
+      "layout_manifest": {
+        "bytes": 89529,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-028_layer-028.json",
+        "sha256": "cdbe8d846d1c6422c419295e27efbb3ff6e7498396b55f02d9a9a30525f44854"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-10-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-10-start-4.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 1445199518549022264,
+      "start_id": "crosstab-10-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-1.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89645,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+        "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-11-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-1.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 3613007118613467084,
+      "start_id": "crosstab-11-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-2.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89645,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+        "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-11-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 1099004633435153096,
+      "start_id": "crosstab-11-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-3.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89645,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+        "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-11-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-3.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ]
+      ],
+      "random_seed": 397204991761391822,
+      "start_id": "crosstab-11-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-044",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-4.failure.json",
+      "layer_id": 44,
+      "layout_manifest": {
+        "bytes": 89645,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-044_layer-044.json",
+        "sha256": "933bec7b70fa1df062f5390ba3448254b068e1a1a79d7e5b83644b360d9c7225"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-11-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-11-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 1697995667273789852,
+      "start_id": "crosstab-11-start-4"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-1.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89599,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+        "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-12-start-1.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-1.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ]
+      ],
+      "random_seed": 972646399650839955,
+      "start_id": "crosstab-12-start-1"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-2.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89599,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+        "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-12-start-2.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-2.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity"
+        ],
+        [
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ]
+      ],
+      "random_seed": 4441332269924162963,
+      "start_id": "crosstab-12-start-2"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-3.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89599,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+        "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-12-start-3.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-3.json",
+      "primary_schedules": [
+        [
+          "identity",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "base-of-evaluation-01",
+          "identity",
+          "base-of-evaluation-02"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 145741395861681995,
+      "start_id": "crosstab-12-start-3"
+    },
+    {
+      "batch_id": "evaluation-03",
+      "capture_id": "pred-v1-evaluation-03-layer-071",
+      "failure_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-4.failure.json",
+      "layer_id": 71,
+      "layout_manifest": {
+        "bytes": 89599,
+        "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/inputs/crosstab_v1/layouts/crosstab_pred-v1-evaluation-03-layer-071_layer-071.json",
+        "sha256": "a35a0509fe31b5e8c2ce0fead6a5b3e6bbb5203383006e92e5f9b0ab01ced6f1"
+      },
+      "log_relative_path": "results/crosstab_v1/execution/logs/crosstab-12-start-4.log",
+      "output_relative_path": "results/crosstab_v1/execution/raw/crosstab-12-start-4.json",
+      "primary_schedules": [
+        [
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "identity",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-02",
+          "base-of-evaluation-03"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03",
+          "base-of-evaluation-02"
+        ],
+        [
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01",
+          "base-of-evaluation-03"
+        ],
+        [
+          "base-of-evaluation-03",
+          "identity",
+          "base-of-evaluation-02",
+          "base-of-evaluation-01"
+        ]
+      ],
+      "random_seed": 443210933036031866,
+      "start_id": "crosstab-12-start-4"
+    }
+  ],
+  "status": "frozen_before_crosstab_timing",
+  "study_id": "h20-placement-crosstab-v1",
+  "timing": {
+    "activation_warmup_forwards": 10,
+    "blocks_per_start": 5,
+    "diagnostic_blocks_per_start": 0,
+    "diagnostic_pass": false,
+    "empty_fence_repetitions": 20,
+    "empty_fence_warmup": 5,
+    "initial_warmup_forwards_per_layout": 10,
+    "primary_metric": "completion_fenced_us_per_forward",
+    "schedule_algorithm": "random.Random(seed + block).shuffle over the frozen four-column order; every column is timed in every block",
+    "timed_forwards_per_activation": 50
+  },
+  "tolerance_file": {
+    "bytes": 2499,
+    "path": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/configs/followup_v1/prediction_tolerance_v2.json",
+    "sha256": "88c9b0e2bf3c8914dfebe6b1d96f91fb63124c44f91d11a485265f26051b02f1"
+  }
+}

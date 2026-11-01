@@ -1,0 +1,21 @@
+{
+  "label": "v1_decay9fix_trace_traffic",
+  "dataset": "/tmp/prefill_heavy_x3.jsonl",
+  "num_requests": 1500,
+  "concurrency": 1024,
+  "ok": 1500,
+  "errors": 0,
+  "total_time_s": 237.82,
+  "total_comp_tokens": 48000,
+  "tps": 201.8,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 153025.4,
+  "lat_p50_ms": 207974.5,
+  "lat_p99_ms": 213243.35,
+  "ttft_mean_ms": 27457.65,
+  "ttft_p50_ms": 21853.34,
+  "ttft_p99_ms": 65465.01,
+  "tpot_mean_ms": 4050.57,
+  "tpot_p50_ms": 5291.6,
+  "tpot_p99_ms": 6511.15
+}

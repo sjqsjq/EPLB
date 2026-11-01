@@ -1,0 +1,300 @@
+{
+ "mode": "gate",
+ "params": {
+  "r": 12,
+  "n_ref": 4,
+  "n_cand": 3,
+  "n_fb": 4,
+  "w_base": 16,
+  "w_cand": 32,
+  "eps_risk_us": 2000000,
+  "eps_prac_frac": 0.01,
+  "force_abort_at": 0,
+  "commit_enabled": false,
+  "calib_trigger": true,
+  "dwell_grow": 2,
+  "k_tb": 8
+ },
+ "state": "DONE",
+ "license_used": true,
+ "trigger_window": 12,
+ "pending_abort": false,
+ "abort_reason": null,
+ "excess_cum_us": 0,
+ "overshoot_us": 0,
+ "contaminated": false,
+ "admission_applied": false,
+ "eval_window": 23,
+ "eval": {
+  "rate_ref_us_per_step": 351139.09375,
+  "rate_cand_us_per_step": 345963.3229166667,
+  "rate_fb_us_per_step": 350145.25,
+  "g_us_per_step2": -6.2115234375,
+  "predicted_cand_us_per_step": 350642.171875,
+  "delta_net_us_per_step": -4678.848958333314,
+  "delta_net_rel": -0.013324773691147325,
+  "eps_prac_us_per_step": 3511.3909375000003,
+  "classification": "favorable",
+  "flags": [],
+  "excess_cum_us": 0,
+  "overshoot_us": 0,
+  "abort_reason": null,
+  "contaminated": false,
+  "midpoints_steps": {
+   "ref": 224.0,
+   "cand": 304.0,
+   "fb": 384.0
+  },
+  "n_windows": {
+   "REF": 4,
+   "CAND": 3,
+   "FB": 4
+  },
+  "n_steps": {
+   "REF": 64,
+   "CAND": 96,
+   "FB": 64
+  },
+  "commit_eligible": false,
+  "estimator": "observational_ABA_diff_trend_corrected",
+  "causal_isolation_claimed": false,
+  "coverage_guarantee": null
+ },
+ "segments": {
+  "REF": [
+   {
+    "window_id": 13,
+    "steps": 16,
+    "span_us": 5645096,
+    "bcost_us": 1852,
+    "true_steps_end": 208,
+    "cum_steps_before": 192,
+    "committed": true
+   },
+   {
+    "window_id": 14,
+    "steps": 16,
+    "span_us": 5539169,
+    "bcost_us": 2030,
+    "true_steps_end": 224,
+    "cum_steps_before": 208,
+    "committed": true
+   },
+   {
+    "window_id": 15,
+    "steps": 16,
+    "span_us": 5710742,
+    "bcost_us": 3579,
+    "true_steps_end": 240,
+    "cum_steps_before": 224,
+    "committed": true
+   },
+   {
+    "window_id": 16,
+    "steps": 16,
+    "span_us": 5577895,
+    "bcost_us": 2052,
+    "true_steps_end": 256,
+    "cum_steps_before": 240,
+    "committed": true
+   }
+  ],
+  "CAND": [
+   {
+    "window_id": 17,
+    "steps": 32,
+    "span_us": 11064808,
+    "bcost_us": 2307,
+    "true_steps_end": 288,
+    "cum_steps_before": 256,
+    "committed": true
+   },
+   {
+    "window_id": 18,
+    "steps": 32,
+    "span_us": 11094335,
+    "bcost_us": 10790,
+    "true_steps_end": 320,
+    "cum_steps_before": 288,
+    "committed": true
+   },
+   {
+    "window_id": 19,
+    "steps": 32,
+    "span_us": 11053336,
+    "bcost_us": 1821,
+    "true_steps_end": 352,
+    "cum_steps_before": 320,
+    "committed": true
+   }
+  ],
+  "FB": [
+   {
+    "window_id": 20,
+    "steps": 16,
+    "span_us": 5524982,
+    "bcost_us": 1751,
+    "true_steps_end": 368,
+    "cum_steps_before": 352,
+    "committed": true
+   },
+   {
+    "window_id": 21,
+    "steps": 16,
+    "span_us": 5561412,
+    "bcost_us": 1656,
+    "true_steps_end": 384,
+    "cum_steps_before": 368,
+    "committed": true
+   },
+   {
+    "window_id": 22,
+    "steps": 16,
+    "span_us": 5671556,
+    "bcost_us": 9262,
+    "true_steps_end": 400,
+    "cum_steps_before": 384,
+    "committed": true
+   },
+   {
+    "window_id": 23,
+    "steps": 16,
+    "span_us": 5651346,
+    "bcost_us": 2759,
+    "true_steps_end": 416,
+    "cum_steps_before": 400,
+    "committed": true
+   }
+  ]
+ },
+ "seg_flags": {
+  "REF": [],
+  "CAND": [],
+  "FB": []
+ },
+ "seg_layout_ver": {
+  "REF": 2,
+  "CAND": 2,
+  "FB": 2
+ },
+ "events": [
+  [
+   12,
+   "trigger",
+   ""
+  ],
+  [
+   16,
+   "cand_start",
+   "probe_start"
+  ],
+  [
+   19,
+   "fb_start",
+   "probe_fallback"
+  ],
+  [
+   23,
+   "eval",
+   "favorable"
+  ]
+ ],
+ "bcost_series": [
+  [
+   1,
+   37158
+  ],
+  [
+   2,
+   12902
+  ],
+  [
+   3,
+   3900
+  ],
+  [
+   4,
+   3375
+  ],
+  [
+   5,
+   2827
+  ],
+  [
+   6,
+   1893
+  ],
+  [
+   7,
+   7732
+  ],
+  [
+   8,
+   1995
+  ],
+  [
+   9,
+   1950
+  ],
+  [
+   10,
+   1959
+  ],
+  [
+   11,
+   3390
+  ],
+  [
+   12,
+   4196
+  ],
+  [
+   13,
+   1852
+  ],
+  [
+   14,
+   2030
+  ],
+  [
+   15,
+   3579
+  ],
+  [
+   16,
+   2052
+  ],
+  [
+   17,
+   2307
+  ],
+  [
+   18,
+   10790
+  ],
+  [
+   19,
+   1821
+  ],
+  [
+   20,
+   1751
+  ],
+  [
+   21,
+   1656
+  ],
+  [
+   22,
+   9262
+  ],
+  [
+   23,
+   2759
+  ]
+ ],
+ "cum_steps": 416,
+ "true_steps_total": 416,
+ "window_count": 23,
+ "prof_probe_cum_ms": 8.468401
+}

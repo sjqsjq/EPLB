@@ -1,0 +1,51 @@
+{
+ "label": "s_E4_F_b2",
+ "mode": "pb",
+ "checks": {
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_coalesced_err": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "planhash_identity": {
+   "ok": true,
+   "detail": "plan_windows=20"
+  },
+  "swaps_min": {
+   "ok": true,
+   "detail": "issued_windows=20 min=6"
+  },
+  "v2p1_no_desync": {
+   "ok": true,
+   "detail": "rows=73"
+  },
+  "v2p1_hash_identical": {
+   "ok": true,
+   "detail": ""
+  },
+  "p2l_version_match": {
+   "ok": true,
+   "detail": "p2l=20 issued=20"
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=2048 err=0 nreq=2048"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/final_followup_20261020/phase4_core/boots/s_E4_F_b2/s_E4_F_b2_perreq.jsonl"
+  }
+ },
+ "pass": true
+}

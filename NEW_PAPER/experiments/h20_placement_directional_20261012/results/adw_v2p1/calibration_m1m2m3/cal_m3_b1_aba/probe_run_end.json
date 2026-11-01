@@ -1,0 +1,300 @@
+{
+ "mode": "gate",
+ "params": {
+  "r": 12,
+  "n_ref": 4,
+  "n_cand": 3,
+  "n_fb": 4,
+  "w_base": 16,
+  "w_cand": 32,
+  "eps_risk_us": 2000000,
+  "eps_prac_frac": 0.01,
+  "force_abort_at": 0,
+  "commit_enabled": false,
+  "calib_trigger": true,
+  "dwell_grow": 2,
+  "k_tb": 8
+ },
+ "state": "DONE",
+ "license_used": true,
+ "trigger_window": 12,
+ "pending_abort": false,
+ "abort_reason": null,
+ "excess_cum_us": 0,
+ "overshoot_us": 0,
+ "contaminated": false,
+ "admission_applied": false,
+ "eval_window": 23,
+ "eval": {
+  "rate_ref_us_per_step": 350748.3125,
+  "rate_cand_us_per_step": 348074.0520833333,
+  "rate_fb_us_per_step": 349092.453125,
+  "g_us_per_step2": -10.34912109375,
+  "predicted_cand_us_per_step": 349920.3828125,
+  "delta_net_us_per_step": -1846.330729166686,
+  "delta_net_rel": -0.005263976085891179,
+  "eps_prac_us_per_step": 3507.483125,
+  "classification": "UNKNOWN",
+  "flags": [],
+  "excess_cum_us": 0,
+  "overshoot_us": 0,
+  "abort_reason": null,
+  "contaminated": false,
+  "midpoints_steps": {
+   "ref": 224.0,
+   "cand": 304.0,
+   "fb": 384.0
+  },
+  "n_windows": {
+   "REF": 4,
+   "CAND": 3,
+   "FB": 4
+  },
+  "n_steps": {
+   "REF": 64,
+   "CAND": 96,
+   "FB": 64
+  },
+  "commit_eligible": false,
+  "estimator": "observational_ABA_diff_trend_corrected",
+  "causal_isolation_claimed": false,
+  "coverage_guarantee": null
+ },
+ "segments": {
+  "REF": [
+   {
+    "window_id": 13,
+    "steps": 16,
+    "span_us": 5656030,
+    "bcost_us": 11432,
+    "true_steps_end": 208,
+    "cum_steps_before": 192,
+    "committed": true
+   },
+   {
+    "window_id": 14,
+    "steps": 16,
+    "span_us": 5649761,
+    "bcost_us": 2553,
+    "true_steps_end": 224,
+    "cum_steps_before": 208,
+    "committed": true
+   },
+   {
+    "window_id": 15,
+    "steps": 16,
+    "span_us": 5571272,
+    "bcost_us": 4465,
+    "true_steps_end": 240,
+    "cum_steps_before": 224,
+    "committed": true
+   },
+   {
+    "window_id": 16,
+    "steps": 16,
+    "span_us": 5570829,
+    "bcost_us": 2877,
+    "true_steps_end": 256,
+    "cum_steps_before": 240,
+    "committed": true
+   }
+  ],
+  "CAND": [
+   {
+    "window_id": 17,
+    "steps": 32,
+    "span_us": 11095902,
+    "bcost_us": 2932,
+    "true_steps_end": 288,
+    "cum_steps_before": 256,
+    "committed": true
+   },
+   {
+    "window_id": 18,
+    "steps": 32,
+    "span_us": 11162346,
+    "bcost_us": 2623,
+    "true_steps_end": 320,
+    "cum_steps_before": 288,
+    "committed": true
+   },
+   {
+    "window_id": 19,
+    "steps": 32,
+    "span_us": 11156861,
+    "bcost_us": 3877,
+    "true_steps_end": 352,
+    "cum_steps_before": 320,
+    "committed": true
+   }
+  ],
+  "FB": [
+   {
+    "window_id": 20,
+    "steps": 16,
+    "span_us": 5561291,
+    "bcost_us": 3066,
+    "true_steps_end": 368,
+    "cum_steps_before": 352,
+    "committed": true
+   },
+   {
+    "window_id": 21,
+    "steps": 16,
+    "span_us": 5634604,
+    "bcost_us": 3913,
+    "true_steps_end": 384,
+    "cum_steps_before": 368,
+    "committed": true
+   },
+   {
+    "window_id": 22,
+    "steps": 16,
+    "span_us": 5557027,
+    "bcost_us": 2706,
+    "true_steps_end": 400,
+    "cum_steps_before": 384,
+    "committed": true
+   },
+   {
+    "window_id": 23,
+    "steps": 16,
+    "span_us": 5588995,
+    "bcost_us": 5878,
+    "true_steps_end": 416,
+    "cum_steps_before": 400,
+    "committed": true
+   }
+  ]
+ },
+ "seg_flags": {
+  "REF": [],
+  "CAND": [],
+  "FB": []
+ },
+ "seg_layout_ver": {
+  "REF": 2,
+  "CAND": 2,
+  "FB": 2
+ },
+ "events": [
+  [
+   12,
+   "trigger",
+   ""
+  ],
+  [
+   16,
+   "cand_start",
+   "probe_start"
+  ],
+  [
+   19,
+   "fb_start",
+   "probe_fallback"
+  ],
+  [
+   23,
+   "eval",
+   "UNKNOWN"
+  ]
+ ],
+ "bcost_series": [
+  [
+   1,
+   26451
+  ],
+  [
+   2,
+   65900
+  ],
+  [
+   3,
+   2468
+  ],
+  [
+   4,
+   2867
+  ],
+  [
+   5,
+   3598
+  ],
+  [
+   6,
+   2691
+  ],
+  [
+   7,
+   3232
+  ],
+  [
+   8,
+   2644
+  ],
+  [
+   9,
+   5139
+  ],
+  [
+   10,
+   2694
+  ],
+  [
+   11,
+   2867
+  ],
+  [
+   12,
+   3764
+  ],
+  [
+   13,
+   11432
+  ],
+  [
+   14,
+   2553
+  ],
+  [
+   15,
+   4465
+  ],
+  [
+   16,
+   2877
+  ],
+  [
+   17,
+   2932
+  ],
+  [
+   18,
+   2623
+  ],
+  [
+   19,
+   3877
+  ],
+  [
+   20,
+   3066
+  ],
+  [
+   21,
+   3913
+  ],
+  [
+   22,
+   2706
+  ],
+  [
+   23,
+   5878
+  ]
+ ],
+ "cum_steps": 416,
+ "true_steps_total": 416,
+ "window_count": 23,
+ "prof_probe_cum_ms": 8.112017
+}

@@ -1,0 +1,21 @@
+{
+  "label": "v1_fresh_baseline_pf",
+  "dataset": "/tmp/prefill_heavy_x15.jsonl",
+  "num_requests": 7500,
+  "concurrency": 1024,
+  "ok": 7500,
+  "errors": 0,
+  "total_time_s": 491.99,
+  "total_comp_tokens": 240000,
+  "tps": 487.8,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 66641.6,
+  "lat_p50_ms": 67193.0,
+  "lat_p99_ms": 90823.46,
+  "ttft_mean_ms": 20515.41,
+  "ttft_p50_ms": 16533.31,
+  "ttft_p99_ms": 61028.63,
+  "tpot_mean_ms": 1487.94,
+  "tpot_p50_ms": 1622.39,
+  "tpot_p99_ms": 2373.72
+}

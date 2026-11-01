@@ -1,0 +1,179 @@
+{
+ "identity_fact": "capture_aggregate_equals_P_e3_elementwise",
+ "capture_sum": 3154479072,
+ "init_ratio_raw": {
+  "max": 1.5318307060240974,
+  "avg": 1.2713876632116075,
+  "n_above_1_02": 94
+ },
+ "init_ratio_padded": {
+  "max": 1.5316643468644537,
+  "avg": 1.2713257890051406,
+  "n_above_1_02": 94
+ },
+ "expert_edges_layout_invariant": 12032,
+ "conditions": {
+  "ORIG": {
+   "source_cell": null,
+   "source_plan_sha256": null,
+   "plan_len": 0,
+   "final_ratio_raw": {
+    "max": 1.5318307060240974,
+    "avg": 1.2713876632116075,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.5316643468644537,
+    "avg": 1.2713257890051406,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.0,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 0.0,
+   "online_migration_wall_s": 0.0,
+   "online_exec_rep1_s": 193.45,
+   "online_exec_rep2_s": 186.64,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 0.0,
+   "online_v2p1_bcost_max_sum_s": null
+  },
+  "GAP32": {
+   "source_cell": "C2_gap_32_prod1096",
+   "source_plan_sha256": "dea6ba615f29833da1a586b8bb7f052ec16d27bafcff0675644dc00c661dca13",
+   "plan_len": 32,
+   "final_ratio_raw": {
+    "max": 1.3140060065042651,
+    "avg": 1.2194974143737163,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.3139669235550504,
+    "avg": 1.2194460762346322,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.2178246995,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 1207.7,
+   "online_migration_wall_s": 14.807,
+   "online_exec_rep1_s": 217.18,
+   "online_exec_rep2_s": 192.05,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 122.384,
+   "online_v2p1_bcost_max_sum_s": 0.157
+  },
+  "GAP128": {
+   "source_cell": "C2_gap_128_prod1096",
+   "source_plan_sha256": "c7d5470e2ec2a5921410cde39d7e54ba19753e3e025bac52250519c577837353",
+   "plan_len": 128,
+   "final_ratio_raw": {
+    "max": 1.1782915743496807,
+    "avg": 1.1300767697722738,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.1782193697970889,
+    "avg": 1.1300525858528008,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.3535391317,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 4830.7,
+   "online_migration_wall_s": 2.093,
+   "online_exec_rep1_s": 194.08,
+   "online_exec_rep2_s": 182.51,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 20.824,
+   "online_v2p1_bcost_max_sum_s": 0.231
+  },
+  "GAP300": {
+   "source_cell": "C2_gap_300_prod1096",
+   "source_plan_sha256": "c75c47c4f649efd94d0c678d563f2b7a0363ece36d19e8f88f4ad4ed38d49624",
+   "plan_len": 251,
+   "final_ratio_raw": {
+    "max": 1.096219449573828,
+    "avg": 1.0742537866486759,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.096299121017408,
+    "avg": 1.0742334625584338,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.4356112565,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 9472.7,
+   "online_migration_wall_s": 7.517,
+   "online_exec_rep1_s": 196.25,
+   "online_exec_rep2_s": 195.0,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 71.282,
+   "online_v2p1_bcost_max_sum_s": 0.274
+  },
+  "MD300": {
+   "source_cell": "C2_maxdelta_300_prod1096",
+   "source_plan_sha256": "34fb582b2d23ef9d86cfb07ba12f9e0d5d3c6b79c3e6c936c00faa97ec79ff04",
+   "plan_len": 239,
+   "final_ratio_raw": {
+    "max": 1.1615686712027742,
+    "avg": 1.0814358232014294,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.161509773564472,
+    "avg": 1.0814145463196145,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.3702620348,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 9019.9,
+   "online_migration_wall_s": 6.369,
+   "online_exec_rep1_s": 219.81,
+   "online_exec_rep2_s": 209.65,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 62.352,
+   "online_v2p1_bcost_max_sum_s": 0.252
+  },
+  "BI300": {
+   "source_cell": "C2_gap_300_prod1096_BI",
+   "source_plan_sha256": "ee981f8a67dcb529b6f94b5e46a64a27ec18766a22a8efe28dbd0ac3d970239b",
+   "plan_len": 246,
+   "final_ratio_raw": {
+    "max": 1.0957200200439308,
+    "avg": 1.0716698468557797,
+    "n_above_1_02": 94
+   },
+   "final_ratio_padded": {
+    "max": 1.0956985967053081,
+    "avg": 1.0716494713456703,
+    "n_above_1_02": 94
+   },
+   "imbalance_reduction_raw_max": 0.436110686,
+   "padding_tokens_total": 761120,
+   "occupied_rank_slots_sum_layers": 752,
+   "rank_pair_edges_x8": 6016,
+   "expert_edges_layout_invariant": 12032,
+   "moved_mb_estimate_only": 9284.0,
+   "online_migration_wall_s": 2.784,
+   "online_exec_rep1_s": 185.62,
+   "online_exec_rep2_s": 193.53,
+   "benefit_model_form": "conditional paper-analysis model: imbalance reduction conditioned on measured migration cost (ops x 37.74MB estimate + online wall); NOT an online algorithm; NO payback solver; h_rate/h_w NOT headroom",
+   "online_migration_wall_allranks_sum_s": 26.37,
+   "online_v2p1_bcost_max_sum_s": 0.226
+  }
+ }
+}

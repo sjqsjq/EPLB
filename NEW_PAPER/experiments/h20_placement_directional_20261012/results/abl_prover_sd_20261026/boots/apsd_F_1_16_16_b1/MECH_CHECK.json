@@ -1,0 +1,128 @@
+{
+ "label": "apsd_F_1_16_16_b1",
+ "nreq": 2048,
+ "purpose": "phase1_mechanism_check",
+ "facts_only": true,
+ "completeness": {
+  "code_v2_async": {
+   "ok": true,
+   "detail": "2e4652a0306cb315"
+  },
+  "code_v2_ctrl": {
+   "ok": true,
+   "detail": "4964cfc8e8af397a"
+  },
+  "ds_sha_frozen": {
+   "ok": true,
+   "detail": "b4034e3b67ac2925"
+  },
+  "no_watchdog": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_scheduler_exc": {
+   "ok": true,
+   "detail": ""
+  },
+  "no_rank_desync": {
+   "ok": true,
+   "detail": ""
+  },
+  "bench_complete": {
+   "ok": true,
+   "detail": "ok=2048 err=0"
+  },
+  "perreq_lines": {
+   "ok": true,
+   "detail": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/abl_prover_sd_20261026/boots/apsd_F_1_16_16_b1/apsd_F_1_16_16_b1_perreq.jsonl"
+  }
+ },
+ "mechanism_facts": {
+  "n_rows": 4,
+  "sp_mode": "fixed",
+  "protocol_rev": "r3",
+  "spec_rev": "v1.1-calib",
+  "true_forwards_total": 64,
+  "true_steps_monotonic": true,
+  "detection_cycles_committed": 4,
+  "event_counts": {
+   "init": 1,
+   "hold": 2,
+   "confirmed_grow": 1
+  },
+  "z_range": [
+   0.027834007403706906,
+   0.1592171684199521
+  ],
+  "h_rate_range": [
+   0.009114387187551944,
+   0.08987436312917045
+  ],
+  "alert_k_max": 0,
+  "stable_s_max": 2,
+  "shw_trajectory_rle": [
+   {
+    "shw": [
+     1,
+     16,
+     16
+    ],
+    "from_window": 1,
+    "rows": 4
+   }
+  ],
+  "state_transitions": [],
+  "residency_final": {
+   "FIXED": 4
+  },
+  "recording": {
+   "recorded_steps_sum": 60,
+   "sample_opportunities_sum": 74,
+   "valid_rows_sum": 45613312,
+   "valid_rows_max_cycle": 12320768
+  },
+  "planning": {
+   "plan_opportunity_rows": 4,
+   "s_change_logical_rows": 3,
+   "det_map_version_final": 2,
+   "det_map_version_bumps": 2
+  },
+  "migration": {
+   "swaps_started_sum": 2,
+   "swap_pending_rows": 0,
+   "serverlog_issued_windows": [
+    1,
+    2
+   ],
+   "planhash_windows": 2,
+   "planhash_8rank_identical": true
+  },
+  "integrity": {
+   "desync_rows": 0,
+   "h_hash_identical_all_rows": true,
+   "lockstep_ok_all_rows": true
+  },
+  "exercise_summary": {
+   "detection_cycles_present": true,
+   "recording_present": true,
+   "planning_present": true,
+   "migration_present": true,
+   "state_transition_present": false,
+   "shw_constant": true
+  }
+ },
+ "bench_record_no_judgment": {
+  "ok": 2048,
+  "errors": 0,
+  "total_time_s": 23.04,
+  "tps": 88.9,
+  "total_comp_tokens": 2048,
+  "total_prompt_tokens": 516195,
+  "ttft_mean_ms": 2756.38,
+  "lat_mean_ms": 2756.4,
+  "wall_start_s": 1793015484.013425,
+  "wall_end_s": 1793015507.048743,
+  "client_version": "bench_client_v2/final_plan_20261019"
+ },
+ "completeness_pass": true
+}
