@@ -1,0 +1,107 @@
+{
+ "campaign": "sixarm_service_t2_20261101 pbd book-first correction",
+ "author_directive": "2026-11-02 original-design book-to-prover, rerun 2 rounds; frozen PROTOCOL_t2.md NOT edited; correction appended in LEDGER; formal 36 boots untouched",
+ "n_formal": 12,
+ "stream": "B_data/streams/pbd_book_prover_double_out32_ie.jsonl",
+ "stream_sha256": "7b42568a121b05e1054d4a60de8588db23e0d179357a503c7f3d2993b47a132a",
+ "stream_construction": "block-swap of frozen pbd stream: book[0:2000)+prover[2000:5344), row bytes preserved, multiset identical verified",
+ "rotation": "continuation of frozen scheme: r4 DF P0 I ES ED MT, r5 P0 I ES ED MT DF",
+ "order": [
+  {
+   "seq": 1,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "DF",
+   "params": "",
+   "label": "PBD_BP_DF_r4"
+  },
+  {
+   "seq": 2,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "P",
+   "params": "0",
+   "label": "PBD_BP_P0_r4"
+  },
+  {
+   "seq": 3,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "I",
+   "params": "",
+   "label": "PBD_BP_I_r4"
+  },
+  {
+   "seq": 4,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "ES",
+   "params": "",
+   "label": "PBD_BP_ES_r4"
+  },
+  {
+   "seq": 5,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "ED",
+   "params": "",
+   "label": "PBD_BP_ED_r4"
+  },
+  {
+   "seq": 6,
+   "scenario": "PBD_BP",
+   "round": 4,
+   "arm": "MT",
+   "params": "",
+   "label": "PBD_BP_MT_r4"
+  },
+  {
+   "seq": 7,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "P",
+   "params": "0",
+   "label": "PBD_BP_P0_r5"
+  },
+  {
+   "seq": 8,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "I",
+   "params": "",
+   "label": "PBD_BP_I_r5"
+  },
+  {
+   "seq": 9,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "ES",
+   "params": "",
+   "label": "PBD_BP_ES_r5"
+  },
+  {
+   "seq": 10,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "ED",
+   "params": "",
+   "label": "PBD_BP_ED_r5"
+  },
+  {
+   "seq": 11,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "MT",
+   "params": "",
+   "label": "PBD_BP_MT_r5"
+  },
+  {
+   "seq": 12,
+   "scenario": "PBD_BP",
+   "round": 5,
+   "arm": "DF",
+   "params": "",
+   "label": "PBD_BP_DF_r5"
+  }
+ ]
+}
