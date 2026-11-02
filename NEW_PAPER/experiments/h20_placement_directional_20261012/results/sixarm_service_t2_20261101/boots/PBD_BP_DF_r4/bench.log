@@ -1,1 +1,35 @@
 [PBD_BP_DF_r4] 5344 reqs from /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/B_data/streams/pbd_book_prover_double_out32_ie.jsonl, conc=256, streaming TTFT/TPOT (bench_client_v2/final_plan_20261019)
+
+  Results: {
+  "label": "PBD_BP_DF_r4",
+  "dataset": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/B_data/streams/pbd_book_prover_double_out32_ie.jsonl",
+  "num_requests": 5344,
+  "concurrency": 256,
+  "ok": 5344,
+  "errors": 0,
+  "total_time_s": 856.57,
+  "total_comp_tokens": 171008,
+  "tps": 199.6,
+  "avg_output_tokens": 32,
+  "lat_mean_ms": 40873.3,
+  "lat_p50_ms": 30072.76,
+  "lat_p95_ms": 62159.19,
+  "lat_p99_ms": 64501.86,
+  "ttft_mean_ms": 18350.62,
+  "ttft_p50_ms": 15559.41,
+  "ttft_p95_ms": 46601.71,
+  "ttft_p99_ms": 52436.31,
+  "tpot_mean_ms": 726.54,
+  "tpot_p50_ms": 646.31,
+  "tpot_p95_ms": 1659.91,
+  "tpot_p99_ms": 1853.71,
+  "mono_start_ns": 8343447696555107,
+  "mono_end_ns": 8344304269059185,
+  "wall_start_s": 1793584348.148264,
+  "wall_end_s": 1793585204.720767,
+  "client_version": "bench_client_v2/final_plan_20261019",
+  "total_prompt_tokens": 14943111,
+  "perreq_file": null
+}
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/boots/PBD_BP_DF_r4/PBD_BP_DF_r4.json
+  -> /workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/boots/PBD_BP_DF_r4/PBD_BP_DF_r4_perreq.jsonl (5344 rows)
