@@ -1,0 +1,42 @@
+{
+ "label": "PBD_BP_ES_r4",
+ "scenario": "PBD",
+ "arm": "BP",
+ "facts": {
+  "label": "PBD_BP_ES_r4",
+  "scenario": "PBD",
+  "arm": "BP",
+  "nreq_expected": 5344,
+  "no_bench": false,
+  "ready_to_roll": true,
+  "deepep_mode": "normal",
+  "disable_cuda_graph": "True",
+  "redundancy": 16,
+  "init_expert_location": "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/placements/datafore_e3_placement.json",
+  "eplb": "False",
+  "eplb_algorithm": "auto",
+  "eplb_iters": 1000,
+  "bench": {
+   "ok": 5344,
+   "num_requests": 5344,
+   "total_time_s": 870.19,
+   "tps": 196.5,
+   "avg_output_tokens": 32,
+   "ttft_mean_ms": 16773.4,
+   "ttft_p99_ms": 52429.24,
+   "tpot_mean_ms": 800.81,
+   "lat_mean_ms": 41598.6,
+   "lat_p99_ms": 92325.51
+  }
+ },
+ "checks": {
+  "ready": true,
+  "deepep_normal": true,
+  "graph_off": true,
+  "redundancy_expected": false,
+  "init_location_trivial": false,
+  "bench_ok_eq_nreq": true,
+  "actual_o32": true
+ },
+ "all_ok": false
+}

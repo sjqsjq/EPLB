@@ -121,3 +121,6 @@ ts	tag	note
 2026-11-02T02:23:07Z	PD_PREP_MINI_LB	mini_lb.py located READONLY in source tree path=sgl-model-gateway/bindings/python/src/sglang_router/mini_lb.py sha256=48c25bba8fd2d8992544e5877d95f63dcd9326574fff0f39d89cfa173ebd1482 lines=462 runnable_via_PYTHONPATH no_install RouterArgs_import=OK MiniLoadBalancer_import=OK deps fastapi/uvicorn/orjson/aiohttp all present in frozen env; sp_coupling_dev branch untouched
 2026-11-02T02:39:02Z	PBD_BP_I_r4	DONE arm=I policy=n-a bench_rc=0 mech_rc=0
 2026-11-02T02:39:02Z	PBD_BP_ES_r4	START arm=ES policy=n-a
+2026-11-02T02:55:10Z	PBD_BP_ES_r4	DONE arm=ES policy=n-a bench_rc=0 mech_rc=1
+2026-11-02T02:55:11Z	PBD_BP_ED_r4	START arm=ED policy=n-a
+2026-11-02T03:02:50Z	EXTRACTION_SCRIPT	extract_pbd_bp.py sha16=aca93f10267d7204 primary=req_s(ok/total_time_s)_identical_to_frozen_T2_main_table_caliber validated_r1r3_means_match_frozen_table(I5.875/ES6.063/DF5.939/P0 6.13/ED6.112/MT5.99) cross_stream_r4r5_vs_r1r3_labeled_descriptive_not_same_stream_AB partial_run_4of12_OK
