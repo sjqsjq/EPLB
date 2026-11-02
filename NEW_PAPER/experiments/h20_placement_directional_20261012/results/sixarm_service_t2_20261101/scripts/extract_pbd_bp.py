@@ -9,15 +9,45 @@ T2 = "/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/r
 ARMS = ["I", "ES", "ED", "MT", "DF", "P0"]
 rows = []
 
-def mech_ok(art):
-    for pat in ("mech_t2.json", "mech.json", "mech*.json"):
-        hits = sorted(glob.glob(os.path.join(art, pat)))
-        for h in hits:
-            try:
-                return json.load(open(h)).get("all_ok")
-            except Exception:
-                pass
-    return None
+def mech_eval(art, label):
+    """Returns (frozen_all_ok, remapped_all_ok, parsed_arm).
+    Frozen mech_check_t2.py parses arm=label.split(_)[1]; PBD_BP_<ARM>_r<n>
+    labels yield arm=BP (unknown) -> arm-derived expectation checks misfire
+    (label-parsing artifact; underlying facts are correct). Remapped eval
+    re-applies the FROZEN expectation logic byte-for-byte with the true arm
+    (tok[2]) to the recorded facts. Frozen MECH_CHECK.json never edited."""
+    fp = os.path.join(art, "MECH_CHECK.json")
+    if not os.path.exists(fp):
+        return (None, None, None)
+    try:
+        d = json.load(open(fp))
+    except Exception:
+        return (None, None, None)
+    frozen = d.get("all_ok")
+    parsed_arm = d.get("arm")
+    facts = d.get("facts") or {}
+    checks = dict(d.get("checks") or {})
+    tok = label.split("_")
+    true_arm = tok[2] if (len(tok) >= 4 and tok[1] == "BP") else parsed_arm
+    exp_red = 16 if true_arm in ("ES", "ED") else 0
+    exp_loc = {"ES": "datafore_e3_placement.json", "DF": "datafore_e3_remap_placement.json", "MT": "placement_e3_fair.json"}
+    nc = {"ready": bool(facts.get("ready_to_roll")),
+          "deepep_normal": facts.get("deepep_mode") == "normal",
+          "graph_off": str(facts.get("disable_cuda_graph")) == "True",
+          "redundancy_expected": facts.get("redundancy") == exp_red}
+    loc = facts.get("init_expert_location") or ""
+    if true_arm in exp_loc:
+        nc["init_location_expected"] = loc.find(exp_loc[true_arm]) >= 0
+    else:
+        nc["init_location_trivial"] = loc.find("trivial") >= 0
+    if true_arm == "ED":
+        nc["eplb_enabled"] = str(facts.get("eplb")) == "True"
+        if facts.get("eplb_iters") is not None:
+            nc["eplb_iters_256"] = facts.get("eplb_iters") == 256
+    for k in ("bench_ok_eq_nreq", "actual_o32"):
+        if k in checks:
+            nc[k] = checks[k]
+    return (frozen, all(bool(v) for v in nc.values()), parsed_arm)
 
 def collect(label, stream, arm, rnd):
     art = os.path.join(T2, "boots", label)
@@ -39,7 +69,11 @@ def collect(label, stream, arm, rnd):
          "ttft_p50_ms": d.get("ttft_p50_ms"), "ttft_p95_ms": d.get("ttft_p95_ms"),
          "ttft_p99_ms": d.get("ttft_p99_ms"), "tpot_mean_ms": d.get("tpot_mean_ms"),
          "total_comp_tokens": d.get("total_comp_tokens"),
-         "mech_all_ok": mech_ok(art), "bench_rc": rc}
+         "bench_rc": rc}
+    fz, rm, pa = mech_eval(art, label)
+    r["mech_all_ok_frozen"] = fz
+    r["mech_all_ok_remapped"] = rm
+    r["mech_arm_parsed"] = pa
     return r
 
 for a in ARMS:
@@ -53,7 +87,8 @@ for a in ARMS:
 cols = ["label", "stream", "arm", "round", "ok", "errors", "tps", "req_s", "total_time_s",
         "lat_mean_ms", "lat_p50_ms", "lat_p95_ms", "lat_p99_ms", "ttft_mean_ms",
         "ttft_p50_ms", "ttft_p95_ms", "ttft_p99_ms", "tpot_mean_ms",
-        "total_comp_tokens", "mech_all_ok", "bench_rc"]
+        "total_comp_tokens", "mech_all_ok_frozen", "mech_all_ok_remapped",
+        "mech_arm_parsed", "bench_rc"]
 os.makedirs(os.path.join(T2, "analysis"), exist_ok=True)
 with open(os.path.join(T2, "analysis", "EXPORT_t2_pbd_bp.tsv"), "w") as f:
     f.write("\t".join(cols) + "\n")
@@ -83,6 +118,12 @@ lines.append("")
 lines.append("NOTE: r4/r5 run on pbd_book_prover_double_out32_ie.jsonl (sha256 7b42568a..., author-ordered correction);")
 lines.append("r1-r3 ran on the frozen prover->book stream (sha cdd1d864...). Cross-stream comparison is descriptive")
 lines.append("(order-effect view), NOT a same-stream A/B. Missing boots marked n<expected.")
+lines.append("")
+lines.append("MECH ARTIFACT DISCLOSURE: frozen mech_check_t2.py parses arm=label.split(_)[1]; for PBD_BP_* labels this")
+lines.append("yields arm=BP (unknown) so arm-derived expectation checks misfire (all_ok=False for ES/DF etc.) while ALL")
+lines.append("underlying facts (redundancy=16, placement files, eplb flags, bench ok=5344, O32) are recorded correctly.")
+lines.append("mech_all_ok_remapped re-applies the frozen expectation logic with the true arm to the recorded facts;")
+lines.append("frozen MECH_CHECK.json files and mech_check_t2.py were NOT edited. Benches remain valid regardless.")
 lines.append("")
 lines.append("Primary caliber = req_s (ok/total_time_s), identical to frozen T2 main-table caliber (agg tps tokens/s = req_s x 32 under O32 ignore_eos).")
 lines.append("")

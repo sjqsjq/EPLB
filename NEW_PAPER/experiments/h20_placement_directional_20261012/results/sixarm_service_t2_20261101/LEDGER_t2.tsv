@@ -124,3 +124,6 @@ ts	tag	note
 2026-11-02T02:55:10Z	PBD_BP_ES_r4	DONE arm=ES policy=n-a bench_rc=0 mech_rc=1
 2026-11-02T02:55:11Z	PBD_BP_ED_r4	START arm=ED policy=n-a
 2026-11-02T03:02:50Z	EXTRACTION_SCRIPT	extract_pbd_bp.py sha16=aca93f10267d7204 primary=req_s(ok/total_time_s)_identical_to_frozen_T2_main_table_caliber validated_r1r3_means_match_frozen_table(I5.875/ES6.063/DF5.939/P0 6.13/ED6.112/MT5.99) cross_stream_r4r5_vs_r1r3_labeled_descriptive_not_same_stream_AB partial_run_4of12_OK
+2026-11-02T03:11:42Z	PBD_BP_ED_r4	DONE arm=ED policy=n-a bench_rc=0 mech_rc=1
+2026-11-02T03:11:43Z	PBD_BP_MT_r4	START arm=MT policy=n-a
+2026-11-02T03:14:25Z	CORRECTION	mech_label_parsing_artifact_PBD_BP frozen_mech_check_t2.py_parses_arm=label_split_1 => PBD_BP_<ARM>_r4/5_labels_yield_arm=BP_unknown => arm_derived_expectation_checks_misfire(all_ok=False_for_ES/DF/ED) WHILE_all_underlying_facts_correct(redundancy=16_ES/ED,placement_files_per_arm,eplb_flags,bench_ok=5344,avg_output_tokens=32,ready,deepep_normal,graph_off) benches_valid frozen_script_and_MECH_CHECK.json_NOT_edited extraction_side_remap=extract_pbd_bp.py_mech_eval_re-applies_frozen_expectation_logic_with_true_arm(tok2)_columns=mech_all_ok_frozen+mech_all_ok_remapped+mech_arm_parsed extract_pbd_bp.py_sha16=a0569bcc81e6ead7 disclosure_in_SUMMARY_pbd_bp.md
