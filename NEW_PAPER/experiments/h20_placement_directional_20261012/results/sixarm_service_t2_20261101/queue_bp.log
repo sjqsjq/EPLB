@@ -61,3 +61,9 @@ MECH_T2 PBD_BP_ED_r5 all_ok=False {"ready": true, "deepep_normal": true, "graph_
 MECH_T2 PBD_BP_MT_r5 all_ok=False {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": false, "bench_ok_eq_nreq": true, "actual_o32": true}
 [queue_t2_bp] PBD_BP_MT_r5 rc=1 logged continue 2026-11-02T04:52:05Z
 [queue_t2_bp] PBD_BP_DF_r5 arm=DF start 2026-11-02T04:52:05Z
+[PBD_BP_DF_r5] ready=yes after 64s 2026-11-02T04:53:09Z
+[PBD_BP_DF_r5] bench rc=0 2026-11-02T05:07:36Z
+/workspace/EPLB/NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/scripts/run_t2_boot.sh: line 72: 311237 Killed                  ART=$ART setsid nohup bash $X/scripts/launch_arm_t2.sh $ARM $PARAMS > "$ART/server.log" 2>&1
+MECH_T2 PBD_BP_DF_r5 all_ok=False {"ready": true, "deepep_normal": true, "graph_off": true, "redundancy_expected": true, "init_location_trivial": false, "bench_ok_eq_nreq": true, "actual_o32": true}
+[queue_t2_bp] PBD_BP_DF_r5 rc=1 logged continue 2026-11-02T05:08:01Z
+[queue_t2_bp] BP_QUEUE_END 12boots 2026-11-02T05:08:01Z
