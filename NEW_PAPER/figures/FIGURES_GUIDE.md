@@ -101,3 +101,10 @@ echo "=== also check patch-ON experiment progress ==="; cat /workspace/logs/run_
 - figF_F2_M_N_ablation/(α sweep 结果 json)
 
 | fig_deepgemm_staircase (Fig DG) | `experiments/microbench_deepgemm/deepgemm_flat_0_256_clean.json` + `deepgemm_flat_dense.json` (0-256 high-rep + 256-1024) | `experiments/microbench_deepgemm/plot_key_figure.py` | §3.1.1 dead-zone operator root cause |
+
+## 论文收口图（2026-11-02, 数据整理+作图阶段, CPU 生成）
+
+| 图 | 数据源 | 脚本 | 用于 |
+|---|---|---|---|
+| fig18_t2_sixarm_service | `sixarm_service_t2_20261101/analysis/EXPORT_t2_service_table.tsv`（36 行: 6 臂 x 3 轮 x PROV/PBD） | ad-hoc（/tmp python heredoc, 2026-11-02 会话） | T2 统一三轮主比较: 双场景面板, 点=逐轮, 横杠=均值; PROV 静态臂 ES/DF/MT ~28.0 领先, P0 26.67, I 26.54, ED 24.84; PBD 窄带 5.87-6.13。O32 conc256 闭环服务口径（非 SLO）, 不与 O=1 pure-prefill microbench 混排 |
+| fig19_t1_three_caliber | `replay_routing_t1_20261101/analysis/EXPORT_t1_full_table.tsv`（6 条件全 mech_all_ok） | ad-hoc（同会话） | T1 三口径: R=capture 回放 fin_max_raw（红线=生产阈值 1.0962402945, GAP300 落在死区地板）; X=真实执行 n=2（prefill-heavy E3 上无吞吐收益, 如实呈现）; M=迁移记账（lines=8xwindows 核验, 括注 rank0 wall 秒）。ready_s 不入图 |

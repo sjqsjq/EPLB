@@ -624,6 +624,37 @@ $$x_{eff}^{(r)}=\frac{r_{before}-\max(r_{after},\widehat r_k)}{r_{before}},\qqua
 
 **适用域**：同路径经验铰链的线性段验证至$r\le1.8$（A100 conc点$r=4.57$呈约5%上凸，线性外推在该点低估时间）；$f_{sens}$的nsys分解现有H20/GB200两组（A100为扫描斜率代理，H800待补）。H800原始扫描表待归档后并入实验索引，在此之前从高置信跨硬件泛化中排除。
 
+### 5.12 H20服务口径收口：统一配置三轮主比较与三口径最小执行验证（O32 conc256闭环，非SLO）
+
+本节与§5.2/§5.3.1的O=1纯prefill microbench口径不同：全部结果为**O32、conc256闭环服务口径**（非SLO约束），两口径数字不得混排于同一比较。战役目录、账目与守卫链见`EXPERIMENT_TRACE_INDEX.md`收口战役节与`PAPER_CLOSEOUT_DATA.md`。
+
+**（a）T2统一配置三轮主比较**。六臂（I/ES/ED/MT/DF/P0）×3轮×2场景=36 boots全绿（mech 36/36 all_ok，零停摆；队列总墙钟6.8h）。统一配置：Path A（deepep normal，cuda graph off），RG=0，冗余账目仅ES/ED=16（机制要求）；静态臂placement逐臂核对（ES→datafore_e3，DF→datafore_e3_remap，MT→placement_e3_fair，其余trivial）。场景：PROV=prover_1024_out32_ie；PBD=prover+book加倍流（n=5344），两场景同conc256、流构成不同（已声明）。执行期一次拼接缺陷（launcher丢失PL=前缀致ES/MT/DF共10个boot零数据）被原子修复并按ORDER_TABLE原序重跑10/10，协议与轮转零变更、零臂丢弃（DEFECT_FIX披露，账目在LEDGER_t2.tsv）。
+
+| 场景 | I | ES | ED | MT | DF | P0 |
+|---|---|---|---|---|---|---|
+| PROV tps (mean, n=3) | 26.54 | **28.06** (27.26–28.63) | 24.84 (22.96–26.06) | 28.01 | **28.06** | 26.67 |
+| PBD tps (mean, n=3) | 5.87 | 6.06 | 6.11 | 5.99 | 5.94 | **6.13** |
+
+PROV场景lat_mean约9.1s（ES）、tpot约218ms；PBD场景lat约41–43s、tpot 745–803ms。**如实陈述**：PROV单域上三个静态重布置臂（ES/DF/MT约28.0 req/s）领先，P0为26.67（较I +0.5%，较静态臂约−5%），ED最低且方差最大；PBD混合流六臂窄带5.87–6.13（极差约4.4%），P0名义最高但差距在轮间波动量级内，不构成领先结论。按预注册纪律，不因结果不显著或未领先而追加轮次。图18（fig18_t2_sixarm_service）给出双场景逐轮散点与均值。
+
+**（b）T1三口径最小执行验证**（仅用现有capture，不扩采、不扩网格；图19，fig19_t1_three_caliber）：
+
+| 条件 | plan_len | R口径 fin_max_raw | X口径 tps（n=2，vs ORIG） | M口径 issued_lines（=8×窗口，全核验） |
+|---|---|---|---|---|
+| ORIG | 0 | 1.5318 | 43.12（基准） | 0 |
+| GAP32 | 32 | 1.3140 | −6.8% | 496 |
+| GAP128 | 128 | 1.1783 | 中性（±3%带内） | 288 |
+| GAP300 | 251 | **1.0962**（=生产阈值1.0962402945的死区地板） | 中性 | 224 |
+| MD300 | 239 | 1.1616 | −11.5% | 448 |
+| BI300 | 246 | 1.0957 | 中性 | 272 |
+
+R口径为离线capture回放（per-forward计数，无token级路由）；X口径为GPU真实执行短重复×2，**在prefill-heavy E3流上无吞吐收益**——失衡下降与该流吞吐解耦，n=2不做显著性声明；M口径为在线迁移记账，issued行去重核验全条件通过，rank0迁移墙钟2.1–7.5s。ready_s（76–92s）为工程开销列，不进任何比较。`--pb-oeplb-max-total-ops`的观测语义为**每窗口预算**（GAP32≈32 ops/window），非全程总额。
+
+**（c）前置战役谱系**（细节与limitations以各自冻结报告为准）：XD跨域补充探针（24/24 boots，O1 prefill-only conc256，Holm校正后六臂无显著差异；定位注记：非§5.3.1主比较，仅可作§5.5时间线案例）；PBD加倍流描述（n=2非推断：prover段DF 11.15>MT 11.14>P0 10.99>ES 10.39>ED 9.84>I 9.72，book段ED最高；P0边界反应r1/r2完全确定，boundary_w=48、z_spike=109.0、23 swaps）；G3相位选择（16/16 all_pass描述性：仅prefill相位记录比全相位记录更快——ARC 23.4 vs 34.7s、PROV 35.6 vs 41.3s，且迁移记账更少，支撑§4.4）；G2规划器矩阵（CPU确定性52格，control-vs-traced计划逐op一致52/52：预算32/128下两阈值口径计划全同，预算300下生产口径产生更小计划且finmax落在阈值本身=死区地板可视化；严格max-delta过冲判据在全部52格为零；**CPU-only，不佐证任何已实现GPU收益**）。
+
+**（d）口径整合与边界**。§5.2的+17.46%与§5.3.1的+20.7%/+8.5%属O=1纯prefill microbench口径；本节O32服务口径下，单域PROV由静态重布置臂领先、混合流PBD六臂窄带。这与既有观察一致：混合域摊平倾斜后在线适应回报收窄，而单域服务口径下离线标定的静态布局足以捕获大部分失衡收益，PB-OEPLB的相对收益依赖负载口径（单域倾斜度、O、并发形态）且在该口径n=3轮内未显现领先。本节全部数字为闭环非SLO测量，未验证SLO约束下的表现；T3正式压测按预算指令取消，未执行。
+
+
 ## 6 总结
 
 ### 6.1 工作总结
@@ -634,11 +665,11 @@ $$x_{eff}^{(r)}=\frac{r_{before}-\max(r_{after},\widehat r_k)}{r_{before}},\qqua
 
 第三，增益上界保留Amdahl形式$\Delta_{\max}=f_{\mathrm{sens}}x_{\mathrm{eff}}/(1-f_{\mathrm{sens}}x_{\mathrm{eff}})$，但$x_{\mathrm{eff}}$应由方向性关键路径释放或同路径实测定义。第四，prefill→decode相关性由任务结构决定：QA/推理类$\rho=0.78$–0.85，数学类0.44–0.69，代码类0.485，界定prefill-only recording的适用范围。第五，$M=W/(1-\alpha)$统一窗口与衰减的稳态记忆，变点处$\alpha\to0$清除旧域历史；同session中adaptive（+9.7%）超过固定$\alpha=0.9$（+6.4%）。
 
-在8×H20上服务Qwen3-235B-A22B-FP8，PB-OEPLB在prefill密集负载上提升吞吐17.46%（n=2，per-rep [+16.7%, +18.2%]），相比EPLB高15.7个百分点；稳态每次调整阻塞0.37秒；多域漂移负载提升9.76%。这些端到端结果支持系统有效性，但不把经验ratio阈值提升为跨硬件普适因果律。
+在8×H20上服务Qwen3-235B-A22B-FP8，PB-OEPLB在prefill密集负载上提升吞吐17.46%（n=2，per-rep [+16.7%, +18.2%]），相比EPLB高15.7个百分点；稳态每次调整阻塞0.37秒；多域漂移负载提升9.76%。这些端到端结果支持系统有效性，但不把经验ratio阈值提升为跨硬件普适因果律。服务口径（O32 conc256闭环、非SLO）的统一配置三轮主比较见§5.12：该口径下PB-OEPLB未领先静态重布置臂（PROV）、六臂窄带（PBD），与microbench口径的+17.46%分属不同负载形态，本文分别如实报告，不做跨口径合并。
 
 ### 6.2 不足
 
-（1）全8-rank readiness实验只有5个block，last-ready winner在rank 1/3间切换，strict-$H_i$与独立original拟合相关性仅0.086；因此尚无精确的per-rank平台预测器。（2）direct global-ready虽然点估计RMSE为6.734µs，但多个route点的5-block区间较宽，需要更多block与独立重启检验稳定性。（3）当前控制器的$\widehat r_k$仍是同路径经验启发式，尚未在线计算每个候选swap的aligned-work变化与$\Delta\max_iR_i$；其59% ops节省不能被解释成普适对称死区。（4）$M^*$绝对数值尚未充分定标：长benchmark无清晰内点峰值、短benchmark噪声大。（5）30B负均值为−2.16%、stdev 3.2%，其精确量级仍需更多重复。（6）未在EP$\ge16$上测试。
+（1）全8-rank readiness实验只有5个block，last-ready winner在rank 1/3间切换，strict-$H_i$与独立original拟合相关性仅0.086；因此尚无精确的per-rank平台预测器。（2）direct global-ready虽然点估计RMSE为6.734µs，但多个route点的5-block区间较宽，需要更多block与独立重启检验稳定性。（3）当前控制器的$\widehat r_k$仍是同路径经验启发式，尚未在线计算每个候选swap的aligned-work变化与$\Delta\max_iR_i$；其59% ops节省不能被解释成普适对称死区。（4）$M^*$绝对数值尚未充分定标：长benchmark无清晰内点峰值、短benchmark噪声大。（5）30B负均值为−2.16%、stdev 3.2%，其精确量级仍需更多重复。（6）未在EP$\ge16$上测试。（7）O32 conc256闭环服务口径（§5.12）下，三轮统一配置主比较中PB-OEPLB在PROV单域未领先三个静态重布置臂（26.67 vs 28.01–28.06 req/s），PBD混合流六臂窄带（5.87–6.13）；该口径为n=3轮、非SLO、Path A（deepep normal），服务口径收益与静态臂标定源、SLO/开环框架的关系尚未分离，T3正式压测未执行。
 
 ### 6.3 未来方向
 

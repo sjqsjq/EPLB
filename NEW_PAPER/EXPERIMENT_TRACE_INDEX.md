@@ -120,6 +120,18 @@
 | `OEPLBdata/nsys_traces/` | 3×baseline+3×OEPLB的nsys profiling | 死区T(r)分析 |
 | `OEPLBdata/experiment_logs/h800_bound_validation/`（**待归档**） | H800 T(r) 12点扫描 + 11次端到端 + f_sens/r_k(1.7~2.3) | §5.11 H800行、律1失效点 |
 
+### 收口战役（2026-10-27~11-01，§5.12；口径=O32 conc256闭环服务 / O1探针 / CPU确定性，逐战役标注）
+| trace | 内容 | 论文位置 |
+|---|---|---|
+| `NEW_PAPER/experiments/h20_placement_directional_20261012/results/sixarm_service_t2_20261101/` | T2六臂×3轮×2场景36/36 boots；T2_CLOSEOUT.md、analysis/EXPORT_t2_service_table.tsv、code_lock/ORDER_TABLE_t2.json、LEDGER_t2.tsv（含DEFECT_FIX与重跑账目）、boots_fail1/归档 | §5.12(a)表、Fig 18 |
+| `.../replay_routing_t1_20261101/` | T1三口径7/7条件；T1_CLOSEOUT.md、analysis/EXPORT_t1_full_table.tsv、OFFLINE_t1.json | §5.12(b)表、Fig 19 |
+| `.../cross_domain_e2e_20261027/` | XD跨域补充探针24/24；REPORT_xd.md（**Correction Addendum定位注记：非§5.3.1主比较**）、summary.json、timeline_5_5.json | §5.12(c)谱系、§5.5案例（引用必带注记） |
+| `.../prover_book_double_20261027/` | PBD加倍流n=2描述性12/12；analysis/descriptive_pbd.md/.json | §5.12(c)谱系 |
+| `.../pf_all_phase_select_20261030/` | G3相位选择16/16 all_pass描述性；analysis/EXPORT_g3_boot_table_20261031.tsv、recon_g3_facts.json | §5.12(c)谱系、§4.4支撑 |
+| `.../planner_matrix_c1c4_20261031/` | G2 CPU确定性52格规划器矩阵；analysis/CLOSEOUT_g2.md、EXPORT_g2_rule_table、cells/plans/events、code_lock冻结规划器（sha256 c250026b...） | §5.12(c)谱系（CPU-only标签必带） |
+| `NEW_PAPER/PAPER_CLOSEOUT_DATA.md` | 六战役统一口径汇总+7条整合规则（sha16 63a6516ec96a7148） | §5.12数据源 |
+| `NEW_PAPER/figures/fig18_t2_sixarm_service.png`、`fig19_t1_three_caliber.png` | 收口图（FIGURES_GUIDE.md收口节有数据源+口径警示） | §5.12 |
+
 ## §5 复现要点（摘要，详见 FIGURES_GUIDE.md）
 1. 路由录制：`SGLANG_OEPLB_ROUTING_TRACE=1 SGLANG_OEPLB_ROUTING_TRACE_DIR=<dir>`（identity下）→ `rank*_fwd_chunk*.npz`（layer_hists=logical_count）。
 2. DataForest-Remap冻结：`--init-expert-location <logical_count.json>`（调rebalance_experts冻结，无--enable-eplb）。
