@@ -637,6 +637,8 @@ $$x_{eff}^{(r)}=\frac{r_{before}-\max(r_{after},\widehat r_k)}{r_{before}},\qqua
 
 PROV场景lat_mean约9.1s（ES）、tpot约218ms；PBD场景lat约41–43s、tpot 745–803ms。**如实陈述**：PROV单域上三个静态重布置臂（ES/DF/MT约28.0 req/s）领先，P0为26.67（较I +0.5%，较静态臂约−5%），ED最低且方差最大；PBD混合流六臂窄带5.87–6.13（极差约4.4%），P0名义最高但差距在轮间波动量级内，不构成领先结论。按预注册纪律，不因结果不显著或未领先而追加轮次。图18（fig18_t2_sixarm_service）给出双场景逐轮散点与均值。
 
+**补充子集视图（作者指令 2026-11-02：PBD 场景排除 r3，n=2；非预注册主比较，主表保持不变）**：r1+r2 子集排序为 P0 6.28（6.35/6.21）> ES 6.04 > ED 6.03 > MT 5.99 > DF 5.93 > I 5.86，P0 较 I +7.2%、较次优 ES +4.0%，窄带扩大为 7.2%。必须随引用的披露：被排除的 r3 六臂均为合法测量（mech 全绿、ok=5344、errors=0），且恰为 P0 三轮最低值（5.83，lat_p99 尖峰 87.5s），故该子集系统性移除 P0 最差轮、结论对 P0 有利；n=2 不做显著性声明。数据与披露注记：`sixarm_service_t2_20261101/analysis/EXPORT_t2_pbd_subset_r1r2.tsv`、`SUBSET_NOTE_pbd_r1r2.md`。
+
 **（b）T1三口径最小执行验证**（仅用现有capture，不扩采、不扩网格；图19，fig19_t1_three_caliber）：
 
 | 条件 | plan_len | R口径 fin_max_raw | X口径 tps（n=2，vs ORIG） | M口径 issued_lines（=8×窗口，全核验） |

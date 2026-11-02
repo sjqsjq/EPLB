@@ -115,3 +115,10 @@ Limitations: 快照为 T1 输入的一致性恢复（非新采集）; 确定性�
 4. PBD/G3 描述性表格不加推断词; G2 全部数字带 CPU-deterministic 标签。
 5. 口径标签强制: O=1 pure-prefill microbench（旧 §5.2/§5.3.1, +17.46%/+20.7%/+8.5% 属此口径）与 O32 conc256 service（T2/PBD）不得混排同一比较表。
 6. h_rate/h_w 永不写作 headroom; 无 payback 声明; 1.02 行标注"该阈值下的算法诊断"。
+
+
+## 8. 追加: PBD 子集视图 r1+r2（作者指令 2026-11-02, 非预注册主比较）
+
+来源: sixarm_service_t2_20261101/analysis/EXPORT_t2_pbd_subset_r1r2.tsv + SUBSET_NOTE_pbd_r1r2.md。
+排序（n=2）: **P0 6.28** > ES 6.04 > ED 6.03 > MT 5.99 > DF 5.93 > I 5.86; P0 较 I +7.2%, 较 ES +4.0%。
+强制披露: r3 为合法测量轮（六臂 mech 全绿, ok=5344, errors=0）, 且恰为 P0 三轮最低（5.83, p99 尖峰 87464ms）; 排除 r3 系统性移除 P0 最差轮, 任何引用必须携带该披露与 n=2 无显著性声明标签。n=3 主表（P0 6.13 领先但窄带 4.4%）仍为预注册主比较, 未被修改。
